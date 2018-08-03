@@ -24,11 +24,11 @@
 /*   		src: url('<c:url value='/resources/fonts/NANUMGOTHIC.TTF'/>');  */
 	}
 	
-/* 	#searchBar { */
-/* 		width : 100px; */
-/* 		height : 100px; */
-/* 		border: 1px solid black; */
-/* 	} */
+ 	#searchBar { 
+ 		width : 100px; 
+ 		height : 100px; 
+ 		border: 1px solid black; 
+ 	} 
 </style>
 </head>
 <body>
