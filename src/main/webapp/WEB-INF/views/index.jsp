@@ -11,7 +11,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
+<link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet"/>
+<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
+
 <style>
+
+	#header {
+		position:absolute;
+		z-index: 10000;
+		background-color: white;
+	}
+	
 	.jumbotron {
 		height : 700px;
 		width : 100%;
@@ -25,22 +35,78 @@
 	}
 	
  	#searchBar { 
- 		width : 100px; 
- 		height : 100px; 
- 		border: 1px solid black; 
+ 		margin-top : 230px;
+ 		width : 60%; 
+ 		height : 150px; 
+ 		display: inline-block;
+ 		background-color: white;
+ 		display : inline-block;
+		position: relative; 
+		z-index : 10000; 
  	} 
+ 	
+ 	#type {
+ 		width: 25%;
+ 		height : 100%;
+ 		border : 1px dotted pink;
+ 		float:left;
+ 	}
+ 	
+ 	#people {
+ 		width: 25%;
+ 		height : 100%;
+ 		border : 1px dotted pink;
+ 		float:left;
+ 	}
+ 	
+ 	#calendar {
+ 		width: 35%;
+ 		height : 100%;
+ 		border : 1px dotted pink;
+ 		float:left;
+ 	}
+ 	
+ 	#searchBt {
+ 		width: 15%;
+ 		height : 100%;
+ 		border : 1px dotted pink;
+ 		float:left;
+ 	}
+ 	
+ 	#footer {
+		position:relative;
+		z-index: 10000;
+		background-color: white;
+	}
+	
+	#wrapper {
+		background-color: pink;
+		position:relative;
+		z-index:10000;
+	}
+ 	
 </style>
 </head>
 <body>
 <%@ include file="../resource/include/header.jsp" %>
 <div class="jumbotron">
-	<div id="searchBar">
-	  <h1>Hello, world!</h1>
-	  <p>...</p>
-	  <p><a class="btn btn-primary btn-lg" href="#" role="button" >Learn more</a></p>
+    <div id="searchBar">
+		<div id="type">숙박유형</div>
+		<div id="people">인원수</div>
+		<div id="calendar">날짜</div>
+		<div id="searchBt">버튼</div>
 	</div>
+	<ul class="cb-slideshow">
+            <li><span>Image 01</span><div><h3>re·lax·a·tion</h3></div></li>
+            <li><span>Image 02</span><div><h3>qui·e·tude</h3></div></li>
+            <li><span>Image 03</span><div><h3>bal·ance</h3></div></li>
+            <li><span>Image 04</span><div><h3>e·qua·nim·i·ty</h3></div></li>
+            <li><span>Image 05</span><div><h3>com·po·sure</h3></div></li>
+            <li><span>Image 06</span><div><h3>se·ren·i·ty</h3></div></li>
+    </ul>
 </div>
-	
+<div class="jumbotron" id="wrapper">
+</div>
 <%@ include file="../resource/include/footer.jsp" %>
 </body>
 </html>

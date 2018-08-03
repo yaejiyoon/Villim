@@ -10,6 +10,7 @@
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
 
 
+
     <div id="header">
 		<div id="header-logo">
 			<img src="<c:url value='/resources/img/logo2.png'/>">
