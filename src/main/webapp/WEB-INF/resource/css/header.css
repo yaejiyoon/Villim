@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+@font-face {
+  		font-family: font;
+  		src: url('BMJUA.ttf');
+	}
+	
+	body{
+		font-family: font;
+	}
+
+	div{
+		box-sizing: border-box;
+	}
+	
+	#header{
+		width:100%;
+		height:80px;
+	}
+	
+	#header div{
+		float:left;
+	}
+	
+	#header-logo{
+		width:8%;
+		height:100%;
+	}
+	
+	#header-search{
+		width:39%;
+		height:100%;
+	}
+	
+	#header-menu{
+		width:48%;
+		height:100%;
+	}
+	
+	#header-pic{
+		width:5%;
+		height:100%;
+	}
+	
+	#header-logo img{
+		width:80px;
+		margin-top: 23px;
+		margin-left: 15px;
+		transform: translate(10%, 0%);
+	}
+	
+	#header-search input{
+		margin-top: 10px;
+		width:500px;
+		height:50px;
+		transform: translate(-1%, 0%);
+	}
+	
+	input.search-query {
+    	padding-left:50px;
+	}
+
+	#header-search img{
+		position: absolute;
+		width:22px;
+		top:26px;
+		transform: translate(42%, -6%);
+		z-index: 1000;
+	}
+	
+	#header-pic img{
+		margin-top: 15px;
+		width:45px;
+		border-radius: 150px;
+		border: 2px solid #e2e2e2;
+		transform: translate(20%, 0%);
+	}
