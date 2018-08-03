@@ -11,32 +11,35 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-<!-- header css -->
-<link rel="shortcut icon" href="../favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/header.css?var=1" />
-<link rel="stylesheet" type="text/css" href="css/normalize.css?var=1" />
-<link rel="stylesheet" type="text/css" href="../css/demo.css?var=1" />
-<link rel="stylesheet" type="text/css" href="../css/component.css?var=1" />
-<script src="../js/modernizr.custom.js"></script>
-
 <style>
 	.jumbotron {
 		height : 700px;
+		width : 100%;
 		text-align: center;
 	}
+	
+	@font-face {
+  		font-family: font;
+		src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
+/*   		src: url('<c:url value='/resources/fonts/NANUMGOTHIC.TTF'/>');  */
+	}
+	
+/* 	#searchBar { */
+/* 		width : 100px; */
+/* 		height : 100px; */
+/* 		border: 1px solid black; */
+/* 	} */
 </style>
 </head>
 <body>
 <%@ include file="../resource/include/header.jsp" %>
 <div class="jumbotron">
-  <h1>Hello, world!</h1>
-  <p>...</p>
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-</div>
-<div id="wrapper" align="center">
-		<h4> O U T P U T</h4>
-		<h4>${result}</h4>
+	<div id="searchBar">
+	  <h1>Hello, world!</h1>
+	  <p>...</p>
+	  <p><a class="btn btn-primary btn-lg" href="#" role="button" >Learn more</a></p>
 	</div>
+</div>
 	
 <%@ include file="../resource/include/footer.jsp" %>
 </body>

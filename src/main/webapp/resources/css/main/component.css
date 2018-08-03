@@ -1,0 +1,75 @@
+*,
+*:after,
+*::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+body {
+	font-family: font;
+}
+
+nav a {
+	position: relative;
+	display: inline-block;
+	margin: 15px 25px;
+	outline: none;
+	color: #8c8c8c;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	/* font-weight: 500; */
+	text-shadow: 0 0 1px rgba(255,255,255,0.3);
+	font-size: 1vw;
+}
+
+nav a:hover,
+nav a:focus {
+	outline: none;
+}
+
+/* Effect 5: same word slide in */
+
+.cl-effect-5{
+	width:100%;
+	transform: translate(10%, 3%);
+}
+
+.cl-effect-5 a {
+	overflow: hidden;
+	padding: 0 4px;
+	height: 1em;
+}
+
+.cl-effect-5 a span {
+	position: relative;
+	top:-3px;
+	display: inline-block;
+	-webkit-transition: -webkit-transform 0.3s;
+	-moz-transition: -moz-transform 0.3s;
+	transition: transform 0.3s;
+}
+
+.cl-effect-5 a span::before {
+	position: absolute;
+	top: 100%;
+	content: attr(data-hover);
+	color:black;
+	font-weight: 400;
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.cl-effect-5 a:hover span,
+.cl-effect-5 a:focus span {
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+
+/* Effect 5: same word slide in and border bottom */
+
+

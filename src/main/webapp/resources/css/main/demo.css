@@ -1,0 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700|Raleway:400,300,700);
+
+
+
+/* To Navigation Style */
+
+
+.container > section {
+	margin: 0 auto;
+	/*  padding: 10em 3em;*/
+	padding:10px;
+	text-align: center;
+}
+
+
+@media screen and (max-width: 25em) {
+
+	.codrops-icon span {
+		display: none;
+	}
+
+}
