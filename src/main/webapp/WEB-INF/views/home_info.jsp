@@ -20,11 +20,11 @@
 </style>
 <script>
 	$(window).scroll(function() {
-		if ($(window).scrollTop() <= 550) {
+		if ($(window).scrollTop() <= 800) {
 			$("#fixed").css({"top":"106vh","position":"absolute"});
 
 		} else {
-			$("#fixed").css({"top":"50vh","position":"fixed"});
+			$("#fixed").css({"top":"0","position":"fixed"});
 		}
 	});
 </script>
