@@ -11,98 +11,41 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
 <style>
    @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
    }
-   
-   div{
-      box-sizing: border-box;
-      border: 1px solid black;
-   }
-   
-   #info-wrapper{
-      width:100%;
-      height:6000px;
-   }
-   
-   #info-contents{
-      width:100%;
-      height:100%;
-   }
-   
-   #info-contents-photo{
-      width:100%;
-      height:8%;
-   }
-   
-   #info-contents-main{
-      margin:0 auto;
-      width:58%;
-      height:92%;
-   }
-   
-   #info-main-left{
-      float:left;
-      width:60%;
-      height:100%;
-   }
-   
-   #info-main-right{
-      float:left;
-      width:40%;
-      height:100%;
-   }
-   
-   #info-main01{
-      width:100%;
-      height:20%;
-   }
-   
-   #info-main02{
-      width:100%;
-      height:8%;
-   }
-   
-   #info-main03{
-      width:100%;
-      height:8%;
-   }
-   
-   #info-main04{
-      width:100%;
-      height:5%;
-   }
-   
-   #info-main05{
-      width:100%;
-      height:9%;
-   }
-   
-   #info-main06{
-      width:100%;
-      height:30%;
-   }
-   
-   #info-main07{
-      width:100%;
-      height:10%;
-   }
-   
-   #info-main08{
-      width:100%;
-      height:10%;
-   }
-   
 </style>
+<script>
+	$(window).scroll(function() {
+		if ($(window).scrollTop() <= 550) {
+			$("#fixed").css({"top":"106vh","position":"absolute"});
+
+		} else {
+			$("#fixed").css({"top":"50vh","position":"fixed"});
+		}
+	});
+</script>
 </head>
 <body>
    <%@ include file="../resource/include/header.jsp" %>
    
    <div id="info-wrapper">
       <div id="info-contents">
-         <div id="info-contents-photo"></div>
+         <div id="info-contents-photo">
+         	<img src="<c:url value='../resources/img/home.jpg'/>">
+         	<button id="picsBT" class="btn btn-secondary">사진 보기</button>
+         	<button id="shareBT" class="btn btn-secondary">
+         		<img src="<c:url value='../resources/img/share.png'/>">
+         		공유하기
+         	</button>
+         	<button id="likeBT" class="btn btn-secondary">
+         		<img src="<c:url value='../resources/img/like.png'/>">
+         		저장
+         	</button>
+         </div>
          <div id="info-contents-main">
             <div id="info-main-left">
                <div id="info-main01"></div>
@@ -115,6 +58,33 @@
                <div id="info-main08"></div>
             </div>
             <div id="info-main-right">
+            	<div id="fixed">
+            		<div id="fixed-sub01">
+            			<br>
+            			<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
+            			<h3 style="display: inline;">731,704</h3>/박
+            			<br>
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<h6 style="display: inline;">342</h6>
+            		</div>
+            		<div id="fixed-sub02">
+            			<br>
+            			날짜
+            			<input type="text" class="search-query form-control"/>
+            			<br>
+            			인원
+            			<input type="text" class="search-query form-control"/>
+            			<br>
+            			<button id="reservationBT" class="btn btn-secondary">
+            			예약 요청
+            			</button>
+            			<h5 style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</h5>
+            		</div>
+            	</div>
             </div>
          </div>
       </div>
