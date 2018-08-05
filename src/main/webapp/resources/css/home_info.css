@@ -89,16 +89,19 @@ div {
 
 #info-main01 {
 	width: 100%;
-	border-bottom:  0.5px solid #d6d6d6;
+	height:13%;
+	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-title{
 	width:100%;
+	height:35%
 }
 
 #info-title-left{
 	float:left;
 	width:80%;
+	height:100%;
 }
 
 #info-title-left span{
@@ -112,6 +115,7 @@ div {
 
 #info-title-right{
 	float:left;
+	height:100%;
 	width:20%;
 	padding-top: 30px;
 	padding-left: 15px;
@@ -124,6 +128,7 @@ div {
 
 #info-details{
 	width:100%;
+	height:65%;
 }
 
 .green{
@@ -135,7 +140,7 @@ div {
 #info-main02 {
 	width: 100%;
 	height: 8%;
-	border-bottom:  0.5px solid #d6d6d6;
+	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-main02 span{
@@ -162,6 +167,7 @@ div {
 #info-main03 {
 	width: 100%;
 	height: 8%;
+	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-main03-top{
@@ -180,14 +186,40 @@ div {
 }
 
 .bed-div{
-	width:33%;
-	height:100%;
+	float:left;
+	width:30.5%;
+	height:90%;
 	border-radius:5px;
+	border:  1px solid #d6d6d6;
+	margin-right: 10px;
+}
+
+.bed-div div{
+	width:80%;
+	height:80%;
+	margin:0 auto;
+	margin-top: 8px;
+}
+
+.bed{
+	width:30px;
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
+.bedroom{
+	font-weight: 800;
+	margin-right: 20px;
+}
+
+.bedtype{
+	font-size: 1.08em;
+	margin-right: 20px;
 }
 
 #info-main04 {
 	width: 100%;
-	height: 5%;
+	height: 12%;
 }
 
 #info-main05 {
