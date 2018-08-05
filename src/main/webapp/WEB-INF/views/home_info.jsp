@@ -26,10 +26,10 @@
 <script>
 	$(window).scroll(function() {
 		if ($(window).scrollTop() <= 800) {
-			$("#fixed").css({"top":"106vh","position":"absolute"});
+			$("#fixed").css({"top":"114vh","position":"absolute"});
 
 		} else {
-			$("#fixed").css({"top":"0","position":"fixed"});
+			$("#fixed").css({"top":"1vh","position":"fixed"});
 		}
 	});
 </script>
@@ -59,6 +59,7 @@
                				<span>집 전체</span>
                				<h2 style="color:black; margin-top:2px;">아늑한 제주 돌집, 북스테이 독채민박 초(old&cozy house)</h2>
                				<span>Seongsan-eup, Seogwipo-si</span>
+               				<br>
                				<br>
                				<img src="<c:url value='../resources/img/people.png'/>">인원 5명
                				<img src="<c:url value='../resources/img/door.png'/>">침실 3개
@@ -149,9 +150,9 @@
                				<div>
                					<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
                					<br>
-               					<span class="bedroom">1번 침실</span>
+               					<span class="bedroom">2번 침실</span>
                					<br>
-               					<span class="bedtype">퀸사이즈 침대 1개</span>
+               					<span class="bedtype">매트리스(요와 이불) 2개</span>
                				</div>
                			</div>
                			<div class="bed-div">
@@ -178,7 +179,7 @@
             		<div id="fixed-sub01">
             			<br>
             			<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
-            			<h3 style="display: inline;">731,704</h3>/박
+            			<h3 style="display: inline; font-weight: 600;">731,704</h3>/박
             			<br>
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
