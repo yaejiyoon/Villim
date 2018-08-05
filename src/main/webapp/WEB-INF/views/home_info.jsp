@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=1" />" rel="stylesheet" />
 <style>
    @font-face {
         font-family: font;
@@ -48,7 +48,17 @@
          </div>
          <div id="info-contents-main">
             <div id="info-main-left">
-               <div id="info-main01"></div>
+               <div id="info-main01">
+               		<div id="info-title">
+               			<div id="info-title-left">
+               				집 전체
+               				<h2 style="color:black; margin-top:2px;">아늑한 제주 돌집, 북스테이 독채민박 초(old&cozy house)</h2>
+               				Seongsan-eup, Seogwipo-si
+               			</div>
+               			<div id="info-title-right"></div>
+               		</div>
+               		<div id="info-details"></div>
+               </div>
                <div id="info-main02"></div>
                <div id="info-main03"></div>
                <div id="info-main04"></div>
