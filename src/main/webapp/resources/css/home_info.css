@@ -8,6 +8,7 @@ div {
 #info-wrapper {
 	width: 100%;
 	height: 4000px;
+	font-family: font2;
 }
 
 #info-contents {
@@ -68,7 +69,6 @@ div {
 }
 
 #info-contents-main {
-	padding-top:5px;
 	margin: 0 auto;
 	width: 65%;
 	height: 82%;
@@ -78,6 +78,7 @@ div {
 	float: left;
 	width: 60%;
 	height: 100%;
+	padding-right: 20px;
 }
 
 #info-main-right {
@@ -88,30 +89,46 @@ div {
 
 #info-main01 {
 	width: 100%;
-	height: 20%;
+	border-bottom:  0.5px solid #d6d6d6;
 }
 
 #info-title{
 	width:100%;
-	height:30%;
 }
 
 #info-title-left{
 	float:left;
 	width:80%;
-	height:100%;
+}
+
+#info-title-left span{
 	color: #565656;
+}
+
+#info-title-left img{
+	width:20px;
+	margin-right: 5px;
 }
 
 #info-title-right{
 	float:left;
 	width:20%;
-	height:100%;
+	padding-top: 30px;
+	padding-left: 15px;
+}
+
+#info-title-right img{
+	width:10vh;
+	border-radius:150px;
 }
 
 #info-details{
 	width:100%;
-	height:70%;
+}
+
+#info-details a{
+	color:#008489;
+	font-weight: 600;
 }
 
 #info-main02 {
@@ -159,7 +176,7 @@ div {
 	width:90%;
 	height:20%;
 	margin: 0 auto;
-	border-bottom:  0.5px solid #d6d6d6;
+	border-bottom:  1px solid #d6d6d6;
 }
 
 .star{

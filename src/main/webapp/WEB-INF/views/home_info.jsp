@@ -17,6 +17,11 @@
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
    }
+   
+      @font-face {
+        font-family: font2;
+        src: url('<c:url value='/resources/fonts/dx.ttf'/>');
+   }
 </style>
 <script>
 	$(window).scroll(function() {
@@ -47,19 +52,50 @@
          	</button>
          </div>
          <div id="info-contents-main">
+         	<br>
             <div id="info-main-left">
                <div id="info-main01">
                		<div id="info-title">
                			<div id="info-title-left">
-               				집 전체
+               				<span>집 전체</span>
                				<h2 style="color:black; margin-top:2px;">아늑한 제주 돌집, 북스테이 독채민박 초(old&cozy house)</h2>
-               				Seongsan-eup, Seogwipo-si
+               				<span>Seongsan-eup, Seogwipo-si</span>
+               				<br>
+               				<img src="<c:url value='../resources/img/people.png'/>">인원 5명
+               				<img src="<c:url value='../resources/img/door.png'/>">침실 3개
+               				<img src="<c:url value='../resources/img/bed.png'/>">침대 1개
+               				<img src="<c:url value='../resources/img/bath.png'/>">욕실 2개
                			</div>
-               			<div id="info-title-right"></div>
+               			<div id="info-title-right">
+               				<img src="<c:url value='../resources/img/1.jpg'/>">
+               				<br>
+               				<h5 style="padding-left: 25px;">kim</h5>
+               				<br>
+               			</div>
                		</div>
-               		<div id="info-details"></div>
+               		<div id="info-details">
+               			<br>
+               			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
+               			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
+               			약 2천 권의 책이 비치되어 있습니다. 독서, 일행과의 대화를 위해 TV는 일부러 두지 않았습니다.
+               			<br>
+               			<br>
+               			방문으로 구분된 방이 2개, 문이 없는 서재공간 겸 방이 1개입니다. 방 하나에는 더블침대, 다른 방에는 침구(요)를 준비해드립니다.
+               			작은 욕실 2개, 간단한 취사가 가능한 주방이 있습니다.
+               			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
+               			<br>
+               			<br>
+               			<a href="">이 공간 자세히 알아보기 </a>
+               			<br>
+               			<br>
+               			<a href="">호스트에게 연락하기 </a>
+               			<br>
+               			<br>
+               		</div>
                </div>
-               <div id="info-main02"></div>
+               <div id="info-main02">
+               		
+               </div>
                <div id="info-main03"></div>
                <div id="info-main04"></div>
                <div id="info-main05"></div>
