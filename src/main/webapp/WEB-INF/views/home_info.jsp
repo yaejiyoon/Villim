@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
 <style>
    @font-face {
         font-family: font;
@@ -85,18 +85,66 @@
                			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
                			<br>
                			<br>
-               			<a href="">이 공간 자세히 알아보기 </a>
+               			<a href="" class="green">이 공간 자세히 알아보기 </a>
                			<br>
                			<br>
-               			<a href="">호스트에게 연락하기 </a>
+               			<a href="" class="green">호스트에게 연락하기 </a>
                			<br>
                			<br>
                		</div>
                </div>
                <div id="info-main02">
+               		<div id="info-main02-left">
+               			<br>
+               			<span>편의 시설</span>
+               			<br>
+               			<br>
+               			<img src="<c:url value='../resources/img/kitchen.png'/>" class="amenities">
+               			주방
+               			<br>
+               			<br>
+               			<img src="<c:url value='../resources/img/wifi.png'/>" class="amenities">
+               			무선 인터넷
+               			<br>
+               			<br>
+               			<img src="<c:url value='../resources/img/parking.png'/>" class="amenities">
+               			건물 내 무료 주차
+               			<br>
+               			<br>
+               			<a href="" class="green">30개 편의시설 모두 보기 </a>
+               		</div>
+               		<div id="info-main02-right">
+               			<br>
+               			<span></span>
+               			<br>
+               			<br>
+               			<img src="<c:url value='../resources/img/morning.png'/>" class="amenities">
+               			아침 식사
+               			<br>
+               			<br>
+               			<img src="<c:url value='../resources/img/laptop.png'/>" class="amenities">
+               			노트북 작업 공간
+               			<br>
+               			<br>
+               			<img src="<c:url value='../resources/img/iron.png'/>" class="amenities">
+               			다리미
+               			
+               		</div>
                		
                </div>
-               <div id="info-main03"></div>
+               <div id="info-main03">
+               		<div id="info-main03-top">
+               			<br>
+               			<span>침대/침구</span>
+               		</div>
+               		<div id="info-main03-bottom">
+               			<div class="bed-div">
+               				
+               			</div>
+               			<br>
+               			<br>
+               		</div>
+               </div>
                <div id="info-main04"></div>
                <div id="info-main05"></div>
                <div id="info-main06"></div>
