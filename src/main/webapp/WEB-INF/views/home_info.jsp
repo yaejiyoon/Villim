@@ -11,7 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=1" />" rel="stylesheet" />
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
 <style>
    @font-face {
         font-family: font;
@@ -25,13 +26,21 @@
 </style>
 <script>
 	$(window).scroll(function() {
-		if ($(window).scrollTop() <= 800) {
-			$("#fixed").css({"top":"109vh","position":"absolute"});
-
-		} else {
+		if ($(window).scrollTop() <= 900) {
+			$("#fixed").css({"top":"119vh","position":"absolute"});
+		}else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
 		}
 	});
+	
+	$(document).ready(function(){
+		$("#info-wrapper").scroll(function(){
+			if($(this).scrollTop() + $(this).innerHeight()>= $(this)[0].scrollHeight){
+				alert("dd");
+			}
+		});
+	})
+	
 </script>
 </head>
 <body>
@@ -170,11 +179,188 @@
                		<br>
                		<span>예약 가능 여부</span>
                </div>
-               <div id="info-main05"></div>
-               <div id="info-main06">
-               		<div id="info-main06-top"></div>
-               		<div id="info-main06-map"></div>
+               <div id="info-main05">
+               		<div id="info-main05-top">
+               			<div id="main05-top-sub01">
+               				<br>
+               				<span>후기 342개</span>
+               				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
+            				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
+            				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
+            				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
+            				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
+            				<img src="<c:url value='/resources/img/search.png'/>" id="reviewSearch">
+							<input type="text" class="search-query2 form-control" placeholder="후기 검색" />
+               			</div>
+               			<div id="main05-top-sub02">
+               				<div class="main05-top-sub02">
+               					<div class="review-text">
+               						<h5>정확성</h5>
+               						<h5>의사소통</h5>
+               						<h5>청결도</h5>
+               					</div>
+               					<div class="review-star">
+               						<div>
+               							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+               						</div>
+               						<div>
+               							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+               						</div>
+               						<div>
+               							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+               						</div>
+               					</div>
+               				</div>
+               				<div class="main05-top-sub02">
+               					<div class="review-text">
+               						<h5>위치</h5>
+               						<h5>체크인</h5>
+               						<h5>가치</h5>
+               					</div>
+               					<div class="review-star">
+               						<div>
+               							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+               						</div>
+               						<div>
+               							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+               						</div>
+               						<div>
+               							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+            							<img src="<c:url value='../resources/img/star.png'/>" >
+               						</div>
+               					</div>
+               				</div>
+               			</div>
+               		</div>
+               		<div id="info-main05-review">
+               			<div class="review-wrapper">
+               				<div class="review-top">
+               					<div class="review-pic">
+               						<img src="<c:url value='../resources/img/1.jpg'/>" >
+               					</div>
+               					<div class="review-date">
+               						<span>제니</span>
+               						<br>
+               						2018년 8월
+               					</div>
+               				</div>
+               				<div class="review-bottom">
+               					<br><br>
+               					일본여행을 온것 같은 정갈하고 아기자기한 분위기~~ 입구의 돌담길부터 한적한 제주의 시골 마을을 느낄수 있습니다.
+               					책들이 있어 더 좋은~ 커피와 함께 하라고~돌체구스토 머신에 캡슐까지 제공 다시 가고 싶은 곳~^^
+               				</div>
+               				
+               			</div>
+               			<div class="review-wrapper">
+               				<div class="review-top">
+               					<div class="review-pic">
+               						<img src="<c:url value='../resources/img/1.jpg'/>" >
+               					</div>
+               					<div class="review-date">
+               						<span>제니</span>
+               						<br>
+               						2018년 8월
+               					</div>
+               				</div>
+               				<div class="review-bottom">
+               					<br><br>
+               					일본여행을 온것 같은 정갈하고 아기자기한 분위기~~ 입구의 돌담길부터 한적한 제주의 시골 마을을 느낄수 있습니다.
+               					책들이 있어 더 좋은~ 커피와 함께 하라고~돌체구스토 머신에 캡슐까지 제공 다시 가고 싶은 곳~^^
+               				</div>
+               				
+               			</div>
+               			<div class="review-wrapper">
+               				<div class="review-top">
+               					<div class="review-pic">
+               						<img src="<c:url value='../resources/img/1.jpg'/>" >
+               					</div>
+               					<div class="review-date">
+               						<span>제니</span>
+               						<br>
+               						2018년 8월
+               					</div>
+               				</div>
+               				<div class="review-bottom">
+               					<br><br>
+               					일본여행을 온것 같은 정갈하고 아기자기한 분위기~~ 입구의 돌담길부터 한적한 제주의 시골 마을을 느낄수 있습니다.
+               					책들이 있어 더 좋은~ 커피와 함께 하라고~돌체구스토 머신에 캡슐까지 제공 다시 가고 싶은 곳~^^
+               				</div>
+               				
+               			</div>
+               		</div>
+               		<div id="info-main05-host">
+               			<div id="host-top">
+               				<div id="host-top-left">
+               					<p>호스트: Kim님</p>
+               					Seogwipo-si, 한국 · 회원 가입: 2013년 10월
+               				</div>
+               				<div id="host-top-right">
+               					<img src="<c:url value='../resources/img/1.jpg'/>">
+               				</div>
+               			</div>
+               			<div id="host-contents">
+               				My name is Sarah and I live just a few minutes away from the sea. 
+               				I’m book translator and love to travel in search of new adventures, to meet new people, 
+               				to browse flea markets hunting for old items, to eat tasty food and drink fine wine, 
+               				to read and float in the sea, to ramble round old streets, and to blow in the wind.
+               			</div>
+               			<div id="host-bottom">
+               				<p>언어: </p><span>English, 한국어</span><br>
+							<p>응답률: </p><span>100%</span><br>
+							<P>응답 시간: </P><span>1시간 이내</span>
+               			</div>
+               			<button id="toHost" class="btn btn-secondary">호스트에게 연락하기</button>
+               		</div>
                </div>
+               <div id="info-main06">
+               		<div id="info-main06-top">
+               			<br>
+               			<span>지역 정보</span>
+               			<br>
+               			<h5>Kim님의 숙소는 Seongsan-eup, Seogwipo-si,제주도,한국에 있습니다.</h5>
+               		</div>
+               		<div id="info-main06-map">
+               			
+               		</div>
+
+						<!-- <script>
+        					var map;
+							function initMap() {
+								map = new google.maps.Map(document
+										.getElementById('info-main06-map'), {
+									center : {
+										lat : 37.5338151,
+										lng : 126.89697839999997
+									},
+									zoom : 14
+								});
+							}
+						</script> -->
+
+					</div>
                <div id="info-main07">
                		<br>
                		<span>숙소 이용규칙</span>
