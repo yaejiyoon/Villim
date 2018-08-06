@@ -5,6 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Villim 회원가입</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <style>
 #wrapper {
@@ -23,25 +27,45 @@
  	$(document).ready(function(){
 			
 		$("#yearBtn").click(function(){
+			var value = "1";
 			alert("dd"); 
  			$.ajax({
 		        url : "year.do",
 		        type: "get",
-		        data : { "id" : $("#id").val() }, 
+		        data:{
+		        	
+		        	value : value
+		        },
 		        success : function(response){
+		        	
+		        	alert(response);
+		        	var length = response.length;
+		        	alert(length);
 		        	var html = '';
-					for(var i=0; i<response.size(); i++){
+		        	
+		        
+					for(var i=0; i<response.length; i++){
 						html += '<li>';
-						html += response[i];
+						html += response[i]+"년";
 						html += '</li>';
+						
 					}
-						$("yearList").after(html);
+					
+						alert(html);
+						$("#yearList").html(html);
 		           
+		        },
+		        error : function() {
+					console.log("에러 발생!");
 		        }
-				
 		    }); 
 		
 		});
+		
+		$("#monthList").click(function(){
+			
+			$("#monthBtn").html($("#monthList").val());
+		})
 	})
  
 </script>
@@ -85,13 +109,14 @@
 
 			<div class="dropdown" id="day">
 				<button id="dLabel" type="button" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false">
+					aria-haspopup="true" aria-expanded="false" id="monthBtn">
 					월 <span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-					<li>1일</li>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="monthList">
+					<li><a>1일</a></li><li><a>2일</a></li><li><a>3일</a></li>	
 				</ul>
 			</div>
+			<!-- http://yodurumi.tistory.com/133 참조하여 수정하기 -->
 
 			<div class="dropdown" id="year">
 				<button type="button" data-toggle="dropdown"
@@ -99,7 +124,8 @@
 					월 <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="yearList">
-		
+				
+				
 				</ul>
 			</div>
 		</div>
