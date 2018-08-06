@@ -32,8 +32,8 @@ div {
 	position: absolute;
 	background-color: white;
 	width: 90px;
-	top:107%;
-	left:3%;
+	top:800px;
+	left:40px;
 	/* transform: translate(40%, -220%); */
 	box-shadow: 1px 1px 1px #d6d6d6;
 }
