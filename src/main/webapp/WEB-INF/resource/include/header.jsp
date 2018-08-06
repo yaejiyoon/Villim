@@ -3,7 +3,7 @@
 
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
-<link href="<c:url value="/resources/css/main/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/main/header.css?var=1" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/main/demo.css" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/main/component.css?var=1" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/main/normalize.css" />" rel="stylesheet" />

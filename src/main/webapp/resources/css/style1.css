@@ -1,3 +1,5 @@
+
+
 .cb-slideshow,
 .cb-slideshow:after { 
     position: fixed;
@@ -7,6 +9,7 @@
     left: 0px;
     z-index: 0; 
 }
+
 .cb-slideshow:after { 
     content: '';
     background: transparent url(../images/pattern.png) repeat top left; 
@@ -129,6 +132,8 @@
     -ms-animation-delay: 30s;
     animation-delay: 30s; 
 }
+
+
 /* Animation for the slideshow images */
 @-webkit-keyframes imageAnimation { 
     0% { opacity: 0;
@@ -211,6 +216,8 @@
     19% { opacity: 0 }
     100% { opacity: 0 }
 }
+
+
 /* Show at least something when animations not supported */
 .no-cssanimations .cb-slideshow li span{
 	opacity: 1;

@@ -45,7 +45,7 @@ nav a:focus {
 
 .cl-effect-5 a span {
 	position: relative;
-	top:-3px;
+	top:-1px;
 	display: inline-block;
 	-webkit-transition: -webkit-transform 0.3s;
 	-moz-transition: -moz-transform 0.3s;
@@ -57,7 +57,6 @@ nav a:focus {
 	top: 100%;
 	content: attr(data-hover);
 	color:black;
-	font-weight: 400;
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
