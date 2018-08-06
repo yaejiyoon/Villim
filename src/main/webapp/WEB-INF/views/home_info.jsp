@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
 <style>
    @font-face {
         font-family: font;
@@ -26,7 +26,7 @@
 <script>
 	$(window).scroll(function() {
 		if ($(window).scrollTop() <= 800) {
-			$("#fixed").css({"top":"114vh","position":"absolute"});
+			$("#fixed").css({"top":"109vh","position":"absolute"});
 
 		} else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
@@ -159,20 +159,48 @@
                				<div>
                					<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
                					<br>
-               					<span class="bedroom">1번 침실</span>
+               					<span class="bedroom">공용 공간</span>
                					<br>
-               					<span class="bedtype">퀸사이즈 침대 1개</span>
+               					<span class="bedtype">소파 베드 1개</span>
                				</div>
                			</div>
                		</div>
                </div>
                <div id="info-main04">
-               		
+               		<br>
+               		<span>예약 가능 여부</span>
                </div>
                <div id="info-main05"></div>
-               <div id="info-main06"></div>
-               <div id="info-main07"></div>
-               <div id="info-main08"></div>
+               <div id="info-main06">
+               		<div id="info-main06-top"></div>
+               		<div id="info-main06-map"></div>
+               </div>
+               <div id="info-main07">
+               		<br>
+               		<span>숙소 이용규칙</span>
+               		<br>
+               		<br>
+               		<h5>어린이(만 0-12세)에게 안전하거나 적합하지 않음</h5>
+               		<h5>흡연 금지</h5>
+               		<h5>반려동물 동반에 적합하지 않음</h5>
+               		<h5>파티나 이벤트 금지</h5>
+               		<h5>체크인 가능 시간: 14:00 - 22:00</h5>
+               		<h5>체크아웃: 11:00까</h5>
+					<br>
+					<a href="" class="green">숙소 이용규칙 모두 보기</a>
+               </div>
+               <div id="info-main08">
+               		<br>
+               		<span>예약 취소</span>
+               		<br>
+               		<br>
+               		<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
+               		<br>
+               		체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               		<br>
+               		<br>
+               		<a href="" class="green">정책 자세히 읽기</a>
+               </div>
             </div>
             <div id="info-main-right">
             	<div id="fixed">

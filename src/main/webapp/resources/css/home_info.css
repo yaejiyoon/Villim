@@ -225,27 +225,44 @@ div {
 	border-bottom:  1px solid #d6d6d6;
 }
 
+#info-main04 span{
+	font-weight: 800;
+}
+
 #info-main05 {
 	width: 100%;
-	height: 9%;
+	height: 29%;
 	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-main06 {
 	width: 100%;
-	height: 30%;
+	height: 15%;
 	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main06-top{
+	width:100%;
+	height: 
 }
 
 #info-main07 {
 	width: 100%;
-	height: 10%;
+	height: 9%;
 	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main07 span{
+	font-weight: 800;
 }
 
 #info-main08 {
 	width: 100%;
-	height: 10%;
+	height: 6%;
+}
+
+#info-main08 span{
+	font-weight: 800;
 }
 
 #fixed{
