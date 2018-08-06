@@ -26,19 +26,18 @@
 </style>
 <script>
 	$(window).scroll(function() {
+		
 		if ($(window).scrollTop() <= 900) {
 			$("#fixed").css({"top":"119vh","position":"absolute"});
+		}else if($(window).scrollTop() == $('#footer').scrollTop(0)){
+			alert("dddd");
 		}else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
 		}
 	});
 	
 	$(document).ready(function(){
-		$("#info-wrapper").scroll(function(){
-			if($(this).scrollTop() + $(this).innerHeight()>= $(this)[0].scrollHeight){
-				alert("dd");
-			}
-		});
+		
 	})
 	
 </script>
