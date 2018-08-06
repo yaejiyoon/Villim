@@ -35,7 +35,7 @@
 	}
 	
  	#searchBar { 
- 		margin-top : 230px;
+ 		margin-top : 280px;
  		width : 60%; 
  		height : 150px; 
  		display: inline-block;
@@ -80,10 +80,16 @@
 	}
 	
 	#wrapper {
-		background-color: pink;
+		background-color: white;
 		position:relative;
 		z-index:10000;
+		margin-bottom: 0px;
 	}
+	
+	.cb-slideshow {
+    list-style:none;
+	}
+	
  	
 </style>
 </head>
@@ -97,12 +103,12 @@
 		<div id="searchBt">버튼</div>
 	</div>
 	<ul class="cb-slideshow">
-            <li><span>Image 01</span><div><h3>re·lax·a·tion</h3></div></li>
-            <li><span>Image 02</span><div><h3>qui·e·tude</h3></div></li>
-            <li><span>Image 03</span><div><h3>bal·ance</h3></div></li>
-            <li><span>Image 04</span><div><h3>e·qua·nim·i·ty</h3></div></li>
-            <li><span>Image 05</span><div><h3>com·po·sure</h3></div></li>
-            <li><span>Image 06</span><div><h3>se·ren·i·ty</h3></div></li>
+            <li><span>Image 01</span></li>
+            <li><span>Image 02</span></li>
+            <li><span>Image 03</span></li>
+            <li><span>Image 04</span></li>
+            <li><span>Image 05</span></li>
+            <li><span>Image 06</span></li>
     </ul>
 </div>
 <div class="jumbotron" id="wrapper">
