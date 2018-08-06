@@ -28,6 +28,24 @@
 	</bean>
 	
 	<context:component-scan base-package="kh.spring"></context:component-scan>
+	
+	<!-- Jae Ho -->
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+	<bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg
+			value="843090659613-infjks132cip8etv5h2tr2gasgur0toh.apps.googleusercontent.com" />
+		<constructor-arg value="Eldfe1PMxby23ofR2IYx5Xb4" />
+	</bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<bean id="googleOAuth2Parameters"
+		class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope"
+			value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/>
+		<property name="redirectUri"
+			value="http://localhost:8080/oauth2callback" />
+	</bean>
 
 	
 	<aop:aspectj-autoproxy/>

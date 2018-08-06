@@ -28,6 +28,8 @@
 					<a href="#" style="color:black;"><span data-hover="여행">여행</span></a>
 					<a href="#" style="color:black;"><span data-hover="메세지">메세지</span></a>
 					<a href="#" style="color:black;"><span data-hover="도움말">도움말</span></a>
+					<a data-toggle="modal" href="#myModal" style="color:black;"><span data-hover="회원가입">회원가입</span></a>
+					<a href="#" style="color:black;"><span data-hover="로그인">로그인</span></a>
 				</nav>
 			</section>
 		</div>
