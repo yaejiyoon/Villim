@@ -3,7 +3,7 @@
 
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
-<link href="<c:url value="/resources/css/main/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/main/header.css?var=1" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/main/demo.css" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/main/component.css?var=1" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/main/normalize.css" />" rel="stylesheet" />
@@ -23,7 +23,7 @@
 			<section class="color-5">
 				<nav class="cl-effect-5">
 					<a href="#" style="color:black;"><span data-hover="숙소추가">숙소추가</span></a>
-					<a href="#" style="color:black;"><span data-hover="호스트">호스트</span></a>
+					<a href="hostMain.do" style="color:black;"><span data-hover="호스트">호스트</span></a>
 					<a href="#" style="color:black;"><span data-hover="저장목록">저장목록</span></a>
 					<a href="#" style="color:black;"><span data-hover="여행">여행</span></a>
 					<a href="#" style="color:black;"><span data-hover="메세지">메세지</span></a>

@@ -89,4 +89,9 @@ public class MainController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/homeMain.do")
+	public String homeMain() {
+		return "home_main";
+	}
 }
