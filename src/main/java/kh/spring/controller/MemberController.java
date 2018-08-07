@@ -114,7 +114,7 @@ public class MemberController {
 		mav.addObject("member_email", accountEmail);
 		mav.addObject("birth", birth);
 		mav.addObject("name", name);
-		mav.setViewName("info1.do");
+		mav.setViewName("signup");
 		
 		return mav;
 			

@@ -84,6 +84,7 @@ public class MainController {
 		  mav.addObject("accountEmail", profile.getAccountEmail());
 		  mav.addObject("firstName", profile.getFamilyName());
 		  mav.addObject("secondName", profile.getGivenName());
+		  mav.addObject("picture", profile.getImageUrl());
 		  System.out.println(profile.getImageUrl());
 		  System.out.println("생일" + profile.getGender());
 		  mav.setViewName("signup");

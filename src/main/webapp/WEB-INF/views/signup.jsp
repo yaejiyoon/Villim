@@ -37,6 +37,10 @@
 	width:80%;
 	
 }
+#myModal{
+	text-align:center;
+	z-index: 11000;
+}
 </style>
 
 <script>
@@ -107,7 +111,7 @@
 						
 					}
 					
-						alert(html);
+					
 						$("#dayList").html(html);
 		           
 		        },
@@ -131,13 +135,14 @@
 			$("#dayInput").val($(this).text());
 		});
 		
-		$("completeBtn").click(function(){
+ 		$("#completeBtn").click(function(){
 			
-			
-			window.close();
-			
+ 	
+ 				$("#test").val($("#dayInput").val());
+ 				
+ 			
 				
-		});
+		});  
 	});
  
 </script>
@@ -149,7 +154,7 @@
 			<font><h3>정보를 입력을 완료하세요</h3></font><br> <font>회원 가입 절차를
 				완료하려면 회원님의 정보를 확인하고 빠진 정보를 입력해</font> <font>주세요.</font>
 		</div>
-		<form action="info.do" method="post">
+		<!-- <form action="info.do" method="post"> -->
 		<div id="middle">
 			<div class="input-group">
 				<input type="text" name="secondName" class="form-control"
@@ -206,10 +211,87 @@
 		</div><br>
 
 		<div id="complete">
-		<button id="completeBtn" class="btn btn-danger"><font>가입 완료</font></button>
+		<button id="completeBtn" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger"><font>가입 완료</font></button>
+		 <!--  	 <a id="completeBtn" data-toggle="modal" href="#myModal"><font>가입 완료</font></a> -->
 		</div>
-		</form>
+	<!-- 	</form> -->
 	</div>
+	
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	<div>
+      		<h2><font>가입하시기 전에</font></h2><br>
+      		<h3><font>Villim은 모두가 환영받을 수 있고 서로 신뢰할 수 있는 커뮤니티를</font></h3><br>
+      		<h3><font>만들어 나가고자 합니다. 이를 위해, 회원님에게 에어비앤비 서비스 약관에</font></h3><br>
+      		<h3><font>동의하고 커뮤니티의 회원 모두를 존중하고 차별 없이 대할 것을</font></h3><br>
+      		<h3><font>약속해주시기를 부탁드리고 있습니다.</font></h3><br>
+      		
+      		<h3><font>Villim 커뮤니티를 위한 약속</font></h3><br>
+      		<h3><font>모든 Villim 커뮤니티 회원을 인종,종교,출신,국가,민족,피부색,</font></h3><br>
+      		<h3><font>장애,성별,성적 정체성,성적 취향 또는 연령에 상관없이 존중하며 개인적</font></h3><br>
+      		<h3><font>판단이나 편견 없이 대하겠습니다.</font><a href="#"><font>자세히 알아보기</font></a></h3><br>
+      		
+      		<h3><font>Villim 서비스 약관</font></h3><br>
+      		<h3><a href="#"><font>Villim 서비스 약관</font></a>,<a href="#">결제 서비스 약관</a>,<a href="#">차별 금지 정책</a>에  동의합니다.</h3><br>
+      		<h3>또한, Villim<a href="#"><font>개인정보 보호정책</font></a>에 따른 개인정보 이용 및 처리에도</h3><br>
+      		<h3><font>동의합니다.</font><br>
+      		
+      	</div>
+      		<input type="text" id="test">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModal1">동의</button>
+        <button type="button" class="btn btn-primary">거부</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+       		Villim 에 오신것을 환영합니다.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModal2">다음단계로</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	<div>
+      		<img src="${picture}" alt="이미지 로드 실패" class="img-circle">
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
