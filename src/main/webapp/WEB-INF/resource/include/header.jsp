@@ -27,7 +27,7 @@
 					<a href="#" style="color:black;"><span data-hover="저장목록">저장목록</span></a>
 					<a href="#" style="color:black;"><span data-hover="여행">여행</span></a>
 					<a href="#" style="color:black;"><span data-hover="메세지">메세지</span></a>
-					<a href="#" style="color:black;"><span data-hover="도움말">도움말</span></a>
+					<a href="profileEditView.mo" style="color:black;"><span data-hover="도움말">도움말</span></a>
 				</nav>
 			</section>
 		</div>
