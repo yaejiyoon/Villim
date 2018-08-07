@@ -67,24 +67,25 @@ public class MainController {
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		  AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
 		      null);
-
+		  System.out.println(1);
 		  String accessToken = accessGrant.getAccessToken();
 		  Long expireTime = accessGrant.getExpireTime();
 		  if (expireTime != null && expireTime < System.currentTimeMillis()) {
 		    accessToken = accessGrant.getRefreshToken();
 		    System.out.printf("accessToken is expired. refresh token = {}", accessToken);
 		  }
+		  System.out.println(2);
 		  Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
 		  Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-
+		  System.out.println(3);
 		  PlusOperations plusOperations = google.plusOperations();
 		  Person profile = plusOperations.getGoogleProfile();
-
+		  System.out.println(4);
 		  mav.addObject("accountEmail", profile.getAccountEmail());
 		  mav.addObject("firstName", profile.getFamilyName());
 		  mav.addObject("secondName", profile.getGivenName());
 		  System.out.println(profile.getImageUrl());
-		  
+		  System.out.println("생일" + profile.getGender());
 		  mav.setViewName("signup");
 		
 		return mav;
