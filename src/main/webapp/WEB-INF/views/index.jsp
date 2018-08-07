@@ -31,6 +31,7 @@
    }
    
 </style>
+<!-- 재호 -->
 </head>
 <body>
    <%@ include file="../resource/include/header.jsp"%>
