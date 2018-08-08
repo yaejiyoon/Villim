@@ -11,10 +11,10 @@ body {
 	font-family: font;
 }
 
-nav a {
+nav>div>a {
 	position: relative;
 	display: inline-block;
-	margin: 15px 25px;
+	margin: 15px 10px;
 	outline: none;
 	color: #8c8c8c;
 	text-decoration: none;
@@ -33,15 +33,18 @@ nav a:focus {
 /* Effect 5: same word slide in */
 
 .cl-effect-5{
+	position:absolute;
 	width:100%;
-	transform: translate(10%, 3%);
+	top:3vh;
+	left:110vh;
+	/* transform: translate(15%, 100%); */
 }
 
-.cl-effect-5 a {
+ .cl-effect-5 a {
 	overflow: hidden;
-	padding: 0 4px;
-	height: 1em;
-}
+	/* padding: 0 4px;
+	height: 1em; */
+} 
 
 .cl-effect-5 a span {
 	position: relative;

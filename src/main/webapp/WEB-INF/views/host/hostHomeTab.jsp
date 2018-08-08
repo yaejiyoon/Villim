@@ -159,6 +159,7 @@ div {
 .accomo-table {
 	width: 100%;
 	margin-top: 20px;
+	
 }
 
 .accomo-table tr td {
@@ -166,7 +167,7 @@ div {
 }
 
 .accomo-table tr td:nth-child(2) {
-	text-align: center; 
+	text-align: left;
 }
 
 .accomo-table tr td div {
@@ -179,14 +180,13 @@ div {
 	margin-top: 20px;
 	display: inline-block;
 	float: left;
-	border: 1px black solid;
 }
 
-.facility-table tr td div {
-	border: 1px black dotted;
+.facility-table tr td div {  
 	font-size: 17px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	width:100%;
 }
 
 .facility-table-tr {
@@ -196,7 +196,8 @@ div {
 .facility-table-td {
 	display: inline-block;
 	float: left;
-	width: 290px;
+	width: 100%; 
+	text-align: left;
 }
 
 .facility-table-td:nth-child(2) {
@@ -328,15 +329,15 @@ div {
 				</div>
 				<table class="accomo-table">
 					<c:if test="${hdto.home_people ne null }">
-						<tr>
-							<td><div>숙박 가능인원 : ${hdto.home_people } 명</div></td>
-							<td><div>건물 유형 : ${hdto.home_type }</div></td>
+						<tr class="row" style="margin: auto;">
+							<td class="col-md-6"><div>숙박 가능인원 : ${hdto.home_people } 명</div></td>
+							<td class="col-md-6"><div>건물 유형 : ${hdto.home_type }</div></td>
 						</tr>
 					</c:if>
 					<c:if test="${hdto.home_bedroom ne null }">
-						<tr>
-							<td><div>침실 : ${hdto.home_bedroom }</div></td>
-							<td><div>침대 : ${hdto.home_bed }</div></td>
+						<tr class="row">
+							<td class="col-md-6"><div>침실 : ${hdto.home_bedroom }</div></td>
+							<td class="col-md-6"><div>침대 : ${hdto.home_bed }</div></td>
 						</tr>
 					</c:if>
 				</table>
@@ -355,13 +356,13 @@ div {
 				</div>
 				<table class="facility-table">
 					<c:set var="i" value="0" />
-					<c:set var="j" value="2" />
+					<c:set var="j" value="2" />  
 					<c:forEach var="list" items="${list }">
 						<c:if test="${i%j == 0 }">
-							<tr class="facility-table-tr">
+							<tr class="row"  style="text-align: left;">
 						</c:if>
 
-						<td class="facility-table-td"><div>${list }</div></td>
+						<td class="col-md-6" style="border:1px dotted white;"><div>${list }</div></td>
 
 						<c:if test="${i%j == j-1 }">
 							</tr>
@@ -377,7 +378,7 @@ div {
 
 			<div class="loc-wrap">
 				<div class="title-expl-title">
-					<h4>
+					<h4> 
 						<b>위치</b>
 					</h4>
 				</div>
