@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
 public class HomeDTO {
+	private String member_email;
 	private int home_seq;
 	private String home_name;
 	private String home_contents;
@@ -31,13 +32,13 @@ public class HomeDTO {
 		super();
 	}
 
-	public HomeDTO(int home_seq, String home_name, String home_contents, String home_type, int home_people,
-			String home_bedroom, String home_bed, String home_nation, String home_addr1, String home_addr2,
-			String home_zipcode, String home_lat, String home_lng, String home_amenities, String home_safety,
-			String home_guest_access, String home_rules, String home_details, String home_checkin, int home_min_stay,
-			int home_max_stay, String home_blocked_date, int home_price, String home_currency,
-			String home_main_pic) {
+	public HomeDTO(String member_email, int home_seq, String home_name, String home_contents, String home_type,
+			int home_people, String home_bedroom, String home_bed, String home_nation, String home_addr1,
+			String home_addr2, String home_zipcode, String home_lat, String home_lng, String home_amenities,
+			String home_safety, String home_guest_access, String home_rules, String home_details, String home_checkin,
+			int home_min_stay, int home_max_stay, String home_blocked_date, int home_price, String home_currency) {
 		super();
+		this.member_email = member_email;
 		this.home_seq = home_seq;
 		this.home_name = home_name;
 		this.home_contents = home_contents;
@@ -63,6 +64,14 @@ public class HomeDTO {
 		this.home_price = home_price;
 		this.home_currency = home_currency;
 		this.home_main_pic = home_main_pic;
+	}
+
+	public String getMember_email() {
+		return member_email;
+	}
+
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
 	}
 
 	public int getHome_seq() {
@@ -267,5 +276,5 @@ public class HomeDTO {
 
 	
 	
-
+	
 }
