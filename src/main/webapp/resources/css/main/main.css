@@ -199,19 +199,3 @@
  		display: inline;
  	}
  	
- 	#myModal{
-	text-align:center;
-	z-index: 11000;
-	}
-	#facebook{
-		width:80%;	
-	}
-	#kakao{
-		width:80%;	
-	}
-	#google{
-		width:80%;
-	}
-	#email{
-		width:80%;
-	}

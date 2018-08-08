@@ -1,6 +1,8 @@
 package kh.spring.controller;
 
+import java.io.File;
 import java.time.YearMonth;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -119,5 +123,40 @@ public class MemberController {
 		return mav;
 			
 	}
+	
+	@RequestMapping("upload.do")
+	@ResponseBody
+	public void upload(MultipartHttpServletRequest request,HttpServletResponse response) {
+		
+		
+		String path = "C:\\Users\\jang6\\spring\\sworkspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Villim\\files\\";
+		System.out.println(request.getParameter("formData"));
+		
+		System.out.println(request.getParameter("Data"));
+		System.out.println(request.getParameter("upload"));
+		System.out.println(request.getFileNames());
+		
+	      File f = new File(path);
+	      if (!f.exists()) {
+	         f.mkdir();
+	      }
+	      
+	      Iterator<String> files = request.getFileNames();
+	      while(files.hasNext()) {
+	    	  String uploadFile = files.next();
+	    	  MultipartFile mFile = request.getFile(uploadFile);
+	    	  System.out.println(mFile.getName());
+	    	  System.out.println(mFile.getOriginalFilename());
+	    	  String fileName = mFile.getOriginalFilename();
+	    	  System.out.println("실제 파일 이름" + fileName);
+	    	 try {
+	    	  mFile.transferTo(new File(path + fileName));
+	    	 }catch(Exception e) {
+	    		 e.printStackTrace();
+	    	 }
+	    	 }
+
+
+}
 
 }
