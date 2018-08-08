@@ -1,6 +1,8 @@
 package kh.spring.controller;
 
 import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.YearMonth;
 import java.util.Iterator;
 
@@ -135,7 +137,7 @@ public class MemberController {
 		System.out.println(request.getParameter("Data"));
 		System.out.println(request.getParameter("upload"));
 		System.out.println(request.getFileNames());
-		
+	
 	      File f = new File(path);
 	      if (!f.exists()) {
 	         f.mkdir();
@@ -150,7 +152,11 @@ public class MemberController {
 	    	  String fileName = mFile.getOriginalFilename();
 	    	  System.out.println("실제 파일 이름" + fileName);
 	    	 try {
-	    	  mFile.transferTo(new File(path + fileName));
+	    	    mFile.transferTo(new File(path + fileName));
+	    	    String fullPath = path + fileName;
+	    	  	response.setCharacterEncoding("utf8");
+	  			response.setContentType("application/json");
+	  			new Gson().toJson(fileName, response.getWriter());
 	    	 }catch(Exception e) {
 	    		 e.printStackTrace();
 	    	 }
@@ -158,5 +164,98 @@ public class MemberController {
 
 
 }
+	@RequestMapping("phoneCheck.do")
+	public void phoneCheck(HttpServletRequest request) {
+		System.out.println(request.getParameter("phone"));
+		String  pswd = "";
+
+        StringBuffer sb1 = new StringBuffer();
+
+        
+
+        for( int i = 0; i<5; i++) {
+
+
+
+            sb1.append((char)((Math.random() * 10)+48)); 
+
+        }
+
+
+
+        pswd = sb1.toString();
+
+
+
+     String to = "82"+request.getParameter("phone");
+
+     String from="33644643087";
+
+     String message = pswd;  
+
+     String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+
+
+
+     StringBuilder sb = new StringBuilder();
+
+
+
+     sb.append(sendUrl);
+
+
+
+     sb.append("&to="+to);
+
+
+
+     sb.append("&from="+from);
+
+
+
+     sb.append("&text="+message);
+
+
+
+     
+
+
+
+     System.out.println(sb.toString());
+
+
+     try {
+     URL url = new URL(sb.toString());
+
+
+
+     HttpURLConnection con = (HttpURLConnection)url.openConnection();
+     int result = con.getResponseCode();
+     System.out.println(result);
+
+
+
+     con.disconnect();
+
+    
+     }catch(Exception e) {
+    	 e.printStackTrace();
+     }
+
+
+   
+
+
+
+//     out.print(message);
+
+     
+
+     return;
+
+
+
+		
+	}
 
 }

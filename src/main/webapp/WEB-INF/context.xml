@@ -12,7 +12,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-
+	
+	
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
@@ -74,12 +75,14 @@
         <property name="maxUploadSize" value="100000000"/>
         <property name="maxInMemorySize" value="100000000"/>
     </bean>
-
 	
+	
+
 	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />
-
+	
+	
 
 </beans>

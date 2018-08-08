@@ -14,7 +14,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <style>
 #wrapper {
 	width: 100%;
@@ -47,132 +48,154 @@
 	text-align: center;
 	z-index: 11000;
 }
-#upload{
-	display:none;
 
+#upload {
+	display: none;
 }
 </style>
 
 <script>
-	$(document).ready(function() {
+	$(document)
+			.ready(
+					function() {
+					var load = "";
+						$("#yearBtn").click(function() {
 
-		$("#yearBtn").click(function() {
+							$.ajax({
+								url : "year.do",
+								type : "get",
 
-			$.ajax({
-				url : "year.do",
-				type : "get",
+								success : function(response) {
 
-				success : function(response) {
+									var length = response.length;
 
-					var length = response.length;
+									var html = '';
 
-					var html = '';
+									for (var i = 0; i < response.length; i++) {
+										html += '<li>';
+										html += '<a>';
+										html += response[i] + "년";
+										html += '</a>';
+										html += '</li>';
 
-					for (var i = 0; i < response.length; i++) {
-						html += '<li>';
-						html += '<a>';
-						html += response[i] + "년";
-						html += '</a>';
-						html += '</li>';
+									}
 
-					}
+									$("#yearList").html(html);
 
-					$("#yearList").html(html);
+								},
+								error : function() {
+									console.log("에러 발생!");
+								}
+							});
 
-				},
-				error : function() {
-					console.log("에러 발생!");
-				}
-			});
+						});
 
-		});
+						$("#dayBtn").click(function() {
+							var month = $("#monthInput").val();
+							var year = $("#yearInput").val();
 
-		$("#dayBtn").click(function() {
-			var month = $("#monthInput").val();
-			var year = $("#yearInput").val();
+							$.ajax({
+								url : "day.do",
+								type : "get",
+								data : {
 
-			$.ajax({
-				url : "day.do",
-				type : "get",
-				data : {
+									month : month,
+									year : year
+								},
+								success : function(response) {
 
-					month : month,
-					year : year
-				},
-				success : function(response) {
+									var length = response.length;
 
-					var length = response.length;
+									var html = '';
 
-					var html = '';
+									for (var i = 0; i < response.length; i++) {
+										html += '<li>';
+										html += '<a>';
+										html += response[i] + "일";
+										html += '</a>';
+										html += '</li>';
 
-					for (var i = 0; i < response.length; i++) {
-						html += '<li>';
-						html += '<a>';
-						html += response[i] + "일";
-						html += '</a>';
-						html += '</li>';
+									}
 
-					}
+									$("#dayList").html(html);
 
-					$("#dayList").html(html);
+								},
+								error : function() {
+									console.log("에러 발생!");
+								}
+							});
 
-				},
-				error : function() {
-					console.log("에러 발생!");
-				}
-			});
+						});
 
-		});
+						$("#monthList").on("click", "li", function() {
 
-		$("#monthList").on("click", "li", function() {
+							$("#monthInput").val($(this).text());
+						});
+						$("#yearList").on("click", "li", function() {
 
-			$("#monthInput").val($(this).text());
-		});
-		$("#yearList").on("click", "li", function() {
+							$("#yearInput").val($(this).text());
+						});
+						$("#dayList").on("click", "li", function() {
 
-			$("#yearInput").val($(this).text());
-		});
-		$("#dayList").on("click", "li", function() {
+							$("#dayInput").val($(this).text());
+						});
 
-			$("#dayInput").val($(this).text());
-		});
+						$("#completeBtn").click(function() {
 
-		$("#completeBtn").click(function() {
+							$("#test").val($("#dayInput").val());
 
-			$("#test").val($("#dayInput").val());
+						});
+						$("#uploadFake").click(function() {
+							alert("on");
+							$("#upload").click();
 
-		});
-		$("#uploadFake").click(function(){
-			alert("on");
-			$("#upload").click();
-			
-		});
-		
-		/* 변화 감지  */
-		$('input[type=file]').change(function () {
-	        
-	         var formData = new FormData($("#uploadForm")[0]); 
-	        /* var formData = new FormData(); */
-	         alert(formData);
-	         
-	         $.ajax({
-					url : "upload.do",
-					type : "post",
-					data : formData,
-					processData : false,
-                    contentType : false,
-					success : function(response) {
-						alert(filePath);
-					/* 	$("#profilePicture").attr("src","filePath"); */
-					}
-				
-	     });
-				
-			
-		
-	
-	});
-	});
+						});
+
+						/* 변화 감지  */
+						$('input[type=file]')
+								.change(
+										function() {
+
+											var formData = new FormData(
+													$("#uploadForm")[0]);
+											/* var formData = new FormData(); */
+											alert(formData);
+											var html = "";
+											$
+													.ajax({
+														url : "upload.do",
+														type : "post",
+														data : formData,
+														processData : false,
+														contentType : false,
+														success : function(
+																response) {
+															alert(response);
+															html += "<img src=files/";
+						html+= response;
+						html+= " alt=이미지 로드 실패   class='img-circle' id='profilePicture' style='width:100px'>";
+
+															/* $("#profilePicture").attr("src","files/"+response);  */
+															$("#imageLoad")
+																	.html(html);
+															load = response;
+														}
+
+													});
+
+										});
+						
+						$("#imgLoadBtn").click(function(){
+							if(load==""){
+								$("#test10").val('${picture}');
+								$("#test11").val($("#dayInput").val());
+							}else{
+							$("#test10").val(load);
+							$("#test11").val($("#dayInput").val());
+							}
+						})
+						
+					});
 </script>
 </head>
 <body>
@@ -375,28 +398,84 @@
 					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<div>
-						<img src="${picture}" alt="이미지 로드 실패" class="img-circle" id="profilePicture">
+					<div id="imageLoad">
+						<img src="${picture}" alt="이미지 로드 실패" class="img-circle"
+							id="profilePicture">
 					</div>
 					<div>
 						<button type="button" class="btn btn-primary"
 							onclick="FB.login();" id="facebook">
-							<i class="fab fa-facebook-f fa-2x" style="color: white"></i> 
-							<font>페이스북 사진 사용</font>
+							<i class="fab fa-facebook-f fa-2x" style="color: white"></i> <font>페이스북
+								사진 사용</font>
 						</button>
-						<form id="uploadForm" method="post" action="upload.do" enctype="multipart/form-data">
-						<input type="file" id="upload" name="test">
-						<button type="button" id="uploadFake">
-						<i class="fas fa-cloud-upload-alt fa-2x" style="color: white"></i>
-						<font>사진 업로드</font>
-						</button>
+						<form id="uploadForm" method="post" action="upload.do"
+							enctype="multipart/form-data">
+							<input type="file" id="upload" name="test">
+							<button type="button" id="uploadFake">
+								<i class="fas fa-cloud-upload-alt fa-2x" style="color: white"></i>
+								<font>사진 업로드</font>
+							</button>
 						</form>
-						
+
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button id="imgLoadBtn" type="button" class="btn btn-default" data-dismiss="modal"
+						data-toggle="modal" data-target="#myModal3">다음으로</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<font>전화번호 인증하기</font>
+					</div>
+					<div>
+						<font>호스트와 게스트가 여행 중 회원님께 연락할</font>
+					</div>
+					<div>
+						<font>수 있도록 하기 위한 절차입니다.</font>
+					</div>
+
+					<div>이미지</div>
+
+					<div class="dropdown">
+						<button id="dLabel" type="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Dropdown trigger <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li>한국
+						</ul>
+					</div>
+					
+					<div>
+					<form method="post" action="phoneCheck.do">
+						<input type="text" placeholder="+82"  name="phone" id="phoneCheck"><br>
+						<button class="btn btn-danger" >전화번호 인증</button>
+					</form>
+					</div>
+					
+					<input type="text" id="test10">
+					<input type="text" id="test11">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						data-toggle="modal" data-target="#myModal3">다음으로</button>
+
 				</div>
 			</div>
 		</div>
