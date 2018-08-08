@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=2" />" rel="stylesheet" />
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
 <style>
    @font-face {
@@ -28,7 +28,7 @@
 	$(window).scroll(function() {
 		
 		if ($(window).scrollTop() <= 900) {
-			$("#fixed").css({"top":"119vh","position":"absolute"});
+			$("#fixed").css({"top":"91vh","position":"absolute"});
 		}else if($(window).scrollTop() == $('#footer').scrollTop(0)){
 			alert("dddd");
 		}else {
