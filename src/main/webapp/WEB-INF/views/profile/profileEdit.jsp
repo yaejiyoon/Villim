@@ -109,11 +109,11 @@ left:100%;
   }
   
   
-  .animated bounce delay-2s msg msg-magick {
-  animation: bounce 3s;
-  -webkit-transition: opacity 2s ease-in-out;
-  -moz-transition: opacity 2s ease-in-out;
-  transition: opacity 2s ease-in-out;
+  .animated bounce delay-10s msg msg-magick {
+  animation: bounce 10s;
+  -webkit-transition: opacity 10s ease-in-out;
+  -moz-transition: opacity 10s ease-in-out;
+  transition: opacity 10s ease-in-out;
 }
   
   
@@ -147,24 +147,28 @@ left:100%;
 		 
 		 /* 정규표현식 */
 		 
-		 $('')
+	         
 		 
-		 
-		if($('#name').val)
 	}); 
+	 
+	 
+	
+	 
+	 
 </script>
 </head>
 <body>
 	<%@ include file="../../resource/include/header.jsp" %>
 	
-
-	<div class="animated bounce delay-2s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>
+<c:if test="${inputSuccess eq 'success'}">
+	<div class="animated bounce delay-10s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>
+	</c:if>
 	<div class="" style="position: relative; left: 250px; top: 56px;">
 		<a style="font-size: 19px; position: relative; top: -24px; left: 0px; color:gray;text-decoration: none;font-weight:bold;">프로필
 			수정</a> <a
 			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;">후기</a>
 		<button id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='/profile/profileShow.jsp'">프로필 보기</button>
+			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
 
 
 	</div>
@@ -286,30 +290,76 @@ left:100%;
 	</div>
 
 
+<!-- 사진 수정  -->
+<script>
+
+$(document).on('click','#imageChangeBt',function(){
+	 console.log("imageChangeBt");
+	 $("#file").click();
+	 
+});
+
+$(document).on('change',"#file",function(){
+	 console.log("file");
+	  var form=$('#photoForm')[0];
+	  var formData=new FormData(form);
+	  
+	  $.ajax({
+		type:"post",
+		enctype:"multipart/form-data",
+		url:"editPhoto.mo",
+		data:formData,
+		processData:false,
+		contentType:false,
+		cache:false,
+		timeout:6000000,
+		success:function(resp){
+			console.log("성공 : "+resp);
+			console.log(resp.getPhoto);
+			
+			var pic=$('#photo');
+			
+			pic.attr('src',"<c:url value='files/"+resp.filename+"'/>");
+			
+			
+			
+		},error:function(resp){
+			console.log("실패");
+		}
+		   
+	  })
+	  
+	  
+})
+
+</script>
+
 
 <div class="panel panel-default"
 		style="width: 50%; position: absolute; left:500px;top:800px">
 		<div class="panel-heading">
 			<h3 class="panel-title">사진 수정</h3>
 		</div>
+		
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" method="post"
-				action="index.php">
-				<img class="avatar"
-			src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTF_erFD1SeUnxEpvFjzBCCDxLvf-wlh9ZuPMqi02qGnyyBtPWdE-3KoH3s"
-			alt="Ash" />
-			
+		<form id="photoForm" class="form-horizontal" method="post"
+				action="editPhoto.mo" enctype="multipart/form-data">
+			<input type="file" id="file" name="file" style="display:none;">
+				<img class="avatar" id="photo"
+			src="<c:url value='files/${photo}'/>" alt="사진을 추가해주세요" />
+			</form>
 
 				<div class="form-group">
 					<div class="col-sm-12 col-sm-offset-2">
-						<button id="imageChangeBt" name="submit" type="submit"
-							class="btn btn-default"
-							style="margin-top: 15px; margin-left: 470px;"><img src="../photo.png" style="width:23px; padding-right: 3px;">새로운 사진 변경</button>
+						<button id="imageChangeBt" 
+							class="btn btn-default" type="button"
+							style="margin-top: 15px; margin-left: 470px;"><img src="<c:url value='/resources/img/photo.png'/>" style="width:23px; padding-right: 5px;">새로운 사진 변경</button>
 					</div>
 				</div>
 
-			</form>
+			
 		</div>
+		
 	</div>
 
 	
