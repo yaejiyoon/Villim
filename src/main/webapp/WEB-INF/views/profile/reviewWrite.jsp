@@ -119,60 +119,18 @@ body {
 
 /* 평점  */
 
-.rating {
-      float:left;
-    }
+ .animated {
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
 
-    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
-      follow these rules. Every browser that supports :checked also supports :not(), so
-      it doesn’t make the test unnecessarily selective */
-    .rating:not(:checked) > input {
-        position:absolute;
-        top:-9999px;
-        clip:rect(0,0,0,0);
-    }
-
-    .rating:not(:checked) > label {
-        float:right;
-        width:1em;
-        /* padding:0 .1em; */
-        overflow:hidden;
-        white-space:nowrap;
-        cursor:pointer;
-        font-size:300%;
-        /* line-height:1.2; */
-        color:#ddd;
-    }
-
-    .rating:not(:checked) > label:before {
-        content: '★ ';
-    }
-
-    .rating > input:checked ~ label {
-        color: dodgerblue;
-        
-    }
-
-    .rating:not(:checked) > label:hover,
-    .rating:not(:checked) > label:hover ~ label {
-        color: dodgerblue;
-        
-    }
-
-    .rating > input:checked + label:hover,
-    .rating > input:checked + label:hover ~ label,
-    .rating > input:checked ~ label:hover,
-    .rating > input:checked ~ label:hover ~ label,
-    .rating > label:hover ~ input:checked ~ label {
-        color: dodgerblue;
-        
-    }
-
-    .rating > label:active {
-        position:relative;
-        top:2px;
-        left:2px;
-    }
+.stars
+{
+    margin: 20px 0;
+    font-size: 24px;
+    color: #d17581;
+}
 
 </style>
 </head>
