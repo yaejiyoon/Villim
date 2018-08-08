@@ -25,6 +25,7 @@ public class HomeDTO {
 	private String home_blocked_date;
 	private int home_price;
 	private String home_currency;
+	private String home_main_pic;
 
 	public HomeDTO() {
 		super();
@@ -34,7 +35,8 @@ public class HomeDTO {
 			String home_bedroom, String home_bed, String home_nation, String home_addr1, String home_addr2,
 			String home_zipcode, String home_lat, String home_lng, String home_amenities, String home_safety,
 			String home_guest_access, String home_rules, String home_details, String home_checkin, int home_min_stay,
-			int home_max_stay, String home_blocked_date, int home_price, String home_currency) {
+			int home_max_stay, String home_blocked_date, int home_price, String home_currency,
+			String home_main_pic) {
 		super();
 		this.home_seq = home_seq;
 		this.home_name = home_name;
@@ -60,6 +62,7 @@ public class HomeDTO {
 		this.home_blocked_date = home_blocked_date;
 		this.home_price = home_price;
 		this.home_currency = home_currency;
+		this.home_main_pic = home_main_pic;
 	}
 
 	public int getHome_seq() {
@@ -254,6 +257,15 @@ public class HomeDTO {
 		this.home_currency = home_currency;
 	}
 
+	public String getHome_main_pic() {
+		return home_main_pic;
+	}
+
+	public void setHome_main_pic(String home_main_pic) {
+		this.home_main_pic = home_main_pic;
+	}
+
 	
 	
+
 }
