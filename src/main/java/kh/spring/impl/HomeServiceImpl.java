@@ -11,11 +11,11 @@ import kh.spring.interfaces.HomeDAO;
 import kh.spring.interfaces.HomeService;
 
 @Component
-public class HomeServiceImpl implements HomeService{
-	
+public class HomeServiceImpl implements HomeService {
+
 	@Autowired
 	private HomeDAO hdao;
-	
+
 	@Override
 	public List<HomeDTO> getAllHomeData() {
 		return hdao.getAllHomeData();
@@ -39,6 +39,16 @@ public class HomeServiceImpl implements HomeService{
 	@Override
 	public List<HomePicDTO> getHomePicData(int seq) {
 		return hdao.getHomePicData(seq);
+	}
+
+	@Override
+	public int addHomeRepresentData(String fileName,int seq) {
+		return hdao.addHomeRepresentData(fileName, seq);
+	}
+
+	@Override
+	public int deleteHomePicData(String fileName) {
+		return hdao.deleteHomePicData(fileName);
 	}
 
 }

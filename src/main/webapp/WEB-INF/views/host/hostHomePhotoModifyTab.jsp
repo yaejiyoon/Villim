@@ -28,87 +28,346 @@ div {
 	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
-	height: 1200px;
+	overflow:hidden;
+	height: auto;
 }
 
 .wrapper-sub {
-	border: 1px dotted black;
+	border: 5px dotted black;
 	width: 70%;
+}
+
+.wrapper-sub-back {
+	margin-top: 30px;
+	font-size: 20px;
+}
+
+.wrapper-sub-title {
+	font-size: 18px;
+	margin-top: 30px;
 }
 
 .pic {
 	margin: 50px auto;
-	width: 80%;
-	height: 300px;
-	border: 1px dotted black;
+	width: 70%;
+	height: 350px;
+	border: 4px dotted #D8D8D8;
 }
 
-.pic-add {
-	margin-top: 50px;
-	width: 30%;
-	height: 230px;
-	border: 1px dotted black;
+.add-mainpic-wrap {
+	width: 20%;
+	height: 20%;
+	margin: 0 auto;
+	position: relative;
+	top: 85px;
 }
 
 .add-img {
-	width: 40%;
-	height: 40%;  
+	max-width: 100%;
+	max-height: 100%;
 }
+
+.main-pic {
+	width: 99.5%;
+	height: 340px;
+}
+
+.pic-list {
+	width: 100%;
+	height: 170px;
+	margin-top: 3px;
+	z-index: 1;
+}
+
+.add-pic-wrap {
+	border: 3px dotted #D8D8D8;
+	display: inline-block;
+	float: left;
+	width: 30%;
+	height: 180px;
+	margin:10px;
+	z-index: 1;
+	
+}
+
+.add-pic {
+	margin: 0 auto;
+	width: 98%;
+	height: 98%;
+}
+
+.add-pic-list {
+	width: 100%;
+	height: 100%;
+}
+
+.add-pic-list-wrap {
+	margin: 0 auto;
+	width: 30%;
+	height: 30%;
+	margin-top: 50px;
+}
+
+.deltab {
+	border: 1px dotted black;
+	width: 100px;
+	position:absolute;
+	z-index: 20;
+}
+
 </style>
+<script>
+</script>
 </head>
 <body>
+<%int cnt=0; %>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div id="wrapper-sub">
-			<div>
+			<div class="wrapper-sub-back">
 				<a onclick="history.back()">${hdto.home_name } 수정으로 돌아가기</a>
 			</div>
-		</div>
-		<div>
-			<p>
-				<b>사진</b>
-			</p>
-			<p>게스트에게 숙소의 실제 모습을 보여주는 사진을 추가하세요.</p>
-			<div class="pic">
-				<c:if test="${hplist eq null }">
-					<form id="photoForm" action="uploadPhoto.do?seq=${hdto.home_seq }"
-						method="post" enctype="multipart/form-data">
-						<input type="file" id="file2" name="file"
-							onchange="photoForm.submit()" style="display: none;">
-							<img id="upimg" class="add-img"
-							src="<c:url value='/resources/img/plus.jpg'/>">
+				<p class="wrapper-sub-title">
+					<b>사진</b>
+				</p>
+				<p>게스트에게 숙소의 실제 모습을 보여주는 사진을 추가하세요.</p>
+				<div id="pic" class="pic">
+
+					<form id="photoForm" action="uploadPhoto.do"
+						enctype="multipart/form-data" method=post>
+						<input type="file" id="file2" name="file" style="display: none;">
+						<input type="hidden" name="seq" value="${hdto.home_seq }">
+
+						<c:choose>
+							<c:when
+								test="${hdto.home_main_pic eq null && hplist.size() == 0 }">
+
+								<div id="add-mainpic-wrap" class="add-mainpic-wrap">
+									<img id="upimg" class="add-img"
+										src="<c:url value='/resources/img/imgadd.png'/>">
+								</div>
+
+							</c:when>
+							<c:otherwise>
+
+								<img class="main-pic"
+									src="<c:url value='files/${hdto.home_main_pic }'/>">
+
+							</c:otherwise>
+						</c:choose>
+
 					</form>
 
+				</div>
+
+				<div class="row" style="border:1px dotted red; margin: auto;">
+				<c:if test="${hplist.size() > 0 }">
+					<c:forEach var="hplist" items="${hplist }">
+						<%cnt++; %>
+						<div class="add-pic-wrap col-md-4">
+							<div class="add-pic<%=cnt%> add-pic-fix">
+								<img class="pic-list separate<%=cnt %>"
+									src="<c:url value='files/${hplist.home_pic_name }'/>">
+							</div>
+<!-- 							<p id="deltab" class="deltab">hi</p> -->
+						</div>
+					
+						<script>
+						$(document).on('click', '.separate<%=cnt%>',function(){
+							$(".add-pic<%=cnt%>").find("img").each(function() {
+								console.log("경로: "+ $(this).attr('src'));
+							})
+						})
+						$('.separate<%=cnt%>').hover(
+							function(){
+								console.log("in");
+								$(this).before("<button id='delbtn<%=cnt%>' class='btn btn-danger' type='button'>삭제</button>");
+								$('#delbtn<%=cnt%>').css('position','absolute');
+								$('#delbtn<%=cnt%>').css('z-index','100');
+								$('.add-pic-fix').css('z-index','1');
+							},function(){
+								console.log("out");
+// 								$("#delbtn").remove();
+							}
+						);
+						$('.add-pic-wrap').hover(
+								function(){
+									console.log("indiv");
+								},function(){
+									console.log("outdiv");
+	 								$("#delbtn<%=cnt%>").remove();
+								}
+							);
+						
+						$(document).on('click', '#delbtn<%=cnt%>',function(){
+							var file;
+							$(".add-pic<%=cnt%>").find("img").each(function() {
+								console.log("경로: "+ $(this).attr('src'));
+								file = $(this).attr('src');
+								console.log("file : " + file);
+								
+								$.ajax({
+									url:"deletePhoto.do",
+									type:"get",
+									data:{
+										file:file
+									},
+									success:function(resp){
+										console.log("삭제성공 : "+resp);
+										location.reload();
+									},
+									error:function(resp){
+										console.log("삭제 실패");
+									}
+								});
+								
+							})
+						})
+						</script>
+					
+					</c:forEach>
 				</c:if>
-			</div>
+
+				<c:if test="${hdto.home_main_pic ne null }">
+					<div id="add-pic-wrap" class="add-pic-wrap col-md-4">
+						<div id="add-pic-list-wrap" class="add-pic-list-wrap">
+							<form id="photoForm2" action="uploadPhoto.do"
+								enctype="multipart/form-data" method=post>
+
+								<input type="file" id="file3" name="file" style="display: none;">
+								<input type="hidden" name="seq" value="${hdto.home_seq }">
+
+								<img id="upimgg" class="add-pic-list"
+									src="<c:url value='/resources/img/imgadd.png'/>">
+							</form>
+						</div>
+					</div>
+				</c:if>
+				</div>
 		</div>
 
-		<c:if test="${hplist ne null }">
-		
-		<c:forEach var = "hplist" items="${hplist }">
-			<div class="pic-add">
-			<img class="add-img" src="<c:url value='files/${hplist.home_pic_name }'/>">
-			</div>	
-		</c:forEach>
-			<div class="pic-add">
-				<form id="photoForm" action="uploadPhoto.do?seq=${hdto.home_seq }"
-					method="post" enctype="multipart/form-data">
-					<input type="file" id="file2" name="file"
-						 style="display: none;"> 
-					<img id="upimg" class="add-img"
-						src="<c:url value='/resources/img/1.jpg'/>">
-						
-<!-- 						onchange="photoForm.submit()" -->
-				</form>
-			</div>
-			
-		</c:if>
 	</div>
 	<script>
+		// Home_pic 추가
+		$(document).ready(function(){
+			
+		$(document).on('click', '#upimgg', function() {
+			console.log("upimgg");
+			$("#file3").click();
+		}); 
+		$(document).on('change','#file3', function() {
+							console.log("file3");
+							var form = $('#photoForm2')[0];
+							var formData = new FormData(form);
+
+							$.ajax({
+										type : "post",
+										enctype : "multipart/form-data",
+										url : "uploadPhoto.do",
+										data : formData,
+										processData : false,
+										contentType : false,
+										cache : false,
+										timeout : 6000000,
+										success : function(resp) {
+											console.log("성공 : " + resp);
+											console.log(resp.hdto.home_main_pic);
+											console.log(resp.filename);
+											var output;
+											var upimgg = $("#upimgg");
+											var addpiclw = $("#add-pic-list-wrap");
+
+									upimgg.attr('src',"<c:url value ='files/"+resp.filename+"'/>");
+									upimgg.removeClass('add-pic-list');
+									upimgg.addClass('pic-list');
+									
+									addpiclw.removeClass('add-pic-list-wrap'); 
+									addpiclw.addClass('add-pic');
+									
+									output += "<div class='add-pic-wrap'>";
+									output += "<div class='add-pic-list-wrap'>";
+									output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
+									output += "<input type='file' id='file3' name='file' style='display:none;'>"
+									output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
+									output += "</form>";
+									output += "</div>";
+									output += "</div>";
+									output += "</div>";
+									
+									location.reload();
+									
+								$("#wrapper-sub").append(output);
+							},
+								error : function(resp) {
+									console.log("실패");
+								}
+							});
+						})
+						
+						
+		//main사진 추가 이벤트
 		$("#upimg").click(function(e) {
-			e.preventDefault();
 			$("#file2").click();
 		});
+
+		$("#file2").change(
+						function(event) {
+							event.preventDefault();
+							var form = $('#photoForm')[0];
+							var formData = new FormData(form);
+
+							$.ajax({
+										type : "post",
+										enctype : "multipart/form-data",
+										url : "uploadPhoto.do",
+										data : formData,
+										processData : false,
+										contentType : false,
+										cache : false,
+										timeout : 6000000,
+										success : function(resp) {
+											console.log("성공 : " + resp);
+											console.log(resp.hdto.home_main_pic);
+											var output;
+											var mainpic = $("#upimg");
+											var wrap = $("#add-mainpic-wrap");
+
+											if (resp.hdto.home_main_pic != null) {
+
+												wrap.removeClass('add-mainpic-wrap');
+												mainpic.attr('src',"<c:url value ='files/"+resp.hdto.home_main_pic+"'/>");
+												mainpic.removeClass('add-img');
+												mainpic.addClass('main-pic');
+
+												// 						output+="<div class='add-pic-wrap'>";
+												// 						output+="<div class='add-pic'>";
+												// 						output+="<img class='pic-list' src='<c:url value='files/"+resp.hdto.home_main_pic+"'/>'/>";
+												// 						output+="</div>";
+												// 						output+="</div>";
+
+												// 						$("#pic").append(output);
+
+												output += "<div class='add-pic-wrap'>";
+												output += "<div id='add-pic-list-wrap' class='add-pic-list-wrap'>";
+												output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
+												output += "<input type='file' id='file3' name='file' style='display:none;'>"
+												output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
+												output += "</form>";
+												output += "</div>";
+												output += "</div>";
+
+												$("#wrapper-sub").append(output);
+												location.reload();
+											}
+
+										},
+										error : function(resp) {
+											console.log("실패");
+										}
+									});
+
+						})
+		})
 	</script>
 	<%@ include file="../../resource/include/footer.jsp"%>
 </body>
