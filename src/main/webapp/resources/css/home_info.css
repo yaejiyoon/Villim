@@ -5,6 +5,13 @@ div {
 	/* border: 1px solid black; */
 }
 
+#scrollNav{
+	position:absolute;
+	width: 100%;
+	height: 7vh;
+	border: 1px solid black;
+}
+
 #info-wrapper {
 	width: 100%;
 	height: 4500px;

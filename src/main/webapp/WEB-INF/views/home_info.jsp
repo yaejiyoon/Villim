@@ -76,6 +76,10 @@
 <body>
    <%@ include file="../resource/include/header.jsp" %>
    
+   <div id="scrollNav">
+   		
+   </div>
+   
    <div id="info-wrapper">
       <div id="info-contents">
          <div id="info-contents-photo">

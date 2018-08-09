@@ -14,7 +14,7 @@ public class MainController {
 	public ModelAndView welcome() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result","result");
-		mav.setViewName("index");
+		mav.setViewName("home_info");
 		System.out.println("ffff");
 		return mav;
 	}
