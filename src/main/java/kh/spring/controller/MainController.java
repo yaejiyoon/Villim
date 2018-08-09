@@ -23,4 +23,5 @@ public class MainController {
 	public String homeMain() {
 		return "home_main";
 	}
+	
 }
