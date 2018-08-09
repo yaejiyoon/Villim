@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
 <style>
    @font-face {
@@ -33,12 +33,43 @@
 			alert("dddd");
 		}else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
-		}
+		}	
+		
 	});
 	
-	$(document).ready(function(){
-		
-	})
+	$(function () {
+
+	    var a = function () {
+	        var b = $(window).scrollTop();
+	        var d = $("#info-main-right").offset().top;
+	        var f = $("#footer").offset().top;
+	        var c = $("#fixed");
+	        var h = $("#fixed").height() + 60; // margin
+
+	        if (b > d) {
+	            var myTop = $(window).scrollTop();
+	            if (myTop > f - h) myTop = f - h;
+	            c.css({
+	                position: "absolute",
+	                top: myTop,
+	                bottom: ""
+	            })
+	        } else {
+	            if (b <= d) {
+	                c.css({
+	                    position: "absolute",
+	                    top: "",
+	                    bottom: ""
+	                })
+	            }
+	        }
+	    };
+	    
+	    $(window).scroll(a);
+	    
+	    
+	    
+	});
 	
 </script>
 </head>

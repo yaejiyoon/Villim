@@ -464,6 +464,7 @@ input.search-query2 {
 #fixed{
 	width:20vw;
 	height:45vh;
+	margin-top:2vh;
 	border: 1px solid #d6d6d6;
 }
 
