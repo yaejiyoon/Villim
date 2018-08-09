@@ -167,9 +167,9 @@ public class MemberController {
 
 }
 	@RequestMapping("phoneCheck.do")
-	public ModelAndView phoneCheck(HttpServletRequest request) {
+	public void phoneCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(request.getParameter("phone"));
+		System.out.println(request.getParameter("phoneNum"));
 		String  pswd = "";
 
         StringBuffer sb1 = new StringBuffer();
@@ -180,7 +180,7 @@ public class MemberController {
 
         pswd = sb1.toString();
 
-     String to = "82"+request.getParameter("phone");
+     String to = "82"+request.getParameter("phoneNum");
      String from="33644643087";
      String message = pswd;  
      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
@@ -199,30 +199,28 @@ public class MemberController {
      int result = con.getResponseCode();
      System.out.println(result);
      
-     mav.addObject("message", message);
-     mav.setViewName("inputAuthNum.do");
+//     request.getSession().setAttribute("authKey3", message);
+     session.setAttribute("authKey", message);
+     session.setMaxInactiveInterval(30);
+     int time = session.getMaxInactiveInterval();
+     
+     
+    
+     System.out.println(session.getAttribute("authKey"));
+    
+    
+     response.setCharacterEncoding("utf8");
+	 response.setContentType("application/json");
+	 new Gson().toJson(time, response.getWriter());
+	 
      con.disconnect();
 
      }catch(Exception e) {
     	 e.printStackTrace();
      }
 //     out.print(message);
+    
+	}
 
-     return mav;
-	}
-	@RequestMapping("inputAuthNum.do")
-	public ModelAndView inputAuthNum(HttpServletRequest request,HttpSession session) {
-		Calendar.getInstance();
-		
-		ModelAndView mav = new ModelAndView();
-		String authKey = request.getAttribute("message").toString();
-		
-		System.out.println(authKey);
-		request.getSession().setAttribute("authKey", authKey);
-		session.setMaxInactiveInterval(30);
-		mav.setViewName("signup");
-		return mav;
-		
-	}
 
 }

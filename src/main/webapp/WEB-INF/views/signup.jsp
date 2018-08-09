@@ -10,13 +10,16 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
 <style>
 #wrapper {
 	width: 100%;
@@ -62,6 +65,7 @@
 					var load = "";
 					var timerID; 
 					var time = 30;
+					var time1 = "";
 
 						$("#yearBtn").click(function() {
 
@@ -199,28 +203,27 @@
 							}
 						})
 						function start_timer(){
-							
-							timerID = setInterval("decrementTime()",1000);
+						
+							timerID = setInterval(decrementTime,1000);
+						
 						}
 						function decrementTime(){
-							
-							var x1 = $("#time1");
-							var x2 = $("#time2");
-							x1.val(toMinSec(time));
-							x2.val(toMinSec(time));
-							
+
 							if(time>0){
+								
 								time--;
+								$("#timer").html(time);
 							}else{
 								clearInterval(timerID);
 								alert("인증번호 유효시간이 지났습니다");
+								return; 
 							}
 						}
 						function toHourMinSec(t){
 							var hour;
 							var min;
 							var sec;
-							
+							alert("toHourMinSec");
 							hour = Math.floor(t/3600);
 							min = Math.floor( (t-(hour*3600)) / 60 );
 							sec = t - (hour*3600) - (min*60);
@@ -233,19 +236,54 @@
 
 						}
 						
-						$("#authBtn").click(function(){
+					 $("#authBtn1").click(function(){ 
+							var phoneNum = $("#phoneCheck").val();
+							$.ajax({
+								url : "phoneCheck.do",
+								type : "post",
+								data : {							
+									phoneNum : phoneNum
+								},
+								success : function(response) {
+
+									
+									time1 = response;
+
+
+								},
+								error : function() {
+									console.log("에러 발생!");
+								}
+
+							});
+
+							$("#myModal3").modal('hide');
+							$('#myModal4').modal('show');
+
+						});
+
+					 	 $("#myModal4").on("shown.bs.modal", function(){
+					 		start_timer();
+					 		decrementTime();
+					 		
+					 	 });
+
+						$("#authBtn2").click(function(){
 							
+							var key = $("#inputAuthNum").val();
+							
+							
+							if(key==session){
+								alert("true");
+							}else{
+								alert("false");
+							}
 							
 						})
 						
-						$('#myModal4').on('shown.bs.modal', function (e) {
-							alert("모달4");
-							start_timer();
-							decrementTime();
-							toHourMinSec(time);
+						 
 						
-						})
-						
+								
 					});
 </script>
 </head>
@@ -514,11 +552,15 @@
 					</div>
 					
 					<div>
-					<form method="post" action="phoneCheck.do">
+					<!-- <form method="post" action="phoneCheck.do"> -->
 						<input type="text" placeholder="+82"  name="phone" id="phoneCheck"><br>
-						<button class="btn btn-danger" data-dismiss="modal"
-						data-toggle="modal" data-target="#myModal4">전화번호 인증</button>
-					</form>
+						<button class="btn btn-danger" id="authBtn1"
+						>
+				<!-- 		data-dismiss="modal" data-toggle="modal" data-target="#myModal4" -->
+						
+						전화번호 인증
+						</button>
+					<!-- </form> -->
 					</div>
 					
 					<input type="text" id="test10">
@@ -552,17 +594,16 @@
 						<div id="timer"></div>
 					</div>
 
-					<div>이미지</div>
+					<div id="time5"></div>
 
 					<div>
 					
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
-						<button class="btn btn-danger" id="authBtn">입력</button>
+						<button class="btn btn-danger" id="authBtn2">입력</button>
 					
 					</div>
 					
-					<input type="text" id="test10">
-					<input type="text" id="test11">
+					
 					<input type="text" id="time1">
 					<input type="text" id="time2">
 					
