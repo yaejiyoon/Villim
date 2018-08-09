@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.YearMonth;
-import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +22,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import kh.spring.dto.MemberDTO;
+import kh.spring.interfaces.MemberService;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
 	MemberDTO dto;
+	
+	@Autowired
+	MemberService service;
 	
 	@RequestMapping("year.do")
 	@ResponseBody
@@ -221,6 +224,42 @@ public class MemberController {
 //     out.print(message);
     
 	}
+	@RequestMapping("isAuthKey.do")
+	public ModelAndView isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		String sessionKey = session.getAttribute("authKey").toString();
+		String authNum = request.getParameter("authNum");
+		if(sessionKey.equals(authNum)) {
+		
+		System.out.println("이메일" + dto.getMember_email());
+		System.out.println("이름" + dto.getMember_name());
+		System.out.println("생일" + dto.getMember_birth());
+		System.out.println("프로필" + dto.getMember_picture());
+		System.out.println("핸드폰" + dto.getMember_phone());
+		
 
+		int result = service.signup(dto);
+		
+		if(result > 0) {
+			System.out.println("회원가입 성공");
+			mav.setViewName("redirect:");
+			return mav;
+		}else {
+			System.out.println("회원가입 실패");
+			mav.setViewName("회원싶패 페이지");
+			return mav;
+		}
+		
+		}
+		else {
+			System.out.println("인증번호 맞지 않는다");
+			mav.setViewName("회원싶패 페이지");
+			return mav;
+		}
+		
+		
+	}
 
 }

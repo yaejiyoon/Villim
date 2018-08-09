@@ -246,9 +246,16 @@
 								},
 								success : function(response) {
 
-									
 									time1 = response;
-
+									$("#memberEmail").val('${accountEmail}');
+									$("#memberNm").val('${firstName}' + '${secondName}');
+									$("#memberBirth").val($("#yearInput").val()+$("#monthInput").val()+$("#dayInput").val());
+									$("#memberPicture").val(load);
+									$("#memberPhone").val(phoneNum);
+									
+									
+									alert(load);
+									alert(phoneNum);
 
 								},
 								error : function() {
@@ -265,7 +272,6 @@
 					 	 $("#myModal4").on("shown.bs.modal", function(){
 					 		start_timer();
 					 		decrementTime();
-					 		
 					 	 });
 
 						$("#authBtn2").click(function(){
@@ -597,10 +603,16 @@
 					<div id="time5"></div>
 
 					<div>
-					
+						<form action="isAuthKey.do" method="post">
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
+						<input type="hidden" id="memberEmail" name="member_email">
+						<input type="hidden" id="memberNm" name="member_name">
+						<input type="hidden" id="memberBirth" name="member_birth">
+						<input type="hidden" id="memberPicture" name="member_picture">
+						<input type="hidden" id="memberPhone" name="member_phone">
 						<button class="btn btn-danger" id="authBtn2">입력</button>
-					
+						<button class="btn btn-success" type=button id="reSend">재발급</button>
+						</form>
 					</div>
 					
 					

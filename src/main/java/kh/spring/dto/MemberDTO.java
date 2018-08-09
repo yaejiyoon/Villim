@@ -5,7 +5,6 @@ public class MemberDTO {
 	private int member_seq;
 	private String member_email;
 	private String member_name;
-	
 	private String member_pw;
 	private String member_birth;
 	private String memeber_gender;
