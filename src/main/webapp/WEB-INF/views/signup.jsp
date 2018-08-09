@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,6 +60,9 @@
 			.ready(
 					function() {
 					var load = "";
+					var timerID; 
+					var time = 30;
+
 						$("#yearBtn").click(function() {
 
 							$.ajax({
@@ -193,6 +197,53 @@
 							$("#test10").val(load);
 							$("#test11").val($("#dayInput").val());
 							}
+						})
+						function start_timer(){
+							
+							timerID = setInterval("decrementTime()",1000);
+						}
+						function decrementTime(){
+							
+							var x1 = $("#time1");
+							var x2 = $("#time2");
+							x1.val(toMinSec(time));
+							x2.val(toMinSec(time));
+							
+							if(time>0){
+								time--;
+							}else{
+								clearInterval(timerID);
+								alert("인증번호 유효시간이 지났습니다");
+							}
+						}
+						function toHourMinSec(t){
+							var hour;
+							var min;
+							var sec;
+							
+							hour = Math.floor(t/3600);
+							min = Math.floor( (t-(hour*3600)) / 60 );
+							sec = t - (hour*3600) - (min*60);
+							
+							if(hour < 10) hour = "0" + hour;
+							if(min < 10) min = "0" + min;
+							if(sec < 10) sec = "0" + sec;
+							
+							return (hour + ":" + min + ":" +sec);
+
+						}
+						
+						$("#authBtn").click(function(){
+							
+							
+						})
+						
+						$('#myModal4').on('shown.bs.modal', function (e) {
+							alert("모달4");
+							start_timer();
+							decrementTime();
+							toHourMinSec(time);
+						
 						})
 						
 					});
@@ -465,7 +516,8 @@
 					<div>
 					<form method="post" action="phoneCheck.do">
 						<input type="text" placeholder="+82"  name="phone" id="phoneCheck"><br>
-						<button class="btn btn-danger" >전화번호 인증</button>
+						<button class="btn btn-danger" data-dismiss="modal"
+						data-toggle="modal" data-target="#myModal4">전화번호 인증</button>
 					</form>
 					</div>
 					
@@ -473,8 +525,50 @@
 					<input type="text" id="test11">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						data-toggle="modal" data-target="#myModal3">다음으로</button>
+					
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<font>인증번호를 입력하세요</font>
+					</div>
+					<div>
+						<font>3분안에 입력해야합니다.</font>
+						<div id="timer"></div>
+					</div>
+
+					<div>이미지</div>
+
+					<div>
+					
+						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
+						<button class="btn btn-danger" id="authBtn">입력</button>
+					
+					</div>
+					
+					<input type="text" id="test10">
+					<input type="text" id="test11">
+					<input type="text" id="time1">
+					<input type="text" id="time2">
+					
+				</div>
+				<div class="modal-footer">
+					
 
 				</div>
 			</div>

@@ -4,10 +4,12 @@ import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.YearMonth;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,96 +167,61 @@ public class MemberController {
 
 }
 	@RequestMapping("phoneCheck.do")
-	public void phoneCheck(HttpServletRequest request) {
+	public ModelAndView phoneCheck(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
 		System.out.println(request.getParameter("phone"));
 		String  pswd = "";
 
         StringBuffer sb1 = new StringBuffer();
-
-        
-
         for( int i = 0; i<5; i++) {
 
-
-
             sb1.append((char)((Math.random() * 10)+48)); 
-
         }
-
-
 
         pswd = sb1.toString();
 
-
-
      String to = "82"+request.getParameter("phone");
-
      String from="33644643087";
-
      String message = pswd;  
-
      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
 
-
-
      StringBuilder sb = new StringBuilder();
-
-
-
      sb.append(sendUrl);
-
-
-
      sb.append("&to="+to);
-
-
-
      sb.append("&from="+from);
-
-
-
      sb.append("&text="+message);
-
-
-
-     
-
-
 
      System.out.println(sb.toString());
 
-
      try {
      URL url = new URL(sb.toString());
-
-
-
      HttpURLConnection con = (HttpURLConnection)url.openConnection();
      int result = con.getResponseCode();
      System.out.println(result);
-
-
-
+     
+     mav.addObject("message", message);
+     mav.setViewName("inputAuthNum.do");
      con.disconnect();
 
-    
      }catch(Exception e) {
     	 e.printStackTrace();
      }
-
-
-   
-
-
-
 //     out.print(message);
 
-     
-
-     return;
-
-
-
+     return mav;
+	}
+	@RequestMapping("inputAuthNum.do")
+	public ModelAndView inputAuthNum(HttpServletRequest request,HttpSession session) {
+		Calendar.getInstance();
+		
+		ModelAndView mav = new ModelAndView();
+		String authKey = request.getAttribute("message").toString();
+		
+		System.out.println(authKey);
+		request.getSession().setAttribute("authKey", authKey);
+		session.setMaxInactiveInterval(30);
+		mav.setViewName("signup");
+		return mav;
 		
 	}
 
