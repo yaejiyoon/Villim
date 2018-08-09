@@ -17,7 +17,7 @@
 	</select>
 	
 	<select id="getHomePicData" parameterType="int" resultType="HomePic">
-		select * from home_pic where home_seq = #{seq}
+		select * from home_pic where home_seq = #{seq} order by home_pic_seq desc
 	</select>
 </mapper>
 
