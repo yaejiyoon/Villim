@@ -6,9 +6,16 @@ div {
 }
 
 #scrollNav{
-	position:absolute;
+	position:fixed;
 	width: 100%;
 	height: 7vh;
+	border: 1px solid black;
+}
+
+#scrollNav-contents{
+	width:60vw;
+	height:100%;
+	margin: 0 auto;
 	border: 1px solid black;
 }
 

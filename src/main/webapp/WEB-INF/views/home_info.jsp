@@ -29,11 +29,9 @@
 		
 		if ($(window).scrollTop() <= 900) {
 			$("#fixed").css({"top":"91vh","position":"absolute"});
-		}else if($(window).scrollTop() == $('#footer').scrollTop(0)){
-			alert("dddd");
 		}else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
-		}	
+		}
 		
 	});
 	
@@ -77,7 +75,9 @@
    <%@ include file="../resource/include/header.jsp" %>
    
    <div id="scrollNav">
-   		
+   		<div id="scrollNav-contents">
+   			
+   		</div>
    </div>
    
    <div id="info-wrapper">
