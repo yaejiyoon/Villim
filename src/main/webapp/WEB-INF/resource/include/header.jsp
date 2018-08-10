@@ -21,7 +21,7 @@
 		});
 		
 		$("#toindex").click(function(){
-			$(location).attr("href","index.do");
+			$(location).attr("href","/");
 		});
 		
 		$("#tohome_info").click(function(){
