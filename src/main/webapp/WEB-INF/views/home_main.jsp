@@ -12,6 +12,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
+
 <script>
 $(function () {
     var a = function () {
@@ -43,7 +46,6 @@ $(function () {
 });
 </script>
 <script>
-
 var map, infoWindow;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -82,67 +84,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 </script>
-</head>
-
-
-<style>
-.onoffswitch {
-	float: right;
-	margin : 15px 100px 13px 0px;
-    position: relative; width: 90px;
-    -webkit-user-select:none; 
-    -moz-user-select:none; -ms-user-select: none;
-}
-.onoffswitch-checkbox {
-    display: none;
-}
-.onoffswitch-label {
-    display: block; overflow: hidden; cursor: pointer;
-    border: 2px solid #999999; border-radius: 20px;
-}
-.onoffswitch-inner {
-    display: block; width: 200%; margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-    font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-    box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-    content: "MAP";
-    padding-left: 18px;
-    background-color: #34A7C1; color: #FFFFFF;
-}
-.onoffswitch-inner:after {
-    content: "MAP";
-    padding-right: 18px;
-    background-color: #EEEEEE; color: #999999;
-    text-align: right;
-}
-.onoffswitch-switch {
-    display: block; 
-    width: 20px; 
-    HEIGHT : 20PX;
-    margin: 7px;
-    background: #FFFFFF;
-    position: absolute; 
-    top: 0; 
-    bottom: 0;
-    right: 56px;
-    border: 2px solid #999999; 
-    border-radius: 20px;
-    transition: all 0.3s ease-in 0s; 
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px; 
-}
-</style>
 <script>
-
 $(document).ready(function(){
 	  $('body').delegate('#myonoffswitch','click',function(){
 	        var chkval = 0
@@ -167,21 +109,15 @@ $(document).ready(function(){
 					off.style.display = 'none';
 	    	   } else if(chkval==2) {
 					$("#money").text(chkval);
-					on.style.display = 'none';
+					on.style.display = 
+						'none';
 					off.style.display = 'block';    
-					
-					
 	    	   }
-				
-	
 	       },error:function(errordata){
 				alert("에러에러");
-	
 	       }
 	     });
-	
 	   });  
-
 });
 </script>
 <style>
@@ -243,6 +179,8 @@ $(document).ready(function(){
  	}
  	
  	#contentsWrapper {
+ 		font-family: Interpark;
+		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
  		width : 100%;
  		height : 3000px;
  	}
@@ -296,18 +234,46 @@ $(document).ready(function(){
      	margin-left : 15vw;
      	width : 70vw;
      	height : 20vw;
-     	border : 1px solid black;
      	display: inline-block;
      }
      
      #offTitlePic img{
      	width : 100%;
      	height : 100%;
+     	border-radius: 20px;
      }
      
+     #offContentsWrapper {
+     	border : 1px solid black;
+     	margin-top : 20px;
+     	margin-left : 15vw;
+     	width : 70vw;
+     	height : 30vw;
+     	display: inline-block;
+     }
+     
+     #offContentsTitle {
+     	border : 1px solid black;
+     	margin-top : 20px;
+     	margin-left : 15vw;
+     	width : 70vw;
+     	height : 5vw;
+     	display: inline-block;
+     }
+     
+	.row {
+		box-sizing : border-box;
+		margin : auto;
+		height : 50%;		
+	} 
+     
+     .col-md-3 {
+     	border : 1px dotted pink;
+     	height : 100%;
+     }
 
 </style>
-
+</head>
     
 <body>
 	<div id=fixedHeader>
@@ -337,7 +303,21 @@ $(document).ready(function(){
 		</div>
 		<div id="mapOffDiv">
 			<div id="offTitlePic"><img src="<c:url value='/resources/img/homeTitle2.jpg'/>"></div>
-		
+			<div id="offContentsTitle">300여 개의 숙소</div>
+			<div id="offContentsWrapper">
+				<div class="row">
+				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">.col-md-3</div>
+				</div>
+				<div class="row">
+				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">.col-md-3</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	
