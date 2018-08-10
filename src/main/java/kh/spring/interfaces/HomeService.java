@@ -15,4 +15,8 @@ public interface HomeService {
 	public int addHomePicData(HomePicDTO dto);
 	
 	public List<HomePicDTO> getHomePicData(int seq);
+	
+	public int addHomeRepresentData(String fileName, int seq);
+	
+	public int deleteHomePicData(String fileName);
 }

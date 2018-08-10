@@ -26,6 +26,7 @@ public class HomeDTO {
 	private String home_blocked_date;
 	private int home_price;
 	private String home_currency;
+	private String home_main_pic;
 
 	public HomeDTO() {
 		super();
@@ -62,6 +63,7 @@ public class HomeDTO {
 		this.home_blocked_date = home_blocked_date;
 		this.home_price = home_price;
 		this.home_currency = home_currency;
+		this.home_main_pic = home_main_pic;
 	}
 
 	public String getMember_email() {
@@ -262,6 +264,14 @@ public class HomeDTO {
 
 	public void setHome_currency(String home_currency) {
 		this.home_currency = home_currency;
+	}
+
+	public String getHome_main_pic() {
+		return home_main_pic;
+	}
+
+	public void setHome_main_pic(String home_main_pic) {
+		this.home_main_pic = home_main_pic;
 	}
 
 	
