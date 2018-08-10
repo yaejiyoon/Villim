@@ -28,9 +28,14 @@
 	$(window).scroll(function() {
 		
 		if ($(window).scrollTop() <= 900) {
+			
 			$("#fixed").css({"top":"91vh","position":"absolute"});
+			
 		}else {
+			
 			$("#fixed").css({"top":"1vh","position":"fixed"});
+			$("#scrollNav").css({"top":"0vh","position":"fixed"});
+			
 		}
 		
 	});
@@ -64,8 +69,6 @@
 	    };
 	    
 	    $(window).scroll(a);
-	    
-	    
 	    
 	});
 	

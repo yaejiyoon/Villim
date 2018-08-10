@@ -18,7 +18,7 @@
 			  ) {
 			    $('.toggle > input').prop('checked', false);
 			  }
-			})
+		})
 	})
 </script>
 
