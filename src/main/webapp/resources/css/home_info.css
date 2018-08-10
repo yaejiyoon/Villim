@@ -5,6 +5,20 @@ div {
 	/* border: 1px solid black; */
 }
 
+#scrollNav{
+	display:none;
+	width: 100%;
+	height: 7vh;
+	border: 1px solid black;
+}
+
+#scrollNav-contents{
+	width: 60vw;
+	height:100%;
+	margin: 0 auto;
+	border: 1px solid black;
+}
+
 #info-wrapper {
 	width: 100%;
 	height: 4500px;
@@ -70,7 +84,7 @@ div {
 
 #info-contents-main {
 	margin: 0 auto;
-	width: 50vw;
+	width: 60vw;
 	height: 82%;
 }
 
@@ -84,7 +98,6 @@ div {
 	float: left;
 	width: 40%;
 	height: 100%;
-	padding-left: 7vh;
 }
 
 #info-main01 {
@@ -464,6 +477,8 @@ input.search-query2 {
 #fixed{
 	width:20vw;
 	height:45vh;
+	margin-left: 3vw;
+	margin-top:20vh;
 	border: 1px solid #d6d6d6;
 }
 

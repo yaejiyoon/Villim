@@ -154,4 +154,21 @@ public class MemberController {
 		}
 	}
 
+	@RequestMapping("/profileReview.mo")
+	   public String review() {
+	      System.out.println("profileReview.mo");
+	      return "/profile/profileReview";
+	   }
+	   
+	   @RequestMapping("/reviewWrite.mo")
+	   public String reviewView() {
+	      System.out.println("reviewWrite.mo");
+	      return "/profile/reviewWrite";
+	   }
+	
+	
+	
+	
+	
+	
 }
