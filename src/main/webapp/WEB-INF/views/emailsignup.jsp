@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Villim 회원가입</title>
+<title>이메일로 회원가입</title>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -17,8 +18,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+	
 
 <style>
 #wrapper {
@@ -247,12 +247,13 @@
 								success : function(response) {
 
 									time1 = response;
-									$("#memberEmail").val('${accountEmail}');
-									$("#memberNm").val('${firstName}' + '${secondName}');
+									$("#memberEmail").val($("#accountEm").val());
+									$("#memberNm").val($("#firstNm").val() + $("#secondNm").val());
 									$("#memberBirth").val($("#yearInput").val()+$("#monthInput").val()+$("#dayInput").val());
 									$("#memberPicture").val(load);
 									$("#memberPhone").val(phoneNum);
-									$("#memberPw").val('${googlePw}');
+									$("#memberPw").val($("#pw").val());
+									
 									
 									alert(load);
 									alert(phoneNum);
@@ -273,23 +274,16 @@
 					 		start_timer();
 					 		decrementTime();
 					 	 });
+					 	 
+					 	 
+					 	function newwin() { 
+					 		 
+					 		
+					 		/* window.close(); */
 
-						$("#authBtn2").click(function(){
-							
-							var key = $("#inputAuthNum").val();
-							
-							
-							if(key==session){
-								alert("true");
-							}else{
-								alert("false");
-							}
-							
-						})
-						
-						 
-						
-								
+					 		} 
+					 		
+						 		
 					});
 </script>
 </head>
@@ -304,18 +298,24 @@
 		<div id="middle">
 			<div class="input-group">
 				<input type="text" name="secondName" class="form-control"
-					placeholder="Recipient's username" aria-describedby="basic-addon2"
-					value="${secondName}">
+					placeholder="이름을 입력하세요" aria-describedby="basic-addon2"
+					value=""  id="secondNm">
 			</div>
 			<div class="input-group">
 				<input type="text" name="firstName" class="form-control"
-					placeholder="Recipient's username" aria-describedby="basic-addon2"
-					value="${firstName}">
+					placeholder="성을 입력하세요" aria-describedby="basic-addon2"
+					value="" id="firstNm">
 			</div>
 			<div class="input-group">
 				<input type="text" name="accountEmail" class="form-control"
-					placeholder="Recipient's username" aria-describedby="basic-addon2"
-					value="${accountEmail}">
+					placeholder="이메일을 입력하세요" aria-describedby="basic-addon2"
+					value="" id="accountEm">
+			</div>
+			<br>
+			<div class="input-group">
+				<input type="password" name="password" class="form-control"
+					placeholder="비밀번호를 입력하세요." aria-describedby="basic-addon2"
+					value="" id="pw">
 			</div>
 			<br>
 		</div>
@@ -603,7 +603,7 @@
 					<div id="time5"></div>
 
 					<div>
-						<form action="isAuthKey.do" method="post">
+						<form  action="isAuthKey.do" method="post" onsubmit="newwin()">
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
 						<input type="hidden" id="memberEmail" name="member_email">
 						<input type="hidden" id="memberPw" name="member_pw">

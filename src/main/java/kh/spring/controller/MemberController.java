@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.YearMonth;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -225,7 +226,7 @@ public class MemberController {
     
 	}
 	@RequestMapping("isAuthKey.do")
-	public ModelAndView isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
+	public String isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -244,22 +245,48 @@ public class MemberController {
 		
 		if(result > 0) {
 			System.out.println("회원가입 성공");
-			mav.setViewName("redirect:");
-			return mav;
+			
+//			mav.setViewName("successsignup");
+			return "redirect:successsignup.do";
+											
 		}else {
 			System.out.println("회원가입 실패");
 			mav.setViewName("회원싶패 페이지");
-			return mav;
+			return "";
 		}
 		
 		}
 		else {
 			System.out.println("인증번호 맞지 않는다");
 			mav.setViewName("회원싶패 페이지");
-			return mav;
+			return "";
 		}
 		
 		
 	}
-
+	//--- just email 
+	@RequestMapping("controllerEmail.do")
+	public String signupEmail(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		return "emailsignup";
+		
+	}
+	@RequestMapping("successsignup.do")
+	public String successsignup() {
+		return "successsignup";
+	}
+	
+	@RequestMapping("login.do")
+	public void login(MemberDTO dto) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		boolean result = service.isMember(dto);
+		
+		
+		System.out.println("로그인");
+		
+	}
 }

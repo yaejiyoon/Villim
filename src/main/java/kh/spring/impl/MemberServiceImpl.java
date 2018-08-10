@@ -1,5 +1,7 @@
 package kh.spring.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,18 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int signup(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return dao.signup(dto);
+	
+	}
+
+	@Override
+	public boolean isMember(MemberDTO dto) {
+		
+		
+		return dao.isMember(dto);
+		
+		
 	}
 
 }

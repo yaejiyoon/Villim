@@ -45,7 +45,7 @@ public class MainController {
 		System.out.println(":" + url);
 		mav.addObject("google_url", url);
 		//---
-		
+		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
 		mav.setViewName("index");
 		System.out.println("ffff");
@@ -82,6 +82,7 @@ public class MainController {
 		  Person profile = plusOperations.getGoogleProfile();
 		  System.out.println(4);
 		  mav.addObject("accountEmail", profile.getAccountEmail());
+		  mav.addObject("googlePw", profile.getId());
 		  mav.addObject("firstName", profile.getFamilyName());
 		  mav.addObject("secondName", profile.getGivenName());
 		  mav.addObject("picture", profile.getImageUrl());
