@@ -18,14 +18,22 @@
 			  ) {
 			    $('.toggle > input').prop('checked', false);
 			  }
-			})
+		});
+		
+		$("#toindex").click(function(){
+			$(location).attr("href","index.do");
+		});
+		
+		$("#tohome_info").click(function(){
+			$(location).attr("href","home_info.do");
+		});
 	})
 </script>
 
 
     <div id="header">
       <div id="header-logo">
-         <img src="<c:url value='/resources/img/logo2.png'/>">
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
       <div id="header-search" class="form-search form-inline">
          <img src="<c:url value='/resources/img/search.png'/>">
@@ -38,7 +46,7 @@
                		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
                			<span data-hover="숙소추가">숙소추가</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="home_info.do" id="tohome_info">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
