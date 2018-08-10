@@ -279,14 +279,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.do")
-	public void login(MemberDTO dto) {
+	public ModelAndView login(MemberDTO dto, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		boolean result = service.isMember(dto);
 		
-		
-		System.out.println("로그인");
-		
+		if(result) {
+			System.out.println("로그인성공");
+			session.setAttribute("login_email", dto.getMember_email());
+			mav.setViewName("index");
+			return mav;
+		}else {
+			System.out.println("로그인 실패");
+			return mav;
+		}
+
 	}
 }

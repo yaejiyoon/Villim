@@ -26,9 +26,13 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public boolean isMember(MemberDTO dto) {
-		String sql = "select * from member where member_email=? and member_pw=?";
-		template.query(psc, rse)
+		String sql = "select count(*) from member where member_email=? and member_pw=?";
+		boolean result = false;
+		int count = template.queryForObject(sql, new Object[] {dto.getMember_email(), dto.getMember_pw()}, Integer.class);
+		if(count >0) {
 		return true;
+		}
+		return result;
 	}
 
 }
