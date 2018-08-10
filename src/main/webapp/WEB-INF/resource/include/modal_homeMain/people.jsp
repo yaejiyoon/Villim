@@ -46,9 +46,6 @@ $(document).ready(function() {
    		background-color: #f2edee;
 	}
 	
-	div {
-		font-family: dx;
-	}
 	
 	#peopleup, #peopledis {
 		background-color: #2196F3; 
@@ -59,8 +56,29 @@ $(document).ready(function() {
 		font-size: 300;
 	}
 	
+	#peopleSubmit {
+		background-color: white; 
+		color : #2196F3;
+		border : 1px solid #2196F3;
+		font-family: dx;
+	}
+	
+	#peopleSubmit:hover {
+		background-color: #2196F3; 
+		color : white;
+		outline:0;
+	}
+	
 	
 </style>
+
+<script>
+	$(document).ready(function() {
+		$("#peopleSubmit").click(function() {
+			alert($("#pcount").text().toString());
+		});
+	});
+</script>
 
       <div class="modal fade" id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="peopleDialog">
@@ -78,7 +96,7 @@ $(document).ready(function() {
                		<button id="peopledis" class="btn btn-primary-outline">-</button>
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="submit">적용하기</button> 
+                   <button class="btn btn-primary-outline" id="peopleSubmit">적용하기</button> 
                </div>
             </div>
          </div>

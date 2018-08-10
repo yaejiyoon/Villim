@@ -49,14 +49,14 @@ padding: .7em;
 	text-align: center;
 	color: #333;
 	position:relative;
-	left:-70px;
+	left:-500px;
 }
 
 #profile {
 	position: relative;
-	top: 60px;
-	left: 500px; width : 700px;
-	height: 500px;
+	top: 0px;
+	left: 450px; width : 700px;
+	height: 550px;
 	background: #fff;
 	width: 700px; height : 500px; background : #fff;
 	border-radius: 5px;
@@ -70,14 +70,14 @@ padding: .7em;
 	font-size: 3.53em;
 	font-family: "Coda", sans-serif;
 	font-weight: bold;
-	color: #658585
+	color: #658585;
 }
 
 .user-profile  .bio {
 	margin: 10px;
 	display: inline-block;
 	margin-left: 10.43em;
-	color: #e76043;
+	color: #658585;
 	font-size: 1.0em;
 	font-family: "varela round", sans-serif;
 	position: relative;
@@ -91,7 +91,7 @@ padding: .7em;
 	margin-right: 4.43em;
 	width: 500px;
 	height:auto;
-	color: #c0c5c5;
+	color: #658585;
 	font-size: 1.8em;
 	font-family: "varela round", sans-serif;
 	position: relative;
@@ -115,7 +115,7 @@ padding: .7em;
 	top: -180px;
 	margin: 2em auto;
 	width: 500px; height : 3.70em;
-	background: #4eb6b6;
+	background: #ff5b5b;
 	text-align: center;
 	border-radius: 0 0 .3em .3em;
 	height: 3.70em;
@@ -178,9 +178,18 @@ max-width:400px;
 <body>
 <%@ include file="../../resource/include/header.jsp" %>
 
+<div class=container style="width:100%;height:1150px;">
+	<!-- <h1 class="title-pen">User Profile</h1> -->
+	<div class="" style="position: relative; left: 250px; top: 56px;">
+		<a href="profileEditView.mo" style="font-size: 19px; position: relative; top: -24px; left: 5px; color:gray;text-decoration: none;">프로필
+			수정</a> <a href="profileReview.mo"
+			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
+		<!-- <button id="profileShowBt" class="btn btn-default"
+			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button> -->
 
-	<h1 class="title-pen">User Profile</h1>
-   <a style="position:relative;left:1000px;top:-10px;color:#aaa8e0" href="profileEditView.mo" >프로필 수정</a>	
+
+	</div>
+  <!--  <a style="position:relative;left:1000px;top:-10px;color:#aaa8e0" href="profileEditView.mo" >프로필 수정</a>	 -->
 	<div class="user-profile" id="profile">
 		<img class="avatar img-responsive"  id="photo"
 			src="files/${result.member_picture}"  />
@@ -221,9 +230,9 @@ max-width:400px;
 </c:otherwise>
 	</c:choose>	
 	</div>
+</div>
 
-
-<%-- <%@ include file="../../resource/include/footer.jsp" %> --%>
+ <%@ include file="../../resource/include/footer.jsp" %> 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
