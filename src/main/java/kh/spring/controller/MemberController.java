@@ -24,6 +24,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -34,7 +35,7 @@ public class MemberController {
 
 	@RequestMapping("/printProfile.mo")
 	public ModelAndView printProfile(HttpSession session) {
-		session.setAttribute("userId", "plmn855000@gmail.com");
+		session.setAttribute("userId", "jake@gmail.com");
 		String userId = (String) session.getAttribute("userId");
 
 		System.out.println("printProfile 들어온 사람 : " + userId);
@@ -65,7 +66,7 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-		session.setAttribute("userId", "plmn855000@gmail.com");
+		session.setAttribute("userId", "jake@gmail.com");
 		String userId = (String) session.getAttribute("userId");
 		System.out.println("들어온 사람 : " + userId);
 		MemberDTO result = this.service.printProfile(userId);
@@ -155,18 +156,66 @@ public class MemberController {
 	}
 
 	@RequestMapping("/profileReview.mo")
-	   public String review() {
-	      System.out.println("profileReview.mo");
-	      return "/profile/profileReview";
+	   public ModelAndView review(HttpSession session) {
+		session.setAttribute("userId", "jake@gmail.com");
+		String userId = (String) session.getAttribute("userId");
+	    List<ReservationDTO> result=this.service.getInfo(userId);
+	    
+	   int home_seq=0;
+	    for(ReservationDTO tmp:result) {
+	    	 System.out.println("home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 체크인 : "+tmp.getReserv_checkin()+"체크아웃 : "+tmp.getReserv_checkout());
+	    	home_seq=tmp.getHome_seq();
+	    	
+	    	
+	    }
+	    
+	    System.out.println("home_seq제발 나와라 "+home_seq);
+	    HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
+	      System.out.println("home_포토 이름 : "+getHomePhoto.getHome_pic_name());
+	      ModelAndView mav = new ModelAndView();
+	      mav.addObject("result", result);
+	      mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
+	      mav.setViewName("/profile/profileReview");
+	      return mav;
 	   }
 	   
 	   @RequestMapping("/reviewWrite.mo")
-	   public String reviewView() {
+	   public ModelAndView reviewView(int home_seq,String checkin,String checkout,String home_pic_name,String home_name) {
 	      System.out.println("reviewWrite.mo");
-	      return "/profile/reviewWrite";
+	      System.out.println(home_seq+" / "+checkin+" / "+checkout+" / "+home_pic_name+" / "+home_name);
+	      
+	      HomeDTO member_emailResult=this.service.getMemberEmail(home_seq);
+	      
+	      MemberDTO memberInfoResult=this.service.printProfile(member_emailResult.getMember_email());
+	      memberInfoResult.getMember_name();
+	      memberInfoResult.getMember_picture();
+	      ModelAndView mav = new ModelAndView();
+	      String year1=checkin.split("-")[0];
+	      String month1=checkin.split("-")[1];
+	      String day1=checkin.split("-")[2];
+	      String year2=checkout.split("-")[0];
+	      String month2=checkout.split("-")[1];
+	      String day2=checkout.split("-")[2];
+	      
+	      checkin=year1+"년 "+month1+"월 "+day1+"일 ";
+	      checkout=year2+"년 "+month2+"월 "+day2+"일 ";
+	      mav.addObject("home_seq", home_seq);
+	      mav.addObject("checkin", checkin);
+	      mav.addObject("checkout", checkout);
+	      mav.addObject("home_pic_name", home_pic_name);
+	      mav.addObject("home_name", home_name);
+	      mav.addObject("member_name", memberInfoResult.getMember_name());
+	      mav.addObject("member_picture",  memberInfoResult.getMember_picture());
+	      mav.setViewName("/profile/reviewWrite");
+	      return mav;
+	     
 	   }
 	
-	
+	@RequestMapping("/guestReviewWrite.mo")
+	public ModelAndView guestReviewInput() {
+		return null;
+		
+	}
 	
 	
 	
