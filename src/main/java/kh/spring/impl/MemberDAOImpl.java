@@ -11,6 +11,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MemberDAO;
 
 @Component
@@ -58,6 +59,27 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<ProfileHomePicDTO> getHouse(String userId) {
 		return template.selectList("Member.getHouse", userId);
 	}
+
+
+	@Override
+	public List<ReservationDTO> getInfo(String userId) {
+		return template.selectList("Member.getReviewInfo",userId);
+	}
+
+
+	@Override
+	public HomePicDTO getHomePhoto(int home_seq) {
+		return template.selectOne("Member.getHomePhoto",home_seq);
+	}
+
+
+	@Override
+	public HomeDTO getMemberEmail(int home_seq) {
+		return template.selectOne("Member.getMemberEmail",home_seq);
+	}
+
+
+	
 
 
 

@@ -9,6 +9,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MemberDAO;
 import kh.spring.interfaces.MemberService;
 
@@ -54,6 +55,26 @@ public class MemberServiceImpl implements MemberService{
 	public List<ProfileHomePicDTO> getHouse(String userId) {
 		return dao.getHouse(userId);
 	}
+
+
+	@Override
+	public List<ReservationDTO> getInfo(String userId) {
+		return dao.getInfo(userId);
+	}
+
+
+	@Override
+	public HomePicDTO getHomePhoto(int home_seq) {
+		return dao.getHomePhoto(home_seq);
+	}
+
+
+	@Override
+	public HomeDTO getMemberEmail(int home_seq) {
+		return dao.getMemberEmail(home_seq);
+	}
+
+
 
 
 	

@@ -6,6 +6,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
+import kh.spring.dto.ReservationDTO;
 
 public interface MemberDAO {
 	public MemberDTO printProfile(String userId);
@@ -19,6 +20,12 @@ public interface MemberDAO {
     public int countHouse(String userId);
     
     public List<ProfileHomePicDTO> getHouse(String userId);
+    
+    public List<ReservationDTO> getInfo(String userId);
+    
+    public HomePicDTO getHomePhoto(int home_seq);
+    
+    public HomeDTO getMemberEmail(int home_seq);
     
    
 }
