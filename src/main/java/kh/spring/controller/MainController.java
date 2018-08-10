@@ -29,6 +29,11 @@ public class MainController {
 		return "index";
 	}
 	
+	@RequestMapping("/home_info.do")
+	public String tohomeinfo() {
+		return "home_info";
+	}
+	
 	
 }
 
