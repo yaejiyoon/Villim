@@ -27,8 +27,12 @@
 <script>
 	$(window).scroll(function() {
 		
-		if ($(window).scrollTop() <= 900) {
-			$("#fixed").css({"top":"91vh","position":"absolute"});
+		if ($(window).scrollTop() >= 700) {
+			$("#scrollNav").css({"display":"inline","top":"0vh","position":"fixed"});
+		}else if($(window).scrollTop() <= 900){
+			$("#scrollNav").css({"display":"none"});
+			$("#fixed").css({"margin-top":"2vh","top":"91vh","position":"absolute"});
+			
 		}else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
 		}
@@ -65,8 +69,6 @@
 	    
 	    $(window).scroll(a);
 	    
-	    
-	    
 	});
 	
 </script>
@@ -75,10 +77,25 @@
    <%@ include file="../resource/include/header.jsp" %>
    
    <div id="scrollNav">
-   		<div id="scrollNav-contents">
-   			
-   		</div>
-   </div>
+		<div id="scrollNav-contents">
+			<div>
+				<nav id="navbar-example2" class="navbar navbar-light bg-light">
+					<ul class="nav nav-pills">
+						<li class="nav-item"><a class="nav-link" href="#fat">정보</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">후기</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">호스트</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">위치</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div>
+				
+			</div>
+		</div>
+	</div>
+   
+   
+   
    
    <div id="info-wrapper">
       <div id="info-contents">
