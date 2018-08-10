@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,21 +33,30 @@
 	font-family: 'entypo', sans-serif;
 }
 
-
+.avatar{
+padding: .7em;
+	position: relative;
+	left: 230px;
+	top: 10px; 
+	height : 20.23em;
+	width: 20.23em;
+	border-radius: 18em;
+	height: 20.23em;
+}
 .title-pen {
 	margin-top: 30px; color : #333;
 	font-family: "Coda", sans-serif;
 	text-align: center;
 	color: #333;
 	position:relative;
-	left:-70px;
+	left:-500px;
 }
 
 #profile {
 	position: relative;
-	top: 60px;
-	left: 500px; width : 700px;
-	height: 500px;
+	top: 0px;
+	left: 450px; width : 700px;
+	height: 550px;
 	background: #fff;
 	width: 700px; height : 500px; background : #fff;
 	border-radius: 5px;
@@ -60,14 +70,14 @@
 	font-size: 3.53em;
 	font-family: "Coda", sans-serif;
 	font-weight: bold;
-	color: #658585
+	color: #658585;
 }
 
 .user-profile  .bio {
 	margin: 10px;
 	display: inline-block;
 	margin-left: 10.43em;
-	color: #e76043;
+	color: #658585;
 	font-size: 1.0em;
 	font-family: "varela round", sans-serif;
 	position: relative;
@@ -81,7 +91,7 @@
 	margin-right: 4.43em;
 	width: 500px;
 	height:auto;
-	color: #c0c5c5;
+	color: #658585;
 	font-size: 1.8em;
 	font-family: "varela round", sans-serif;
 	position: relative;
@@ -105,7 +115,7 @@
 	top: -180px;
 	margin: 2em auto;
 	width: 500px; height : 3.70em;
-	background: #4eb6b6;
+	background: #ff5b5b;
 	text-align: center;
 	border-radius: 0 0 .3em .3em;
 	height: 3.70em;
@@ -166,118 +176,63 @@ max-width:400px;
 <title>Profile</title>
 </head>
 <body>
-	<!-- ---------------------------------Navbar------------------------------------------------ -->
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
+<%@ include file="../../resource/include/header.jsp" %>
 
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Sample</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">Link</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
-							<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Link</a></li>
-							<li class="dropdown-submenu"><a tabindex="-1" href="#">Second
-									Level Menu ! <i class="fa fa-chevron-right"></i>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a tabindex="-1" href="#">Link 1</a></li>
-									<li><a href="#">Lik 2</a></li>
-									<li><a href="#">Link 3</a></li>
-								</ul></li>
-							<li><a href="#">Link</a></li>
-							<li><a href="#">Link</a></li>
-						</ul></li>
-					<!-- .dropdown -->
-				</ul>
-				<!-- .nav .navbar-nav -->
-			</div>
-			<!-- /.navbar-collapse -->
-
-		</div>
-		<!-- /.container-fluid -->
-	</nav>
-	<!-------------------------------------------------Navbar--------------------------------------------------------- -->
+<div class=container style="width:100%;height:1150px;">
+	<!-- <h1 class="title-pen">User Profile</h1> -->
+	<div class="" style="position: relative; left: 250px; top: 56px;">
+		<a href="profileEditView.mo" style="font-size: 19px; position: relative; top: -24px; left: 5px; color:gray;text-decoration: none;">프로필
+			수정</a> <a href="profileReview.mo"
+			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
+		<!-- <button id="profileShowBt" class="btn btn-default"
+			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button> -->
 
 
-	<h1 class="title-pen">User Profile</h1>
-   <a style="position:relative;left:1000px;top:-10px;color:#aaa8e0" href="profileEdit.jsp" ">프로필 수정</a>	
+	</div>
+  <!--  <a style="position:relative;left:1000px;top:-10px;color:#aaa8e0" href="profileEditView.mo" >프로필 수정</a>	 -->
 	<div class="user-profile" id="profile">
-		<img class="avatar"
-			src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTF_erFD1SeUnxEpvFjzBCCDxLvf-wlh9ZuPMqi02qGnyyBtPWdE-3KoH3s"
-			alt="Ash" />
+		<img class="avatar img-responsive"  id="photo"
+			src="files/${result.member_picture}"  />
       
-		<div class="username">Will Smith <span>님!</span></div>
-		<div class="bio">지역 : 한국,서울</div>
+		<div class="username">${result.member_name} <span>님!</span></div>
+		<div class="bio">지역 : ${result.member_location}</div>
 		<br>
-		<div class="bio">회원가입 : 2017.08</div>
+		<div class="bio">회원가입 : ${result.member_signup_date}</div>
 		<br>
-		<div class="bio">이메일 : plmn855000@gmail.com</div>
+		<div class="bio">이메일 : ${result.member_email}</div>
 		<br>
-		<div class="bio">전화번호 : 010-6402-6090</div>
-		<div class="description">Hi I'm will smith who like traveling.
-			want to enjoy through Villim! i know what i want to talk about 제가 진짜 한국 좋아해요 ㅋㅋㅋㅋ 아쏴바리 </div>
+		<div class="bio">전화번호 : ${result.member_phone}</div>
+		<div class="description">${result.member_introduction}</div>
 		<ul class="data">
 			<li><span id="span"> 숙소</span> <span class="entypo-home">
-					1</span></li>   <!-- 숙소 가지고 있는 count 가져오기 -->
+					${count}</span></li>   <!-- 숙소 가지고 있는 count 가져오기 -->
 		</ul>
+		
+		<c:choose>
+		<c:when test="${count>0}">
 		<div id="showHouseContainer" class=container>
+		<c:forEach  var="house" items="${houseResult}">
 	<div class="gallery_product col-lg-6 col-md-8 col-sm-8 col-xs-8 filter hdpe" style="margin-top:12px;">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
+                <img src="files/${house.home_pic_name}" class="img-responsive" style="object-fit: contain;">
                 
                 <div class="carousel-caption" id="textOverImage">
-              <p>United Kingdom- London Apartment</p>
+              <p>${house.home_name}</p>
             </div>
             </div>
-            
-            
-            <div class="gallery_product col-lg-6 col-md-8 col-sm-8 col-xs-8 filter hdpe" style="margin-top:12px;">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-                <div class="carousel-caption" id="textOverImage">
-              <p>세종시 새뜸마을 아파트 에서 함께 놀자~!!!!!</p>
-            </div>
-            </div>
-            
-            <div class="gallery_product col-lg-6 col-md-4 col-sm-4 col-xs-6 filter hdpe" style="margin-top:12px;">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-                <div class="carousel-caption" id="textOverImage">
-              <p>아무말 왈왈왈왈아라 그래요 우리집에서 노세요 우리집 공짜로 선착순 3명 컴온 베이비비비비비~!</p>
-            </div>
-            </div>
-            
-            <div class="gallery_product col-lg-6 col-md-4 col-sm-4 col-xs-6 filter hdpe" style="margin-top:12px;">
-                <img src="http://fakeimg.pl/365x365/" class="img-responsive">
-                 <div class="carousel-caption" id="textOverImage">
-              <p>런던에서 하룻밤</p>
-            </div>
-            </div>
-            
-            
-            
-            
+           </c:forEach> 
+        
 		</div>
-
-		
+</c:when>
+<c:otherwise>
+<div id="showHouseContainer" class="bio" style="position:relative;left:90px;top:-180px;font-weight:bold;">
+숙소를 추가하세요!<button class="btn btn-default" style="position:relative;left:15px;">숙소 추가하기</button>
+</div>
+</c:otherwise>
+	</c:choose>	
 	</div>
+</div>
 
-
-
+ <%@ include file="../../resource/include/footer.jsp" %> 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>

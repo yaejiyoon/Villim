@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,226 +21,534 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>후기</title>
-<style>
-body {
-	background: #e9e9e9;
-	color: #9a9a9a;
-	margin: 0;
-}
-
-.card {
-	padding-top: 20px;
-	margin: 10px 0 20px 0;
-	background-color: #ffffff;
-	border: 1px solid #d8d8d8;
-	border-top-width: 0;
-	border-bottom-width: 2px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-.card.hovercard {
-	position: relative;
-	width: 300px;
-	padding-top: 0;
-	overflow: hidden;
-	text-align: center;
-	background-color: #fff;
-}
-
-.card.hovercard img {
-	width: 300px;
-	height: 200px;
-}
-
-.card.hovercard .avatar {
-	position: relative;
-	top: -40px;
-	margin-bottom: -40px;
-}
-
-.card.hovercard .avatar img {
-	width: 80px;
-	height: 80px;
-	max-width: 80px;
-	max-height: 80px;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-}
-
-.card.hovercard .info {
-	padding: 4px 8px 10px;
-}
-
-.card.hovercard .info .title {
-	margin-bottom: 4px;
-	font-size: 24px;
-	line-height: 1;
-	color: #262626;
-	vertical-align: middle;
-}
-
-.card.hovercard .info .desc {
-	overflow: hidden;
-	font-size: 12px;
-	line-height: 20px;
-	color: #737373;
-	text-overflow: ellipsis;
-}
-
-.card.hovercard .bottom {
-	padding: 0 20px;
-	margin-bottom: 17px;
-}
-
-.card.people .card-bottom {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	display: inline-block;
-	width: 100%;
-	padding: 10px 20px;
-	line-height: 29px;
-	text-align: center;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
 
 
-/* 평점  */
+<link rel= "stylesheet" type="text/css" href="/resources/css/member/reviewWrite.css">
 
-.rating {
-      float:left;
-    }
+<script>
+$(document).ready(
+	    function() {
+	    	
+	    	
+	        $(':radio[name=satisfaction]').change(
+	            function() {
 
-    /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
-      follow these rules. Every browser that supports :checked also supports :not(), so
-      it doesn’t make the test unnecessarily selective */
-    .rating:not(:checked) > input {
-        position:absolute;
-        top:-9999px;
-        clip:rect(0,0,0,0);
-    }
+	                alert($(':radio[name="satisfaction"]:checked').val())
 
-    .rating:not(:checked) > label {
-        float:right;
-        width:1em;
-        /* padding:0 .1em; */
-        overflow:hidden;
-        white-space:nowrap;
-        cursor:pointer;
-        font-size:300%;
-        /* line-height:1.2; */
-        color:#ddd;
-    }
 
-    .rating:not(:checked) > label:before {
-        content: '★ ';
-    }
+	            })
 
-    .rating > input:checked ~ label {
-        color: dodgerblue;
-        
-    }
+	        $(':radio[name=accuracy]').change(
+	            function() {
 
-    .rating:not(:checked) > label:hover,
-    .rating:not(:checked) > label:hover ~ label {
-        color: dodgerblue;
-        
-    }
+	                alert($(':radio[name="accuracy"]:checked').val())
 
-    .rating > input:checked + label:hover,
-    .rating > input:checked + label:hover ~ label,
-    .rating > input:checked ~ label:hover,
-    .rating > input:checked ~ label:hover ~ label,
-    .rating > label:hover ~ input:checked ~ label {
-        color: dodgerblue;
-        
-    }
+	            })
 
-    .rating > label:active {
-        position:relative;
-        top:2px;
-        left:2px;
-    }
 
-</style>
+	        $(':radio[name=cleanliness]').change(
+	            function() {
+
+	                alert($(':radio[name="cleanliness"]:checked').val())
+
+	            })
+
+	        $(':radio[name=checkIn]').change(
+	            function() {
+
+	                alert($(':radio[name="checkIn"]:checked').val())
+
+	            })
+	        $(':radio[name=amenities]').change(
+	            function() {
+
+	                alert($(':radio[name="amenities"]:checked').val())
+
+	            })
+            
+	            
+	             $(':radio[name=communication]').change(
+	    	    	            function() {
+
+	    	    	                alert($(':radio[name="communication"]:checked').val())
+
+	    	    	            })
+	            
+	             $(':radio[name=location]').change(
+	            function() {
+
+	                alert($(':radio[name="location"]:checked').val())
+
+	            })
+	            
+	            $(':radio[name=value]').change(
+	    	            function() {
+
+	    	                alert($(':radio[name="value"]:checked').val())
+
+	    	            })
+	    	            
+	    	          $(':radio[name=repurchase]:checked').change(function () {
+	    	            	
+	    	        	console.log(  $('input[name=repurchase]:checked').val());
+	    	            	  alert(  $('input[name=repurchase]:checked').val());
+	    	            	 });        
+	    	           
+	       /*  $('.list-group-item').on('mouseover', function(event) {
+	    		event.preventDefault();
+	    		$(this).closest('li').addClass('open');
+	    	});
+	          $('.list-group-item').on('mouseout', function(event) {
+	        	event.preventDefault();
+	    		$(this).closest('li').removeClass('open');
+	    	}); */
+	          
+	       $('#yesBt').click(function(){
+	        	alert($(this).attr('value'));
+	        })
+	        
+	         $('#noBt').click(function(){
+	        	alert($(this).attr('value'));
+	        }) 
+	        
+	       
+	        $('#openReview').keyup(function (e){
+	            var content = $(this).val();
+	            $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+	            $('#counter').html(content.length + '/500');
+	        });
+	        $('#openReview').keyup(); 
+	        
+	        
+
+	    })
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    </script>
 </head>
 <body>
+	<%@ include file="../../resource/include/header.jsp"%>
 
-	<h3 style="color: #595c63; position: relative; left: 180px; top: 10px;">평점
-		및 후기</h3>
+	<div id="wrapper" style="height: 2500px; margin: 10px auto">
+		<h3
+			style="color: #595c63; position: relative; left: 180px; top: 10px;">평점
+			및 후기</h3>
 
 
-	<div class="container"
-		style="position: relative; left: -290px; top: 20px;">
-		<div class="card hovercard">
-			<img src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
-				alt="" />
-			<div class="avatar"></div>
-			<div class="info" style="height: 130px;">
-				<img src="http://placehold.it/80X80/333333/&text=Head" alt=""
-					style="position: relative; left: -95px; top: 53px; height: 50px; width: 50px;" />
-				<div class="title"
-					style="font-size: 15px; position: relative; left: 18px; top: 10px;">
-					새뜸마을 아파트 5성급</div>
-				<div class="desc"
-					style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트:James
-					Bro</div>
-				<div class="desc" style="position: relative; left: 33px;">2017년
-					9월30일~ 2017년 10월2일</div>
-			</div>
+		<div class="container"
+			style="position: relative; left: -290px; top: 20px;">
+			<div class="card hovercard">
+				<img src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+					alt="" />
+				<div class="avatar"></div>
+				<div class="info" style="height: 130px;">
+					<img src="http://placehold.it/80X80/333333/&text=Head" alt=""
+						style="position: relative; left: -95px; top: 53px; height: 50px; width: 50px;" />
+					<div class="title"
+						style="font-size: 15px; position: relative; left: 18px; top: 10px;">
+						새뜸마을 아파트 5성급</div>
+					<div class="desc"
+						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트:James
+						Bro</div>
+					<div class="desc" style="position: relative; left: 33px;">2017년
+						9월30일~ 2017년 10월2일</div>
+				</div>
 
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8" style="position:relative;left:180px;top:-360px;">
-				<h3 style="font-weight:bold;">James Bro님에 대한 후기를 쓰세요</h3>
-				<h5>14일동안 후기를 작성하실수 있습니다. 회원님이 후기를 작성하셔야 호스트도 회원님의 피드백을 읽을 수
-					있습니다. 후기 작성 기간이 종료되면, 회원님의 피드백이 공개됩니다.</h5>
-				<h5>호스트는 카테고리별 평점은 보지 못하고 전체 평균 별점만 알 수 있습니다.</h5>
 			</div>
 		</div>
-	</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8"
+					style="position: relative; left: 180px; top: -360px;">
+					<h3 style="font-weight: bold;">James Bro님에 대한 후기를 쓰세요</h3>
+					<h5>14일동안 후기를 작성하실수 있습니다. 회원님이 후기를 작성하셔야 호스트도 회원님의 피드백을 읽을 수
+						있습니다. 후기 작성 기간이 종료되면, 회원님의 피드백이 공개됩니다.</h5>
+					<h5>호스트는 카테고리별 평점은 보지 못하고 전체 평균 별점만 알 수 있습니다.</h5>
+				</div>
+			</div>
+		</div>
 
 
-<div class="container" style=" position:relative;left:180px;top:-300px;">
+		<div class="container"
+			style="position: relative; left: 180px; top: -300px;">
+			<div class="row">
+
+				<div class="col-sm-5">
+					<h3 style="font-weight: bold; position: relative; top: -30px;">숙박이
+						어떠셨나요?</h3>
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">전체적 만족도</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
+					</div>
+
+<!-- satisfaction -->
+<section id="satisfaction" class="rating">
+  <!-- FIFTH HEART -->
+  <input type="radio" id="heart_5" name="satisfaction" value="5" />
+  <label for="heart_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="heart_4" name="satisfaction" value="4" />
+  <label for="heart_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="heart_3" name="satisfaction" value="3" />
+  <label for="heart_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="heart_2" name="satisfaction" value="2" />
+  <label for="heart_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="heart_1" name="satisfaction" value="1" />
+  <label for="heart_1" title="One">&#10084;</label>
+</section>
+
+
+				</div>
+
+			</div>
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+			<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">정확성</h3>
+						<h5 >숙소 사진과 설명이 실제 숙소와 얼마나 일치하나요?</h5>
+					</div>
+
+<!-- accuracy -->
+
+<section id="accuracy" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="accuracy_5" name="accuracy" value="5" />
+  <label for="accuracy_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="accuracy_4" name="accuracy" value="4" />
+  <label for="accuracy_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="accuracy_3" name="accuracy" value="3" />
+  <label for="accuracy_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="accuracy_2" name="accuracy" value="2" />
+  <label for="accuracy_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="accuracy_1" name="accuracy" value="1" />
+  <label for="accuracy_1" title="One">&#10084;</label>
+</section>
+
+
+				</div>
+
+			</div>
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+			<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">청결도</h3>
+						<h5 >숙소는 회원님이 예상한 것만큼 깨끗했나요?</h5>
+					</div>
+
+<!-- cleanliness -->
+
+<section id="cleanliness" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="cleanliness_5" name="cleanliness" value="5" />
+  <label for="cleanliness_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="cleanliness_4" name="cleanliness" value="4" />
+  <label for="cleanliness_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="cleanliness_3" name="cleanliness" value="3" />
+  <label for="cleanliness_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="cleanliness_2" name="cleanliness" value="2" />
+  <label for="cleanliness_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="cleanliness_1" name="cleanliness" value="1" />
+  <label for="cleanliness_1" title="One">&#10084;</label>
+</section>
+
+
+				</div>
+
+			</div>
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+
+			<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">체크인</h3>
+						<h5 >호스트는 회원님의 원활한 체크인 절차를 위해 최선을 다했나요?</h5>
+					</div>
+
+<!-- checkIn -->
+
+<section id="checkIn" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="checkIn_5" name="checkIn" value="5" />
+  <label for="checkIn_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="checkIn_4" name="checkIn" value="4" />
+  <label for="checkIn_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="checkIn_3" name="checkIn" value="3" />
+  <label for="checkIn_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="checkIn_2" name="checkIn" value="2" />
+  <label for="checkIn_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="checkIn_1" name="checkIn" value="1" />
+  <label for="checkIn_1" title="One">&#10084;</label>
+</section>
+
+
+				</div>
+
+			</div>
+
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+			<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">편의시설</h3>
+						<h5 >호스트가 숙소 설명에 약속된 모든 것들을 제공하였나요?</h5>
+					</div>
+
+<!-- amenities -->
+
+<section id="amenities" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="amenities_5" name="amenities" value="5" />
+  <label for="amenities_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="amenities_4" name="amenities" value="4" />
+  <label for="amenities_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="amenities_3" name="amenities" value="3" />
+  <label for="amenities_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="amenities_2" name="amenities" value="2" />
+  <label for="amenities_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="amenities_1" name="amenities" value="1" />
+  <label for="amenities_1" title="One">&#10084;</label>
+</section>
+
+				</div>
+
+			</div>
+
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+
+			<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">커뮤니케이션</h3>
+						<h5 >숙박시간 전,혹은 도중에 호스트와 연락이 잘 되고,</h5>
+						<h5 >문의한 사항에 대하여 호스트가 빨리 응답해 왔습니까?</h5>
+					</div>
+
+<!-- amenities -->
+
+<section id="communication" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="communication_5" name="communication" value="5" />
+  <label for="communication_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="communication_4" name="communication" value="4" />
+  <label for="communication_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="communication_3" name="communication" value="3" />
+  <label for="communication_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="communication_2" name="communication" value="2" />
+  <label for="communication_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="communication_1" name="communication" value="1" />
+  <label for="communication_1" title="One">&#10084;</label>
+</section>
+
+				</div>
+
+			</div>
+
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+	<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">위치</h3>
+						<h5 >숙소 지역은 만족하셨나요? 안정성과 편리성을 고려해 주세요</h5>
+					</div>
+
+<!-- amenities -->
+
+<section id="location" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="location_5" name="location" value="5" />
+  <label for="location_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="location_4" name="location" value="4" />
+  <label for="location_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="location_3" name="location" value="3" />
+  <label for="location_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="location_2" name="location" value="2" />
+  <label for="location_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="location_1" name="location" value="1" />
+  <label for="location_1" title="One">&#10084;</label>
+</section>
+
+				</div>
+
+			</div>
+
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+	<div class="row">
+
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">가치</h3>
+						<h5 >이 숙소를 평가하자면?</h5>
+					</div>
+
+<!-- value -->
+
+<section id="value" class="rating" >
+  <!-- FIFTH HEART -->
+  <input type="radio" id="value_5" name="value" value="5" />
+  <label for="value_5" title="Five">&#10084;</label>
+  <!-- FOURTH HEART -->
+  <input type="radio" id="value_4" name="value" value="4" />
+  <label for="value_4" title="Four">&#10084;</label>
+  <!-- THIRD HEART -->
+  <input type="radio" id="value_3" name="value" value="3" />
+  <label for="value_3" title="Three">&#10084;</label>
+  <!-- SECOND HEART -->
+  <input type="radio" id="value_2" name="value" value="2" />
+  <label for="value_2" title="Two">&#10084;</label>
+  <!-- FIRST HEART -->
+  <input type="radio" id="value_1" name="value" value="1" />
+  <label for="value_1" title="One">&#10084;</label>
+</section>
+
+				</div>
+
+			</div>
+
+<hr style="position:relative;color:gray;left:-290px;width:600px;">
+
+
+
 <div class="row">
 
-<div class="col-sm-5">
-<h3 style="font-weight:bold; position:relative;top:-30px;">숙박이 어떠셨나요?</h3>
-<div style="position:relative;top:15px; font-weight:bold;"><h3 style="display: inline!important;">전체적 만족도 </h3><h5 style="display: inline!important;">(필수항목)</h5></div>
+				<div class="col-sm-5">
+					
+					<div style="position: relative; top: 15px; font-weight: bold;">
+						<h3 style="display: inline !important;">이 숙소를 다시 이용하고 싶으신가요?</h3>
+						<h5 >답변은 회원님의 프로필 또는 호스트의 숙소 페이지에 공개되지 않습니다.</h5>
+					</div>
+  <div data-toggle="buttons" style="position:relative;left:20px;top:20px;width:100px;">
+          <label for="yesBt" class="btn btn-default btn-circle btn-lg" style="position:relative;top:20px;left:70px;"><input type="radio" name="repurchase" id="yesBt" value="yes"><i class="glyphicon glyphicon-thumbs-up" ></i>&nbsp;예!</label>
+          <label for="noBt" class="btn btn-default btn-circle btn-lg" style="position:relative;top:-30px;left:230px;"><input type="radio" name="repurchase" id="noBt" value="no" ><i class="	glyphicon glyphicon-thumbs-down"></i>&nbsp;아니요</label>
+          
+        </div> 
+<!-- <button class="btn default" name="repurchase" id="yesBt"><span class="glyphicon glyphicon-thumbs-up default"></span>예!</button>
+        <button class="btn default" name="repurchase" id="noBt"><span class="glyphicon glyphicon-thumbs-down default"></span>아니오</button> -->
+        
 
- <div class="stars starrr" data-rating="0"></div>
-                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;"></a>
+				</div>
 
-</div>
+			</div>
+			
+			<hr style="position:relative;color:gray;left:-290px;width:600px;">
+			
+	<div class="row">
+
+				<div class="col-sm-5">
+					
+					
+						<h3 style="display: inline !important;">공개 후기</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
+						<h5>회원님의 후기는 회원님의 프로필과 회원님의 호스트 숙소 페이지에 전체 공개 됩니다.</h5>
+						<div class="col-sm-18" style="height:auto;">
+						<textarea class="form-control"   id="openReview" name="openReview"
+							style="resize: vertical;margin-top:10px;height:200px;max-height: 80px;min-height: 200px;line-height:1.6em;max-height: 400px;" maxlength='500' ></textarea>
+							<span id="counter">###</span>
+					</div>
+					
+						
+							</div>
+
+			</div>
+								
+	<div class="row" style="margin-top:10px;">
+
+				<div class="col-sm-5">
+					
+						<h3 style="margin-bottom:10px;">호스트 비공개 피드백</h3>
+						<h5>이 피드백은 비공개이며,해당 호스트와 빌림 직원 및 서비스 제공자만 볼 수 있습니다</h5>
+						<div class="col-sm-18" style="height:auto;">
+						<textarea class="form-control"  name="unopenReview"
+							style="resize: vertical;margin-top:15px;height:200px;min-height: 200px;line-height:1.6em;max-height: 380px;" maxlength='500'></textarea>
+					</div>
+				
 
 
-</div>
+				</div>
 
-
-</div>
-
-
+			</div>
 
 
 
 
 
+
+
+
+		</div>
+	</div>
+
+
+
+
+
+	<%@ include file="../../resource/include/footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>

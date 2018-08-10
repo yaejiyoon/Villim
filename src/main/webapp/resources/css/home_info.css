@@ -18,7 +18,7 @@ div {
 
 #info-contents-photo {
 	width: 100%;
-	height: 18%;
+	height: 80vh;
 	overflow: hidden;
 	text-align: center;
 }
@@ -32,9 +32,9 @@ div {
 	position: absolute;
 	background-color: white;
 	width: 90px;
-	top:800px;
-	left:40px;
-	/* transform: translate(40%, -220%); */
+	top:80vh;
+	left:60px;
+	/* transform: translate(-1000%, -220%); */
 	box-shadow: 1px 1px 1px #d6d6d6;
 }
 
@@ -70,7 +70,7 @@ div {
 
 #info-contents-main {
 	margin: 0 auto;
-	width: 65%;
+	width: 50vw;
 	height: 82%;
 }
 
@@ -78,13 +78,13 @@ div {
 	float: left;
 	width: 60%;
 	height: 100%;
-	padding-right: 20px;
 }
 
 #info-main-right {
 	float: left;
 	width: 40%;
 	height: 100%;
+	padding-left: 7vh;
 }
 
 #info-main01 {
@@ -244,6 +244,7 @@ div {
 	width:100%;
 	height:35%;
 	border-bottom:  1px solid #d6d6d6;
+	position: relative;
 }
 
 .main05-star{
@@ -253,18 +254,21 @@ div {
 
 
 #main05-top-sub01 input{
-	position: absolute;
-	top:2427px;
-	left:650px;
+	/* position: absolute;
+	top:2380px;
+	left:800px; */
+	margin-left: 5.5vw;
 	display: inline;
-	width:24vh;
+	width:11vw;
 }
 
 #reviewSearch{
 	width:15px;
 	position: absolute;
 	z-index:1000;
-	transform: translate(1080%, 90%);
+	top: 3.5vh;
+	right: 10.8vw;
+	/* transform: translate(1080%, 90%); */
 }
 
 input.search-query2 {
@@ -458,8 +462,8 @@ input.search-query2 {
 }
 
 #fixed{
-	width:52vh;
-	height:50vh;
+	width:20vw;
+	height:45vh;
 	border: 1px solid #d6d6d6;
 }
 

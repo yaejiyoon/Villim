@@ -45,6 +45,18 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomePicDTO> getHomePicData(int seq) {
 		return ssTemplate.selectList("HomePic.getHomePicData", seq);
 	}
+
+	@Override
+	public int addHomeRepresentData(String fileName, int seq) {
+		String sql = "update home set home_main_pic = ? where home_seq = ?";
+		return jdbcTemplate.update(sql, fileName, seq); 
+	}
+
+	@Override
+	public int deleteHomePicData(String fileName) {
+		String sql = "delete home_pic where home_pic_name = ?";
+		return jdbcTemplate.update(sql, fileName);
+	}
 	
 	
 

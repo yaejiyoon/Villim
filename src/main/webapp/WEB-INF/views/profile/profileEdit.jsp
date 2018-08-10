@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,10 +22,12 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+<!-- animated -->
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <title>마이페이지</title>
 <style>
-.dropdown-submenu {
+/* .dropdown-submenu {
 	position: relative;
 }
 
@@ -51,7 +53,7 @@
 .dropdown-submenu.pull-left>.dropdown-menu {
 	left: -100%;
 	margin-left: 10px;
-}
+} */
 .avatar{
 padding: .7em;
 	position: relative;
@@ -68,58 +70,137 @@ position:relative;
 top:-40px;
 left:-120px;
 }
+
+.msg {
+    background: #fefefe;
+    color: #666666;
+    font-weight: bold;
+    font-size: small;
+    padding: 12px;
+    padding-left: 16px;
+    border-top: solid 3px #CCCCCC;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 10px 10px -5px rgba(0,0,0,.08);
+       -moz-box-shadow: 0 10px 10px -5px rgba(0,0,0,.08);
+            box-shadow: 0 10px 10px -5px rgba(0,0,0,.08);
+}
+.msg-clear {
+    border-color: #fefefe;
+    -webkit-box-shadow: 0 7px 10px -5px rgba(0,0,0,.15);
+       -moz-box-shadow: 0 7px 10px -5px rgba(0,0,0,.15);
+            box-shadow: 0 7px 10px -5px rgba(0,0,0,.15);
+}
+
+.msg-magick {
+    border-color: #e0b8f2;
+}
+
+.msg-magick-text {
+    color: #bb39d7;
+}
+@keyframes bounce{
+100% {
+left:100%;
+    overflow: hidden;
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+  }
+  
+  
+  .animated bounce delay-10s msg msg-magick {
+  animation: bounce 10s;
+  -webkit-transition: opacity 10s ease-in-out;
+  -moz-transition: opacity 10s ease-in-out;
+  transition: opacity 10s ease-in-out;
+}
+  
+  
+  
+}
 </style>
 
 
 
 <script>
-	$(document).ready(function() {
 
-		// For the Second level Dropdown menu, highlight the parent	
-		$(".dropdown-menu").mouseenter(function() {
-			$(this).parent('li').addClass('active');
-		}).mouseleave(function() {
-			$(this).parent('li').removeClass('active');
-		});
 
-	});
+	 $(document).ready(function() {
+
+		 
+		 /* 성별 DB값 가져오기 */
+		 var gender="${result.member_gender}";
+		 
+		 $('option[value='+gender+']').attr('selected','selected');
+		 
+		 /* 생년월일 split */
+		 var birthdate="${result.member_birth}";   
+		 var year=birthdate.split('년')[0];
+		 var month=birthdate.split('월')[0].split('년')[1];
+		 var date=birthdate.split('일')[0].split('월')[1];
+		
+		 $('#year').val(year); 
+		 $('#month').val(month);  
+		 $('#day').val(date);
+		 
+		 
+		 /* 정규표현식 */
+		 
+	         
+		 
+	}); 
+	 
+	 
+	
+	 
+	 
 </script>
 </head>
 <body>
 	<%@ include file="../../resource/include/header.jsp" %>
 	
+<c:if test="${inputSuccess eq 'success'}">
+	<div class="animated bounce delay-10s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>
+	</c:if>
+	
+	
+	
 	<div class="" style="position: relative; left: 250px; top: 56px;">
 		<a style="font-size: 19px; position: relative; top: -24px; left: 0px; color:gray;text-decoration: none;font-weight:bold;">프로필
-			수정</a> <a
-			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;">후기</a>
+			수정</a> <a href="profileReview.mo"
+			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
 		<button id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;"
-			; onclick="location.href='profileShow.jsp'";>프로필 보기</button>
+			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
 
 
 	</div>
+	<div class=container style="height:1150px;">
 	<div class="panel panel-default"
 		style="width: 50%; position: absolute; left: 500px">
 		<div class="panel-heading">
 			<h3 class="panel-title" >프로필 수정</h3>
 		</div>
+	
 		<div class="panel-body">
 			<form class="form-horizontal" role="form" method="post"
-				action="index.php">
+				action="editProfile.mo">
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">이름</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="name" name="name"
-							placeholder="예 : 김메시" value="">
+						<input type="text" class="form-control" id="name" name="member_name"
+							placeholder="" value="${result.member_name}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="gender" class="col-sm-2 control-label">성별</label>
 					<div class="col-sm-3">
-						<!-- <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" value=""> -->
-						<select class="form-control inputstl">
-							<option>남자</option>
-							<option>여자</option>
+					
+						<select id="genderSelect" class="form-control inputstl" name="member_gender">
+						<option>선택</option>
+							<option id="optionMan" value="남자">남자</option>
+							<option id="optionWoman" value="여자">여자</option>
+							
 						</select>
 					</div>
 				</div>
@@ -127,38 +208,38 @@ left:-120px;
 				<div class="form-group">
 					<label for="birthDate" class="col-sm-2 control-label">생년월일</label>
 					<div class="col-sm-2">
-
-						<input type="text" class="form-control" id="year" maxlength="4">
+                        
+						<input type="text" class="form-control" id="year" maxlength="4" name="year">
 
 					</div>
 					<label for="year" class="col-sm-1 control-label">년</label>
 					<div class="col-sm-2">
 
-						<input type="text" class="form-control" id="month" maxlength="2">
+						<input type="text" class="form-control" id="month" maxlength="2" name="month">
 
 					</div>
 					<label for="month" class="col-sm-1 control-label">월</label>
 					<div class="col-sm-2">
 
-						<input type="text" class="form-control" id="day" maxlength="2">
+						<input type="text" class="form-control" id="day" maxlength="2" name="day">
 
 					</div>
-					<label for="day" class="col-sm--1 control-label">일</label>
+					<label for="day" class="col-sm-1 control-label">일</label>
 				</div>
 
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">이메일 주소</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="email" name="email"
-							value="">
+						<input type="text" class="form-control" id="email" name="member_email"
+							value="${result.member_email}" >
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">전화번호</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="phone" name="phone"
-							value="">
+						<input type="text" class="form-control" id="phone" name="member_phone"
+							value="${result.member_phone}">
 					</div>
 				</div>
 
@@ -166,7 +247,7 @@ left:-120px;
 					<label for="human" class="col-sm-2 control-label">거주 도시</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="location"
-							name="location" value=""
+							name="member_location" value="${result.member_location}"
 							placeholder="예: 프랑스 파리, 뉴욕 맨하튼, 호주 시드니 , 영국 런던">
 					</div>
 				</div>
@@ -174,8 +255,8 @@ left:-120px;
 				<div class="form-group">
 					<label for="message" class="col-sm-2 control-label">자기 소개</label>
 					<div class="col-sm-10">
-						<textarea class="form-control" rows="4" name="message"
-							style="resize: vertical"></textarea>
+						<textarea class="form-control" rows="4" name="member_introduction"
+							style="resize: vertical">${result.member_introduction}</textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -208,8 +289,53 @@ left:-120px;
 
 			</form>
 		</div>
+	
 	</div>
 
+
+<!-- 사진 수정  -->
+<script>
+
+$(document).on('click','#imageChangeBt',function(){
+	 console.log("imageChangeBt");
+	 $("#file").click();
+	 
+});
+
+$(document).on('change',"#file",function(){
+	 console.log("file");
+	  var form=$('#photoForm')[0];
+	  var formData=new FormData(form);
+	  
+	  $.ajax({
+		type:"post",
+		enctype:"multipart/form-data",
+		url:"editPhoto.mo",
+		data:formData,
+		processData:false,
+		contentType:false,
+		cache:false,
+		timeout:6000000,
+		success:function(resp){
+			console.log("성공 : "+resp);
+			console.log(resp.getPhoto);
+			
+			var pic=$('#photo');
+			
+			pic.attr('src',"<c:url value='files/"+resp.filename+"'/>");
+			
+			
+			
+		},error:function(resp){
+			console.log("실패");
+		}
+		   
+	  })
+	  
+	  
+})
+
+</script>
 
 
 <div class="panel panel-default"
@@ -217,30 +343,33 @@ left:-120px;
 		<div class="panel-heading">
 			<h3 class="panel-title">사진 수정</h3>
 		</div>
+		
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" method="post"
-				action="index.php">
-				<img class="avatar"
-			src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTF_erFD1SeUnxEpvFjzBCCDxLvf-wlh9ZuPMqi02qGnyyBtPWdE-3KoH3s"
-			alt="Ash" />
-			
+		<form id="photoForm" class="form-horizontal" method="post"
+				action="editPhoto.mo" enctype="multipart/form-data">
+			<input type="file" id="file" name="file" style="display:none;">
+				<img class="avatar" id="photo"
+			src="<c:url value='files/${photo}'/>" alt="사진을 추가해주세요" />
+			</form>
 
 				<div class="form-group">
 					<div class="col-sm-12 col-sm-offset-2">
-						<button id="imageChangeBt" name="submit" type="submit"
-							class="btn btn-default"
-							style="margin-top: 15px; margin-left: 470px;"><img src="../photo.png" style="width:23px; padding-right: 3px;">새로운 사진 변경</button>
+						<button id="imageChangeBt" 
+							class="btn btn-default" type="button"
+							style="margin-top: 15px; margin-left: 470px;"><img src="<c:url value='/resources/img/photo.png'/>" style="width:23px; padding-right: 5px;">새로운 사진 변경</button>
 					</div>
 				</div>
 
-			</form>
+			
 		</div>
+		
 	</div>
-
+</div>
 	
-<%@ include file="../../resource/include/footer.jsp" %>
 
+   <%@ include file="../../resource/include/footer.jsp" %>    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
+
 </body>
 </html>
