@@ -24,17 +24,6 @@ public class MainController {
 		return "home_main";
 	}
 	
-	@RequestMapping("/index.do")
-	public String toindex() {
-		return "index";
-	}
-	
-	
-	@RequestMapping("/index.do")
-	public String index() {
-		return "index";
-	}
-	
 	@RequestMapping("/home_info.do")
 	public String home_info() {
 		return "home_info";
