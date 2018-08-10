@@ -35,7 +35,7 @@
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover">
-               		<a href="#" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+               		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
                			<span data-hover="숙소추가">숙소추가</span>
                			<ul>
         					<li><a href="#">Item</a></li>
