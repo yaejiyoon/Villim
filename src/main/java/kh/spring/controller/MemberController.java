@@ -34,6 +34,7 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 	
+	// 년도 ajax
 	@RequestMapping("year.do")
 	@ResponseBody
 	public void year(HttpServletRequest request, HttpServletResponse response) {
@@ -44,7 +45,7 @@ public class MemberController {
 		System.out.println("년도");
 		
 		JSONArray arr= new JSONArray();
-		for(int i=1900; i<1903; i++) {
+		for(int i=1950; i<2000; i++) {
 			arr.add(i);	
 		}
 		for(int j=0; j<arr.size(); j++) {
@@ -63,6 +64,7 @@ public class MemberController {
 		
 		
 	}
+	// 윤년 계산하여 일수 출력 ajax
 	@RequestMapping("day.do")
 	@ResponseBody
 	public void day(HttpServletRequest request, HttpServletResponse response) {
@@ -101,6 +103,7 @@ public class MemberController {
 		
 		
 	}
+	// google 정보 출력해서 회원가입 페이지로 이동
 	@RequestMapping("info.do")
 	public ModelAndView info(HttpServletRequest request) {
 		ModelAndView mav =  new ModelAndView();
@@ -132,6 +135,7 @@ public class MemberController {
 			
 	}
 	
+	//사진 업로드 ajax
 	@RequestMapping("upload.do")
 	@ResponseBody
 	public void upload(MultipartHttpServletRequest request,HttpServletResponse response) {
@@ -170,6 +174,7 @@ public class MemberController {
 
 
 }
+	// 폰 인증 번호 발송 
 	@RequestMapping("phoneCheck.do")
 	public void phoneCheck(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -225,6 +230,8 @@ public class MemberController {
 //     out.print(message);
     
 	}
+	
+	// 전송된 인증키 확인 하여 회원가입 성공페이지 이동
 	@RequestMapping("isAuthKey.do")
 	public String isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
 		
@@ -264,7 +271,7 @@ public class MemberController {
 		
 		
 	}
-	//--- just email 
+	// 이메일로 가입하는 페이지
 	@RequestMapping("controllerEmail.do")
 	public String signupEmail(HttpServletRequest request) {
 		
@@ -273,11 +280,13 @@ public class MemberController {
 		return "emailsignup";
 		
 	}
+	//성공 페이지로 이동(리다이렉트)
 	@RequestMapping("successsignup.do")
 	public String successsignup() {
 		return "successsignup";
 	}
 	
+	// 로그인 체크
 	@RequestMapping("login.do")
 	public ModelAndView login(MemberDTO dto, HttpSession session) {
 		
