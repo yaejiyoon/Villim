@@ -50,8 +50,8 @@
          <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
       </div>
       <div id="header-menu" class="container" >
-         <section class="color-5">
-            <nav class="cl-effect-5">
+         <section class="color-8">
+            <nav class="cl-effect-8">
             	<div id="header-menu-div" class="dropdown hover">
                		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
                			<span data-hover="숙소추가">숙소추가</span>
@@ -115,14 +115,7 @@
                			
                		</a>
                </div>
-            </nav>
-         </section>
-      </div>
-      <div id="header-pic">
-         <img src="<c:url value='/resources/img/1.jpg'/>">
-      </div>
-   </div>
-				<div id="header-menu-div" class="dropdown hover">
+               				<div id="header-menu-div" class="dropdown hover">
 					<a data-toggle="modal" href="#myModal"
 						style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
 						<span data-hover="회원가입">회원가입</span>
@@ -132,9 +125,16 @@
 				</div>
 				<div id="header-menu-div" class="dropdown hover">
 					<a data-toggle="modal" href="#myModal1"
+						 style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
 						<span data-hover="로그인">로그인</span>
-						style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
-
 					</a>
 				</div>
+            </nav>
+         </section>
+      </div>
+      <div id="header-pic">
+         <img src="<c:url value='/resources/img/1.jpg'/>">
+      </div>
+   </div>
+
 	<%@ include file="modal_signup/indexSignup.jsp"%>

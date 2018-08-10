@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ProfileHomePicDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MemberDAO;
 import kh.spring.interfaces.MemberService;
 
@@ -30,31 +34,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		
 	}
-
-}
-
-package kh.spring.impl;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import kh.spring.dto.HomeDTO;
-import kh.spring.dto.HomePicDTO;
-import kh.spring.dto.MemberDTO;
-import kh.spring.dto.ProfileHomePicDTO;
-import kh.spring.dto.ReservationDTO;
-import kh.spring.interfaces.MemberDAO;
-import kh.spring.interfaces.MemberService;
-
-@Component
-public class MemberServiceImpl implements MemberService{
-
-	@Autowired
-	public MemberDAO dao;
-
-	
 	@Override
 	public MemberDTO printProfile(String userId) {
 		return dao.printProfile(userId);
@@ -109,10 +88,5 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getMemberEmail(home_seq);
 	}
 
-
-
-
-	
-	
-	
 }
+
