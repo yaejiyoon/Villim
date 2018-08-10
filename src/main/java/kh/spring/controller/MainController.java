@@ -14,7 +14,7 @@ public class MainController {
 	public ModelAndView welcome() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result","result");
-		mav.setViewName("home_info");
+		mav.setViewName("index");
 		System.out.println("ffff");
 		return mav;
 	}
@@ -22,6 +22,16 @@ public class MainController {
 	@RequestMapping("/homeMain.do")
 	public String homeMain() {
 		return "home_main";
+	}
+	
+	@RequestMapping("/index.do")
+	public String index() {
+		return "index";
+	}
+	
+	@RequestMapping("/home_info.do")
+	public String home_info() {
+		return "home_info";
 	}
 	
 }
