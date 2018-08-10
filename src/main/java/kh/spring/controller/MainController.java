@@ -23,6 +23,13 @@ public class MainController {
 	public String homeMain() {
 		return "home_main";
 	}
+	
+	@RequestMapping("/index.do")
+	public String toindex() {
+		return "index";
+	}
+	
+	
 }
 
 

@@ -18,14 +18,18 @@
 			  ) {
 			    $('.toggle > input').prop('checked', false);
 			  }
-			})
+			});
+			
+			$("toindex").click(function(){
+				$(location).attr("href","index.do");
+			});
 	})
 </script>
 
 
     <div id="header">
       <div id="header-logo">
-         <img src="<c:url value='/resources/img/logo2.png'/>">
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
       <div id="header-search" class="form-search form-inline">
          <img src="<c:url value='/resources/img/search.png'/>">
