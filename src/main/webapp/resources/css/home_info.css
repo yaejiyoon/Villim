@@ -1,0 +1,495 @@
+@charset "UTF-8";
+
+div {
+	box-sizing: border-box;
+	/* border: 1px solid black; */
+}
+
+#info-wrapper {
+	width: 100%;
+	height: 4500px;
+	font-family: font2;
+}
+
+#info-contents {
+	width: 100%;
+	height: 100%;
+}
+
+#info-contents-photo {
+	width: 100%;
+	height: 80vh;
+	overflow: hidden;
+	text-align: center;
+}
+
+#info-contents-photo img {
+	width: 100%;
+	height: 100%;
+}
+
+#picsBT {
+	position: absolute;
+	background-color: white;
+	width: 90px;
+	top:80vh;
+	left:60px;
+	/* transform: translate(-1000%, -220%); */
+	box-shadow: 1px 1px 1px #d6d6d6;
+}
+
+#shareBT {
+	position: absolute;
+	background-color: white;
+	width: 100px;
+	padding-left: 5px;
+	top:110px;
+	right:170px;
+	/* transform: translate(1250%, -2100%); */
+	box-shadow: 1px 1px 1px #d6d6d6;
+}
+
+#shareBT img {
+	width: 20px;
+}
+
+#likeBT {
+	position: absolute;
+	background-color: white;
+	width: 100px;
+	padding-left: 5px;
+	top:110px;
+	right:60px;
+	/* transform: translate(1370%, -2100%); */
+	box-shadow: 1px 1px 1px #d6d6d6;
+}
+
+#likeBT img {
+	width: 20px;
+}
+
+#info-contents-main {
+	margin: 0 auto;
+	width: 50vw;
+	height: 82%;
+}
+
+#info-main-left {
+	float: left;
+	width: 60%;
+	height: 100%;
+}
+
+#info-main-right {
+	float: left;
+	width: 40%;
+	height: 100%;
+	padding-left: 7vh;
+}
+
+#info-main01 {
+	width: 100%;
+	height:15%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-title{
+	width:100%;
+	height:40%
+}
+
+#info-title-left{
+	float:left;
+	width:80%;
+	height:100%;
+	margin-top:10px;
+}
+
+#info-title-left span{
+	
+	color: #565656;
+}
+
+#info-title-left img{
+	width:20px;
+	margin-right: 5px;
+}
+
+#info-title-right{
+	float:left;
+	height:100%;
+	width:20%;
+	padding-top: 30px;
+	padding-left: 15px;
+}
+
+#info-title-right img{
+	width:10vh;
+	border-radius:150px;
+}
+
+#info-details{
+	width:100%;
+	height:60%;
+}
+
+.green{
+	color:#008489;
+	font-weight: 600;
+	font-size: 1.1em;
+}
+
+#info-main02 {
+	width: 100%;
+	height: 8%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main02 span{
+	font-weight: 800;
+	color:black;
+}
+
+#info-main02-left{
+	float:left;
+	width:50%;
+	height:100%
+}
+
+.amenities{
+	width:25px;
+}
+
+#info-main02-right{
+	float:left;
+	width:50%;
+	height:100%
+}
+
+#info-main03 {
+	width: 100%;
+	height: 8%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main03-top{
+	width:100%;
+	height:20%;
+}
+
+#info-main03-top span{
+	font-weight: 800;
+	color:black;
+}
+
+#info-main03-bottom{
+	width:100%;
+	height:80%;
+}
+
+.bed-div{
+	float:left;
+	width:30.5%;
+	height:90%;
+	border-radius:5px;
+	border:  1px solid #d6d6d6;
+	margin-right: 10px;
+}
+
+.bed-div div{
+	width:80%;
+	height:80%;
+	margin:0 auto;
+	margin-top: 8px;
+}
+
+.bed{
+	width:30px;
+	margin-top: 20px;
+	margin-bottom: 25px;
+}
+
+.bedroom{
+	font-weight: 800;
+	margin-right: 20px;
+}
+
+.bedtype{
+	font-size: 1em;
+	margin-right: 20px;
+}
+
+#info-main04 {
+	width: 100%;
+	height: 10%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main04 span{
+	font-weight: 800;
+}
+
+#info-main05 {
+	width: 100%;
+	height: 32%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main05-top{
+	width:100%;
+	height:20%;
+}
+
+#main05-top-sub01{
+	width:100%;
+	height:35%;
+	border-bottom:  1px solid #d6d6d6;
+	position: relative;
+}
+
+.main05-star{
+	width:20px;
+	padding-bottom: 5px;
+}
+
+
+#main05-top-sub01 input{
+	/* position: absolute;
+	top:2380px;
+	left:800px; */
+	margin-left: 5.5vw;
+	display: inline;
+	width:11vw;
+}
+
+#reviewSearch{
+	width:15px;
+	position: absolute;
+	z-index:1000;
+	top: 3.5vh;
+	right: 10.8vw;
+	/* transform: translate(1080%, 90%); */
+}
+
+input.search-query2 {
+    padding-left:35px;
+}
+
+#main05-top-sub01 span{
+	font-weight: 600;
+	font-size: 1.5em;
+}
+
+.main05-top-sub02{
+	float:left;
+	width:50%;
+	height:100%;
+}
+
+.review-text{
+	float:left;
+	width:55%;
+	height:100%;
+}
+
+.review-text h5{
+	margin-top: 18px;
+}
+
+.review-star{
+	float:left;
+	width:45%;
+	height:100%;
+}
+
+.review-star div img{
+	margin-top:13px;
+	margin-bottom:7px;
+	width:15px;	
+}
+
+#main05-top-sub02{
+	width:100%;
+	height:65%;
+}
+#info-main05-review{
+	width:100%;
+	height:50%;
+}
+
+.review-wrapper{
+	border-bottom:  1px solid #d6d6d6;
+	width:100%;
+	margin-bottom: 10px;
+}
+
+.review-top{
+	width:100%;
+	height:20%;
+}
+
+.review-pic{
+	float:left;
+	width:12%;
+	height:100%;
+}
+.review-date{
+	float:left;
+	width:88%;
+	height:100%;
+	padding-top:10px;
+	padding-bottom:20px;
+}
+
+.review-pic img{
+	width:60px;
+	border-radius: 150px;
+	padding-bottom: 9px;
+}
+
+.review-date span{
+	font-weight: 600;
+	font-size: 1em;
+}
+
+.review-bottom{
+	margin-top:10px;
+	padding-bottom:15px;
+}
+
+#info-main05-host{
+	width:100%;
+	height:31%;
+	border-top:  1px solid #d6d6d6;
+}
+
+#host-top{
+	width:100%;
+	height:30%;
+}
+
+#host-top-left{
+	float:left;
+	width:80%;
+	height:100%;
+	padding-top:10px;
+}
+
+#host-top-left p{
+	font-weight: 600;
+	font-size: 2em;
+	margin-bottom: 1px;
+}
+
+#host-top-right{
+	float:left;
+	width:20%;
+	height:100%;
+	text-align:center;
+}
+
+#host-top-right img{
+	margin-top:10px;
+	width:70px;
+	border-radius: 150px;
+}
+
+#host-contents{
+	width:100%;
+	height:27%;
+}
+
+#host-bottom{
+	width:100%;
+	height:25%;
+}
+
+#host-bottom span{
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+#host-bottom p{
+	display: inline;
+	line-height: 2em;
+}
+
+#toHost{
+	background-color: white;
+	color:#008489;
+	border:1px solid #008489;
+}
+
+#info-main06 {
+	width: 100%;
+	height: 13%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main06-top{
+	width:100%;
+	height: 20%;
+}
+
+#info-main06-top span{
+	font-weight: 600;
+	font-size: 1.5em;
+	padding-bottom: 6px;
+}
+
+#info-main06-map{
+	width:100%;
+	height:75%;
+}
+
+#info-main07 {
+	width: 100%;
+	height: 9%;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main07 span{
+	font-weight: 800;
+}
+
+#info-main08 {
+	width: 100%;
+	height: 6%;
+}
+
+#info-main08 span{
+	font-weight: 800;
+}
+
+#fixed{
+	width:20vw;
+	height:45vh;
+	border: 1px solid #d6d6d6;
+}
+
+#fixed-sub01{
+	width:90%;
+	height:25%;
+	margin: 0 auto;
+	border-bottom:  1px solid #d6d6d6;
+}
+
+.star{
+	margin-top: 5px;
+	width:10px;
+}
+
+#fixed-sub02{
+	padding-top:5px;
+	width:90%;
+	height:75%;
+	margin: 0 auto;
+}
+
+#reservationBT{
+	width:100%;
+	height:6vh;
+	background-color: #ff5a5f;
+	color: white;
+	font-size: 2.3vh;
+}

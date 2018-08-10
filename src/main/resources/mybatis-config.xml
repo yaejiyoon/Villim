@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="kh.spring.dto.HomeDTO" alias="Home"/>
+		<typeAlias type="kh.spring.dto.HomePicDTO" alias="HomePic"/>
+		<typeAlias type="kh.spring.dto.MemberDTO" alias="Member"/>
+		<typeAlias type="kh.spring.dto.ProfileHomePicDTO" alias="ProfileHomePic"/>
+	</typeAliases>
+</configuration>
