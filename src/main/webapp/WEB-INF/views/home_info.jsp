@@ -27,23 +27,60 @@
 <script>
 	$(window).scroll(function() {
 		
-		if ($(window).scrollTop() <= 900) {
-			$("#fixed").css({"top":"91vh","position":"absolute"});
-		}else if($(window).scrollTop() == $('#footer').scrollTop(0)){
-			alert("dddd");
+		if ($(window).scrollTop() >= 700) {
+			$("#scrollNav").css({"display":"inline","top":"0vh","position":"fixed"});
+		}else if($(window).scrollTop() <= 900){
+			$("#scrollNav").css({"display":"none"});
+			$("#fixed").css({"margin-top":"2vh","top":"91vh","position":"absolute"});
+			
 		}else {
 			$("#fixed").css({"top":"1vh","position":"fixed"});
 		}
+		
 	});
 	
-	$(document).ready(function(){
-		
-	})
+	$(function () {
+
+	    var a = function () {
+	        var b = $(window).scrollTop();
+	        var d = $("#info-main-right").offset().top;
+	        var f = $("#footer").offset().top;
+	        var c = $("#fixed");
+	        var h = $("#fixed").height() + 60; // margin
+
+	        if (b > d) {
+	            var myTop = $(window).scrollTop();
+	            if (myTop > f - h) myTop = f - h;
+	            c.css({
+	                position: "absolute",
+	                top: myTop,
+	                bottom: ""
+	            })
+	        } else {
+	            if (b <= d) {
+	                c.css({
+	                    position: "absolute",
+	                    top: "",
+	                    bottom: ""
+	                })
+	            }
+	        }
+	    };
+	    
+	    $(window).scroll(a);
+	    
+	});
 	
 </script>
 </head>
 <body>
    <%@ include file="../resource/include/header.jsp" %>
+   
+   <div id="scrollNav">
+   		<div id="scrollNav-contents">
+   			
+   		</div>
+   </div>
    
    <div id="info-wrapper">
       <div id="info-contents">
