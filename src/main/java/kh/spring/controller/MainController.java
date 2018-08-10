@@ -24,6 +24,12 @@ public class MainController {
 		return "home_main";
 	}
 	
+	@RequestMapping("/index.do")
+	public String toindex() {
+		return "index";
+	}
+	
+	
 }
 
 

@@ -45,6 +45,7 @@
 		margin-top: 23px;
 		margin-left: 15px;
 		transform: translate(10%, 0%);
+		cursor: pointer;
 	}
 	
 	#header-search input{
