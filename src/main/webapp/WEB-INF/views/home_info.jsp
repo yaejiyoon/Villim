@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
 <style>
    @font-face {
@@ -77,10 +77,25 @@
    <%@ include file="../resource/include/header.jsp" %>
    
    <div id="scrollNav">
-   		<div id="scrollNav-contents">
-   			
-   		</div>
-   </div>
+		<div id="scrollNav-contents">
+			<div>
+				<nav id="navbar-example2" class="navbar navbar-light bg-light">
+					<ul class="nav nav-pills">
+						<li class="nav-item"><a class="nav-link" href="#fat">정보</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">후기</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">호스트</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">위치</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div>
+				
+			</div>
+		</div>
+	</div>
+   
+   
+   
    
    <div id="info-wrapper">
       <div id="info-contents">

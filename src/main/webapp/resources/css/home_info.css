@@ -9,6 +9,7 @@ div {
 	display:none;
 	width: 100%;
 	height: 7vh;
+	background-color: white;
 	border: 1px solid black;
 }
 
@@ -16,6 +17,20 @@ div {
 	width: 60vw;
 	height:100%;
 	margin: 0 auto;
+	border: 1px solid black;
+}
+
+#scrollNav-contents div:nth-child(1){
+	float:left;
+	width:75%;
+	height:100%;
+	border: 1px solid black;
+}
+
+#scrollNav-contents div:nth-child(2){
+	float:left;
+	width:25%;
+	height:100%;
 	border: 1px solid black;
 }
 
