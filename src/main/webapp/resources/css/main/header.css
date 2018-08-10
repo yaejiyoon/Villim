@@ -25,19 +25,22 @@
 	}
 	
 	#header-search{
-		width:39%;
+		width:30%;
 		height:100%;
 	}
 	
 	#header-menu{
-		width:48%;
+		width:57%;
 		height:100%;
 		text-align: center;
+
+		
 	}
 	
 	#header-pic{
 		width:5%;
 		height:100%;
+		
 	}
 	
 	#header-logo img{
@@ -50,7 +53,7 @@
 	
 	#header-search input{
 		margin-top: 10px;
-		width:500px;
+		width:300px;
 		height:50px;
 		transform: translate(-1%, 0%);
 		font-size: 1vw;
