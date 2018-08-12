@@ -253,7 +253,6 @@ $(document).ready(function(){
      }
      
      #offContentsTitle {
-     	border : 1px solid black;
      	margin-top : 20px;
      	margin-left : 15vw;
      	width : 70vw;
@@ -272,20 +271,55 @@ $(document).ready(function(){
      	height : 100%;
      }
      
-     #myCarousel {
-     	margin-top : 20px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 30vw;
-     	display: inline-block;
-     }
      
-     .item img {
-     	width : 100%;
-     	height : 100%;
-     	border : 1px solid black;
-     }
-
+	
+	.recommend {
+		height : 100%;
+	}
+				
+				.col-md-2 {
+					height : 100%;
+					padding-right : 5px;
+					padding-left : 5px;
+				}
+				
+				.countryCard {
+					border : 1px solid #babdc1;
+					border-radius : 10px;
+					height : 100%;
+					width : 100%;
+				}
+				
+				.countryCard img {
+					width : 50%;
+					height: 80%;
+					margin-top : 5%;
+					margin-bottom : 5%;
+					margin-left : 5%;
+					margin-right : 7%;
+					float : left;
+					border-radius: 10px;
+				}
+				
+				.countryName {
+					margin-top : 15%;
+					font-family: font;
+					font-size : 1.8em;
+					color : #606163;
+				}
+				
+				#newyork img, #barcelona img {
+					margin-right : 5%:
+				}
+				
+				#barcelona p {
+					font-size : 1.3em;
+				}
+				
+				#newyork p{
+					font-size : 1.5em;
+				}
+					
 </style>
 <script>
 $('.carousel').carousel({
@@ -322,10 +356,84 @@ $('.carousel').carousel({
 		</div>
 		<div id="mapOffDiv">
 			<div id="offTitlePic"><img src="<c:url value='/resources/img/homeTitle2.jpg'/>"></div>
-			<div id="offContentsTitle">300여 개의 숙소</div>
+			<div id="offContentsTitle">
+				<div class="row recommend">
+				  <div class="col-md-2">
+				  	<div id="paris" class="countryCard" onclick="location.href='/';">
+				  		<img src="<c:url value='/resources/img/home_main/paris.jpg'/>">
+				  		<p class="countryName">paris</p>
+				  	</div>
+				  </div>
+				  <div class="col-md-2">
+				  	<div id="newyork" class="countryCard">
+				  		<img src="<c:url value='/resources/img/home_main/newyork.jpg'/>">
+				  		<p class="countryName">newyork</p>
+				  	</div>
+				  </div>
+				  
+				  <div class="col-md-2">
+				  	<div id="rome" class="countryCard">
+				  		<img src="<c:url value='/resources/img/home_main/rome.jpg'/>">
+				  		<p class="countryName">rome</p>
+				  	</div>
+				  </div>
+				  <div class="col-md-2">
+				  	<div id="london" class="countryCard">
+				  		<img src="<c:url value='/resources/img/home_main/london.jpg'/>">
+				  		<p class="countryName">london</p>
+				  	</div>
+				  </div>
+				  <div class="col-md-2">
+				  	<div id="praha" class="countryCard">
+				  		<img src="<c:url value='/resources/img/home_main/praha.jpg'/>">
+				  		<p class="countryName">praha</p>
+				  	</div>
+				  </div>
+				  <div class="col-md-2">
+				  	<div id="barcelona" class="countryCard">
+				  		<img src="<c:url value='/resources/img/home_main/barcelona.jpg'/>">
+				  		<p class="countryName">barcelona</p>
+				  	</div>
+				  </div>
+				  
+				  
+				</div>
+			</div>
 			<div id="offContentsWrapper">
 				<div class="row">
-				  <div class="col-md-3">.col-md-3</div>
+				  <div class="col-md-3">
+				  
+				  	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active">
+					      <img src="<c:url value='/resources/img/homeTitle2.jpg'/>" alt="chicago">
+					    </div>
+					
+					    <div class="item">
+					      <img src="<c:url value='/resources/img/homeTitle3.jpg'/>" alt="chicago">
+					    </div>
+					
+					    <div class="item">
+					      <img src="<c:url value='/resources/img/homeTitle4.jpg'/>" alt="chicago">
+					    </div>
+					  </div>
+					
+					  <!-- Left and right controls -->
+					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					    <span class="glyphicon glyphicon-chevron-left"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					    <span class="glyphicon glyphicon-chevron-right"></span>
+					    <span class="sr-only">Next</span>
+					  </a>
+					
+					</div>
+					
+					
+					
+				  </div>
 				  <div class="col-md-3">.col-md-3</div>
 				  <div class="col-md-3">.col-md-3</div>
 				  <div class="col-md-3">.col-md-3</div>
@@ -338,39 +446,35 @@ $('.carousel').carousel({
 				</div>
 			</div>
 			
-			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<style>
+				#myCarousel {
+			     	margin-top : 20px;
+			     	margin-left : 15vw;
+			     	width : 10vw;
+			     	height : 5vw;
+			     	display: inline-block;
+			     }
+			     
+			     .item img {
+			     	width : 100%;
+			     	height : 100%;
+			     }
+			     
+			     .carousel-inner {
+			     	width : 100%;
+			     	height : 100%;
+			     	border : 1px solid red;
+			     }
+			     
+			</style>
+			
 			  <!-- Indicators -->
 			  <ol class="carousel-indicators">
 			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 			    <li data-target="#myCarousel" data-slide-to="1"></li>
 			    <li data-target="#myCarousel" data-slide-to="2"></li>
 			  </ol>
-			
-			  <!-- Wrapper for slides -->
-			  <div class="carousel-inner">
-			    <div class="item active">
-			      <img src="<c:url value='/resources/img/homeTitle2.jpg'/>" alt="chicago">
-			    </div>
-			
-			    <div class="item">
-			      <img src="<c:url value='/resources/img/homeTitle3.jpg'/>" alt="chicago">
-			    </div>
-			
-			    <div class="item">
-			      <img src="<c:url value='/resources/img/homeTitle4.jpg'/>" alt="chicago">
-			    </div>
-			  </div>
-			
-			  <!-- Left and right controls -->
-			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-			    <span class="glyphicon glyphicon-chevron-left"></span>
-			    <span class="sr-only">Previous</span>
-			  </a>
-			  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-			    <span class="glyphicon glyphicon-chevron-right"></span>
-			    <span class="sr-only">Next</span>
-			  </a>
-			</div>
+			  
 			
 			
 
