@@ -25,7 +25,88 @@
 
 
 <link rel= "stylesheet" type="text/css" href="/resources/css/member/reviewWrite.css">
+<Style>
+/* =============================================
+* RADIO BUTTONS
+=============================================== */
 
+#radios label {
+	cursor: pointer;
+	position: relative;
+}
+
+#radios label + label {
+	margin-left: 15px;
+}
+
+input[type="radio"] {
+	opacity: 0.1; /* hidden but still tabable */
+	position: absolute;
+}
+
+input[type="radio"] + span {
+	font-family: 'Material Icons';
+	color: white;
+	background-color:#ff5e6b;
+	border-radius: 2px;
+	padding: 12px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+	color: black;
+  background-color: #ff4242;
+  
+  
+}
+
+input[type="radio"]:focus + span {
+	color: black;
+}
+
+/* ================ TOOLTIPS ================= */
+
+#radios label:hover::before {
+	content: attr(for);
+	font-family: Roboto, -apple-system, sans-serif;
+	text-transform: capitalize;
+	font-size: 11px;
+	position: absolute;
+	top: 170%;
+	left: 0;
+	right: 0;
+	opacity: 0.8;
+	background-color: #323232;
+	color: #fff;	
+	padding: 4px;
+	border-radius: 3px;
+  display: block;
+}
+
+/* =============================================
+* CENTERING, CONTAINER STYLING ETC || IGNORE
+=============================================== */
+
+h1 {
+	font-weight: 300;
+	color: white;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#radios {
+	text-align: center;
+	margin 0 auto;
+}
+
+.container {
+	margin: 0 auto;
+}
+
+
+
+</Style>
 <script>
 $(document).ready(
 	    function() {
@@ -93,24 +174,26 @@ $(document).ready(
 	    	            	
 	    	        	console.log(  $('input[name=repurchase]:checked').val());
 	    	            	  alert(  $('input[name=repurchase]:checked').val());
-	    	            	 });        
+	    	            	 });       
+	        
+	        $("#yesBt","#noBt").change(function(){
+	        	
+	        	if($("#yesBt").is(":checked")){
+	        		alert("yes!")
+	        	}else if($("#noBt").is(":checked")){
+	        		alert("no!!")
+	        	}
+	        })
 	    	           
-	       /*  $('.list-group-item').on('mouseover', function(event) {
-	    		event.preventDefault();
-	    		$(this).closest('li').addClass('open');
-	    	});
-	          $('.list-group-item').on('mouseout', function(event) {
-	        	event.preventDefault();
-	    		$(this).closest('li').removeClass('open');
-	    	}); */
-	          
+	       
+	       /*    
 	       $('#yesBt').click(function(){
 	        	alert($(this).attr('value'));
 	        })
 	        
 	         $('#noBt').click(function(){
 	        	alert($(this).attr('value'));
-	        }) 
+	        })  */
 	        
 	       
 	        $('#openReview').keyup(function (e){
@@ -142,22 +225,20 @@ $(document).ready(
 
 
 		<div class="container"
-			style="position: relative; left: -290px; top: 20px;">
+			style="position: relative; left: -287px; top: 20px;">
 			<div class="card hovercard">
-				<img src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+				<img src="files/${home_pic_name}"
 					alt="" />
 				<div class="avatar"></div>
 				<div class="info" style="height: 130px;">
-					<img src="http://placehold.it/80X80/333333/&text=Head" alt=""
+					<img src="files/${member_picture}" alt=""
 						style="position: relative; left: -95px; top: 53px; height: 50px; width: 50px;" />
 					<div class="title"
 						style="font-size: 15px; position: relative; left: 18px; top: 10px;">
-						새뜸마을 아파트 5성급</div>
+						${home_name}</div>
 					<div class="desc"
-						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트:James
-						Bro</div>
-					<div class="desc" style="position: relative; left: 33px;">2017년
-						9월30일~ 2017년 10월2일</div>
+						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트: ${member_name}</div>
+					<div class="desc" style="position: relative; left: 33px;">${checkin} ~ ${checkout}</div>
 				</div>
 
 			</div>
@@ -167,7 +248,7 @@ $(document).ready(
 			<div class="row">
 				<div class="col-sm-8"
 					style="position: relative; left: 180px; top: -360px;">
-					<h3 style="font-weight: bold;">James Bro님에 대한 후기를 쓰세요</h3>
+					<h3 style="font-weight: bold;">${member_name}님에 대한 후기를 쓰세요</h3>
 					<h5>14일동안 후기를 작성하실수 있습니다. 회원님이 후기를 작성하셔야 호스트도 회원님의 피드백을 읽을 수
 						있습니다. 후기 작성 기간이 종료되면, 회원님의 피드백이 공개됩니다.</h5>
 					<h5>호스트는 카테고리별 평점은 보지 못하고 전체 평균 별점만 알 수 있습니다.</h5>
@@ -175,7 +256,7 @@ $(document).ready(
 			</div>
 		</div>
 
-
+<form action="editProfile.mo" method="post" >
 		<div class="container"
 			style="position: relative; left: 180px; top: -300px;">
 			<div class="row">
@@ -475,23 +556,24 @@ $(document).ready(
 
 
 
-<div class="row">
+<div class="row" style="height:180px;">
 
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">이 숙소를 다시 이용하고 싶으신가요?</h3>
 						<h5 >답변은 회원님의 프로필 또는 호스트의 숙소 페이지에 공개되지 않습니다.</h5>
 					</div>
-  <div data-toggle="buttons" style="position:relative;left:20px;top:20px;width:100px;">
-          <label for="yesBt" class="btn btn-default btn-circle btn-lg" style="position:relative;top:20px;left:70px;"><input type="radio" name="repurchase" id="yesBt" value="yes"><i class="glyphicon glyphicon-thumbs-up" ></i>&nbsp;예!</label>
-          <label for="noBt" class="btn btn-default btn-circle btn-lg" style="position:relative;top:-30px;left:230px;"><input type="radio" name="repurchase" id="noBt" value="no" ><i class="	glyphicon glyphicon-thumbs-down"></i>&nbsp;아니요</label>
-          
-        </div> 
-<!-- <button class="btn default" name="repurchase" id="yesBt"><span class="glyphicon glyphicon-thumbs-up default"></span>예!</button>
-        <button class="btn default" name="repurchase" id="noBt"><span class="glyphicon glyphicon-thumbs-down default"></span>아니오</button> -->
-        
-
+<div id="likeordislikeBt" style="position:relative;top:55px;left:140px;">
+        <label for="yesBt" class="material-icons" style="margin-right:20px;width:80px;">
+			<input type="radio" name="repurchase" id="yesBt" value="yes" />
+			<span><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;예</span>
+		</label>
+		<label for="noBt" class="material-icons" style="margin-left:13px;">
+			<input type="radio" name="repurchase" id="noBt" value="no" />
+			<span><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;아니요</span>
+		</label>
+</div>
 				</div>
 
 			</div>
@@ -534,7 +616,11 @@ $(document).ready(
 
 			</div>
 
+<div class="row">
 
+<button class="btn btn default" style="background-color:#ff5e6b;color:white;font-weight:bold;position:relative;left:385px;top:50px;">제출 하기</button>
+
+</div>
 
 
 
@@ -542,6 +628,8 @@ $(document).ready(
 
 
 		</div>
+		
+		</form>
 	</div>
 
 

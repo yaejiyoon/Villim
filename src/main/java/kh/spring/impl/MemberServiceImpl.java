@@ -3,22 +3,37 @@ package kh.spring.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MemberDAO;
 import kh.spring.interfaces.MemberService;
 
-@Component
+@Service
 public class MemberServiceImpl implements MemberService{
-
-	@Autowired
-	public MemberDAO dao;
-
 	
+	@Autowired
+	MemberDAO dao;
+
+	@Override
+	public int signup(MemberDTO dto) {
+		
+		return dao.signup(dto);
+	
+	}
+
+	@Override
+	public boolean isMember(MemberDTO dto) {
+		
+		
+		return dao.isMember(dto);
+		
+		
+	}
 	@Override
 	public MemberDTO printProfile(String userId) {
 		return dao.printProfile(userId);
@@ -56,7 +71,22 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
-	
-	
-	
+	@Override
+	public List<ReservationDTO> getInfo(String userId) {
+		return dao.getInfo(userId);
+	}
+
+
+	@Override
+	public HomePicDTO getHomePhoto(int home_seq) {
+		return dao.getHomePhoto(home_seq);
+	}
+
+
+	@Override
+	public HomeDTO getMemberEmail(int home_seq) {
+		return dao.getMemberEmail(home_seq);
+	}
+
 }
+
