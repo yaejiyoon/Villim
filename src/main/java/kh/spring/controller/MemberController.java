@@ -289,6 +289,21 @@ public class MemberController {
 		return "emailsignup";
 		
 	}
+	// 카카오로 가입하는 페이지
+	@RequestMapping("kakaoInfo.do")
+	public String kakaoInfo(HttpServletRequest request) {
+		System.out.println("kakaoInfo 접속");
+		return "kakaosignup";
+		
+	}
+	// 페이스북로 가입하는 페이지
+	@RequestMapping("fbInfo.do")
+	public String fbInfo(HttpServletRequest request) {
+		System.out.println("kakaoInfo 접속");
+		return "facebooksignup";
+		
+	}
+	
 	//성공 페이지로 이동(리다이렉트)
 	@RequestMapping("successsignup.do")
 	public String successsignup() {

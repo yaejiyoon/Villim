@@ -45,69 +45,97 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+<script>
+	$(document).ready(function(){
+		
+
+		$("#facebook").click(function(){
+			
+			/* facebook */
+			 function statusChangeCallback(response) {
+			  console.log('statusChangeCallback');
+			  console.log(response);
+
+			  if (response.status === 'connected') {
+			    // Logged into your app and Facebook.
+			    testAPI();
+			  } else {
+			    // The person is not logged into your app or we are unable to tell.
+			    document.getElementById('status').innerHTML = 'Please log ' +
+			      'into this app.';
+			  }
+			} 
+
+			 function checkLoginState() {
+			  FB.getLoginStatus(function(response) {
+			    statusChangeCallback(response);
+			  });
+			} 
+
+			 window.fbAsyncInit = function() {
+			  FB.init({
+			    appId      : '211147649564685',
+			    cookie     : true,  // enable cookies to allow the server to access 
+			                        // the session
+			    xfbml      : true,  // parse social plugins on this page
+			    version    : 'v2.8' // use graph api version 2.8
+			  });
+
+
+
+			  FB.getLoginStatus(function(response) {
+			     statusChangeCallback(response); 
+			     if (response.status === 'connected') {
+			            //user is authorized
+			            //document.getElementById('loginBtn').style.display = 'none';
+			    	 console.log('Welcome!  Fetching your information.... 1');
+			        } else {
+			            //user is not authorized
+			        	console.log('Welcome!  ');
+			        }
+
+			  });
+
+			};
+			
+
+		(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "https://connect.facebook.net/ko_KR/sdk.js";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		// Here we run a very simple test of the Graph API after login is
+		// successful.  See statusChangeCallback() for when this call is made.
+		function testAPI() {
+		   FB.login(function(response){ 
+		  console.log('Welcome!  Fetching your information.... ');
+		  FB.api('/me',  {fields: 'email,name'},function(response) {
+		    console.log('Successful login for: ' + response.name +":" + response.email);
+		    alert(response);
+		    var popupX =(window.screen.width/2) - (500 / 2);
+	    	 var popupY= (window.screen.height/2) - (500 / 2);
+			   window.open('fbInfo.do', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		    
+		  });
+		  }, {scope:'public_profile, email'}); 
+		 
+		} 
+		})
+	})
+
+</script>
 
 </head>
 
 
 <script>
 
-/* facebook */
-function statusChangeCallback(response) {
-  console.log('statusChangeCallback');
-  console.log(response);
-
-  if (response.status === 'connected') {
-    // Logged into your app and Facebook.
-    testAPI();
-  } else {
-    // The person is not logged into your app or we are unable to tell.
-    document.getElementById('status').innerHTML = 'Please log ' +
-      'into this app.';
-  }
-}
-
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
-
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '211147649564685',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.8' // use graph api version 2.8
-  });
 
 
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-};
-
-
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/ko_KR/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
-  console.log('Welcome!  Fetching your information.... ');
-  FB.api('/me',  {fields: 'email,name'},function(response) {
-    console.log('Successful login for: ' + response.name +":" + response.email);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + ':' + response.email;
-  });
-}
 
 /* kakao */
 //<![CDATA[
@@ -123,6 +151,23 @@ function loginWithKakao() {
              success: function(res) {
                alert(JSON.stringify(res));
                  alert(res.kaccount_email);
+                 alert(res.id);
+                 alert(res.properties.nickname);
+                 alert(res.properties.profile_image);
+                 
+                 
+                var popupX =(window.screen.width/2) - (500 / 2);
+         		var popupY= (window.screen.height/2) - (500 / 2);
+         		
+         		$("#kakaoEmailBtn").val(res.kaccount_email);
+         		$("#kakaoNicknameBtn").val(res.properties.nickname);
+         		$("#kakaoIdBtn").val(res.id);
+         		$("#kakaoImgBtn").val(res.properties.profile_image);
+         		
+         		alert($("#kakaoEmailBtn").val(res.kaccount_email));
+         		window.open('kakaoInfo.do', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+         		
+                 
              },
              fail: function(error) {
                alert(JSON.stringify(error));
@@ -176,7 +221,7 @@ function loginWithEmail(){
       </div>
       
       <div class="modal-body">
-      <button type="button" class="btn btn-primary" onclick="FB.login();" id="facebook">
+      <button type="button" class="btn btn-primary" id="facebook">
       	<i class="fab fa-facebook-f fa-2x" style="color:white"></i>  
       	<font> 페이스북 계정으로 회원가입</font>
       </button><br>
@@ -185,6 +230,10 @@ function loginWithEmail(){
       	<i class="fas fa-comments fa-2x" style="color:black"></i>
       	<font> 카카오 계정으로 회원가입</font>
       </button><br>
+      <input type="hidden" id=kakaoEmailBtn name="kakaoEmail">
+      <input type="hidden" id=kakaoNicknameBtn name="kakaoNickname">
+      <input type="hidden" id=kakaoImgBtn name="kakaoImg">
+      <input type="hidden" id=kakaoIdBtn name="kakaoId">
   
       <button type="button" class="btn btn-default" onclick="loginWithGoogle();" id="google">
       	<i class="fab fa-google fa-2x" style="color:red"></i>
