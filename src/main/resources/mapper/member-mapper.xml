@@ -32,7 +32,7 @@ select h.home_seq,h.home_name,p.home_pic_name from home h,home_pic p  where h.ho
 </select>
 
 <select id="getReviewInfo" resultType="Reservation">
-select * from reservation where member_email=#{userId} and reserv_checkout>=to_char(sysdate,'yyyy-mm-dd') and guest_review='N'
+select * from reservation where member_email=#{userId} and reserv_checkout<![CDATA[<]]>=to_char(sysdate,'yyyy-mm-dd') and guest_review='N'
 </select>
 
 <select id="getHomePhoto" resultType="HomePic">

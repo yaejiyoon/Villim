@@ -441,8 +441,9 @@ public class MemberController {
 
 	@RequestMapping("/profileReview.mo")
 	   public ModelAndView review(HttpSession session) {
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		/*session.setAttribute("userId", "jake@gmail.com");*/
+		String userId ="jake@gmail.com";
+		System.out.println("userId :"+userId);
 	    List<ReservationDTO> result=this.service.getInfo(userId);
 	    
 	   int home_seq=0;
@@ -495,8 +496,13 @@ public class MemberController {
 	     
 	   }
 	
-	@RequestMapping("/guestReviewWrite.mo")
+	@RequestMapping("/insertGuestReview.mo")
 	public ModelAndView guestReviewInput() {
+		System.out.println("insertGuestReview.mo");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		
 		return null;
 		
 	}

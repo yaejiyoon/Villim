@@ -136,7 +136,7 @@ width:140px;height:120px;
 </style>
 </head>
 <body>
-	<%@ include file="../../resource/include/header.jsp"%>
+	<%@ include file="../../resource/include/profileHeader.jsp" %>
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"
