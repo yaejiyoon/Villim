@@ -11,14 +11,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home_info.css?var=2" />" rel="stylesheet" />
+
+
+
+
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="dist/js/i18n/datepicker.en.js"></script>
+<link rel="stylesheet" href="dist/css/datepicker.css"/>
+<link rel="stylesheet" href="<c:url value="../resources/css/home/docs/css/style.css" />"/>
+
+<!-- 지도 -->
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
 <style>
+
+	
    @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
    }
    
+	#header{
+		font-family: font;
+	}
       @font-face {
         font-family: font2;
         src: url('<c:url value='/resources/fonts/dx.ttf'/>');
@@ -29,12 +45,12 @@
 		
 		if ($(window).scrollTop() >= 700) {
 			$("#scrollNav").css({"display":"inline","top":"0vh","position":"fixed"});
+			$("#fixed").css({"margin-top":"9vh","position":"fixed"});
 		}else if($(window).scrollTop() <= 900){
 			$("#scrollNav").css({"display":"none"});
-			$("#fixed").css({"margin-top":"2vh","top":"91vh","position":"absolute"});
-			
+			$("#fixed").css({"margin-top":"2vh"});
 		}else {
-			$("#fixed").css({"top":"1vh","position":"fixed"});
+			
 		}
 		
 	});
@@ -46,7 +62,7 @@
 	        var d = $("#info-main-right").offset().top;
 	        var f = $("#footer").offset().top;
 	        var c = $("#fixed");
-	        var h = $("#fixed").height() + 60; // margin
+	        var h = $("#fixed").height() + 120; // margin
 
 	        if (b > d) {
 	            var myTop = $(window).scrollTop();
@@ -74,7 +90,7 @@
 </script>
 </head>
 <body>
-   <%@ include file="../resource/include/header.jsp" %>
+   <%@ include file="../../resource/include/header.jsp" %>
    
    <div id="scrollNav">
 		<div id="scrollNav-contents">
@@ -444,7 +460,7 @@
             		<div id="fixed-sub01">
             			<br>
             			<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
-            			<h3 style="display: inline; font-weight: 600;">731,704</h3>/박
+            			<h3 style="display: inline; font-weight: 600;">132,766</h3>/박
             			<br>
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
@@ -456,15 +472,38 @@
             		<div id="fixed-sub02">
             			<br>
             			날짜
-            			<input type="text" class="search-query form-control"/>
+            			<input type="text" 
+            			data-range="true"
+    					data-multiple-dates-separator="     -     "
+    					data-language="en"
+    					todayButton="true"
+            			class="datepicker-here search-query3 form-control"/>
             			<br>
             			인원
-            			<input type="text" class="search-query form-control"/>
+            			<input type="text" class="search-query3 form-control"/>
+            			<br>
+            			<div>
+            				<span style="float: left;">₩132,766 x 1박</span>
+            				<span style="float: right;">₩132,766</span>
+            			</div>
+            			<div>
+            				<span style="float: left;">청소비</span>
+            				<span style="float: right;">₩32,225</span>
+            			</div>
+            			<div>
+            				<span style="float: left;">서비스 수수료</span>
+            				<span style="float: right;">₩21,913</span>
+            			</div>
+            			<div style="border: none;">
+            				<span style="float: left; font-weight: 600;">합계</span>
+            				<span style="float: right;">₩21,913</span>
+            			</div>
             			<br>
             			<button id="reservationBT" class="btn btn-secondary">
-            			예약 요청
+            			예약 하기
             			</button>
-            			<h5 style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</h5>
+            			<br>
+            			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             		</div>
             	</div>
             </div>
@@ -472,6 +511,6 @@
       </div>
    </div>
    
-   <%@ include file="../resource/include/footer.jsp" %>
+   <%@ include file="../../resource/include/footer.jsp" %>
 </body>
 </html>

@@ -5,7 +5,7 @@
 /* To Navigation Style */
 
 
-.container > section {
+.container.headerContainer > section {
 	margin: 0 auto;
 	/*  padding: 10em 3em;*/
 	padding:10px;
