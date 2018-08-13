@@ -23,14 +23,105 @@
       $("#homeButton").click(function(){
          $(location).attr("href","homeMain.do")
       })
-   })
+      
+      $(".typeName").click(function() {
+    	  var type = $(this).text();
+    	  var typeTitle = document.getElementById('typeTitle');
+    	  typeTitle.style.color = '#848281';
+    	  $("#typeDropBtn").text("");
+    	  $("#typeDropBtn").text(type);
+      })
+   });
+   
+   
 </script>
 <style>
    @font-face {
-        font-family: font;
+      font-family: font;
       src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
    }
    
+   @font-face {
+      font-family: dx;
+      src: url('<c:url value='/resources/fonts/dx.ttf'/>');  
+   }
+   
+</style>
+<style>
+#typeTitle {
+	font-family : font;
+	font-size: 1.2em;
+	margin-top : 4px;
+	margin-bottom : 0;
+	color : white;
+}
+
+#peopleTitle {
+	font-size : 2em;
+	margin-top : 32px;
+	color: #5c5d5e;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+	font-family : font;
+    background-color: white;
+    color: #5c5d5e;
+    font-size: 2em;
+    border: none;
+    cursor: pointer;
+    width : 100%;
+    padding-top: 10px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-family: dx;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: white;
+}
+
+#searchBt {
+	background-color: #ff5a5f;
+	color : white;
+	font-size : 2em;
+	padding-top: 30px;
+}
+
+#searchBt:hover {
+	background-color: #fc7e82;
+}
 </style>
 <!-- 재호 -->
 </head>
@@ -52,12 +143,29 @@
       </div>
       <Br>
       <div id="searchBar">
-         <div id="type">숙박유형</div>
-         <div id="people">인원수</div>
+         <div id="type">
+         	<div class="dropdown">
+         	  <p id="typeTitle">숙소유형</p>
+			  <button class="dropbtn" id="typeDropBtn">
+			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
+			  </button>
+			  <div class="dropdown-content">
+			    <a class="typeName" href="#">집 전체</a>
+			    <a class="typeName" href="#">다인실</a>
+			    <a class="typeName" href="#">개인실</a>
+			  </div>
+			</div>
+         </div>
+         <div id="people">
+         	<p id="peopleTitle">
+         	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&ensp;인원 수</p>
+         </div>
          <div id="calendar">날짜</div>
-         <div id="searchBt">버튼</div>
+         <div id="searchBt">search !</div>
       </div>
    </div>
+   
+   
    <div class="jumbotron" id="wrapper">
 
       <div id="homeTitle">
@@ -69,7 +177,7 @@
          </div>
          <div id="homeTitlePic">
             <button class="btn btn-secondary" id="homeButton">숙소 둘러보기</button>
-            <img src="<c:url value='/resources/img/homeTitle5.jpg'/>">
+            <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>">
          </div>
       </div>
 
@@ -78,7 +186,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -92,7 +200,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle2.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle2.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -106,7 +214,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle3.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle3.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -120,7 +228,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle4.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle4.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -138,7 +246,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle5.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle5.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -152,7 +260,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle6.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle6.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -166,7 +274,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -180,7 +288,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle2.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle2.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>

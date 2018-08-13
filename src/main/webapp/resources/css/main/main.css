@@ -30,15 +30,15 @@
 	}
 	
 	
-	
  	#searchBar { 
 		margin-top : 10px;
  		width : 60%; 
- 		height : 150px; 
+ 		height : 100px; 
  		background-color: white;
  		display : inline-block;
 		position: relative; 
 		z-index : 10000; 
+		font-family: font;
  	} 
  	
  	#welcome {
@@ -59,28 +59,28 @@
  	#type {
  		width: 25%;
  		height : 100%;
- 		border : 1px dotted pink;
+ 		border : 1px solid #c6cad1;
  		float:left;
  	}
  	
  	#people {
  		width: 25%;
  		height : 100%;
- 		border : 1px dotted pink;
+ 		border : 1px solid #c6cad1;
  		float:left;
  	}
  	
  	#calendar {
  		width: 35%;
  		height : 100%;
- 		border : 1px dotted pink;
+ 		border : 1px solid #c6cad1;
  		float:left;
  	}
  	
  	#searchBt {
  		width: 15%;
  		height : 100%;
- 		border : 1px dotted pink;
+ 		border : 1px solid #c6cad1;
  		float:left;
  	}
  	

@@ -27,11 +27,13 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.dto.ReviewDTO;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -396,7 +398,7 @@ public class MemberController {
 	@RequestMapping("/editPhoto.mo")
 	public void editPhoto(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
-		System.out.println("/editPhoto.mo ");
+		System.out.println("/editPhoto.mo");
 		String userId = (String) session.getAttribute("userId");
 		String realPath = request.getSession().getServletContext().getRealPath("/files/");
 		System.out.println(realPath);
@@ -441,25 +443,47 @@ public class MemberController {
 
 	@RequestMapping("/profileReview.mo")
 	   public ModelAndView review(HttpSession session) {
-		/*session.setAttribute("userId", "jake@gmail.com");*/
-		String userId ="jake@gmail.com";
+		session.setAttribute("userId", "jake@gmail.com");
+		String userId =(String) session.getAttribute("userId");
 		System.out.println("userId :"+userId);
 	    List<ReservationDTO> result=this.service.getInfo(userId);
-	    
+	   // List<ReviewDTO> guestReviewresult=this.service.getGuestReview(userId);
 	   int home_seq=0;
+	   int reviewHome_seq=0;
 	    for(ReservationDTO tmp:result) {
 	    	 System.out.println("home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 체크인 : "+tmp.getReserv_checkin()+"체크아웃 : "+tmp.getReserv_checkout());
 	    	home_seq=tmp.getHome_seq();
-	    	
 	    	
 	    }
 	    
 	    System.out.println("home_seq제발 나와라 "+home_seq);
 	    HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
-	      System.out.println("home_포토 이름 : "+getHomePhoto.getHome_pic_name());
+	   
+	    
+	    /*for(ReviewDTO tmp:guestReviewresult) {
+	    	 System.out.println("리뷰 쓴home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 날짜"+tmp.getDate()+"내용 :"+tmp.getPublicReview());
+	    	 reviewHome_seq=tmp.getHome_seq();
+	    }*/
+	    //HomePicDTO getReviewHomePhoto=this.service.getHomePhoto(reviewHome_seq);
+	
+	      System.out.println("review home_포토 이름 : "+getHomePhoto.getHome_pic_name());
 	      ModelAndView mav = new ModelAndView();
-	      mav.addObject("result", result);
-	      mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
+	      
+	      if(!(result==null)) {
+		      mav.addObject("result", result);
+		      mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
+	      }else {
+	    	  
+	      }
+
+	      /*if(!(guestReviewresult==null)) {
+	    	  mav.addObject("guestReviewresult",guestReviewresult);
+	    	  mav.addObject("reviewHomePhoto", getReviewHomePhoto);
+	      }else {
+	    	  
+	      }*/
+	      
+	      
 	      mav.setViewName("/profile/profileReview");
 	      return mav;
 	   }
@@ -496,16 +520,32 @@ public class MemberController {
 	     
 	   }
 	
-	@RequestMapping("/insertGuestReview.mo")
-	public ModelAndView guestReviewInput() {
-		System.out.println("insertGuestReview.mo");
-		
+	@RequestMapping("/guestReview.mo")
+	public ModelAndView guestReviewInput(HttpSession session,GuestReviewDTO dto) {
+		System.out.println("guestReview.mo");
+		session.setAttribute("userId", "jake@gmail.com");
+		String userId =(String) session.getAttribute("userId");
+		dto.setMember_email(userId);
+		System.out.println("seq : "+dto.getHome_seq()+"만족도 : "+dto.getG_review_satisfaction()+"accuracy : "+dto.getG_review_accuracy()+"청결도 : "+dto.getG_review_cleanliness()+" 체크인 : "+dto.getG_review_checkIn()+"편의시설 :"+dto.getG_review_amenities()+" 커뮤 : "+dto.getG_review_communication()+" 위치 : "+dto.getG_review_location()+" 가치 :"+dto.getG_review_value()+" 공개후기 : "+dto.getG_review_public()+" 비공개후기 : "+dto.getG_review_private());
 		ModelAndView mav = new ModelAndView();
+		//리뷰 넣기
+		int home_seq=dto.getHome_seq();    String member_email=dto.getMember_email();
+		int insertGuestReviewResult=this.service.insertGuestReview(dto);
+		int updateReservation=this.service.updateReservation(home_seq, member_email);
+		System.out.println(insertGuestReviewResult);
+		System.out.println(updateReservation);
+		//리뷰 뿌리기
 		
-		
-		return null;
+		List<ReviewDTO> result=this.service.getGuestReview(member_email);
+		HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
+		mav.addObject("guestReviewResult",result);
+		mav.addObject("home_pic_name", getHomePhoto);
+        mav.setViewName("/profile/profileReview");
+        return mav;
 		
 	}
+	
+	
 	
 }
 
