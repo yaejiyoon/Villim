@@ -160,6 +160,8 @@ public class GuestReviewDTO {
 
 	public void setG_review_date(String g_review_date) {
 		this.g_review_date = g_review_date;
-	};
+	}
+
+	
 
 }
