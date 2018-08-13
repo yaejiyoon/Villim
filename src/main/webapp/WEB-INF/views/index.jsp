@@ -69,7 +69,7 @@
          </div>
          <div id="homeTitlePic">
             <button class="btn btn-secondary" id="homeButton">숙소 둘러보기</button>
-            <img src="<c:url value='/resources/img/homeTitle5.jpg'/>">
+            <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>">
          </div>
       </div>
 
@@ -78,7 +78,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -92,7 +92,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle2.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle2.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -106,7 +106,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle3.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle3.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -120,7 +120,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle4.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle4.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -138,7 +138,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle5.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle5.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -152,7 +152,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle6.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle6.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -166,7 +166,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
@@ -180,7 +180,7 @@
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
-                     src="<c:url value='/resources/img/homeTitle2.jpg'/>"></a>
+                     src="<c:url value='/resources/img/index/homeTitle2.jpg'/>"></a>
                   <p class="homeType">집 전체·레체</p>
                   <p class="homeName">
                      <B>In the historical center of Leccee</B>
