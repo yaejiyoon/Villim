@@ -111,79 +111,99 @@ h1 {
 $(document).ready(
 	    function() {
 	    	
-	    	
-	        $(':radio[name=satisfaction]').change(
-	            function() {
+	    	function check(){
+	    		
+	    		
+	    		 $(':radio[name=satisfaction]').change(
+	    		            function() {
 
-	                alert($(':radio[name="satisfaction"]:checked').val())
+	    		            	if($(':radio[name="satisfaction"]:checked').val()){
+	    		            		$('#review_satisfaction').val($(':radio[name="satisfaction"]:checked').val());
+	    		            		return true;
+	    		            	}else{
+	    		            		return false;
+	    		            	}
+	    		            	
+	    		            	
+	    		              
 
 
-	            })
+	    		            })
 
-	        $(':radio[name=accuracy]').change(
-	            function() {
+	    		        $(':radio[name=accuracy]').change(
+	    		            function() {
 
-	                alert($(':radio[name="accuracy"]:checked').val())
+	    		                alert($(':radio[name="accuracy"]:checked').val())
 
-	            })
+	    		            })
 
 
-	        $(':radio[name=cleanliness]').change(
-	            function() {
+	    		        $(':radio[name=cleanliness]').change(
+	    		            function() {
 
-	                alert($(':radio[name="cleanliness"]:checked').val())
+	    		                alert($(':radio[name="cleanliness"]:checked').val())
 
-	            })
+	    		            })
 
-	        $(':radio[name=checkIn]').change(
-	            function() {
+	    		        $(':radio[name=checkIn]').change(
+	    		            function() {
 
-	                alert($(':radio[name="checkIn"]:checked').val())
+	    		                alert($(':radio[name="checkIn"]:checked').val())
 
-	            })
-	        $(':radio[name=amenities]').change(
-	            function() {
+	    		            })
+	    		        $(':radio[name=amenities]').change(
+	    		            function() {
 
-	                alert($(':radio[name="amenities"]:checked').val())
+	    		                alert($(':radio[name="amenities"]:checked').val())
 
-	            })
-            
-	            
-	             $(':radio[name=communication]').change(
-	    	    	            function() {
-
-	    	    	                alert($(':radio[name="communication"]:checked').val())
-
-	    	    	            })
-	            
-	             $(':radio[name=location]').change(
-	            function() {
-
-	                alert($(':radio[name="location"]:checked').val())
-
-	            })
-	            
-	            $(':radio[name=value]').change(
-	    	            function() {
-
-	    	                alert($(':radio[name="value"]:checked').val())
-
-	    	            })
+	    		            })
 	    	            
-	    	          $(':radio[name=repurchase]:checked').change(function () {
-	    	            	
-	    	        	console.log(  $('input[name=repurchase]:checked').val());
-	    	            	  alert(  $('input[name=repurchase]:checked').val());
-	    	            	 });       
-	        
-	        $("#yesBt","#noBt").change(function(){
-	        	
-	        	if($("#yesBt").is(":checked")){
-	        		alert("yes!")
-	        	}else if($("#noBt").is(":checked")){
-	        		alert("no!!")
-	        	}
-	        })
+	    		            
+	    		             $(':radio[name=communication]').change(
+	    		    	    	            function() {
+
+	    		    	    	                alert($(':radio[name="communication"]:checked').val())
+
+	    		    	    	            })
+	    		            
+	    		             $(':radio[name=location]').change(
+	    		            function() {
+
+	    		                alert($(':radio[name="location"]:checked').val())
+
+	    		            })
+	    		            
+	    		            $(':radio[name=value]').change(
+	    		    	            function() {
+
+	    		    	                alert($(':radio[name="value"]:checked').val())
+
+	    		    	            })
+	    		    	            
+	    		    	          $(':radio[name=repurchase]:checked').change(function () {
+	    		    	            	
+	    		    	        	console.log(  $('input[name=repurchase]:checked').val());
+	    		    	            	  alert(  $('input[name=repurchase]:checked').val());
+	    		    	            	 });       
+	    		        
+	    		        $("#yesBt","#noBt").change(function(){
+	    		        	
+	    		        	if($("#yesBt").is(":checked")){
+	    		        		alert("yes!")
+	    		        	}else if($("#noBt").is(":checked")){
+	    		        		alert("no!!")
+	    		        	}
+	    		        })
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		$('#formId').submit();
+	    	}
+	       
 	    	           
 	       
 	       /*    
@@ -216,7 +236,7 @@ $(document).ready(
 	    </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/header.jsp"%>
+	<%@ include file="../../resource/include/profileHeader.jsp" %>
 
 	<div id="wrapper" style="height: 2500px; margin: 10px auto">
 		<h3
@@ -239,6 +259,7 @@ $(document).ready(
 					<div class="desc"
 						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트: ${member_name}</div>
 					<div class="desc" style="position: relative; left: 33px;">${checkin} ~ ${checkout}</div>
+					<input type="hidden" name="home_seq" value="${home_seq}">
 				</div>
 
 			</div>
@@ -256,7 +277,7 @@ $(document).ready(
 			</div>
 		</div>
 
-<form action="editProfile.mo" method="post" >
+<form id="formId" action="insertGuestReview.mo" method="post" >
 		<div class="container"
 			style="position: relative; left: 180px; top: -300px;">
 			<div class="row">
@@ -286,6 +307,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="heart_1" name="satisfaction" value="1" />
   <label for="heart_1" title="One">&#10084;</label>
+  <input id="review_satisfaction" type="hidden" name="g_review_satisfaction" >
 </section>
 
 
@@ -618,7 +640,7 @@ $(document).ready(
 
 <div class="row">
 
-<button class="btn btn default" style="background-color:#ff5e6b;color:white;font-weight:bold;position:relative;left:385px;top:50px;">제출 하기</button>
+<button class="btn btn default" onclick=check() style="background-color:#ff5e6b;color:white;font-weight:bold;position:relative;left:385px;top:50px;">제출 하기</button>
 
 </div>
 

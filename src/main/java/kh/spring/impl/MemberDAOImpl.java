@@ -1,10 +1,13 @@
 package kh.spring.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import kh.spring.dto.HomeDTO;
@@ -77,7 +80,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<ReservationDTO> getInfo(String userId) {
-		return template.selectList("Member.getReviewInfo", userId);
+		return template.selectList("Member.getReviewInfo",userId);
 	}
 
 	@Override
