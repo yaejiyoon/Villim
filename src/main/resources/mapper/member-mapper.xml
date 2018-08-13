@@ -50,7 +50,18 @@ insert into guest_review values(guest_review_seq.nextval,#{home_seq},#{member_em
 </select>
 
 <select id="getGuestReview" resultType="Review">
-select guest_review.home_seq,guest_review.g_review_public,guest_review.g_review_date,reservation.home_name from guest_review  left join RESERVATION on guest_review.home_seq=reservation.home_seq and guest_review.member_email=#{member_email}
+select guest_review.home_seq,guest_review.g_review_public,guest_review.g_review_date,reservation.home_name from guest_review,reservation where reservation.home_seq=guest_review.home_seq and guest_review.member_email=#{member_email}
+</select>
+
+<select id="getSeq" resultType="Integer">
+select home_seq from home where member_email=#{userId}
+</select>
+
+<select id="getHostReview" resultType="Review_H">
+select m.member_picture,m.member_name,g.g_review_public,g.g_review_date from member m inner join guest_review g on m.member_email=g.member_email and g.home_seq IN 
+<foreach collection="list" item="type" open="(" close=")" separator=",">
+#{type.value}
+</foreach>
 </select>
 
 </mapper>

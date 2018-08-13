@@ -9,6 +9,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
+import kh.spring.dto.Review_H_DTO;
 
 public interface MemberService {
 
@@ -39,4 +40,8 @@ public interface MemberService {
 	public int updateReservation(int home_seq,String member_email);
 	
 	public List<ReviewDTO> getGuestReview(String member_email);
+	
+	public List<Integer> getSeq(String userId);
+	
+	public List<Review_H_DTO> getHostReview(List<Integer> home_seq);
 }
