@@ -7,7 +7,6 @@ public class MemberDTO {
 	private String member_name;
 	private String member_pw;
 	private String member_birth;
-	private String memeber_gender;
 	private String member_picture;
 	private String member_phone;
 	private String member_block;
@@ -21,15 +20,14 @@ public class MemberDTO {
 	}
 
 	public MemberDTO(int member_seq, String member_email, String member_name, String member_pw, String member_birth,
-			String memeber_gender, String member_picture, String member_phone, String member_block, String member_date,
-			String member_location, String member_gender, String member_introduction) {
+			String member_picture, String member_phone, String member_block, String member_date, String member_location,
+			String member_gender, String member_introduction) {
 		super();
 		this.member_seq = member_seq;
 		this.member_email = member_email;
 		this.member_name = member_name;
 		this.member_pw = member_pw;
 		this.member_birth = member_birth;
-		this.memeber_gender = memeber_gender;
 		this.member_picture = member_picture;
 		this.member_phone = member_phone;
 		this.member_block = member_block;
@@ -77,14 +75,6 @@ public class MemberDTO {
 
 	public void setMember_birth(String member_birth) {
 		this.member_birth = member_birth;
-	}
-
-	public String getMemeber_gender() {
-		return memeber_gender;
-	}
-
-	public void setMemeber_gender(String memeber_gender) {
-		this.memeber_gender = memeber_gender;
 	}
 
 	public String getMember_picture() {
@@ -143,4 +133,5 @@ public class MemberDTO {
 		this.member_introduction = member_introduction;
 	}
 
+	
 }
