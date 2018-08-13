@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.dto.MemberDTO;
+import kh.spring.interfaces.MemberService;
+
 
 @Controller
 public class MainController {
@@ -31,6 +34,11 @@ public class MainController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
+	@Autowired
+	MemberDTO dto;
+	
+	@Autowired
+	MemberService service;
 	
 	
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
@@ -56,42 +64,63 @@ public class MainController {
 	
 	//---재호
 	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView googleCallback(HttpServletRequest request) throws IOException {
+	public ModelAndView googleCallback(HttpServletRequest request, HttpSession session) throws IOException {
 		System.out.println("googleCallback");
 		ModelAndView mav = new ModelAndView();
 		System.out.println("asdasdasd");
 		String code = request.getParameter("code");
 		System.out.println(code);
 		
-		
+		System.out.println(request.getParameter("iamlogin"));
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		  AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
 		      null);
-		  System.out.println(1);
+		  System.out.println(oauthOperations);
 		  String accessToken = accessGrant.getAccessToken();
 		  Long expireTime = accessGrant.getExpireTime();
 		  if (expireTime != null && expireTime < System.currentTimeMillis()) {
 		    accessToken = accessGrant.getRefreshToken();
 		    System.out.printf("accessToken is expired. refresh token = {}", accessToken);
 		  }
-		  System.out.println(2);
+		 
+		  
 		  Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
 		  Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-		  System.out.println(3);
+		 
 		  PlusOperations plusOperations = google.plusOperations();
 		  Person profile = plusOperations.getGoogleProfile();
-		  System.out.println(4);
-		  mav.addObject("accountEmail", profile.getAccountEmail());
-		  mav.addObject("googlePw", profile.getId());
-		  mav.addObject("firstName", profile.getFamilyName());
-		  mav.addObject("secondName", profile.getGivenName());
-		  mav.addObject("picture", profile.getImageUrl());
-		  System.out.println(profile.getImageUrl());
-		  System.out.println("생일" + profile.getGender());
-		  mav.setViewName("signup");
+		  
+		  dto.setMember_email(profile.getAccountEmail());
+		  dto.setMember_pw(profile.getId());
+		  boolean result = service.isMember(dto);
+		  if(result) {
+			  
+			  if(result) {
+					System.out.println("로그인성공");
+					session.setAttribute("login_email", dto.getMember_email());
+					mav.setViewName("index");
+					return mav;
+				}else {
+					System.out.println("로그인 실패");
+					return mav;
+				}
+			  
+			  
+		  }else {
+			  mav.addObject("accountEmail", profile.getAccountEmail());
+			  mav.addObject("googlePw", profile.getId());
+			  mav.addObject("firstName", profile.getFamilyName());
+			  mav.addObject("secondName", profile.getGivenName());
+			  mav.addObject("picture", profile.getImageUrl());
+			  mav.setViewName("signup");
+			  
+		  }
 		
+		  
+		  
 		return mav;
 	}
+	
 	
 	@RequestMapping("/homeMain.do")
 	public String homeMain() {

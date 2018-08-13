@@ -199,12 +199,9 @@
 						
 						$("#imgLoadBtn").click(function(){
 							if(load==""){
-								$("#test10").val('${picture}');
+								
 								load = $('#kakaoImgBtn',opener.document).val();
-								$("#test11").val($("#dayInput").val());
-							}else{
-							$("#test10").val(load);
-							$("#test11").val($("#dayInput").val());
+								
 							}
 						})
 						function start_timer(){
@@ -258,10 +255,7 @@
 									$("#memberPicture").val(load);
 									$("#memberPhone").val(phoneNum);
 									$("#memberPw").val(pw);
-									
-									
-									alert(load);
-									alert(phoneNum);
+
 
 								},
 								error : function() {
@@ -280,15 +274,7 @@
 					 		decrementTime();
 					 	 });
 					 	 
-					 	 
-					 	function newwin() { 
-					 		 
-					 		
-					 		/* window.close(); */
-
-					 		} 
-					 		
-						 		
+			 		
 					});
 </script>
 </head>

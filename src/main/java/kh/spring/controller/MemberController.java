@@ -156,7 +156,7 @@ public class MemberController {
 		System.out.println(request.getParameter("Data"));
 		System.out.println(request.getParameter("upload"));
 		System.out.println(request.getFileNames());
-	
+		
 	      File f = new File(path);
 	      if (!f.exists()) {
 	         f.mkdir();
@@ -316,6 +316,26 @@ public class MemberController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		boolean result = service.isMember(dto);
+		
+		if(result) {
+			System.out.println("로그인성공");
+			session.setAttribute("login_email", dto.getMember_email());
+			mav.setViewName("index");
+			return mav;
+		}else {
+			System.out.println("로그인 실패");
+			return mav;
+		}
+
+	}
+	
+	@RequestMapping("snslogin.do")
+	public ModelAndView snslogin(MemberDTO dto, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		System.out.println(dto.getMember_email());
+		System.out.println(dto.getMember_pw());
 		boolean result = service.isMember(dto);
 		
 		if(result) {
