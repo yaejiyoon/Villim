@@ -43,7 +43,7 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 	
-/*	// 년도 ajax
+	// 년도 ajax
 	@RequestMapping("year.do")
 	@ResponseBody
 	public void year(HttpServletRequest request, HttpServletResponse response) {
@@ -314,7 +314,7 @@ public class MemberController {
 		}
 
 	}
-	*/
+	
 	
 	//---- 지은 파트 시작
 	@RequestMapping("/printProfile.mo")
