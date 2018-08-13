@@ -8,7 +8,7 @@
 	}
 	
 	.modal-backdrop {
-   		background-color: #f2edee;
+   		background-color: #f9f2ef;
 	}
 	
 </style>
