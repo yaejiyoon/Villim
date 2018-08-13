@@ -2,18 +2,18 @@ package kh.spring.dto;
 
 public class ReviewDTO {
 	int home_seq;
-	String publicReview;
-	String date;
+	String g_review_public;
+	String g_review_date;
 	String home_name;
 
 	public ReviewDTO() {
 	}
 
-	public ReviewDTO(int home_seq, String publicReview, String date, String home_name) {
+	public ReviewDTO(int home_seq, String g_review_public, String g_review_date, String home_name) {
 		super();
 		this.home_seq = home_seq;
-		this.publicReview = publicReview;
-		this.date = date;
+		this.g_review_public = g_review_public;
+		this.g_review_date = g_review_date;
 		this.home_name = home_name;
 	}
 
@@ -25,20 +25,20 @@ public class ReviewDTO {
 		this.home_seq = home_seq;
 	}
 
-	public String getPublicReview() {
-		return publicReview;
+	public String getG_review_public() {
+		return g_review_public;
 	}
 
-	public void setPublicReview(String publicReview) {
-		this.publicReview = publicReview;
+	public void setG_review_public(String g_review_public) {
+		this.g_review_public = g_review_public;
 	}
 
-	public String getDate() {
-		return date;
+	public String getG_review_date() {
+		return g_review_date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setG_review_date(String g_review_date) {
+		this.g_review_date = g_review_date;
 	}
 
 	public String getHome_name() {
@@ -47,6 +47,6 @@ public class ReviewDTO {
 
 	public void setHome_name(String home_name) {
 		this.home_name = home_name;
-	};
+	}
 
 }

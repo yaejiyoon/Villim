@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
+import kh.spring.dto.Review_H_DTO;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -443,46 +445,71 @@ public class MemberController {
 
 	@RequestMapping("/profileReview.mo")
 	   public ModelAndView review(HttpSession session) {
-		session.setAttribute("userId", "jake@gmail.com");
+		System.out.println("profileReview.mo");
+		ModelAndView mav = new ModelAndView();
+		int home_seq=0; 
+		int reviewHome_seq=0;
+		List<Integer> hostHome_seq=new ArrayList<Integer>();
+		/*session.setAttribute("userId", "jake@gmail.com");*/
+		session.setAttribute("userId", "plmn855000@gmail.com");
 		String userId =(String) session.getAttribute("userId");
-		System.out.println("userId :"+userId);
-	    List<ReservationDTO> result=this.service.getInfo(userId);
-	   // List<ReviewDTO> guestReviewresult=this.service.getGuestReview(userId);
-	   int home_seq=0;
-	   int reviewHome_seq=0;
-	    for(ReservationDTO tmp:result) {
-	    	 System.out.println("home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 체크인 : "+tmp.getReserv_checkin()+"체크아웃 : "+tmp.getReserv_checkout());
-	    	home_seq=tmp.getHome_seq();
+		System.out.println("아이디:"+userId);
+	    
+		//나에 대한 지난 후기
+		List<Integer> getSeq=this.service.getSeq(userId);
+		
+		for(int i=0;i<getSeq.size();i++) {
+			hostHome_seq.add(i);
+			System.out.println(i+"번째 : "+getSeq.get(i));
+		}
+		
+		List<Review_H_DTO> getHostReview=this.service.getHostReview(hostHome_seq);
+		
+		if(!getHostReview.isEmpty()) {
+			for(Review_H_DTO tmp:getHostReview) {
+				System.out.println("사진 : "+tmp.getMember_picture()+"/ 이름 : "+tmp.getMember_name()+" /리뷰 :"+tmp.getG_review_public()+" /날짜 : "+tmp.getG_review_date());
+			}
+			
+			mav.addObject("getHostReview", getHostReview);
+		}else {
+			System.out.println("getHostReview 없음"+getHostReview);
+		}
+		
+		
+		
+		//작성 할 후기 
+		List<ReservationDTO> result=this.service.getInfo(userId);
+		//작성 한 후기
+	    List<ReviewDTO> guestReviewresult=this.service.getGuestReview(userId);
+	   if(!result.isEmpty()) {
+	    	for(ReservationDTO tmp:result) {
+		    	 System.out.println("써야할 후기 > home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 체크인 : "+tmp.getReserv_checkin()+"체크아웃 : "+tmp.getReserv_checkout());
+		    	home_seq=tmp.getHome_seq();
+		    	break;
+		    }
 	    	
+	    	HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
+	    	mav.addObject("result", result);
+		    mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
+	    }else {
+	    	 System.out.println("result zz: "+result+"guestReviewresult :"+guestReviewresult);
 	    }
 	    
-	    System.out.println("home_seq제발 나와라 "+home_seq);
-	    HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
-	   
 	    
-	    /*for(ReviewDTO tmp:guestReviewresult) {
-	    	 System.out.println("리뷰 쓴home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 날짜"+tmp.getDate()+"내용 :"+tmp.getPublicReview());
-	    	 reviewHome_seq=tmp.getHome_seq();
-	    }*/
-	    //HomePicDTO getReviewHomePhoto=this.service.getHomePhoto(reviewHome_seq);
-	
-	      System.out.println("review home_포토 이름 : "+getHomePhoto.getHome_pic_name());
-	      ModelAndView mav = new ModelAndView();
-	      
-	      if(!(result==null)) {
-		      mav.addObject("result", result);
-		      mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
-	      }else {
-	    	  
-	      }
-
-	      /*if(!(guestReviewresult==null)) {
+	    if(!guestReviewresult.isEmpty()) {
+	    	for(ReviewDTO tmp:guestReviewresult) {
+		    	 System.out.println("리뷰 쓴home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 날짜"+tmp.getG_review_date()+"내용 :"+tmp.getG_review_public());
+		    	 reviewHome_seq=tmp.getHome_seq();
+		    	 break;
+		    }
+	    	HomePicDTO getReviewHomePhoto=this.service.getHomePhoto(reviewHome_seq);
+	    	System.out.println("review home_포토 이름 : "+getReviewHomePhoto.getHome_pic_name());
 	    	  mav.addObject("guestReviewresult",guestReviewresult);
-	    	  mav.addObject("reviewHomePhoto", getReviewHomePhoto);
-	      }else {
-	    	  
-	      }*/
-	      
+	    	  mav.addObject("reviewHomePhoto", getReviewHomePhoto.getHome_pic_name());
+	    }else {
+	        System.out.println("작성할 후기 result 없음: "+result.size()+"guestReviewresult :"+guestReviewresult.size());
+	    	
+	    }
 	      
 	      mav.setViewName("/profile/profileReview");
 	      return mav;
@@ -521,7 +548,7 @@ public class MemberController {
 	   }
 	
 	@RequestMapping("/guestReview.mo")
-	public ModelAndView guestReviewInput(HttpSession session,GuestReviewDTO dto) {
+	public String guestReviewInput(HttpSession session,GuestReviewDTO dto) {
 		System.out.println("guestReview.mo");
 		session.setAttribute("userId", "jake@gmail.com");
 		String userId =(String) session.getAttribute("userId");
@@ -534,14 +561,8 @@ public class MemberController {
 		int updateReservation=this.service.updateReservation(home_seq, member_email);
 		System.out.println(insertGuestReviewResult);
 		System.out.println(updateReservation);
-		//리뷰 뿌리기
 		
-		List<ReviewDTO> result=this.service.getGuestReview(member_email);
-		HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
-		mav.addObject("guestReviewResult",result);
-		mav.addObject("home_pic_name", getHomePhoto);
-        mav.setViewName("/profile/profileReview");
-        return mav;
+        return "redirect:profileReview.mo";
 		
 	}
 	
