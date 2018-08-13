@@ -242,9 +242,33 @@ width:140px;height:120px;
 									</div>
 									<div class="panel-body">
 										<!-- if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)  -->
-										<img src="" alt="호스트 사진" /> 호스트이름, 후기 , 날짜
-
-
+										<c:forEach items="${guestReviewresult}" var="review">
+										<div class="form-group">
+													<div class="col-sm-10 col-sm-offset-2">
+														<div id="hostInfo" >
+															<h4 style="color: #595c63; position: relative; left: -180px;">${review.home_name} 을 위한 리뷰</h4>
+															<div class="col-6 col-md-4">
+															<img src="files/${reviewHomePhoto}"  class="photo" id="hostPhoto" /> 
+															</div>
+															
+														</div>
+														
+														<div class="col-6">
+														<h4 style="position: relative; left: -150px; top:30px; color: #595c63; font-weight: bold;">${review.publicReview}</h4>
+														<h4 style="position: relative; left: -150px; top:30px; color: #595c63; font-weight: bold;">${review.date}</h4>
+														
+                                                        </div>     
+													</div>
+												</div>
+										 </c:forEach>
+										
+										
+										
+                                        
+                                        
+                                            
+                                            
+                                        
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-offset-2"></div>
 										</div>
