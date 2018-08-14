@@ -3,14 +3,13 @@
 
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
-<link href="<c:url value="/resources/css/main/header.css?var=3" />"
+<link href="<c:url value="/resources/css/main/header.css?var=2" />"
 	rel="stylesheet">
-<link href="<c:url value="/resources/css/main/demo.css?var=2" />"
+<link href="<c:url value="/resources/css/main/demo.css?var=3" />"
 	rel="stylesheet" />
-<link href="<c:url value="/resources/css/main/component.css?var=2" />"
+<link href="<c:url value="/resources/css/main/component.css?var=1" />"
 	rel="stylesheet" />
-<link href="<c:url value="/resources/css/main/normalize.css" />"
-	rel="stylesheet" />
+
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -49,12 +48,12 @@
          <img src="<c:url value='/resources/img/search.png'/>">
          <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
       </div>
-      <div id="header-menu" class="container" >
-         <section class="color-8">
-            <nav class="cl-effect-8">
-            	<div id="header-menu-div" class="dropdown hover">
+      <div id="header-menu" class="headerContainer" >
+         <section class="color-5">
+            <nav class="cl-effect-5">
+            	<div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
-               			<span data-hover="숙소추가">숙소추가</span>
+               			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
         					<li><a href="home_info.do" id="tohome_info">Item</a></li>
         					<li><a href="#">Product</a></li>
@@ -66,9 +65,9 @@
       					</ul>
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover">
+               <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="호스트">호스트</span>
+               			<span data-hover="호스트" style="color:black;">호스트</span>
                			<ul>
         					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
@@ -80,9 +79,9 @@
       					</ul>
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover">
+               <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="저장목록">저장목록</span>
+               			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
         					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
@@ -94,14 +93,14 @@
       					</ul>
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover">
+               <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="여행">여행</span>
+               			<span data-hover="여행" style="color:black;">여행</span>
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover">
+               <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="메세지">메세지</span>
+               			<span data-hover="메세지" style="color:black;">메세지</span>
                			<ul>
         					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
@@ -109,24 +108,24 @@
       					</ul>
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover">
+               <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="도움말">도움말</span>
+               			<span data-hover="도움말" style="color:black;">도움말</span>
                			
                		</a>
                </div>
-               				<div id="header-menu-div" class="dropdown hover">
+               				<div id="header-menu-div" class="dropdown hover headerDR">
 					<a data-toggle="modal" href="#myModal"
 						style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
-						<span data-hover="회원가입">회원가입</span>
+						<span data-hover="회원가입" style="color:black;">회원가입</span>
 
 					</a>
 				
 				</div>
-				<div id="header-menu-div" class="dropdown hover">
+				<div id="header-menu-div" class="dropdown hover headerDR">
 					<a data-toggle="modal" href="#myModal1"
 						 style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
-						<span data-hover="로그인">로그인</span>
+						<span data-hover="로그인" style="color:black;">로그인</span>
 					</a>
 				</div>
             </nav>
