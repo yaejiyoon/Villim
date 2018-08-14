@@ -31,6 +31,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
@@ -354,7 +355,8 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-		session.setAttribute("userId", "jake@gmail.com");
+		/*session.setAttribute("userId", "jake@gmail.com");*/
+		session.setAttribute("userId", "plmn855000@gmail.com");
 		String userId = (String) session.getAttribute("userId");
 		System.out.println("들어온 사람 : " + userId);
 		MemberDTO result = this.service.printProfile(userId);
@@ -449,7 +451,10 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		int home_seq=0; 
 		int reviewHome_seq=0;
+		
 		List<Integer> hostHome_seq=new ArrayList<Integer>();
+		
+		List<Integer>g_review_seq=new ArrayList<Integer>();
 		/*session.setAttribute("userId", "jake@gmail.com");*/
 		session.setAttribute("userId", "plmn855000@gmail.com");
 		String userId =(String) session.getAttribute("userId");
@@ -458,22 +463,55 @@ public class MemberController {
 		//나에 대한 지난 후기
 		List<Integer> getSeq=this.service.getSeq(userId);
 		
-		for(int i=0;i<getSeq.size();i++) {
-			hostHome_seq.add(i);
-			System.out.println(i+"번째 : "+getSeq.get(i));
+		if(!getSeq.isEmpty()) {
+			for(int i=0;i<getSeq.size();i++) {
+				hostHome_seq.add(i);
+				System.out.println(i+"번째 : "+getSeq.get(i));
+			}
+		}else {
+			System.out.println("getSeq없음");
+			hostHome_seq.add(0);
+			
 		}
+		
 		
 		List<Review_H_DTO> getHostReview=this.service.getHostReview(hostHome_seq);
 		
 		if(!getHostReview.isEmpty()) {
 			for(Review_H_DTO tmp:getHostReview) {
-				System.out.println("사진 : "+tmp.getMember_picture()+"/ 이름 : "+tmp.getMember_name()+" /리뷰 :"+tmp.getG_review_public()+" /날짜 : "+tmp.getG_review_date());
+				System.out.println("guestSeq: "+tmp.getG_review_seq()+" home_seq"+tmp.getHome_seq()+"사진 : "+tmp.getMember_picture()+"/ 이름 : "+tmp.getMember_name()+" /리뷰 :"+tmp.getG_review_public()+" /날짜 : "+tmp.getG_review_date());
+				g_review_seq.add(tmp.getG_review_seq());
 			}
 			
 			mav.addObject("getHostReview", getHostReview);
+		List<HostReviewDTO>  getrealHostReview=this.service.getRealHostReview(g_review_seq);	
+		
+		if(!getrealHostReview.isEmpty()) {
+			mav.addObject("getrealHostReview", getrealHostReview);
+			MemberDTO result = this.service.printProfile(userId);
+			mav.addObject("hostPicture",result.getMember_picture());
+			mav.addObject("hostName", result.getMember_name());
+			
+			
+		}else {
+			System.out.println("호스트 답변리뷰 없음 사이즈 > "+getrealHostReview.size());
+			MemberDTO result = this.service.printProfile(userId);
+			mav.addObject("hostPicture",result.getMember_picture());
+			mav.addObject("hostName", result.getMember_name());
+			/*mav.addObject("hostComment","no");*/
+		}
+		
+			
 		}else {
 			System.out.println("getHostReview 없음"+getHostReview);
+			g_review_seq.add(0);
+			
 		}
+		
+		//나에 대한 지난 후기 답글
+		
+		
+		
 		
 		
 		
@@ -510,9 +548,11 @@ public class MemberController {
 	        System.out.println("작성할 후기 result 없음: "+result.size()+"guestReviewresult :"+guestReviewresult.size());
 	    	
 	    }
-	      
+	     
 	      mav.setViewName("/profile/profileReview");
+	      
 	      return mav;
+	   
 	   }
 	   
 	   @RequestMapping("/reviewWrite.mo")
@@ -554,7 +594,6 @@ public class MemberController {
 		String userId =(String) session.getAttribute("userId");
 		dto.setMember_email(userId);
 		System.out.println("seq : "+dto.getHome_seq()+"만족도 : "+dto.getG_review_satisfaction()+"accuracy : "+dto.getG_review_accuracy()+"청결도 : "+dto.getG_review_cleanliness()+" 체크인 : "+dto.getG_review_checkIn()+"편의시설 :"+dto.getG_review_amenities()+" 커뮤 : "+dto.getG_review_communication()+" 위치 : "+dto.getG_review_location()+" 가치 :"+dto.getG_review_value()+" 공개후기 : "+dto.getG_review_public()+" 비공개후기 : "+dto.getG_review_private());
-		ModelAndView mav = new ModelAndView();
 		//리뷰 넣기
 		int home_seq=dto.getHome_seq();    String member_email=dto.getMember_email();
 		int insertGuestReviewResult=this.service.insertGuestReview(dto);
@@ -563,6 +602,28 @@ public class MemberController {
 		System.out.println(updateReservation);
 		
         return "redirect:profileReview.mo";
+		
+	}
+	
+	@RequestMapping("/hostReview.mo")
+	public String hostReviewInput(HttpSession session,HostReviewDTO dto) {
+		System.out.println("hostReview.mo");
+		
+		session.setAttribute("userId", "plmn855000@gmail.com");
+		String userId =(String) session.getAttribute("userId");
+		
+		//리뷰 넣기
+		
+		 System.out.println("seq : "+dto.getG_review_seq()+"home_seq : "+dto.getHome_seq()+" public: "+dto.getH_review_public());
+		int insertHostReviewResult=this.service.insertHostReview(dto);
+		if(insertHostReviewResult>0) {
+			System.out.println(" 결과있음!");
+		}else {
+			System.out.println("결과없음!");
+		}
+		
+		return "redirect:profileReview.mo";
+		
 		
 	}
 	
