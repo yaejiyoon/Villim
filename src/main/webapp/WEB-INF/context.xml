@@ -76,5 +76,7 @@
 	<tx:annotation-driven />
 	
 	
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven></mvc:annotation-driven>
 
 </beans>

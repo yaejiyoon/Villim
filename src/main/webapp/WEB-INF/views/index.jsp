@@ -19,6 +19,37 @@
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 <script>
+
+$(document).ready(function() {
+	$("#peopledis").click(function() {
+	    var intmax = parseInt($("#pcount").text());
+	
+	    if(intmax > 1){
+	       intmax = intmax - 1; 
+	       $("#pcount").text(intmax);
+	       $("#peopleup").attr("disabled",false);
+	    }else{
+	       $("#peopledis").attr("disabled",true);
+	       $("#pcount").text(0);
+	    }
+	    
+	 });
+	 
+	 $("#peopleup").click(function() {
+	    var intmax = parseInt($("#pcount").text());
+	
+	    if(intmax < 15 ){
+	       $("#peopledis").attr("disabled",false);
+	       intmax = intmax + 1; 
+	       $("#pcount").text(intmax)
+	       
+	    }else if(intmax = 15){
+	       $("#peopleup").attr("disabled",true);
+	       $("#pcount").text(intmax+1 + "+")
+	    }
+	 });
+});
+
    $(document).ready(function() {
       $("#homeButton").click(function(){
          $(location).attr("href","homeMain.do")
@@ -30,6 +61,14 @@
     	  typeTitle.style.color = '#848281';
     	  $("#typeDropBtn").text("");
     	  $("#typeDropBtn").text(type);
+      })
+      
+      $("#peopleSubmit").click(function() {
+    	  var peopleTitle = document.getElementById('peopleTitle');
+    	  peopleTitle.style.color = '#848281';
+    	  $("#peopleDropBtn").text("");
+    	  var pcount = $("#pcount").text();
+    	  $("#peopleDropBtn").text(pcount+" 명");
       })
    });
    
@@ -48,26 +87,14 @@
    
 </style>
 <style>
-#typeTitle {
-	font-family : font;
-	font-size: 1.2em;
-	margin-top : 4px;
-	margin-bottom : 0;
-	color : white;
-}
 
-#peopleTitle {
-	font-size : 2em;
-	margin-top : 32px;
-	color: #5c5d5e;
-}
 
 /* Style The Dropdown Button */
 .dropbtn {
 	font-family : font;
     background-color: white;
     color: #5c5d5e;
-    font-size: 2em;
+    font-size: 2.5vh;
     border: none;
     cursor: pointer;
     width : 100%;
@@ -88,7 +115,7 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    font-family: dx;
+    font-family: font;
 }
 
 /* Links inside the dropdown */
@@ -112,17 +139,78 @@
     background-color: white;
 }
 
+#typeTitle {
+	font-family : font;
+	font-size: 1.2em;
+	margin-bottom : 0;
+	margin-top : 6px;
+	color : white;
+}
+
+#typeDropdownContent a {
+	font-size : 1.8vh;
+	font-weight: 50;
+}
+
+
+#peopleTitle {
+	margin-bottom : 0;
+	margin-top : 6px;
+	font-size :  1.2em;
+	color : white;
+}
+
 #searchBt {
 	background-color: #ff5a5f;
 	color : white;
-	font-size : 2em;
+	font-size : 3.5vh;
 	padding-top: 30px;
 }
 
 #searchBt:hover {
 	background-color: #fc7e82;
 }
+
+
+	#peopleup, #peopledis {
+		background-color: #008489; 
+		color : white;
+		outline:0;
+		display: inline;
+		border-radius: 50%;
+	}
+	
+	#peopleSubmit {
+		background-color: white; 
+		color : #008489;
+		border : 1px solid #008489;
+		font-family: dx;
+		margin-top : 2vh;
+	}
+	
+	#peopleSubmit:hover {
+		background-color: #008489; 
+		color : white;
+		outline:0;
+	}
+	
+	#peopleDropdownContent {
+		width : 25vh;
+		height : 15vh;
+		background-color: white;
+		font-family: font;
+		font-size : 2vh;
+		right:auto; 
+		left: auto;
+	}
+	
+	#peopleDropdownContentInner {
+		margin-top : 3vh;
+	}
+	
+	
 </style>
+
 <!-- 재호 -->
 </head>
 <body>
@@ -149,7 +237,7 @@
 			  <button class="dropbtn" id="typeDropBtn">
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
 			  </button>
-			  <div class="dropdown-content">
+			  <div class="dropdown-content" id="typeDropdownContent">
 			    <a class="typeName" href="#">집 전체</a>
 			    <a class="typeName" href="#">다인실</a>
 			    <a class="typeName" href="#">개인실</a>
@@ -157,8 +245,22 @@
 			</div>
          </div>
          <div id="people">
-         	<p id="peopleTitle">
-         	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&ensp;인원 수</p>
+         	<div class="dropdown">
+         		<p id="peopleTitle">인원수</p>
+			  <button class="dropbtn" id="peopleDropBtn">
+			  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&ensp;인원 수
+			   </button>
+			  <div class="dropdown-content" id="peopleDropdownContent">
+			  		<div id="peopleDropdownContentInner">
+				   		<span>인원</span>&emsp;
+	               		<button id="peopleup" class="btn btn-primary-outline">+</button>
+	               		&ensp;<span id="pcount">0</span>&ensp;
+	               		<button id="peopledis" class="btn btn-primary-outline">-</button>
+	               		<br>
+	               		<button class="btn btn-primary-outline" id="peopleSubmit">적용하기</button> 
+			  		</div>
+			  </div>
+         	</div>
          </div>
          <div id="calendar">날짜</div>
          <div id="searchBt">search !</div>
@@ -302,6 +404,7 @@
          </div>
       </div>
    </div>
+ </div>
    <%@ include file="../resource/include/footer.jsp"%>
 </body>
 </html>

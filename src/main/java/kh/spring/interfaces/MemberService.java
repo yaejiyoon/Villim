@@ -5,6 +5,7 @@ import java.util.List;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
@@ -44,4 +45,8 @@ public interface MemberService {
 	public List<Integer> getSeq(String userId);
 	
 	public List<Review_H_DTO> getHostReview(List<Integer> home_seq);
+	
+	public List<HostReviewDTO> getRealHostReview(List<Integer> g_review_seq);
+	
+	public int insertHostReview(HostReviewDTO dto);
 }
