@@ -129,7 +129,7 @@ public class MainController {
 	
 	@RequestMapping("/home_info.do")
 	public String home_info() {
-		return "home_info";
+		return "home/home_info";
 	}
 	
 }

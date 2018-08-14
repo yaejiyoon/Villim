@@ -176,7 +176,7 @@ max-width:400px;
 <title>Profile</title>
 </head>
 <body>
-<%@ include file="../../resource/include/header.jsp" %>
+<%@ include file="../../resource/include/profileHeader.jsp" %>
 
 <div class=container style="width:100%;height:1150px;">
 	<!-- <h1 class="title-pen">User Profile</h1> -->
@@ -197,7 +197,7 @@ max-width:400px;
 		<div class="username">${result.member_name} <span>님!</span></div>
 		<div class="bio">지역 : ${result.member_location}</div>
 		<br>
-		<div class="bio">회원가입 : ${result.member_signup_date}</div>
+		<div class="bio">회원가입 : ${result.member_date}</div>
 		<br>
 		<div class="bio">이메일 : ${result.member_email}</div>
 		<br>

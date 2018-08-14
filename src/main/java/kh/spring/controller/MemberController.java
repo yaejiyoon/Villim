@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,11 +28,14 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.dto.ReviewDTO;
+import kh.spring.dto.Review_H_DTO;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -431,7 +435,7 @@ public class MemberController {
 	@RequestMapping("/editPhoto.mo")
 	public void editPhoto(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
-		System.out.println("/editPhoto.mo ");
+		System.out.println("/editPhoto.mo");
 		String userId = (String) session.getAttribute("userId");
 		String realPath = request.getSession().getServletContext().getRealPath("/files/");
 		System.out.println(realPath);
@@ -476,24 +480,72 @@ public class MemberController {
 
 	@RequestMapping("/profileReview.mo")
 	   public ModelAndView review(HttpSession session) {
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
-	    List<ReservationDTO> result=this.service.getInfo(userId);
+		System.out.println("profileReview.mo");
+		ModelAndView mav = new ModelAndView();
+		int home_seq=0; 
+		int reviewHome_seq=0;
+		List<Integer> hostHome_seq=new ArrayList<Integer>();
+		/*session.setAttribute("userId", "jake@gmail.com");*/
+		session.setAttribute("userId", "plmn855000@gmail.com");
+		String userId =(String) session.getAttribute("userId");
+		System.out.println("아이디:"+userId);
 	    
-	   int home_seq=0;
-	    for(ReservationDTO tmp:result) {
-	    	 System.out.println("home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 체크인 : "+tmp.getReserv_checkin()+"체크아웃 : "+tmp.getReserv_checkout());
-	    	home_seq=tmp.getHome_seq();
+		//나에 대한 지난 후기
+		List<Integer> getSeq=this.service.getSeq(userId);
+		
+		for(int i=0;i<getSeq.size();i++) {
+			hostHome_seq.add(i);
+			System.out.println(i+"번째 : "+getSeq.get(i));
+		}
+		
+		List<Review_H_DTO> getHostReview=this.service.getHostReview(hostHome_seq);
+		
+		if(!getHostReview.isEmpty()) {
+			for(Review_H_DTO tmp:getHostReview) {
+				System.out.println("사진 : "+tmp.getMember_picture()+"/ 이름 : "+tmp.getMember_name()+" /리뷰 :"+tmp.getG_review_public()+" /날짜 : "+tmp.getG_review_date());
+			}
+			
+			mav.addObject("getHostReview", getHostReview);
+		}else {
+			System.out.println("getHostReview 없음"+getHostReview);
+		}
+		
+		
+		
+		//작성 할 후기 
+		List<ReservationDTO> result=this.service.getInfo(userId);
+		//작성 한 후기
+	    List<ReviewDTO> guestReviewresult=this.service.getGuestReview(userId);
+	   if(!result.isEmpty()) {
+	    	for(ReservationDTO tmp:result) {
+		    	 System.out.println("써야할 후기 > home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 체크인 : "+tmp.getReserv_checkin()+"체크아웃 : "+tmp.getReserv_checkout());
+		    	home_seq=tmp.getHome_seq();
+		    	break;
+		    }
 	    	
-	    	
+	    	HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
+	    	mav.addObject("result", result);
+		    mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
+	    }else {
+	    	 System.out.println("result zz: "+result+"guestReviewresult :"+guestReviewresult);
 	    }
 	    
-	    System.out.println("home_seq제발 나와라 "+home_seq);
-	    HomePicDTO getHomePhoto=this.service.getHomePhoto(home_seq);
-	      System.out.println("home_포토 이름 : "+getHomePhoto.getHome_pic_name());
-	      ModelAndView mav = new ModelAndView();
-	      mav.addObject("result", result);
-	      mav.addObject("homePhotoResult", getHomePhoto.getHome_pic_name());
+	    
+	    if(!guestReviewresult.isEmpty()) {
+	    	for(ReviewDTO tmp:guestReviewresult) {
+		    	 System.out.println("리뷰 쓴home_seq : "+tmp.getHome_seq()+"집 이름: "+tmp.getHome_name()+" 날짜"+tmp.getG_review_date()+"내용 :"+tmp.getG_review_public());
+		    	 reviewHome_seq=tmp.getHome_seq();
+		    	 break;
+		    }
+	    	HomePicDTO getReviewHomePhoto=this.service.getHomePhoto(reviewHome_seq);
+	    	System.out.println("review home_포토 이름 : "+getReviewHomePhoto.getHome_pic_name());
+	    	  mav.addObject("guestReviewresult",guestReviewresult);
+	    	  mav.addObject("reviewHomePhoto", getReviewHomePhoto.getHome_pic_name());
+	    }else {
+	        System.out.println("작성할 후기 result 없음: "+result.size()+"guestReviewresult :"+guestReviewresult.size());
+	    	
+	    }
+	      
 	      mav.setViewName("/profile/profileReview");
 	      return mav;
 	   }
@@ -530,11 +582,26 @@ public class MemberController {
 	     
 	   }
 	
-	@RequestMapping("/guestReviewWrite.mo")
-	public ModelAndView guestReviewInput() {
-		return null;
+	@RequestMapping("/guestReview.mo")
+	public String guestReviewInput(HttpSession session,GuestReviewDTO dto) {
+		System.out.println("guestReview.mo");
+		session.setAttribute("userId", "jake@gmail.com");
+		String userId =(String) session.getAttribute("userId");
+		dto.setMember_email(userId);
+		System.out.println("seq : "+dto.getHome_seq()+"만족도 : "+dto.getG_review_satisfaction()+"accuracy : "+dto.getG_review_accuracy()+"청결도 : "+dto.getG_review_cleanliness()+" 체크인 : "+dto.getG_review_checkIn()+"편의시설 :"+dto.getG_review_amenities()+" 커뮤 : "+dto.getG_review_communication()+" 위치 : "+dto.getG_review_location()+" 가치 :"+dto.getG_review_value()+" 공개후기 : "+dto.getG_review_public()+" 비공개후기 : "+dto.getG_review_private());
+		ModelAndView mav = new ModelAndView();
+		//리뷰 넣기
+		int home_seq=dto.getHome_seq();    String member_email=dto.getMember_email();
+		int insertGuestReviewResult=this.service.insertGuestReview(dto);
+		int updateReservation=this.service.updateReservation(home_seq, member_email);
+		System.out.println(insertGuestReviewResult);
+		System.out.println(updateReservation);
+		
+        return "redirect:profileReview.mo";
 		
 	}
+	
+	
 	
 }
 
