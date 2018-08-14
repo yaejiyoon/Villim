@@ -71,7 +71,7 @@ public class MainController {
 		String code = request.getParameter("code");
 		System.out.println(code);
 		
-		System.out.println(request.getParameter("iamlogin"));
+		
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		  AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
 		      null);
@@ -83,16 +83,20 @@ public class MainController {
 		    System.out.printf("accessToken is expired. refresh token = {}", accessToken);
 		  }
 		 
-		  
+		  System.out.println("메롱1");
 		  Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
 		  Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-		 
+		  System.out.println("메롱2");
 		  PlusOperations plusOperations = google.plusOperations();
 		  Person profile = plusOperations.getGoogleProfile();
-		  
+		  System.out.println("메롱3");
+		  System.out.println(profile.getAccountEmail());
 		  dto.setMember_email(profile.getAccountEmail());
+		  System.out.println("메롱4");
 		  dto.setMember_pw(profile.getId());
+		  System.out.println("메롱5");
 		  String picture = service.isMember(dto);
+		  System.out.println("메롱6");
 		  if(!(picture.equals(""))) {
 			  
 			  
@@ -106,13 +110,12 @@ public class MainController {
 		  }else {
 			  //로그인 실패하면 가입페이지로 보내
 			  //가입하지 않으셨나요?
-			  
 			  mav.addObject("accountEmail", profile.getAccountEmail());
 			  mav.addObject("googlePw", profile.getId());
 			  mav.addObject("firstName", profile.getFamilyName());
 			  mav.addObject("secondName", profile.getGivenName());
 			  mav.addObject("picture", profile.getImageUrl());
-			  mav.setViewName("index");
+			  mav.setViewName("signup");
 			  
 		  }
 		

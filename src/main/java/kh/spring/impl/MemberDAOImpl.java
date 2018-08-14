@@ -40,7 +40,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public String isMember(MemberDTO dto) {
 		String sql = "select member_picture from member where member_email=? and member_pw=?";
-		
+		System.out.println(dto.getMember_email() + ":" + dto.getMember_pw()); 
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper() {
 						@Override
 						public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -50,8 +50,13 @@ public class MemberDAOImpl implements MemberDAO {
 				}
 		
 		},dto.getMember_email(), dto.getMember_pw());
-		return result.get(0).getMember_picture();
+		if(result.size() == 0) {
 		
+		return "";
+		}else {
+		
+		return result.get(0).getMember_picture();
+		}
 	}
 
 	@Override

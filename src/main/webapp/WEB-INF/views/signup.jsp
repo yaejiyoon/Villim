@@ -276,14 +276,12 @@
 
 						$("#authBtn2").click(function(){
 							
-							var key = $("#inputAuthNum").val();
 							
-							
-							if(key==session){
-								alert("true");
-							}else{
-								alert("false");
-							}
+							$("#signUpForm").submit();
+							var result10 = '${successSignup}';
+							alert(result10);
+							opener.location = "successsignup.do";
+							self.close();
 							
 						})
 						
@@ -603,7 +601,7 @@
 					<div id="time5"></div>
 
 					<div>
-						<form action="isAuthKey.do" method="post">
+						<form action="isAuthKey.do" method="post" id="signUpForm">
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
 						<input type="hidden" id="memberEmail" name="member_email">
 						<input type="hidden" id="memberPw" name="member_pw">
@@ -611,9 +609,9 @@
 						<input type="hidden" id="memberBirth" name="member_birth">
 						<input type="hidden" id="memberPicture" name="member_picture">
 						<input type="hidden" id="memberPhone" name="member_phone">
-						<button class="btn btn-danger" id="authBtn2">입력</button>
-						<button class="btn btn-success" type=button id="reSend">재발급</button>
 						</form>
+						<button type="button" class="btn btn-danger" id="authBtn2">입력</button>
+						<button type="button" class="btn btn-success" type=button id="reSend">재발급</button>
 					</div>
 					
 					

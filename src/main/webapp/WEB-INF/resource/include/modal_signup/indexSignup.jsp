@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> 
 <style>
  	#myModal{
  	right:10px;

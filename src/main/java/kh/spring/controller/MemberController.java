@@ -246,8 +246,8 @@ public class MemberController {
 	
 	// 전송된 인증키 확인 하여 회원가입 성공페이지 이동
 	@RequestMapping("isAuthKey.do")
-	public String isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
-		
+	public ModelAndView isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
+		System.out.println("?");
 		ModelAndView mav = new ModelAndView();
 		
 		String sessionKey = session.getAttribute("authKey").toString();
@@ -262,28 +262,43 @@ public class MemberController {
 		
 
 		int result = service.signup(dto);
-		
+		String successSignup = "성공";
 		if(result > 0) {
 			System.out.println("회원가입 성공");
-			
+			mav.addObject("successSignup", successSignup);
+			mav.setViewName("signup");
 //			mav.setViewName("successsignup");
-			return "redirect:successsignup.do";
+//			return "redirect:successsignup.do";
+			return mav;
 											
 		}else {
 			System.out.println("회원가입 실패");
 			mav.setViewName("회원싶패 페이지");
-			return "";
+			return mav;
 		}
 		
 		}
 		else {
 			System.out.println("인증번호 맞지 않는다");
 			mav.setViewName("회원싶패 페이지");
-			return "";
+			return mav;
 		}
 		
 		
 	}
+	//회원가입 성공시 
+	@RequestMapping("successsignup.do")
+	public String successSignup() {	
+		
+		return "redirect:successsignup1.do";
+	}
+	//성공 페이지로 이동(리다이렉트)
+	@RequestMapping("successsignup1.do")
+	public String successsignup() {
+		return "successsignup";
+	}
+	
+	
 	// 이메일로 가입하는 페이지
 	@RequestMapping("controllerEmail.do")
 	public String signupEmail(HttpServletRequest request) {
@@ -308,11 +323,7 @@ public class MemberController {
 		
 	}
 	
-	//성공 페이지로 이동(리다이렉트)
-	@RequestMapping("successsignup.do")
-	public String successsignup() {
-		return "successsignup";
-	}
+
 	
 	// 로그인 체크
 	@RequestMapping("login.do")
@@ -344,7 +355,7 @@ public class MemberController {
 		System.out.println(dto.getMember_email());
 		System.out.println(dto.getMember_pw());
 		String picture = service.isMember(dto);
-		
+		System.out.println(picture);
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
 			System.out.println(dto.getMember_email());
@@ -357,6 +368,13 @@ public class MemberController {
 			return mav;
 		}
 
+	}
+	@RequestMapping("logout.do")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		return "index";
+		
 	}
 	
 	

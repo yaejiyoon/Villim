@@ -122,8 +122,8 @@
                		</a>
                </div>
                
-               <div id="header-pic">
-               <div class="dropdown">
+            <div id="header-pic">
+              <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${login_picture}"/>
                	 <c:if test="${fn:startsWith (test, 'http')}">
@@ -134,12 +134,14 @@
              	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        					<li><a href="#">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
+        					<li><a href="#">프로필 수정하기</a></li>
+        					<li><a href="#">친구 초대하기</a></li>
+        					<li><a href="#">호스트 추천하기</a></li>
+        					<li><a href="#">계정관리</a></li>
+        					<li><a href="#">나의 가이드북</a></li>
+        					<li><a href="logout.do">로그아웃</a></li>
       			</ul>
-             
-               	</div>  
+              </div>  
               
 
      	       </div>  	
