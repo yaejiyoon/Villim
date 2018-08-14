@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
@@ -120,6 +121,16 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
 		return template.selectList("Member.getHostReview",home_seq);
+	}
+
+	@Override
+	public List<HostReviewDTO> getRealHostReview(List<Integer> g_review_seq) {
+		return template.selectList("Member.getRealHostReview",g_review_seq);
+	}
+
+	@Override
+	public int insertHostReview(HostReviewDTO dto) {
+		return template.insert("Member.insertHostReview",dto);
 	}
 
 }

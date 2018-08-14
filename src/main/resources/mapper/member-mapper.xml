@@ -58,10 +58,21 @@ select home_seq from home where member_email=#{userId}
 </select>
 
 <select id="getHostReview" resultType="Review_H">
-select m.member_picture,m.member_name,g.g_review_public,g.g_review_date from member m inner join guest_review g on m.member_email=g.member_email and g.home_seq IN 
+select g.g_review_seq,g.home_seq,m.member_picture,m.member_name,g.g_review_public,g.g_review_date from member m inner join guest_review g on m.member_email=g.member_email and g.home_seq IN 
 <foreach collection="list" item="type" open="(" close=")" separator=",">
 #{type.value}
 </foreach>
 </select>
 
+
+<select id="getRealHostReview" resultType="HostReview">
+select * from host_review where g_review_seq IN 
+<foreach collection="list" item="type" open="(" close=")" separator=",">
+#{type.value}
+</foreach>
+</select>
+
+<insert id="insertHostReview">
+insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'))
+</insert>
 </mapper>
