@@ -126,6 +126,7 @@
 <!-- 재호 -->
 </head>
 <body>
+	
    <%@ include file="../resource/include/header.jsp"%>
    <ul class="cb-slideshow">
       <li><span>Image 01</span></li>

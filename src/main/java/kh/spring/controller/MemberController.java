@@ -320,11 +320,14 @@ public class MemberController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		boolean result = service.isMember(dto);
+		String picture = service.isMember(dto);
 		
-		if(result) {
+		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
+			System.out.println(dto.getMember_email());
+			System.out.println(picture);
 			session.setAttribute("login_email", dto.getMember_email());
+			mav.addObject("login_picture", picture);
 			mav.setViewName("index");
 			return mav;
 		}else {
@@ -340,11 +343,13 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(dto.getMember_email());
 		System.out.println(dto.getMember_pw());
-		boolean result = service.isMember(dto);
+		String picture = service.isMember(dto);
 		
-		if(result) {
+		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
+			System.out.println(dto.getMember_email());
 			session.setAttribute("login_email", dto.getMember_email());
+			mav.addObject("login_picture", picture);
 			mav.setViewName("index");
 			return mav;
 		}else {

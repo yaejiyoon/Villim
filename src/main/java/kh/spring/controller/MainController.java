@@ -92,27 +92,27 @@ public class MainController {
 		  
 		  dto.setMember_email(profile.getAccountEmail());
 		  dto.setMember_pw(profile.getId());
-		  boolean result = service.isMember(dto);
-		  if(result) {
+		  String picture = service.isMember(dto);
+		  if(!(picture.equals(""))) {
 			  
-			  if(result) {
+			  
 					System.out.println("로그인성공");
+					System.out.println(dto.getMember_email());
 					session.setAttribute("login_email", dto.getMember_email());
+					mav.addObject("login_picture", picture);
 					mav.setViewName("index");
-					return mav;
-				}else {
-					System.out.println("로그인 실패");
-					return mav;
-				}
-			  
+				
 			  
 		  }else {
+			  //로그인 실패하면 가입페이지로 보내
+			  //가입하지 않으셨나요?
+			  
 			  mav.addObject("accountEmail", profile.getAccountEmail());
 			  mav.addObject("googlePw", profile.getId());
 			  mav.addObject("firstName", profile.getFamilyName());
 			  mav.addObject("secondName", profile.getGivenName());
 			  mav.addObject("picture", profile.getImageUrl());
-			  mav.setViewName("signup");
+			  mav.setViewName("index");
 			  
 		  }
 		

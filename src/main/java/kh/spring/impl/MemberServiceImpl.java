@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean isMember(MemberDTO dto) {
+	public String isMember(MemberDTO dto) {
 		
 		
 		return dao.isMember(dto);
