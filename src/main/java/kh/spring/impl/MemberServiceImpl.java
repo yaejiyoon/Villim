@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.dto.ReviewDTO;
+import kh.spring.dto.Review_H_DTO;
 import kh.spring.interfaces.MemberDAO;
 import kh.spring.interfaces.MemberService;
 
@@ -88,5 +91,31 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getMemberEmail(home_seq);
 	}
 
+	@Override
+	public int insertGuestReview(GuestReviewDTO dto) {
+		return dao.insertGuestReview(dto);
+	}
+
+	@Override
+	public int updateReservation(int home_seq, String member_email) {
+		return dao.updateReservation(home_seq, member_email);
+	}
+
+	@Override
+	public List<ReviewDTO> getGuestReview(String member_email) {
+		return dao.getGuestReview(member_email);
+	}
+
+	@Override
+	public List<Integer> getSeq(String userId) {
+		return dao.getSeq(userId);
+	}
+
+	@Override
+	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
+		return dao.getHostReview(home_seq);
+	}
+
+	
 }
 
