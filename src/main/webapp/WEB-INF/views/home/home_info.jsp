@@ -17,9 +17,9 @@
 
 
 <!-- 달력 -->
-<script type="text/javascript" src="<c:url value="/dist/js/datepicker.js" />"></script>
-<script type="text/javascript" src="dist/js/i18n/datepicker.en.js"></script>
-<link rel="stylesheet" href="dist/css/datepicker.css"/>
+<script type="text/javascript" src="<c:url value="../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../resources/css/home/dist/css/datepicker.css" />"/>
 <link rel="stylesheet" href="<c:url value="../resources/css/home/docs/css/style.css" />"/>
 
 <!-- 지도 -->
@@ -41,6 +41,9 @@
    }
 </style>
 <script>
+
+	
+
 	$(window).scroll(function() {
 		
 		if ($(window).scrollTop() >= 700) {

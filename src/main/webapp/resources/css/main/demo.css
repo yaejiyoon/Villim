@@ -5,18 +5,18 @@
 /* To Navigation Style */
 
 
-.container.headerContainer > section {
-	margin: 0 auto;
+.headerContainer > section {
+	margin: 0 auto !important;
 	/*  padding: 10em 3em;*/
-	padding:10px;
-	text-align: center;
+	padding:10px !important;
+	text-align: center !important;
 }
 
 
 @media screen and (max-width: 25em) {
 
 	.codrops-icon span {
-		display: none;
+		display: none !important;
 	}
 
 }
