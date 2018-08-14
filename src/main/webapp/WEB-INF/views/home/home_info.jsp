@@ -42,7 +42,170 @@
 </style>
 <script>
 
+$(document).ready(function(){
+	var disabledDays = ['2018-8-26','2018-8-30'];
+	var isDisabled;
+	var today = new Date();
+	var d;
+	var blockDate;
+	var ttt;
+	var vvv;
+	var reserveDate;
 	
+	$('.datepicker-here').datepicker({
+		
+		todayButton: new Date(),
+		autoClose : "true",
+		dateFormat : "yyyy/mm/dd",
+		minDate: new Date(),
+		
+		onSelect: function(formattedDate, date, inst){
+			
+			
+			var checkin = formatDate(date);
+	        var inYear = checkin.split('-')[0];
+	        var inMonth = checkin.split('-')[1];
+	        var inDay = checkin.split('-')[2];
+			
+			
+			function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                /* if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day; */
+
+                 return [year, month, day].join('-');
+            }
+			
+			console.log("select");
+			console.log(date);
+			console.log(formattedDate);
+			
+			for(var j=0; j<disabledDays.length;j++){
+				
+				var reservYear = disabledDays[j].split('-')[0];
+      		  	var reservMonth = disabledDays[j].split('-')[1];
+      		  	var reservDay = disabledDays[j].split('-')[2];
+      		  	
+      		  	reserveDate = new Date(reservYear,reservMonth,reservDay);
+      		  	
+      		  	console.log(reserveDate.getDate()-1);
+      		  	console.log(reserveDate.getMonth());
+      			console.log(inMonth);
+				
+      		  if(inMonth == reserveDate.getMonth()){
+      			  if(date[0].getDate() == reserveDate.getDate()-1){
+      				   
+      				  blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
+      				  console.log(blockDate);
+      				  
+      				  d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
+      				  
+      					ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
+      					vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
+      				  
+      			  }else{
+      				  return;
+      			  }
+      		  }
+			}
+		},
+		
+	     onRenderCell: function (date, cellType) {
+	        if (cellType == 'day') {
+	        	
+	        	/* console.log("fff");
+	        	console.log(blockDate);
+	        	console.log(d);
+	        	console.log(ttt);
+	        	console.log(vvv);
+	        	
+	        	var c = new Date(2111,1,1);
+	        	console.log(c);
+	        	
+	        	if(blockDate >= date){
+        			return {
+	        			   disabled : true
+	        		   }
+        		}else if(blockDate < date){
+        			return {
+	        			   disabled : false
+	        		   }
+        		}else if(vvv > 0){
+	        		return {
+	        			   disabled : true
+	        		   }
+	        	}
+	        	 */
+	        	function formatDate(date) {
+	                var d = new Date(date),
+	                    month = '' + (d.getMonth() + 1),
+	                    day = '' + d.getDate(),
+	                    year = d.getFullYear();  
+
+	                /* if (month.length < 2) month = '0' + month;
+	                if (day.length < 2) day = '0' + day; */
+
+	                  return [year, month, day].join('-');
+	            }
+	            
+	        	for(var i=0; i<disabledDays.length;i++){
+	        		
+	        		
+	        		
+	        		var reservYear = disabledDays[i].split('-')[0];
+	      		  	var reservMonth = disabledDays[i].split('-')[1];
+	      		  	var reservDay = disabledDays[i].split('-')[2];
+	      		  	
+	      		  	
+	      		  
+		           
+		           
+		           var checkin = formatDate(date);
+		           var inYear = checkin.split('-')[0];
+		           var inMonth = checkin.split('-')[1];
+		           var inDay = checkin.split('-')[2];
+		            
+		           /* console.log("reservMonth : "+reservMonth);
+		           console.log("inMonth : "+inMonth); */
+		           
+		           if(reservMonth == inMonth){
+		        	   /* console.log("같으면 : "+inMonth);
+		        	   
+		        	   console.log("inDay : "+ inDay);
+		        	   console.log("reservDay : "+ reservDay);
+		        	    */
+		        	   if(reservDay === inDay){
+		        		   return {
+		        			   disabled : true
+		        		   }
+		        	   };
+		           }
+	        	
+	                
+
+	                /* console.log(isDisabled);
+		            console.log(date);
+		            console.log(checkin);
+		            console.log(inDay);   */
+		            
+		            /* return {
+		                disabled: isDisabled
+		                
+		            	} */
+		             
+	        	 }
+	        	
+	        }
+	        
+	    }  
+	});
+	
+	
+})
 
 	$(window).scroll(function() {
 		
