@@ -11,12 +11,12 @@ body {
 	font-family: font;
 }
 
-nav>div>a {
-	position: relative;
-	display: inline-block;
-	margin: 15px 10px;
+.cl-effect-5>div>a {
+	position: relative ;
+	display: inline-block ;
+	margin: 0px 10px !important;
 	outline: none;
-	color: #8c8c8c;
+	color: black ;
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -25,8 +25,8 @@ nav>div>a {
 	font-size: 1vw;
 }
 
-nav a:hover,
-nav a:focus {
+.cl-effect-5 a:hover,
+.cl-effect-5 a:focus {
 	outline: none;
 }
 
@@ -34,9 +34,9 @@ nav a:focus {
 
 .cl-effect-5{
 	position:absolute;
-	width:100%;
+	width:52%;
 	top:3vh;
-	left:110vh;
+	left:85vh;
 	/* transform: translate(15%, 100%); */
 }
 
@@ -59,7 +59,7 @@ nav a:focus {
 	position: absolute;
 	top: 100%;
 	content: attr(data-hover);
-	color:black;
+	color:black ;
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
