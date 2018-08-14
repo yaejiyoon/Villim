@@ -12,6 +12,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
+import kh.spring.dto.Review_H_DTO;
 import kh.spring.interfaces.MemberDAO;
 import kh.spring.interfaces.MemberService;
 
@@ -103,6 +104,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<ReviewDTO> getGuestReview(String member_email) {
 		return dao.getGuestReview(member_email);
+	}
+
+	@Override
+	public List<Integer> getSeq(String userId) {
+		return dao.getSeq(userId);
+	}
+
+	@Override
+	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
+		return dao.getHostReview(home_seq);
 	}
 
 	

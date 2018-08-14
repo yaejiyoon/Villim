@@ -17,6 +17,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
+import kh.spring.dto.Review_H_DTO;
 import kh.spring.interfaces.MemberDAO;
 
 @Component
@@ -109,6 +110,16 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<ReviewDTO> getGuestReview(String member_email) {
 		return template.selectList("Member.getGuestReview",member_email);
+	}
+
+	@Override
+	public List<Integer> getSeq(String userId) {
+		return template.selectList("Member.getSeq",userId);
+	}
+
+	@Override
+	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
+		return template.selectList("Member.getHostReview",home_seq);
 	}
 
 }
