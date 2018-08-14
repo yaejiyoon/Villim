@@ -6,21 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>HOME</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="../resources/css/home_info.css?var=2" />" rel="stylesheet" />
+
+<link href="<c:url value="../resources/css/home_info.css?var=1" />" rel="stylesheet" />
 
 
 
 
 <!-- 달력 -->
-<script type="text/javascript" src="<c:url value="../resources/css/home/dist/js/datepicker.js" />"></script>
-<script type="text/javascript" src="<c:url value="../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
-<link rel="stylesheet" href="<c:url value="../resources/css/home/dist/css/datepicker.css" />"/>
-<link rel="stylesheet" href="<c:url value="../resources/css/home/docs/css/style.css" />"/>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
 <!-- 지도 -->
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
@@ -42,179 +43,17 @@
 </style>
 <script>
 
-$(document).ready(function(){
-	var disabledDays = ['2018-8-26','2018-8-30'];
-	var isDisabled;
-	var today = new Date();
-	var d;
-	var blockDate;
-	var ttt;
-	var vvv;
-	var reserveDate;
-	
-	$('.datepicker-here').datepicker({
-		
-		todayButton: new Date(),
-		autoClose : "true",
-		dateFormat : "yyyy/mm/dd",
-		minDate: new Date(),
-		
-		onSelect: function(formattedDate, date, inst){
-			
-			
-			var checkin = formatDate(date);
-	        var inYear = checkin.split('-')[0];
-	        var inMonth = checkin.split('-')[1];
-	        var inDay = checkin.split('-')[2];
-			
-			
-			function formatDate(date) {
-                var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
-
-                /* if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day; */
-
-                 return [year, month, day].join('-');
-            }
-			
-			console.log("select");
-			console.log(date);
-			console.log(formattedDate);
-			
-			for(var j=0; j<disabledDays.length;j++){
-				
-				var reservYear = disabledDays[j].split('-')[0];
-      		  	var reservMonth = disabledDays[j].split('-')[1];
-      		  	var reservDay = disabledDays[j].split('-')[2];
-      		  	
-      		  	reserveDate = new Date(reservYear,reservMonth,reservDay);
-      		  	
-      		  	console.log(reserveDate.getDate()-1);
-      		  	console.log(reserveDate.getMonth());
-      			console.log(inMonth);
-				
-      		  if(inMonth == reserveDate.getMonth()){
-      			  if(date[0].getDate() == reserveDate.getDate()-1){
-      				   
-      				  blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
-      				  console.log(blockDate);
-      				  
-      				  d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
-      				  
-      					ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
-      					vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
-      				  
-      			  }else{
-      				  return;
-      			  }
-      		  }
-			}
-		},
-		
-	     onRenderCell: function (date, cellType) {
-	        if (cellType == 'day') {
-	        	
-	        	/* console.log("fff");
-	        	console.log(blockDate);
-	        	console.log(d);
-	        	console.log(ttt);
-	        	console.log(vvv);
-	        	
-	        	var c = new Date(2111,1,1);
-	        	console.log(c);
-	        	
-	        	if(blockDate >= date){
-        			return {
-	        			   disabled : true
-	        		   }
-        		}else if(blockDate < date){
-        			return {
-	        			   disabled : false
-	        		   }
-        		}else if(vvv > 0){
-	        		return {
-	        			   disabled : true
-	        		   }
-	        	}
-	        	 */
-	        	function formatDate(date) {
-	                var d = new Date(date),
-	                    month = '' + (d.getMonth() + 1),
-	                    day = '' + d.getDate(),
-	                    year = d.getFullYear();  
-
-	                /* if (month.length < 2) month = '0' + month;
-	                if (day.length < 2) day = '0' + day; */
-
-	                  return [year, month, day].join('-');
-	            }
-	            
-	        	for(var i=0; i<disabledDays.length;i++){
-	        		
-	        		
-	        		
-	        		var reservYear = disabledDays[i].split('-')[0];
-	      		  	var reservMonth = disabledDays[i].split('-')[1];
-	      		  	var reservDay = disabledDays[i].split('-')[2];
-	      		  	
-	      		  	
-	      		  
-		           
-		           
-		           var checkin = formatDate(date);
-		           var inYear = checkin.split('-')[0];
-		           var inMonth = checkin.split('-')[1];
-		           var inDay = checkin.split('-')[2];
-		            
-		           /* console.log("reservMonth : "+reservMonth);
-		           console.log("inMonth : "+inMonth); */
-		           
-		           if(reservMonth == inMonth){
-		        	   /* console.log("같으면 : "+inMonth);
-		        	   
-		        	   console.log("inDay : "+ inDay);
-		        	   console.log("reservDay : "+ reservDay);
-		        	    */
-		        	   if(reservDay === inDay){
-		        		   return {
-		        			   disabled : true
-		        		   }
-		        	   };
-		           }
-	        	
-	                
-
-	                /* console.log(isDisabled);
-		            console.log(date);
-		            console.log(checkin);
-		            console.log(inDay);   */
-		            
-		            /* return {
-		                disabled: isDisabled
-		                
-		            	} */
-		             
-	        	 }
-	        	
-	        }
-	        
-	    }  
-	});
-	
-	
-})
 
 	$(window).scroll(function() {
 		
 		if ($(window).scrollTop() >= 700) {
 			$("#scrollNav").css({"display":"inline","top":"0vh","position":"fixed"});
 			$("#fixed").css({"margin-top":"9vh","position":"fixed"});
+			$(".datepicker").css({"margin-top":"34vh","top":"34vh","position":"fixed"}); 
 		}else if($(window).scrollTop() <= 900){
 			$("#scrollNav").css({"display":"none"});
 			$("#fixed").css({"margin-top":"2vh"});
+			$(".datepicker").css({"margin-top":"0vh","top":"119vh","position":"absolute"});
 		}else {
 			
 		}
@@ -223,12 +62,16 @@ $(document).ready(function(){
 	
 	$(function () {
 
-	    var a = function () {
+	    var scrollFunc = function () {
 	        var b = $(window).scrollTop();
 	        var d = $("#info-main-right").offset().top;
 	        var f = $("#footer").offset().top;
 	        var c = $("#fixed");
 	        var h = $("#fixed").height() + 120; // margin
+	        
+	        var c2 = $(".datepicker");
+	        var h2 = $(".datepicker").height() + 0;
+	        
 
 	        if (b > d) {
 	            var myTop = $(window).scrollTop();
@@ -238,6 +81,14 @@ $(document).ready(function(){
 	                top: myTop,
 	                bottom: ""
 	            })
+	            
+	            c2.css({
+	                position: "absolute",
+	                top: myTop,
+	                bottom: ""
+	            })
+	            
+	            
 	        } else {
 	            if (b <= d) {
 	                c.css({
@@ -245,11 +96,13 @@ $(document).ready(function(){
 	                    top: "",
 	                    bottom: ""
 	                })
+	                
+	               
 	            }
 	        }
 	    };
 	    
-	    $(window).scroll(a);
+	    $(window).scroll(scrollFunc);
 	    
 	});
 	
@@ -638,12 +491,212 @@ $(document).ready(function(){
             		<div id="fixed-sub02">
             			<br>
             			날짜
+            			
             			<input type="text" 
             			data-range="true"
-    					data-multiple-dates-separator="     -     "
-    					data-language="en"
+    					data-multiple-dates-separator="       →       "
     					todayButton="true"
-            			class="datepicker-here search-query3 form-control"/>
+            			class="datepicker-here search-query3 form-control" />
+            			
+            			<script>
+            			var disabledDays = ['2018-8-26','2018-8-30'];
+            			var isDisabled;
+            			var today = new Date();
+            			var d;
+            			var blockDate;
+            			var ttt;
+            			var vvv;
+            			var reserveDate;
+            			
+            			$('.datepicker-here').datepicker({
+            				
+            				todayButton: new Date(),
+            				clearButton : true,
+            				autoClose : "true",
+            				dateFormat : "yyyy/mm/dd",
+            				minDate: new Date(),
+            				toggleSelected: false,
+            				language: {
+            					days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+            				    daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+            				    daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+            				    months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+            				    monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+            				    today: '오늘',
+            				    clear: '날짜 지우기',
+            				    dateFormat: "yyyy/mm/dd",
+            				    timeFormat: 'hh:ii aa'
+            			    },
+            				
+            				onSelect: function(formattedDate, date, inst){
+            					
+            					
+            					var checkin = formatDate(date);
+            			        var inYear = checkin.split('-')[0];
+            			        var inMonth = checkin.split('-')[1];
+            			        var inDay = checkin.split('-')[2];
+            					
+            					
+            					function formatDate(date) {
+            		                var d = new Date(date),
+            		                    month = '' + (d.getMonth() + 1),
+            		                    day = '' + d.getDate(),
+            		                    year = d.getFullYear();
+
+            		                /* if (month.length < 2) month = '0' + month;
+            		                if (day.length < 2) day = '0' + day; */
+
+            		                 return [year, month, day].join('-');
+            		            }
+            					
+            					console.log("select");
+            					console.log(date);
+            					console.log(formattedDate);
+            					
+            					if(date.length == 2){
+            						alert("이오와엉");
+            						
+            						var checkinDate = date[0];
+            						var checkoutDate = date[1];
+            						
+            						console.log(formatDate(checkinDate));
+            						console.log(formatDate(checkoutDate));
+            						
+            						$.ajax({
+            							url:"ajax01.do",
+            							type:"get",
+            							data:{name:name, email:email},
+            							success:function(){
+            								console.log("전달 성공!")
+            							},
+            							error : function(request,status,error) {
+            								console.log(request.status + " : " + status + " : " + error);
+            							}
+            						})
+            						
+            					}
+            					
+            					for(var j=0; j<disabledDays.length;j++){
+            						
+            						var reservYear = disabledDays[j].split('-')[0];
+            		      		  	var reservMonth = disabledDays[j].split('-')[1];
+            		      		  	var reservDay = disabledDays[j].split('-')[2];
+            		      		  	
+            		      		  	reserveDate = new Date(reservYear,reservMonth,reservDay);
+            		      		  	
+            		      		  	console.log(reserveDate.getDate()-1);
+            		      		  	console.log(reserveDate.getMonth());
+            		      			console.log(inMonth);
+            						
+            		      		  if(inMonth == reserveDate.getMonth()){
+            		      			  if(date[0].getDate() == reserveDate.getDate()-1){
+            		      				   
+            		      				  blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
+            		      				  console.log(blockDate);
+            		      				  
+            		      				  d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
+            		      				  
+            		      					ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
+            		      					vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
+            		      				  
+            		      			  }else{
+            		      				  return;
+            		      			  }
+            		      		  }
+            					}
+            				},
+            				
+            			     onRenderCell: function (date, cellType) {
+            			        if (cellType == 'day') {
+            			        	
+            			        	/* console.log("fff");
+            			        	console.log(blockDate);
+            			        	console.log(d);
+            			        	console.log(ttt);
+            			        	console.log(vvv);
+            			        	
+            			        	var c = new Date(2111,1,1);
+            			        	console.log(c);
+            			        	
+            			        	if(blockDate >= date){
+            		        			return {
+            			        			   disabled : true
+            			        		   }
+            		        		}else if(blockDate < date){
+            		        			return {
+            			        			   disabled : false
+            			        		   }
+            		        		}else if(vvv > 0){
+            			        		return {
+            			        			   disabled : true
+            			        		   }
+            			        	}
+            			        	 */
+            			        	function formatDate(date) {
+            			                var d = new Date(date),
+            			                    month = '' + (d.getMonth() + 1),
+            			                    day = '' + d.getDate(),
+            			                    year = d.getFullYear();  
+
+            			                /* if (month.length < 2) month = '0' + month;
+            			                if (day.length < 2) day = '0' + day; */
+
+            			                  return [year, month, day].join('-');
+            			            }
+            			            
+            			        	for(var i=0; i<disabledDays.length;i++){
+            			        		
+            			        		
+            			        		
+            			        		var reservYear = disabledDays[i].split('-')[0];
+            			      		  	var reservMonth = disabledDays[i].split('-')[1];
+            			      		  	var reservDay = disabledDays[i].split('-')[2];
+            			      		  	
+            			      		  	
+            			      		  
+            				           
+            				           
+            				           var checkin = formatDate(date);
+            				           var inYear = checkin.split('-')[0];
+            				           var inMonth = checkin.split('-')[1];
+            				           var inDay = checkin.split('-')[2];
+            				            
+            				           /* console.log("reservMonth : "+reservMonth);
+            				           console.log("inMonth : "+inMonth); */
+            				           
+            				           if(reservMonth == inMonth){
+            				        	   /* console.log("같으면 : "+inMonth);
+            				        	   
+            				        	   console.log("inDay : "+ inDay);
+            				        	   console.log("reservDay : "+ reservDay);
+            				        	    */
+            				        	   if(reservDay === inDay){
+            				        		   return {
+            				        			   disabled : true
+            				        		   }
+            				        	   };
+            				           }
+            			        	
+            			                
+
+            			                /* console.log(isDisabled);
+            				            console.log(date);
+            				            console.log(checkin);
+            				            console.log(inDay);   */
+            				            
+            				            /* return {
+            				                disabled: isDisabled
+            				                
+            				            	} */
+            				             
+            			        	 }
+            			        	
+            			        }
+            			        
+            			    }  
+            			});
+            			</script>
+            			
             			<br>
             			인원
             			<input type="text" class="search-query3 form-control"/>

@@ -528,6 +528,11 @@ input.search-query2 {
 	border-bottom:  1px solid #d6d6d6;
 }
 
+#fixed-sub02 input{
+	align-content:center;
+	width:17.5vw;
+	padding-left:1vw;
+}
 
 #reservationBT{
 	width:100%;

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <!-- header css -->
-<link rel="shortcut icon" href="../favicon.ico">
 <link href="<c:url value="/resources/css/main/header.css?var=2" />"
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/main/demo.css?var=3" />"
@@ -11,7 +10,6 @@
 	rel="stylesheet" />
 
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 
 <!-- 재호  -->
