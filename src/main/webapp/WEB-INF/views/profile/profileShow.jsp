@@ -176,7 +176,7 @@ max-width:400px;
 <title>Profile</title>
 </head>
 <body>
-<%@ include file="../../resource/include/profileHeader.jsp" %>
+<%@ include file="../../resource/include/header_profile.jsp" %>
 
 <div class=container style="width:100%;height:1150px;">
 	<!-- <h1 class="title-pen">User Profile</h1> -->

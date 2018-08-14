@@ -482,7 +482,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/profileHeader.jsp" %>
+	<%@ include file="../../resource/include/header_profile.jsp" %>
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"
