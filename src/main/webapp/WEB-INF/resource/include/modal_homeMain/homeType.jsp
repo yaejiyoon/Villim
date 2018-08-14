@@ -95,22 +95,26 @@
 <script>
 	$(document).ready(function() {
 		$("#homeTypeSubmit").click(function() {
-			$("input[name=house]:checked").each(function() {
-				alert("집전체");
-			});
-			
-			$("input[name=privateRoom]:checked").each(function() {
-				alert("개인실");
-			});
-			
-			$("input[name=publicRoom]:checked").each(function() {
-				alert("다인실");
-			});
+// 			var checkedValue = null;
+// 			var inputElements = document.getElementsByClassName('homeTypeCheckbox');
+// 			for (var i = 0; inputElements[i]; ++i) {
+// 				if(inputElements[i].checked) {
+// 					checkedValue = inputElements[i].value;
+// 					alert(checkedValue);
+// 				}
+// 			}
+
+			var values = document.getElementsByName("homeType");
+			alert(values.length);
+			for (var i = 0; i < values.length; i++) {
+				if(values[i].checked) {
+					alert(values[i].value);
+				}
+			}
 		});
 	});
 </script>
-
-<form method=post action="" id="formid">
+<form action="homeType_modal.do" method="post">
       <div class="modal fade" id="homeType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="homeTypeDialog">
             <div class="modal-content">
@@ -123,20 +127,20 @@
                <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
                   	<label class="Container"><b>집 전체</b><br>
                   		집 전체를 단독으로 사용합니다
-					  <input type="checkbox" name="house">
+					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="집전체">
 					  <span class="checkmark"></span>
 					</label>
 						
 						
 					<label class="Container"><b>개인실</b><br>
 						침실은 단독으로 쓰고, 이외의 공간은 호스트나 다른 게스트와 함께 이용할 수도 있습니다. 
-					  <input type="checkbox" name="privateRoom">
+					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="개인실">
 					  <span class="checkmark"></span>
 					</label>
 					
 					<label class="Container"><b>다인실</b><br>
 						사적공간없이, 침실이나 욕실 등을 호스트나 다른 게스트와 함께 사용합니다.
-					  <input type="checkbox" name="publicRoom">
+					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="다인실">
 					  <span class="checkmark"></span>
 					</label>
 					
