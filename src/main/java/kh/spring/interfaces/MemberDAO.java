@@ -16,6 +16,7 @@ import kh.spring.dto.Review_H_DTO;
 public interface MemberDAO {
 	
 	public int signup(MemberDTO dto);
+	
 	public boolean isMember(MemberDTO dto);
 	
 	public MemberDTO printProfile(String userId);

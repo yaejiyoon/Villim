@@ -15,10 +15,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 
-<!-- 재호  -->
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> -->
-
 <script>
 	$(document).ready(function(){
 		$(document).click(function(event) {
@@ -100,7 +96,7 @@
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover">
-               		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지">메세지</span>
                			<ul>
         					<li><a href="#">Item</a></li>
@@ -115,20 +111,8 @@
                			
                		</a>
                </div>
-               				<div id="header-menu-div" class="dropdown hover">
-					<a data-toggle="modal" href="#myModal"
-						style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
-						<span data-hover="회원가입">회원가입</span>
-
-					</a>
-				
-				</div>
-				<div id="header-menu-div" class="dropdown hover">
-					<a data-toggle="modal" href="#myModal1"
-						 style="width: 100%; color: black; overflow: hidden; margin: 0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
-						<span data-hover="로그인">로그인</span>
-					</a>
-				</div>
+               		
+			
             </nav>
          </section>
       </div>
@@ -137,4 +121,3 @@
       </div>
    </div>
 
-	<%@ include file="modal_signup/indexSignup.jsp"%>

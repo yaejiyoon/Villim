@@ -526,7 +526,7 @@ $(document).ready(function(){
 								
 									<div class="panel-body">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
-										<br>
+										
 										
 
                                         <c:forEach items="${getHostReview}" var="hostReview">
@@ -535,7 +535,7 @@ $(document).ready(function(){
        	
  
 				  
-				  <article class="row">
+				  <article class="row" style="margin-top:3%;">
             <div class="col-md-2 col-sm-2 hidden-xs">
               <figure class="thumbnail">
                 <img class="img-responsive" src="files/${hostReview.member_picture}" />
@@ -721,36 +721,7 @@ $(document).ready(function(){
           
           </c:forEach>
           
-          
-         
-										<!-- if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)  -->
-										<%-- <c:forEach items="${guestReviewresult}" var="review">
-										<div class="form-group">
-													<div class="col-sm-10 col-sm-offset-2">
-														<div id="hostInfo" >
-															<h4 style="color: #595c63; position: relative; left: -180px;">${review.home_name} 을 위한 리뷰</h4>
-															<div class="col-6 col-md-4">
-															<img src="files/${reviewHomePhoto}"  class="photo" id="hostPhoto" /> 
-															</div>
-															
-														</div>
-														
-														<div class="col-6">
-														<h4 style="position: relative; left: -150px; top:30px; color: #595c63; font-weight: bold;">${review.g_review_public}</h4>
-														<h4 style="position: relative; left: -150px; top:30px; color: #595c63; font-weight: bold;">${review.g_review_date}</h4>
-														
-                                                        </div>     
-													</div>
-												</div>
-										 </c:forEach> --%>
-										
-										
-										
-                                        
-                                        
-                                            
-                                            
-                                        
+           
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-offset-2"></div>
 										</div>
@@ -775,110 +746,6 @@ $(document).ready(function(){
 	</div>
 
 
-
-
-
-
-
-
-	<!-- 	<div style="position: relative; left: 250px; top: 56px;">
-		<a href="profileEditView.mo" style="font-size: 18px; position: relative; top: -24px; left: 0px; color:gray; text-decoration: none;">프로필
-			수정</a> <a
-			style="font-size: 19px; position: relative; top: 23px; left: -100px;color:gray;
-			
-			font-weight:bold;">후기</a>
-		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</a>
-
-
-	</div>
-	
-
-<div class="tab_container">
-         <input id="tab1" type="radio" name="tabs" checked>
-         <label for="tab1"><i class="fa fa-code"></i><span>나에 대한 후기</span></label>
-
-         <input id="tab2" type="radio" name="tabs">
-         <label for="tab2"><i class="fa fa-pencil-square-o"></i><span>내가 작성한 후기</span></label>
-
-      
-         <section id="content1" class="tab-content">
-         
-         
-         <div class="panel panel-default">
-      <div class="panel-heading">
-         <h3 class="panel-title" style="text-align:left;">지난 후기</h3>
-      </div>
-      <div class="panel-body">
-         후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
-         if 후기가 있다면 : 클라이언트 사진과 이름 후기 ,날짜 그리고 거기
-         
-
-            <div class="form-group">
-               <div class="col-sm-10 col-sm-offset-2">
-                  <button id="imageChangeBt" name="submit" type="submit"
-                     class="btn btn-default"
-                     style="margin-top: 15px; margin-left: 470px;"><img src="../photo.png" style="width:23px; padding-right: 3px;">새로운 사진 변경</button>
-               </div>
-            </div>
-           else 후기가 없다면 :  아직 작성된 후기가 없습니다.
-      
-      </div>
-   </div>
-               
-               
-         </section>
-
-         --------------------------------게스트-----------------------------------------------------
-
-         <section id="content2" class="tab-content">
-            
-   <div class="panel panel-default">
-      <div class="panel-heading">
-         <h3 class="panel-title" style="text-align:left;">작성해야 할 후기</h3>
-      </div>
-      <div class="panel-body">
-         if 구매를 하고 체크인 날짜이후부터 리뷰쓰기 가능
-            <div class="form-group">
-               <div class="col-sm-10 col-sm-offset-2">
-               <div id="hostInfo">
-               <h5 style="color:#595c63;position:relative;left:140px;font-weight:bold;">리뷰는 체크아웃 후에 쓸 수 있습니다.</h5>
-               <img src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm" class="img-circle" id="hostPhoto">
-               <h4 style="position:relative;left:27px;color:#595c63;font-weight:bold;">James Bro</h4>
-               </div>
-               <h5 style="position:relative;top:-155px;">샌디에이고에서 5성급 펜션 을 위한 공개 리뷰 작성기간 11일 기간을 드립니다.</h5>
-                  <a href="reviewWrite.mo" style="position:relative;top:-140px;color:#ff5959;text-decoration:none;">리뷰쓰기</a>
-                  
-               </div>
-            </div>
-
-         else 현재 작성할 후기가 없습니다. 여행을 한번 다녀올 때가 된 것 같네요!
-      </div>
-   </div>
-
-   <div class="panel panel-default">
-      <div class="panel-heading">
-         <h3 class="panel-title" style="text-align:left;">내가 작성한 후기</h3>
-      </div>
-      <div class="panel-body">
-         if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)
-         
-         <img src="" alt="호스트 사진"/>
-          호스트이름, 후기 , 날짜
-         
-
-            <div class="form-group">
-               <div class="col-sm-10 col-sm-offset-2">
-                  
-               </div>
-            </div>
-             else 작성한후기 없다면 : 아직 후기를 남기지 않으셨습니다.
-      </div>
-   </div>
-
-         </section>
-   
-      </div> -->
 
 	<%@ include file="../../resource/include/footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
