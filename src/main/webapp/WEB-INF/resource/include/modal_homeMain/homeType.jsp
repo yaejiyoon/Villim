@@ -6,10 +6,6 @@
 		margin-top : 180px;
 	}
 	
-	.modal-backdrop {
-   		background-color: #f2edee;
-	}
-	
 	.modal-dialog {
 		font-family: dx;
 	}
