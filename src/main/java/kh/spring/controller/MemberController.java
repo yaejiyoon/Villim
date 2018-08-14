@@ -246,42 +246,65 @@ public class MemberController {
 	
 	// 전송된 인증키 확인 하여 회원가입 성공페이지 이동
 	@RequestMapping("isAuthKey.do")
-	public ModelAndView isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
-		System.out.println("?");
+	@ResponseBody
+	public void isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
+
 		ModelAndView mav = new ModelAndView();
 		
 		String sessionKey = session.getAttribute("authKey").toString();
 		String authNum = request.getParameter("authNum");
+		String memberEmail = request.getParameter("member_email");
+		String memberPw = request.getParameter("member_pw");
+		String memberPicture = request.getParameter("member_picture");
+		String memberBirth = request.getParameter("member_birth");
+		String memberPhone = request.getParameter("member_phone");
+		String memberName = request.getParameter("member_name");
+		
+		dto.setMember_email(memberEmail);
+		dto.setMember_picture(memberPicture);
+		dto.setMember_phone(memberPhone);
+		dto.setMember_pw(memberPw);
+		dto.setMember_name(memberName);
+		dto.setMember_birth(memberBirth);
+		
+		
 		if(sessionKey.equals(authNum)) {
 		
-		System.out.println("이메일" + dto.getMember_email());
-		System.out.println("이름" + dto.getMember_name());
-		System.out.println("생일" + dto.getMember_birth());
-		System.out.println("프로필" + dto.getMember_picture());
-		System.out.println("핸드폰" + dto.getMember_phone());
+		System.out.println("이메일" + memberEmail);
+		System.out.println("이름" + memberName);
+		System.out.println("생일" + memberBirth);
+		System.out.println("프로필" + memberPicture);
+		System.out.println("핸드폰" + memberPhone);
 		
 
 		int result = service.signup(dto);
-		String successSignup = "성공";
+		
 		if(result > 0) {
 			System.out.println("회원가입 성공");
-			mav.addObject("successSignup", successSignup);
-			mav.setViewName("signup");
+			String msg = "성공";
+			
+			response.setCharacterEncoding("utf8");
+			response.setContentType("application/json");
+			try {
+			new Gson().toJson(msg, response.getWriter());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 //			mav.setViewName("successsignup");
 //			return "redirect:successsignup.do";
-			return mav;
+			
 											
 		}else {
 			System.out.println("회원가입 실패");
 			mav.setViewName("회원싶패 페이지");
-			return mav;
+			
 		}
 		
 		}
 		else {
 			System.out.println("인증번호 맞지 않는다");
 			mav.setViewName("회원싶패 페이지");
-			return mav;
+
 		}
 		
 		
