@@ -8,5 +8,10 @@
 		<typeAlias type="kh.spring.dto.HomePicDTO" alias="HomePic"/>
 		<typeAlias type="kh.spring.dto.MemberDTO" alias="Member"/>
 		<typeAlias type="kh.spring.dto.ProfileHomePicDTO" alias="ProfileHomePic"/>
+		<typeAlias type="kh.spring.dto.ReservationDTO" alias="Reservation"/>
+		<typeAlias type="kh.spring.dto.GuestReviewDTO" alias="GuestReview"/>
+		<typeAlias type="kh.spring.dto.ReviewDTO" alias="Review"/>
+		<typeAlias type="kh.spring.dto.Review_H_DTO" alias="Review_H"/>
+		<typeAlias type="kh.spring.dto.HostReviewDTO" alias="HostReview"/>
 	</typeAliases>
 </configuration>
