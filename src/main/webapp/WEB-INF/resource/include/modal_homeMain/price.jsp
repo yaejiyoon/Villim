@@ -7,12 +7,24 @@
 		width : 700px;
 	}
 	
-	.modal-backdrop {
-   		background-color: #f2edee;
+	
+	#priceSubmit {
+		background-color: white; 
+		color : #2196F3;
+		border : 1px solid #2196F3;
+		font-family: dx;
 	}
 	
-	div {
-		font-family: dx;
+	#priceSubmit:hover {
+		background-color: #2196F3; 
+		color : white;
+		outline:0;
+	}
+	
+	#moneyTop {
+		border: none;
+		text-align: center;
+		margin-right : 80px;
 	}
 </style>
 
@@ -294,7 +306,7 @@ sup{
     left: auto;
     right: 18px;
 
-    & .gear-tooth{
+    &.gear-tooth{
       background: #d2d2d2;
     }
   }
@@ -345,9 +357,10 @@ $(function() {
 	  $('.ui-slider-range').append($('.range-wrapper'));
 
 	  // Apply initial values to the range container
-	  $('.range').html('<span class="range-value"><sup>$</sup>' + $('#slider-range').slider("values", 0).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span><span class="range-divider"></span><span class="range-value"><sup>$</sup>' + $("#slider-range").slider("values", 1).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span>');
+	  $('.range').html('<span class="range-value"><sup>￦</sup>' + $('#slider-range').slider("values", 0).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,") + '</span><span class="range-divider"></span><span class="range-value"><sup>￦</sup>' + $("#slider-range").slider("values", 1).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,") + '</span>');
 
 	  // Show the gears on press of the handles
+	  
 	  $('.ui-slider-handle, .ui-slider-range').on('mousedown', function() {
 	    $('.gear-large').addClass('active');
 	  });
@@ -373,7 +386,7 @@ $(function() {
 
 	      // Update the range container values upon sliding
 
-	      $('.range').html('<span class="range-value"><sup>$</sup>' + ui.values[0].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span><span class="range-divider"></span><span class="range-value"><sup>$</sup>' + ui.values[1].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + '</span>');
+	      $('.range').html('<span class="range-value"><sup>￦</sup>' + ui.values[0].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,") + '</span><span class="range-divider"></span><span class="range-value"><sup>￦</sup>' + ui.values[1].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "1,") + '</span>');
 
 	      // Get old value
 	      var previousVal = parseInt($(this).data('value'));
@@ -429,9 +442,12 @@ $(function() {
 	    event.stopPropagation();
 	  });
 	  
-	  $("#priceBt").click(function() {
-		  console.log(($('#slider-range').slider("values", 0).toString()));
-	  })
+	  
+	  $("#priceSubmit").click(function() {
+ 		  // $("#money").text($('#slider-range').slider("values",0).toString());
+		  alert($('#slider-range').slider("values", 0).toString());
+		  alert($('#slider-range').slider("values", 1).toString());
+	  });
 
 	});
 </script>
@@ -447,11 +463,11 @@ $(function() {
                   <button type="button" class="close" data-dismiss="modal">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>
-                  <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">가격</h4>
+                  <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">가격대 지정하기</h4>
                </div>
                <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
-                  	￦<span class="range-value"></span> ~ ￦<span class="range-value"></span>
-					<p>평균 1박 요금은 ₩88,001입니다 </p>
+                  	가능한 요금의 범위 : <div class="range range-value" id="moneyTop"></div>
+					<p>평균 1박 요금은 <b>₩88,001</b>입니다 </p>
 					<br>
 					<br>
 					<Br>
@@ -496,7 +512,7 @@ $(function() {
 					<Br>
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="priceBt">적용하기</button> 
+                   <button class="btn btn-primary-outline" id="priceSubmit">적용하기</button> 
                </div>
             </div>
          </div>

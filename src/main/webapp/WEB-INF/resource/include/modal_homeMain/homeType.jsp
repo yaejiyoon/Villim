@@ -6,11 +6,7 @@
 		margin-top : 180px;
 	}
 	
-	.modal-backdrop {
-   		background-color: #f2edee;
-	}
-	
-	div {
+	.modal-dialog {
 		font-family: dx;
 	}
 	
@@ -82,21 +78,43 @@
 	  transform: rotate(45deg);
 	}
 	
-	#submit {
+	#homeTypeSubmit {
 		background-color: white; 
 		color : #2196F3;
 		border : 1px solid #2196F3;
 		font-family: dx;
 	}
 	
-	#submit:hover {
+	#homeTypeSubmit:hover {
 		background-color: #2196F3; 
 		color : white;
 		outline:0;
 	}
 </style>
 
-<form method=post action="attend.meet?meeting_seq=${result.meeting_seq}" id="formid">
+<script>
+	$(document).ready(function() {
+		$("#homeTypeSubmit").click(function() {
+// 			var checkedValue = null;
+// 			var inputElements = document.getElementsByClassName('homeTypeCheckbox');
+// 			for (var i = 0; inputElements[i]; ++i) {
+// 				if(inputElements[i].checked) {
+// 					checkedValue = inputElements[i].value;
+// 					alert(checkedValue);
+// 				}
+// 			}
+
+			var values = document.getElementsByName("homeType");
+			alert(values.length);
+			for (var i = 0; i < values.length; i++) {
+				if(values[i].checked) {
+					alert(values[i].value);
+				}
+			}
+		});
+	});
+</script>
+<form action="homeType_modal.do" method="post">
       <div class="modal fade" id="homeType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="homeTypeDialog">
             <div class="modal-content">
@@ -109,27 +127,27 @@
                <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
                   	<label class="Container"><b>집 전체</b><br>
                   		집 전체를 단독으로 사용합니다
-					  <input type="checkbox" checked="checked">
+					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="집전체">
 					  <span class="checkmark"></span>
 					</label>
 						
 						
 					<label class="Container"><b>개인실</b><br>
 						침실은 단독으로 쓰고, 이외의 공간은 호스트나 다른 게스트와 함께 이용할 수도 있습니다. 
-					  <input type="checkbox">
+					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="개인실">
 					  <span class="checkmark"></span>
 					</label>
 					
 					<label class="Container"><b>다인실</b><br>
 						사적공간없이, 침실이나 욕실 등을 호스트나 다른 게스트와 함께 사용합니다.
-					  <input type="checkbox">
+					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="다인실">
 					  <span class="checkmark"></span>
 					</label>
 					
                   	
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="submit">적용하기</button> 
+                   <button class="btn btn-primary-outline" id="homeTypeSubmit">적용하기</button> 
                </div>
             </div>
          </div>

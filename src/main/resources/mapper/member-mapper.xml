@@ -31,4 +31,48 @@ select count(home_name) from home where member_email=#{userId}
 select h.home_seq,h.home_name,p.home_pic_name from home h,home_pic p  where h.home_seq=p.home_seq and h.member_email=#{userId} order by h.home_seq
 </select>
 
+<select id="getReviewInfo" resultType="Reservation">
+select * from reservation where member_email=#{userId} and reserv_checkout<![CDATA[<]]>=to_char(sysdate,'yyyy-mm-dd') and guest_review='N'
+</select>
+
+<select id="getHomePhoto" resultType="HomePic">
+select home_pic_name from home_pic where home_seq=#{home_seq}
+
+
+</select>
+
+<select id="getMemberEmail" resultType="Home">
+select member_email from home where home_seq=#{home_seq}
+</select>
+
+<select id="insertGuestReview" resultType="GuestReview">
+insert into guest_review values(guest_review_seq.nextval,#{home_seq},#{member_email},#{g_review_satisfaction},#{g_review_accuracy},#{g_review_cleanliness},#{g_review_checkIn},#{g_review_amenities},#{g_review_communication},#{g_review_location},#{g_review_value},#{g_review_repurchase},#{g_review_public},#{g_review_private},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'))
+</select>
+
+<select id="getGuestReview" resultType="Review">
+select guest_review.home_seq,guest_review.g_review_public,guest_review.g_review_date,reservation.home_name from guest_review,reservation where reservation.home_seq=guest_review.home_seq and guest_review.member_email=#{member_email}
+</select>
+
+<select id="getSeq" resultType="Integer">
+select home_seq from home where member_email=#{userId}
+</select>
+
+<select id="getHostReview" resultType="Review_H">
+select g.g_review_seq,g.home_seq,m.member_picture,m.member_name,g.g_review_public,g.g_review_date from member m inner join guest_review g on m.member_email=g.member_email and g.home_seq IN 
+<foreach collection="list" item="type" open="(" close=")" separator=",">
+#{type.value}
+</foreach>
+</select>
+
+
+<select id="getRealHostReview" resultType="HostReview">
+select * from host_review where g_review_seq IN 
+<foreach collection="list" item="type" open="(" close=")" separator=",">
+#{type.value}
+</foreach>
+</select>
+
+<insert id="insertHostReview">
+insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'))
+</insert>
 </mapper>

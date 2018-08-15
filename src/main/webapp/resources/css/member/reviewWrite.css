@@ -1,0 +1,419 @@
+@charset "UTF-8";
+
+
+@charset "UTF-8";
+
+
+.card {
+    padding-top: 20px;
+    margin: 10px 0 20px 0;
+    background-color: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-top-width: 0;
+    border-bottom-width: 2px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.card.hovercard {
+    position: relative;
+    width: 300px;
+    padding-top: 0;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+}
+
+.card.hovercard img {
+    width: 300px;
+    height: 200px;
+}
+
+.card.hovercard .avatar {
+    position: relative;
+    top: -40px;
+    margin-bottom: -40px;
+}
+
+.card.hovercard .avatar img {
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.card.hovercard .info {
+    padding: 4px 8px 10px;
+}
+
+.card.hovercard .info .title {
+    margin-bottom: 4px;
+    font-size: 24px;
+    line-height: 1;
+    color: #262626;
+    vertical-align: middle;
+}
+
+.card.hovercard .info .desc {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: #737373;
+    text-overflow: ellipsis;
+}
+
+.card.hovercard .bottom {
+    padding: 0 20px;
+    margin-bottom: 17px;
+}
+
+.card.people .card-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    padding: 10px 20px;
+    line-height: 29px;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+body {
+  
+  -webkit-font-smoothing: antialiased;
+}
+
+/* - - - - - RATINGS */
+.rating {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 180px;
+  height: 30px;
+  padding: 5px 10px;
+  margin: auto;
+  border-radius: 30px;
+  background: #FFF;
+  display: block;
+  overflow: hidden;
+  
+  box-shadow: 0 1px #CCC,
+              0 5px #DDD,
+
+  
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating:not(:checked) > input {
+  display: none;
+}
+
+
+/* - - - - - satisfaction */
+#satisfaction {
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#satisfaction:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#satisfaction:not(:checked) > label:hover,
+#satisfaction:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#satisfaction > input:checked + label:hover,
+#satisfaction > input:checked + label:hover ~ label,
+#satisfaction > input:checked ~ label:hover,
+#satisfaction > input:checked ~ label:hover ~ label,
+#satisfaction > label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#satisfaction > input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+
+
+/* - - - - - accuracy */
+#accuracy {
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#accuracy:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#accuracy:not(:checked) > label:hover,
+#accuracy:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#accuracy > input:checked + label:hover,
+#accuracy> input:checked + label:hover ~ label,
+#accuracy> input:checked ~ label:hover,
+#accuracy> input:checked ~ label:hover ~ label,
+#accuracy> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#accuracy> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+
+/* - - - - - cleanliness */
+#cleanliness{
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#cleanliness:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#cleanliness:not(:checked) > label:hover,
+#cleanliness:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#cleanliness> input:checked + label:hover,
+#cleanliness> input:checked + label:hover ~ label,
+#cleanliness> input:checked ~ label:hover,
+#cleanliness> input:checked ~ label:hover ~ label,
+#cleanliness> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#cleanliness> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+
+/* - - - - - checkIn */
+#checkIn{
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#checkIn:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#checkIn:not(:checked) > label:hover,
+#checkIn:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#checkIn> input:checked + label:hover,
+#checkIn> input:checked + label:hover ~ label,
+#checkIn> input:checked ~ label:hover,
+#checkIn> input:checked ~ label:hover ~ label,
+#checkIn> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#checkIn> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+/* - - - - - amenities */
+#amenities{
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#amenities:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#amenities:not(:checked) > label:hover,
+#amenities:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#amenities> input:checked + label:hover,
+#amenities> input:checked + label:hover ~ label,
+#amenities> input:checked ~ label:hover,
+#amenities> input:checked ~ label:hover ~ label,
+#amenities> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#amenities> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+/* - - - - - communication */
+#communication{
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#communication:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#communication:not(:checked) > label:hover,
+#communication:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#communication> input:checked + label:hover,
+#communication> input:checked + label:hover ~ label,
+#communication> input:checked ~ label:hover,
+#communication> input:checked ~ label:hover ~ label,
+#communication> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#communication> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+
+/* - - - - - location */
+#location{
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#location:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#location:not(:checked) > label:hover,
+#location:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#location> input:checked + label:hover,
+#location> input:checked + label:hover ~ label,
+#location> input:checked ~ label:hover,
+#location> input:checked ~ label:hover ~ label,
+#location> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#location> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+
+/* - - - - - value */
+#value{
+   position: relative;
+    top: 25px;
+    left: -156px;
+    width: 200px;
+    height: 50px;
+}
+#value:not(:checked) > label {
+  cursor:pointer;
+  float: right;
+  width: 30px;
+  height: 30px;
+  display: block;
+  
+  color: rgba(233, 54, 40, .4);
+  line-height: 33px;
+  text-align: center;
+}
+#value:not(:checked) > label:hover,
+#value:not(:checked) > label:hover ~ label {
+  color: rgba(233, 54, 40, .6);
+}
+#value> input:checked + label:hover,
+#value> input:checked + label:hover ~ label,
+#value> input:checked ~ label:hover,
+#value> input:checked ~ label:hover ~ label,
+#value> label:hover ~ input:checked ~ label {
+  color: rgba(233, 54, 40, .8);
+}
+#value> input:checked ~ label {
+  color: rgb(233, 54, 40);
+}
+
+
+
+#counter {
+    background: rgba(255, 0, 0, 0.5);
+    border-radius: 0.5em;
+    padding: 0 .5em 0 .5em;
+    font-size: 0.75em;
+    position: relative;
+    left: 420px;
+}

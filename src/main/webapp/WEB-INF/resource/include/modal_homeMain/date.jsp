@@ -8,15 +8,11 @@
 	}
 	
 	.modal-backdrop {
-   		background-color: #f2edee;
+   		background-color: #f9f2ef;
 	}
 	
-	div {
-		font-family: dx;
-	}
 </style>
 
-<form method=post action="attend.meet?meeting_seq=${result.meeting_seq}" id="formid">
       <div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
@@ -35,4 +31,3 @@
             </div>
          </div>
       </div>
-</form>

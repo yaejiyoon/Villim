@@ -158,21 +158,24 @@ left:100%;
 </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/header.jsp" %>
+	<%@ include file="../../resource/include/header_profile.jsp" %>
 	
 <c:if test="${inputSuccess eq 'success'}">
 	<div class="animated bounce delay-10s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>
 	</c:if>
+	
+	
+	
 	<div class="" style="position: relative; left: 250px; top: 56px;">
 		<a style="font-size: 19px; position: relative; top: -24px; left: 0px; color:gray;text-decoration: none;font-weight:bold;">프로필
-			수정</a> <a
-			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;">후기</a>
+			수정</a> <a href="profileReview.mo"
+			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
 		<button id="profileShowBt" class="btn btn-default"
 			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
 
 
 	</div>
-	
+	<div class=container style="height:1150px;">
 	<div class="panel panel-default"
 		style="width: 50%; position: absolute; left: 500px">
 		<div class="panel-heading">
@@ -361,12 +364,12 @@ $(document).on('change',"#file",function(){
 		</div>
 		
 	</div>
-
+</div>
 	
 
-
+   <%@ include file="../../resource/include/footer.jsp" %>    
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
-<%--   <%@ include file="../../resource/include/footer.jsp" %>   --%>
+
 </body>
 </html>
