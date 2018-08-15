@@ -15,5 +15,10 @@ public class MessageDAOImpl implements MessageDAO{
 
 	@Autowired
 	private SqlSession template;
+
+	@Override
+	public int countReview(int home_seq) {
+		return template.selectOne("Message.countReview",home_seq);
+	}
 	
 }

@@ -11,6 +11,11 @@ public class MessageServiceImpl implements MessageService{
 
 	@Autowired
 	MessageDAO dao;
+
+	@Override
+	public int countReview(int home_seq) {
+		return dao.countReview(home_seq);
+	}
 	
 	
 }
