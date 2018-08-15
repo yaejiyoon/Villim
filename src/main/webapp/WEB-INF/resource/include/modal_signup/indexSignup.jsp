@@ -118,12 +118,14 @@
 		    alert(JSON.stringify(response));
 		    var popupX =(window.screen.width/2) - (500 / 2);
 	    	 var popupY= (window.screen.height/2) - (500 / 2);
-			   window.open('fbInfo.do', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+			   window.open('', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		  
 			    $("#fbEmailBtn").val(response.email);
         		$("#fbNameBtn").val(response.name);
         		$("#fbIdBtn").val(response.id);
         		$("#fbImgBtn").val(response.picture.data.url);
+        		
+        		$("#fbForm").submit();
 		  
 		  
 		  });
@@ -306,28 +308,59 @@ function loginWithKakao() {
 
 /* google */
 function signupWithGoogle(){
-		
+		var google_url = '${sessionScope.googleUrl}';
 		/* location.href ='${google_url}'; */
 		/* var google_url = '${google_url}'
 		location.href = google_url; */
 		var popupX =(window.screen.width/2) - (500 / 2);
 		var popupY= (window.screen.height/2) - (500 / 2);
+	
 		
+	 	var child = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		$("#myModal").modal('hide'); 
+		/* child.close(); */
+ 		
+		$(location).attr("href","index"); 
 		
-		window.open('${google_url}', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		/* alert(login);
+		if(login == "login"){  */
+			
+		/* http://jobdahan.net/scriptstudy/1498310 */
+			
+		
 		
 	}
-	
+		
 /* google */
 function loginWithGoogle(){
-		var google_url = '${sessionScope.googleUrl}'
+		var google_url = '${sessionScope.googleUrl}';
+		
 		var popupX =(window.screen.width/2) - (500 / 2);
 		var popupY= (window.screen.height/2) - (500 / 2);
-		window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		var child = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+
+		$("#myModal").modal('hide'); 
+		/* */
 		
+		child.onload = function(){ 
+			 child.close();
+			 $(location).attr("href","/");
+		} 
+ 		 
+ 			/* opener.location("/"); */
+ 			
+ /* 			$(location).attr("href","/"); */
+		 
+		 
+		
+	/* 	setEventHandler(child, 'load', function() { */
+			/* child.close(); */
+			/* $(location).attr("href","/"); */
+		/* 	opener.location("/"); */
+		/* }); */
 		
 	}
-	
+
 /* Email */
 function loginWithEmail(){
 		
@@ -357,10 +390,12 @@ function loginWithEmail(){
       	<i class="fab fa-facebook-f fa-2x" style="color:white"></i>  
       	<font> 페이스북 계정으로 회원가입</font>
       </button><br>
-      <input type="hidden" id=fbEmailBtn name="fbEmail">
-      <input type="hidden" id=fbNameBtn name="fbName">
-      <input type="hidden" id=fbImgBtn name="fbImg">
-      <input type="hidden" id=fbIdBtn name="fbId">
+      <form action="fbInfo.do" method="post" id="fbForm">
+      <input type="hidden" id=fbEmailBtn name="member_email">
+      <input type="hidden" id=fbNameBtn name="member_name">
+      <input type="hidden" id=fbImgBtn name="member_picture">
+      <input type="hidden" id=fbIdBtn name="member_id">
+      </form>
       
       <button type="button" class="btn btn-warning" onclick="signupWithKakao();" id="kakao">
       	<i class="fas fa-comments fa-2x" style="color:black"></i>

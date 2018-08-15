@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -381,9 +382,21 @@ public class MemberController {
 	}
 	// 페이스북로 가입하는 페이지
 	@RequestMapping("fbInfo.do")
-	public String fbInfo(HttpServletRequest request) {
+	public ModelAndView fbInfo(HttpServletRequest request, MemberDTO dto,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
 		System.out.println("facebookInfo 접속");
-		return "facebooksignup";
+		String picture = service.isMember(dto);
+		if(!(picture.equals(""))) {
+			System.out.println("이미 가입 되어있는 아이디 입니다.");
+			System.out.println(dto.getMember_email());
+			mav.setViewName("alreadysignup");
+			return mav; 
+		}else {
+			mav.setViewName("facebooksignup");
+			return mav;
+		}
+		
+		
 		
 	}
 	
@@ -402,7 +415,8 @@ public class MemberController {
 			System.out.println(dto.getMember_email());
 			System.out.println(picture);
 			session.setAttribute("login_email", dto.getMember_email());
-			mav.addObject("login_picture", picture);
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
 			mav.setViewName("index");
 			return mav;
 		}else {
@@ -424,7 +438,7 @@ public class MemberController {
 			System.out.println("로그인성공");
 			System.out.println(dto.getMember_email());
 			session.setAttribute("login_email", dto.getMember_email());
-			mav.addObject("login_picture", picture);
+			session.setAttribute("login_picture", dto.getMember_picture());
 			mav.setViewName("index");
 			return mav;
 		}else {
@@ -437,7 +451,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		
 		session.invalidate();
-		return "";
+		return "/";
 		
 	}
 	

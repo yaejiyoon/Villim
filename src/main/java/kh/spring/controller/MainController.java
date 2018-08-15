@@ -99,11 +99,14 @@ public class MainController {
 		  System.out.println("메롱6");
 		  if(!(picture.equals(""))) {
 			  
-			  
+			  		String login = "login";
 					System.out.println("로그인성공");
 					System.out.println(dto.getMember_email());
 					session.setAttribute("login_email", dto.getMember_email());
-					mav.addObject("login_picture", picture);
+					session.setAttribute("login", login);
+					session.setAttribute("login_picture", dto.getMember_picture());
+//					mav.addObject("login_picture", picture);
+//					mav.addObject("login", login);
 					mav.setViewName("index");
 				
 			  
@@ -123,7 +126,12 @@ public class MainController {
 		  
 		return mav;
 	}
-	
+	@RequestMapping("googleIndex.do")
+	public ModelAndView googleIndex() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+		return mav;
+	}
 	
 	@RequestMapping("/homeMain.do")
 	public String homeMain() {

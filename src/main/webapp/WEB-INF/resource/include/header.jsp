@@ -125,12 +125,12 @@
             <div id="header-pic">
               <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-               <c:set var="test" value="${login_picture}"/>
+               <c:set var="test" value="${sessionScope.login_picture}"/>
                	 <c:if test="${fn:startsWith (test, 'http')}">
-             	  <img src="${login_picture}">
+             	  <img src="${sessionScope.login_picture}">
              	  </c:if>
              	  <c:if test="${fn:endsWith (test, 'jpg')}">
-             	  <img src=" files/${login_picture}"> 
+             	  <img src=" files/${sessionScope.login_picture}"> 
              	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
