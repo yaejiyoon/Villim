@@ -151,39 +151,80 @@ public class MemberController {
 	//사진 업로드 ajax
 	@RequestMapping("upload.do")
 	@ResponseBody
-	public void upload(MultipartHttpServletRequest request,HttpServletResponse response) {
+	public void upload(HttpServletRequest request,HttpServletResponse response) {
 		
 		
-		String path = "C:\\Users\\jang6\\spring\\sworkspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Villim\\files\\";
-		System.out.println(request.getParameter("formData"));
+//		String path = "C:\\Users\\jang6\\spring\\sworkspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Villim\\files\\";
+//		System.out.println(request.getParameter("formData"));
+//		
+//		System.out.println(request.getParameter("Data"));
+//		System.out.println(request.getParameter("upload"));
+//		System.out.println(request.getFileNames());
+//		
+//	      File f = new File(path);
+//	      if (!f.exists()) {
+//	         f.mkdir();
+//	      }
+//	      
+//	      Iterator<String> files = request.getFileNames();
+//	      while(files.hasNext()) {
+//	    	  String uploadFile = files.next();
+//	    	  MultipartFile mFile = request.getFile(uploadFile);
+//	    	  System.out.println(mFile.getName());
+//	    	  System.out.println(mFile.getOriginalFilename());
+//	    	  String fileName = mFile.getOriginalFilename();
+//	    	  System.out.println("실제 파일 이름" + fileName);
+//	    	 try {
+//	    	    mFile.transferTo(new File(path + fileName));
+//	    	    String fullPath = path + fileName;
+//	    	  	response.setCharacterEncoding("utf8");
+//	  			response.setContentType("application/json");
+//	  			new Gson().toJson(fileName, response.getWriter());
+//	    	 }catch(Exception e) {
+//	    		 e.printStackTrace();
+//	    	 }
+//	    	 }
 		
-		System.out.println(request.getParameter("Data"));
-		System.out.println(request.getParameter("upload"));
-		System.out.println(request.getFileNames());
-		
-	      File f = new File(path);
+		 
+
+	     
+
+	      String realPath = request.getSession().getServletContext().getRealPath("/files/");
+	      System.out.println(realPath);
+
+	      File f = new File(realPath);
 	      if (!f.exists()) {
 	         f.mkdir();
 	      }
+
+	      int maxSize = 1024 * 1024 * 100;
+	      String enc = "UTF-8";
+
+	      int addHomePicResult = 0;
+	      int addHomeResult = 0;
+	      try {
+	      MultipartRequest mr = new MultipartRequest(request, realPath, maxSize, enc, new DefaultFileRenamePolicy());
+	      Enumeration<String> names = mr.getFileNames();
+
+	      String filename = null;
+
+	      if (names != null) {
+	         String paramName = names.nextElement();
+	         String systemName = mr.getFilesystemName(paramName);
+	         filename = systemName;
+
+	         System.out.println("5 : " + systemName + " : ");
+	      }
 	      
-	      Iterator<String> files = request.getFileNames();
-	      while(files.hasNext()) {
-	    	  String uploadFile = files.next();
-	    	  MultipartFile mFile = request.getFile(uploadFile);
-	    	  System.out.println(mFile.getName());
-	    	  System.out.println(mFile.getOriginalFilename());
-	    	  String fileName = mFile.getOriginalFilename();
-	    	  System.out.println("실제 파일 이름" + fileName);
-	    	 try {
-	    	    mFile.transferTo(new File(path + fileName));
-	    	    String fullPath = path + fileName;
-	    	  	response.setCharacterEncoding("utf8");
-	  			response.setContentType("application/json");
-	  			new Gson().toJson(fileName, response.getWriter());
-	    	 }catch(Exception e) {
-	    		 e.printStackTrace();
-	    	 }
-	    	 }
+	      response.setContentType("application/json");
+	      response.setCharacterEncoding("UTF-8");
+	      
+	      new Gson().toJson(filename, response.getWriter());
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }
+
+
 
 
 }
@@ -341,7 +382,7 @@ public class MemberController {
 	// 페이스북로 가입하는 페이지
 	@RequestMapping("fbInfo.do")
 	public String fbInfo(HttpServletRequest request) {
-		System.out.println("kakaoInfo 접속");
+		System.out.println("facebookInfo 접속");
 		return "facebooksignup";
 		
 	}
@@ -396,7 +437,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		
 		session.invalidate();
-		return "index";
+		return "";
 		
 	}
 	

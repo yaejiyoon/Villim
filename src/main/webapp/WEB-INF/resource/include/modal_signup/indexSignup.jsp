@@ -320,10 +320,10 @@ function signupWithGoogle(){
 	
 /* google */
 function loginWithGoogle(){
-		
+		var google_url = '${sessionScope.googleUrl}'
 		var popupX =(window.screen.width/2) - (500 / 2);
 		var popupY= (window.screen.height/2) - (500 / 2);
-		window.open('${google_url}', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		
 		
 	}

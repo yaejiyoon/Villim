@@ -274,6 +274,40 @@
 					 		decrementTime();
 					 	 });
 					 	 
+					 	$("#authBtn2").click(function(){
+							var authNum = $("#inputAuthNum").val();
+							var memberEmail = $("#memberEmail").val();
+							var memberNm = $("#memberNm").val();
+							var memberBirth = $("#memberBirth").val();
+							var memberPicture = $("#memberPicture").val();
+							var memberPhone = $("#memberPhone").val();
+							var memberPw = $("#memberPw").val();
+							
+							$.ajax({
+								url : "isAuthKey.do",
+								type : "post",
+								data : {							
+									authNum : authNum,
+									member_email : memberEmail,
+									member_name : memberNm,
+									member_birth : memberBirth,
+									member_picture : memberPicture,
+									member_phone : memberPhone,
+									member_pw : memberPw
+									
+								},
+								success : function(response) {
+									
+									if(response=='성공'){
+										alert(memberEmail);
+										opener.location = "successsignup.do";
+										self.close();
+									}
+									}
+								});
+
+							}); 
+					 	 
 			 		
 					});
 </script>
@@ -588,7 +622,7 @@
 					<div id="time5"></div>
 
 					<div>
-						<form  action="isAuthKey.do" method="post" onsubmit="newwin()">
+					
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
 						<input type="hidden" id="memberEmail" name="member_email">
 						<input type="hidden" id="memberPw" name="member_pw">
@@ -598,7 +632,7 @@
 						<input type="hidden" id="memberPhone" name="member_phone">
 						<button class="btn btn-danger" id="authBtn2">입력</button>
 						<button class="btn btn-success" type=button id="reSend">재발급</button>
-						</form>
+					
 					</div>
 					
 					

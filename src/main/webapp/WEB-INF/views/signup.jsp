@@ -160,7 +160,7 @@
 						});
 
 						/* 변화 감지  */
-						$('input[type=file]')
+						$("#upload")
 								.change(
 										function() {
 
@@ -184,8 +184,8 @@
 						html+= " alt=이미지 로드 실패   class='img-circle' id='profilePicture' style='width:100px'>";
 
 															/* $("#profilePicture").attr("src","files/"+response);  */
-															$("#imageLoad")
-																	.html(html);
+															$("#imageLoad").html(html);
+																	
 															load = response;
 														}
 
@@ -195,6 +195,8 @@
 						
 						$("#imgLoadBtn").click(function(){
 							if(load==""){
+								load='${picture}';
+								alert(load);
 								$("#test10").val('${picture}');
 								$("#test11").val($("#dayInput").val());
 							}else{
@@ -256,6 +258,7 @@
 									
 									alert(load);
 									alert(phoneNum);
+									
 
 								},
 								error : function() {
@@ -299,26 +302,29 @@
 								success : function(response) {
 									
 									if(response=='성공'){
+										alert(memberEmail);
 										opener.location = "successsignup.do";
 										self.close();
 									}
 									}
-								}
+								});
 						/* 	$('#signUpForm').submit();
 				 			 var result10 = '${successSignup}';
 							alert(result10);  */
-							/* if(result10=="성공"){
+							/* if(result10=="성공")
 							
 							
 							 */
 						
 							
-						})
+					
 						
 							}); 
+						});
+					
 						
 								
-					});
+				
 </script>
 </head>
 <body>
@@ -633,13 +639,14 @@
 					<div>
 						<!--  <form action="isAuthKey.do" method="post" id="signUpForm"> -->
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
-						<!-- <input type="hidden" id="memberEmail" name="member_email">
+						<!-- </form>  -->				
+						
+						<input type="hidden" id="memberEmail" name="member_email">
 						<input type="hidden" id="memberPw" name="member_pw">
 						<input type="hidden" id="memberNm" name="member_name">
 						<input type="hidden" id="memberBirth" name="member_birth">
 						<input type="hidden" id="memberPicture" name="member_picture">
 						<input type="hidden" id="memberPhone" name="member_phone">
-						</form>  -->
 						<button type="button" class="btn btn-danger" id="authBtn2">입력</button>
 						<button type="button" class="btn btn-success" type=button id="reSend">재발급</button>
 					</div>
