@@ -158,7 +158,7 @@ left:100%;
 </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/profileHeader.jsp" %>
+	<%@ include file="../../resource/include/header_profile.jsp" %>
 	
 <c:if test="${inputSuccess eq 'success'}">
 	<div class="animated bounce delay-10s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>

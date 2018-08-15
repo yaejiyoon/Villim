@@ -91,7 +91,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<%@ include file="../../resource/include/messageHeader.jsp" %>
+<%@ include file="../../resource/include/header_profile.jsp" %>
 
 <div id="wrapper" style="height:auto; margin-bottom:20vh; width:40vw; margin-top:10vh;position:relative;left:30%;">
 
