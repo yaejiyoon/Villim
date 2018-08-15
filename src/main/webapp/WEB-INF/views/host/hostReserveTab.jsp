@@ -225,7 +225,7 @@ div {
 				<div class="policy">
 					<div class="policy-sub1">
 						<div>체크인 시간</div>
-						<div class>${hdto.home_checkin}</div>
+						<div class></div>
 					</div>
 					<div class="home-reserve-line"></div>
 					<div class="policy-sub2">

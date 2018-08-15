@@ -8,5 +8,6 @@
 		<typeAlias type="kh.spring.dto.HomePicDTO" alias="HomePic"/>
 		<typeAlias type="kh.spring.dto.MemberDTO" alias="Member"/>
 		<typeAlias type="kh.spring.dto.ProfileHomePicDTO" alias="ProfileHomePic"/>
+		<typeAlias type="kh.spring.dto.HomeDescDTO" alias="HomeDesc"/>
 	</typeAliases>
 </configuration>

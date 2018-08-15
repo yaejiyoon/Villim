@@ -76,10 +76,10 @@ div {
 }
 
 .home-summary-contents {
-	border: 1px solid black;
 	display: inline-block;
 	width: 80%;
-	height: 200px;
+	height: 200px; 
+	margin-left: 2px;
 }
 
 .home-pic {
@@ -88,20 +88,16 @@ div {
 }
 
 .home-summary-contents-pic {
-	border: 1px dotted black;
 	display: inline-block;
 	float: left;
-	width: 28%;
+	width: 35%;
 	height: 100%;
-	width: 28%;
 }
 
 .home-summary-contents-addr {
-	border: 1px dotted black;
 	display: inline-block;
 	float: left;
-	margin-left: 10px;
-	width: 70%;
+	width: 65%;
 	height: 100%;
 }
 
@@ -332,14 +328,18 @@ div {
 	height: 250px;
 	overflow: scroll;
 }
+#dropdownMenu1:hover{
+	text-decoration: none;
+}
 </style>
 
 </head>
 <body>
+<%int cnt=0; %>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="alimpan">
-			<div class="alimpan-title">
+			<div class="alimpan-title">  
 				<h1>알림판</h1>
 			</div>
 			<div class="add-homelink">
@@ -353,7 +353,8 @@ div {
 				<div class="home-summary-title dropdown">
 					<h2>
 						<a class="dropdown-toggle" id="dropdownMenu1"
-							data-toggle="dropdown" aria-expanded="true"> 숙소요약 <span
+							data-toggle="dropdown" aria-expanded="true"
+							style="font-size: 25px;"> 숙소요약 <span
 							class="caret"></span>
 						</a>
 					</h2>
@@ -363,24 +364,67 @@ div {
 							<li role="presentation" class="dropdown-header">숙소를 선택하세요</li>
 
 							<c:forEach var="result" items="${homeList }">
+							<%cnt++; %>
 								<li role="presentation">
 									<div class="dd-wrap">
-										<a style="font-size: 17px;" role="menuitem" tabindex="-1"
-											href="javascript:getHomeData()">
+										<a style="font-size: 17px;" role="menuitem" tabindex="-1" id=summ-link<%=cnt %>
+											href="javascript:void(0);">
 											<div class="dd-sub-pic">
-												<img class="dd-pic"
-													src="<c:url value='/resources/img/1.jpg'/>">
+												<img class="dd-pic img-rounded"
+													src="<c:url value='files/${result.home_main_pic }'/>">
 											</div>
 											<div class="dd-sub-content">${result.home_name }</div>
 										</a>
 									</div>
 								</li>
 								<input type="hidden" name="home_seq" value="${result.home_seq }">
-								<script>
-									$.ajax({
 
-									});
+								<script>
+								$(document).ready(function(){
+									var seq; 
+								
+									$(document).on('click', '#summ-link<%=cnt%>', function(){
+										seq = ${result.home_seq};
+										console.log(seq);
+
+										$.ajax({
+											url:"summary.do",
+											type:"post",
+											data:{
+												seq:seq
+											},
+											success:function(resp){
+												console.log("성공 : "+resp);
+												if(resp.pic == null){
+													$(".home-summary-contents-pic").find("img").each(function() {
+														console.log("pic"+resp.pic);
+														$("#mainpic").attr('src', "<c:url value ='/resources/img/imgadd.png'/>");
+													});
+												}else{
+													$(".home-summary-contents-pic").find("img").each(function() {
+														console.log("pic"+resp.pic);
+														$("#mainpic").attr('src', "<c:url value ='files/"+resp.pic+"'/>");
+													});
+												}
+
+												$('#homename').text(resp.name);
+												$('#address').text(resp.addr1+" "+resp.addr2+" "+resp.addr3+" "+resp.addr4+" "+resp.state);
+												$('#price').text(resp.price+"원");
+												$('#homename').attr("href", "hostHomeTab.do?seq="+resp.seq+"");
+											},
+											error:function(data, status){
+												console.log("실패"+data);
+												console.log("실패"+status);
+											}
+					
+										});
+									})
+									
+								})
+									
+									
 								</script>
+
 							</c:forEach>
 
 						</c:if>
@@ -390,17 +434,22 @@ div {
 					수 있는 몇 가지 팁을 알려드립니다.</span>
 			</div>
 
-			<div class="home-summary-contents">
-				<div class="home-summary-contents-pic">
-					<img class="home-pic" src="<c:url value='/resources/img/1.jpg'/>">
+			<div class="home-summary-contents row">
+				<div class="home-summary-contents-pic col-md-6">
+					<c:if test="${hdto.home_main_pic eq null}">
+						<img id=mainpic class="home-pic img-rounded" src="<c:url value='/resources/img/imgadd.png'/>">
+					</c:if>
+					<c:if test="${hdto.home_main_pic ne null}">
+						<img id=mainpic class="home-pic img-rounded" src="<c:url value='files/${hdto.home_main_pic }'/>">
+					</c:if>
 				</div>
-				<div class="home-summary-contents-addr">
+				<div class="home-summary-contents-addr col-md-6">
 					<p>
-						<a href="hostHomeTab.do?seq=${hdto.home_seq }">${hdto.home_name }</a>
+						<a id=homename href="hostHomeTab.do?seq=${hdto.home_seq }">${hdto.home_name }</a>
 					</p>
-					<p>${hdto.home_addr1}&nbsp;${hdto.home_addr2 },운영중</p>
+					<p id=address>${hdto.home_addr1},${hdto.home_addr2 },${hdto.home_addr3 },${hdto.home_addr4},${hdto.home_nation }운영중</p>
 					<p class="home-summary-contents-price">가격</p>
-					<p class="home-summary-contents-price2">${hdto.home_price }<c:if
+					<p id=price class="home-summary-contents-price2">${hdto.home_price }<c:if
 							test="${hdto.home_currency.equals('KRW')}">&nbsp;원</c:if>
 					</p>
 

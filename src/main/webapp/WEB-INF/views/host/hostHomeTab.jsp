@@ -29,7 +29,7 @@ div {
 	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
-	height: 2000px;
+	height: auto;
 }
 
 .wrapper-sub {
@@ -38,21 +38,26 @@ div {
 
 .home-details {
 	margin-top: 60px;
-	width: 100%;
+	width: 70%;
+	display: inline-block;
+	float: left;
+	padding: 0;
 }
 
 .home-details div {
 	display: inline-block;
 	float: left;
+	padding: 0;
 }
 
 .nav-btn {
-	background-color: white;
+	background-color: white; 
+	text-align:center;
 	border: none;
 	text-decoration: none;
-	width: 120px;
+	width: 100%;
 	height: 70px;
-	padding-left: 0;
+	padding: 0;
 	font-size: 17px;
 }
 
@@ -102,16 +107,26 @@ div {
 }
 
 .home-pic {
-	width: 220px;
-	height: 150px;
+	width: 40%;
+	height: 180px;
 	margin-top: 30px;
-	display: inline-block;
 	float: left;
+	border: 4px dotted #D8D8D8;
+	max-width: 100%; 
+	display: block;
 }
 
-.dd-pic{
-	width:100%;
-	height:100%;
+.dd-pic-wrap {
+	margin: 0 auto;
+	width: 30%;
+	height: 30%;
+	margin-top: 30px;
+}
+
+.dd-pic {
+	max-width: 100%; 
+	height: auto; 
+	display: block;
 }
 
 .title-expl-wrap {
@@ -159,7 +174,6 @@ div {
 .accomo-table {
 	width: 100%;
 	margin-top: 20px;
-	
 }
 
 .accomo-table tr td {
@@ -182,11 +196,11 @@ div {
 	float: left;
 }
 
-.facility-table tr td div {  
+.facility-table tr td div {
 	font-size: 17px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	width:100%;
+	width: 100%;
 }
 
 .facility-table-tr {
@@ -196,7 +210,7 @@ div {
 .facility-table-td {
 	display: inline-block;
 	float: left;
-	width: 100%; 
+	width: 100%;
 	text-align: left;
 }
 
@@ -234,30 +248,30 @@ div {
 			<h2>${hdto.home_name }</h2>
 		</div>
 
-		<div class="home-details">
-			<div>
+		<div class="home-details" class="row">
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">숙소
 					세부정보</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
 					설정</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
 					가능 여부</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button">현지 법규</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button">공동 호스트</button>
 			</div>
 		</div>
@@ -275,9 +289,24 @@ div {
 					<button type="button" class="btn btn-info"
 						onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'">수정</button>
 				</div>
-				<div class="home-pic">
-					<img class="dd-pic" src="<c:url value='/resources/img/1.jpg'/>">
-				</div>
+				<c:if test="${hdto.home_main_pic ne null }">
+					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
+						<div class="home-pic">
+							<img class="dd-pic img-responsive"
+								src="<c:url value='files/${hdto.home_main_pic }'/>">
+						</div>
+					</a>
+				</c:if>
+				<c:if test="${hdto.home_main_pic eq null }">
+					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
+						<div class="home-pic">
+							<div class="dd-pic-wrap">
+								<img class="dd-pic img-responsive img-rounded"
+									src="<c:url value='/resources/img/imgadd.png'/>">
+							</div>
+						</div>
+					</a>
+				</c:if>
 			</div>
 
 			<div class="home-details-line"></div>
@@ -289,7 +318,8 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info">수정</button>
+					<button type="button" class="btn btn-info"
+						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">수정</button>
 				</div>
 				<div class="title-expl-loc">
 					<b>${hdto.home_name }</b>
@@ -297,22 +327,27 @@ div {
 
 				<div class="title-contents">${hdto.home_contents }</div>
 				<div class="title-expl-mod-add">
-					<a href="">공간 추가</a>
+					<a href="hostHomeTitleModifyTab.do?seq=${hdto.home_seq}">공간 추가</a>
 				</div>
 				<div class="title-expl-mod-add">
-					<a href="">사용가능 공간 / 시설 추가</a>
+					<a href="hostHomeTitleModifyTab.do?seq=${hdto.home_seq}">사용가능
+						공간 / 시설 추가</a>
 				</div>
 				<div class="title-expl-mod-add">
-					<a href="">게스트와의 교류 추가</a>
+					<a href="hostHomeTitleModifyTab.do?seq=${hdto.home_seq}">게스트와의
+						교류 추가</a>
 				</div>
 				<div class="title-expl-mod-add">
-					<a href="">주변 지역 소개 추가</a>
+					<a href="hostHomeTitleModifyTab.do?seq=${hdto.home_seq}">주변 지역
+						소개 추가</a>
 				</div>
 				<div class="title-expl-mod-add">
-					<a href="">대중교통 추가</a>
+					<a href="hostHomeTitleModifyTab.do?seq=${hdto.home_seq}">대중교통
+						추가</a>
 				</div>
 				<div class="title-expl-mod-add">
-					<a href="">기타 메모 추가</a>
+					<a href="hostHomeTitleModifyTab.do?seq=${hdto.home_seq}">기타 메모
+						추가</a>
 				</div>
 			</div>
 
@@ -330,7 +365,8 @@ div {
 				<table class="accomo-table">
 					<c:if test="${hdto.home_people ne null }">
 						<tr class="row" style="margin: auto;">
-							<td class="col-md-6"><div>숙박 가능인원 : ${hdto.home_people } 명</div></td>
+							<td class="col-md-6"><div>숙박 가능인원 : ${hdto.home_people }
+									명</div></td>
 							<td class="col-md-6"><div>건물 유형 : ${hdto.home_type }</div></td>
 						</tr>
 					</c:if>
@@ -352,17 +388,19 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info">수정</button>
+					<button type="button" class="btn btn-info"
+						onclick="location.href='hostHomeModifyFacilityTab.do?seq=${hdto.home_seq}'">수정</button>
 				</div>
-				<table class="facility-table">
+				<table class="facility-table" style="margin-bottom: 20px;">
 					<c:set var="i" value="0" />
-					<c:set var="j" value="2" />  
-					<c:forEach var="list" items="${list }">
+					<c:set var="j" value="2" />
+					<c:forEach var="list" items="${list }" begin="0" end="3">
 						<c:if test="${i%j == 0 }">
-							<tr class="row"  style="text-align: left;">
+							<tr class="row"
+								style="text-align: left; border: 1px dotted white;">
 						</c:if>
 
-						<td class="col-md-6" style="border:1px dotted white;"><div>${list }</div></td>
+						<td class="col-md-6" style="border: 1px dotted white;"><div>${list }</div></td>
 
 						<c:if test="${i%j == j-1 }">
 							</tr>
@@ -372,18 +410,45 @@ div {
 					</c:forEach>
 
 				</table>
+
+				<div style="font-size: 15px;">
+					<a class="col-md-12" data-toggle="collapse" href="#collapseExample"
+						aria-expanded="false" aria-controls="collapseExample">더 보기 </a>
+				</div>
+
+				<c:set var="i" value="0" />
+				<c:set var="j" value="2" />
+				<div class="collapse" id="collapseExample">
+					<table class="facility-table">
+						<c:forEach var="list" items="${list }" begin="4">
+							<c:if test="${i%j == 0 }">
+								<tr class="row"
+									style="text-align: left; border: 1px dotted white;">
+							</c:if>
+
+							<td class="col-md-6" style="border: 1px dotted white;"><div>${list }</div></td>
+
+							<c:if test="${i%j == j-1 }">
+								</tr>
+							</c:if>
+							<c:set var="i" value="${i+1 }" />
+						</c:forEach>
+					</table>
+				</div>
+
 			</div>
 
 			<div class="home-details-line"></div>
 
 			<div class="loc-wrap">
 				<div class="title-expl-title">
-					<h4> 
+					<h4>
 						<b>위치</b>
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info">수정</button>
+					<button type="button" class="btn btn-info"
+						onclick="location.href='hostHomeModifyLocationTab.do?seq=${hdto.home_seq}'">수정</button>
 				</div>
 				<div class="loc-contents">${hdto.home_addr1 },
 					${hdto.home_addr2 }, ${hdto.home_zipcode }, ${hdto.home_nation }</div>
@@ -398,9 +463,20 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info">수정</button>
+					<button type="button" class="btn btn-info"
+						onclick="location.href='hostHomeModifyStateTab.do?seq=${hdto.home_seq}'">수정</button>
 				</div>
-				<div class="state-chan">운영중</div>
+				<div class="state-chan">
+				<c:if test="${hdto.home_state == 0 }">				
+					운영 중
+				</c:if>
+				<c:if test="${hdto.home_state == 1 }">				
+					휴식 모드
+				</c:if>
+				<c:if test="${hdto.home_state == 0 }">				
+					운영 중지
+				</c:if>
+				</div>
 			</div>
 
 			<div class="home-details-line"></div>
