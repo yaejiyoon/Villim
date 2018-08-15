@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
 
 
 
@@ -496,7 +496,9 @@
             			data-range="true"
     					data-multiple-dates-separator="       →       "
     					todayButton="true"
-            			class="datepicker-here search-query3 form-control" />
+            			class="datepicker-here search-query3 form-control"
+            			placeholder="체크인              →         체크아웃" />
+            			
             			
             			<script>
             			var disabledDays = ['2018-8-26','2018-8-30'];
@@ -556,16 +558,19 @@
             					if(date.length == 2){
             						alert("이오와엉");
             						
-            						var checkinDate = date[0];
-            						var checkoutDate = date[1];
+            						var checkinDate = formatDate(date[0]);
+            						var checkoutDate = formatDate(date[1]);
             						
             						console.log(formatDate(checkinDate));
             						console.log(formatDate(checkoutDate));
             						
             						$.ajax({
-            							url:"ajax01.do",
+            							url:"reservation.re",
             							type:"get",
-            							data:{name:name, email:email},
+            							data:{
+            								checkinDate:checkinDate,
+            								checkoutDate:checkoutDate
+            								},
             							success:function(){
             								console.log("전달 성공!")
             							},
@@ -699,7 +704,10 @@
             			
             			<br>
             			인원
-            			<input type="text" class="search-query3 form-control"/>
+            			<input type="text" class="search-query3 form-control"
+            			placeholder="게스트 1명" style="position: static;"
+            			/>
+            			<span class='glyphicon glyphicon-menu-down' aria-hidden="true"></span>
             			<br>
             			<div>
             				<span style="float: left;">₩132,766 x 1박</span>

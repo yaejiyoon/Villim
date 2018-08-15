@@ -8,10 +8,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReservationDAOImpl {
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private SqlSession template;
 	
 }

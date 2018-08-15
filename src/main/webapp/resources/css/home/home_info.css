@@ -516,6 +516,13 @@ input.search-query2 {
 	margin: 0 auto;
 }
 
+.glyphicon.glyphicon-menu-down{
+	position: relative;
+	top: -40px;
+	right: -15.5vw;
+	color: #d6d6d6;
+}
+
 #fixed-sub02 p{
 	margin-top: 1vh;
 	font-size: 0.8vw;
