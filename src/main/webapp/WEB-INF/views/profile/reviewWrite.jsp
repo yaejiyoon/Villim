@@ -246,7 +246,7 @@ $(document).ready(function(){
 		<div class="container"
 			style="position: relative; left: -287px; top: 20px;">
 			<div class="card hovercard">
-				<img src="files/${home_pic_name}"
+				<img src="files/${home_main_pic}"
 					alt="" />
 				<div class="avatar"></div>
 				<div class="info" style="height: 130px;">

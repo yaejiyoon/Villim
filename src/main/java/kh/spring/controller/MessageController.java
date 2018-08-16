@@ -36,7 +36,7 @@ public class MessageController {
 		session.setAttribute("userId", "jake@gmail.com");
 		String userId =(String) session.getAttribute("userId");
 		int home_seq=1; 
-		String host_name="Sarah Son";String host_picture="지창욱.jpg"; int home_price=50000;String home_type="아파트";String home_pic_name="plmn집사진.jpg";
+		String host_name="Sarah Son";String host_picture="지창욱.jpg"; int home_price=50000;String home_type="아파트";String home_main_pic="plmn집사진.jpg";
         
 		//review 갯수
 		int reviewCount=this.service.countReview(home_seq);
@@ -50,7 +50,7 @@ public class MessageController {
 		mav.addObject("host_picture", host_picture);
 		mav.addObject("home_price", home_price);
 		mav.addObject("home_type", home_type);
-		mav.addObject("home_pic_name", home_pic_name);
+		mav.addObject("home_main_pic", home_main_pic);
 		mav.addObject("reviewCount", reviewCount);
 		mav.addObject("Q1", Q1);
 		mav.addObject("Q2", Q2);
@@ -60,17 +60,37 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/messageInsertDB.msg")
-	public ModelAndView messageInsertDB(HttpSession session,String seq,MessageDTO dto) {
+	public ModelAndView messageInsertDB(HttpSession session,MessageDTO dto,String seq,String host_picture,String host_name) {
+		ModelAndView mav=new ModelAndView();
 		System.out.println("messageInsertDB");
 		session.setAttribute("userId", "jake@gmail.com");
 		String userId =(String) session.getAttribute("userId");
 		int home_seq=Integer.parseInt(seq);
+		
+		
+		//message_moreInfo
+		HomeDTO getHomeInfo= this.service.getHomeInfo(home_seq);
+		
+		String location=getHomeInfo.getHome_nation()+" "+getHomeInfo.getHome_addr2();
+		
+		
 		 HomeDTO member_emailResult=this.m_service.getMemberEmail(home_seq);
+		 /*int messageInfoInsert=this.service.messageInfoInsert(host_picture,host_name,location);*/
+		 
 		 dto.setToID(member_emailResult.getMember_email());
 		 dto.setFromID(userId);
 		System.out.println("formID : "+dto.getFromID()+" / toID: "+dto.getToID()+" / 내용 : "+dto.getMessage_content());
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("");
+		
+		int result=this.service.messageInsert(dto);
+		if(result>0) {
+			mav.addObject("host_name", host_name);
+			mav.setViewName("/message/messageInsertConfirm");
+		}else {
+			mav.setViewName("error");
+		}
+		
+		
+		
 		return mav;
 	}
 	
