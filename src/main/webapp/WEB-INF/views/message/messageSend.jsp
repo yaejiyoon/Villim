@@ -223,10 +223,11 @@ $(document).ready(function() {
 		
 		<form id="formId" method="post" action="messageInsertDB.msg">
 		<textarea class="form-control" style="resize:vertical;position:relative;top:4vh;" name="message_content" id="message" placeholder="여기에 메세지를 입력하세요" maxlength="500" rows="7" required autofocus></textarea>
+		<input type="hidden" name="host_name" id="host_name" value="${host_name}">
 		<input type="hidden" name="seq" value="1">
-		<input type="hidden" name="" value="${host_picture}">
-		<input type="hidden" name="host_name" value="${host_name}">
-		<input type="hidden" name="reviewcount" value="${reviewCount}">
+        <input type="hidden" id="checkIn" name="checkIn" value="8월 18일">
+        <input type="hidden" id="checkOut" name="checkOut" value="8월 20일">
+        <input type="hidden" id="totalNumber" name="number" value="2">
 		<div class="container-fluid margin" style="position:relative;top:8vh;left:-1vw;">
 	<a  id="submitBt" type="button" target="_blank" class="themeBtn3" style="font-weight:bold;text-decoration:none;">메세지 전송하기</a>
     </div>

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.MessageRoomDTO;
 import kh.spring.interfaces.MemberService;
 import kh.spring.interfaces.MessageService;
 
@@ -60,36 +61,55 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/messageInsertDB.msg")
-	public ModelAndView messageInsertDB(HttpSession session,MessageDTO dto,String seq,String host_picture,String host_name) {
+	public ModelAndView messageInsertDB(HttpSession session,String host_name,MessageDTO dto,MessageRoomDTO roomdto,String seq,String checkIn,String checkOut,String number) {
 		ModelAndView mav=new ModelAndView();
 		System.out.println("messageInsertDB");
+		System.out.println("내용 : "+dto.getMessage_content());
 		session.setAttribute("userId", "jake@gmail.com");
 		String userId =(String) session.getAttribute("userId");
+		
 		int home_seq=Integer.parseInt(seq);
-		
-		
-		//message_moreInfo
 		HomeDTO getHomeInfo= this.service.getHomeInfo(home_seq);
+        String host_email=getHomeInfo.getMember_email();
 		
-		String location=getHomeInfo.getHome_nation()+" "+getHomeInfo.getHome_addr2();
+	//1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
+        roomdto.setHost_email(host_email);roomdto.setGuest_email(userId);roomdto.setHome_seq(home_seq);
+        MessageRoomDTO messageRoomSeqExist=this.service.messageRoomSeqExist(roomdto);
+		int message_room_seq=0;
+		if(messageRoomSeqExist!=null) {
+			message_room_seq=messageRoomSeqExist.getMessage_room_seq();
+			System.out.println("msgroom정보 이미 존재");
+		}else {
+			 int messageRoomSeq=this.service.getRoomSeq();
+			 message_room_seq=messageRoomSeq;
+			
+			 roomdto.setMessage_room_seq(message_room_seq);
+             roomdto.setHome_seq(home_seq);
+             roomdto.setHost_email(host_email);
+             roomdto.setGuest_email(userId);
+             roomdto.setCheckIn(checkIn);
+             roomdto.setCheckOut(checkOut);
+             roomdto.setTotalNumber(Integer.parseInt(number));
+			 int messageInfoInsert=this.service.messageRoomInsert(roomdto);
+			if(messageInfoInsert>0) {System.out.println("msgroom정보 입력에 성공!");};
+		}
 		
+		System.out.println("message_room_seq= "+message_room_seq);
 		
-		 HomeDTO member_emailResult=this.m_service.getMemberEmail(home_seq);
-		 /*int messageInfoInsert=this.service.messageInfoInsert(host_picture,host_name,location);*/
-		 
-		 dto.setToID(member_emailResult.getMember_email());
-		 dto.setFromID(userId);
-		System.out.println("formID : "+dto.getFromID()+" / toID: "+dto.getToID()+" / 내용 : "+dto.getMessage_content());
+		dto.setMessage_room_seq(message_room_seq);
+		dto.setHome_seq(home_seq);
+		dto.setFromID(userId);
+		dto.setToID(host_email);
 		
-		int result=this.service.messageInsert(dto);
-		if(result>0) {
-			mav.addObject("host_name", host_name);
+	//2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
+		int messageInsertResult=this.service.messageInsert(dto);
+		if(messageInsertResult>0) {
+			System.out.println("메세지 전송 완료!");
+		    mav.addObject("host_name",host_name);
 			mav.setViewName("/message/messageInsertConfirm");
 		}else {
 			mav.setViewName("error");
 		}
-		
-		
 		
 		return mav;
 	}

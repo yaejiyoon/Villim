@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.MessageRoomDTO;
 import kh.spring.interfaces.MessageDAO;
 
 @Component
@@ -32,6 +33,25 @@ public class MessageDAOImpl implements MessageDAO{
 	public HomeDTO getHomeInfo(int home_seq) {
 		return template.selectOne("Message.getHomeInfo", home_seq);
 	}
+
+	@Override
+	public MessageRoomDTO messageRoomSeqExist(MessageRoomDTO dto) {
+		return template.selectOne("Message.messageRoomSeqExist",dto);
+	}
+	
+	@Override
+	public int getRoomSeq() {
+		return template.selectOne("Message.getRoomSeq");
+	}
+
+
+
+	@Override
+	public int messageRoomInsert(MessageRoomDTO roomdto) {
+		return template.insert("Message.messageRoomInsert",roomdto);
+	}
+
+	
 
 
 	
