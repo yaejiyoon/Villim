@@ -13,10 +13,19 @@
 	height:100vh;
 	
 	}
+	.modal-header{
+		border:0px;
+	}
 	.modal-body{
 	
 	height:500px;
 		
+	}
+	.modal-body font{
+		padding-left:2%;
+	}
+	.modal-body i{
+		padding-right:2%;
 	}
 	#myModal1{
  	right:10px;
@@ -512,7 +521,7 @@ function loginWithEmail(){
      </form>
       <button type="button" class="btn btn-warning" onclick="loginWithKakao();" id="kakaoLogin">
       	<i class="fas fa-comments fa-2x" style="color:black"></i>
-      	<font> 카카오 계정으로 로그인</font>
+      	<font>카카오 계정으로 로그인</font>
       </button><br>
  	 
  	 
