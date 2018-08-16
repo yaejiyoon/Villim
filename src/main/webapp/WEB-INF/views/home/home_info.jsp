@@ -11,39 +11,273 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link href="<c:url value="/resources/css/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home_info.css?var=2" />" rel="stylesheet" />
+
+
+
+
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../resources/css/home/dist/css/datepicker.css" />"/>
+<link rel="stylesheet" href="<c:url value="../resources/css/home/docs/css/style.css" />"/>
+
+<!-- 지도 -->
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
 <style>
+
+	
    @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
    }
    
+	#header{
+		font-family: font;
+	}
       @font-face {
         font-family: font2;
         src: url('<c:url value='/resources/fonts/dx.ttf'/>');
    }
 </style>
 <script>
-	$(window).scroll(function() {
+
+$(document).ready(function(){
+	var disabledDays = ['2018-8-26','2018-8-30'];
+	var isDisabled;
+	var today = new Date();
+	var d;
+	var blockDate;
+	var ttt;
+	var vvv;
+	var reserveDate;
+	
+	$('.datepicker-here').datepicker({
 		
-		if ($(window).scrollTop() <= 900) {
-			$("#fixed").css({"top":"91vh","position":"absolute"});
-		}else if($(window).scrollTop() == $('#footer').scrollTop(0)){
-			alert("dddd");
-		}else {
-			$("#fixed").css({"top":"1vh","position":"fixed"});
-		}
+		todayButton: new Date(),
+		autoClose : "true",
+		dateFormat : "yyyy/mm/dd",
+		minDate: new Date(),
+		
+		onSelect: function(formattedDate, date, inst){
+			
+			
+			var checkin = formatDate(date);
+	        var inYear = checkin.split('-')[0];
+	        var inMonth = checkin.split('-')[1];
+	        var inDay = checkin.split('-')[2];
+			
+			
+			function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                /* if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day; */
+
+                 return [year, month, day].join('-');
+            }
+			
+			console.log("select");
+			console.log(date);
+			console.log(formattedDate);
+			
+			for(var j=0; j<disabledDays.length;j++){
+				
+				var reservYear = disabledDays[j].split('-')[0];
+      		  	var reservMonth = disabledDays[j].split('-')[1];
+      		  	var reservDay = disabledDays[j].split('-')[2];
+      		  	
+      		  	reserveDate = new Date(reservYear,reservMonth,reservDay);
+      		  	
+      		  	console.log(reserveDate.getDate()-1);
+      		  	console.log(reserveDate.getMonth());
+      			console.log(inMonth);
+				
+      		  if(inMonth == reserveDate.getMonth()){
+      			  if(date[0].getDate() == reserveDate.getDate()-1){
+      				   
+      				  blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
+      				  console.log(blockDate);
+      				  
+      				  d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
+      				  
+      					ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
+      					vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
+      				  
+      			  }else{
+      				  return;
+      			  }
+      		  }
+			}
+		},
+		
+	     onRenderCell: function (date, cellType) {
+	        if (cellType == 'day') {
+	        	
+	        	/* console.log("fff");
+	        	console.log(blockDate);
+	        	console.log(d);
+	        	console.log(ttt);
+	        	console.log(vvv);
+	        	
+	        	var c = new Date(2111,1,1);
+	        	console.log(c);
+	        	
+	        	if(blockDate >= date){
+        			return {
+	        			   disabled : true
+	        		   }
+        		}else if(blockDate < date){
+        			return {
+	        			   disabled : false
+	        		   }
+        		}else if(vvv > 0){
+	        		return {
+	        			   disabled : true
+	        		   }
+	        	}
+	        	 */
+	        	function formatDate(date) {
+	                var d = new Date(date),
+	                    month = '' + (d.getMonth() + 1),
+	                    day = '' + d.getDate(),
+	                    year = d.getFullYear();  
+
+	                /* if (month.length < 2) month = '0' + month;
+	                if (day.length < 2) day = '0' + day; */
+
+	                  return [year, month, day].join('-');
+	            }
+	            
+	        	for(var i=0; i<disabledDays.length;i++){
+	        		
+	        		
+	        		
+	        		var reservYear = disabledDays[i].split('-')[0];
+	      		  	var reservMonth = disabledDays[i].split('-')[1];
+	      		  	var reservDay = disabledDays[i].split('-')[2];
+	      		  	
+	      		  	
+	      		  
+		           
+		           
+		           var checkin = formatDate(date);
+		           var inYear = checkin.split('-')[0];
+		           var inMonth = checkin.split('-')[1];
+		           var inDay = checkin.split('-')[2];
+		            
+		           /* console.log("reservMonth : "+reservMonth);
+		           console.log("inMonth : "+inMonth); */
+		           
+		           if(reservMonth == inMonth){
+		        	   /* console.log("같으면 : "+inMonth);
+		        	   
+		        	   console.log("inDay : "+ inDay);
+		        	   console.log("reservDay : "+ reservDay);
+		        	    */
+		        	   if(reservDay === inDay){
+		        		   return {
+		        			   disabled : true
+		        		   }
+		        	   };
+		           }
+	        	
+	                
+
+	                /* console.log(isDisabled);
+		            console.log(date);
+		            console.log(checkin);
+		            console.log(inDay);   */
+		            
+		            /* return {
+		                disabled: isDisabled
+		                
+		            	} */
+		             
+	        	 }
+	        	
+	        }
+	        
+	    }  
 	});
 	
-	$(document).ready(function(){
+	
+})
+
+	$(window).scroll(function() {
 		
-	})
+		if ($(window).scrollTop() >= 700) {
+			$("#scrollNav").css({"display":"inline","top":"0vh","position":"fixed"});
+			$("#fixed").css({"margin-top":"9vh","position":"fixed"});
+		}else if($(window).scrollTop() <= 900){
+			$("#scrollNav").css({"display":"none"});
+			$("#fixed").css({"margin-top":"2vh"});
+		}else {
+			
+		}
+		
+	});
+	
+	$(function () {
+
+	    var a = function () {
+	        var b = $(window).scrollTop();
+	        var d = $("#info-main-right").offset().top;
+	        var f = $("#footer").offset().top;
+	        var c = $("#fixed");
+	        var h = $("#fixed").height() + 120; // margin
+
+	        if (b > d) {
+	            var myTop = $(window).scrollTop();
+	            if (myTop > f - h) myTop = f - h;
+	            c.css({
+	                position: "absolute",
+	                top: myTop,
+	                bottom: ""
+	            })
+	        } else {
+	            if (b <= d) {
+	                c.css({
+	                    position: "absolute",
+	                    top: "",
+	                    bottom: ""
+	                })
+	            }
+	        }
+	    };
+	    
+	    $(window).scroll(a);
+	    
+	});
 	
 </script>
 </head>
 <body>
-   <%@ include file="../resource/include/header.jsp" %>
+   <%@ include file="../../resource/include/header.jsp" %>
+   
+   <div id="scrollNav">
+		<div id="scrollNav-contents">
+			<div>
+				<nav id="navbar-example2" class="navbar navbar-light bg-light">
+					<ul class="nav nav-pills">
+						<li class="nav-item"><a class="nav-link" href="#fat">정보</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">후기</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">호스트</a></li>
+						<li class="nav-item"><a class="nav-link" href="#mdo">위치</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div>
+				
+			</div>
+		</div>
+	</div>
+   
+   
+   
    
    <div id="info-wrapper">
       <div id="info-contents">
@@ -392,7 +626,7 @@
             		<div id="fixed-sub01">
             			<br>
             			<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
-            			<h3 style="display: inline; font-weight: 600;">731,704</h3>/박
+            			<h3 style="display: inline; font-weight: 600;">132,766</h3>/박
             			<br>
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
@@ -404,15 +638,38 @@
             		<div id="fixed-sub02">
             			<br>
             			날짜
-            			<input type="text" class="search-query form-control"/>
+            			<input type="text" 
+            			data-range="true"
+    					data-multiple-dates-separator="     -     "
+    					data-language="en"
+    					todayButton="true"
+            			class="datepicker-here search-query3 form-control"/>
             			<br>
             			인원
-            			<input type="text" class="search-query form-control"/>
+            			<input type="text" class="search-query3 form-control"/>
+            			<br>
+            			<div>
+            				<span style="float: left;">₩132,766 x 1박</span>
+            				<span style="float: right;">₩132,766</span>
+            			</div>
+            			<div>
+            				<span style="float: left;">청소비</span>
+            				<span style="float: right;">₩32,225</span>
+            			</div>
+            			<div>
+            				<span style="float: left;">서비스 수수료</span>
+            				<span style="float: right;">₩21,913</span>
+            			</div>
+            			<div style="border: none;">
+            				<span style="float: left; font-weight: 600;">합계</span>
+            				<span style="float: right;">₩21,913</span>
+            			</div>
             			<br>
             			<button id="reservationBT" class="btn btn-secondary">
-            			예약 요청
+            			예약 하기
             			</button>
-            			<h5 style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</h5>
+            			<br>
+            			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             		</div>
             	</div>
             </div>
@@ -420,6 +677,6 @@
       </div>
    </div>
    
-   <%@ include file="../resource/include/footer.jsp" %>
+   <%@ include file="../../resource/include/footer.jsp" %>
 </body>
 </html>
