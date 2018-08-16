@@ -45,6 +45,13 @@
 		padding:3%;
 		margin-top:7%;
 		margin-bottom: 5%;
+		
+
+	}
+	
+	#facebook:hover{
+		
+
 	}
 	#kakao{
 		width:90%;
