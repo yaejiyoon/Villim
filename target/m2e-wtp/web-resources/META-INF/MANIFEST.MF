@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< refs/remotes/origin/master
 Built-By: sksks
 Build-Jdk: 1.8.0_171
+=======
+Built-By: user1
+Build-Jdk: 1.8.0_161
+>>>>>>> Pull
 Created-By: Maven Integration for Eclipse
 
