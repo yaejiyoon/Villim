@@ -25,104 +25,206 @@
 
 
 <link rel= "stylesheet" type="text/css" href="/resources/css/member/reviewWrite.css">
+<Style>
+/* =============================================
+* RADIO BUTTONS
+=============================================== */
+
+#radios label {
+	cursor: pointer;
+	position: relative;
+}
+
+#radios label + label {
+	margin-left: 15px;
+}
+
+input[type="radio"] {
+	opacity: 0.1; /* hidden but still tabable */
+	position: absolute;
+}
+
+input[type="radio"] + span {
+	font-family: 'Material Icons';
+	color: white;
+	background-color:#ff5e6b;
+	border-radius: 2px;
+	padding: 12px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+	color: black;
+  background-color: #ff4242;
+  
+  
+}
+
+input[type="radio"]:focus + span {
+	color: black;
+}
+
+/* ================ TOOLTIPS ================= */
+
+#radios label:hover::before {
+	content: attr(for);
+	font-family: Roboto, -apple-system, sans-serif;
+	text-transform: capitalize;
+	font-size: 11px;
+	position: absolute;
+	top: 170%;
+	left: 0;
+	right: 0;
+	opacity: 0.8;
+	background-color: #323232;
+	color: #fff;	
+	padding: 4px;
+	border-radius: 3px;
+  display: block;
+}
+
+/* =============================================
+* CENTERING, CONTAINER STYLING ETC || IGNORE
+=============================================== */
+
+h1 {
+	font-weight: 300;
+	color: white;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#radios {
+	text-align: center;
+	margin 0 auto;
+}
+
+.container {
+	margin: 0 auto;
+}
+
+
+
+</Style>
+
 
 <script>
-$(document).ready(
-	    function() {
-	    	
-	    	
-	        $(':radio[name=satisfaction]').change(
-	            function() {
 
-	                alert($(':radio[name="satisfaction"]:checked').val())
-
-
-	            })
-
-	        $(':radio[name=accuracy]').change(
-	            function() {
-
-	                alert($(':radio[name="accuracy"]:checked').val())
-
-	            })
-
-
-	        $(':radio[name=cleanliness]').change(
-	            function() {
-
-	                alert($(':radio[name="cleanliness"]:checked').val())
-
-	            })
-
-	        $(':radio[name=checkIn]').change(
-	            function() {
-
-	                alert($(':radio[name="checkIn"]:checked').val())
-
-	            })
-	        $(':radio[name=amenities]').change(
-	            function() {
-
-	                alert($(':radio[name="amenities"]:checked').val())
-
-	            })
-            
-	            
-	             $(':radio[name=communication]').change(
-	    	    	            function() {
-
-	    	    	                alert($(':radio[name="communication"]:checked').val())
-
-	    	    	            })
-	            
-	             $(':radio[name=location]').change(
-	            function() {
-
-	                alert($(':radio[name="location"]:checked').val())
-
-	            })
-	            
-	            $(':radio[name=value]').change(
-	    	            function() {
-
-	    	                alert($(':radio[name="value"]:checked').val())
-
-	    	            })
-	    	            
-	    	          $(':radio[name=repurchase]:checked').change(function () {
-	    	            	
-	    	        	console.log(  $('input[name=repurchase]:checked').val());
-	    	            	  alert(  $('input[name=repurchase]:checked').val());
-	    	            	 });        
-	    	           
-	       /*  $('.list-group-item').on('mouseover', function(event) {
-	    		event.preventDefault();
-	    		$(this).closest('li').addClass('open');
-	    	});
-	          $('.list-group-item').on('mouseout', function(event) {
-	        	event.preventDefault();
-	    		$(this).closest('li').removeClass('open');
-	    	}); */
-	          
-	       $('#yesBt').click(function(){
-	        	alert($(this).attr('value'));
-	        })
-	        
-	         $('#noBt').click(function(){
-	        	alert($(this).attr('value'));
-	        }) 
-	        
-	       
-	        $('#openReview').keyup(function (e){
-	            var content = $(this).val();
-	            $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-	            $('#counter').html(content.length + '/500');
-	        });
-	        $('#openReview').keyup(); 
-	        
-	        
-
-	    })
+$(document).ready(function(){
+	
+	$('#openReview').keyup(function (e){
+        var content = $(this).val();
+        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+        $('#counter').html(content.length + '/500');
+    });
+    $('#openReview').keyup(); 
+	
+     
+    $('#submitBt').click(function(){
+  
+    	var satisfaction=Number($(':radio[name="satisfaction"]:checked').val());
+    	if(!satisfaction){
+    		$('#review_satisfaction').focus();
+    	     alert("만족도는 필수적으로 선택해야할 사항입니다.");
+    		return false;
+    	}else{
+    		console.log(satisfaction);
+    		$('#review_satisfaction').val(satisfaction);
+    	}
+    	
+    	var accuracy=Number($(':radio[name="accuracy"]:checked').val());
+    	if(!accuracy){
+    		alert("정확도는 필수적으로 선택해야할 사항입니다.");
+    		return false;
+    	}else{
+    		$('#review_accuracy').val(accuracy);
+    	}
+    	
+    	
+    	var cleanliness=Number($(':radio[name="cleanliness"]:checked').val());
+    	if(!cleanliness){
+    		alert("청결도는 필수적으로 선택해야할 사항입니다.");
+    		return false;
+    	}else{
+    		$('#review_cleanliness').val(cleanliness);
+    	}
+    	
+    	
+         var checkIn=Number($(':radio[name="checkIn"]:checked').val());
+         if(!checkIn){
+        	 alert("체크인은 필수적으로 선택해야할 사항입니다.");
+     		return false;
+         }else{
+        	 $('#review_checkIn').val(checkIn);
+         }
+         
+    	
+    	var amenities=Number($(':radio[name="amenities"]:checked').val());
+    	if(!amenities){
+    		alert("편의시설은 필수적으로 선택해야할 사항입니다.");
+    		return false;
+    	}else{
+    		$('#review_amenities').val(amenities);
+    	}
+    	
+    	var communication=Number($(':radio[name="communication"]:checked').val());
+    	if(!communication){
+    		alert("커뮤니케이션은 필수적으로 선택해야할 사항입니다.");
+    		return false;
+    	}else{
+    		$('#review_communication').val(communication);
+    	}
+    	
+    	var location=Number($(':radio[name="location"]:checked').val());
+    	if(!location){
+    		alert("위치는 필수적으로 선택해야할 사항입니다.");
+    		return false;
+    	}else{
+    	 	$('#review_location').val(location);
+    	}
+      
+    	
+       	var value=Number($(':radio[name="value"]:checked').val());
+       	if(!value){
+       		alert("가치는 필수적으로 선택해야할 사항입니다.");
+    		return false;
+       	}else{
+       		$('#review_value').val(value);
+       	}
+    	
+    	
+    	 var repurchase=$(':radio[name="repurchase"]:checked').val();
+    	if(!repurchase){
+    		$('#review_repurchase').val("?");
+        }else{
+        	$('#review_repurchase').val(repurchase);
+        } 
+    	
+    	
+    	 if(!$("#openReview").val()){
+    		alert("공개 후기는 필수 입력 사항입니다.")
+    		return false;
+    	}
+    	
+    	if(!$("#unopenReview").val()){
+    	alert("비공개 후기는 빌림에게 아주 소중한 후기가 될 것입니다.")
+    	return false;
+    	} 
+    	$("#formId").submit();
+    	
+    	
+    })
+    
+    
+    
+    
+    
+    
+    
+    
+    
+})
 	    
 	    
 	    
@@ -133,31 +235,31 @@ $(document).ready(
 	    </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/header.jsp"%>
+	<%@ include file="../../resource/include/header_profile.jsp" %>
 
 	<div id="wrapper" style="height: 2500px; margin: 10px auto">
 		<h3
 			style="color: #595c63; position: relative; left: 180px; top: 10px;">평점
 			및 후기</h3>
 
-
+<form id="formId" name="formId" action="guestReview.mo" method="post">
 		<div class="container"
-			style="position: relative; left: -290px; top: 20px;">
+			style="position: relative; left: -287px; top: 20px;">
 			<div class="card hovercard">
-				<img src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+				<img src="files/${home_pic_name}"
 					alt="" />
 				<div class="avatar"></div>
 				<div class="info" style="height: 130px;">
-					<img src="http://placehold.it/80X80/333333/&text=Head" alt=""
+					<img src="files/${member_picture}" alt=""
 						style="position: relative; left: -95px; top: 53px; height: 50px; width: 50px;" />
 					<div class="title"
 						style="font-size: 15px; position: relative; left: 18px; top: 10px;">
-						새뜸마을 아파트 5성급</div>
+						${home_name}</div>
 					<div class="desc"
-						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트:James
-						Bro</div>
-					<div class="desc" style="position: relative; left: 33px;">2017년
-						9월30일~ 2017년 10월2일</div>
+						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트: ${member_name}</div>
+					<div class="desc" style="position: relative; left: 33px;">${checkin} ~ ${checkout}</div>
+					<input type="hidden" id="home_seq" name="home_seq" value="${home_seq}">
+					
 				</div>
 
 			</div>
@@ -167,13 +269,14 @@ $(document).ready(
 			<div class="row">
 				<div class="col-sm-8"
 					style="position: relative; left: 180px; top: -360px;">
-					<h3 style="font-weight: bold;">James Bro님에 대한 후기를 쓰세요</h3>
+					<h3 style="font-weight: bold;">${member_name}님에 대한 후기를 쓰세요</h3>
 					<h5>14일동안 후기를 작성하실수 있습니다. 회원님이 후기를 작성하셔야 호스트도 회원님의 피드백을 읽을 수
 						있습니다. 후기 작성 기간이 종료되면, 회원님의 피드백이 공개됩니다.</h5>
 					<h5>호스트는 카테고리별 평점은 보지 못하고 전체 평균 별점만 알 수 있습니다.</h5>
 				</div>
 			</div>
 		</div>
+
 
 
 		<div class="container"
@@ -205,6 +308,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="heart_1" name="satisfaction" value="1" />
   <label for="heart_1" title="One">&#10084;</label>
+  <input id="review_satisfaction" type="hidden"  name="g_review_satisfaction" >
 </section>
 
 
@@ -218,6 +322,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">정확성</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >숙소 사진과 설명이 실제 숙소와 얼마나 일치하나요?</h5>
 					</div>
 
@@ -239,6 +344,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="accuracy_1" name="accuracy" value="1" />
   <label for="accuracy_1" title="One">&#10084;</label>
+  <input type="hidden" id="review_accuracy" name="g_review_accuracy">
 </section>
 
 
@@ -255,6 +361,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">청결도</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >숙소는 회원님이 예상한 것만큼 깨끗했나요?</h5>
 					</div>
 
@@ -276,6 +383,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="cleanliness_1" name="cleanliness" value="1" />
   <label for="cleanliness_1" title="One">&#10084;</label>
+  <input type="hidden" id="review_cleanliness"  name="g_review_cleanliness">
 </section>
 
 
@@ -293,6 +401,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">체크인</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >호스트는 회원님의 원활한 체크인 절차를 위해 최선을 다했나요?</h5>
 					</div>
 
@@ -314,6 +423,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="checkIn_1" name="checkIn" value="1" />
   <label for="checkIn_1" title="One">&#10084;</label>
+  <input type="hidden" id="review_checkIn"  name="g_review_checkIn">
 </section>
 
 
@@ -331,6 +441,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">편의시설</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >호스트가 숙소 설명에 약속된 모든 것들을 제공하였나요?</h5>
 					</div>
 
@@ -352,6 +463,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="amenities_1" name="amenities" value="1" />
   <label for="amenities_1" title="One">&#10084;</label>
+   <input type="hidden" id="review_amenities"  name="g_review_amenities">
 </section>
 
 				</div>
@@ -369,6 +481,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">커뮤니케이션</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >숙박시간 전,혹은 도중에 호스트와 연락이 잘 되고,</h5>
 						<h5 >문의한 사항에 대하여 호스트가 빨리 응답해 왔습니까?</h5>
 					</div>
@@ -391,6 +504,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="communication_1" name="communication" value="1" />
   <label for="communication_1" title="One">&#10084;</label>
+    <input type="hidden" id="review_communication"  name="g_review_communication">
 </section>
 
 				</div>
@@ -407,6 +521,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">위치</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >숙소 지역은 만족하셨나요? 안정성과 편리성을 고려해 주세요</h5>
 					</div>
 
@@ -428,6 +543,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="location_1" name="location" value="1" />
   <label for="location_1" title="One">&#10084;</label>
+    <input type="hidden" id="review_location"  name="g_review_location">
 </section>
 
 				</div>
@@ -444,6 +560,7 @@ $(document).ready(
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">가치</h3>
+						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5 >이 숙소를 평가하자면?</h5>
 					</div>
 
@@ -465,6 +582,7 @@ $(document).ready(
   <!-- FIRST HEART -->
   <input type="radio" id="value_1" name="value" value="1" />
   <label for="value_1" title="One">&#10084;</label>
+     <input type="hidden" id="review_value"  name="g_review_value">
 </section>
 
 				</div>
@@ -475,29 +593,31 @@ $(document).ready(
 
 
 
-<div class="row">
+<div class="row" style="height:180px;">
 
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					
 					<div style="position: relative; top: 15px; font-weight: bold;">
 						<h3 style="display: inline !important;">이 숙소를 다시 이용하고 싶으신가요?</h3>
 						<h5 >답변은 회원님의 프로필 또는 호스트의 숙소 페이지에 공개되지 않습니다.</h5>
 					</div>
-  <div data-toggle="buttons" style="position:relative;left:20px;top:20px;width:100px;">
-          <label for="yesBt" class="btn btn-default btn-circle btn-lg" style="position:relative;top:20px;left:70px;"><input type="radio" name="repurchase" id="yesBt" value="yes"><i class="glyphicon glyphicon-thumbs-up" ></i>&nbsp;예!</label>
-          <label for="noBt" class="btn btn-default btn-circle btn-lg" style="position:relative;top:-30px;left:230px;"><input type="radio" name="repurchase" id="noBt" value="no" ><i class="	glyphicon glyphicon-thumbs-down"></i>&nbsp;아니요</label>
-          
-        </div> 
-<!-- <button class="btn default" name="repurchase" id="yesBt"><span class="glyphicon glyphicon-thumbs-up default"></span>예!</button>
-        <button class="btn default" name="repurchase" id="noBt"><span class="glyphicon glyphicon-thumbs-down default"></span>아니오</button> -->
-        
-
+<div id="likeordislikeBt" style="position:relative;top:55px;left:140px;">
+        <label for="yesBt" class="material-icons" style="margin-right:20px;width:80px;">
+			<input type="radio" name="repurchase" id="yesBt" value="yes" />
+			<span><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;예</span>
+		</label>
+		<label for="noBt" class="material-icons" style="margin-left:13px;">
+			<input type="radio" name="repurchase" id="noBt" value="no" />
+			<span><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;아니요</span>
+		</label>
+		<input type="hidden" id="review_repurchase" name="g_review_repurchase">
+</div>
 				</div>
 
 			</div>
 			
 			<hr style="position:relative;color:gray;left:-290px;width:600px;">
-			
+	
 	<div class="row">
 
 				<div class="col-sm-5">
@@ -507,7 +627,7 @@ $(document).ready(
 						<h5 style="display: inline !important;">(필수항목)</h5>
 						<h5>회원님의 후기는 회원님의 프로필과 회원님의 호스트 숙소 페이지에 전체 공개 됩니다.</h5>
 						<div class="col-sm-18" style="height:auto;">
-						<textarea class="form-control"   id="openReview" name="openReview"
+						<textarea class="form-control"   id="openReview" name="g_review_public"
 							style="resize: vertical;margin-top:10px;height:200px;max-height: 80px;min-height: 200px;line-height:1.6em;max-height: 400px;" maxlength='500' ></textarea>
 							<span id="counter">###</span>
 					</div>
@@ -524,7 +644,7 @@ $(document).ready(
 						<h3 style="margin-bottom:10px;">호스트 비공개 피드백</h3>
 						<h5>이 피드백은 비공개이며,해당 호스트와 빌림 직원 및 서비스 제공자만 볼 수 있습니다</h5>
 						<div class="col-sm-18" style="height:auto;">
-						<textarea class="form-control"  name="unopenReview"
+						<textarea class="form-control" id="unopenReview" name="g_review_private"
 							style="resize: vertical;margin-top:15px;height:200px;min-height: 200px;line-height:1.6em;max-height: 380px;" maxlength='500'></textarea>
 					</div>
 				
@@ -534,7 +654,11 @@ $(document).ready(
 
 			</div>
 
+<div class="row">
 
+<input id="submitBt" class="btn btn default" type="button" style="background-color:#ff5e6b;color:white;font-weight:bold;position:relative;left:385px;top:50px;" value="제출 하기">
+
+</div>
 
 
 
@@ -542,6 +666,7 @@ $(document).ready(
 
 
 		</div>
+		</form>
 	</div>
 
 

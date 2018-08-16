@@ -7,10 +7,6 @@
 		width : 700px;
 	}
 	
-	.modal-backdrop {
-   		background-color: #f2edee;
-	}
-	
 	
 	#priceSubmit {
 		background-color: white; 

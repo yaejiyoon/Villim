@@ -42,13 +42,9 @@ $(document).ready(function() {
 		width : 15vw;
 	}
 	
-	.modal-backdrop {
-   		background-color: #f2edee;
-	}
-	
 	
 	#peopleup, #peopledis {
-		background-color: #2196F3; 
+		background-color: #008489; 
 		color : white;
 		outline:0;
 		display: inline;
@@ -58,13 +54,13 @@ $(document).ready(function() {
 	
 	#peopleSubmit {
 		background-color: white; 
-		color : #2196F3;
-		border : 1px solid #2196F3;
+		color : #008489;
+		border : 1px solid #008489;
 		font-family: dx;
 	}
 	
 	#peopleSubmit:hover {
-		background-color: #2196F3; 
+		background-color: #008489; 
 		color : white;
 		outline:0;
 	}
