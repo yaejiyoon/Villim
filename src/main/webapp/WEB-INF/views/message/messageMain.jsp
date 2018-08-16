@@ -119,8 +119,16 @@ $(document).ready(function() {
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_default_1">
-							<!-- 여기다 여행 관련된 내가 쓴 거 나타내기 -->
-							여기다 여행 관련된 내가 쓴 거 나타내기
+						
+						<div style="position:relative;height:10vh;border:1px solid yellow">
+							<img style="position:relative;left:1vw;top:1.3vh;width:7vh;height:7vh;" src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm" class="img-circle">
+							
+							<h5 style="position:relative; left:6vw;top:-5vh;">Sarah Son</h5>
+							<h5 style="position:relative; left:6vw;top:-5vh;">08월 22일</h5>
+							
+							<h5 style="position:relative;left:14.5vw;top:-10.4vh;color:gray;">문의좀 드릴게요 여기서 35박 할 수 있을까요?</h5>
+							
+							</div>
 						</div>
 						<div class="tab-pane" id="tab_default_2">
 							여기다 호슽팅 관련된 내가 쓴 거 나타내기

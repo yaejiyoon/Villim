@@ -4,7 +4,17 @@
 
 
 <mapper namespace="Message">
-<select id="countReview" resultType="int">
-select count(g_review_public) from GUEST_REVIEW where home_seq=#{home_seq}
-</select>
+	<select id="countReview" resultType="int">
+		select count(g_review_public) from GUEST_REVIEW where home_seq=#{home_seq}
+	</select>
+
+	<insert id="messageInsert">
+		insert into message
+		values(message_seq.nextval,message_room_seq.nextval,#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,'YYYY"년"
+		MM"월" DD"일"'),0)
+	</insert>
+
+	<select id="getHomeInfo" resultType="Home">
+		select * from home where home_seq=#{home_seq}
+	</select>
 </mapper>
