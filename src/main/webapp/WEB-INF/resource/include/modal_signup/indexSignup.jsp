@@ -10,7 +10,13 @@
  	right:10px;
 	text-align:center;
 	z-index: 12000;
+	height:100vh;
 	
+	}
+	.modal-body{
+	
+	height:500px;
+		
 	}
 	#myModal1{
  	right:10px;
@@ -19,16 +25,28 @@
 	
 	}
 	#facebook{
-		width:80%;	
+		width:90%;
+		padding:3%;
+		margin-top:7%;
+		margin-bottom: 5%;
 	}
 	#kakao{
-		width:80%;	
+		width:90%;
+		padding:3%;
+		margin-top:1%;
+		margin-bottom: 5%;
 	}
 	#google{
-		width:80%;
+		width:90%;
+		padding:3%;
+		margin-top:1%;
+		margin-bottom: 5%;
 	}
 	#email{
-		width:80%;
+		width:90%;
+		padding:3%;
+		margin-top:2%;
+		margin-bottom: 5%;
 	}
 
 
