@@ -11,10 +11,15 @@
 	text-align:center;
 	z-index: 12000;
 	height:100vh;
+	box-sizing: border-box;
 	
 	}
-	.modal-header{
-		border:0px;
+	#mheader{
+		border-bottom-width:0px;
+		
+	}
+	#mfooter{
+		border-top-width: 0px;
 	}
 	.modal-body{
 	
@@ -23,9 +28,11 @@
 	}
 	.modal-body font{
 		padding-left:2%;
+		font-size: large;
+		font-weight: bold;
 	}
 	.modal-body i{
-		padding-right:2%;
+		
 	}
 	#myModal1{
  	right:10px;
@@ -57,7 +64,13 @@
 		margin-top:2%;
 		margin-bottom: 5%;
 	}
-
+	#toindex{
+		margin-top: 5%;
+	}
+	#underline{
+		width:550px;
+		height:50px;
+	}
 
 </style>
 
@@ -440,9 +453,9 @@ function loginWithEmail(){
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" id="mheader">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
       
       <div class="modal-body">
@@ -476,20 +489,20 @@ function loginWithEmail(){
       <input type="hidden" id="googleSignup" value="signup">
     
       
+      <img src="<c:url value='/resources/img/signup/underline5.png'/>" id="underline">
       
-      <span class="_1xktqfm"><span class="_1cd6lfn9"><span>또는</span></span></span><br>
       <!-- <div id="status"></div> -->
       
       <button type="button" class="btn btn-danger" onclick="loginWithEmail()" id="email">
-      	<i class="" style="color:red"></i>
+      	<i class="far fa-envelope fa-2x" style="color:white"></i>
       	<font> 이메일로 회원가입</font>
       </button><br>
       <!-- <button type="button" class="btn btn-primary" onclick="FB.logout();">logout</button> -->
       	
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="mfooter">
       <!--   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-       <font>이미 계정이 있나요?</font><a href="#"><font>로그인</font></a>
+       <font>Villim의 회원이신가요?</font> <a href="#"><font>로그인</font></a>
        
       </div>
     </div>
@@ -499,7 +512,7 @@ function loginWithEmail(){
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" id="mheader">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         
       </div>
