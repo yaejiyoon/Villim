@@ -2,6 +2,7 @@ package kh.spring.interfaces;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.MessageRoomDTO;
 
 public interface MessageService {
 	public int countReview(int home_seq);
@@ -10,5 +11,9 @@ public interface MessageService {
 	
 	public HomeDTO getHomeInfo(int home_seq);
 	
-	/*public int messageRoomInsert();*/
+	public MessageRoomDTO messageRoomSeqExist(MessageRoomDTO dto);
+	
+	public int getRoomSeq();
+	
+	public int messageRoomInsert(MessageRoomDTO roomdto);
 }
