@@ -18,14 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeService;
-import kh.spring.interfaces.ReservationService;
+import kh.spring.interfaces.ReservService;
 
 @Controller
 public class HomeInfoController {
 	
 	@Autowired
 	private HomeService homeService;
-	private ReservationService reservService;
+	
+	@Autowired
+	private ReservService reservService;
 	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
@@ -121,33 +123,36 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/reservation.re")
-	public void reservation(ReservationDTO dto) {
+	public void reservation(ReservationDTO dto,HttpServletRequest req) {
 		
 		String amount = dto.getAmount();
 		
-		
-		
 		dto.setGuset_review("N");
-		dto.setReservation_seq(0);
+		dto.setReservation_seq(1);
 		dto.setAmount(amount.replaceAll("[^0-9]", ""));
 		
-		
-		System.out.println(dto.getReservation_seq());
-		System.out.println(dto.getMember_email());
-		System.out.println(dto.getReserv_checkin());
-		System.out.println(dto.getReserv_checkout());
-		System.out.println(dto.getPopulation());
-		System.out.println(dto.getAmount());
-		System.out.println(dto.getHome_seq());
-		System.out.println(dto.getHome_name());
-		System.out.println(dto.getGuset_review());
+//		System.out.println(dto.getReservation_seq());
+//		System.out.println(dto.getMember_email());
+//		System.out.println(dto.getReserv_checkin());
+//		System.out.println(dto.getReserv_checkout());
+//		System.out.println(dto.getPopulation());
+//		System.out.println(dto.getAmount());
+//		System.out.println(dto.getHome_seq());
+//		System.out.println(dto.getHome_name());
+//		System.out.println(dto.getGuset_review());
 		
 		System.out.println(11);
+		
+		
 		int insertReserve = reservService.insertData(dto);
+		
+		
 		System.out.println(22);
 		if(insertReserve>0) {
 			System.out.println("되라되라도리ㅏㅓㅑㅓㄹ아ㅓ");
 		}
+		
+		
 		
 	}
 	
