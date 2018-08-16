@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
 
 
 
@@ -152,7 +152,7 @@
                		<div id="info-title">
                			<div id="info-title-left">
                				<span>집 전체</span>
-               				<h2 style="color:black; margin-top:2px;">아늑한 제주 돌집, 북스테이 독채민박 초(old&cozy house)</h2>
+               				<h2 style="color:black; margin-top:2px;">${hdto.getHome_name() }</h2>
                				<span>Seongsan-eup, Seogwipo-si</span>
                				<br>
                				<br>
@@ -489,6 +489,8 @@
             			<h6 style="display: inline;">342</h6>
             		</div>
             		<div id="fixed-sub02">
+            		 	<form action="reservation.re" method="post">
+            		 	
             			<br>
             			날짜
             			
@@ -509,6 +511,9 @@
             			var ttt;
             			var vvv;
             			var reserveDate;
+            			
+            			var checkinDate;
+            			var checkoutDate;
             			
             			$('.datepicker-here').datepicker({
             				
@@ -558,21 +563,41 @@
             					if(date.length == 2){
             						alert("이오와엉");
             						
-            						var checkinDate = formatDate(date[0]);
-            						var checkoutDate = formatDate(date[1]);
+            						checkinDate = formatDate(date[0]);
+            						checkoutDate = formatDate(date[1]);
             						
-            						console.log(formatDate(checkinDate));
-            						console.log(formatDate(checkoutDate));
+            						
             						
             						$.ajax({
-            							url:"reservation.re",
+            							url:"clickDate.re",
             							type:"get",
             							data:{
             								checkinDate:checkinDate,
             								checkoutDate:checkoutDate
             								},
-            							success:function(){
-            								console.log("전달 성공!")
+            							success:function(resp){
+            								var priceLeft = resp.priceLeft;
+            								var priceRight = resp.priceRight;
+            								var cleaningfee = resp.cleaningfee;
+            								var servicefee = resp.servicefee;
+            								var total = resp.total;
+            								
+            								alert(priceLeft+" : "+priceRight);
+            								
+            								$("#priceLeft").text(priceLeft);
+            								$("#priceRight").text(priceRight);
+            								$("#cleaningfee").text(cleaningfee);
+            								$("#servicefee").text(servicefee);
+            								$("#total").text(total);
+            								
+            								
+            								$("#fixed").css({"height":"63vh","transition-duration":"0.1s"});
+            								$(".fixedprice").css({"display":"block"});
+            								
+            								$("#reserv_checkin").val(checkinDate);
+            								$("#reserv_checkout").val(checkoutDate);
+            								$("#amount").val(total);
+            								
             							},
             							error : function(request,status,error) {
             								console.log(request.status + " : " + status + " : " + error);
@@ -702,36 +727,155 @@
             			});
             			</script>
             			
-            			<br>
+            			
             			인원
-            			<input type="text" class="search-query3 form-control"
-            			placeholder="게스트 1명" style="position: static;"
-            			/>
+            			<div class="dropdown fixed">
+            			
+            				<input type="text" class="search-query3 form-control"
+            				style="position: static;"
+            				id="peopleDrop" value="게스트 1명"
+            				onclick="myFunction()"
+            				/>
+            				
+            				<div class="dropdown-content" id="myDropdown">
+            					 <div id="peopleDropdownContentInner">
+                     				<div>
+                     					인원
+                     				</div>
+                     				<div>
+                     					<button id="peopleup" class="btn btn-primary-outline" type="button">>+</button>
+										<p style="display: inline;" id="pcount">1</p>
+										<button id="peopledown" class="btn btn-primary-outline" type="button">>-</button>
+										
+                     				</div>
+                     				<div>
+                     					<button id="dropdownClose" class="btn btn-primary-outline" type="button">닫기</button>
+                     				</div>
+                 				</div>
+
+            				</div>
+            				
+            				<script>
+            				function myFunction() {
+            				    document.getElementById("myDropdown").classList.toggle("show");
+            				}
+            				
+            				// Close the dropdown menu if the user clicks outside of it
+            				window.onclick = function(event) {
+            					  if (!event.target.matches('#peopleDrop')) {
+
+            					    var dropdowns = document.getElementsByClassName("dropdown-content");
+            					    var i;
+            					    
+            					    var population = $("#peopleDrop").val();
+            					    console.log(population.split("게스트 ")[1].split("명")[0]);
+            					    
+            					    $("#population").val(population.split("게스트 ")[1].split("명")[0]);
+            					    
+            					    for (i = 0; i < dropdowns.length; i++) {
+            					      var openDropdown = dropdowns[i];
+            					      if (openDropdown.classList.contains('show')) {
+            					        openDropdown.classList.remove('show');
+            					      }
+            					    }
+            					  }
+            					}
+            				
+            				$('#myDropdown').bind('click', function (e) { e.stopPropagation() })
+            				
+            					$("#peopledown").attr("disabled",true);
+            				
+            					
+            				   $("#peopledown").click(function() {
+            					   var intmax = parseInt($("#pcount").text());
+            					   
+            					  
+            					   
+            				       if(intmax > 2){
+            				          intmax = intmax - 1; 
+            				          $("#peopleDrop").val("게스트 "+intmax+"명");
+            				          $("#pcount").text(intmax);
+            				          $("#peopleup").attr("disabled",false);
+            				       }else if(intmax = 2){
+            				    	   $("#peopleDrop").val("게스트 "+1+"명");
+            				    	   $("#peopledown").attr("disabled",true);
+            				    	   $("#pcount").text(1);
+            				       }
+            				       
+            				    });
+            				    
+            				    $("#peopleup").click(function() {
+            				       var intmax = parseInt($("#pcount").text());
+            				   
+            				       if(intmax < 14 ){
+            				          $("#peopledown").attr("disabled",false);
+            				          intmax = intmax + 1; 
+            				          $("#pcount").text(intmax);
+            				          $("#peopleDrop").val("게스트 "+intmax+"명");
+            				       }else if(intmax = 14){
+            				          $("#peopleup").attr("disabled",true);
+            				          $("#pcount").text(intmax);
+            				          $("#peopleDrop").val("게스트 "+intmax+"명");
+            				       }
+            				    });
+            				    
+            				    $("#dropdownClose").click(function(){
+            				    	var dropdowns = document.getElementsByClassName("dropdown-content");
+            					    var i;
+            					    
+            					    var population = $("#peopleDrop").val();
+            					    console.log(population.split("게스트 ")[1].split("명")[0]);
+            					    
+            					    $("#population").val(population.split("게스트 ")[1].split("명")[0]);
+            					    
+            					    for (i = 0; i < dropdowns.length; i++) {
+            					      var openDropdown = dropdowns[i];
+            					      if (openDropdown.classList.contains('show')) {
+            					        openDropdown.classList.remove('show');
+            					      }
+            					    }
+            				    });
+            				</script>
+            				
+            				
+            			</div>
             			<span class='glyphicon glyphicon-menu-down' aria-hidden="true"></span>
-            			<br>
-            			<div>
-            				<span style="float: left;">₩132,766 x 1박</span>
-            				<span style="float: right;">₩132,766</span>
+            			
+            			<div class="fixedprice">
+            				<span style="float: left;" id="priceLeft">₩132,766 x 1박</span>
+            				<span style="float: right;" id="priceRight">₩132,766</span>
             			</div>
-            			<div>
+            			<div class="fixedprice">
             				<span style="float: left;">청소비</span>
-            				<span style="float: right;">₩32,225</span>
+            				<span style="float: right;" id="cleaningfee">₩32,225</span>
             			</div>
-            			<div>
+            			<div class="fixedprice">
             				<span style="float: left;">서비스 수수료</span>
-            				<span style="float: right;">₩21,913</span>
+            				<span style="float: right;" id="servicefee">₩21,913</span>
             			</div>
-            			<div style="border: none;">
+            			<div style="border: none;" class="fixedprice">
             				<span style="float: left; font-weight: 600;">합계</span>
-            				<span style="float: right;">₩21,913</span>
+            				<span style="float: right;" id="total" >₩21,913</span>
             			</div>
             			<br>
-            			<button id="reservationBT" class="btn btn-secondary">
+            			<button id="reservationBT" class="btn btn-secondary" type="submit">
             			예약 하기
             			</button>
             			<br>
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
+            			
+            			
+            			<input type="hidden" name="member_email" value="${hdto.getMember_email() }">
+            		 	<input type="hidden" name="reserv_checkin" id="reserv_checkin" value="">
+            		 	<input type="hidden" name="reserv_checkout" id="reserv_checkout" value="">
+            			<input type="hidden" name="population" id="population" value="1">
+            			<input type="hidden" name="home_seq" value="${hdto.getHome_seq() }">
+            			<input type="hidden" name="home_name" value="${hdto.getHome_name() }">
+            			<input type="hidden" name="amount" id="amount">
+            			
+            			</form>
             		</div>
+            		
             	</div>
             </div>
          </div>

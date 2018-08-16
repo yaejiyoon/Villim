@@ -1,5 +1,7 @@
 package kh.spring.interfaces;
 
-public interface ReservationDAO {
+import kh.spring.dto.ReservationDTO;
 
+public interface ReservationDAO {
+	public int insertData(ReservationDTO dto);
 }
