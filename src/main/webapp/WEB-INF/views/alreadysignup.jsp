@@ -21,8 +21,11 @@
 	   
 	  
 	   $("#loginPage").click(function(){
-			
 		   
+		   self.close();
+		  
+		   window.opener.location.href="fbInfo2.do";
+
 	   })
 	   
       $("#homeButton").click(function(){
@@ -40,6 +43,10 @@
 </head>
 <body>
 	<script>
+	if($('#googleSignup',opener.document).val() != 'signup'){
+		self.close();  
+		window.opener.location.href="fbInfo2.do";
+	}
 	this.resizeTo(screen.availWidth, screen.availHeight);
 	</script>
 	<%@ include file="../resource/include/header.jsp"%>
@@ -54,7 +61,7 @@
 	
 	<div class="jumbotron">
       <div id="welcome">
-         <p><font>이미 가입되어있습니다.</font></p>
+         <p><font>계정은 이미 빌림의 회원입니다.</font></p>
          <h3><font>로그인을 통해 더 많은 빌림의 서비스를 이용하세요</font></h3>
          <button class="btn btn-success" id="loginPage">로그인</button>
       </div>

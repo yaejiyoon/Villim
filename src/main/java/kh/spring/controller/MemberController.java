@@ -375,20 +375,41 @@ public class MemberController {
 	}
 	// 카카오로 가입하는 페이지
 	@RequestMapping("kakaoInfo.do")
-	public String kakaoInfo(HttpServletRequest request) {
+	public ModelAndView kakaoInfo(HttpServletRequest request, MemberDTO dto,HttpSession session) {
 		System.out.println("kakaoInfo 접속");
-		return "kakaosignup";
+		ModelAndView mav = new ModelAndView();
+		String picture = service.isSnsMember(dto);
+		
+		if(!(picture.equals(""))) {
+			System.out.println("이미 가입 되어있는 아이디 입니다.");
+			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
+			mav.setViewName("alreadysignup");
+			return mav; 
+		}else {
+			mav.setViewName("kakaosignup");
+			return mav;
+		}
+		
 		
 	}
+
 	// 페이스북로 가입하는 페이지
 	@RequestMapping("fbInfo.do")
 	public ModelAndView fbInfo(HttpServletRequest request, MemberDTO dto,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("facebookInfo 접속");
-		String picture = service.isMember(dto);
+		String picture = service.isSnsMember(dto);
+		System.out.println(dto.getMember_email());
+		
 		if(!(picture.equals(""))) {
 			System.out.println("이미 가입 되어있는 아이디 입니다.");
 			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
 			mav.setViewName("alreadysignup");
 			return mav; 
 		}else {
@@ -396,6 +417,34 @@ public class MemberController {
 			return mav;
 		}
 		
+		
+		
+	}
+	// 페이스북로 가입하는 페이지2
+	@RequestMapping("fbInfo2.do")
+	public ModelAndView fbInfo2(HttpServletRequest request, MemberDTO dto,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("facebookInfo2 접속");
+		dto.setMember_email(session.getAttribute("login_email").toString());
+		
+		String picture = service.isSnsMember(dto);
+		System.out.println(dto.getMember_email());
+		System.out.println(dto.getMember_picture());
+		System.out.println(picture);
+		
+//		if(!(picture.equals(""))) {
+//			System.out.println("이미 가입 되어있는 아이디 입니다.");
+			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
+			mav.setViewName("index");
+			return mav; 
+//		}else {
+//			mav.setViewName("facebooksignup");
+//			return mav;
+//		}
+//		
 		
 		
 	}
@@ -429,6 +478,7 @@ public class MemberController {
 	@RequestMapping("snslogin.do")
 	public ModelAndView snslogin(MemberDTO dto, HttpSession session) {
 		
+		System.out.println("sns 로그인 부분입니다.");
 		ModelAndView mav = new ModelAndView();
 		System.out.println(dto.getMember_email());
 		System.out.println(dto.getMember_pw());
@@ -451,7 +501,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		
 		session.invalidate();
-		return "/";
+		return "index";
 		
 	}
 	

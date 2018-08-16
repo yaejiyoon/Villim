@@ -38,6 +38,12 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 	@Override
+	public String isSnsMember(MemberDTO dto) {
+		return dao.isSnsMember(dto);
+	}
+
+	
+	@Override
 	public MemberDTO printProfile(String userId) {
 		return dao.printProfile(userId);
 	}
@@ -116,6 +122,6 @@ public class MemberServiceImpl implements MemberService{
 		return dao.getHostReview(home_seq);
 	}
 
-	
+
 }
 

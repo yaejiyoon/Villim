@@ -58,6 +58,27 @@ public class MemberDAOImpl implements MemberDAO {
 		return result.get(0).getMember_picture();
 		}
 	}
+	@Override
+	public String isSnsMember(MemberDTO dto) {
+		String sql = "select member_picture from member where member_email=?";
+		System.out.println(dto.getMember_email() + ":" + dto.getMember_pw()); 
+		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper() {
+						@Override
+						public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+							dto.setMember_picture(rs.getString("member_picture"));
+							
+							return dto;
+				}
+		
+		},dto.getMember_email());
+		if(result.size() == 0) {
+		
+		return "";
+		}else {
+		
+		return result.get(0).getMember_picture();
+		}
+	}
 
 	@Override
 	public MemberDTO printProfile(String userId) {
@@ -131,5 +152,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
 		return template.selectList("Member.getHostReview",home_seq);
 	}
+
+
 
 }

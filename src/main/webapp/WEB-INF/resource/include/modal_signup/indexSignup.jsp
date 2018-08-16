@@ -116,17 +116,36 @@
 		  FB.api('/me',  {fields: 'email,name,picture'},function(response) {
 		    console.log('Successful login for: ' + response.name +":" + response.email);
 		    alert(JSON.stringify(response));
+		   
+		    $("#fbEmailBtn").val(response.email);
+		    $("#fbNameBtn").val(response.name);
+    		$("#fbIdBtn").val(response.id);
+    		$("#fbImgBtn").val(response.picture.data.url);
+		    var member_email = $("#fbEmailBtn").val();
+		    
+		    
 		    var popupX =(window.screen.width/2) - (500 / 2);
 	    	 var popupY= (window.screen.height/2) - (500 / 2);
-			   window.open('', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-		  
-			    $("#fbEmailBtn").val(response.email);
-        		$("#fbNameBtn").val(response.name);
-        		$("#fbIdBtn").val(response.id);
-        		$("#fbImgBtn").val(response.picture.data.url);
+			 var fbchild = window.open('fbInfo.do?member_email='+member_email, 'fbview', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		  	  var fbform = document.fbForm;
+		 
+/*         		fbform.action = "fbInfo.do";
+        		fbform.target = "fbview";
+        		fbform.method = "post";
+        		fbform.submit(); */
+        		$("#myModal").modal('hide'); 
+        	  	
         		
-        		$("#fbForm").submit();
-		  
+        		fbchild.onload = function(){ 
+        			
+        		alert('${sessionScope.login_email}');
+        		/* 	fbchild.close(); */
+       		 	/*  $(location).attr("href","/"); */ 
+        			
+        		
+       	 		}; 
+        		
+        		
 		  
 		  });
 		  }, {scope:'public_profile, email'}); 
@@ -250,10 +269,17 @@ function signupWithKakao() {
          		$("#kakaoNicknameBtn").val(res.properties.nickname);
          		$("#kakaoIdBtn").val(res.id);
          		$("#kakaoImgBtn").val(res.properties.profile_image);
+     		    var member_email = $("#kakaoEmailBtn").val();
          		
+         		var kakaoform = document.kakaoForm;
          		alert($("#kakaoEmailBtn").val(res.kaccount_email));
-         		window.open('kakaoInfo.do', '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-         		
+         		var kakaochild = window.open('kakaoInfo.do?member_email='+member_email, 'kakaoview', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+        		
+         		$("#myModal").modal('hide'); 
+/*          		kakaochild.onload = function(){ 
+         			kakaochild.close();
+          			 $(location).attr("href","/");
+          		}   */
                  
              },
              fail: function(error) {
@@ -314,13 +340,20 @@ function signupWithGoogle(){
 		location.href = google_url; */
 		var popupX =(window.screen.width/2) - (500 / 2);
 		var popupY= (window.screen.height/2) - (500 / 2);
-	
 		
-	 	var child = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-		$("#myModal").modal('hide'); 
+		
+		
+	 	
+		var googlechild = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	
+	 	
+	 	$("#myModal").modal('hide'); 
 		/* child.close(); */
  		
-		$(location).attr("href","index"); 
+/* 		child.onload = function(){ 
+			 child.close();
+			 $(location).attr("href","/");
+		}   */
 		
 		/* alert(login);
 		if(login == "login"){  */
@@ -340,12 +373,12 @@ function loginWithGoogle(){
 		var child = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 
 		$("#myModal").modal('hide'); 
-		/* */
+	
 		
-		child.onload = function(){ 
+ 		child.onload = function(){ 
 			 child.close();
 			 $(location).attr("href","/");
-		} 
+		}  
  		 
  			/* opener.location("/"); */
  			
@@ -390,26 +423,33 @@ function loginWithEmail(){
       	<i class="fab fa-facebook-f fa-2x" style="color:white"></i>  
       	<font> 페이스북 계정으로 회원가입</font>
       </button><br>
-      <form action="fbInfo.do" method="post" id="fbForm">
+      <!-- <form action="" method="post" id="fbForm" name="fbForm"> -->
       <input type="hidden" id=fbEmailBtn name="member_email">
       <input type="hidden" id=fbNameBtn name="member_name">
       <input type="hidden" id=fbImgBtn name="member_picture">
-      <input type="hidden" id=fbIdBtn name="member_id">
-      </form>
+      <input type="hidden" id=fbIdBtn name="member_pw">
+      <!-- </form> -->
       
       <button type="button" class="btn btn-warning" onclick="signupWithKakao();" id="kakao">
       	<i class="fas fa-comments fa-2x" style="color:black"></i>
       	<font> 카카오 계정으로 회원가입</font>
       </button><br>
-      <input type="hidden" id=kakaoEmailBtn name="kakaoEmail">
-      <input type="hidden" id=kakaoNicknameBtn name="kakaoNickname">
-      <input type="hidden" id=kakaoImgBtn name="kakaoImg">
-      <input type="hidden" id=kakaoIdBtn name="kakaoId">
+      
+      <form action="" method="post" id="kakaoForm" name="kakaoForm">
+      <input type="hidden" id=kakaoEmailBtn name="member_email">
+      <input type="hidden" id=kakaoNicknameBtn name="member_name">
+      <input type="hidden" id=kakaoImgBtn name="member_picture">
+      <input type="hidden" id=kakaoIdBtn name="member_pw">
+      </form>
   
       <button type="button" class="btn btn-default" onclick="signupWithGoogle();" id="google">
       	<i class="fab fa-google fa-2x" style="color:red"></i>
       	<font> 구글 계정으로 회원가입</font>
       </button><br>
+      <input type="hidden" id="googleSignup" value="signup">
+    
+      
+      
       <span class="_1xktqfm"><span class="_1cd6lfn9"><span>또는</span></span></span><br>
       <!-- <div id="status"></div> -->
       

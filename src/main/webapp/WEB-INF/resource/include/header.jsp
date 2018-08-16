@@ -132,6 +132,9 @@
              	  <c:if test="${fn:endsWith (test, 'jpg')}">
              	  <img src=" files/${sessionScope.login_picture}"> 
              	</c:if>
+             	  <c:if test="${fn:endsWith (test, 'png')}">
+             	  <img src=" files/${sessionScope.login_picture}"> 
+             	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         					<li><a href="#">프로필 수정하기</a></li>

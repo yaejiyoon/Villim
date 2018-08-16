@@ -97,6 +97,7 @@ public class MainController {
 		  System.out.println("메롱5");
 		  String picture = service.isMember(dto);
 		  System.out.println("메롱6");
+		  System.out.println(request.getParameter("googleTypeSignup"));
 		  if(!(picture.equals(""))) {
 			  
 			  		String login = "login";
@@ -107,7 +108,7 @@ public class MainController {
 					session.setAttribute("login_picture", dto.getMember_picture());
 //					mav.addObject("login_picture", picture);
 //					mav.addObject("login", login);
-					mav.setViewName("index");
+					mav.setViewName("alreadysignup");
 				
 			  
 		  }else {
