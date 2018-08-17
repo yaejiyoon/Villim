@@ -68,7 +68,6 @@
 	</bean>
 	
 	
-	
 
 	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
 

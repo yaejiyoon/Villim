@@ -488,7 +488,7 @@ $(document).ready(function(){
 		<a href="profileEditView.mo"
 			style="font-size: 18px; position: relative; top: -24px; left: 0px; color: gray; text-decoration: none;">프로필
 			수정</a> <a
-			style="font-size: 19px; position: relative; top: 23px; left: -100px; color: gray; font-weight: bold;">후기</a>
+			style="font-size: 19px; position: relative; top: 23px; left: -100px; color: gray; font-weight: bold;text-decoration:none;">후기</a>
 		<a id="profileShowBt" class="btn btn-default"
 			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
@@ -674,7 +674,7 @@ $(document).ready(function(){
 						</div>
 						<div class="comment-content">
 							<input type="hidden" value="${info.home_seq}">
-														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_pic_name=${homePhotoResult}&home_name=${info.home_name}"
+														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_main_pic=${homePhotoResult}&home_name=${info.home_name}"
 															style="color: #ff5959; text-decoration: none;">리뷰쓰기</a>						
 	
 						</div>
