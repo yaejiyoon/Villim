@@ -40,7 +40,7 @@ public class MessageController {
 		
 		//호스팅
 		
-		/*mav.setViewName("/message/messageMain");*/
+		mav.setViewName("/message/messageMain");
 		return mav;
 	}
 	
