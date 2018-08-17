@@ -32,8 +32,12 @@
 
 #middle {
 	width: 100%;
-	text-align: center;
+	
 	margin-top: 3%;
+}
+#bottom{
+	margin-top: 10%;
+
 }
 #secondNm{
 
@@ -47,6 +51,27 @@
 	top:22.5%;
 	left:91%;
 	color: silver;
+	
+}
+#firstIcon{
+	position: absolute;
+	top:31.5%;
+	left:91%;
+	color: silver;
+	
+}
+#emailIcon{
+	position: absolute;
+	top:41.5%;
+	left:91%;
+	color: silver;
+	
+}
+#pwIcon{
+	position: absolute;
+	top:50.5%;
+	left:91%;
+	color: gold;
 	
 }
 #firstNm{
@@ -108,7 +133,14 @@
 }
 
 #completeBtn {
-	width: 80%;
+	width: 92%;
+	height:70px;
+	margin-top:7%;
+}
+#birthTitle{
+	margin-bottom: 2%;
+	padding-right: 68%;
+	
 }
 
 #myModal {
@@ -384,33 +416,34 @@
 		</div>
 		<!-- <form action="info.do" method="post"> -->
 		<div id="middle">
+		<div>
 		 <input type="text" name="secondName" class="form-control"
 					placeholder="이름을 입력하세요" aria-describedby="basic-addon2"
 					value=""  id="secondNm"><i class="far fa-user fa-2x" id="secondIcon"></i>
-					
+		</div>		
 			
 			
 		 <input type="text" name="firstName" class="form-control"
 					placeholder="성을 입력하세요" aria-describedby="basic-addon2"
-					value="" id="firstNm">
+					value="" id="firstNm"><i class="far fa-user fa-2x" id="firstIcon"></i>
 			
 			
 		 <input type="text" name="accountEmail" class="form-control"
 					placeholder="이메일을 입력하세요" aria-describedby="basic-addon2"
-					value="" id="accountEm">
+					value="" id="accountEm"><i class="fas fa-envelope fa-2x" id="emailIcon"></i>
 		
 			
 		 <input type="password" name="password" class="form-control"
 					placeholder="비밀번호를 입력하세요." aria-describedby="basic-addon2"
-					value="" id="pw">
+					value="" id="pw"><i class="fas fa-key fa-2x" id="pwIcon"></i>
 			
 		</div>
 		<div id="bottom">
-			<font>생년월일</font><br>
+			<div id="birthTitle"><font>생년월일을 선택하세요</font></div>
 			<div class="dropdown" id="month" style="display: inline;">
-				<input type="text" name="monthProp" placeholder="일" id="monthInput" class="form-control">
+				<input type="text" name="monthProp" placeholder="월" id="monthInput" class="form-control">
 				<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="monthBtn"> <span class="caret" id="droplist1"></span>
+					id="monthBtn" style="cursor: pointer;"> <span class="caret" id="droplist1"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
 					id="monthList" style="overflow:scroll; height:200px">
@@ -432,7 +465,7 @@
 			<div class="dropdown" id="day" style="display: inline;">
 				<input type="text" name="dayProp" placeholder="일" id="dayInput" class="form-control">
 				<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="dayBtn"> <span class="caret" id="droplist2"></span>
+					id="dayBtn" style="cursor: pointer;"> <span class="caret" id="droplist2"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
 					id="dayList" style="overflow:scroll; height:200px">
@@ -443,7 +476,7 @@
 			<div class="dropdown" id="year" style="display: inline;">
 				<input type="text" name="yearProp" placeholder="년" id="yearInput" class="form-control"><a
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="yearBtn"> 
+					id="yearBtn" style="cursor: pointer;"> 
 				 <span class="caret" id="droplist3"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
 					id="yearList" style="overflow:scroll; height:200px"> 
