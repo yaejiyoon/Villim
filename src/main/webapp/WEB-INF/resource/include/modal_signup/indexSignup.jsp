@@ -444,11 +444,20 @@ function loginWithGoogle(){
 /* Email */
 function loginWithEmail(){
 		
+	//새창의 크기
+	var cw=500;
+	var ch=550;
+
+	//스크린의 크기
+	var sw=screen.availWidth;
+	var sh=screen.availHeight;
+
+	//열 창의 포지션
+	var px=(sw-cw)/2;
+	var py=(sh-ch)/2;
 	
-	var popupX =(window.screen.width/2) - (500 / 2);
-	var popupY= (window.screen.height/2) - (500 / 2);
 	$("#myModal").modal('hide');
-	window.open("controllerEmail.do", '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+	window.open("controllerEmail.do", '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
 	
 	
 	}
