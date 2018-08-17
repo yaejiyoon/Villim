@@ -10,8 +10,8 @@
 
 	<insert id="messageInsert">
 		insert into message
-		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,'YYYY"년"
-		MM"월" DD"일"'),0)
+		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,
+		'YYYY"년" MM"월" DD"일" HH"시" MI"분"'),0)
 	</insert>
 
 	<select id="getHomeInfo" resultType="Home">

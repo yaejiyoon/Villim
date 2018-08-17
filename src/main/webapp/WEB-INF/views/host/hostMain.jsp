@@ -28,7 +28,6 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
 	height: 1500px;
@@ -76,32 +75,35 @@ div {
 }
 
 .home-summary-contents {
-	border: 1px solid black;
 	display: inline-block;
 	width: 80%;
-	height: 200px;
+	height: 200px; 
+	margin-left: 2px;
 }
 
 .home-pic {
 	width: 100%;
 	height: 100%;
 }
+.home-pic-add {
+	width: 50%;
+	height: 50%;
+	position: relative;
+	top: 48px;  
+	left:46px;
+}
 
 .home-summary-contents-pic {
-	border: 1px dotted black;
 	display: inline-block;
 	float: left;
-	width: 28%;
-	height: 100%;
-	width: 28%;
+	width: 35%;
+	height: 100%;  
 }
 
 .home-summary-contents-addr {
-	border: 1px dotted black;
 	display: inline-block;
 	float: left;
-	margin-left: 10px;
-	width: 70%;
+	width: 65%;
 	height: 100%;
 }
 
@@ -159,22 +161,6 @@ div {
 	margin: 0 auto;
 	margin-top: 30px;
 	font-size: 16px;
-}
-
-.home-summary-card-sub1-contents-img {
-	margin-top: 50px;
-}
-
-.home-summary-card-sub1-contents-btn {
-	margin-top: 50px;
-}
-
-.home-summary-card-sub2-contents button {
-	
-}
-
-.home-summary-card-sub3-contents button {
-	
 }
 
 .noti-reser-host-resr-wrap {
@@ -315,8 +301,15 @@ div {
 }
 
 .dd-pic {
-	width: 100%;
-	height: 100%;
+	width:60%;
+	height: 60%; 
+	position: relative;
+	top: 20px; 
+	left:25px;
+}
+.dd-main-pic{
+	width:100%;
+	height: 100%; 
 }
 
 .dd-sub-content {
@@ -332,14 +325,18 @@ div {
 	height: 250px;
 	overflow: scroll;
 }
+#dropdownMenu1:hover{
+	text-decoration: none;
+}
 </style>
 
 </head>
 <body>
+<%int cnt=0; %>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="alimpan">
-			<div class="alimpan-title">
+			<div class="alimpan-title">  
 				<h1>알림판</h1>
 			</div>
 			<div class="add-homelink">
@@ -353,7 +350,8 @@ div {
 				<div class="home-summary-title dropdown">
 					<h2>
 						<a class="dropdown-toggle" id="dropdownMenu1"
-							data-toggle="dropdown" aria-expanded="true"> 숙소요약 <span
+							data-toggle="dropdown" aria-expanded="true"
+							style="font-size: 25px;"> 숙소요약 <span
 							class="caret"></span>
 						</a>
 					</h2>
@@ -363,24 +361,72 @@ div {
 							<li role="presentation" class="dropdown-header">숙소를 선택하세요</li>
 
 							<c:forEach var="result" items="${homeList }">
+							<%cnt++; %>
 								<li role="presentation">
 									<div class="dd-wrap">
-										<a style="font-size: 17px;" role="menuitem" tabindex="-1"
-											href="javascript:getHomeData()">
+										<a style="font-size: 17px;" role="menuitem" tabindex="-1" id=summ-link<%=cnt %>
+											href="javascript:void(0);">
 											<div class="dd-sub-pic">
-												<img class="dd-pic"
-													src="<c:url value='/resources/img/1.jpg'/>">
+											<c:if test="${result.home_main_pic ne null }">
+												<img class="dd-main-pic img-rounded"
+													src="<c:url value='files/${result.home_main_pic }'/>">
+											</c:if>
+											<c:if test="${result.home_main_pic eq null }">
+											<img class="dd-pic img-rounded"
+													src="<c:url value='/resources/img/imgadd.png'/>">
+											</c:if>
 											</div>
 											<div class="dd-sub-content">${result.home_name }</div>
 										</a>
 									</div>
 								</li>
 								<input type="hidden" name="home_seq" value="${result.home_seq }">
-								<script>
-									$.ajax({
 
-									});
+								<script>
+								$(document).ready(function(){
+									var seq; 
+								
+									$(document).on('click', '#summ-link<%=cnt%>', function(){
+										seq = ${result.home_seq};
+										console.log(seq);
+
+										$.ajax({
+											url:"summary.do",
+											type:"post",
+											data:{
+												seq:seq
+											},
+											success:function(resp){
+												console.log("성공 : "+resp);
+												if(resp.pic == null){
+													$(".home-summary-contents-pic").find("img").each(function() {
+														console.log("pic"+resp.pic);
+														$("#mainpic").attr('src', "<c:url value ='/resources/img/imgadd.png'/>");
+													});
+												} else {
+													$(".home-summary-contents-pic").find("img").each(function() {
+														console.log("pic"+ resp.pic);
+														$("#mainpic").attr('src',"<c:url value ='files/"+resp.pic+"'/>");
+													});
+												}
+												
+													$('#homename').text(resp.name);
+													$('#address').text(resp.addr1+ " "+ resp.addr2+ " "+ resp.addr3+ " "
+																+ resp.addr4+ " "+ resp.state);
+													$('#price').text(resp.price+ "원");
+													$('#homename').attr("href",	"hostHomeTab.do?seq="+ resp.seq	+ "");
+												},
+													
+												error : function(data,status) {
+													console.log("실패"+ data);
+													console.log("실패"+ status);
+												}
+											});
+										})
+
+									})
 								</script>
+
 							</c:forEach>
 
 						</c:if>
@@ -390,17 +436,22 @@ div {
 					수 있는 몇 가지 팁을 알려드립니다.</span>
 			</div>
 
-			<div class="home-summary-contents">
-				<div class="home-summary-contents-pic">
-					<img class="home-pic" src="<c:url value='/resources/img/1.jpg'/>">
+			<div class="home-summary-contents row">
+				<div class="home-summary-contents-pic col-md-6">
+					<c:if test="${hdto.home_main_pic eq null}">
+						<img id=mainpic class="home-pic-add img-rounded" src="<c:url value='/resources/img/imgadd.png'/>">
+					</c:if>
+					<c:if test="${hdto.home_main_pic ne null}">
+						<img id=mainpic class="home-pic img-rounded" src="<c:url value='files/${hdto.home_main_pic }'/>">
+					</c:if>
 				</div>
-				<div class="home-summary-contents-addr">
+				<div class="home-summary-contents-addr col-md-6">
 					<p>
-						<a href="hostHomeTab.do?seq=${hdto.home_seq }">${hdto.home_name }</a>
+						<a id=homename href="hostHomeTab.do?seq=${hdto.home_seq }">${hdto.home_name }</a>
 					</p>
-					<p>${hdto.home_addr1}&nbsp;${hdto.home_addr2 },운영중</p>
+					<p id=address>${hdto.home_addr1},${hdto.home_addr2 },${hdto.home_addr3 },${hdto.home_addr4},${hdto.home_nation }운영중</p>
 					<p class="home-summary-contents-price">가격</p>
-					<p class="home-summary-contents-price2">${hdto.home_price }<c:if
+					<p id=price class="home-summary-contents-price2">${hdto.home_price }<c:if
 							test="${hdto.home_currency.equals('KRW')}">&nbsp;원</c:if>
 					</p>
 
@@ -424,11 +475,11 @@ div {
 						<div>
 							신뢰할 수 있는 지인을 공동 호스트로 초대하여 도움을 받으세요.<br>
 						</div>
-						<div class="home-summary-card-sub1-contents-img">
+						<div class="home-summary-card-sub1-contents-img" style="width: 100%; height:150px; margin-top: 40px;">
 							<img alt="Friend" height="100" width="140"
 								src="https://a0.muscache.com/airbnb/static/cohosting/friend-8bb3af2d3a16ce627db9f5e48e982ed6.svg">
 						</div>
-						<button
+						<button style="position: relative; top:20px;"
 							class="home-summary-card-sub1-contents-btn btn btn-info btn-lg"
 							type="button">친구 초대하기</button>
 					</div>
@@ -440,9 +491,18 @@ div {
 						<div>
 							<h4>커버 사진 품질 향상</h4>
 						</div>
-
 						<span>게스트는 종종 커버 사진을 보고 숙소를 선택합니다. 멋진 사진을 찍는 팁을 확인해 보세요.</span>
-						<button type="button" class="btn btn-info btn-lg">커버 사진
+						<div style="border: 1px dotted black; width: 100%; height:150px; margin-top: 15px;">  
+							<c:if test="${hdto.home_main_pic eq null}"> 
+								<img id=mainpic class="img-rounded" style=" width: 100%; height:100%;position: relative; left: 60px;"
+									src="<c:url value='/resources/img/imgadd.png'/>">
+							</c:if>
+							<c:if test="${hdto.home_main_pic ne null}">
+								<img class="img-rounded" style="width: 100%; height:100%;"
+									src="<c:url value='files/${hdto.home_main_pic }'/>">
+							</c:if>
+						</div>
+						<button type="button" style="position: relative; top:20px;" class="btn btn-info btn-lg" onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'" style="position: relative; top: 7px;">커버 사진
 							업데이트</button>
 					</div>
 				</div>
@@ -453,7 +513,10 @@ div {
 							<h4>상세한 설명 추가</h4>
 						</div>
 						<div>상세 설명을 추가하면 숙소에 대한 관심도를 높일 수 있습니다.</div>
-						<button type="button" class="btn btn-info btn-lg">세부정보 추가</button>
+						<div style="border: 1px dotted black; width: 100%; height:150px; margin-top: 40px;"></div>
+						<button type="button" class="btn btn-info btn-lg"
+						style="position: relative; top: 20px; "
+						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">세부정보 추가</button>
 					</div>
 				</div>
 			</div>
