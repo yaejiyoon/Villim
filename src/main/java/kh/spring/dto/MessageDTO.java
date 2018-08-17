@@ -2,6 +2,8 @@ package kh.spring.dto;
 
 public class MessageDTO {
 	int message_seq;
+	int message_room_seq;
+	int home_seq;
 	String fromID;
 	String toID;
 	String message_content;
@@ -11,10 +13,12 @@ public class MessageDTO {
 	public MessageDTO() {
 	}
 
-	public MessageDTO(int message_seq, String fromID, String toID, String message_content, String message_time,
-			int message_read) {
+	public MessageDTO(int message_seq, int message_room_seq, int home_seq, String fromID, String toID,
+			String message_content, String message_time, int message_read) {
 		super();
 		this.message_seq = message_seq;
+		this.message_room_seq = message_room_seq;
+		this.home_seq = home_seq;
 		this.fromID = fromID;
 		this.toID = toID;
 		this.message_content = message_content;
@@ -28,6 +32,22 @@ public class MessageDTO {
 
 	public void setMessage_seq(int message_seq) {
 		this.message_seq = message_seq;
+	}
+
+	public int getMessage_room_seq() {
+		return message_room_seq;
+	}
+
+	public void setMessage_room_seq(int message_room_seq) {
+		this.message_room_seq = message_room_seq;
+	}
+
+	public int getHome_seq() {
+		return home_seq;
+	}
+
+	public void setHome_seq(int home_seq) {
+		this.home_seq = home_seq;
 	}
 
 	public String getFromID() {
@@ -68,6 +88,6 @@ public class MessageDTO {
 
 	public void setMessage_read(int message_read) {
 		this.message_read = message_read;
-	};
+	}
 
 }

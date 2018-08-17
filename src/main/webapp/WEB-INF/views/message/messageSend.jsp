@@ -28,7 +28,6 @@
 <title>메세지 보내기</title>
 <style>
 .card {
-	/* box-shadow: 0 4px 8px 0 rgba(0,0,0,0); */
 	transition: 0.3s;
 	width: 55%;
 	height: 45vh;
@@ -110,7 +109,9 @@ $(document).ready(function() {
 		<div class="card"
 			style="position: relative; left: 22.5vw; top: -11vh;margin-top:1vh;">
 			
-			<div style="position:relative;top:1vh;left:2vw;">
+			
+			<div class="row" style="position:relative;width:100%;left:0.8vw;height:14vh;">
+			<div style="position:relative;top:1vh;left:3vw;">
 			<h5 style="color:#6d7063;font-weight:bold;">${home_type}의 개인실</h5>
 			<h4 style="color:#5b5b5a;font-weight:700;position:relative;top:1vh;left:0.3vw;">￦${home_price}<b style="font-weight:100;">/박</b></h4>
 			<c:choose>
@@ -125,27 +126,32 @@ $(document).ready(function() {
 			
 			
 			
-			<img src="files/${home_pic_name}"
-				style="position: relative; left: 12vw; width: 8vw; height: 13vh;top:-10.5vh;">
-				<hr style="color:gray;width:18.5vw;position:relative;top:-10vh;">
-			<div class="container">
-			<div class="row" style="font-weight:700;">
-				<div style="position:relative; left:4vw;top:-11vh; font-weight:700;"><h6 style="display: inline !important;position:relative; left:-1vw;margin:1vw;font-weight:700;">체크인</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">체크 아웃</h6><h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트</h6></div>
-				<div style="position:relative; left:4vw;top:-9.5vh; font-weight:700;"><h6 style="display: inline !important;position:relative; left:-1vw;margin:1vw;font-weight:700;">0월0일</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">0월0일</h6><h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트1명</h6></div>
-				
-			</div>
-			<hr style="color:gray;width:18.5vw;position:relative;left:-27vw;top:-8vh;">
-			<div class="row">
+			<img src="files/${home_main_pic}"
+				style="position: relative; left: 12vw; width: 7vw; height: 11vh;top:-8vh;"/>
+				<hr style="color:gray;width:18.5vw;position:relative;top:-8vh;">
+				</div>
 			
-			<h5 style="position:relative;left:2.3vw;top:-8vh;width:14vw;line-height:4vh;">날짜를 입력해 예약 가능 여부를 확인하세요</h5>
-			<img src="/resources/img/달력.png" style="position:relative;left:16.7vw;top:-17vh;width:4.5%;height:6%;">
+			<div class="row" style="font-weight:700;width:100%;height:17vh;position:relative;left:0.8vw;">
+				<div style="position:relative;  top:4vh;left:5vw;font-weight:700;"><h6 style="display: inline !important;position:relative;margin:1vw;font-weight:700;">체크인</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">체크 아웃</h6><h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트</h6></div>
+				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6 style="display: inline !important;position:relative; left:-1vw;margin:1vw;font-weight:700;">0월0일</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">0월0일</h6><h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트1명</h6></div>
+				<hr style="color:gray;width:18.5vw;position:relative;top:10vh;">
 			</div>
+			
+			
+			<div class="row" style="height:9.7vh;position:relative;left:0.8vw;top:0vh;width:100%;">
+			
+			<h5 style="position:relative;left:1.5vw;top:2.2vh;width:15vw;line-height:4vh;">날짜를 입력해 예약 가능 여부를 확인하세요</h5>
+			<img src="/resources/img/달력.png" style="position:relative;left:16.5vw;top:-4vh;width:3vw;height:7vh;">
 			</div>
+			
 			
 		</div>
 		
+		
+		
+		
 		<div class="container" style="position:relative;left:-17vw;width:45vw;height:100vh;top:-56vh;">
-		<h3 style="position:color:#444444;relative;top:-1.5vh;font-weight:700">${host_name}님에게 연락하기</h3>
+		<h3 style="position:relative;color:#444444;top:-1.5vh;font-weight:700">${host_name}님에게 연락하기</h3>
 		<img src="files/${host_picture}" class="img-circle" alt="Cinque Terre" style="width:11%;height:10%;position:relative;left:38vw;top:-5.8vh;">
 		<h4 style="position:relative;top:-7vh;color:#616163;font-size:14">${host_name}님은 보통 몇 시간 이내에 응답하는 호스트입니다</h4>
 		<hr style="position:relative;top:-5vh;">
@@ -217,7 +223,11 @@ $(document).ready(function() {
 		
 		<form id="formId" method="post" action="messageInsertDB.msg">
 		<textarea class="form-control" style="resize:vertical;position:relative;top:4vh;" name="message_content" id="message" placeholder="여기에 메세지를 입력하세요" maxlength="500" rows="7" required autofocus></textarea>
+		<input type="hidden" name="host_name" id="host_name" value="${host_name}">
 		<input type="hidden" name="seq" value="1">
+        <input type="hidden" id="checkIn" name="checkIn" value="8월 18일">
+        <input type="hidden" id="checkOut" name="checkOut" value="8월 20일">
+        <input type="hidden" id="totalNumber" name="number" value="2">
 		<div class="container-fluid margin" style="position:relative;top:8vh;left:-1vw;">
 	<a  id="submitBt" type="button" target="_blank" class="themeBtn3" style="font-weight:bold;text-decoration:none;">메세지 전송하기</a>
     </div>
