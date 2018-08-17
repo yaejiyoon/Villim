@@ -26,9 +26,22 @@ public class MessageController {
 	MemberService m_service;
 	
 	@RequestMapping("/messageMain.msg")
-	public String main() {
+	public ModelAndView main(HttpSession session) {
+		ModelAndView mav=new ModelAndView();
 		System.out.println("messageMain");
-		return "/message/messageMain";
+		session.setAttribute("userId", "jake@gmail.com");
+		/*session.setAttribute("userId", "plmna855000@gmail.com");*/
+		String userId =(String) session.getAttribute("userId");
+		
+		//여행
+		//내용 가져오고 그다음 host email 에 따라서 사진과 이름 가져오기
+		//List<>
+		
+		
+		//호스팅
+		
+		mav.setViewName("/message/messageMain");
+		return mav;
 	}
 	
 	@RequestMapping("/messageSend.msg")
@@ -112,6 +125,20 @@ public class MessageController {
 		}
 		
 		return mav;
+	}
+	
+	@RequestMapping("/messageRoomEnter.msg")
+	public ModelAndView messageRoomEnter(HttpSession session) {
+		ModelAndView mav=new ModelAndView();
+		System.out.println("messageRoomEnter");
+		
+		session.setAttribute("userId", "jake@gmail.com");
+		String userId =(String) session.getAttribute("userId");
+		
+		
+		mav.setViewName("/message/messageRoom");
+		return mav;
+		
 	}
 	
 	

@@ -390,15 +390,15 @@ div {
 									addpiclw.removeClass('add-pic-list-wrap'); 
 									addpiclw.addClass('add-pic');
 									
-									output += "<div class='add-pic-wrap'>";
-									output += "<div class='add-pic-list-wrap'>";
-									output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
-									output += "<input type='file' id='file3' name='file' style='display:none;'>"
-									output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
-									output += "</form>";
-									output += "</div>";
-									output += "</div>";
-									output += "</div>";
+// 									output += "<div class='add-pic-wrap'>";
+// 									output += "<div class='add-pic-list-wrap'>";
+// 									output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
+// 									output += "<input type='file' id='file3' name='file' style='display:none;'>"
+// 									output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
+// 									output += "</form>";
+// 									output += "</div>";
+// 									output += "</div>";
+// 									output += "</div>";
 									
 									location.reload();
 									
@@ -439,7 +439,7 @@ div {
 											var wrap = $("#add-mainpic-wrap");
 
 											if (resp.hdto.home_main_pic != null) {
-
+alert('files/'+resp.hdto.home_main_pic);
 												wrap.removeClass('add-mainpic-wrap');
 												mainpic.attr('src',"<c:url value ='files/"+resp.hdto.home_main_pic+"'/>");
 												mainpic.removeClass('add-img');
@@ -453,14 +453,14 @@ div {
 
 												// 						$("#pic").append(output);
 
-												output += "<div class='add-pic-wrap'>";
-												output += "<div id='add-pic-list-wrap' class='add-pic-list-wrap'>";
-												output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
-												output += "<input type='file' id='file3' name='file' style='display:none;'>"
-												output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
-												output += "</form>";
-												output += "</div>";
-												output += "</div>";
+// 												output += "<div class='add-pic-wrap'>";
+// 												output += "<div id='add-pic-list-wrap' class='add-pic-list-wrap'>";
+// 												output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
+// 												output += "<input type='file' id='file3' name='file' style='display:none;'>"
+// 												output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
+// 												output += "</form>";
+// 												output += "</div>";
+// 												output += "</div>";
 
 												$("#wrapper-sub").append(output);
 												location.reload();
