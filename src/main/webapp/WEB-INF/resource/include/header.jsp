@@ -31,6 +31,7 @@
 			$(location).attr("href","/");
 		});
 		
+		
 	})
 </script>
 
@@ -51,7 +52,7 @@
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
         					<li><a href="home_info.do?seq=5">Item</a></li>
-        					<li><a href="#">Product</a></li>
+        					<li><a href="#" >Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
         					<li><a href="#">Thing</a></li>
