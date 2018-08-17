@@ -2,10 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="HomePic">
+<mapper namespace="Home">
+	<select id="getAllHomeData" resultType="Home">
+		select * from Home
+	</select>
+
+	<select id="getOldestHomeData" resultType="Home">
+		select * from (select
+		* from home order by home_seq) where rownum = 1
+	</select>
+
+	<select id="getHomeData" parameterType="int" resultType="Home">
+		select *
+		from home where home_seq = #{home_seq}
+	</select>
+
 	<select id="getHomePicData" parameterType="int"
 		resultType="HomePic">
-		select * from home_pic where home_seq = #{seq}
+		select * from home_pic where home_seq = #{seq} order by
+		home_pic_seq
+	</select>
+	
+	<select id="getCalendarDate" parameterType="map" resultType="String">
+		select * from(
+		select start_day + level -1 days
+		from(
+		select
+		to_date(#{start}, 'yyyy/mm/dd') start_day,
+		to_date(#{end}, 'yyyy/mm/dd') end_day from dual)
+		connect by start_day + level -1 <![CDATA[ <= ]]> end_day) order by days asc
+	</select>
+
+	<select id="getBlockedDate" parameterType="int" resultType="String">
+		select home_blocked_date from home where home_seq = #{home_seq}
 	</select>
 
 </mapper>
+
+<!-- <insert id="addHomePicData" parameterType="HomePic"> -->
+<!-- insert into home_pic values(home_pic_seq.nextval, #{home_seq}, #{home_pic_name}) -->
+<!-- </insert> -->
+
+<!-- <insert id="insert" parameterType="Messages"> -->
+<!-- insert into messages -->
+<!-- values(messages_seq.nextval, #{writer}, #{contents}) -->
+<!-- </insert> -->
+
+<!-- <select id="getData" parameterType="int" resultType="Messages"> -->
+<!-- select * from messages where seq = #{seq} -->
+<!-- </select> -->

@@ -28,18 +28,39 @@ div {
 	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
-	overflow:hidden;
+	overflow: hidden;
 	height: auto;
 }
 
-.wrapper-sub {
+#wrapper-sub {
 	border: 5px dotted black;
 	width: 70%;
 }
 
 .wrapper-sub-back {
 	margin-top: 30px;
+	margin-bottom:50px;
 	font-size: 20px;
+	width: 100%;
+	display: inline-block;
+	float: left;
+	
+}
+
+.back-wrap {
+	width: 3%;
+	display: inline-block;
+	float: left;
+}
+
+.back-img {
+	width: 100%;
+	height: 100%;
+}
+
+.back-link {
+	display: inline-block;
+	float: left;
 }
 
 .wrapper-sub-title {
@@ -52,6 +73,7 @@ div {
 	width: 70%;
 	height: 350px;
 	border: 4px dotted #D8D8D8;
+	position: relative;
 }
 
 .add-mainpic-wrap {
@@ -72,6 +94,12 @@ div {
 	height: 340px;
 }
 
+.main-pic-wrap{
+	width:100%;
+	height: 100%;
+	position: relative;
+}
+
 .pic-list {
 	width: 100%;
 	height: 170px;
@@ -80,14 +108,12 @@ div {
 }
 
 .add-pic-wrap {
-	border: 3px dotted #D8D8D8;
 	display: inline-block;
 	float: left;
 	width: 30%;
 	height: 180px;
-	margin:10px;
+	margin: 10px;
 	z-index: 1;
-	
 }
 
 .add-pic {
@@ -111,10 +137,9 @@ div {
 .deltab {
 	border: 1px dotted black;
 	width: 100px;
-	position:absolute;
+	position: absolute;
 	z-index: 20;
 }
-
 </style>
 <script>
 </script>
@@ -125,7 +150,8 @@ div {
 	<div id="wrapper">
 		<div id="wrapper-sub">
 			<div class="wrapper-sub-back">
-				<a onclick="history.back()">${hdto.home_name } 수정으로 돌아가기</a>
+				<div class="back-wrap"><img class="back-img" src="<c:url value='/resources/img/back.png'/>"></div>
+				<div class="back-link"><a onclick="history.back()">${hdto.home_name } 수정으로 돌아가기</a></div>
 			</div>
 				<p class="wrapper-sub-title">
 					<b>사진</b>
@@ -149,58 +175,137 @@ div {
 
 							</c:when>
 							<c:otherwise>
-
-								<img class="main-pic"
+							<div id="main-pic-wrap" class="main-pic-wrap">								
+								<img id="main-pic" class="main-pic"
 									src="<c:url value='files/${hdto.home_main_pic }'/>">
-
+							</div>
 							</c:otherwise>
 						</c:choose>
-
 					</form>
+						<!-- 커버사진 삭제 로직 -->
+					<script>
+					var seq = ${hdto.home_seq};
+					
+					$('.main-pic-wrap').hover(
+							function(){
+								$(".add-pic1").find("img").each(function() {
+									console.log("메인사진 삭제 후 경로: "+ $(this).attr('src'));
+									var tomainpic = $(this).attr('src');
+									console.log("tomainpic:" +tomainpic);
+								});
+								
+								console.log("in");
+								$(this).prepend("<button id='delmain-btn' class='btn btn-danger' type='button'>삭제</button>");
+								$('#delmain-btn').css('position','absolute');
+								$('#delmain-btn').css('z-index','10');
+								
+							},function(){
+								console.log("out");
+								$("#delmain-btn").remove();
+							}
+						);
+						
+						$(document).on('click', '#delmain-btn', function(){
+							console.log("delmainbtn");
+							var file;
+							var separate = 1;
+							
+							$("#pic").find("img").each(function() {
+								console.log("경로: "+ $(this).attr('src'));
+								file = $(this).attr('src');
+								console.log("file : " + file);
+							})
+								
+								$.ajax({
+									url:"deletePhoto.do",
+									type:"get",
+									data:{
+										separate:separate,
+										file:file,
+										seq:seq
+									},
+									success:function(resp){
+										console.log("삭제성공 : "+resp);
+										
+										var toMainPic;
+										
+										var separate = 3;
+										
+										$(".add-pic1").find("img").each(function() {
+											console.log("메인사진 삭제 후 경로: "+ $(this).attr('src'));
+											toMainPic = $(this).attr('src');
+										});
+										
+										$("#main-pic").attr('src', "<c:url value ='"+toMainPic+"'/>");
+										
+										
+										
+										console.log("home.home_seq" + seq);
+										
+										$.ajax({
+											url:"deletePhoto.do",
+											type:"get",
+											data:{
+												separate:separate,
+												file:file,
+												seq:seq,
+												toMainPic:toMainPic
+											},
+											success:function(resp){
+												console.log("메인사진으로 고고씽 성공");
+												location.reload();
+											}
+										});
+										
+									},
+									error:function(resp){
+										console.log("삭제 실패");
+									}
+								});
+								
+							
+						})
+					</script>
+
 
 				</div>
 
-				<div class="row" style="border:1px dotted red; margin: auto;">
+				<div class="row" style="margin: auto;">
 				<c:if test="${hplist.size() > 0 }">
 					<c:forEach var="hplist" items="${hplist }">
 						<%cnt++; %>
-						<div class="add-pic-wrap col-md-4">
-							<div class="add-pic<%=cnt%> add-pic-fix">
-								<img class="pic-list separate<%=cnt %>"
+						<div class="add-pic-wrap col-md-4" > 
+							<div class="add-pic<%=cnt%> add-pic-fix" >
+								<img class="pic-list separate<%=cnt %>" 
 									src="<c:url value='files/${hplist.home_pic_name }'/>">
 							</div>
 <!-- 							<p id="deltab" class="deltab">hi</p> -->
 						</div>
 					
+					<!-- hplist  삭제 로직 -->
 						<script>
 						$(document).on('click', '.separate<%=cnt%>',function(){
 							$(".add-pic<%=cnt%>").find("img").each(function() {
 								console.log("경로: "+ $(this).attr('src'));
 							})
 						})
-						$('.separate<%=cnt%>').hover(
+						$('.add-pic<%=cnt%>').hover(
 							function(){
 								console.log("in");
-								$(this).before("<button id='delbtn<%=cnt%>' class='btn btn-danger' type='button'>삭제</button>");
+								$(this).prepend("<button id='delbtn<%=cnt%>' class='btn btn-danger' type='button'>삭제</button>");
 								$('#delbtn<%=cnt%>').css('position','absolute');
 								$('#delbtn<%=cnt%>').css('z-index','100');
 								$('.add-pic-fix').css('z-index','1');
 							},function(){
 								console.log("out");
-// 								$("#delbtn").remove();
+								$("#delbtn<%=cnt%>").remove();
 							}
 						);
-						$('.add-pic-wrap').hover(
-								function(){
-									console.log("indiv");
-								},function(){
-									console.log("outdiv");
-	 								$("#delbtn<%=cnt%>").remove();
-								}
-							);
+					
 						
 						$(document).on('click', '#delbtn<%=cnt%>',function(){
 							var file;
+							var separate=2;
 							$(".add-pic<%=cnt%>").find("img").each(function() {
 								console.log("경로: "+ $(this).attr('src'));
 								file = $(this).attr('src');
@@ -210,6 +315,7 @@ div {
 									url:"deletePhoto.do",
 									type:"get",
 									data:{
+										separate:separate,
 										file:file
 									},
 									success:function(resp){
@@ -229,7 +335,7 @@ div {
 				</c:if>
 
 				<c:if test="${hdto.home_main_pic ne null }">
-					<div id="add-pic-wrap" class="add-pic-wrap col-md-4">
+					<div id="add-pic-wrap" class="add-pic-wrap col-md-4" style="border: 3px dotted #D8D8D8;">
 						<div id="add-pic-list-wrap" class="add-pic-list-wrap">
 							<form id="photoForm2" action="uploadPhoto.do"
 								enctype="multipart/form-data" method=post>
