@@ -131,6 +131,10 @@ div {
 	float: left;
 }
 
+.back-link:hover {
+	
+}
+
 .wrapper-sub-title {
 	font-size: 20px;
 	margin-top: 30px;
