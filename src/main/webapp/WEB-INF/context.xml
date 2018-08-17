@@ -18,7 +18,7 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe" />
+			value="jdbc:oracle:thin:@192.168.20.21:1521:xe" />
 		<property name="username" value="villim" />
 		<property name="password" value="villim" />
 	</bean>
@@ -67,9 +67,9 @@
 			value="http://localhost:8080/oauth2callback" />
 	</bean>
 	
-	
 
 	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
+	
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />

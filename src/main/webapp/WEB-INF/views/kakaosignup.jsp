@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>이메일로 회원가입</title>
+<title>카카오로 회원가입</title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,231 +19,42 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
-
 <style>
 #wrapper {
 	width: 100%;
 	margin: 0px auto;
 	text-align: center;
 }
-#title{
-	margin-top: 10%;
-}
 
 #middle {
 	width: 100%;
-	
-	margin-top: 3%;
-}
-#bottom{
-	margin-top: 10%;
-
-}
-#secondNm{
-
-	width:93%;	
-	margin-left: 3.6%;
-	margin-bottom: 3%;
-	height:50px;
-}
-#secondIcon{
-	position: absolute;
-	top:23.5%;
-	left:91%;
-	color: silver;
-	
-}
-#firstIcon{
-	position: absolute;
-	top:32.5%;
-	left:91%;
-	color: silver;
-	
-}
-#emailIcon{
-	position: absolute;
-	top:42.5%;
-	left:91%;
-	color: silver;
-	
-}
-#pwIcon{
-	position: absolute;
-	top:52%;
-	left:91%;
-	color: gold;
-	
-}
-#firstNm{
-	width:93%;
-	margin-left: 3.6%;
-	margin-bottom: 3%;
-	height:50px;
-
-}
-#accountEm{
-	width:93%;
-	margin-left: 3.6%;
-	margin-bottom: 3%;
-	height:50px;
-}
-#pw{
-	width:93%;
-	margin-left: 3.6%;
-	margin-bottom: 3%;
-	height:50px;
-}
-#droplist1{
-	position: absolute;
-	z-index:1;
-	left: 88%;
-	top : 25%;
-}
-#droplist2{
-	position: absolute;
-	z-index:1;
-	left: 88%;
-	top : 25%;
-}
-#droplist3{
-	position: absolute;
-	z-index:1;
-	left: 88%;
-	top : 25%;
+	text-align: center;
 }
 
+#monthBtn {
+	width: 20%;
+}
 
-#monthInput {
-	width: 30%;
-	display: inline;
-	margin-right: 0.3%;
-	height:45px;
+#yearBtn {
+	width: 20%;
 }
-#yearInput {
-	width: 30%;
-	display: inline;
-	margin-right: 0.3%;
-	height:45px;
-}
-#dayInput {
-	width: 30%;
-	display: inline;
-	margin-right: 0.3%;
-	height:45px;
+
+#dayBtn {
+	width: 20%;
 }
 
 #completeBtn {
-	width: 92%;
-	height:70px;
-	margin-top:7%;
-}
-#birthTitle{
-	margin-bottom: 2%;
-	padding-right: 68%;
-	
+	width: 80%;
 }
 
 #myModal {
-	
-	text-align: left;
+	text-align: center;
 	z-index: 11000;
-	
 }
-#agreeWapper{
-	margin-left: 10%;
-	padding-right: 10%;
-
-}
-
 
 #upload {
 	display: none;
 }
-#mheader{
-	border-bottom-width: 0px;
-}
-#mfooter{
-	border-top-width: 0px;
-	padding-right: 68%;
-}
-
-/* modal1 */
-#myModal1{
-	
-
-}
-#mheader1{
-	border-bottom-width: 0px;
-	padding-top:0px;
-	padding-bottom:0px;
-}
-#mfooter1{
-	border-top-width: 0px;
-	padding-right: 72%;
-	padding-top:0px;
-	padding-bottom:0px;
-}
-#mfooter1 button{
-	position:absolute;
-	top:82%;
-	width:45%;
-	
-}
-#myModal1 .modal-body{
-	padding:0px 0px 0px 0px;
-	height:600px;
-}
-#logo{
-	position: absolute;
-	top:30%;
-	left:45%;
-	width:10%;
-	height:10%;
-	color:white;
-}
-#h21{
-	
-position: absolute;
-top:40%;
-color:white;
-}
-#h21{
-position: absolute;
-top:43%;
-left:30%;
-color:white;
-}
-#h22{
-position: absolute;
-top:48%;
-left:36%;
-color:white;
-}
-#h51{
-position: absolute;
-top:58%;
-left:30%;
-color:white;
-}
-#h52{
-position: absolute;
-top:63%;
-left:30%;
-color:white;
-}
-#h53{
-position: absolute;
-top:68%;
-left:30%;
-color:white;
-}
-#h54{
-position: absolute;
-top:73%;
-left:30%;
-color:white;
-}
-
 </style>
 
 <script>
@@ -254,7 +65,12 @@ color:white;
 					var timerID; 
 					var time = 30;
 					var time1 = "";
-
+					
+					$("#accountEm").val($('#kakaoEmailBtn',opener.document).val());
+					$("#secondNm").val($('#kakaoNicknameBtn',opener.document).val());
+					$("#profilePicture").attr("src",$('#kakaoImgBtn',opener.document).val());
+					var pw = $('#kakaoIdBtn',opener.document).val();
+					
 						$("#yearBtn").click(function() {
 
 							$.ajax({
@@ -383,11 +199,9 @@ color:white;
 						
 						$("#imgLoadBtn").click(function(){
 							if(load==""){
-								$("#test10").val('${picture}');
-								$("#test11").val($("#dayInput").val());
-							}else{
-							$("#test10").val(load);
-							$("#test11").val($("#dayInput").val());
+								
+								load = $('#kakaoImgBtn',opener.document).val();
+								
 							}
 						})
 						function start_timer(){
@@ -440,11 +254,8 @@ color:white;
 									$("#memberBirth").val($("#yearInput").val()+$("#monthInput").val()+$("#dayInput").val());
 									$("#memberPicture").val(load);
 									$("#memberPhone").val(phoneNum);
-									$("#memberPw").val($("#pw").val());
-									
-									
-									alert(load);
-									alert(phoneNum);
+									$("#memberPw").val(pw);
+
 
 								},
 								error : function() {
@@ -496,7 +307,8 @@ color:white;
 								});
 
 							}); 
-	 		
+					 	 
+			 		
 					});
 </script>
 </head>
@@ -509,37 +321,32 @@ color:white;
 		</div>
 		<!-- <form action="info.do" method="post"> -->
 		<div id="middle">
-		<div>
-		 <input type="text" name="secondName" class="form-control"
+			<div class="input-group">
+				<input type="text" name="secondName" class="form-control"
 					placeholder="이름을 입력하세요" aria-describedby="basic-addon2"
-					value=""  id="secondNm"><i class="far fa-user fa-2x" id="secondIcon"></i>
-		</div>		
-			
-			
-		 <input type="text" name="firstName" class="form-control"
+					value=""  id="secondNm">
+			</div>
+			<div class="input-group">
+				<input type="text" name="firstName" class="form-control"
 					placeholder="성을 입력하세요" aria-describedby="basic-addon2"
-					value="" id="firstNm"><i class="far fa-user fa-2x" id="firstIcon"></i>
-			
-			
-		 <input type="text" name="accountEmail" class="form-control"
+					value="" id="firstNm">
+			</div>
+			<div class="input-group">
+				<input type="text" name="accountEmail" class="form-control"
 					placeholder="이메일을 입력하세요" aria-describedby="basic-addon2"
-					value="" id="accountEm"><i class="fas fa-envelope fa-2x" id="emailIcon"></i>
-		
-			
-		 <input type="password" name="password" class="form-control"
-					placeholder="비밀번호를 입력하세요." aria-describedby="basic-addon2"
-					value="" id="pw"><i class="fas fa-key fa-2x" id="pwIcon"></i>
-			
+					value="" id="accountEm">
+			</div>
+			<br>
 		</div>
 		<div id="bottom">
-			<div id="birthTitle"><font>생년월일을 선택하세요</font></div>
+			<font>생년월일</font><br>
 			<div class="dropdown" id="month" style="display: inline;">
-				<input type="text" name="monthProp" placeholder="월" id="monthInput" class="form-control">
+				<input type="text" name="monthProp" placeholder="일" id="monthInput">
 				<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="monthBtn" style="cursor: pointer;"> <span class="caret" id="droplist1"></span>
+					id="monthBtn"> <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-					id="monthList" style="overflow:scroll; height:200px">
+					id="monthList">
 					<li>1월</li>
 					<li>2월</li>
 					<li>3월</li>
@@ -556,23 +363,25 @@ color:white;
 			</div>
 
 			<div class="dropdown" id="day" style="display: inline;">
-				<input type="text" name="dayProp" placeholder="일" id="dayInput" class="form-control">
+				<input type="text" name="dayProp" placeholder="일" id="dayInput">
 				<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="dayBtn" style="cursor: pointer;"> <span class="caret" id="droplist2"></span>
+					id="dayBtn"> <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-					id="dayList" style="overflow:scroll; height:200px">
+					id="dayList">
 				</ul>
 			</div>
 
 
 			<div class="dropdown" id="year" style="display: inline;">
-				<input type="text" name="yearProp" placeholder="년" id="yearInput" class="form-control"><a
+				<input type="text" name="yearProp" placeholder="년" id="yearInput"><a
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="yearBtn" style="cursor: pointer;"> 
-				 <span class="caret" id="droplist3"></span></a>
+					id="yearBtn"> <!-- 				<button type="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false" id="yearBtn">
+					년 <span class="caret"></span>
+				</button> --> <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-					id="yearList" style="overflow:scroll; height:200px"> 
+					id="yearList">
 				</ul>
 			</div>
 		</div>
@@ -581,7 +390,7 @@ color:white;
 		<div id="complete">
 			<button id="completeBtn" data-toggle="modal" data-target="#myModal"
 				type="button" class="btn btn-danger">
-				<font>회원가입 완료하기</font>
+				<font>가입 완료</font>
 			</button>
 			<!--  	 <a id="completeBtn" data-toggle="modal" href="#myModal"><font>가입 완료</font></a> -->
 		</div>
@@ -592,81 +401,77 @@ color:white;
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header" id="mheader">
-<!-- 					<button type="button" class="close" data-dismiss="modal"
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
-					</button> -->
-					
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<div id="agreeWapper">
-						<div id="agreeTitle">
+					<div>
 						<h2>
-							<strong><font>가입하시기 전에</font></strong>
+							<font>가입하시기 전에</font>
 						</h2>
-						</div>
-						<div id="agreeContent">
-						<h5>
-							<font>Villim은 모두가 환영받을 수 있고 서로 신뢰할 수 있는 커뮤니티를</font>
-						</h5>
-					
-						<h5>
-							<font>만들어 나가고자 합니다. 이를 위해, 회원님에게 에어비앤비 서비스 약관에</font>
-						</h5>
-						
-						<h5>
-							<font>동의하고 커뮤니티의 회원 모두를 존중하고 차별 없이 대할 것을</font>
-						</h5>
-					
-						<h5>
-							<font>약속해주시기를 부탁드리고 있습니다.</font>
-						</h5>
-					
 						<br>
-						<h5>
-							<strong><font>Villim 커뮤니티를 위한 약속</font></strong>
-						</h5>
-						
-						<h5>
-							<font>모든 Villim 커뮤니티 회원을 인종,종교,출신,국가,민족,피부색,</font>
-						</h5>
-					
-						<h5>
-							<font>장애,성별,성적 정체성,성적 취향 또는 연령에 상관없이 존중하며 개인적</font>
-						</h5>
-						
-						<h5>
-							<font>판단이나 편견 없이 대하겠습니다.</font><a href="#"><font>자세히
-									알아보기</font></a>
-						</h5>
+						<h3>
+							<font>Villim은 모두가 환영받을 수 있고 서로 신뢰할 수 있는 커뮤니티를</font>
+						</h3>
+						<br>
+						<h3>
+							<font>만들어 나가고자 합니다. 이를 위해, 회원님에게 에어비앤비 서비스 약관에</font>
+						</h3>
+						<br>
+						<h3>
+							<font>동의하고 커뮤니티의 회원 모두를 존중하고 차별 없이 대할 것을</font>
+						</h3>
+						<br>
+						<h3>
+							<font>약속해주시기를 부탁드리고 있습니다.</font>
+						</h3>
 						<br>
 
-						<h5>
-							<strong><font>Villim 서비스 약관</font></strong>
-						</h5>
-						
-						<h5>
-							<a href="#"><strong><font>Villim 서비스 약관</font></a>,<a href="#">결제 서비스
-								약관</a>,<a href="#">차별 금지 정책</a></strong>에 동의합니다.
-						</h5>
-					
-						<h5>
-							또한, Villim<a href="#"><strong><font>개인정보 보호정책</font></strong></a>에 따른 개인정보 이용 및
+						<h3>
+							<font>Villim 커뮤니티를 위한 약속</font>
+						</h3>
+						<br>
+						<h3>
+							<font>모든 Villim 커뮤니티 회원을 인종,종교,출신,국가,민족,피부색,</font>
+						</h3>
+						<br>
+						<h3>
+							<font>장애,성별,성적 정체성,성적 취향 또는 연령에 상관없이 존중하며 개인적</font>
+						</h3>
+						<br>
+						<h3>
+							<font>판단이나 편견 없이 대하겠습니다.</font><a href="#"><font>자세히
+									알아보기</font></a>
+						</h3>
+						<br>
+
+						<h3>
+							<font>Villim 서비스 약관</font>
+						</h3>
+						<br>
+						<h3>
+							<a href="#"><font>Villim 서비스 약관</font></a>,<a href="#">결제 서비스
+								약관</a>,<a href="#">차별 금지 정책</a>에 동의합니다.
+						</h3>
+						<br>
+						<h3>
+							또한, Villim<a href="#"><font>개인정보 보호정책</font></a>에 따른 개인정보 이용 및
 							처리에도
-						</h5>
-				
-						<h5>
-							<strong><font>동의합니다.</font></strong><br>
-						</h5>
-						</div>
+						</h3>
+						<br>
+						<h3>
+							<font>동의합니다.</font><br>
 					</div>
+					<input type="text" id="test">
 				</div>
-				<div class="modal-footer" id="mfooter">
-					<button type="button" class="btn btn-primary" data-dismiss="modal"
-						data-toggle="modal" data-target="#myModal1" id="iamagree">동의
-					</button>
-					<button type="button" class="btn btn-default" id="iamrefuse">거부</button>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						data-toggle="modal" data-target="#myModal1">동의</button>
+					<button type="button" class="btn btn-primary">거부</button>
 				</div>
 			</div>
 		</div>
@@ -675,33 +480,20 @@ color:white;
 
 	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
-	
 		<div class="modal-dialog">
-		
 			<div class="modal-content">
-				<div class="modal-header" id="mheader1">
-<!-- 					<button type="button" class="close" data-dismiss="modal"
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4> -->
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
-				<div class="modal-body">
-						<img src="resources/images/1.jpg" alt="" style="width: 100%; height:100%;">
-						<img src="resources/img/titleLogo.png" alt="" id="logo">
-						
-							 <h2 id="h21">Villim에 오신 것을</h2>
-							 <h2 id="h22">환영합니다.</h2>
-							 <h5 id="h51">Villim은 신뢰에 기반해 자신의 집을</h5>
-							 <h5 id="h52">빌려주는 호스트를 게스트와 연결해 줍니다.</h5>
-							 <h5 id="h53">따라서 계정을 활성화 하려면 몇가지</h5>
-							 <h5 id="h54">세부사항을 확인해 주셔야 합니다.</h5>
-						
-				
-				</div>
-				<div class="modal-footer" id="mfooter1">
-					<button type="button" class="btn btn-danger" data-dismiss="modal"
-						data-toggle="modal" data-target="#myModal2" id="nextStep">다음단계로</button>
+				<div class="modal-body">Villim 에 오신것을 환영합니다.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						data-toggle="modal" data-target="#myModal2">다음단계로</button>
+
 				</div>
 			</div>
 		</div>
@@ -721,7 +513,7 @@ color:white;
 				</div>
 				<div class="modal-body">
 					<div id="imageLoad">
-						<img src="${picture}" alt="이미지 로드 실패" class="img-circle"
+						<img src="" alt="이미지 로드 실패" class="img-circle"
 							id="profilePicture">
 					</div>
 					<div>
@@ -830,7 +622,7 @@ color:white;
 					<div id="time5"></div>
 
 					<div>
-						
+					
 						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
 						<input type="hidden" id="memberEmail" name="member_email">
 						<input type="hidden" id="memberPw" name="member_pw">
@@ -840,7 +632,7 @@ color:white;
 						<input type="hidden" id="memberPhone" name="member_phone">
 						<button class="btn btn-danger" id="authBtn2">입력</button>
 						<button class="btn btn-success" type=button id="reSend">재발급</button>
-						
+					
 					</div>
 					
 					
