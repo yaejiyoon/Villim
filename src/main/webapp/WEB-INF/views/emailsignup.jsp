@@ -48,28 +48,28 @@
 }
 #secondIcon{
 	position: absolute;
-	top:22.5%;
+	top:23.5%;
 	left:91%;
 	color: silver;
 	
 }
 #firstIcon{
 	position: absolute;
-	top:31.5%;
+	top:32.5%;
 	left:91%;
 	color: silver;
 	
 }
 #emailIcon{
 	position: absolute;
-	top:41.5%;
+	top:42.5%;
 	left:91%;
 	color: silver;
 	
 }
 #pwIcon{
 	position: absolute;
-	top:50.5%;
+	top:52%;
 	left:91%;
 	color: gold;
 	
