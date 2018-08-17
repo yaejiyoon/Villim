@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
-import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
 import kh.spring.dto.Review_H_DTO;
@@ -77,17 +77,17 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<ProfileHomePicDTO> getHouse(String userId) {
+	public List<HomeDTO> getHouse(String userId) {
 		return template.selectList("Member.getHouse", userId);
 	}
 
 	@Override
 	public List<ReservationDTO> getInfo(String userId) {
-		return template.selectList("Member.getReviewInfo",userId);
+		return template.selectList("Member.getReviewInfo", userId);
 	}
 
 	@Override
-	public HomePicDTO getHomePhoto(int home_seq) {
+	public HomeDTO getHomePhoto(int home_seq) {
 		return template.selectOne("Member.getHomePhoto", home_seq);
 	}
 
@@ -98,28 +98,38 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int insertGuestReview(GuestReviewDTO dto) {
-		return template.insert("Member.insertGuestReview",dto);
+		return template.insert("Member.insertGuestReview", dto);
 	}
 
 	@Override
 	public int updateReservation(int home_seq, String member_email) {
-		String sql="update reservation set guest_review='Y' where member_email=?  and home_seq=?";
-		return jdbcTemplate.update(sql,member_email,home_seq);
+		String sql = "update reservation set guest_review='Y' where member_email=?  and home_seq=?";
+		return jdbcTemplate.update(sql, member_email, home_seq);
 	}
 
 	@Override
 	public List<ReviewDTO> getGuestReview(String member_email) {
-		return template.selectList("Member.getGuestReview",member_email);
+		return template.selectList("Member.getGuestReview", member_email);
 	}
 
 	@Override
 	public List<Integer> getSeq(String userId) {
-		return template.selectList("Member.getSeq",userId);
+		return template.selectList("Member.getSeq", userId);
 	}
 
 	@Override
 	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
-		return template.selectList("Member.getHostReview",home_seq);
+		return template.selectList("Member.getHostReview", home_seq);
+	}
+
+	@Override
+	public List<HostReviewDTO> getRealHostReview(List<Integer> g_review_seq) {
+		return template.selectList("Member.getRealHostReview", g_review_seq);
+	}
+
+	@Override
+	public int insertHostReview(HostReviewDTO dto) {
+		return template.insert("Member.insertHostReview", dto);
 	}
 
 }

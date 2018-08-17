@@ -1,18 +1,41 @@
 package kh.spring.dto;
 
 public class Review_H_DTO {
+	int g_review_seq;
+	int home_seq;
 	String member_picture;
 	String member_name;
 	String g_review_public;
 	String g_review_date;
 
-	public Review_H_DTO() {};
-	public Review_H_DTO(String member_picture, String member_name, String g_review_public, String g_review_date) {
+	public Review_H_DTO() {
+	}
+
+	public Review_H_DTO(int g_review_seq, int home_seq, String member_picture, String member_name,
+			String g_review_public, String g_review_date) {
 		super();
+		this.g_review_seq = g_review_seq;
+		this.home_seq = home_seq;
 		this.member_picture = member_picture;
 		this.member_name = member_name;
 		this.g_review_public = g_review_public;
 		this.g_review_date = g_review_date;
+	}
+
+	public int getG_review_seq() {
+		return g_review_seq;
+	}
+
+	public void setG_review_seq(int g_review_seq) {
+		this.g_review_seq = g_review_seq;
+	}
+
+	public int getHome_seq() {
+		return home_seq;
+	}
+
+	public void setHome_seq(int home_seq) {
+		this.home_seq = home_seq;
 	}
 
 	public String getMember_picture() {
@@ -45,6 +68,6 @@ public class Review_H_DTO {
 
 	public void setG_review_date(String g_review_date) {
 		this.g_review_date = g_review_date;
-	}
+	};
 
 }
