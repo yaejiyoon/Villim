@@ -254,21 +254,21 @@ $(document).ready(function() {
 		margin-top : 8%;
 		width : 80%;
 		height : 40%;
-		font-size : 1.2em;
+		font-size : 2vh;
 		border : 1px solid white;
 		color: #5c5d5e;
 	}
 	
 	#mapGlyphicon , #calendarGlyphicon{
-		margin-top : 9%;
-		font-size: 3vh;
+		margin-top : 11%;
+		font-size: 2vh;
 		color: #5c5d5e;
 	}
 	
 	#datepicker {
 		border : 1px solid white;
 		font-family: font;
-		font-size : 1.2em;
+		font-size : 2vh;
 	}
 
 	#searchicon {
@@ -384,7 +384,7 @@ $(document).ready(function() {
 	         	<input id="datepicker" type="text" data-range="true"
 	                   data-multiple-dates-separator="    ~    "
 	                   todayButton="true" class="datepicker-here"
-	                     placeholder="  체크인         ㅡ         체크아웃" />
+	                     placeholder="  체크인       ㅡ       체크아웃" />
          	</div>
          <button id="searchBt"><span class="glyphicon glyphicon-search" aria-hidden="true" id="searchicon"></span></button>
       </div>

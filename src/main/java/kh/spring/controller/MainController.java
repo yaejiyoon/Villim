@@ -47,7 +47,7 @@ public class MainController {
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
-		mav.setViewName("index");
+		mav.setViewName("yaeji_carousel");
 		System.out.println("ffff");
 		
 		
