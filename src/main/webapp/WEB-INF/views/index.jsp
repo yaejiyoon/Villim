@@ -9,8 +9,6 @@
 <title>Villim</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -29,6 +27,27 @@
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
+
+<script>
+$(document).ready(function() {
+	$('.datepicker-here').datepicker({
+	    
+	    autoClose : "true",
+	    dateFormat : "yyyy/mm/dd",
+	    minDate: new Date(),
+	    toggleSelected: false,
+	    language: {
+	       days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+	        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+	        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+	        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+	        dateFormat: "yyyy/mm/dd",
+	        timeFormat: 'hh:ii aa'
+	     }
+	})
+});
+</script>
 <script>
 
 function typeFunction() {
@@ -272,23 +291,7 @@ $(document).ready(function() {
 	
 	google.maps.event.addDomListener(window, 'load', init);
 </script>
-<script>
-$('.datepicker-here').datepicker({
-    
-    autoClose : "true",
-    dateFormat : "yyyy/mm/dd",
-    minDate: new Date(),
-    toggleSelected: false,
-    language: {
-       days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
-        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
-        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-        dateFormat: "yyyy/mm/dd",
-        timeFormat: 'hh:ii aa'
-     }
-</script>
+
 
 <!-- 재호 -->
 </head>
@@ -352,6 +355,8 @@ $('.datepicker-here').datepicker({
                      class="datepicker-here"
                      placeholder="체크인              →         체크아웃" />
          	</div>
+         	
+         	
          <div id="searchBt">search !</div>
       </div>
    </div>

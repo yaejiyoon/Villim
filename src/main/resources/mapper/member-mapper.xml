@@ -27,16 +27,16 @@ select * from member where member_email=#{userId}
 select count(home_name) from home where member_email=#{userId}
 </select>
 
-<select id="getHouse" resultType="ProfileHomePic">
-select h.home_seq,h.home_name,p.home_pic_name from home h,home_pic p  where h.home_seq=p.home_seq and h.member_email=#{userId} order by h.home_seq
+<select id="getHouse" resultType="Home">
+select home_seq,home_name,home_main_pic from home where member_email=#{userId} order by home_seq
 </select>
 
 <select id="getReviewInfo" resultType="Reservation">
 select * from reservation where member_email=#{userId} and reserv_checkout<![CDATA[<]]>=to_char(sysdate,'yyyy-mm-dd') and guest_review='N'
 </select>
 
-<select id="getHomePhoto" resultType="HomePic">
-select home_pic_name from home_pic where home_seq=#{home_seq}
+<select id="getHomePhoto" resultType="Home">
+select home_main_pic from home where home_seq=#{home_seq}
 
 
 </select>
@@ -58,10 +58,21 @@ select home_seq from home where member_email=#{userId}
 </select>
 
 <select id="getHostReview" resultType="Review_H">
-select m.member_picture,m.member_name,g.g_review_public,g.g_review_date from member m inner join guest_review g on m.member_email=g.member_email and g.home_seq IN 
+select g.g_review_seq,g.home_seq,m.member_picture,m.member_name,g.g_review_public,g.g_review_date from member m inner join guest_review g on m.member_email=g.member_email and g.home_seq IN 
 <foreach collection="list" item="type" open="(" close=")" separator=",">
 #{type.value}
 </foreach>
 </select>
 
+
+<select id="getRealHostReview" resultType="HostReview">
+select * from host_review where g_review_seq IN 
+<foreach collection="list" item="type" open="(" close=")" separator=",">
+#{type.value}
+</foreach>
+</select>
+
+<insert id="insertHostReview">
+insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'))
+</insert>
 </mapper>

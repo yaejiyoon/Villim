@@ -382,16 +382,113 @@ ul {
 		width: 320px;
 	}
 }
+
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+/*Comment List styles*/
+.comment-list .row {
+  margin-bottom: 0px;
+}
+.comment-list .panel .panel-heading {
+  padding: 4px 15px;
+  position: absolute;
+  border:none;
+  /*Panel-heading border radius*/
+  border-top-right-radius:0px;
+  top: 1px;
+}
+.comment-list .panel .panel-heading.right {
+  border-right-width: 0px;
+  /*Panel-heading border radius*/
+  border-top-left-radius:0px;
+  right: 16px;
+}
+.comment-list .panel .panel-heading .panel-body {
+  padding-top: 6px;
+}
+.comment-list figcaption {
+  /*For wrapping text in thumbnail*/
+  word-wrap: break-word;
+}
+/* Portrait tablets and medium desktops */
+@media (min-width: 768px) {
+  .comment-list .arrow:after, .comment-list .arrow:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+  }
+  .comment-list .panel.arrow.left:after, .comment-list .panel.arrow.left:before {
+    border-left: 0;
+  }
+  /*****Left Arrow*****/
+  /*Outline effect style*/
+  .comment-list .panel.arrow.left:before {
+    left: 0px;
+    top: 30px;
+    /*Use boarder color of panel*/
+    border-right-color: inherit;
+    border-width: 16px;
+  }
+  /*Background color effect*/
+  .comment-list .panel.arrow.left:after {
+    left: 1px;
+    top: 31px;
+    /*Change for different outline color*/
+    border-right-color: #FFFFFF;
+    border-width: 15px;
+  }
+  /*****Right Arrow*****/
+  /*Outline effect style*/
+  .comment-list .panel.arrow.right:before {
+    right: -16px;
+    top: 30px;
+    /*Use boarder color of panel*/
+    border-left-color: inherit;
+    border-width: 16px;
+  }
+  /*Background color effect*/
+  .comment-list .panel.arrow.right:after {
+    right: -14px;
+    top: 31px;
+    /*Change for different outline color*/
+    border-left-color: #FFFFFF;
+    border-width: 15px;
+  }
+}
+.comment-list .comment-post {
+  margin-top: 6px;
+}
 </style>
+<script>
+
+$(document).keypress(function(e) { if (e.keyCode == 13) e.preventDefault(); });
+
+$(document).ready(function(){
+	$('#confirmBt').click(function(){
+		
+		
+		
+		if(!$("#textValue").val()){
+			alert("입력 후 확인 버튼을 눌러주세요");
+			return false;
+		}
+	
+		$("#formId").submit();
+	})
+})
+
+</script>
 </head>
 <body>
-	<%@ include file="../../resource/include/profileHeader.jsp" %>
+	<%@ include file="../../resource/include/header_profile.jsp" %>
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"
 			style="font-size: 18px; position: relative; top: -24px; left: 0px; color: gray; text-decoration: none;">프로필
 			수정</a> <a
-			style="font-size: 19px; position: relative; top: 23px; left: -100px; color: gray; font-weight: bold;">후기</a>
+			style="font-size: 19px; position: relative; top: 23px; left: -100px; color: gray; font-weight: bold;text-decoration:none;">후기</a>
 		<a id="profileShowBt" class="btn btn-default"
 			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
@@ -425,29 +522,115 @@ ul {
 									<div class="panel-heading">
 										<h3 class="panel-title" style="text-align: left;">지난 후기</h3>
 									</div>
+									
+								
 									<div class="panel-body">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
-										<!-- if 후기가 있다면 : 클라이언트 사진과 이름 후기 ,날짜 그리고 거기 -->
+										
+										
 
                                         <c:forEach items="${getHostReview}" var="hostReview">
-       <ul id="comments-list" class="comments-list">
-			<li>
-				<div class="comment-main-level" style="width:auto;">
-					<div class="comment-avatar"><img src="files/${hostReview.member_picture}"></div>
-					<div>${hostReview.member_name}</div>
-					<div class="comment-box">
-						 <div class="comment-head" style="width:auto">
-							<%-- <h6 class="comment-name by-author">'${hostReview.home_name}' 을 위한 후기</h6> --%>
-							<span style="text-align:right;">${hostReview.g_review_date}</span>
-						</div>
-						<div class="comment-content">
-							${hostReview.g_review_public}
-						</div>
-					</div>
-				</div>
-				</li>
-				</ul>
-                                        </c:forEach>
+                                         
+       
+       	
+ 
+				  
+				  <article class="row" style="margin-top:3%;">
+            <div class="col-md-2 col-sm-2 hidden-xs">
+              <figure class="thumbnail">
+                <img class="img-responsive" src="files/${hostReview.member_picture}" />
+                <figcaption class="text-center">${hostReview.member_name}</figcaption>
+              </figure>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <div class="panel panel-default arrow left">
+                <div class="panel-body">
+                  <header class="text-left">
+                    <div class="comment-user"><i class="fa fa-user"></i><%-- ${hostReview.home_name}' 을 위한 후기 --%></div>
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>${hostReview.g_review_date}</time>
+                  </header>
+                  <div class="comment-post">
+                    <p>
+                      ${hostReview.g_review_public}
+                    </p>
+                  </div>
+                  <c:if test="${empty getrealHostReview}"> 
+                  <p class="text-right"><a class="btn btn-default btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">답글 리뷰쓰기</a></p>
+                     <!-- Third Comment -->
+          <article class="row collapse" id="collapseExample">
+         <form method="post" id="formId" name="formId" action="hostReview.mo" method="post">
+            <div class="col-md-10 col-sm-10">
+            
+                  <div class="comment-post">
+                    <p>
+                     <textarea id="textValue" class="form-control" name="h_review_public" style="resize: none;margin-top:10px;height:100px;line-height:1.6em;" maxlength='500'  >
+                     
+                     </textarea>
+                     <input type="hidden" name="g_review_seq" id="g_review_seq" value="${hostReview.g_review_seq}">
+                     <input type="hidden" name="home_seq" id="home_seq" value="${hostReview.home_seq}">
+                    </p>
+                  </div>
+                  
+                  <p class="text-right"><a id="confirmBt"  type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> 확인</a></p>
+              
+              
+            </div>
+            </form>
+           
+            <div class="col-md-2 col-sm-2 hidden-xs">
+              <figure class="thumbnail">
+                <img class="img-responsive" src="files/${hostPicture}" />
+                <figcaption class="text-center">${hostName}</figcaption>
+              </figure>
+            </div>
+          </article>
+                   
+                   </c:if>
+                </div>
+              </div>
+            </div>
+          </article>
+				  
+               </c:forEach>
+ 
+ 
+ 
+ 
+				
+					<c:forEach items="${getrealHostReview}" var="host">
+					         <!-- Third Comment -->
+          <article class="row">
+            <div class="col-md-10 col-sm-10">
+              <div class="panel panel-default arrow right">
+                <div class="panel-body">
+                  <header class="text-right">
+                    <div class="comment-user"><i class="fa fa-user"></i> </div>
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> ${host.h_review_date}</time>
+                  </header>
+                  <div class="comment-post">
+                    <p>
+                    ${host.h_review_public}
+                    </p>
+                  </div>
+                  <p class="text-right"><!-- <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a> --></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-2 hidden-xs">
+              <figure class="thumbnail">
+                <img class="img-responsive" src="files/${hostPicture}" />
+                <figcaption class="text-center">${hostName}</figcaption>
+              </figure>
+            </div>
+          </article>
+				</c:forEach>	
+					
+					
+					
+					
+					
+					
+                                        
 										<!-- else 후기가 없다면 :  아직 작성된 후기가 없습니다. -->
 
 									</div>
@@ -491,7 +674,7 @@ ul {
 						</div>
 						<div class="comment-content">
 							<input type="hidden" value="${info.home_seq}">
-														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_pic_name=${homePhotoResult}&home_name=${info.home_name}"
+														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_main_pic=${homePhotoResult}&home_name=${info.home_name}"
 															style="color: #ff5959; text-decoration: none;">리뷰쓰기</a>						
 	
 						</div>
@@ -538,36 +721,7 @@ ul {
           
           </c:forEach>
           
-          
-         
-										<!-- if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)  -->
-										<%-- <c:forEach items="${guestReviewresult}" var="review">
-										<div class="form-group">
-													<div class="col-sm-10 col-sm-offset-2">
-														<div id="hostInfo" >
-															<h4 style="color: #595c63; position: relative; left: -180px;">${review.home_name} 을 위한 리뷰</h4>
-															<div class="col-6 col-md-4">
-															<img src="files/${reviewHomePhoto}"  class="photo" id="hostPhoto" /> 
-															</div>
-															
-														</div>
-														
-														<div class="col-6">
-														<h4 style="position: relative; left: -150px; top:30px; color: #595c63; font-weight: bold;">${review.g_review_public}</h4>
-														<h4 style="position: relative; left: -150px; top:30px; color: #595c63; font-weight: bold;">${review.g_review_date}</h4>
-														
-                                                        </div>     
-													</div>
-												</div>
-										 </c:forEach> --%>
-										
-										
-										
-                                        
-                                        
-                                            
-                                            
-                                        
+           
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-offset-2"></div>
 										</div>
@@ -592,110 +746,6 @@ ul {
 	</div>
 
 
-
-
-
-
-
-
-	<!-- 	<div style="position: relative; left: 250px; top: 56px;">
-		<a href="profileEditView.mo" style="font-size: 18px; position: relative; top: -24px; left: 0px; color:gray; text-decoration: none;">프로필
-			수정</a> <a
-			style="font-size: 19px; position: relative; top: 23px; left: -100px;color:gray;
-			
-			font-weight:bold;">후기</a>
-		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</a>
-
-
-	</div>
-	
-
-<div class="tab_container">
-         <input id="tab1" type="radio" name="tabs" checked>
-         <label for="tab1"><i class="fa fa-code"></i><span>나에 대한 후기</span></label>
-
-         <input id="tab2" type="radio" name="tabs">
-         <label for="tab2"><i class="fa fa-pencil-square-o"></i><span>내가 작성한 후기</span></label>
-
-      
-         <section id="content1" class="tab-content">
-         
-         
-         <div class="panel panel-default">
-      <div class="panel-heading">
-         <h3 class="panel-title" style="text-align:left;">지난 후기</h3>
-      </div>
-      <div class="panel-body">
-         후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
-         if 후기가 있다면 : 클라이언트 사진과 이름 후기 ,날짜 그리고 거기
-         
-
-            <div class="form-group">
-               <div class="col-sm-10 col-sm-offset-2">
-                  <button id="imageChangeBt" name="submit" type="submit"
-                     class="btn btn-default"
-                     style="margin-top: 15px; margin-left: 470px;"><img src="../photo.png" style="width:23px; padding-right: 3px;">새로운 사진 변경</button>
-               </div>
-            </div>
-           else 후기가 없다면 :  아직 작성된 후기가 없습니다.
-      
-      </div>
-   </div>
-               
-               
-         </section>
-
-         --------------------------------게스트-----------------------------------------------------
-
-         <section id="content2" class="tab-content">
-            
-   <div class="panel panel-default">
-      <div class="panel-heading">
-         <h3 class="panel-title" style="text-align:left;">작성해야 할 후기</h3>
-      </div>
-      <div class="panel-body">
-         if 구매를 하고 체크인 날짜이후부터 리뷰쓰기 가능
-            <div class="form-group">
-               <div class="col-sm-10 col-sm-offset-2">
-               <div id="hostInfo">
-               <h5 style="color:#595c63;position:relative;left:140px;font-weight:bold;">리뷰는 체크아웃 후에 쓸 수 있습니다.</h5>
-               <img src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm" class="img-circle" id="hostPhoto">
-               <h4 style="position:relative;left:27px;color:#595c63;font-weight:bold;">James Bro</h4>
-               </div>
-               <h5 style="position:relative;top:-155px;">샌디에이고에서 5성급 펜션 을 위한 공개 리뷰 작성기간 11일 기간을 드립니다.</h5>
-                  <a href="reviewWrite.mo" style="position:relative;top:-140px;color:#ff5959;text-decoration:none;">리뷰쓰기</a>
-                  
-               </div>
-            </div>
-
-         else 현재 작성할 후기가 없습니다. 여행을 한번 다녀올 때가 된 것 같네요!
-      </div>
-   </div>
-
-   <div class="panel panel-default">
-      <div class="panel-heading">
-         <h3 class="panel-title" style="text-align:left;">내가 작성한 후기</h3>
-      </div>
-      <div class="panel-body">
-         if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)
-         
-         <img src="" alt="호스트 사진"/>
-          호스트이름, 후기 , 날짜
-         
-
-            <div class="form-group">
-               <div class="col-sm-10 col-sm-offset-2">
-                  
-               </div>
-            </div>
-             else 작성한후기 없다면 : 아직 후기를 남기지 않으셨습니다.
-      </div>
-   </div>
-
-         </section>
-   
-      </div> -->
 
 	<%@ include file="../../resource/include/footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
