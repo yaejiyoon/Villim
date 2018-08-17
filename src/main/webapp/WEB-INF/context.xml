@@ -67,9 +67,9 @@
 			value="http://localhost:8080/oauth2callback" />
 	</bean>
 	
-	
 
 	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
+	
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />

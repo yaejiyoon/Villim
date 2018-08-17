@@ -21,7 +21,7 @@
 
 <style>
 div {
-	box-sizing: border-box;  
+	box-sizing: border-box;
 }
 
 #wrapper {
@@ -41,7 +41,7 @@ div {
 
 .home-reserve div {
 	display: inline-block;
-	float:left;
+	float: left;
 }
 
 .home-reserve div button {
@@ -71,20 +71,20 @@ div {
 
 .stay-title {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 90%;
 }
 
 .stay-mod {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 9%;
 	text-align: right;
 }
 
 .stayPeriod {
 	display: inline-block;
-	float:left;
+	float: left;
 	margin-top: 30px;
 	width: 100%;
 }
@@ -108,13 +108,13 @@ div {
 
 .check-title {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 90%;
 }
 
 .check-mod {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 9%;
 	text-align: right;
 }
@@ -173,10 +173,10 @@ div {
 
 </head>
 <body>
-<%@ include file="../../resource/include/hostHeader.jsp"%>
+	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<h2>Yuljeon-dong, Jangan-gu, Suwon의 아파트</h2>
+			<h2>${hdto.home_name }</h2>
 		</div>
 
 		<div class="home-reserve">
@@ -187,7 +187,8 @@ div {
 			</div>
 			<div>
 				<button class="nav-btn" type="button"
-					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약 설정</button>
+					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
+					설정</button>
 			</div>
 			<div>
 				<button class="nav-btn" type="button"
@@ -195,8 +196,8 @@ div {
 			</div>
 			<div>
 				<button class="nav-btn" type="button"
-					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약 가능
-					여부</button>
+					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
+					가능 여부</button>
 			</div>
 			<div>
 				<button type="button">현지 법규</button>
@@ -218,17 +219,18 @@ div {
 					</h4>
 				</div>
 				<div class="stay-mod">
-					<button type="button" class="btn btn-default">수정</button>
+					<button type="button" class="btn btn-default"
+					onclick="location.href='hostReserveModifyNight.do?seq=${hdto.home_seq}'" >수정</button>
 				</div>
 
 				<div class="stayPeriod">
 					<div class="stayPeriod-sub1">최소 숙박일</div>
-					<div class="stayPeriod-sub2">${hdto.home_min_stay }박</div>
+					<div class="stayPeriod-sub2"><b>${hdto.home_min_stay }박</b></div>
 
 					<div class="price-line"></div>
 
 					<div class="stayPeriod-sub1">최대 숙박일</div>
-					<div class="stayPeriod-sub2">${hdto.home_max_stay }박</div>
+					<div class="stayPeriod-sub2"><b>${hdto.home_max_stay }박</b> </div>
 				</div>
 				<div class="price-line"></div>
 
@@ -241,26 +243,41 @@ div {
 					</h4>
 				</div>
 				<div class="check-mod">
-					<button type="button" class="btn btn-default">수정</button>
+					<button type="button" class="btn btn-default"
+						onclick="location.href='hostReserveModifyCheckin.do?seq=${hdto.home_seq}'">수정</button>
 				</div>
 
 				<div class="checkInOut">
 					<div class="checkInOut-sub1">체크 인 가능 시간</div>
-					<div class="checkInOut-sub2">${hdto.home_checkin } 이후</div>
-
+					<c:if test="${hdto.home_checkin_start == '시간 선택' || hdto.home_checkin_start eq null}">
+						<div class="checkInOut-sub2"><b>설정되지 않음</b></div>
+					</c:if>
+					<c:if test="${hdto.home_checkin_start == '조정 가능'}">
+						<div class="checkInOut-sub2"><b>조정 가능</b></div>
+					</c:if>
+					<c:if
+						test="${(hdto.home_checkin_start != '조정 가능' && hdto.home_checkin_start != '시간 선택' )
+					  && (hdto.home_checkin_end == '조정 가능' || hdto.home_checkin_end == '시간 선택' )}">
+						<div class="checkInOut-sub2"><b>${hdto.home_checkin_start}:00이후</b></div>
+					</c:if>
+					<c:if
+						test="${(hdto.home_checkin_start != '조정 가능' && hdto.home_checkin_start != '시간 선택' )
+					  && (hdto.home_checkin_end != '조정 가능' && hdto.home_checkin_end != '시간 선택' ) &&  hdto.home_checkin_start ne null}">
+						<div class="checkInOut-sub2"><b>${hdto.home_checkin_start}:00 ~ ${hdto.home_checkin_end }:00</b></div>
+					</c:if>
 					<div class="price-line"></div>
 
 					<div class="checkInOut-sub1">체크 아웃 가능 시간</div>
-					<div class="checkInOut-sub2">설정되지 않음</div>
+					<div class="checkInOut-sub2"><b>${hdto.home_checkout }:00</b></div>
 
 					<div class="price-line"></div>
-
-					<div class="checkInOut-sub1">체크 인 불가 요일</div>
-					<div class="checkInOut-sub2">15:00 이후</div>
 				</div>
-				<div class="price-line"></div>
-
 			</div>
+			
+				<button type="button" class="btn btn-default"
+						onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">달력보기</button>
+			
+			
 		</div>
 	</div>
 	<%@ include file="../../resource/include/footer.jsp"%>
