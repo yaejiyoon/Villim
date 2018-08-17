@@ -37,8 +37,9 @@
  		background-color: white;
  		display : inline-block;
 		position: relative; 
-		z-index : 10000; 
+		z-index : 100; 
 		font-family: font;
+		min-width: 700px;
  	} 
  	
  	#welcome {
@@ -57,28 +58,35 @@
  	}
  	
  	#type {
- 		width: 25%;
+ 		width: 15%;
  		height : 100%;
  		border : 1px solid #c6cad1;
  		float:left;
  	}
  	
  	#people {
- 		width: 25%;
+ 		width: 15%;
+ 		height : 100%;
+ 		border : 1px solid #c6cad1;
+ 		float:left;
+ 	}
+ 	
+ 	#location {
+ 		width: 30%;
  		height : 100%;
  		border : 1px solid #c6cad1;
  		float:left;
  	}
  	
  	#calendar {
- 		width: 35%;
+ 		width: 30%;
  		height : 100%;
  		border : 1px solid #c6cad1;
  		float:left;
  	}
  	
  	#searchBt {
- 		width: 15%;
+ 		width: 10%;
  		height : 100%;
  		border : 1px solid #c6cad1;
  		float:left;
@@ -125,14 +133,14 @@
 	}
 	
 	#homeTitle {
-		width : 50vw;
+		width : 60vw;
 		height : 20vw;
 		display : inline-block;
 		text-align: left;
 	}
 	
 	#homeContents {
-		width : 50vw;
+		width : 60vw;
 		height : 30vw;
 		display : inline-block;
 		text-align : left;

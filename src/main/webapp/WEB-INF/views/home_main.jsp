@@ -14,7 +14,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
-
 <script>
 $(function () {
     var a = function () {
@@ -58,8 +57,8 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        	lat: position.coords.latitude,
+        	lng: position.coords.longitude
       };
 
       infoWindow.setPosition(pos);
@@ -73,6 +72,13 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+  
+  var marker = new google.maps.Marker({
+	    position: pos,
+	    map: map,
+	    title: '130,550원'
+	  });
+  
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -83,15 +89,50 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
+
+$(document).ready(function() {
+	$("#map").mouseup(function() {
+		// 남서쪽의 좌표
+		var swLatLng = map.getBounds().getSouthWest();
+		// 북동쪽의 좌표
+		var neLatLng = map.getBounds().getNorthEast(); 
+		
+		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+	});
+})
+
+
 </script>
 <script>
+$(document).ready(function() {
+	$('body').delegate('.submit','click',function(){
+        var chkval = 1;
+        $('#myonoffswitch').prop('checked', true);
+        var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
+   $.ajax({
+       url: "homeMain.do",
+       type: "get",
+       data:{chkval:chkval},
+
+       
+       success:function(returndata){
+			on.style.display = 'block';    
+			off.style.display = 'none';
+	   },error:function(errordata){
+			alert("에러에러");
+       }
+     });
+   });  
+})
 $(document).ready(function(){
 	  $('body').delegate('#myonoffswitch','click',function(){
 	        var chkval = 0
 	          if($('#myonoffswitch').is(':checked')){
 	            chkval  = 1;
 	          } else {
-	        	  chkval = 2;
+	        	chkval = 2;
 	          }
 	        
 	        var on = document.getElementById('mapOnDiv');
@@ -104,11 +145,9 @@ $(document).ready(function(){
 	       
 	       success:function(returndata){
 	    	   if(chkval==1) {
-					$("#money").text(chkval);
 					on.style.display = 'block';    
 					off.style.display = 'none';
 	    	   } else if(chkval==2) {
-					$("#money").text(chkval);
 					on.style.display = 'none';
 					off.style.display = 'block';    
 	    	   }
@@ -119,6 +158,7 @@ $(document).ready(function(){
 	   });  
 });
 </script>
+
 <style>
 	@font-face {
   		font-family: font;
@@ -153,6 +193,7 @@ $(document).ready(function(){
 		border-top : 1px solid #e0dee0;
 		border-bottom : 1px solid #e0dee0;
 		background-color: white;
+
 	}
 	
 	#searchBar ul {
@@ -206,7 +247,6 @@ $(document).ready(function(){
      	margin : 0 0 0 5%;
      	width : 95%;
      	height: 100%;
-     	border : 1px solid red;
      	
      }
      
@@ -354,7 +394,7 @@ $(document).ready(function(){
  	
  	
  	
- 		#mapOnDiv {
+ 	#mapOnDiv {
  		width : 100%;
  		height : 500px;
  		display : none;
@@ -373,7 +413,6 @@ $(document).ready(function(){
  		margin-top : 200px;
  		width : 35vw;
  		height : 70vw;
- 		border : 1px dotted black;
  		display: inline-block;
  	}
  	
@@ -398,11 +437,7 @@ $(document).ready(function(){
 	}
  	
 </style>
-<script>
-$('.carousel').carousel({
-	  interval: 1000
-	})
-</script>
+
 </head>
     
 <body>
@@ -1143,19 +1178,8 @@ $('.carousel').carousel({
 				  </div>
 				</div>
 				
-				
-				
-				
-				
-				
 			</div>
-			
-			
-			
-
 		</div>
-		
-		
 	</div>
 	
 

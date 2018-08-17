@@ -50,7 +50,7 @@
 	
 	/* When the checkbox is checked, add a blue background */
 	.Container input:checked ~ .checkmark {
-	  background-color: #2196F3;
+	  background-color: #008489;
 	}
 	
 	/* Create the checkmark/indicator (hidden when not checked) */
@@ -80,41 +80,58 @@
 	
 	#homeTypeSubmit {
 		background-color: white; 
-		color : #2196F3;
-		border : 1px solid #2196F3;
+		color : #008489;
+		border : 1px solid #008489;
 		font-family: dx;
 	}
 	
-	#homeTypeSubmit:hover {
-		background-color: #2196F3; 
+	#homeTypeSubmit:hover, #homeTypeDelete:hover {
+		background-color: #008489; 
 		color : white;
 		outline:0;
 	}
+	
+	
+	#homeTypeDelete {
+		float: left;
+		background-color: white; 
+		color : #008489;
+		border : 1px solid #008489;
+		
+	}
+	
 </style>
 
 <script>
 	$(document).ready(function() {
 		$("#homeTypeSubmit").click(function() {
-// 			var checkedValue = null;
-// 			var inputElements = document.getElementsByClassName('homeTypeCheckbox');
-// 			for (var i = 0; inputElements[i]; ++i) {
-// 				if(inputElements[i].checked) {
-// 					checkedValue = inputElements[i].value;
-// 					alert(checkedValue);
-// 				}
-// 			}
-
 			var values = document.getElementsByName("homeType");
-			alert(values.length);
+			var count = 0;
 			for (var i = 0; i < values.length; i++) {
 				if(values[i].checked) {
-					alert(values[i].value);
+					count++;
 				}
 			}
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			if(count!=0) {
+				homeTypeBt.innerHTML = "숙소종류 · "+count;
+				homeTypeBt.style.backgroundColor = '#008489';
+				homeTypeBt.style.color = "white";
+				homeTypeBt.style.borderRadius = "10px";
+			}
+			//alert(values[i].value);
+		});
+		
+		$("#homeTypeDelete").click(function() {
+			$('input:checkbox').removeAttr('checked');
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			homeTypeBt.innerHTML = "숙소 종류";
+			homeTypeBt.style.backgroundColor = 'white';
+			homeTypeBt.style.color = "black";
+			homeTypeBt.style.borderRadius = "0px";
 		});
 	});
 </script>
-<form action="homeType_modal.do" method="post">
       <div class="modal fade" id="homeType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="homeTypeDialog">
             <div class="modal-content">
@@ -147,9 +164,9 @@
                   	
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="homeTypeSubmit">적용하기</button> 
+               	   <button class="btn btn-primary-outline" id="homeTypeDelete" data-dismiss="modal">삭제</button> 
+                   <button class="btn btn-primary-outline submit" id="homeTypeSubmit" data-dismiss="modal">적용하기</button> 
                </div>
             </div>
          </div>
       </div>
-</form>
