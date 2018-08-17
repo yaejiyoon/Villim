@@ -83,15 +83,49 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
+$(document).ready(function() {
+	$("#map").mouseup(function() {
+		// 남서쪽의 좌표
+		var swLatLng = map.getBounds().getSouthWest();
+		// 북동쪽의 좌표
+		var neLatLng = map.getBounds().getNorthEast(); 
+		
+		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+	});
+})
+
+
 </script>
 <script>
+$(document).ready(function() {
+	$('body').delegate('.submit','click',function(){
+        var chkval = 1;
+        $('#myonoffswitch').prop('checked', true);
+        var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
+   $.ajax({
+       url: "homeMain.do",
+       type: "get",
+       data:{chkval:chkval},
+
+       
+       success:function(returndata){
+			on.style.display = 'block';    
+			off.style.display = 'none';
+	   },error:function(errordata){
+			alert("에러에러");
+       }
+     });
+   });  
+})
 $(document).ready(function(){
 	  $('body').delegate('#myonoffswitch','click',function(){
 	        var chkval = 0
 	          if($('#myonoffswitch').is(':checked')){
 	            chkval  = 1;
 	          } else {
-	        	  chkval = 2;
+	        	chkval = 2;
 	          }
 	        
 	        var on = document.getElementById('mapOnDiv');
@@ -104,11 +138,9 @@ $(document).ready(function(){
 	       
 	       success:function(returndata){
 	    	   if(chkval==1) {
-					$("#money").text(chkval);
 					on.style.display = 'block';    
 					off.style.display = 'none';
 	    	   } else if(chkval==2) {
-					$("#money").text(chkval);
 					on.style.display = 'none';
 					off.style.display = 'block';    
 	    	   }
@@ -206,7 +238,6 @@ $(document).ready(function(){
      	margin : 0 0 0 5%;
      	width : 95%;
      	height: 100%;
-     	border : 1px solid red;
      	
      }
      
@@ -354,7 +385,7 @@ $(document).ready(function(){
  	
  	
  	
- 		#mapOnDiv {
+ 	#mapOnDiv {
  		width : 100%;
  		height : 500px;
  		display : none;
@@ -373,7 +404,6 @@ $(document).ready(function(){
  		margin-top : 200px;
  		width : 35vw;
  		height : 70vw;
- 		border : 1px dotted black;
  		display: inline-block;
  	}
  	
@@ -422,6 +452,7 @@ $('.carousel').carousel({
 			        <span class="onoffswitch-switch"></span>
 			    </label>
 			</div>
+			<button id="showLocation">위도경도보여줘</button>
 		</div>
 	</div>
 	

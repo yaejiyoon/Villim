@@ -14,11 +14,49 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+<!-- main css -->
 <link href="<c:url value="/resources/css/main/main.css" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
+
+<!-- google 검색 api -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxwlQzLFSDHDwe0Wf_J9bmYrGNxC-R-E&libraries=places"></script>
+
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
+
 <script>
+
+function typeFunction() {
+    document.getElementById("typeDropdownContent").classList.toggle("show");
+}
+
+function peopleFunction() {
+    document.getElementById("peopleDropdownContent").classList.toggle("show");
+    $('#peopleDropdownContent').bind('click', function (e) { e.stopPropagation() })
+}
+    
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+
 
 $(document).ready(function() {
 	$("#peopledis").click(function() {
@@ -69,6 +107,15 @@ $(document).ready(function() {
     	  $("#peopleDropBtn").text("");
     	  var pcount = $("#pcount").text();
     	  $("#peopleDropBtn").text(pcount+" 명");
+    	  
+    	  var dropdowns = document.getElementsByClassName("dropdown-content");
+    	    var i;
+    	    for (i = 0; i < dropdowns.length; i++) {
+    	      var openDropdown = dropdowns[i];
+    	      if (openDropdown.classList.contains('show')) {
+    	        openDropdown.classList.remove('show');
+    	      }
+    	    }
       })
    });
    
@@ -94,7 +141,7 @@ $(document).ready(function() {
 	font-family : font;
     background-color: white;
     color: #5c5d5e;
-    font-size: 2.5vh;
+    font-size: 2vh;
     border: none;
     cursor: pointer;
     width : 100%;
@@ -109,9 +156,11 @@ $(document).ready(function() {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+	margin-top : 40px;
+	left : -3vh;
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: white;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -128,11 +177,6 @@ $(document).ready(function() {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
@@ -163,7 +207,7 @@ $(document).ready(function() {
 #searchBt {
 	background-color: #ff5a5f;
 	color : white;
-	font-size : 3.5vh;
+	font-size : 2.5vh;
 	padding-top: 30px;
 }
 
@@ -208,8 +252,43 @@ $(document).ready(function() {
 		margin-top : 3vh;
 	}
 	
+	#locationTextField {
+		margin-top : 10%;
+		width : 90%;
+		height : 40%;
+		font-size : 1.2em;
+		border : 1px solid white;
+		color: #5c5d5e;
+	}
+	
 	
 </style>
+<script>
+	function init() {
+		var input = document.getElementById('locationTextField');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		var locationTitle = document.getElementById('locationTitle');
+	}
+	
+	google.maps.event.addDomListener(window, 'load', init);
+</script>
+<script>
+$('.datepicker-here').datepicker({
+    
+    autoClose : "true",
+    dateFormat : "yyyy/mm/dd",
+    minDate: new Date(),
+    toggleSelected: false,
+    language: {
+       days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+        dateFormat: "yyyy/mm/dd",
+        timeFormat: 'hh:ii aa'
+     }
+</script>
 
 <!-- 재호 -->
 </head>
@@ -232,9 +311,9 @@ $(document).ready(function() {
       <Br>
       <div id="searchBar">
          <div id="type">
-         	<div class="dropdown">
+         	<div class="dropdown" >
          	  <p id="typeTitle">숙소유형</p>
-			  <button class="dropbtn" id="typeDropBtn">
+			  <button onclick="typeFunction()" class="dropbtn" id="typeDropBtn">
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
 			  </button>
 			  <div class="dropdown-content" id="typeDropdownContent">
@@ -247,7 +326,7 @@ $(document).ready(function() {
          <div id="people">
          	<div class="dropdown">
          		<p id="peopleTitle">인원수</p>
-			  <button class="dropbtn" id="peopleDropBtn">
+			  <button onclick="peopleFunction()" class="dropbtn" id="peopleDropBtn">
 			  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&ensp;인원 수
 			   </button>
 			  <div class="dropdown-content" id="peopleDropdownContent">
@@ -262,7 +341,17 @@ $(document).ready(function() {
 			  </div>
          	</div>
          </div>
-         <div id="calendar">날짜</div>
+         <div id="location">
+         	<input id="locationTextField" type="text"></input>
+         </div>
+         <div id="calendar">
+         	<input type="text" 
+                     data-range="true"
+                   data-multiple-dates-separator="       →       "
+                   todayButton="true"
+                     class="datepicker-here"
+                     placeholder="체크인              →         체크아웃" />
+         	</div>
          <div id="searchBt">search !</div>
       </div>
    </div>
