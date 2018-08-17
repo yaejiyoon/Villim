@@ -15,9 +15,10 @@ public class ReservDAOImpl implements ReservDAO{
 	
 	@Override
 	public int insertData(ReservationDTO dto) {
-		String sql = "insert into reservation values(reservation_seq.nextval,?,?,?,?,?,?,?,?)";
+		String sql = "insert into reservation values(reservation_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,0)";
 		return jdbcTemplate.update(sql,dto.getMember_email(),dto.getReserv_checkin(),
-				dto.getReserv_checkout(),dto.getPopulation(),dto.getAmount(),dto.getHome_name(),dto.getHome_seq(),dto.getGuset_review());
+				dto.getReserv_checkout(),dto.getPopulation(),dto.getNightsAmount(),dto.getCleaningFee()
+			,dto.getServiceFee(),dto.getTotalAmount(),dto.getHome_seq(),dto.getHome_name(),dto.getGuset_review());
 	}
 
 }

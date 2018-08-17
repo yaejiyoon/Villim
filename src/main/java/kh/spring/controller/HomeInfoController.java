@@ -123,13 +123,13 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/reservation.re")
-	public void reservation(ReservationDTO dto,HttpServletRequest req) {
+	public ModelAndView reservation(ReservationDTO dto,HttpServletRequest req) {
 		
-		String amount = dto.getAmount();
+		String amount = dto.getTotalAmount();
 		
 		dto.setGuset_review("N");
 		dto.setReservation_seq(1);
-		dto.setAmount(amount.replaceAll("[^0-9]", ""));
+		dto.setTotalAmount(amount.replaceAll("[^0-9]", ""));
 		
 //		System.out.println(dto.getReservation_seq());
 //		System.out.println(dto.getMember_email());
@@ -145,6 +145,7 @@ public class HomeInfoController {
 		
 		
 		int insertReserve = reservService.insertData(dto);
+		HomeDTO hdto = homeService.getHomeData(dto.getHome_seq());
 		
 		
 		System.out.println(22);
@@ -152,7 +153,16 @@ public class HomeInfoController {
 			System.out.println("되라되라도리ㅏㅓㅑㅓㄹ아ㅓ");
 		}
 		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentReq");
+
+		return mav;
 		
+	}
+	
+	public void paymentReq() {
 		
 	}
 	

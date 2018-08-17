@@ -596,7 +596,10 @@
             								
             								$("#reserv_checkin").val(checkinDate);
             								$("#reserv_checkout").val(checkoutDate);
-            								$("#amount").val(total);
+            								$("#nightsAmount").val(priceRight);
+            								$("#cleaningFee").val(cleaningfee);
+            								$("#serviceFee").val(servicefee);
+            								$("#totalAmount").val(total);
             								
             							},
             							error : function(request,status,error) {
@@ -871,7 +874,10 @@
             			<input type="hidden" name="population" id="population" value="1">
             			<input type="hidden" name="home_seq" value="${hdto.getHome_seq() }">
             			<input type="hidden" name="home_name" value="${hdto.getHome_name() }">
-            			<input type="hidden" name="amount" id="amount">
+            			<input type="hidden" name="nightsAmount" id="nightsAmount">
+            			<input type="hidden" name="cleaningFee" id="cleaningFee">
+            			<input type="hidden" name="serviceFee" id="serviceFee">
+            			<input type="hidden" name="totalAmount" id="totalAmount">
             			
             			</form>
             		</div>
