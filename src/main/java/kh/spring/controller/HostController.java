@@ -192,11 +192,12 @@ public class HostController {
 		HomeDTO hdto = homeService.getHomeData(seq);
 		List<HomePicDTO> hplist = homeService.getHomePicData(seq);
 
-		System.out.println("hplist: " + hplist.size());
-
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
 		mav.addObject("hplist", hplist);
+		
+		System.out.println("### : " + hplist.size() + " : " + hdto);
+		
 		mav.setViewName("/host/hostHomePhotoModifyTab");
 
 		return mav;

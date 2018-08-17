@@ -158,12 +158,16 @@ div {
 				</p>
 				<p>게스트에게 숙소의 실제 모습을 보여주는 사진을 추가하세요.</p>
 				<div id="pic" class="pic">
-
+			
+						
 					<form id="photoForm" action="uploadPhoto.do"
 						enctype="multipart/form-data" method=post>
 						<input type="file" id="file2" name="file" style="display: none;">
 						<input type="hidden" name="seq" value="${hdto.home_seq }">
-
+					
+					
+						
+				
 						<c:choose>
 							<c:when
 								test="${hdto.home_main_pic eq null && hplist.size() == 0 }">
@@ -382,7 +386,6 @@ div {
 											var output;
 											var upimgg = $("#upimgg");
 											var addpiclw = $("#add-pic-list-wrap");
-
 									upimgg.attr('src',"<c:url value ='files/"+resp.filename+"'/>");
 									upimgg.removeClass('add-pic-list');
 									upimgg.addClass('pic-list');
