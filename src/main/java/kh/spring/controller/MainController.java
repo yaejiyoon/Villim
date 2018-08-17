@@ -47,7 +47,7 @@ public class MainController {
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
-		mav.setViewName("home/paymentReq");
+		mav.setViewName("index");
 		System.out.println("ffff");
 		
 		
