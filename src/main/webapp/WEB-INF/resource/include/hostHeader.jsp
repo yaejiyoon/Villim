@@ -4,9 +4,12 @@
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
 <link rel="shortcut icon" href="../favicon.ico">
-<link href="<c:url value="/resources/css/main/demo.css?var=2" />" rel="stylesheet" />
-<link href="<c:url value="/resources/css/main/component.css?var=2" />" rel="stylesheet" />
-<link href="<c:url value="/resources/css/main/normalize.css" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/demo.css?var=2" />"
+	rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/component.css?var=2" />"
+	rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/normalize.css" />"
+	rel="stylesheet" />
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -133,7 +136,7 @@ div {
 	height: 100%;
 	width: 40%;
 	float: left;
-	display: inline-block; 
+	display: inline-block;
 	padding-left: 0;
 }
 
@@ -141,34 +144,51 @@ div {
 	height: 100%;
 	display: inline-block;
 	float: left;
-	font-size:16px;
-	text-align:center;
+	font-size: 16px;
+	text-align: center;
 	text-decoration: none;
 	margin-top: 20px;
 	overflow: hidden;
-	
 }
-</style> 
+</style>
 
 <div id="header">
 	<div id="header-logo">
 		<img src="<c:url value='/resources/img/logo2.png'/>">
 	</div>
 	<div id="header-menu" class="container">
-			<ul id="menu-ul" class="row">
-				<li class="col-md-2"><a href="hostMain.do" style="color: black;"><span
-						data-hover="홈"><b>홈</b></span></a></li>
-				<li class="col-md-2"><a href="#" style="color: black;"><span
-						data-hover="메시지"><b>메시지</b></span></a></li>
-				<li class="col-md-2"><a href="#" style="color: black;"><span data-hover="달력"><b>달력</b></span></a></li>
-				<li class="col-md-2"><a href="#" style="color: black;"><span data-hover="숙소"><b>숙소</b></span></a></li>
-				<li class="col-md-2"><a href="#" style="color: black;"><span
-						data-hover="성취도"><b>성취도</b></span></a></li>
-				<li class="col-md-2"><a href="#" style="color: black;"><span
-						data-hover="도움말"><b>도움말</b></span></a></li>
-			</ul>
+		<ul id="menu-ul" class="row">
+		<!-- 링크 연결할때 세션에서 아이디값 꺼내서 그걸로 정보 가져오기 
+		지금은 로그인 안되니 우선 연결만-->
+		
+			<li class="col-md-2"><a href="hostMain.do" style="color: black;"><span
+					data-hover="홈"><b>홈</b></span></a></li>
+			<li class="col-md-2"><a href="#" style="color: black;"><span
+					data-hover="메시지"><b>메시지</b></span></a></li>
+			<li class="col-md-2"><a href="#" style="color: black;"><span
+					data-hover="달력"><b>달력</b></span></a></li>
+			<li class="col-md-2"><a href="#" style="color: black;"><span
+					data-hover="숙소"><b>숙소</b></span></a></li>
+			<li class="col-md-2"><a href="hostHomeAchievement.do"
+				style="color: black;"><span data-hover="성취도"><b>성취도</b></span></a></li>
+			<li class="col-md-2"><a href="#" style="color: black;"><span
+					data-hover="도움말"><b>도움말</b></span></a></li>
+		</ul>
 	</div>
-	<div id="header-pic">
-		<img src="<c:url value='/resources/img/1.jpg'/>">
+	<div id="header-pic" class="dropdown">
+		<a id="dLabel" class="dropdown-toggle" data-target="dropdown" href="#"
+			data-toggle="dropdown" aria-haspopup="true" role="button"
+			aria-expanded="false"><img
+			src="<c:url value='/resources/img/1.jpg'/>"> </a>
+		<ul
+			style="position: relative; margin-top: -70px; margin-left: -100px;"
+			class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#">프로필 수정</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="hostHomeManage.do">계정관리</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#">로그아웃</a></li>
+		</ul>
 	</div>
 </div>

@@ -108,4 +108,14 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getCalendarDate(map);
 	}
 
+	@Override
+	public String getBlockedDate(int home_seq) {
+		return hdao.getBlockedDate(home_seq);
+	}
+
+	@Override
+	public int modifyHomeRulesDetails(HomeDTO hdto) {
+		return hdao.modifyHomeRulesDetails(hdto);
+	}
+
 }

@@ -219,7 +219,9 @@ div {
 
 				<div class="search-wrap">
 					<b>위치 확인하기</b>
+					<div>동그라미로 표시된 지역만 게스트에게 표시됩니다.</div>
 				</div>
+				<br>  
 				<div>${hdto.home_addr3 }&nbsp;${hdto.home_addr4 },${hdto.home_addr2 },${hdto.home_addr1 },
 					${hdto.home_zipcode }</div>
 
@@ -298,6 +300,29 @@ div {
 				mapTypeId : 'roadmap'
 			});
 
+			var cityCircle = new google.maps.Circle({
+				  center:{
+					  lat:h_lat,
+					  lng:h_lng
+				  },
+				  radius:200,
+				  strokeColor:"#04B4AE",
+				  strokeOpacity:0.8,
+				  strokeWeight:2,
+				  fillColor:"#81F7D8",
+				  fillOpacity:0.4,
+				  map:map,
+			});
+
+			var marker = new google.maps.Marker({
+		          position: {
+		        	  lat:h_lat,
+		        	  lng:h_lng
+		          },
+		          map: map,
+				  animation:google.maps.Animation.BOUNCE
+	        });
+		
 			var input = document.getElementById('pac-input');
 			var searchBox = new google.maps.places.SearchBox(input);
 
@@ -322,7 +347,8 @@ div {
 									resultsMap.setCenter(results[0].geometry.location);
 									marker = new google.maps.Marker({
 										map : resultsMap,
-										position : results[0].geometry.location
+										position : results[0].geometry.location,
+										animation:google.maps.Animation.BOUNCE
 									});
 									loc = address;
 									latlng = marker.position;

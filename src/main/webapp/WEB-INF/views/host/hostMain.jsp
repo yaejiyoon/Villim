@@ -28,7 +28,6 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
 	height: 1500px;
@@ -86,12 +85,19 @@ div {
 	width: 100%;
 	height: 100%;
 }
+.home-pic-add {
+	width: 50%;
+	height: 50%;
+	position: relative;
+	top: 48px;  
+	left:46px;
+}
 
 .home-summary-contents-pic {
 	display: inline-block;
 	float: left;
 	width: 35%;
-	height: 100%;
+	height: 100%;  
 }
 
 .home-summary-contents-addr {
@@ -155,22 +161,6 @@ div {
 	margin: 0 auto;
 	margin-top: 30px;
 	font-size: 16px;
-}
-
-.home-summary-card-sub1-contents-img {
-	margin-top: 50px;
-}
-
-.home-summary-card-sub1-contents-btn {
-	margin-top: 50px;
-}
-
-.home-summary-card-sub2-contents button {
-	
-}
-
-.home-summary-card-sub3-contents button {
-	
 }
 
 .noti-reser-host-resr-wrap {
@@ -311,8 +301,15 @@ div {
 }
 
 .dd-pic {
-	width: 100%;
-	height: 100%;
+	width:60%;
+	height: 60%; 
+	position: relative;
+	top: 20px; 
+	left:25px;
+}
+.dd-main-pic{
+	width:100%;
+	height: 100%; 
 }
 
 .dd-sub-content {
@@ -370,8 +367,14 @@ div {
 										<a style="font-size: 17px;" role="menuitem" tabindex="-1" id=summ-link<%=cnt %>
 											href="javascript:void(0);">
 											<div class="dd-sub-pic">
-												<img class="dd-pic img-rounded"
+											<c:if test="${result.home_main_pic ne null }">
+												<img class="dd-main-pic img-rounded"
 													src="<c:url value='files/${result.home_main_pic }'/>">
+											</c:if>
+											<c:if test="${result.home_main_pic eq null }">
+											<img class="dd-pic img-rounded"
+													src="<c:url value='/resources/img/imgadd.png'/>">
+											</c:if>
 											</div>
 											<div class="dd-sub-content">${result.home_name }</div>
 										</a>
@@ -400,29 +403,28 @@ div {
 														console.log("pic"+resp.pic);
 														$("#mainpic").attr('src', "<c:url value ='/resources/img/imgadd.png'/>");
 													});
-												}else{
+												} else {
 													$(".home-summary-contents-pic").find("img").each(function() {
-														console.log("pic"+resp.pic);
-														$("#mainpic").attr('src', "<c:url value ='files/"+resp.pic+"'/>");
+														console.log("pic"+ resp.pic);
+														$("#mainpic").attr('src',"<c:url value ='files/"+resp.pic+"'/>");
 													});
 												}
+												
+													$('#homename').text(resp.name);
+													$('#address').text(resp.addr1+ " "+ resp.addr2+ " "+ resp.addr3+ " "
+																+ resp.addr4+ " "+ resp.state);
+													$('#price').text(resp.price+ "원");
+													$('#homename').attr("href",	"hostHomeTab.do?seq="+ resp.seq	+ "");
+												},
+													
+												error : function(data,status) {
+													console.log("실패"+ data);
+													console.log("실패"+ status);
+												}
+											});
+										})
 
-												$('#homename').text(resp.name);
-												$('#address').text(resp.addr1+" "+resp.addr2+" "+resp.addr3+" "+resp.addr4+" "+resp.state);
-												$('#price').text(resp.price+"원");
-												$('#homename').attr("href", "hostHomeTab.do?seq="+resp.seq+"");
-											},
-											error:function(data, status){
-												console.log("실패"+data);
-												console.log("실패"+status);
-											}
-					
-										});
 									})
-									
-								})
-									
-									
 								</script>
 
 							</c:forEach>
@@ -437,7 +439,7 @@ div {
 			<div class="home-summary-contents row">
 				<div class="home-summary-contents-pic col-md-6">
 					<c:if test="${hdto.home_main_pic eq null}">
-						<img id=mainpic class="home-pic img-rounded" src="<c:url value='/resources/img/imgadd.png'/>">
+						<img id=mainpic class="home-pic-add img-rounded" src="<c:url value='/resources/img/imgadd.png'/>">
 					</c:if>
 					<c:if test="${hdto.home_main_pic ne null}">
 						<img id=mainpic class="home-pic img-rounded" src="<c:url value='files/${hdto.home_main_pic }'/>">
@@ -473,11 +475,11 @@ div {
 						<div>
 							신뢰할 수 있는 지인을 공동 호스트로 초대하여 도움을 받으세요.<br>
 						</div>
-						<div class="home-summary-card-sub1-contents-img">
+						<div class="home-summary-card-sub1-contents-img" style="width: 100%; height:150px; margin-top: 40px;">
 							<img alt="Friend" height="100" width="140"
 								src="https://a0.muscache.com/airbnb/static/cohosting/friend-8bb3af2d3a16ce627db9f5e48e982ed6.svg">
 						</div>
-						<button
+						<button style="position: relative; top:20px;"
 							class="home-summary-card-sub1-contents-btn btn btn-info btn-lg"
 							type="button">친구 초대하기</button>
 					</div>
@@ -489,9 +491,18 @@ div {
 						<div>
 							<h4>커버 사진 품질 향상</h4>
 						</div>
-
 						<span>게스트는 종종 커버 사진을 보고 숙소를 선택합니다. 멋진 사진을 찍는 팁을 확인해 보세요.</span>
-						<button type="button" class="btn btn-info btn-lg">커버 사진
+						<div style="border: 1px dotted black; width: 100%; height:150px; margin-top: 15px;">  
+							<c:if test="${hdto.home_main_pic eq null}"> 
+								<img id=mainpic class="img-rounded" style=" width: 100%; height:100%;position: relative; left: 60px;"
+									src="<c:url value='/resources/img/imgadd.png'/>">
+							</c:if>
+							<c:if test="${hdto.home_main_pic ne null}">
+								<img class="img-rounded" style="width: 100%; height:100%;"
+									src="<c:url value='files/${hdto.home_main_pic }'/>">
+							</c:if>
+						</div>
+						<button type="button" style="position: relative; top:20px;" class="btn btn-info btn-lg" onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'" style="position: relative; top: 7px;">커버 사진
 							업데이트</button>
 					</div>
 				</div>
@@ -502,7 +513,10 @@ div {
 							<h4>상세한 설명 추가</h4>
 						</div>
 						<div>상세 설명을 추가하면 숙소에 대한 관심도를 높일 수 있습니다.</div>
-						<button type="button" class="btn btn-info btn-lg">세부정보 추가</button>
+						<div style="border: 1px dotted black; width: 100%; height:150px; margin-top: 40px;"></div>
+						<button type="button" class="btn btn-info btn-lg"
+						style="position: relative; top: 20px; "
+						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">세부정보 추가</button>
 					</div>
 				</div>
 			</div>

@@ -41,6 +41,10 @@ public interface HomeDAO {
 	public int modifyHomeStateData(HomeDTO hdto);
 
 	public int modifyCalendar(HomeDTO hdto);
-	
+
 	public List<String> getCalendarDate(Map<String, String> map);
+
+	public String getBlockedDate(int home_seq);
+	
+	public int modifyHomeRulesDetails(HomeDTO hdto);
 }

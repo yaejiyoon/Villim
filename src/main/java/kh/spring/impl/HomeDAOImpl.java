@@ -133,4 +133,15 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectList("Home.getCalendarDate", map);
 	}
 
+	@Override
+	public String getBlockedDate(int home_seq) {
+		return ssTemplate.selectOne("Home.getBlockedDate", home_seq);
+	}
+
+	@Override
+	public int modifyHomeRulesDetails(HomeDTO hdto) {
+		String sql = "update home set home_rules=?, home_details = ? where home_seq = ?";
+		return jdbcTemplate.update(sql,hdto.getHome_rules(), hdto.getHome_details(), hdto.getHome_seq());
+	}
+
 }

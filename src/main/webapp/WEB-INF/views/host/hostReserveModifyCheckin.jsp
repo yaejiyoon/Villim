@@ -277,8 +277,11 @@ div {
 				$('#cin-end').prop("disabled", true);
 			}else if(${hdto.home_checkin_start != '시간 선택' && hdto.home_checkin_start != '조정 가능'}){
 				for(var i=2; i < s_checkin_start.length; i++){
-					console.log("s_checkin_start : " + s_checkin_start[i]);
-					if(${hdto.home_checkin_start == s_checkin_start[i]}){
+					console.log("s_checkin_start::" + s_checkin_start[i]);
+					console.log(":::::"+${hdto.home_checkin_start});
+					var num = '${hdto.home_checkin_start}';
+					if( num == s_checkin_start[i] ){
+						console.log("둘다 시간 선택");
 						$('#cin-start').find("option[value="+s_checkin_start[i]+"]").prop("selected", true);
 					}
 				}		
@@ -291,7 +294,8 @@ div {
 			}else if(${hdto.home_checkin_end != '시간 선택' && hdto.home_checkin_end != '조정 가능'}){
 				for(var i=2; i < s_checkin_end.length; i++){
 					console.log("s_checkin_end : " + s_checkin_end[i]);
-						if(${hdto.home_checkin_end == s_checkin_end[i]}){
+					var num = '${hdto.home_checkin_end}';
+						if(num == s_checkin_end[i]){
 							$('#cin-end').find("option[value="+s_checkin_end[i]+"]").prop("selected", true);
 						}
 				}		

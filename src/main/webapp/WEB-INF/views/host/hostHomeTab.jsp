@@ -124,9 +124,9 @@ div {
 }
 
 .dd-pic {
-	max-width: 100%; 
-	height: auto; 
-	display: block;
+	width: 100%; 
+	max-height:100%; 
+	display:inline-block;
 }
 
 .title-expl-wrap {
@@ -473,7 +473,7 @@ div {
 				<c:if test="${hdto.home_state == 1 }">				
 					휴식 모드
 				</c:if>
-				<c:if test="${hdto.home_state == 0 }">				
+				<c:if test="${hdto.home_state == 2 }">				
 					운영 중지
 				</c:if>
 				</div>

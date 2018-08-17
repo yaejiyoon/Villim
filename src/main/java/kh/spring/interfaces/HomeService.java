@@ -32,16 +32,20 @@ public interface HomeService {
 
 	public int modifyHomeFacSecAccData(HomeDTO hdto);
 
+	public int modifyHomeRulesDetails(HomeDTO hdto);
+
 	public int modifyHomeLocData(HomeDTO hdto);
 
 	public int modifyReserveCheckinData(HomeDTO hdto);
 
 	public int modifyReserveNightData(HomeDTO hdto);
-	
+
 	public int modifyHomeStateData(HomeDTO hdto);
-	
+
 	public int modifyCalendar(HomeDTO hdto);
-	
+
 	public List<String> getCalendarDate(Map<String, String> map);
-	
+
+	public String getBlockedDate(int home_seq);
+
 }

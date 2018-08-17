@@ -30,9 +30,12 @@
 		select
 		to_date(#{start}, 'yyyy/mm/dd') start_day,
 		to_date(#{end}, 'yyyy/mm/dd') end_day from dual)
-		connect by start_day + level -1 <![CDATA[ < ]]> end_day)
+		connect by start_day + level -1 <![CDATA[ <= ]]> end_day) order by days asc
 	</select>
 
+	<select id="getBlockedDate" parameterType="int" resultType="String">
+		select home_blocked_date from home where home_seq = #{home_seq}
+	</select>
 
 </mapper>
 
