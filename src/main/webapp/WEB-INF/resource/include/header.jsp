@@ -210,7 +210,7 @@
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지" style="color:black;">메세지</span>
                			<ul>
         					<li><a href="#">Item</a></li>
