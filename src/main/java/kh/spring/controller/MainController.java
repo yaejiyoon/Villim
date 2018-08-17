@@ -98,10 +98,6 @@ public class MainController {
 		return "home_main";
 	}
 	
-	@RequestMapping("/home_info.do")
-	public String home_info() {
-		return "home/home_info";
-	}
 	
 }
 

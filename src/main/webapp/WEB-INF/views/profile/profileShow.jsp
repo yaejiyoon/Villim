@@ -213,7 +213,7 @@ max-width:400px;
 		<div id="showHouseContainer" class=container>
 		<c:forEach  var="house" items="${houseResult}">
 	<div class="gallery_product col-lg-6 col-md-8 col-sm-8 col-xs-8 filter hdpe" style="margin-top:12px;">
-                <img src="files/${house.home_pic_name}" class="img-responsive" style="object-fit: contain;">
+                <img src="files/${house.home_main_pic}" class="img-responsive" style="object-fit: contain;">
                 
                 <div class="carousel-caption" id="textOverImage">
               <p>${house.home_name}</p>

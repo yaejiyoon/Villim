@@ -59,10 +59,18 @@ $(document).ready(function() {
 		font-family: dx;
 	}
 	
-	#peopleSubmit:hover {
+	#peopleSubmit:hover, #peopleDelete:hover {
 		background-color: #008489; 
 		color : white;
 		outline:0;
+	}
+	
+	#peopleDelete {
+		float: left;
+		background-color: white; 
+		color : #008489;
+		border : 1px solid #008489;
+		
 	}
 	
 	
@@ -71,8 +79,24 @@ $(document).ready(function() {
 <script>
 	$(document).ready(function() {
 		$("#peopleSubmit").click(function() {
-			alert($("#pcount").text().toString());
+			var pcount = $("#pcount").text().toString();
+			var peopleBt = document.getElementById('peopleBt');
+			peopleBt.innerHTML = "게스트 "+pcount+"명";
+			peopleBt.style.backgroundColor = '#008489';
+			peopleBt.style.color = "white";
+			peopleBt.style.borderRadius = "10px";
 		});
+		
+		$("#peopleDelete").click(function() {
+			var pcount = document.getElementById('peopleBt');
+			var peopleBt = document.getElementById('peopleBt');
+			peopleBt.innerHTML = "인원";
+			peopleBt.style.backgroundColor = 'white';
+			peopleBt.style.color = "black";
+			peopleBt.style.borderRadius = "0px";
+		});
+		
+		
 	});
 </script>
 
@@ -92,7 +116,8 @@ $(document).ready(function() {
                		<button id="peopledis" class="btn btn-primary-outline">-</button>
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="peopleSubmit">적용하기</button> 
+                   <button class="btn btn-primary-outline" id="peopleDelete" data-dismiss="modal">삭제</button> 
+                   <button class="btn btn-primary-outline submit" id="peopleSubmit" data-dismiss="modal">적용하기</button> 
                </div>
             </div>
          </div>
