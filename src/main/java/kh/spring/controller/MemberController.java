@@ -181,10 +181,6 @@ public class MemberController {
 //	    		 e.printStackTrace();
 //	    	 }
 //	    	 }
-		
-		 
-
-	     
 
 	      String realPath = request.getSession().getServletContext().getRealPath("/files/");
 	      System.out.println(realPath);
@@ -220,13 +216,6 @@ public class MemberController {
 	      }catch(Exception e){
 	    	  e.printStackTrace();
 	      }
-
-		File f = new File(path);
-		if (!f.exists()) {
-			f.mkdir();
-		}
-
-
 
 }
 	// 폰 인증 번호 발송 
