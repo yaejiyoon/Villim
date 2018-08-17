@@ -13,7 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- main css -->
-<link href="<c:url value="/resources/css/main/main.css" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/main.css?ver=1" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 
@@ -28,26 +28,7 @@
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
 
-<script>
-$(document).ready(function() {
-	$('.datepicker-here').datepicker({
-	    
-	    autoClose : "true",
-	    dateFormat : "yyyy/mm/dd",
-	    minDate: new Date(),
-	    toggleSelected: false,
-	    language: {
-	       days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
-	        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
-	        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-	        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-	        dateFormat: "yyyy/mm/dd",
-	        timeFormat: 'hh:ii aa'
-	     }
-	})
-});
-</script>
+
 <script>
 
 function typeFunction() {
@@ -153,8 +134,6 @@ $(document).ready(function() {
    
 </style>
 <style>
-
-
 /* Style The Dropdown Button */
 .dropbtn {
 	font-family : font;
@@ -227,7 +206,6 @@ $(document).ready(function() {
 	background-color: #ff5a5f;
 	color : white;
 	font-size : 2.5vh;
-	padding-top: 30px;
 }
 
 #searchBt:hover {
@@ -272,26 +250,78 @@ $(document).ready(function() {
 	}
 	
 	#locationTextField {
-		margin-top : 10%;
-		width : 90%;
+		font-family : font;
+		margin-top : 8%;
+		width : 80%;
 		height : 40%;
 		font-size : 1.2em;
 		border : 1px solid white;
 		color: #5c5d5e;
 	}
 	
+	#mapGlyphicon , #calendarGlyphicon{
+		margin-top : 9%;
+		font-size: 3vh;
+		color: #5c5d5e;
+	}
 	
+	#datepicker {
+		border : 1px solid white;
+		font-family: font;
+		font-size : 1.2em;
+	}
+
+	#searchicon {
+		color : white;
+		font-size : 5vh;
+	}
 </style>
 <script>
-	function init() {
+// 	function init() {
+// 		var input = document.getElementById('locationTextField');
+// 		var autocomplete = new google.maps.places.Autocomplete(input);
+// 		var place = autocomplete.getPlace();
+// 		var lat = place.geometry.location.lat();
+// 		var lng = place.geometry.location.lng();
+// 	}
+	
+	
+	$(document).ready(function init() {
 		var input = document.getElementById('locationTextField');
 		var autocomplete = new google.maps.places.Autocomplete(input);
-		var locationTitle = document.getElementById('locationTitle');
-	}
+		
+		$("#searchBt").click(function() {
+			var place = autocomplete.getPlace();
+
+			var lat = place.geometry.location.lat();
+			var lng = place.geometry.location.lng();
+
+			alert("검색어의 위도는 "+lat+" 경도는 "+lng);
+		})
+	});
 	
 	google.maps.event.addDomListener(window, 'load', init);
 </script>
-
+<script>
+$(document).ready(function() {
+	$('.datepicker-here').datepicker({
+	    
+	    autoClose : "true",
+	    dateFormat : "yyyy/mm/dd",
+	    minDate: new Date(),
+	    toggleSelected: false,
+	    language: {
+	       days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+	        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+	        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+	        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+	        dateFormat: "yyyy/mm/dd",
+	        timeFormat: 'hh:ii aa'
+	     }
+	})
+});
+</script>
 
 <!-- 재호 -->
 </head>
@@ -345,19 +375,18 @@ $(document).ready(function() {
          	</div>
          </div>
          <div id="location">
-         	<input id="locationTextField" type="text"></input>
+         	<i class="glyphicon glyphicon-map-marker" id="mapGlyphicon"></i>
+         	<input id="locationTextField" type="text" placeholder="위치를 입력해주세요"></input>
+         	
          </div>
          <div id="calendar">
-         	<input type="text" 
-                     data-range="true"
-                   data-multiple-dates-separator="       →       "
-                   todayButton="true"
-                     class="datepicker-here"
-                     placeholder="체크인              →         체크아웃" />
+         	<i class="glyphicon glyphicon-calendar" id="calendarGlyphicon"></i>
+	         	<input id="datepicker" type="text" data-range="true"
+	                   data-multiple-dates-separator="    ~    "
+	                   todayButton="true" class="datepicker-here"
+	                     placeholder="  체크인         ㅡ         체크아웃" />
          	</div>
-         	
-         	
-         <div id="searchBt">search !</div>
+         <button id="searchBt"><span class="glyphicon glyphicon-search" aria-hidden="true" id="searchicon"></span></button>
       </div>
    </div>
    

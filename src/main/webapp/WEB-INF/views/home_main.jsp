@@ -14,7 +14,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
-
 <script>
 $(function () {
     var a = function () {
@@ -58,8 +57,8 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        	lat: position.coords.latitude,
+        	lng: position.coords.longitude
       };
 
       infoWindow.setPosition(pos);
@@ -73,6 +72,13 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+  
+  var marker = new google.maps.Marker({
+	    position: pos,
+	    map: map,
+	    title: '130,550원'
+	  });
+  
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -82,6 +88,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }
+
 
 $(document).ready(function() {
 	$("#map").mouseup(function() {
@@ -151,6 +158,7 @@ $(document).ready(function(){
 	   });  
 });
 </script>
+
 <style>
 	@font-face {
   		font-family: font;
@@ -185,6 +193,7 @@ $(document).ready(function(){
 		border-top : 1px solid #e0dee0;
 		border-bottom : 1px solid #e0dee0;
 		background-color: white;
+
 	}
 	
 	#searchBar ul {
@@ -428,11 +437,7 @@ $(document).ready(function(){
 	}
  	
 </style>
-<script>
-$('.carousel').carousel({
-	  interval: 1000
-	})
-</script>
+
 </head>
     
 <body>
@@ -452,7 +457,6 @@ $('.carousel').carousel({
 			        <span class="onoffswitch-switch"></span>
 			    </label>
 			</div>
-			<button id="showLocation">위도경도보여줘</button>
 		</div>
 	</div>
 	
@@ -1174,19 +1178,8 @@ $('.carousel').carousel({
 				  </div>
 				</div>
 				
-				
-				
-				
-				
-				
 			</div>
-			
-			
-			
-
 		</div>
-		
-		
 	</div>
 	
 

@@ -39,6 +39,7 @@
 		position: relative; 
 		z-index : 100; 
 		font-family: font;
+		min-width: 700px;
  	} 
  	
  	#welcome {
