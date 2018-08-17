@@ -12,6 +12,8 @@ public class HomeDTO {
 	private String home_nation;
 	private String home_addr1;
 	private String home_addr2;
+	private String home_addr3;
+	private String home_addr4;
 	private String home_zipcode;
 	private String home_lat;
 	private String home_lng;
@@ -20,13 +22,19 @@ public class HomeDTO {
 	private String home_guest_access;
 	private String home_rules;
 	private String home_details;
-	private String home_checkin;
+	private String home_checkin_start;
+	private String home_checkin_end;
+	private String home_checkout;
 	private int home_min_stay;
 	private int home_max_stay;
 	private String home_blocked_date;
 	private int home_price;
 	private String home_currency;
 	private String home_main_pic;
+	private int home_state;
+	private String home_rest_start;
+	private String home_rest_end;
+	private String home_reserve_possible;
 
 	public HomeDTO() {
 		super();
@@ -34,9 +42,11 @@ public class HomeDTO {
 
 	public HomeDTO(String member_email, int home_seq, String home_name, String home_contents, String home_type,
 			int home_people, String home_bedroom, String home_bed, String home_nation, String home_addr1,
-			String home_addr2, String home_zipcode, String home_lat, String home_lng, String home_amenities,
-			String home_safety, String home_guest_access, String home_rules, String home_details, String home_checkin,
-			int home_min_stay, int home_max_stay, String home_blocked_date, int home_price, String home_currency) {
+			String home_addr2, String home_addr3, String home_addr4, String home_zipcode, String home_lat,
+			String home_lng, String home_amenities, String home_safety, String home_guest_access, String home_rules,
+			String home_details, String home_checkin_start, String home_checkin_end, String home_checkout,
+			int home_min_stay, int home_max_stay, String home_blocked_date, int home_price, String home_currency,
+			String home_main_pic, int home_state, String home_rest_start, String home_rest_end) {
 		super();
 		this.member_email = member_email;
 		this.home_seq = home_seq;
@@ -49,6 +59,8 @@ public class HomeDTO {
 		this.home_nation = home_nation;
 		this.home_addr1 = home_addr1;
 		this.home_addr2 = home_addr2;
+		this.home_addr3 = home_addr3;
+		this.home_addr4 = home_addr4;
 		this.home_zipcode = home_zipcode;
 		this.home_lat = home_lat;
 		this.home_lng = home_lng;
@@ -57,13 +69,18 @@ public class HomeDTO {
 		this.home_guest_access = home_guest_access;
 		this.home_rules = home_rules;
 		this.home_details = home_details;
-		this.home_checkin = home_checkin;
+		this.home_checkin_start = home_checkin_start;
+		this.home_checkin_end = home_checkin_end;
+		this.home_checkout = home_checkout;
 		this.home_min_stay = home_min_stay;
 		this.home_max_stay = home_max_stay;
 		this.home_blocked_date = home_blocked_date;
 		this.home_price = home_price;
 		this.home_currency = home_currency;
 		this.home_main_pic = home_main_pic;
+		this.home_state = home_state;
+		this.home_rest_start = home_rest_start;
+		this.home_rest_end = home_rest_end;
 	}
 
 	public String getMember_email() {
@@ -154,6 +171,22 @@ public class HomeDTO {
 		this.home_addr2 = home_addr2;
 	}
 
+	public String getHome_addr3() {
+		return home_addr3;
+	}
+
+	public void setHome_addr3(String home_addr3) {
+		this.home_addr3 = home_addr3;
+	}
+
+	public String getHome_addr4() {
+		return home_addr4;
+	}
+
+	public void setHome_addr4(String home_addr4) {
+		this.home_addr4 = home_addr4;
+	}
+
 	public String getHome_zipcode() {
 		return home_zipcode;
 	}
@@ -218,12 +251,28 @@ public class HomeDTO {
 		this.home_details = home_details;
 	}
 
-	public String getHome_checkin() {
-		return home_checkin;
+	public String getHome_checkin_start() {
+		return home_checkin_start;
 	}
 
-	public void setHome_checkin(String home_checkin) {
-		this.home_checkin = home_checkin;
+	public void setHome_checkin_start(String home_checkin_start) {
+		this.home_checkin_start = home_checkin_start;
+	}
+
+	public String getHome_checkin_end() {
+		return home_checkin_end;
+	}
+
+	public void setHome_checkin_end(String home_checkin_end) {
+		this.home_checkin_end = home_checkin_end;
+	}
+
+	public String getHome_checkout() {
+		return home_checkout;
+	}
+
+	public void setHome_checkout(String home_checkout) {
+		this.home_checkout = home_checkout;
 	}
 
 	public int getHome_min_stay() {
@@ -274,7 +323,36 @@ public class HomeDTO {
 		this.home_main_pic = home_main_pic;
 	}
 
-	
-	
-	
+	public int getHome_state() {
+		return home_state;
+	}
+
+	public void setHome_state(int home_state) {
+		this.home_state = home_state;
+	}
+
+	public String getHome_rest_start() {
+		return home_rest_start;
+	}
+
+	public void setHome_rest_start(String home_rest_start) {
+		this.home_rest_start = home_rest_start;
+	}
+
+	public String getHome_rest_end() {
+		return home_rest_end;
+	}
+
+	public void setHome_rest_end(String home_rest_end) {
+		this.home_rest_end = home_rest_end;
+	}
+
+	public String getHome_reserve_possible() {
+		return home_reserve_possible;
+	}
+
+	public void setHome_reserve_possible(String home_reserve_possible) {
+		this.home_reserve_possible = home_reserve_possible;
+	}
+
 }

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
-import kh.spring.dto.ProfileHomePicDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
 import kh.spring.dto.Review_H_DTO;
@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public List<ProfileHomePicDTO> getHouse(String userId) {
+	public List<HomeDTO> getHouse(String userId) {
 		return dao.getHouse(userId);
 	}
 
@@ -81,7 +81,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public HomePicDTO getHomePhoto(int home_seq) {
+	public HomeDTO getHomePhoto(int home_seq) {
 		return dao.getHomePhoto(home_seq);
 	}
 
@@ -114,6 +114,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Review_H_DTO> getHostReview(List<Integer> home_seq) {
 		return dao.getHostReview(home_seq);
+	}
+
+	@Override
+	public List<HostReviewDTO> getRealHostReview(List<Integer> g_review_seq) {
+		return dao.getRealHostReview(g_review_seq);
+	}
+
+	@Override
+	public int insertHostReview(HostReviewDTO dto) {
+		return dao.insertHostReview(dto);
 	}
 
 	

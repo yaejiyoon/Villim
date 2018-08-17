@@ -235,7 +235,7 @@ $(document).ready(function(){
 	    </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/profileHeader.jsp" %>
+	<%@ include file="../../resource/include/header_profile.jsp" %>
 
 	<div id="wrapper" style="height: 2500px; margin: 10px auto">
 		<h3
@@ -246,7 +246,7 @@ $(document).ready(function(){
 		<div class="container"
 			style="position: relative; left: -287px; top: 20px;">
 			<div class="card hovercard">
-				<img src="files/${home_pic_name}"
+				<img src="files/${home_main_pic}"
 					alt="" />
 				<div class="avatar"></div>
 				<div class="info" style="height: 130px;">
