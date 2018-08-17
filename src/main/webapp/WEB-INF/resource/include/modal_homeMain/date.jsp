@@ -26,7 +26,7 @@
                   	여기는 달력이 들어가겠쥬?
                </div>
                <div class="modal-footer">
-                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary" style="background-color:#cce5e8; border:0; outline:0;">참석하기</a>
+                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary submit" data-dismiss="modal">참석하기</a>
                </div>
             </div>
          </div>

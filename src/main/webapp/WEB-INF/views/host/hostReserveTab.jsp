@@ -25,7 +25,8 @@ div {
 
 #wrapper {
 	border: 1px solid black;
-	margin: 30px auto; width : 70%;
+	margin: 30px auto;
+	width: 70%;
 	height: 1000px;
 	width: 70%;
 }
@@ -63,13 +64,14 @@ div {
 }
 
 .guest-rule-wrap {
-	margin-top:50px;
+	margin-top: 50px;
 	width: 100%;
 }
 
 .guest-rule-title {
 	display: inline-block;
-	float: left; width : 90%;
+	float: left;
+	width: 90%;
 	width: 90%;
 }
 
@@ -88,37 +90,39 @@ div {
 	float: left;
 }
 
-.policy-sub1{
+.policy-sub1 {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 100%;
 	font-size: 17px;
 	margin-top: 30px;
 }
-.policy-sub1 div{
+
+.policy-sub1 div {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 50%;
 }
-.policy-sub2{
+
+.policy-sub2 {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 100%;
 	font-size: 17px;
 	margin-top: 30px;
 }
-.policy-sub2 div{
+
+.policy-sub2 div {
 	display: inline-block;
-	float:left;
+	float: left;
 	width: 50%;
 }
 
-.details{
-	margin-top:40px;
-	margin-bottom:15px;
+.details {
+	margin-top: 40px;
+	margin-bottom: 15px;
 	font-size: 17px;
 }
-
 
 .nav-btn {
 	background-color: white;
@@ -187,29 +191,7 @@ div {
 			</div>
 		</div>
 
-		<div class="home-reserve-line"></div>
-
 		<div class="wrapper-sub">
-			<div class="guest-rule-wrap">
-				<div class="guest-rule-title">
-					<h4>
-						<b>숙소 이용규칙</b>
-					</h4>
-				</div>
-				<div class="guest-rule-mod">
-					<button type="button" class="btn btn-info">수정</button>
-				</div>
-				<!-- for문으로 체크된것 출력하기 -->
-				<c:forEach var="list" items="${ruleList }">
-					<div class="rule">${list}</div>
-					<div class="home-reserve-line"></div>
-				</c:forEach>
-				
-				<div class="details">게스트가 숙소에 대해 알아두어야 할 세부 사항</div>
-				<c:forEach var="list" items="${detailsList }">
-					<div class="details-contents">${list }</div>
-				</c:forEach>
-			</div>
 
 			<div class="home-reserve-line"></div>
 
@@ -225,7 +207,7 @@ div {
 				<div class="policy">
 					<div class="policy-sub1">
 						<div>체크인 시간</div>
-						<div class>${hdto.home_checkin}</div>
+						<div class></div>
 					</div>
 					<div class="home-reserve-line"></div>
 					<div class="policy-sub2">
@@ -234,6 +216,31 @@ div {
 					</div>
 				</div>
 			</div>
+
+			<div class="home-reserve-line"></div>
+
+			<div class="guest-rule-wrap">
+				<div class="guest-rule-title">
+					<h4>
+						<b>숙소 이용규칙</b>
+					</h4>
+				</div>
+				<div class="guest-rule-mod">
+					<button type="button" class="btn btn-info"
+					onclick="location.href='hostReserveModifyRule.do?home_seq=${hdto.home_seq}'">수정</button>
+				</div>
+				<!-- for문으로 체크된것 출력하기 -->
+				<c:forEach var="list" items="${ruleList }">
+					<div class="rule">${list}</div>
+					<div class="home-reserve-line"></div>
+				</c:forEach>
+
+				<div class="details">게스트가 숙소에 대해 알아두어야 할 세부 사항</div>
+				<c:forEach var="list" items="${detailsList }">
+					<div class="details-contents">${list }</div>
+				</c:forEach>
+			</div>
+
 		</div>
 	</div>
 	<%@ include file="../../resource/include/footer.jsp"%>
