@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
 
 
 
@@ -21,7 +21,7 @@
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
-<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
 
 <!-- 지도 -->
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
@@ -106,25 +106,37 @@
 	    
 	});
 	
+	$(document).ready(function(){
+		$("[data-toggle=popover]").popover();
+	})
+	
+	
 </script>
 </head>
-<body>
+<body  data-spy="scroll" data-target="#navbar-example2" data-offset="100">
    <%@ include file="../../resource/include/header.jsp" %>
    
    <div id="scrollNav">
 		<div id="scrollNav-contents">
-			<div>
+			<div id="scrollNav-contents01">
 				<nav id="navbar-example2" class="navbar navbar-light bg-light">
-					<ul class="nav nav-pills">
-						<li class="nav-item"><a class="nav-link" href="#fat">정보</a></li>
-						<li class="nav-item"><a class="nav-link" href="#mdo">후기</a></li>
-						<li class="nav-item"><a class="nav-link" href="#mdo">호스트</a></li>
-						<li class="nav-item"><a class="nav-link" href="#mdo">위치</a></li>
+					<ul class="nav nav-pills" style="padding:0px;">
+						<li class="nav-item"><a class="nav-link" href="#info-main01" id="scrollNavID01">정보</a></li>
+						<li class="nav-item"><a class="nav-link" href="#info-main05" id="scrollNavID02">후기</a></li>
+						<li class="nav-item"><a class="nav-link" href="#info-main05-host" id="scrollNavID03">호스트</a></li>
+						<li class="nav-item"><a class="nav-link" href="#info-main06" id="scrollNavID04">위치</a></li>
 					</ul>
 				</nav>
 			</div>
-			<div>
-				
+			<div id="scrollNav-contents02">
+         		<div>
+         			<img src="<c:url value='../resources/img/like.png'/>">
+         			<p>저장</p>
+         		</div>
+         		<div>
+					<img src="<c:url value='../resources/img/share.png'/>">
+         			<p style="margin-right: 20px;">공유하기</p>
+         		</div>
 			</div>
 		</div>
 	</div>
@@ -260,6 +272,32 @@
                				</div>
                			</div>
                		</div>
+               </div>
+               <div id="info-main07">
+               		<br>
+               		<span>숙소 이용규칙</span>
+               		<br>
+               		<br>
+               		<h5>어린이(만 0-12세)에게 안전하거나 적합하지 않음</h5>
+               		<h5>흡연 금지</h5>
+               		<h5>반려동물 동반에 적합하지 않음</h5>
+               		<h5>파티나 이벤트 금지</h5>
+               		<h5>체크인 가능 시간: 14:00 - 22:00</h5>
+               		<h5>체크아웃: 11:00까</h5>
+					<br>
+					<a href="" class="green">숙소 이용규칙 모두 보기</a>
+               </div>
+               <div id="info-main08">
+               		<br>
+               		<span>예약 취소</span>
+               		<br>
+               		<br>
+               		<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
+               		<br>
+               		체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               		<br>
+               		<br>
+               		<a href="" class="green">정책 자세히 읽기</a>
                </div>
                <div id="info-main04">
                		<br>
@@ -447,32 +485,7 @@
 						</script> -->
 
 					</div>
-               <div id="info-main07">
-               		<br>
-               		<span>숙소 이용규칙</span>
-               		<br>
-               		<br>
-               		<h5>어린이(만 0-12세)에게 안전하거나 적합하지 않음</h5>
-               		<h5>흡연 금지</h5>
-               		<h5>반려동물 동반에 적합하지 않음</h5>
-               		<h5>파티나 이벤트 금지</h5>
-               		<h5>체크인 가능 시간: 14:00 - 22:00</h5>
-               		<h5>체크아웃: 11:00까</h5>
-					<br>
-					<a href="" class="green">숙소 이용규칙 모두 보기</a>
-               </div>
-               <div id="info-main08">
-               		<br>
-               		<span>예약 취소</span>
-               		<br>
-               		<br>
-               		<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		<br>
-               		<br>
-               		<a href="" class="green">정책 자세히 읽기</a>
-               </div>
+               
             </div>
             <div id="info-main-right">
             	<div id="fixed">
@@ -850,10 +863,20 @@
             			</div>
             			<div class="fixedprice">
             				<span style="float: left;">청소비</span>
+            				
+            				<img src="<c:url value='../resources/img/question.png'/>" 
+            				data-container="body" data-toggle="popover" data-placement="top" 
+            				data-content="호스트가 청구하는  일회성 숙소 청소 비용입니다."/>
+							
             				<span style="float: right;" id="cleaningfee">₩32,225</span>
             			</div>
             			<div class="fixedprice">
             				<span style="float: left;">서비스 수수료</span>
+            				
+            				<img src="<c:url value='../resources/img/question.png'/>" 
+            				data-container="body" data-toggle="popover" data-placement="top" 
+            				data-content="수수료는 에어비앤비 플랫폼을 운영하고 연중무휴 고객 지원과 같은 다양한 서비스를 제공하는데 사용됩니다."/>
+            				
             				<span style="float: right;" id="servicefee">₩21,913</span>
             			</div>
             			<div style="border: none;" class="fixedprice">

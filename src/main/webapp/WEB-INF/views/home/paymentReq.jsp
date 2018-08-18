@@ -70,6 +70,9 @@
 					<br>
 					<br>
 					<button id="requestBT" class="btn btn-secondary">확인 및 예약 요청</button>
+					<br>
+					<br>
+					<br>
 				</div>
 			</div>
 			<div id="paymentRight">
