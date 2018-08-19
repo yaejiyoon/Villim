@@ -354,6 +354,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                <div id="info-main04">
                		<br>
                		<span>예약 가능 여부</span>
+               		<br>
+               		<div class="datepicker-here" data-language='en' data-range="true"></div>
                </div>
                <div id="info-main05">
                		<div id="info-main05-top">
@@ -582,7 +584,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			
             			$('.datepicker-here').datepicker({
             				
-            				inline: true,
             				todayButton: new Date(),
             				clearButton : true,
             				autoClose : "true",
