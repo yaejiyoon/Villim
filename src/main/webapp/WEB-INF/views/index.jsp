@@ -13,7 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- main css -->
-<link href="<c:url value="/resources/css/main/main.css?ver=1" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/main.css?ver=2" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 
@@ -277,14 +277,6 @@ $(document).ready(function() {
 	}
 </style>
 <script>
-// 	function init() {
-// 		var input = document.getElementById('locationTextField');
-// 		var autocomplete = new google.maps.places.Autocomplete(input);
-// 		var place = autocomplete.getPlace();
-// 		var lat = place.geometry.location.lat();
-// 		var lng = place.geometry.location.lng();
-// 	}
-	
 	
 	$(document).ready(function init() {
 		var input = document.getElementById('locationTextField');
@@ -295,9 +287,21 @@ $(document).ready(function() {
 
 			var lat = place.geometry.location.lat();
 			var lng = place.geometry.location.lng();
+			var text =  $("#typeDropBtn").text();
+			var pcount = $("#pcount").text();
 
-			alert("검색어의 위도는 "+lat+" 경도는 "+lng);
+			alert("검색어의 위도는 "+lat+" 경도는 "+lng+"\n"
+					+text+"\n"
+					+pcount);
+			
+			
 		})
+	});
+	
+	$('.datepicker-here').datepicker({
+	    onClose:function(theDate) {
+	        alert('.datepicker-here');
+	    }
 	});
 	
 	google.maps.event.addDomListener(window, 'load', init);
@@ -305,7 +309,6 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	$('.datepicker-here').datepicker({
-	    
 	    autoClose : "true",
 	    dateFormat : "yyyy/mm/dd",
 	    minDate: new Date(),
@@ -377,7 +380,6 @@ $(document).ready(function() {
          <div id="location">
          	<i class="glyphicon glyphicon-map-marker" id="mapGlyphicon"></i>
          	<input id="locationTextField" type="text" placeholder="위치를 입력해주세요"></input>
-         	
          </div>
          <div id="calendar">
          	<i class="glyphicon glyphicon-calendar" id="calendarGlyphicon"></i>
