@@ -55,7 +55,7 @@ public class MainController {
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
-		mav.setViewName("index");
+		mav.setViewName("home/home_info");
 		System.out.println("ffff");
 		
 		

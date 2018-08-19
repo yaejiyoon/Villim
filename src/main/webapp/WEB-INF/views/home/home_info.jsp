@@ -12,10 +12,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
+<!-- css -->
+<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
 
 
+<!-- 반응형 테스트 -->
+<link rel="stylesheet" media="screen and (max-width: 768px)" 
+href="<c:url value="../../resources/css/home/test.css" />" />
 
+<!-- 사진 -->
+<link href="<c:url value="../../resources/css/home/dist/css/lightgallery.css" />" rel="stylesheet">
 
 <!-- 달력 -->
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
@@ -40,6 +46,15 @@
         font-family: font2;
         src: url('<c:url value='/resources/fonts/dx.ttf'/>');
    }
+   
+   #lightgallery{
+		list-style: none;
+		width:20px !important;
+	}
+	
+	
+}
+	
 </style>
 <script>
 
@@ -107,7 +122,9 @@
 	});
 	
 	$(document).ready(function(){
-		
+		$('#lightgallery').lightGallery({
+        	thumbnail:true
+        });
 		
 		$("[data-toggle=popover]").each(function(i, obj) {
 
@@ -118,8 +135,7 @@
 			    return $('#popover-content-' + id).html();
 			  }
 			});
-
-			});
+		});
 		
 	})
 	
@@ -128,6 +144,8 @@
 </head>
 <body  data-spy="scroll" data-target="#navbar-example2" data-offset="100">
    <%@ include file="../../resource/include/header.jsp" %>
+   
+   <!-- scrollspy -->
    
    <div id="scrollNav">
 		<div id="scrollNav-contents">
@@ -160,8 +178,29 @@
    <div id="info-wrapper">
       <div id="info-contents">
          <div id="info-contents-photo">
-         	<img src="<c:url value='../resources/img/home.jpg'/>">
-         	<button id="picsBT" class="btn btn-secondary">사진 보기</button>
+         	<img src="<c:url value='../resources/img/home.jpg'/>" >
+         	
+         	
+         	<!-- 사진보기-->
+         	
+         	<div>
+            	<ul id="lightgallery" class="list-unstyled row ">
+                	<li id="1stPhoto" data-src="<c:url value='/resources/img/1.jpg'/>" data-sub-html="<h4>Fading Light</h4><p>사진 설명</p>">
+                    	<button id="picsBT" class="btn btn-secondary">
+                    		사진 보기
+                    		<img class="img-responsive" src="<c:url value='/resources/img/1.jpg'/>" style="display: none;">
+                    	</button>
+                	</li>
+                	<li data-src="<c:url value='/resources/img/home.jpg'/>" data-sub-html="<p>설명설명</p>">
+                        <img class="img-responsive" src="<c:url value='/resources/img/home.jpg'/>" style="display: none;">
+                	</li>
+            	</ul>
+        	</div>
+         	
+         	<script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+			<script src="<c:url value="../../resources/css/home/dist/js/lightgallery-all.min.js" />"></script>
+			<script src="<c:url value="../../resources/css/home/lib/jquery.mousewheel.min.js" />"></script>
+         	
          	<button id="shareBT" class="btn btn-secondary">
          		<img src="<c:url value='../resources/img/share.png'/>">
          		공유하기
@@ -543,6 +582,7 @@
             			
             			$('.datepicker-here').datepicker({
             				
+            				inline: true,
             				todayButton: new Date(),
             				clearButton : true,
             				autoClose : "true",
@@ -617,7 +657,7 @@
             								$("#total").text(total);
             								
             								
-            								$("#fixed").css({"height":"63vh","transition-duration":"0.1s"});
+            								$("#fixed").css({"height":"520px","transition-duration":"0.1s"});
             								$(".fixedprice").css({"display":"block"});
             								
             								$("#reserv_checkin").val(checkinDate);
@@ -757,7 +797,7 @@
             			</script>
             			
             			
-            			인원
+            			인원<br>
             			<div class="dropdown fixed">
             			
             				<input type="text" class="search-query3 form-control"
