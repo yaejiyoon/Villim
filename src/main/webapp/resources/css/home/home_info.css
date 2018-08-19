@@ -95,6 +95,7 @@ body{
 	height: 80vh;
 	overflow: hidden;
 	text-align: center;
+	
 }
 
 #info-contents-photo img {
@@ -110,6 +111,7 @@ body{
 	left:60px;
 	/* transform: translate(-1000%, -220%); */
 	box-shadow: 1px 1px 1px #d6d6d6;
+	font-weight: 600;
 }
 
 #shareBT {
@@ -121,6 +123,7 @@ body{
 	right:170px;
 	/* transform: translate(1250%, -2100%); */
 	box-shadow: 1px 1px 1px #d6d6d6;
+	font-weight: 600;
 }
 
 #shareBT img {
@@ -136,6 +139,7 @@ body{
 	right:60px;
 	/* transform: translate(1370%, -2100%); */
 	box-shadow: 1px 1px 1px #d6d6d6;
+	font-weight: 600;
 }
 
 #likeBT img {
@@ -613,7 +617,8 @@ input.search-query2 {
 }
 
 
-/* Dropdown Button */
+
+/* ----------------Dropdown Button --------------*/
 .dropbtn {
     background-color: #3498DB;
     color: white;

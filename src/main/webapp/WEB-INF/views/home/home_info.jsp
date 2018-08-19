@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
 
 
 
@@ -107,7 +107,20 @@
 	});
 	
 	$(document).ready(function(){
-		$("[data-toggle=popover]").popover();
+		
+		
+		$("[data-toggle=popover]").each(function(i, obj) {
+
+			$(this).popover({
+			  html: true,
+			  content: function() {
+			    var id = $(this).attr('id')
+			    return $('#popover-content-' + id).html();
+			  }
+			});
+
+			});
+		
 	})
 	
 	
@@ -865,8 +878,20 @@
             				<span style="float: left;">청소비</span>
             				
             				<img src="<c:url value='../resources/img/question.png'/>" 
-            				data-container="body" data-toggle="popover" data-placement="top" 
-            				data-content="호스트가 청구하는  일회성 숙소 청소 비용입니다."/>
+            				data-container="body" data-toggle="popover" data-placement="top" data-html="true"
+            				class="question1" id="popCleaning"
+            				/>
+            				
+            				<div id="popover-content-popCleaning" class="hide" >
+            					<div style="float: left; width:82%; margin: 10px;">
+            						<p>호스트가 청구하는  일회성 숙소 청소 비용입니다.</p>
+            					</div>
+            					<div style="float: right; margin-top: 10px; margin-right: 10px; cursor: pointer;">
+            						<img src="<c:url value='../resources/img/delete.png'/>" style="width:10px;"
+            						class="close2" onclick="$('.question1').popover('hide').trigger('click')"/>
+            					</div>
+            				</div>
+							
 							
             				<span style="float: right;" id="cleaningfee">₩32,225</span>
             			</div>
@@ -874,8 +899,18 @@
             				<span style="float: left;">서비스 수수료</span>
             				
             				<img src="<c:url value='../resources/img/question.png'/>" 
-            				data-container="body" data-toggle="popover" data-placement="top" 
-            				data-content="수수료는 에어비앤비 플랫폼을 운영하고 연중무휴 고객 지원과 같은 다양한 서비스를 제공하는데 사용됩니다."/>
+            				data-container="body" data-toggle="popover" data-placement="top" data-html="true"
+            				class="question" id="popService"/>
+            				
+            				<div id="popover-content-popService" class="hide" >
+            					<div style="float: left; width:82%; margin: 10px;">
+            						<p>수수료는 에어비앤비 플랫폼을 운영하고 연중무휴 고객 지원과 같은 다양한 서비스를 제공하는데 사용됩니다.</p>
+            					</div>
+            					<div style="float: right; margin-top: 10px; margin-right: 10px; cursor: pointer;">
+            						<img src="<c:url value='../resources/img/delete.png'/>" style="width:10px;"
+            						class="close2" onclick="$('.question').popover('hide').trigger('click')"/>
+            					</div>
+            				</div>
             				
             				<span style="float: right;" id="servicefee">₩21,913</span>
             			</div>
