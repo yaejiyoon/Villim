@@ -78,7 +78,7 @@ body{
 
 .comment-form .form{ margin-left: 100px; }
 
-.comment-form .form .form-row{ margin-bottom: 10px; }
+.comment-form .form .form-row{ /* margin-bottom: 10px; */ }
 .comment-form .form .form-row:last-child{ margin-bottom: 0; }
 
 .comment-form .form .input{
@@ -101,8 +101,11 @@ body{
 }
 
 .comment-form .form textarea.input{
-  height: 100px;
-  padding: 15px;
+  height:14vh;
+  padding: 0px;
+  position:relative;
+  left:-25vw;
+  top:-2.5vh;
 }
 
 .comment-form .form label{
@@ -113,7 +116,7 @@ body{
 
 .comment-form .form input[type=submit]{
   background-color: #555f77;
-  border: none;
+ border: 4px solid #969696;
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
   color: #fff;
@@ -133,12 +136,12 @@ body{
 .comment-form .form .input:focus,
 .comment-form .form input[type=submit]:focus,
 .comment-form .form input[type=submit]:hover{
-  box-shadow: 0 2px 6px rgba(121, 137, 148, .55);
+
 }
 
 .comment-form .form.ng-submitted .input.ng-invalid,
 .comment-form .form .input.ng-dirty.ng-invalid{
-  box-shadow: 0 2px 6px rgba(212, 47, 47, .55) !important;
+  
 }
 
 .comment-form .form .input.disabled {
@@ -150,7 +153,8 @@ body{
 
 .comment-form,
 .comment{
-  margin-bottom: 20px;
+ /*  margin-bottom: 0vh; */
+ height:auto;
   position: relative;
   z-index: 0;
 }
@@ -161,7 +165,7 @@ body{
   border-radius: 50%;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   height: 80px;
-  left: 0;
+  left: 16;
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -170,7 +174,7 @@ body{
 
 .comment-form .comment-avatar img,
 .comment .comment-avatar img{
-  display: block;
+  /* display: block; */
   height: auto;
   width: 100%;
 }
@@ -180,7 +184,6 @@ body{
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
   margin-left: 100px;
-  min-height: 60px;
   position: relative;
   padding: 15px;
 }
@@ -204,7 +207,7 @@ body{
 .comment .comment-text{
   color: #555f77;
   font-size: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 21px;
 }
 
 .comment .comment-footer{
@@ -254,244 +257,109 @@ body{
 }
 
 
-/*  */
-body{
-  margin: 80px 0;
+* {
+  margin: 0px;
+  padding: 0px;
 }
-body  .container {
-  margin: 0 auto;
-}
-/* CHAT STYLES  */
 
-.container.ChatterContainer {
+.box1 {
+  width: 300px;
+  margin: 50px auto;
+  border: 4px solid #e2e2e2;
+  background:#e2e2e2;
   padding: 20px;
-}
-.ChatterContainer .col-md-2, .ChatterContainer .col-md-10{
-    padding:0;
-}
-
-
-.ChatterContainer{
-  background: #e5e5e5;
-  margin: 0;
-  padding: 0 10px 10px;
-  @media(max-width: 767px) {
-      max-height: 200px;
-  }
-  @media  (min-width: 768px){
-    max-height: 450px;
-  }
-
-  overflow-x:hidden;
-  max-width: 640px;
+  text-align: center;
+  font-weight: 900;
+  color: #595858;
+  font-family: arial;
+  position: relative;
 }
 
-.MessageContainer.left .OppMsg{
-/*     padding-left:0; */
-/*     margin-left:0; */
-}
-.MessageContainer.right .OppMsg{
-    padding-bottom:20px !important;
-    margin-right:0;
-}
-.OppMsg {
-  background: #fff;
-  padding: 10px;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  max-width:100%;
-}
-.OppMsg p {
-    font-size: 13px;
-    margin: 0 0 0.2rem 0;
-  margin-bottom: 1em;
-  }
-.OppMsg > .OppDate {
-    font-size: 11px;
-    color: #ccc;
-}
-.MessageContainer {
-    padding: 10px;
-    overflow: hidden;
-    display: flex;
-}
-.MessageContainer img {
-    display: block;
-    width: 100%;
-}
-.MessageContainer .avatar {
-    position: relative;
-  max-width: 60px;
-}
-.MessageContainer.left  .avatar:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border: 5px solid #FFF;
-    border-left-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-}
 
-.MessageContainer.right {
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.MessageContainer.right > .avatar:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border: 5px solid white;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
-}
+/* speech bubble 5 */
 
-.MessageContainer.right .OppMsg > .OppDate{
-    float: right;
-}
-
-.container{max-width:1170px; margin:auto;}
-img{ max-width:100%;}
-.inbox_people {
-  background: #f8f8f8 none repeat scroll 0 0;
-  float: left;
-  overflow: hidden;
-  width: 40%; border-right:1px solid #c4c4c4;
-}
-.inbox_msg {
-  border: 1px solid #c4c4c4;
-  clear: both;
-  overflow: hidden;
-}
-.top_spac{ margin: 20px 0 0;}
-
-
-.recent_heading {float: left; width:40%;}
-.srch_bar {
-  display: inline-block;
-  text-align: right;
-  width: 60%; padding:
-}
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
-
-.recent_heading h4 {
-  color: #05728f;
-  font-size: 21px;
-  margin: auto;
-}
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-.srch_bar .input-group-addon button {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  padding: 0;
-  color: #707070;
-  font-size: 18px;
-}
-.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
-
-.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-.chat_ib h5 span{ font-size:13px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
-.chat_img {
-  float: left;
-  width: 11%;
-}
-.chat_ib {
-  float: left;
-  padding: 0 0 0 15px;
-  width: 88%;
-}
-
-.chat_people{ overflow:hidden; clear:both;}
-.chat_list {
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-}
-.inbox_chat { height: 550px; overflow-y: scroll;}
-
-.active_chat{ background:#ebebeb;}
-
-.incoming_msg_img {
-  display: inline-block;
-  width: 6%;
-}
-.received_msg {
-  display: inline-block;
-  padding: 0 0 0 10px;
-  vertical-align: top;
-  width: 92%;
- }
- .received_withd_msg p {
-  background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
-  color: #646464;
-  font-size: 14px;
-  margin: 0;
-  padding: 5px 10px 5px 12px;
-  width: 100%;
-}
-.time_date {
-  color: #747474;
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
-}
-.received_withd_msg { width: 57%;}
-.mesgs {
-  float: left;
-  padding: 30px 15px 0 25px;
-  width: 60%;
-}
-
- .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
-  font-size: 14px;
-  margin: 0; color:#fff;
-  padding: 5px 10px 5px 12px;
-  width:100%;
-}
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
-.sent_msg {
-  float: right;
-  width: 46%;
-}
-.input_msg_write input {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  color: #4c4c4c;
-  font-size: 15px;
-  min-height: 48px;
-  width: 100%;
-}
-
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
-.msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  font-size: 17px;
-  height: 33px;
+.sb5:before {
+  content: "";
+  width: 0px;
+  height: 0px;
   position: absolute;
-  right: 0;
-  top: 11px;
-  width: 33px;
+  border-left: 10px solid #e2e2e2;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #e2e2e2;
+  border-bottom: 10px solid transparent;
+  right: -21px;
+  top: 6px;
 }
-.messaging { padding: 0 0 50px 0;}
-.msg_history {
-  height: 516px;
-  overflow-y: auto;
+
+.sb5:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 7px solid #e2e2e2;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #e2e2e2;
+  border-bottom: 7px solid transparent;
+  right: -11px;
+  top: 10px;
 }
+
+
+/* speech bubble 6 */
+
+.sb6:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #e2e2e2;
+  border-top: 10px solid #e2e2e2;
+  border-bottom: 10px solid transparent;
+  left: -21px;
+  top: 6px;
+}
+
+.sb6:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 7px solid transparent;
+  border-right: 7px solid #e2e2e2;
+  border-top: 7px solid #e2e2e2;
+  border-bottom: 7px solid transparent;
+  left: -11px;
+  top: 10px;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+
+.card2 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 30%;
+    height:auto;
+    margin: 0 auto;
+    position:relative;
+    left:10vw;
+    top:-125vh;
+}
+
+.container {
+    padding: 2px 16px;
+}
+
+
 </style>
+<script>
+
+
+
+</script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 <script>
 
@@ -503,8 +371,52 @@ img{ max-width:100%;}
   			
   			$('#dayCI').html(dayOfCI+"요일");
   			$('#dayCO').html(dayOfCO+"요일");
+  			
+  			
+  			
+  			$('#msgSendBt').click(function(){
+    		
+  				
+  				if(!$('#message_content').val()){
+  					
+  					$('.comments-app').prepend("<div class=\"alert alert-danger\" style=\"position:relative;width:48%;top:4.8vh;left:0.4vw;background-color:white;\"><span class=\"glyphicon glyphicon-alert\"></span><strong  style=\"border:white;background:white;\"> 메세지를 입력후 버튼을 눌러주세요</strong></div>");
+  					window.setTimeout(function() {
+  		        	    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+  		        	        $(this).remove(); 
+  		        	    });
+  		        	}, 3000);
+  		        	
+  		        	return false;
+  					
+  				}
+  				
+  	            
+  				
+  				$.ajax({
+  					type:"POST",
+  				    url:"messageSendInRoom.msg",
+  					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#host_email').val()+"&message_content="+$('#message_content').val(),
+  					success:function(resp){
+  		  					$('#message_content').val("");
+  						alert(resp.message_content);
+  					}
+  					
+  					
+  				});
+  				
+  				
+  			})
+  			
+  			
+  			
+  			
+  			
+  			
+  			
           });
 			
+          
+          
 
 </script>
 </head>
@@ -564,188 +476,80 @@ img{ max-width:100%;}
 			
 		</div>
 		
+<!--예약 확인 카드  -->
+<div class="card2">
+ 
+  <div class="container">
+    <h4><b>예약 신청을 하셨습니다.</b></h4> 
+    <p>Current Position</p>
+    <button class="btn btn-default" style="background-color:#ff5a5f;color:white;font-weight:800;border:1px solid #ff6b6b;">수락</button><button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">거절</button> 
+  </div>
+</div>
 
-		
-		<!--  -->
-		<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl">
+<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-130vh;border:1px solid blue;height:auto;">
 
-  
-  <!-- From -->
-  <div class="comment-form">
+ <input type="hidden" id="message_room_seq" value="${message_room_seq}">
+<input type="hidden" id="home_seq" value="${home_seq}">
+<input type="hidden" id="userId" value="${userId}">
+<input type="hidden" id="host_email" value="${host_email}">
+
+    <!-- From -->
+  <div class="comment-form" style="position:relative;left:0vw;">
     <!-- Comment Avatar -->
-    <div class="comment-avatar">
-      <img src="http://lorempixel.com/200/200/people">
+    <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:8vh;">
+      <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
     </div>
 
-    <form class="form" name="form" ng-submit="form.$valid && cmntCtrl.addComment()" novalidate>
+    <form class="form" name="form" >
       <div class="form-row">
-        <textarea
-                  class="input"
-                  ng-model="cmntCtrl.comment.text"
-                  placeholder="Add comment..."
-                  required></textarea>
+        <textarea id="message_content" class="input" style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
       </div>
 
    
 
 
 
-      <div class="form-row">
-        <input type="submit" value="Add Comment">
+      <div class="form-row" style="width:100%;">
+        <input id="msgSendBt" type="button" class="btn btn-default" value="메세지 보내기" style="background:white;position:relative;left:14vw;color:black;border:1px solid #605d58;font-weight:700;">
       </div>
     </form>
   </div>
+  
 
+
+  
   <!-- Comments List -->
-  <div class="comments">
+  <div class="comments" >
+<c:forEach items="${message}" var="message" >
 
-    <!-- Comment - Dummy -->
-    <div class="comment">
-      <!-- Comment Avatar -->
-      <div class="comment-avatar">
-        <img src="http://gravatar.com/avatar/412c0b0ec99008245d902e6ed0b264ee?s=80">
+ <c:if test="${message.fromID eq userId}">
+    <div class="comment" style="border:1px solid purple;height:17vh;">
+      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;">
+        <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <!-- Comment Box -->
-      <div class="comment-box">
-        <div class="comment-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto temporibus iste nostrum dolorem natus recusandae incidunt voluptatum.</div>
-        <div class="comment-footer">
-          <div class="comment-info">
-            <span class="comment-author">
-              <a href="mailto:sexar@pagelab.io">Sexar</a>
-            </span>
-            <span class="comment-date">Feb 2, 2013 11:32:04 PM</span>
-          </div>
-
-        </div>
-      </div>
+      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-7vh;">${message.message_content}</div>
+      
     </div>
-
-    <!-- Comment - Dummy -->
-    <div class="comment">
-      <!-- Comment Avatar -->
-      <div class="comment-avatar">
-        <img src="http://lorempixel.com/200/200/people">
+</c:if>
+<c:if test="${message.fromID eq host_email}">
+    <div class="comment" style="border:1px solid pink;height:17vh;">
+      <div class="comment-image"  style="width:3.7vw;height:7vh;">
+        <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
       </div>
-
-      <!-- Comment Box -->
-      <div class="comment-box">
-        <div class="comment-text">Eligendi voluptatum ducimus architecto tempore, quaerat explicabo veniam fuga corporis totam reprehenderit quasi sapiente modi tempora at perspiciatis mollitia, dolores voluptate. Cumque, corrupti?</div>
-        <div class="comment-footer">
-          <div class="comment-info">
-            <span class="comment-author">
-              <a href="mailto:ximme13@somedomain.io">Ximme</a>
-            </span>
-            <span class="comment-date">Jan 31, 1986 11:32:04 PM</span>
-          </div>
-
-        
-        </div>
-      </div>
+ 
+      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;">${message.message_content}</div>
+      
     </div>
+</c:if>
+    </c:forEach>
+    
   </div>
+  
+ 
+
 </div>
 	
-<div class="container ChatterContainer">
-    <!--  CLIENT MESSAGE     -->
-    <div class="row MessageContainer right">
-        <div class="col-md-10 col-xs-10">
-            <!--     Chat bubble         -->
-            <div class="OppMsg">
-              <p>
-                Hello,
-                I have new information regarding the case. The experts you've provied so far have been great but are lacking in cool points.
-              </p>
-                <div class="OppDate">2/2/2016 10:58 PM</div> 
-            </div>
-        </div>
-        <div class="col-md-2 col-xs-2 avatar">
-            <img src="https://res.cloudinary.com/theexpertinstitute-com/image/upload/c_thumb,h_80,w_80/v50/users/U-0118.jpg" class=" img-responsive ">
-        </div>
-    </div>
-  
-    <!--  TEI MESSAGE -->
-    <div class="row MessageContainer left">
-        <div class="col-md-2 col-xs-2 avatar">
-            <img src="https://res.cloudinary.com/theexpertinstitute-com/image/upload/c_thumb,h_80,w_80/v50/contacts/C-000794.jpg" class=" img-responsive ">
-        </div>
-        <div class="col-md-10 col-xs-10">
-            <div class="OppMsg">
-                <p>That's no Problem at all. We have tons of cool experts. Skydiving experts, Video game experts,  you name it.</p>
-              <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non est fuga aliquid inventore earum vitae, facilis dolorem! Nihil consequatur voluptate vel voluptatibus quis, temporibus ratione nulla, aliquam qui saepe consectetur. 
-                
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque doloribus veniam soluta pariatur, sint, ducimus magnam, reprehenderit nam ipsam provident dignissimos voluptate! Reprehenderit ab perferendis delectus accusantium, quibusdam mollitia suscipit.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, eos dolorem cum, consequatur, praesentium aspernatur amet, expedita temporibus asperiores impedit quasi? Possimus deleniti ut porro esse enim assumenda fuga, ipsam?
-              </p>
-                <div class="OppDate">2/2/2016 11:33 PM</div>
-            </div>
-        </div>
-    </div>
-</div>
---------------------------------------------
-
-<div class="container">
-
-<div class="messaging">
-      <div class="inbox_msg">
-
-        <div class="mesgs">
-          <div class="msg_history">
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test, which is a new approach to have</p>
-                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Apollo University, Delhi, India Test</p>
-                <span class="time_date"> 11:01 AM    |    Today</span> </div>
-            </div>
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>We work directly with our designers and suppliers,
-                    and sell direct to you, which means quality, exclusive
-                    products, at a price anyone can afford.</p>
-                  <span class="time_date"> 11:01 AM    |    Today</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="type_msg">
-            <div class="input_msg_write">
-              <input type="text" class="write_msg" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      
-  
-      
-    </div></div>
 
    <%@ include file="../../resource/include/footer.jsp" %>   
 

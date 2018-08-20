@@ -1,5 +1,6 @@
 package kh.spring.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,11 +8,13 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.dto.GuestMsgDTO;
@@ -189,31 +192,59 @@ public class MessageController {
         System.out.println("room_seq : "+message_room_seq);
 		session.setAttribute("userId", "jake@gmail.com");
 		String userId = (String) session.getAttribute("userId");
-		
+		MemberDTO guestInfo=this.m_service.getPhoto(userId);
+		mav.addObject("userId", userId);
+		mav.addObject("message_room_seq", message_room_seq);
+		mav.addObject("home_seq", home_seq);
+		mav.addObject("guest_picture", guestInfo.getMember_picture());
         mav.addObject("host_picture", member_picture);
         mav.addObject("host_name", member_name);
         HomeDTO hdto = homeService.getHomeData(home_seq);
         mav.addObject("home_location", hdto.getHome_nation()+" "+hdto.getHome_addr1()+" "+hdto.getHome_addr3());
         mav.addObject("home_price", hdto.getHome_price());
+        mav.addObject("host_email", hdto.getMember_email());
         MessageRoomDTO dto=this.service.msgRoomInfo(message_room_seq);
         String cI= "20180"+dto.getCheckIn().split("월")[0]+dto.getCheckIn().split("일")[0].split("월")[1]; String cO="20180"+dto.getCheckOut().split("월")[0]+dto.getCheckOut().split("일")[0].split("월")[1];
         String transCI="2018-"+dto.getCheckIn().split("월")[0]+"-"+dto.getCheckIn().split("일")[0].split("월")[1]; String transCO="2018-"+dto.getCheckOut().split("월")[0]+"-"+dto.getCheckOut().split("일")[0].split("월")[1];
+        System.out.println("체크인 시간 : "+cI+" 체크아웃시간: "+cO);
         mav.addObject("splitCheckIn", transCI);
         mav.addObject("splitCheckOut", transCO);
         long amount=hdto.getHome_price();
-       SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        String today= sdf.format(new Date());
+        System.out.println("오늘 날짜: "+today);
        try {
 		Date checkIn=sdf.parse(cI);
 		Date checkOut=sdf.parse(cO);
 		long diffDay=(checkOut.getTime()-checkIn.getTime())/(24*60*60*1000);
 		long totalPrice=amount*diffDay;
 		String tp=Long.toString(totalPrice);
+		System.out.println(diffDay+"박");
+
 		mav.addObject("totalPrice", tp);
 		mav.addObject("diffDay", diffDay);
 	} catch (ParseException e) {
 		e.printStackTrace();
 	} 
-       mav.addObject("msgRoom", dto);
+       
+       
+		List<MessageDTO> message=this.service.getMessage(message_room_seq);
+		for(MessageDTO tmp:message) {
+			
+			if(today.equals(tmp.getMessage_time().substring(0, 13))){
+				tmp.setMessage_time(tmp.getMessage_time().substring(14, 15).split("분")[0]);
+			}else {
+				tmp.setMessage_time(tmp.getMessage_time().substring(7,15));
+			}
+		}
+		
+		mav.addObject("message", message);
+		for(MessageDTO tmp:message) {
+			System.out.println(tmp.getMessage_content()+" / "+tmp.getMessage_time());
+		}
+		
+       
+        mav.addObject("msgRoom", dto);
         mav.addObject("messageRoomInfo", dto);
         
 		
@@ -223,6 +254,41 @@ public class MessageController {
 		mav.setViewName("/message/messageRoom");
 		return mav;
 
+	}
+	
+	@RequestMapping("/messageSendInRoom.msg")
+	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response) {
+		System.out.println("messageSendInRoom");
+		System.out.println("메세지내용 : "+dto.getMessage_content());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        String today= sdf.format(new Date());
+        System.out.println("오늘 날짜: "+today);
+        
+		int messageInsertResult=this.service.messageInsert(dto);
+		System.out.println("시퀸스 : "+messageInsertResult);
+		int message_seq=messageInsertResult;
+		MessageDTO message=this.service.getOneMessage(message_seq);
+		
+		System.out.println("시간 자르기 : "+message.getMessage_time().substring(0, 13));
+			if(today.equals(message.getMessage_time().substring(0, 13))){
+				message.setMessage_time(message.getMessage_time().substring(14, 15).split("분")[0]+"분");
+				System.out.println("message시간 : "+message.getMessage_time());
+			}else {
+				message.setMessage_time(message.getMessage_time().substring(7,15));
+				System.out.println("message시간 : "+message.getMessage_time());
+			}
+		
+		
+		
+			System.out.println(message.getMessage_content()+" / "+message.getMessage_time());
+			
+			try {
+				response.getWriter().print(message);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
 	}
 
 }
