@@ -78,6 +78,59 @@
 		width:550px;
 		height:50px;
 	}
+	
+	/* 로그인 */
+	#myModal1 .modal-body{
+		height:80vh;
+	} 
+	#mheader1{
+		border-bottom-width:0px;
+	}
+	#tologin{
+	margin-top: 5%;
+	}
+	#mfooter1{
+		border-top-width:0px;
+	}
+	#facebookLogin{
+		width:90%;
+		padding:3%;
+		margin-top:7%;
+		margin-bottom: 5%;
+	
+	}
+	#kakaoLogin{
+	
+		width:90%;
+		padding:3%;
+		margin-top:1%;
+		margin-bottom: 5%;
+	}
+	#googleLogin{
+		width:90%;
+		padding:3%;
+		margin-top:1%;
+		margin-bottom: 5%;
+	
+	}
+	#loginEmail{
+		width:60%;
+		padding:3%;
+		margin-top:2%;
+		margin-bottom: 5%;
+	
+	}
+	#loginPw{
+		width:60%;
+		padding:3%;
+		margin-top:2%;
+		margin-bottom: 5%;
+	}
+	#loginBt{
+	width:60%
+	
+	}
+	
 
 </style>
 
@@ -164,14 +217,25 @@
 		    $("#fbNameBtn").val(response.name);
     		$("#fbIdBtn").val(response.id);
     		$("#fbImgBtn").val(response.picture.data.url);
+    		$("#facebookSignup").val("signup");
 		    var member_email = $("#fbEmailBtn").val();
 		    
 		    
-		    var popupX =(window.screen.width/2) - (500 / 2);
-	    	 var popupY= (window.screen.height/2) - (500 / 2);
-			 var fbchild = window.open('fbInfo.do?member_email='+member_email, 'fbview', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+			//새창의 크기
+     		var cw=500;
+     		var ch=550;
+
+     		//스크린의 크기
+     		var sw=screen.availWidth;
+     		var sh=screen.availHeight;
+
+     		//열 창의 포지션
+     		var px=(sw-cw)/2;
+     		var py=(sh-ch)/2;
+     		
+			 var fbchild = window.open('fbInfo.do?member_email='+member_email, 'fbview', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
 		  	  var fbform = document.fbForm;
-		 
+		  	
 /*         		fbform.action = "fbInfo.do";
         		fbform.target = "fbview";
         		fbform.method = "post";
@@ -262,10 +326,19 @@
 		  FB.api('/me',  {fields: 'email,name,picture'},function(response) {
 		    console.log('Successful login for: ' + response.name +":" + response.email);
 		    alert(JSON.stringify(response));
-		    var popupX =(window.screen.width/2) - (500 / 2);
-	    	 var popupY= (window.screen.height/2) - (500 / 2);
+			//새창의 크기
+     		var cw=500;
+     		var ch=550;
+
+     		//스크린의 크기
+     		var sw=screen.availWidth;
+     		var sh=screen.availHeight;
+
+     		//열 창의 포지션
+     		var px=(sw-cw)/2;
+     		var py=(sh-ch)/2;
 			 
-	    
+     		
 			$("#loginFbEmail").val(response.email);
 	        $("#loginFbId").val(response.id);
 			$('#fbLoginForm').submit();
@@ -305,18 +378,28 @@ function signupWithKakao() {
                  alert(res.properties.profile_image);
                  
                  
-                var popupX =(window.screen.width/2) - (500 / 2);
-         		var popupY= (window.screen.height/2) - (500 / 2);
+             	//새창의 크기
+         		var cw=500;
+         		var ch=550;
+
+         		//스크린의 크기
+         		var sw=screen.availWidth;
+         		var sh=screen.availHeight;
+
+         		//열 창의 포지션
+         		var px=(sw-cw)/2;
+         		var py=(sh-ch)/2;
          		
          		$("#kakaoEmailBtn").val(res.kaccount_email);
          		$("#kakaoNicknameBtn").val(res.properties.nickname);
          		$("#kakaoIdBtn").val(res.id);
          		$("#kakaoImgBtn").val(res.properties.profile_image);
+         		$("#kakaoSignup").val("signup");
      		    var member_email = $("#kakaoEmailBtn").val();
          		
          		var kakaoform = document.kakaoForm;
          		alert($("#kakaoEmailBtn").val(res.kaccount_email));
-         		var kakaochild = window.open('kakaoInfo.do?member_email='+member_email, 'kakaoview', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+         		var kakaochild = window.open('kakaoInfo.do?member_email='+member_email, 'kakaoview', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
         		
          		$("#myModal").modal('hide'); 
 /*          		kakaochild.onload = function(){ 
@@ -352,8 +435,17 @@ function loginWithKakao() {
 	                 alert(res.properties.profile_image);
 	                 
 	                 
-	                var popupX =(window.screen.width/2) - (500 / 2);
-	         		var popupY= (window.screen.height/2) - (500 / 2);
+	             	//새창의 크기
+	         		var cw=500;
+	         		var ch=550;
+
+	         		//스크린의 크기
+	         		var sw=screen.availWidth;
+	         		var sh=screen.availHeight;
+
+	         		//열 창의 포지션
+	         		var px=(sw-cw)/2;
+	         		var py=(sh-ch)/2;
 	         		
 	         		$("#loginkakaoEmail").val(res.kaccount_email);
 	         		$("#loginkakaoId").val(res.id);
@@ -378,32 +470,22 @@ function loginWithKakao() {
 /* google */
 function signupWithGoogle(){
 		var google_url = '${sessionScope.googleUrl}';
-		/* location.href ='${google_url}'; */
-		/* var google_url = '${google_url}'
-		location.href = google_url; */
-		var popupX =(window.screen.width/2) - (500 / 2);
-		var popupY= (window.screen.height/2) - (500 / 2);
+
+		//새창의 크기
+		var cw=500;
+		var ch=550;
+
+		//스크린의 크기
+		var sw=screen.availWidth;
+		var sh=screen.availHeight;
+
+		//열 창의 포지션
+		var px=(sw-cw)/2;
+		var py=(sh-ch)/2;
 		
-		
-		
-	 	
-		var googlechild = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
-	
-	 	
-	 	$("#myModal").modal('hide'); 
-		/* child.close(); */
- 		
-/* 		child.onload = function(){ 
-			 child.close();
-			 $(location).attr("href","/");
-		}   */
-		
-		/* alert(login);
-		if(login == "login"){  */
-			
-		/* http://jobdahan.net/scriptstudy/1498310 */
-			
-		
+		$("#myModal").modal('hide');
+		/* $("#googleSignup").val("signup"); */
+		window.open(google_url, '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
 		
 	}
 		
@@ -411,29 +493,20 @@ function signupWithGoogle(){
 function loginWithGoogle(){
 		var google_url = '${sessionScope.googleUrl}';
 		
-		var popupX =(window.screen.width/2) - (500 / 2);
-		var popupY= (window.screen.height/2) - (500 / 2);
-		var child = window.open(google_url, '', 'status=no, height=500, width=500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
+		//새창의 크기
+		var cw=500;
+		var ch=550;
 
-		$("#myModal").modal('hide'); 
-	
+		//스크린의 크기
+		var sw=screen.availWidth;
+		var sh=screen.availHeight;
+
+		//열 창의 포지션
+		var px=(sw-cw)/2;
+		var py=(sh-ch)/2;
 		
- 		child.onload = function(){ 
-			 child.close();
-			 $(location).attr("href","/");
-		}  
- 		 
- 			/* opener.location("/"); */
- 			
- /* 			$(location).attr("href","/"); */
-		 
-		 
-		
-	/* 	setEventHandler(child, 'load', function() { */
-			/* child.close(); */
-			/* $(location).attr("href","/"); */
-		/* 	opener.location("/"); */
-		/* }); */
+		$("#myModal").modal('hide');
+		window.open(google_url, '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
 		
 	}
 
@@ -480,6 +553,8 @@ function loginWithEmail(){
       <input type="hidden" id=fbNameBtn name="member_name">
       <input type="hidden" id=fbImgBtn name="member_picture">
       <input type="hidden" id=fbIdBtn name="member_pw">
+      <input type="hidden" id=facebookSignup value="">
+      
       <!-- </form> -->
       
       <button type="button" class="btn btn-warning" onclick="signupWithKakao();" id="kakao">
@@ -487,18 +562,20 @@ function loginWithEmail(){
       	<font> 카카오 계정으로 회원가입</font>
       </button><br>
       
+      
       <form action="" method="post" id="kakaoForm" name="kakaoForm">
       <input type="hidden" id=kakaoEmailBtn name="member_email">
       <input type="hidden" id=kakaoNicknameBtn name="member_name">
       <input type="hidden" id=kakaoImgBtn name="member_picture">
       <input type="hidden" id=kakaoIdBtn name="member_pw">
+      <input type="hidden" id="kakaoSignup" value="">
       </form>
   
       <button type="button" class="btn btn-default" onclick="signupWithGoogle();" id="google">
       	<i class="fab fa-google fa-2x" style="color:red"></i>
       	<font> 구글 계정으로 회원가입</font>
       </button><br>
-      <input type="hidden" id="googleSignup" value="signup">
+      <input type="hidden" id="googleSignup" value="">
     
       
       <img src="<c:url value='/resources/img/signup/underline5.png'/>" id="underline">
@@ -524,9 +601,9 @@ function loginWithEmail(){
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header" id="mheader">
+      <div class="modal-header" id="mheader1">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="tologin">
       </div>
       
       <div class="modal-body">
@@ -561,22 +638,22 @@ function loginWithEmail(){
       	<i class="fab fa-google fa-2x" style="color:red"></i>
       	<font> 구글 계정으로 로그인</font>
       </button><br>
-      <span class="_1xktqfm"><span class="_1cd6lfn9"><span>또는</span></span></span><br>
-      <!-- <div id="status"></div> -->
+      <img src="<c:url value='/resources/img/signup/underline5.png'/>" id="underline">
+    
       
      <form action="login.do" method="post">
-  		<div class="form-group">   	
+  			
     	<input name="member_email" type="email" class="form-control" id="loginEmail" placeholder="이메일을 입력하세요">
- 	 	</div>
- 	    <div class="form-group"> 	 
+ 	 	
+ 	    
    		<input name="member_pw" type="password" class="form-control" id="loginPw" placeholder="암호">
- 	    </div>
+ 	    
  
-  		<button type="submit" class="btn btn-danger">로그인</button>
+  		<button type="submit" class="btn btn-danger" id="loginBt">로그인</button>
 	 </form>
       	
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="mfooter">
       <!--   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
        <font>계정이 없으신가요?</font><a href="#"><font>회원가입</font></a>
        

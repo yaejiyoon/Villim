@@ -89,15 +89,11 @@ public class MainController {
 		  System.out.println("메롱2");
 		  PlusOperations plusOperations = google.plusOperations();
 		  Person profile = plusOperations.getGoogleProfile();
-		  System.out.println("메롱3");
 		  System.out.println(profile.getAccountEmail());
-		  dto.setMember_email(profile.getAccountEmail());
-		  System.out.println("메롱4");
-		  dto.setMember_pw(profile.getId());
-		  System.out.println("메롱5");
-		  String picture = service.isMember(dto);
-		  System.out.println("메롱6");
-		  System.out.println(request.getParameter("googleTypeSignup"));
+		  dto.setMember_email(profile.getAccountEmail());	  
+		  String picture = service.isSnsMember(dto);
+		  System.out.println(picture);
+
 		  if(!(picture.equals(""))) {
 			  
 			  		String login = "login";
@@ -115,7 +111,6 @@ public class MainController {
 			  //로그인 실패하면 가입페이지로 보내
 			  //가입하지 않으셨나요?
 			  mav.addObject("accountEmail", profile.getAccountEmail());
-			  mav.addObject("googlePw", profile.getId());
 			  mav.addObject("firstName", profile.getFamilyName());
 			  mav.addObject("secondName", profile.getGivenName());
 			  mav.addObject("picture", profile.getImageUrl());

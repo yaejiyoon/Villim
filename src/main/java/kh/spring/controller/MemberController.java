@@ -467,7 +467,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(dto.getMember_email());
 		System.out.println(dto.getMember_pw());
-		String picture = service.isMember(dto);
+		String picture = service.isSnsMember(dto);
 		System.out.println(picture);
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
@@ -486,7 +486,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 		
 	}
 	

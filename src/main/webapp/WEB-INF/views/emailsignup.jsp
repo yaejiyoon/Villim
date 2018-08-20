@@ -655,11 +655,11 @@ padding-top:3%;
 		</div>
 		<!-- <form action="info.do" method="post"> -->
 		<div id="middle">
-		<div>
+		
 		 <input type="text" name="secondName" class="form-control"
 					placeholder="이름을 입력하세요" aria-describedby="basic-addon2"
 					value=""  id="secondNm"><i class="far fa-user fa-2x" id="secondIcon"></i>
-		</div>		
+			
 			
 			
 		 <input type="text" name="firstName" class="form-control"
@@ -739,11 +739,7 @@ padding-top:3%;
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" id="mheader">
-<!-- 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button> -->
-					
+	
 				</div>
 				<div class="modal-body">
 					<div id="agreeWapper">
@@ -826,11 +822,7 @@ padding-top:3%;
 		
 			<div class="modal-content">
 				<div class="modal-header" id="mheader1">
-<!-- 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4> -->
+ 				
 				</div>
 				<div class="modal-body">
 						<img src="resources/images/1.jpg" alt="" style="width: 100%; height:100%;">

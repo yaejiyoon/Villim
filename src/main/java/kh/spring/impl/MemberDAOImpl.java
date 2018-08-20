@@ -32,9 +32,9 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int signup(MemberDTO dto) {
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,'N',sysdate,'null',?)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,'N',sysdate,'null',?,?)";
 		return jdbcTemplate.update(sql, dto.getMember_email(), dto.getMember_name(), dto.getMember_pw(),
-				dto.getMember_birth(), dto.getMember_picture(), dto.getMember_phone());
+				dto.getMember_birth(), dto.getMember_picture(), dto.getMember_phone(),dto.getMember_type());
 	}
 
 	@Override

@@ -43,7 +43,10 @@
 </head>
 <body>
 	<script>
-	if($('#googleSignup',opener.document).val() != 'signup'){
+	alert($('#googleSignup',opener.document).val());
+	alert($('#kakaoSignup',opener.document).val());
+	alert($('#facebookSignup',opener.document).val());
+	if($('#googleSignup',opener.document).val() != 'signup' &&   $('#kakaoSignup',opener.document).val() != 'signup'  && $('#facebookSignup',opener.document).val() != 'signup'){
 		self.close();  
 		window.opener.location.href="fbInfo2.do";
 	}
