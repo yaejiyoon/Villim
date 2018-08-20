@@ -97,8 +97,8 @@ $(document).ready(function() {
 
 
 <div id="select-dropdown" class="closed" >
-    <div id="select-default" class="select default">모든 여행 메세지 (몇개) </div>
-    <div class="select option" data-id="hexpound">모든 여행 메세지 (몇개)</div>
+    <div id="select-default" class="select default">모든 여행 메세지 ( ${guestMsgAllCount}개 ) </div>
+    <div class="select option" data-id="hexpound">모든 여행 메세지 ( ${guestMsgAllCount}개 )</div>
     <div class="select option" data-id="hexclean">읽지 않음 (몇개)</div>
 
 		</div>
@@ -117,18 +117,25 @@ $(document).ready(function() {
 						</li>
 						
 					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab_default_1">
+					<div class="tab-content" >
+						<div class="tab-pane active" id="tab_default_1" style="height:auto;">
+						<c:forEach items="${guestMessage}" var="message" varStatus="i">
 						
-						<div style="position:relative;height:10vh;border:1px solid yellow">
-							<img style="position:relative;left:1vw;top:1.3vh;width:7vh;height:7vh;" src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm" class="img-circle">
+						
+						<div style="position:relative;height:10vh;">
+							<c:forEach items="${memberInfo}"  var="member">
+							<c:if test="${member.member_email eq message.host_email}">
+							<img style="position:relative;left:1vw;top:1.3vh;width:7vh;height:7vh;" src="files/${member.member_picture}" class="img-circle">
 							
-							<h5 style="position:relative; left:6vw;top:-5vh;">Sarah Son</h5>
-							<h5 style="position:relative; left:6vw;top:-5vh;">08월 22일</h5>
+							<h5 style="position:relative; left:6vw;top:-6.3vh;">${member.member_name}</h5>
+							<h5 style="position:relative; left:6vw;top:-6.3vh;">${message.message_time}</h5>
 							
-							<h5 style="position:relative;left:14.5vw;top:-10.4vh;color:gray;">문의좀 드릴게요 여기서 35박 할 수 있을까요?</h5>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}" style="position:relative;left:17.5vw;top:-13.3vh;color:gray;text-decoration:none;">${message.message_content}</a><br>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}" style="position:relative;left:17.5vw;top:-13.3vh;color:gray;text-decoration:none;">${member.member_location} &nbsp;(${message.checkIn} - ${message.checkOut})</a></c:if></c:forEach>
 							
-							</div>
+							<h5 style="position:relative; left:40vw;top:-18.5vh;color:#f9c945;font-weight:800;">문의</h5>
+							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if></c:forEach>
+							
 						</div>
 						<div class="tab-pane" id="tab_default_2">
 							여기다 호슽팅 관련된 내가 쓴 거 나타내기
