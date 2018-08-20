@@ -43,89 +43,106 @@ $(function () {
 <script>
 var map, infoWindow;
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-	  center: {lat: -34.397, lng: 150.644},
-      zoom: 17
-  });
-  infoWindow = new google.maps.InfoWindow;
-
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        	lat: position.coords.latitude,
-        	lng: position.coords.longitude
-      };
-
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('내 위치입니다.');
-      infoWindow.open(map);
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
-  
-  var marker = new google.maps.Marker({
-	    position: pos,
-	    map: map,
-	    title: '130,550원'
-	  });
-  
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  infoWindow.open(map);
-}
-
-
-$(document).ready(function() {
-	$("#map").mouseup(function() {
-		// 남서쪽의 좌표
-		var swLatLng = map.getBounds().getSouthWest();
-		// 북동쪽의 좌표
-		var neLatLng = map.getBounds().getNorthEast(); 
+	var lat = -34.397;
+	var lng = 150.644;
+	
+	
+	<c:if test="${lat eq null}">
+		map = new google.maps.Map(document.getElementById('map'), {
+	 		center: {lat: lat, lng: lng},
+     		zoom: 17
+  		});
+	
+ 		infoWindow = new google.maps.InfoWindow;
+ 		
+	 	//   Try HTML5 geolocation.
+	 		if (navigator.geolocation) {
+	 		navigator.geolocation.getCurrentPosition(function(position) {
+	 	    
+	 	      var pos = {
+	 	        	lat: position.coords.latitude,
+	 	        	lng: position.coords.longitude
+	 	      };
+	
+	 	      infoWindow.setPosition(pos);
+	 	      infoWindow.setContent('검색한 위치입니다. ');
+	 	      infoWindow.open(map);
+	 	      map.setCenter(pos);
+	 	    }, function() {
+	 	      handleLocationError(true, infoWindow, map.getCenter());
+	 	    });
+	 	  } else {
+	 	    // Browser doesn't support Geolocation
+	 	    handleLocationError(false, infoWindow, map.getCenter());
+	 	  }
+	
+	
+	 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	 	  infoWindow.setPosition(pos);
+	 	  infoWindow.setContent(browserHasGeolocation ?
+	 	                        'Error: The Geolocation service failed.' :
+	 	                        'Error: Your browser doesn\'t support geolocation.');
+	 	  infoWindow.open(map);
+	 	}
+	</c:if>
+	
+	<c:if test="${lat ne null}">
+		lat = ${lat};
+		lng = ${lng};
+	
+		map = new google.maps.Map(document.getElementById('map'), {
+		 	center: {lat: lat, lng: lng},
+	     	zoom: 17
+		});
+		infoWindow = new google.maps.InfoWindow;
+	</c:if>
+	
+	var locations=[['399.999원',37.534087 ,126.896957],
+    		['40,000원',37.534240, 126.901989]];
+		for (var i = 0; i < locations.length; i++) {
+		 marker = new google.maps.Marker({
+		     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+		     map: map
+		 });
+		google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+		    return function() {
+		      infoWindow.setContent(locations[i][0]);
+		      infoWindow.open(map, marker);
+		    }
+		})(marker, i));
 		
-		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
-	});
-})
+		google.maps.event.addListener(marker, 'mouseout', (function(marker, i) {
+		    return function() {
+		      infoWindow.close();
+		    }
+		})(marker, i));
+		}
+		
+
+
+	
+	
+	
+}
+	
+
+// $(document).ready(function() {
+// 	$("#map").mouseup(function() {
+// 		// 남서쪽의 좌표
+// 		var swLatLng = map.getBounds().getSouthWest();
+// 		// 북동쪽의 좌표
+// 		var neLatLng = map.getBounds().getNorthEast(); 
+		
+// 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+// 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+// 	});
+// })
 
 
 </script>
 <script>
 $(document).ready(function() {
-	$('body').delegate('.submit','click',function(){
-        var chkval = 1;
-        $('#myonoffswitch').prop('checked', true);
-        var on = document.getElementById('mapOnDiv');
-        var off = document.getElementById('mapOffDiv');
-   $.ajax({
-       url: "homeMain.do",
-       type: "get",
-       data:{chkval:chkval},
-
-       
-       success:function(returndata){
-			on.style.display = 'block';    
-			off.style.display = 'none';
-	   },error:function(errordata){
-			alert("에러에러");
-       }
-     });
-   });  
-})
-
-
-$(document).ready(function(){
-	  $('body').delegate('#myonoffswitch','click',function(){
+		$('body').delegate('#myonoffswitch','click',function(){
 	        var chkval = 0
 	          if($('#myonoffswitch').is(':checked')){
 	            chkval  = 1;
@@ -154,7 +171,38 @@ $(document).ready(function(){
 	       }
 	     });
 	   });  
-});
+	
+	
+	<c:if test="${mapOn!=null}">
+	   $('#myonoffswitch').prop('checked', true);
+	   var on = document.getElementById('mapOnDiv');
+	   var off = document.getElementById('mapOffDiv');
+	   on.style.display = 'block';
+	   off.style.display = 'none';
+	</c:if>
+
+	$('body').delegate('.submit','click',function(){
+        var chkval = 1;
+        $('#myonoffswitch').prop('checked', true);
+        var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
+    $.ajax({
+       url: "homeMain.do",
+       type: "get",
+       data:{chkval:chkval},
+
+       
+       success:function(returndata){
+			on.style.display = 'block';    
+			off.style.display = 'none';
+	   },error:function(errordata){
+			alert("에러에러");
+       }
+     });
+   });  
+})
+
+
 </script>
 
 <style>
