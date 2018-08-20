@@ -70,6 +70,16 @@ public class MessageServiceImpl implements MessageService{
 		return dao.msgRoomInfo(message_room_seq);
 	}
 
+	@Override
+	public List<MessageDTO> getMessage(int message_room_seq) {
+		return dao.getMessage(message_room_seq);
+	}
+
+	@Override
+	public MessageDTO getOneMessage(int message_seq) {
+		return dao.getOneMessage(message_seq);
+	}
+
 	
 	
 	
