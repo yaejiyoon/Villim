@@ -90,8 +90,13 @@
 	margin-top: 5%;
 	}
 	#mfooter1{
-		border-top-width:0px;
+		border-top-width:1px;
 	}
+	#mfooter1 h4{
+		display:inline;
+		margin-right:25%;
+	}
+
 	#facebookLogin{
 		width:90%;
 		padding:3%;
@@ -114,21 +119,43 @@
 	
 	}
 	#loginEmail{
-		width:60%;
-		padding:3%;
+		width:90%;
+		padding-bottom:5%;
+		padding-top:5%;
 		margin-top:2%;
 		margin-bottom: 5%;
+		margin-left:5%;
 	
 	}
 	#loginPw{
-		width:60%;
-		padding:3%;
+		width:90%;
+		padding-bottom:5%;
+		padding-top:5%;
 		margin-top:2%;
-		margin-bottom: 5%;
+		margin-bottom: 1%;
+		margin-left:5%;
+	}
+	#findPw{
+		margin-left:50%;
 	}
 	#loginBt{
-	width:60%
+	width:90%;
+	margin-top: 6%;
+	padding-bottom:3%;
+	padding-top:3%;
 	
+	}
+	#loginEmailIcon{
+	position:absolute;
+	left:86%;
+	top:61%;
+	color:silver;
+	}
+	#loginPwIcon{
+	position:absolute;
+	left:86%;
+	top:73%;
+	color:gold;
 	}
 	
 
@@ -349,6 +376,11 @@
 		 
 		}; 
 		});
+		$("#moveSignup").click(function(){
+			$("#myModal1").modal('hide');
+			$("#myModal").modal('show');
+		})
+		
 	})
 
 </script>
@@ -484,7 +516,7 @@ function signupWithGoogle(){
 		var py=(sh-ch)/2;
 		
 		$("#myModal").modal('hide');
-		/* $("#googleSignup").val("signup"); */
+		$("#googleSignup").val("signup");
 		window.open(google_url, '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
 		
 	}
@@ -643,20 +675,21 @@ function loginWithEmail(){
       
      <form action="login.do" method="post">
   			
-    	<input name="member_email" type="email" class="form-control" id="loginEmail" placeholder="이메일을 입력하세요">
+    	<input name="member_email" type="email" class="form-control" id="loginEmail" placeholder="이메일을 입력하세요"><i class="fas fa-envelope fa-2x" id="loginEmailIcon"></i>
  	 	
  	    
-   		<input name="member_pw" type="password" class="form-control" id="loginPw" placeholder="암호">
+   		<input name="member_pw" type="password" class="form-control" id="loginPw" placeholder="암호"><i class="fas fa-key fa-2x" id="loginPwIcon"></i>
  	    
+ 	    <strong><a href="#" id="findPw">비밀번호가 생각나지 않으세요?</a></strong>
  
   		<button type="submit" class="btn btn-danger" id="loginBt">로그인</button>
 	 </form>
       	
       </div>
-      <div class="modal-footer" id="mfooter">
-      <!--   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-       <font>계정이 없으신가요?</font><a href="#"><font>회원가입</font></a>
-       
+      <div class="modal-footer" id="mfooter1">
+     	<div>
+       <h4>Villim 계정이 없으신가요?<strong><a href="#" id="moveSignup"><font>회원가입</font></a></strong></h4>
+       </div>
       </div>
     </div>
   </div>
