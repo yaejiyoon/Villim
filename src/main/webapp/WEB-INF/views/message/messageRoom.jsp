@@ -397,12 +397,13 @@ body{
   				    url:"messageSendInRoom.msg",
   					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#host_email').val()+"&message_content="+$('#message_content').val(),
   					success:function(resp){
-  		  					$('#message_content').val("");
   						alert(resp.message_content);
   					}
   					
   					
   				});
+  				
+  				$('#message_content').val("");
   				
   				
   			})
