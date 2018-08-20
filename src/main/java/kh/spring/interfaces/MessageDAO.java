@@ -1,6 +1,11 @@
 package kh.spring.interfaces;
 
+import java.util.List;
+import java.util.Map;
+
+import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
 
@@ -16,4 +21,12 @@ public interface MessageDAO {
 	public int getRoomSeq();
 
 	public int messageRoomInsert(MessageRoomDTO roomdto);
+	
+	public List<GuestMsgDTO> guestMessageMain(String userId);
+	
+	public int guestMsgAllCount(String userId);
+	
+	public List<MemberDTO> memberInfo(List<String> hostId);
+	
+	public MessageRoomDTO msgRoomInfo(int message_room_seq);
 }

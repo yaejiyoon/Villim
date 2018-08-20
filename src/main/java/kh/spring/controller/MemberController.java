@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -147,42 +148,77 @@ public class MemberController {
 	// 사진 업로드 ajax
 	@RequestMapping("upload.do")
 	@ResponseBody
-	public void upload(MultipartHttpServletRequest request, HttpServletResponse response) {
+	public void upload(HttpServletRequest request,HttpServletResponse response) {
+		
+		
+//		String path = "C:\\Users\\jang6\\spring\\sworkspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Villim\\files\\";
+//		System.out.println(request.getParameter("formData"));
+//		
+//		System.out.println(request.getParameter("Data"));
+//		System.out.println(request.getParameter("upload"));
+//		System.out.println(request.getFileNames());
+//		
+//	      File f = new File(path);
+//	      if (!f.exists()) {
+//	         f.mkdir();
+//	      }
+//	      
+//	      Iterator<String> files = request.getFileNames();
+//	      while(files.hasNext()) {
+//	    	  String uploadFile = files.next();
+//	    	  MultipartFile mFile = request.getFile(uploadFile);
+//	    	  System.out.println(mFile.getName());
+//	    	  System.out.println(mFile.getOriginalFilename());
+//	    	  String fileName = mFile.getOriginalFilename();
+//	    	  System.out.println("실제 파일 이름" + fileName);
+//	    	 try {
+//	    	    mFile.transferTo(new File(path + fileName));
+//	    	    String fullPath = path + fileName;
+//	    	  	response.setCharacterEncoding("utf8");
+//	  			response.setContentType("application/json");
+//	  			new Gson().toJson(fileName, response.getWriter());
+//	    	 }catch(Exception e) {
+//	    		 e.printStackTrace();
+//	    	 }
+//	    	 }
 
-		String path = "C:\\Users\\jang6\\spring\\sworkspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Villim\\files\\";
-		System.out.println(request.getParameter("formData"));
+	      String realPath = request.getSession().getServletContext().getRealPath("/files/");
+	      System.out.println(realPath);
 
-		System.out.println(request.getParameter("Data"));
-		System.out.println(request.getParameter("upload"));
-		System.out.println(request.getFileNames());
+	      File f = new File(realPath);
+	      if (!f.exists()) {
+	         f.mkdir();
+	      }
 
-		File f = new File(path);
-		if (!f.exists()) {
-			f.mkdir();
-		}
+	      int maxSize = 1024 * 1024 * 100;
+	      String enc = "UTF-8";
 
-		Iterator<String> files = request.getFileNames();
-		while (files.hasNext()) {
-			String uploadFile = files.next();
-			MultipartFile mFile = request.getFile(uploadFile);
-			System.out.println(mFile.getName());
-			System.out.println(mFile.getOriginalFilename());
-			String fileName = mFile.getOriginalFilename();
-			System.out.println("실제 파일 이름" + fileName);
-			try {
-				mFile.transferTo(new File(path + fileName));
-				String fullPath = path + fileName;
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-				new Gson().toJson(fileName, response.getWriter());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	      int addHomePicResult = 0;
+	      int addHomeResult = 0;
+	      try {
+	      MultipartRequest mr = new MultipartRequest(request, realPath, maxSize, enc, new DefaultFileRenamePolicy());
+	      Enumeration<String> names = mr.getFileNames();
 
-	}
+	      String filename = null;
 
-	// 폰 인증 번호 발송
+	      if (names != null) {
+	         String paramName = names.nextElement();
+	         String systemName = mr.getFilesystemName(paramName);
+	         filename = systemName;
+
+	         System.out.println("5 : " + systemName + " : ");
+	      }
+	      
+	      response.setContentType("application/json");
+	      response.setCharacterEncoding("UTF-8");
+	      
+	      new Gson().toJson(filename, response.getWriter());
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }
+
+}
+	// 폰 인증 번호 발송 
 	@RequestMapping("phoneCheck.do")
 	public void phoneCheck(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -238,43 +274,81 @@ public class MemberController {
 
 	// 전송된 인증키 확인 하여 회원가입 성공페이지 이동
 	@RequestMapping("isAuthKey.do")
-	public String isAuthKey(HttpServletRequest request, HttpServletResponse response, MemberDTO dto,
-			HttpSession session) {
+	@ResponseBody
+	public void isAuthKey(HttpServletRequest request, HttpServletResponse response,MemberDTO dto, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
 
 		String sessionKey = session.getAttribute("authKey").toString();
 		String authNum = request.getParameter("authNum");
-		if (sessionKey.equals(authNum)) {
+		String memberEmail = request.getParameter("member_email");
+		String memberPw = request.getParameter("member_pw");
+		String memberPicture = request.getParameter("member_picture");
+		String memberBirth = request.getParameter("member_birth");
+		String memberPhone = request.getParameter("member_phone");
+		String memberName = request.getParameter("member_name");
+		
+		dto.setMember_email(memberEmail);
+		dto.setMember_picture(memberPicture);
+		dto.setMember_phone(memberPhone);
+		dto.setMember_pw(memberPw);
+		dto.setMember_name(memberName);
+		dto.setMember_birth(memberBirth);
+		
+		
+		if(sessionKey.equals(authNum)) {
+		
+		System.out.println("이메일" + memberEmail);
+		System.out.println("이름" + memberName);
+		System.out.println("생일" + memberBirth);
+		System.out.println("프로필" + memberPicture);
+		System.out.println("핸드폰" + memberPhone);
+		
 
-			System.out.println("이메일" + dto.getMember_email());
-			System.out.println("이름" + dto.getMember_name());
-			System.out.println("생일" + dto.getMember_birth());
-			System.out.println("프로필" + dto.getMember_picture());
-			System.out.println("핸드폰" + dto.getMember_phone());
-
-			int result = service.signup(dto);
-
-			if (result > 0) {
-				System.out.println("회원가입 성공");
-
-				// mav.setViewName("successsignup");
-				return "redirect:successsignup.do";
-
-			} else {
-				System.out.println("회원가입 실패");
-				mav.setViewName("회원싶패 페이지");
-				return "";
+		int result = service.signup(dto);
+		
+		if(result > 0) {
+			System.out.println("회원가입 성공");
+			String msg = "성공";
+			
+			response.setCharacterEncoding("utf8");
+			response.setContentType("application/json");
+			try {
+			new Gson().toJson(msg, response.getWriter());
+			}catch(Exception e) {
+				e.printStackTrace();
 			}
-
-		} else {
+//			mav.setViewName("successsignup");
+//			return "redirect:successsignup.do";
+			
+											
+		}else {
+			System.out.println("회원가입 실패");
+			mav.setViewName("회원싶패 페이지");
+			
+		}
+		
+		}
+		else {
 			System.out.println("인증번호 맞지 않는다");
 			mav.setViewName("회원싶패 페이지");
-			return "";
+
 		}
 
 	}
-
+	//회원가입 성공시 
+	@RequestMapping("successsignup.do")
+	public String successSignup() {	
+		
+		return "redirect:successsignup1.do";
+	}
+	//성공 페이지로 이동(리다이렉트)
+	@RequestMapping("successsignup1.do")
+	public String successsignup() {
+		return "successsignup";
+	}
+	
+	
 	// 이메일로 가입하는 페이지
 	@RequestMapping("controllerEmail.do")
 	public String signupEmail(HttpServletRequest request) {
@@ -284,24 +358,99 @@ public class MemberController {
 		return "emailsignup";
 
 	}
-
-	// 성공 페이지로 이동(리다이렉트)
-	@RequestMapping("successsignup.do")
-	public String successsignup() {
-		return "successsignup";
+	// 카카오로 가입하는 페이지
+	@RequestMapping("kakaoInfo.do")
+	public ModelAndView kakaoInfo(HttpServletRequest request, MemberDTO dto,HttpSession session) {
+		System.out.println("kakaoInfo 접속");
+		ModelAndView mav = new ModelAndView();
+		String picture = service.isSnsMember(dto);
+		
+		if(!(picture.equals(""))) {
+			System.out.println("이미 가입 되어있는 아이디 입니다.");
+			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
+			mav.setViewName("alreadysignup");
+			return mav; 
+		}else {
+			mav.setViewName("kakaosignup");
+			return mav;
+		}
+		
+		
 	}
 
+	// 페이스북로 가입하는 페이지
+	@RequestMapping("fbInfo.do")
+	public ModelAndView fbInfo(HttpServletRequest request, MemberDTO dto,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("facebookInfo 접속");
+		String picture = service.isSnsMember(dto);
+		System.out.println(dto.getMember_email());
+		
+		if(!(picture.equals(""))) {
+			System.out.println("이미 가입 되어있는 아이디 입니다.");
+			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
+			mav.setViewName("alreadysignup");
+			return mav; 
+		}else {
+			mav.setViewName("facebooksignup");
+			return mav;
+		}
+		
+		
+		
+	}
+	// 페이스북로 가입하는 페이지2
+	@RequestMapping("fbInfo2.do")
+	public ModelAndView fbInfo2(HttpServletRequest request, MemberDTO dto,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("facebookInfo2 접속");
+		dto.setMember_email(session.getAttribute("login_email").toString());
+		
+		String picture = service.isSnsMember(dto);
+		System.out.println(dto.getMember_email());
+		System.out.println(dto.getMember_picture());
+		System.out.println(picture);
+		
+//		if(!(picture.equals(""))) {
+//			System.out.println("이미 가입 되어있는 아이디 입니다.");
+			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
+			mav.setViewName("index");
+			return mav; 
+//		}else {
+//			mav.setViewName("facebooksignup");
+//			return mav;
+//		}
+//		
+		
+		
+	}
+	
+
+	
 	// 로그인 체크
 	@RequestMapping("login.do")
 	public ModelAndView login(MemberDTO dto, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
-
-		boolean result = service.isMember(dto);
-
-		if (result) {
+		
+		String picture = service.isMember(dto);
+		
+		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
+			System.out.println(dto.getMember_email());
+			System.out.println(picture);
 			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			
 			mav.setViewName("index");
 			return mav;
 		} else {
@@ -310,8 +459,39 @@ public class MemberController {
 		}
 
 	}
+	
+	@RequestMapping("snslogin.do")
+	public ModelAndView snslogin(MemberDTO dto, HttpSession session) {
+		
+		System.out.println("sns 로그인 부분입니다.");
+		ModelAndView mav = new ModelAndView();
+		System.out.println(dto.getMember_email());
+		System.out.println(dto.getMember_pw());
+		String picture = service.isMember(dto);
+		System.out.println(picture);
+		if(!(picture.equals(""))) {
+			System.out.println("로그인성공");
+			System.out.println(dto.getMember_email());
+			session.setAttribute("login_email", dto.getMember_email());
+			session.setAttribute("login_picture", dto.getMember_picture());
+			mav.setViewName("index");
+			return mav;
+		}else {
+			System.out.println("로그인 실패");
+			return mav;
+		}
 
-	// ---- 지은 파트 시작
+	}
+	@RequestMapping("logout.do")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		return "index";
+		
+	}
+	
+	
+	//---- 지은 파트 시작
 	@RequestMapping("/printProfile.mo")
 	public ModelAndView printProfile(HttpSession session) {
 		session.setAttribute("userId", "jake@gmail.com");

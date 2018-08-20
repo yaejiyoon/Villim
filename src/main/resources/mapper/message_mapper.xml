@@ -10,8 +10,8 @@
 
 	<insert id="messageInsert">
 		insert into message
-		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,'YYYY"년"
-		MM"월" DD"일"'),0)
+		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,
+		'YYYY"년" MM"월" DD"일" HH"시" MI"분"'),0)
 	</insert>
 
 	<select id="getHomeInfo" resultType="Home">
@@ -30,4 +30,24 @@
 	<insert id="messageRoomInsert">
 	insert into message_room values(#{message_room_seq},#{home_seq},#{host_email},#{guest_email},#{checkIn},#{checkOut},#{totalNumber})
 	</insert>
+	
+	<select id="guestMessageMain" resultType="GuestMsg">
+	select mr.message_room_seq,m.message_seq,mr.home_seq,mr.guest_email,mr.host_email,mr.checkIn,mr.checkOut,mr.totalNumber,m.message_content,m.message_time from message_room mr,message m where (mr.message_room_seq=m.message_room_seq) and message_time in (select max(message_time) from message where fromID=#{userId} group by fromID,toID) order by m.message_time desc
+	</select>
+	
+	<select id="guestMsgAllCount" resultType="int">
+	select count(message_room_seq) from message_room where guest_email=#{userId}
+	</select>
+	
+	<select id="memberInfo" resultType="Member">
+	select * from member where member_email in
+	<foreach collection="list" item="item" index="index" separator=","  open="(" close=")" >
+	#{item}
+	</foreach>
+	order by member_email
+	</select>
+	
+	<select id="msgRoomInfo" resultType="MessageRoom">
+	select * from message_room where message_room_seq=#{message_room_seq}
+	</select>
 </mapper>
