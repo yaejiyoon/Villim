@@ -1,9 +1,14 @@
 package kh.spring.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
 import kh.spring.interfaces.MessageDAO;
@@ -43,6 +48,26 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public int messageRoomInsert(MessageRoomDTO roomdto) {
 		return dao.messageRoomInsert(roomdto);
+	}
+
+	@Override
+	public List<GuestMsgDTO> guestMessageMain(String userId) {
+		return dao.guestMessageMain(userId);
+	}
+
+	@Override
+	public int guestMsgAllCount(String userId) {
+		return dao.guestMsgAllCount(userId);
+	}
+
+	@Override
+	public List<MemberDTO> memberInfo(List<String> hostId) {
+	    return dao.memberInfo(hostId);
+	}
+
+	@Override
+	public MessageRoomDTO msgRoomInfo(int message_room_seq) {
+		return dao.msgRoomInfo(message_room_seq);
 	}
 
 	
