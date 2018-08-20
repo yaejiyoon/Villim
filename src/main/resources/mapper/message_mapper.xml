@@ -9,9 +9,19 @@
 	</select>
 
 	<insert id="messageInsert">
+
 		insert into message
 		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,
-		'YYYY"년" MM"월" DD"일" HH"시" MI"분"'),0)
+		'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"'),0)
+	
+	<selectKey keyProperty="message_seq" resultType="int">
+
+SELECT MESSAGE_SEQ.CURRVAL FROM DUAL
+
+</selectKey>
+
+	
+	
 	</insert>
 
 	<select id="getHomeInfo" resultType="Home">
@@ -49,5 +59,13 @@
 	
 	<select id="msgRoomInfo" resultType="MessageRoom">
 	select * from message_room where message_room_seq=#{message_room_seq}
+	</select>
+	
+	<select id="getMessage" resultType="Message">
+	select *  from message where message_room_seq=#{message_room_seq} order by message_time desc
+	</select>
+	
+	<select id="getOneMessage"  resultType="Message">
+	select *  from message where message_seq=#{message_seq}
 	</select>
 </mapper>
