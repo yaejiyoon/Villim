@@ -16,14 +16,14 @@ body{
 #scrollNav{
 	display:none;
 	width: 100%;
-	height: 7vh;
+	height: 50px;
 	background-color: white;
 	box-shadow: 1px 1px 1px #d6d6d6;
 	z-index: 10000;
 }
 
 #scrollNav-contents{
-	width: 60vw;
+	width: 57vw;
 	height:100%;
 	margin: 0 auto;
 }
@@ -151,20 +151,20 @@ body{
 
 #info-contents-main {
 	margin: 0 auto;
-	width: 65vw;
+	width: 57vw;
 	height: 82%;
 }
 
 #info-main-left {
 	float: left;
-	width: 65%;
+	width: 75vh;
 	height: 100%;
 	padding-right: 2vw;
 }
 
 #info-main-right {
 	float: left;
-	width: 35%;
+	width: 40vh;
 	height: 100%;
 }
 
@@ -547,8 +547,8 @@ input.search-query2 {
 
 #fixed{
 	
-	width:350px;
-	height:360px;
+	width:40vh;
+	height:400px;
 	/* margin-left: 0vw; */
 	margin-top:2vh;
 	border: 1px solid #d6d6d6;
@@ -583,7 +583,7 @@ input.search-query2 {
 
 #fixed-sub02 p{
 	margin-top: 1vh;
-	font-size: 0.8vw;
+	font-size: 0.6vw;
 }
 
 .fixedprice{
@@ -605,16 +605,16 @@ input.search-query2 {
 #fixed-sub02 input{
 	margin-top: 0.7vh;
 	align-content:center;
-	width:20vw;
+	width:35vh;
 	padding-left:1vw;
 }
 
 #reservationBT{
 	width:100%;
-	height:6vh;
+	height:53px;
 	background-color: #ff5a5f;
 	color: white;
-	font-size: 2.3vh;
+	font-size: 2vh;
 }
 
 
@@ -649,7 +649,11 @@ input.search-query2 {
     min-width: 16vw;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    border-top: 1px solid #008489; 
+    
+}
+
+#myDropdown{
+	border-top: 1px solid #008489; 
 }
 
 /* Links inside the dropdown */

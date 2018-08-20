@@ -13,7 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -24,9 +24,9 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 <link href="<c:url value="../../resources/css/home/dist/css/lightgallery.css" />" rel="stylesheet">
 
 <!-- 달력 -->
-<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=1" />"></script>
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
-<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
 
 <!-- 지도 -->
@@ -64,11 +64,11 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 		if ($(window).scrollTop() >= 700) {
 			$("#scrollNav").css({"display":"inline","top":"0vh","position":"fixed"});
 			$("#fixed").css({"margin-top":"9vh","position":"fixed"});
-			$(".datepicker").css({"margin-top":"34vh","top":"34vh","position":"fixed"}); 
+			//$(".datepicker").css({"margin-top":"34vh","top":"34vh","position":"fixed"}); 
 		}else if($(window).scrollTop() <= 900){
 			$("#scrollNav").css({"display":"none"});
 			$("#fixed").css({"margin-top":"2vh"});
-			$(".datepicker").css({"margin-top":"0vh","top":"119vh","position":"absolute"});
+			//$(".datepicker").css({"margin-top":"0vh","top":"119vh","position":"absolute"});
 		}else {
 			
 		}
@@ -84,8 +84,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 	        var c = $("#fixed");
 	        var h = $("#fixed").height() + 120; // margin
 	        
-	        var c2 = $(".datepicker");
-	        var h2 = $(".datepicker").height() + 0;
+	        /* var c2 = $(".datepicker");
+	        var h2 = $(".datepicker").height() + 0; */
 	        
 
 	        if (b > d) {
@@ -97,11 +97,11 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 	                bottom: ""
 	            })
 	            
-	            c2.css({
+	            /* c2.css({
 	                position: "absolute",
 	                top: myTop,
 	                bottom: ""
-	            })
+	            }) */
 	            
 	            
 	        } else {
@@ -136,6 +136,9 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 			  }
 			});
 		});
+		
+		
+		
 		
 	})
 	
@@ -355,7 +358,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<br>
                		<span>예약 가능 여부</span>
                		<br>
-               		<div class="datepicker-here" data-language='en' data-range="true"></div>
+               		<!-- <div  id="inlineCal" class="datepicker-here" data-language='en' data-range="true"></div> -->
+               		
                </div>
                <div id="info-main05">
                		<div id="info-main05-top">
@@ -560,242 +564,294 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             		 	
             			<br>
             			날짜
-            			
-            			<input type="text" 
-            			data-range="true"
-    					data-multiple-dates-separator="       →       "
-    					todayButton="true"
-            			class="datepicker-here search-query3 form-control"
-            			placeholder="체크인              →         체크아웃" />
-            			
+            			<div class="dropdown fixed">
+            				<input type="text" class="search-query3 form-control"
+            				style="position: static;"
+            				id="calendarDrop"
+            				placeholder="체크인              →         체크아웃"
+            				onclick="myFunction2()"
+            				/>
+            				
+            				<div class="dropdown-content calDrop" id="myDropdown2">
+            					<div  id="inlineCal" class="datepicker-here " data-range="true"></div>
+            					<script>
+            					
+            					var disabledDays = ['2018-8-26','2018-8-30'];
+                    			var isDisabled;
+                    			var today = new Date();
+                    			var d;
+                    			var blockDate;
+                    			var ttt;
+                    			var vvv;
+                    			var reserveDate;
+                    			
+                    			var checkinDate;
+                    			var checkoutDate;
+                    			
+                    			
+            					
+            					$('.datepicker-here').datepicker({
+                    				
+                    				todayButton: new Date(),
+                    				clearButton : true,
+                    				autoClose : "true",
+                    				dateFormat : "yyyy/mm/dd",
+                    				minDate: new Date(),
+                    				toggleSelected: false,
+                    				language: {
+                    					days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                    				    daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+                    				    daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+                    				    months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                    				    monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                    				    today: '오늘',
+                    				    clear: '날짜 지우기',
+                    				    dateFormat: "yyyy/mm/dd",
+                    				    timeFormat: 'hh:ii aa'
+                    			    },
+                    				
+                    				onSelect: function(formattedDate, date, inst){
+                    					
+                    					
+                    					var checkin = formatDate(date);
+                    			        var inYear = checkin.split('-')[0];
+                    			        var inMonth = checkin.split('-')[1];
+                    			        var inDay = checkin.split('-')[2];
+                    					
+                    					
+                    					function formatDate(date) {
+                    		                var d = new Date(date),
+                    		                    month = '' + (d.getMonth() + 1),
+                    		                    day = '' + d.getDate(),
+                    		                    year = d.getFullYear();
+
+                    		                /* if (month.length < 2) month = '0' + month;
+                    		                if (day.length < 2) day = '0' + day; */
+
+                    		                 return [year, month, day].join('-');
+                    		            }
+                    					
+                    					console.log("select");
+                    					console.log(date);
+                    					console.log(formattedDate);
+                    					
+                    					if(date.length == 1){
+                    						
+                    						checkinDate = formatDate(date[0]);
+                    						
+                    						/* inpunt value */
+            								$("#calendarDrop").val(checkinDate + "              →         체크아웃");
+                    					}
+                    					
+                    					if(date.length == 2){
+                    						alert("이오와엉");
+                    						
+                    						checkinDate = formatDate(date[0]);
+                    						checkoutDate = formatDate(date[1]);
+                    						
+                    						/* inpunt value */
+            								$("#calendarDrop").val(checkinDate + "              →           "+checkoutDate);
+                    						
+                    						/* 날짜 선택시 달력 없애기 */
+                    							
+											$( "#myDropdown2" ).removeClass( "show" );
+                    						
+                    						$.ajax({
+                    							url:"clickDate.re",
+                    							type:"get",
+                    							data:{
+                    								checkinDate:checkinDate,
+                    								checkoutDate:checkoutDate
+                    								},
+                    							success:function(resp){
+                    								var priceLeft = resp.priceLeft;
+                    								var priceRight = resp.priceRight;
+                    								var cleaningfee = resp.cleaningfee;
+                    								var servicefee = resp.servicefee;
+                    								var total = resp.total;
+                    								
+                    								alert(priceLeft+" : "+priceRight);
+                    								
+                    								$("#priceLeft").text(priceLeft);
+                    								$("#priceRight").text(priceRight);
+                    								$("#cleaningfee").text(cleaningfee);
+                    								$("#servicefee").text(servicefee);
+                    								$("#total").text(total);
+                    								
+                    								
+                    								$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
+                    								$(".fixedprice").css({"display":"block"});
+                    								
+                    								$("#reserv_checkin").val(checkinDate);
+                    								$("#reserv_checkout").val(checkoutDate);
+                    								$("#nightsAmount").val(priceRight);
+                    								$("#cleaningFee").val(cleaningfee);
+                    								$("#serviceFee").val(servicefee);
+                    								$("#totalAmount").val(total);
+                    								
+                    								
+                    								
+                    							},
+                    							error : function(request,status,error) {
+                    								console.log(request.status + " : " + status + " : " + error);
+                    							}
+                    						})
+                    						
+                    					}
+                    					
+                    					for(var j=0; j<disabledDays.length;j++){
+                    						
+                    						var reservYear = disabledDays[j].split('-')[0];
+                    		      		  	var reservMonth = disabledDays[j].split('-')[1];
+                    		      		  	var reservDay = disabledDays[j].split('-')[2];
+                    		      		  	
+                    		      		  	reserveDate = new Date(reservYear,reservMonth,reservDay);
+                    		      		  	
+                    		      		  	console.log(reserveDate.getDate()-1);
+                    		      		  	console.log(reserveDate.getMonth());
+                    		      			console.log(inMonth);
+                    						
+                    		      		  if(inMonth == reserveDate.getMonth()){
+                    		      			  if(date[0].getDate() == reserveDate.getDate()-1){
+                    		      				   
+                    		      				  blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
+                    		      				  console.log(blockDate);
+                    		      				  
+                    		      				  d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
+                    		      				  
+                    		      					ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
+                    		      					vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
+                    		      				  
+                    		      			  }else{
+                    		      				  return;
+                    		      			  }
+                    		      		  }
+                    					}
+                    				},
+                    				
+                    			     onRenderCell: function (date, cellType) {
+                    			        if (cellType == 'day') {
+                    			        	
+                    			        	/* console.log("fff");
+                    			        	console.log(blockDate);
+                    			        	console.log(d);
+                    			        	console.log(ttt);
+                    			        	console.log(vvv);
+                    			        	
+                    			        	var c = new Date(2111,1,1);
+                    			        	console.log(c);
+                    			        	
+                    			        	if(blockDate >= date){
+                    		        			return {
+                    			        			   disabled : true
+                    			        		   }
+                    		        		}else if(blockDate < date){
+                    		        			return {
+                    			        			   disabled : false
+                    			        		   }
+                    		        		}else if(vvv > 0){
+                    			        		return {
+                    			        			   disabled : true
+                    			        		   }
+                    			        	}
+                    			        	 */
+                    			        	function formatDate(date) {
+                    			                var d = new Date(date),
+                    			                    month = '' + (d.getMonth() + 1),
+                    			                    day = '' + d.getDate(),
+                    			                    year = d.getFullYear();  
+
+                    			                /* if (month.length < 2) month = '0' + month;
+                    			                if (day.length < 2) day = '0' + day; */
+
+                    			                  return [year, month, day].join('-');
+                    			            }
+                    			            
+                    			        	for(var i=0; i<disabledDays.length;i++){
+                    			        		
+                    			        		
+                    			        		
+                    			        		var reservYear = disabledDays[i].split('-')[0];
+                    			      		  	var reservMonth = disabledDays[i].split('-')[1];
+                    			      		  	var reservDay = disabledDays[i].split('-')[2];
+                    			      		  	
+                    			      		  	
+                    			      		  
+                    				           
+                    				           
+                    				           var checkin = formatDate(date);
+                    				           var inYear = checkin.split('-')[0];
+                    				           var inMonth = checkin.split('-')[1];
+                    				           var inDay = checkin.split('-')[2];
+                    				            
+                    				           /* console.log("reservMonth : "+reservMonth);
+                    				           console.log("inMonth : "+inMonth); */
+                    				           
+                    				           if(reservMonth == inMonth){
+                    				        	   /* console.log("같으면 : "+inMonth);
+                    				        	   
+                    				        	   console.log("inDay : "+ inDay);
+                    				        	   console.log("reservDay : "+ reservDay);
+                    				        	    */
+                    				        	   if(reservDay === inDay){
+                    				        		   return {
+                    				        			   disabled : true
+                    				        		   }
+                    				        	   };
+                    				           }
+                    			        	
+                    			                
+
+                    			                /* console.log(isDisabled);
+                    				            console.log(date);
+                    				            console.log(checkin);
+                    				            console.log(inDay);   */
+                    				            
+                    				            /* return {
+                    				                disabled: isDisabled
+                    				                
+                    				            	} */
+                    				             
+                    			        	 }
+                    			        	
+                    			        }
+                    			        
+                    			    }  
+                    			});
+            					</script>
+            					
+            				</div>
+            			</div>
             			
             			<script>
-            			var disabledDays = ['2018-8-26','2018-8-30'];
-            			var isDisabled;
-            			var today = new Date();
-            			var d;
-            			var blockDate;
-            			var ttt;
-            			var vvv;
-            			var reserveDate;
-            			
-            			var checkinDate;
-            			var checkoutDate;
-            			
-            			$('.datepicker-here').datepicker({
+            				function myFunction2() {
+            				    document.getElementById("myDropdown2").classList.toggle("show");
+            				}
             				
-            				todayButton: new Date(),
-            				clearButton : true,
-            				autoClose : "true",
-            				dateFormat : "yyyy/mm/dd",
-            				minDate: new Date(),
-            				toggleSelected: false,
-            				language: {
-            					days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-            				    daysShort: ['일', '월', '화', '수', '목', '금', '토'],
-            				    daysMin: ['일', '월', '화', '수', '목', '금', '토'],
-            				    months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-            				    monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
-            				    today: '오늘',
-            				    clear: '날짜 지우기',
-            				    dateFormat: "yyyy/mm/dd",
-            				    timeFormat: 'hh:ii aa'
-            			    },
-            				
-            				onSelect: function(formattedDate, date, inst){
-            					
-            					
-            					var checkin = formatDate(date);
-            			        var inYear = checkin.split('-')[0];
-            			        var inMonth = checkin.split('-')[1];
-            			        var inDay = checkin.split('-')[2];
-            					
-            					
-            					function formatDate(date) {
-            		                var d = new Date(date),
-            		                    month = '' + (d.getMonth() + 1),
-            		                    day = '' + d.getDate(),
-            		                    year = d.getFullYear();
+            				// Close the dropdown menu if the user clicks outside of it
+            				window.onclick = function(event) {
+            					  if (!event.target.matches('#calendarDrop')) {
 
-            		                /* if (month.length < 2) month = '0' + month;
-            		                if (day.length < 2) day = '0' + day; */
-
-            		                 return [year, month, day].join('-');
-            		            }
-            					
-            					console.log("select");
-            					console.log(date);
-            					console.log(formattedDate);
-            					
-            					if(date.length == 2){
-            						alert("이오와엉");
-            						
-            						checkinDate = formatDate(date[0]);
-            						checkoutDate = formatDate(date[1]);
-            						
-            						
-            						
-            						$.ajax({
-            							url:"clickDate.re",
-            							type:"get",
-            							data:{
-            								checkinDate:checkinDate,
-            								checkoutDate:checkoutDate
-            								},
-            							success:function(resp){
-            								var priceLeft = resp.priceLeft;
-            								var priceRight = resp.priceRight;
-            								var cleaningfee = resp.cleaningfee;
-            								var servicefee = resp.servicefee;
-            								var total = resp.total;
-            								
-            								alert(priceLeft+" : "+priceRight);
-            								
-            								$("#priceLeft").text(priceLeft);
-            								$("#priceRight").text(priceRight);
-            								$("#cleaningfee").text(cleaningfee);
-            								$("#servicefee").text(servicefee);
-            								$("#total").text(total);
-            								
-            								
-            								$("#fixed").css({"height":"520px","transition-duration":"0.1s"});
-            								$(".fixedprice").css({"display":"block"});
-            								
-            								$("#reserv_checkin").val(checkinDate);
-            								$("#reserv_checkout").val(checkoutDate);
-            								$("#nightsAmount").val(priceRight);
-            								$("#cleaningFee").val(cleaningfee);
-            								$("#serviceFee").val(servicefee);
-            								$("#totalAmount").val(total);
-            								
-            							},
-            							error : function(request,status,error) {
-            								console.log(request.status + " : " + status + " : " + error);
-            							}
-            						})
-            						
+            					    var dropdowns = document.getElementsByClassName("dropdown-content calDrop");
+            					    var i;
+            					    
+            					    for (i = 0; i < dropdowns.length; i++) {
+            					      var openDropdown = dropdowns[i];
+            					      if (openDropdown.classList.contains('show')) {
+            					        openDropdown.classList.remove('show');
+            					      }
+            					    }
+            					  }
             					}
-            					
-            					for(var j=0; j<disabledDays.length;j++){
-            						
-            						var reservYear = disabledDays[j].split('-')[0];
-            		      		  	var reservMonth = disabledDays[j].split('-')[1];
-            		      		  	var reservDay = disabledDays[j].split('-')[2];
-            		      		  	
-            		      		  	reserveDate = new Date(reservYear,reservMonth,reservDay);
-            		      		  	
-            		      		  	console.log(reserveDate.getDate()-1);
-            		      		  	console.log(reserveDate.getMonth());
-            		      			console.log(inMonth);
-            						
-            		      		  if(inMonth == reserveDate.getMonth()){
-            		      			  if(date[0].getDate() == reserveDate.getDate()-1){
-            		      				   
-            		      				  blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
-            		      				  console.log(blockDate);
-            		      				  
-            		      				  d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
-            		      				  
-            		      					ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
-            		      					vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
-            		      				  
-            		      			  }else{
-            		      				  return;
-            		      			  }
-            		      		  }
-            					}
-            				},
             				
-            			     onRenderCell: function (date, cellType) {
-            			        if (cellType == 'day') {
-            			        	
-            			        	/* console.log("fff");
-            			        	console.log(blockDate);
-            			        	console.log(d);
-            			        	console.log(ttt);
-            			        	console.log(vvv);
-            			        	
-            			        	var c = new Date(2111,1,1);
-            			        	console.log(c);
-            			        	
-            			        	if(blockDate >= date){
-            		        			return {
-            			        			   disabled : true
-            			        		   }
-            		        		}else if(blockDate < date){
-            		        			return {
-            			        			   disabled : false
-            			        		   }
-            		        		}else if(vvv > 0){
-            			        		return {
-            			        			   disabled : true
-            			        		   }
-            			        	}
-            			        	 */
-            			        	function formatDate(date) {
-            			                var d = new Date(date),
-            			                    month = '' + (d.getMonth() + 1),
-            			                    day = '' + d.getDate(),
-            			                    year = d.getFullYear();  
-
-            			                /* if (month.length < 2) month = '0' + month;
-            			                if (day.length < 2) day = '0' + day; */
-
-            			                  return [year, month, day].join('-');
-            			            }
-            			            
-            			        	for(var i=0; i<disabledDays.length;i++){
-            			        		
-            			        		
-            			        		
-            			        		var reservYear = disabledDays[i].split('-')[0];
-            			      		  	var reservMonth = disabledDays[i].split('-')[1];
-            			      		  	var reservDay = disabledDays[i].split('-')[2];
-            			      		  	
-            			      		  	
-            			      		  
-            				           
-            				           
-            				           var checkin = formatDate(date);
-            				           var inYear = checkin.split('-')[0];
-            				           var inMonth = checkin.split('-')[1];
-            				           var inDay = checkin.split('-')[2];
-            				            
-            				           /* console.log("reservMonth : "+reservMonth);
-            				           console.log("inMonth : "+inMonth); */
-            				           
-            				           if(reservMonth == inMonth){
-            				        	   /* console.log("같으면 : "+inMonth);
-            				        	   
-            				        	   console.log("inDay : "+ inDay);
-            				        	   console.log("reservDay : "+ reservDay);
-            				        	    */
-            				        	   if(reservDay === inDay){
-            				        		   return {
-            				        			   disabled : true
-            				        		   }
-            				        	   };
-            				           }
-            			        	
-            			                
-
-            			                /* console.log(isDisabled);
-            				            console.log(date);
-            				            console.log(checkin);
-            				            console.log(inDay);   */
-            				            
-            				            /* return {
-            				                disabled: isDisabled
-            				                
-            				            	} */
-            				             
-            			        	 }
-            			        	
-            			        }
-            			        
-            			    }  
-            			});
-            			</script>
+            				$('#myDropdown2').bind('click', function (e) { e.stopPropagation() })
+            				
+            					
+            				
+            				</script>
+            			
+            			
+            			
             			
             			
             			인원<br>
@@ -807,15 +863,15 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				onclick="myFunction()"
             				/>
             				
-            				<div class="dropdown-content" id="myDropdown">
+            				<div class="dropdown-content peoDrop" id="myDropdown">
             					 <div id="peopleDropdownContentInner">
                      				<div>
                      					인원
                      				</div>
                      				<div>
-                     					<button id="peopleup" class="btn btn-primary-outline" type="button">>+</button>
+                     					<button id="peopleup" class="btn btn-primary-outline" type="button">+</button>
 										<p style="display: inline;" id="pcount">1</p>
-										<button id="peopledown" class="btn btn-primary-outline" type="button">>-</button>
+										<button id="peopledown" class="btn btn-primary-outline" type="button">-</button>
 										
                      				</div>
                      				<div>
@@ -834,7 +890,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				window.onclick = function(event) {
             					  if (!event.target.matches('#peopleDrop')) {
 
-            					    var dropdowns = document.getElementsByClassName("dropdown-content");
+            					    var dropdowns = document.getElementsByClassName("dropdown-content peoDrop");
             					    var i;
             					    
             					    var population = $("#peopleDrop").val();
