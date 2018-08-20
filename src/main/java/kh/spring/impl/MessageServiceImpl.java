@@ -80,6 +80,11 @@ public class MessageServiceImpl implements MessageService{
 		return dao.getOneMessage(message_seq);
 	}
 
+	@Override
+	public int getMessageSeq() {
+		return dao.getMessageSeq();
+	}
+
 	
 	
 	

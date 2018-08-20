@@ -33,4 +33,6 @@ public interface MessageDAO {
 	public List<MessageDTO> getMessage(int message_room_seq);
 	
 	public MessageDTO getOneMessage(int message_seq);
+	
+	public int getMessageSeq();
 }

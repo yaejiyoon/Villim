@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -257,7 +260,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/messageSendInRoom.msg")
-	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response) {
+	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response) throws Exception {
 		System.out.println("messageSendInRoom");
 		System.out.println("메세지내용 : "+dto.getMessage_content());
 		
@@ -266,16 +269,17 @@ public class MessageController {
         System.out.println("오늘 날짜: "+today);
         
 		int messageInsertResult=this.service.messageInsert(dto);
-		System.out.println("시퀸스 : "+messageInsertResult);
-		int message_seq=messageInsertResult;
-		MessageDTO message=this.service.getOneMessage(message_seq);
+		
+		System.out.println("시퀸스 : "+dto.getMessage_seq());
+
+		MessageDTO message=this.service.getOneMessage(dto.getMessage_seq());
 		
 		System.out.println("시간 자르기 : "+message.getMessage_time().substring(0, 13));
 			if(today.equals(message.getMessage_time().substring(0, 13))){
-				message.setMessage_time(message.getMessage_time().substring(14, 15).split("분")[0]+"분");
+				message.setMessage_time(message.getMessage_time().substring(14, 20).split("분")[0]+"분");
 				System.out.println("message시간 : "+message.getMessage_time());
 			}else {
-				message.setMessage_time(message.getMessage_time().substring(7,15));
+				message.setMessage_time(message.getMessage_time().substring(7,20));
 				System.out.println("message시간 : "+message.getMessage_time());
 			}
 		
@@ -283,11 +287,16 @@ public class MessageController {
 		
 			System.out.println(message.getMessage_content()+" / "+message.getMessage_time());
 			
-			try {
+			/*try {
 				response.getWriter().print(message);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+
+			new Gson().toJson(message, response.getWriter());
 		
 	}
 
