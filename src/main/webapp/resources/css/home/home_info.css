@@ -157,14 +157,14 @@ body{
 
 #info-main-left {
 	float: left;
-	width: 75vh;
+	width: 66%;
 	height: 100%;
 	padding-right: 2vw;
 }
 
 #info-main-right {
 	float: left;
-	width: 40vh;
+	width: 34%;
 	height: 100%;
 }
 

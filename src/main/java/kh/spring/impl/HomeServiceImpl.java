@@ -118,4 +118,10 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeRulesDetails(hdto);
 	}
 
+	
+	//----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		return hdao.updateBlockedDate(blockedDate, home_seq);
+	}
 }

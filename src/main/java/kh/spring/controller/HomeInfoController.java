@@ -3,6 +3,8 @@ package kh.spring.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +38,42 @@ public class HomeInfoController {
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		
+		//blockedDate를 불러와서 List에 넣어주기!
+		String getBlockedDate = homeService.getBlockedDate(home_seq);
+		List<Date> BlockedDateList = new ArrayList<>();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for(int i=0;i<getBlockedDate.split(",").length;i++) {
+			
+			Date d = null;
+			try {
+				d = format.parse(getBlockedDate.split(",")[i]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			BlockedDateList.add(d);
+		}
+		
+		System.out.println(getBlockedDate);
+		System.out.println(BlockedDateList);
+		
+		
+		StringBuilder sb = new StringBuilder();
+		
+		
+		for(int i=0;i<BlockedDateList.size();i++) {
+			sb.append(BlockedDateList.get(i));
+		}
+		
+		String result = sb.toString();
+		
+		System.out.println(result);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
+		mav.addObject("result", result);
 		mav.setViewName("home/home_info");
 
 		return mav;
@@ -48,7 +84,7 @@ public class HomeInfoController {
 		String checkinDate = request.getParameter("checkinDate");
 		String checkoutDate = request.getParameter("checkoutDate");
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
         Date FirstDate = null;
         Date SecondDate = null;
@@ -60,8 +96,11 @@ public class HomeInfoController {
 			e.printStackTrace();
 		}
         
-		System.out.println(FirstDate);
-		System.out.println(SecondDate);
+		System.out.println(checkinDate);
+		System.out.println(checkoutDate);
+		
+		
+
         
         // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
         // 연산결과 -950400000. long type 으로 return 된다.
@@ -74,11 +113,54 @@ public class HomeInfoController {
         calDateDays = Math.abs(calDateDays);
 		
         System.out.println("두 날짜의 날짜 차이: "+calDateDays);
+        
+        
 		
         
-		int home_seq = 5;
+		int home_seq = 1;
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
+		
+		//두 날짜 사이의 날짜 구하기
+		
+		StringBuilder sb = new StringBuilder();
+
+		ArrayList<String> dates = new ArrayList<String>();
+		Date currentDate = FirstDate;
+		while (currentDate.compareTo(SecondDate) <= 0) {
+			dates.add(format.format(currentDate));
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			currentDate = c.getTime();
+		}
+
+		
+		if(hdto.getHome_blocked_date() != null) {
+			sb.append(",");
+		}
+		
+		for(int i=0;i<dates.size();i++) {
+			if(i == dates.size()-1) {
+				sb.append(dates.get(i));
+			}else {
+				sb.append(dates.get(i)+",");
+			}
+		}
+		        
+//		        for (String date : dates) {
+//		            System.out.println(date);
+//		            sb.append(date+",");
+//		        }
+		        
+		System.out.println(dates);
+		
+		String blockedDate = sb.toString();
+		
+		System.out.println(sb.toString());
+		
+		
+		
 		
 		//1박 가격
 		int price = hdto.getHome_price();
@@ -108,6 +190,7 @@ public class HomeInfoController {
 		json.put("cleaningfee", "₩"+cleaningfee);
 		json.put("servicefee", "₩"+servicefee);
 		json.put("total", "₩"+total);
+		json.put("blockedDate", blockedDate);
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
@@ -124,6 +207,15 @@ public class HomeInfoController {
 	
 	@RequestMapping("/reservation.re")
 	public ModelAndView reservation(ReservationDTO dto,HttpServletRequest req) {
+		
+		String blockedDate = req.getParameter("blockedDate");
+		System.out.println(blockedDate);
+		
+		int updateBlockDate = homeService.updateBlockedDate(blockedDate, dto.getHome_seq());
+		
+		if(updateBlockDate>0) {
+			System.out.println("???????");
+		}
 		
 		String amount = dto.getTotalAmount();
 		

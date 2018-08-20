@@ -47,4 +47,8 @@ public interface HomeDAO {
 	public String getBlockedDate(int home_seq);
 	
 	public int modifyHomeRulesDetails(HomeDTO hdto);
+	
+	//----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate,int home_seq);
+	
 }

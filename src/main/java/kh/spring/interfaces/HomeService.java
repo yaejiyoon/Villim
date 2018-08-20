@@ -47,5 +47,8 @@ public interface HomeService {
 	public List<String> getCalendarDate(Map<String, String> map);
 
 	public String getBlockedDate(int home_seq);
-
+	
+	//----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate,int home_seq);
+	
 }

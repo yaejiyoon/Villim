@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -576,7 +577,28 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             					<div  id="inlineCal" class="datepicker-here " data-range="true"></div>
             					<script>
             					
-            					var disabledDays = ['2018-8-26','2018-8-30'];
+            					var disabledDays = ${result};
+            					var disabledDays2 = new Array; 
+            				
+            					
+            					//disabledDays.split(",");
+            					
+            					//for(var i=0;i<disabledDays.split(",").length;i++){
+            					//	disabledDays2.push(disabledDays.split(",")[i]);
+            					//}
+            					//var test;
+            					
+            					//<c:forTokens items="disabledDays" delims="," var="item">
+            					//	test = ${item}
+            					//	disabledDays2.push(test.toString());
+								//</c:forTokens>
+            					
+            					console.log(disabledDays[0]);
+            					console.log(disabledDaysString);
+            					console.log(disabledDays2);
+            					
+            					
+            					//var disabledDays = ${getBlockedDate};
                     			var isDisabled;
                     			var today = new Date();
                     			var d;
@@ -595,7 +617,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     				todayButton: new Date(),
                     				clearButton : true,
                     				autoClose : "true",
-                    				dateFormat : "yyyy/mm/dd",
+                    				dateFormat : "yyyy-mm-dd",
                     				minDate: new Date(),
                     				toggleSelected: false,
                     				language: {
@@ -612,28 +634,29 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     				
                     				onSelect: function(formattedDate, date, inst){
                     					
-                    					
-                    					var checkin = formatDate(date);
-                    			        var inYear = checkin.split('-')[0];
-                    			        var inMonth = checkin.split('-')[1];
-                    			        var inDay = checkin.split('-')[2];
-                    					
-                    					
                     					function formatDate(date) {
                     		                var d = new Date(date),
                     		                    month = '' + (d.getMonth() + 1),
                     		                    day = '' + d.getDate(),
                     		                    year = d.getFullYear();
 
-                    		                /* if (month.length < 2) month = '0' + month;
-                    		                if (day.length < 2) day = '0' + day; */
+                    		                if (month.length < 2) month = '0' + month;
+                    		                if (day.length < 2) day = '0' + day;
 
                     		                 return [year, month, day].join('-');
                     		            }
                     					
+                    					var checkin = formatDate(date);
+                    					
+                    			        var inYear = checkin.split('-')[0];
+                    			        var inMonth = checkin.split('-')[1];
+                    			        var inDay = checkin.split('-')[2];
+                    					
+                    					
+                    					
                     					console.log("select");
                     					console.log(date);
-                    					console.log(formattedDate);
+                    					
                     					
                     					if(date.length == 1){
                     						
@@ -649,11 +672,15 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     						checkinDate = formatDate(date[0]);
                     						checkoutDate = formatDate(date[1]);
                     						
+                    					
+                        					console.log("-----");
+                        					console.log(checkinDate);
+                        					console.log(checkoutDate);
+                    						
                     						/* inpunt value */
             								$("#calendarDrop").val(checkinDate + "              →           "+checkoutDate);
                     						
                     						/* 날짜 선택시 달력 없애기 */
-                    							
 											$( "#myDropdown2" ).removeClass( "show" );
                     						
                     						$.ajax({
@@ -669,6 +696,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     								var cleaningfee = resp.cleaningfee;
                     								var servicefee = resp.servicefee;
                     								var total = resp.total;
+                    								var blockedDate = resp.blockedDate;
                     								
                     								alert(priceLeft+" : "+priceRight);
                     								
@@ -689,6 +717,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     								$("#serviceFee").val(servicefee);
                     								$("#totalAmount").val(total);
                     								
+                    								$("#blockedDate").val(blockedDate);
                     								
                     								
                     							},
@@ -726,7 +755,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     		      				  return;
                     		      			  }
                     		      		  }
-                    					}
+                    					} 
                     				},
                     				
                     			     onRenderCell: function (date, cellType) {
@@ -761,22 +790,18 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     			                    day = '' + d.getDate(),
                     			                    year = d.getFullYear();  
 
-                    			                /* if (month.length < 2) month = '0' + month;
-                    			                if (day.length < 2) day = '0' + day; */
+                    			                if (month.length < 2) month = '0' + month;
+                    			                if (day.length < 2) day = '0' + day;
 
                     			                  return [year, month, day].join('-');
                     			            }
                     			            
+                    			        	 
                     			        	for(var i=0; i<disabledDays.length;i++){
-                    			        		
-                    			        		
                     			        		
                     			        		var reservYear = disabledDays[i].split('-')[0];
                     			      		  	var reservMonth = disabledDays[i].split('-')[1];
                     			      		  	var reservDay = disabledDays[i].split('-')[2];
-                    			      		  	
-                    			      		  	
-                    			      		  
                     				           
                     				           
                     				           var checkin = formatDate(date);
@@ -784,8 +809,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     				           var inMonth = checkin.split('-')[1];
                     				           var inDay = checkin.split('-')[2];
                     				            
-                    				           /* console.log("reservMonth : "+reservMonth);
-                    				           console.log("inMonth : "+inMonth); */
+                    				           //console.log("reservMonth : "+reservMonth);
+                    				           //console.log("inMonth : "+inMonth);
                     				           
                     				           if(reservMonth == inMonth){
                     				        	   /* console.log("같으면 : "+inMonth);
@@ -1033,7 +1058,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<input type="hidden" name="cleaningFee" id="cleaningFee">
             			<input type="hidden" name="serviceFee" id="serviceFee">
             			<input type="hidden" name="totalAmount" id="totalAmount">
-            			
+            			<input type="hidden" name="blockedDate" id="blockedDate">
             			</form>
             		</div>
             		
