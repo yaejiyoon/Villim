@@ -16,7 +16,7 @@
 
 
 <link href="<c:url value="/resources/css/main/main.css" />" rel="stylesheet" />
-<link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/style2.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 <script>
    $(document).ready(function() {
@@ -45,7 +45,7 @@
 	this.resizeTo(screen.availWidth, screen.availHeight);
 	</script>
 	<%@ include file="../resource/include/header.jsp"%>
-	<ul class="cb-slideshow">
+	<ul class="cb-slideshow1">
       <li><span>Image 01</span></li>
       <li><span>Image 02</span></li>
       <li><span>Image 03</span></li>
