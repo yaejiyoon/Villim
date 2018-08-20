@@ -24,53 +24,53 @@ public class HostingController {
 	
 	@Autowired
 	
-	@RequestMapping("/fisrt.host")
+	@RequestMapping("/first.host")
 	public String toFirst() {
 		//string <- 스프링이 해석함 
-		return "hostFirestpage.jsp";
+		return "hosting/hostFirstpage";
 	}
 	
 	@RequestMapping("/second.host")
 	public String toSecond() {
 		//string <- 스프링이 해석함 
-		return "hostSecondpage.jsp";
+		return "hosting/hostSecondpage";
 	}
 	
 	@RequestMapping("/third.host")
 	public String toThird() {
 		//string <- 스프링이 해석함 
-		return "hostThirdpage.jsp";
+		return "hosting/hostThirdpage";
 	}
 	
 	@RequestMapping("/fore.host")
 	public String toForth() {
 		//string <- 스프링이 해석함 
-		return "hostForthpage.jsp";
+		return "hosting/hostForthpage";
 	}
 	
 	@RequestMapping("/five.host")
 	public String toFive() {
 		//string <- 스프링이 해석함 
-		return "hostFivehpage.jsp";
+		return "hosting/hostFivehpage";
 	}
 	
 	
 	@RequestMapping("/step2fisrt.host")
 	public String Step2First() {
 		//string <- 스프링이 해석함 
-		return "step2HostFirstpage.jsp";
+		return "hosting/step2HostFirstpage";
 	}
 	
 	@RequestMapping("/step2second.host")
 	public String Step2Second() {
 		//string <- 스프링이 해석함 
-		return "step2HostSecondpage.jsp";
+		return "hosting/step2HostSecondpage";
 	}
 	
 	@RequestMapping("/step2third.host")
 	public String Step2Third() {
 		//string <- 스프링이 해석함 
-		return "step2HostThirdpage.jsp";
+		return "hosting/step2HostThirdpage";
 	}
 	
 	
