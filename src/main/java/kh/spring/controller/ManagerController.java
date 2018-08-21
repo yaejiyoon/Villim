@@ -15,4 +15,10 @@ public class ManagerController {
 		return "manager/manager";
 		
 	}
+	@RequestMapping("/main.do")
+	public String main(HttpServletRequest request) {
+		
+		return "manager/main";
+		
+	}
 }
