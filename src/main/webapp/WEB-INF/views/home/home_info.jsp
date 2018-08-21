@@ -577,15 +577,15 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             					<div  id="inlineCal" class="datepicker-here " data-range="true"></div>
             					<script>
             					
-            					var disabledDays = ${result};
-            					var disabledDays2 = new Array; 
+            					var blockedDates = '${getBlockedDate}';
+            					var disabledDays = new Array; 
             				
             					
             					//disabledDays.split(",");
             					
-            					//for(var i=0;i<disabledDays.split(",").length;i++){
-            					//	disabledDays2.push(disabledDays.split(",")[i]);
-            					//}
+            					for(var i=0;i<blockedDates.split(",").length;i++){
+            						disabledDays.push(blockedDates.split(",")[i]);
+            					}
             					//var test;
             					
             					//<c:forTokens items="disabledDays" delims="," var="item">
@@ -593,9 +593,9 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             					//	disabledDays2.push(test.toString());
 								//</c:forTokens>
             					
-            					console.log(disabledDays[0]);
-            					console.log(disabledDaysString);
-            					console.log(disabledDays2);
+            					//console.log(disabledDays[0]);
+            					//console.log(disabledDaysString);
+            					console.log(disabledDays);
             					
             					
             					//var disabledDays = ${getBlockedDate};

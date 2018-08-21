@@ -38,46 +38,18 @@ public class HomeInfoController {
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		
-		//blockedDate를 불러와서 List에 넣어주기!
+		//blockedDate불러오기
 		String getBlockedDate = homeService.getBlockedDate(home_seq);
-		List<Date> BlockedDateList = new ArrayList<>();
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		
-		for(int i=0;i<getBlockedDate.split(",").length;i++) {
-			
-			Date d = null;
-			try {
-				d = format.parse(getBlockedDate.split(",")[i]);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			BlockedDateList.add(d);
-		}
-		
-		System.out.println(getBlockedDate);
-		System.out.println(BlockedDateList);
-		
-		
-		StringBuilder sb = new StringBuilder();
-		
-		
-		for(int i=0;i<BlockedDateList.size();i++) {
-			sb.append(BlockedDateList.get(i));
-		}
-		
-		String result = sb.toString();
-		
-		System.out.println(result);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
-		mav.addObject("result", result);
+		mav.addObject("getBlockedDate", getBlockedDate);
 		mav.setViewName("home/home_info");
 
 		return mav;
 	}
+	
 	
 	@RequestMapping("/clickDate.re")
 	public void clickDate (HttpServletRequest request, HttpServletResponse response) {
