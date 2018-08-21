@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GuestReview">
+	<select id="getAllGuestReviewData" resultType="GuestReview">
+		select g.*, m.member_name, m.MEMBER_PICTURE from 
+		(select guest_review.*, row_number() over(order by GUEST_REVIEW.G_REVIEW_DATE) as num from guest_review) g, member m 
+		where (num between #{startNum} and #{endNum}) and g.member_email = m.member_email and g.home_seq=#{home_seq}
+	</select>
+	
+	
+	<select id="getReviewPageNavi" resultType="int">
+		select count(*) as totalCount from guest_review
+	</select>
+
+</mapper>

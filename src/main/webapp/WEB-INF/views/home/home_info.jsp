@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -53,6 +54,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 		width:20px !important;
 	}
 	
+	.pagination>li>a, .pagination>li>span {
+		border-radius: 50% !important;
+		margin: 0 5px;
+	}
 	
 }
 	
@@ -139,6 +144,12 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 		});
 		
 		
+		var pageFunction = function(i,home_seq){
+			console.log("dddddddddddddd");
+	        console.log(i);
+	        console.log(home_seq);
+				return null;
+			};
 		
 		
 	})
@@ -439,60 +450,54 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			</div>
                		</div>
                		<div id="info-main05-review">
+               			<c:forEach items="${guestReviewList }" var="guestReviewList">
+               			<fmt:parseDate value="${guestReviewList.g_review_date}" var="time" pattern="yy/MM/dd"/>
                			<div class="review-wrapper">
-               				<div class="review-top">
-               					<div class="review-pic">
-               						<img src="<c:url value='../resources/img/1.jpg'/>" >
-               					</div>
-               					<div class="review-date">
-               						<span>제니</span>
-               						<br>
-               						2018년 8월
-               					</div>
-               				</div>
-               				<div class="review-bottom">
-               					<br><br>
-               					일본여행을 온것 같은 정갈하고 아기자기한 분위기~~ 입구의 돌담길부터 한적한 제주의 시골 마을을 느낄수 있습니다.
-               					책들이 있어 더 좋은~ 커피와 함께 하라고~돌체구스토 머신에 캡슐까지 제공 다시 가고 싶은 곳~^^
-               				</div>
+               				<ul class="media-list">
+								<li class="media" style="margin-bottom: 20px; margin-top: 20px;">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="<c:url value='files/${guestReviewList.member_picture }'/>">
+								</a>
+									<div class="media-body">
+										<h4 class="media-heading">${guestReviewList.member_name }</h4>
+										<h6>
+											<fmt:formatDate value="${time}" pattern="yyyy"/>년 
+											<fmt:formatDate value="${time}" pattern="M"/>월 
+										</h6>
+										<p>${guestReviewList.g_review_public}</p>
+										
+										<c:forEach items="${hostReviewList }" var="hostReviewList">
+										<c:if test="${guestReviewList.g_review_seq eq hostReviewList.g_review_seq}">
+										<fmt:parseDate value="${hostReviewList.h_review_date}" var="time2" pattern="yy/MM/dd"/>
+											<!-- Nested media object -->
+											<div class="media">
+												<a class="pull-left" href="#"> <img class="media-object"
+													src="<c:url value='files/${hostReviewList.member_picture }'/>">
+												</a>
+
+											<div class="media-body">
+												<h4 class="media-heading">${hostReviewList.member_name }님의 답변:</h4>
+												<p>${hostReviewList.h_review_public }</p>
+												<h6>
+													<fmt:formatDate value="${time2}" pattern="yyyy"/>년 
+													<fmt:formatDate value="${time2}" pattern="M"/>월 
+												</h6>
+												<!-- Nested media object -->
+											</div>
+										</div>
+										</c:if>
+										</c:forEach>
+									</div>	
+							</ul>
                				
                			</div>
-               			<div class="review-wrapper">
-               				<div class="review-top">
-               					<div class="review-pic">
-               						<img src="<c:url value='../resources/img/1.jpg'/>" >
-               					</div>
-               					<div class="review-date">
-               						<span>제니</span>
-               						<br>
-               						2018년 8월
-               					</div>
-               				</div>
-               				<div class="review-bottom">
-               					<br><br>
-               					일본여행을 온것 같은 정갈하고 아기자기한 분위기~~ 입구의 돌담길부터 한적한 제주의 시골 마을을 느낄수 있습니다.
-               					책들이 있어 더 좋은~ 커피와 함께 하라고~돌체구스토 머신에 캡슐까지 제공 다시 가고 싶은 곳~^^
-               				</div>
+               			
+               			</c:forEach>
+               			<ul class="pagination">
+               				${page}
                				
-               			</div>
-               			<div class="review-wrapper">
-               				<div class="review-top">
-               					<div class="review-pic">
-               						<img src="<c:url value='../resources/img/1.jpg'/>" >
-               					</div>
-               					<div class="review-date">
-               						<span>제니</span>
-               						<br>
-               						2018년 8월
-               					</div>
-               				</div>
-               				<div class="review-bottom">
-               					<br><br>
-               					일본여행을 온것 같은 정갈하고 아기자기한 분위기~~ 입구의 돌담길부터 한적한 제주의 시골 마을을 느낄수 있습니다.
-               					책들이 있어 더 좋은~ 커피와 함께 하라고~돌체구스토 머신에 캡슐까지 제공 다시 가고 싶은 곳~^^
-               				</div>
                				
-               			</div>
+               			</ul>
                		</div>
                		<div id="info-main05-host">
                			<div id="host-top">

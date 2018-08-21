@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.interfaces.ReviewService;
 import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.ReservService;
 
@@ -31,9 +36,14 @@ public class HomeInfoController {
 	@Autowired
 	private ReservService reservService;
 	
+	@Autowired
+	private ReviewService reviewService;
+	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
+		
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
+		
 		System.out.println("homeseq : " + home_seq);
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
@@ -41,10 +51,35 @@ public class HomeInfoController {
 		//blockedDate불러오기
 		String getBlockedDate = homeService.getBlockedDate(home_seq);
 		
+		//hostReview
+		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
+		
+		//Review paging
+		int currentPage = 0;
+		String currentPageString = req.getParameter("currentPage");
+		
+		if (currentPageString == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(currentPageString);
+		}
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", currentPage * 5-4); 
+		map.put("endNum", currentPage * 5);
+		map.put("home_seq", home_seq);
+		
+		//guestReivew
+		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
+		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
+		mav.addObject("guestReviewList", guestReviewList);
+		mav.addObject("hostReviewList", hostReviewList);
+		mav.addObject("page", page);
 		mav.setViewName("home/home_info");
 
 		return mav;
