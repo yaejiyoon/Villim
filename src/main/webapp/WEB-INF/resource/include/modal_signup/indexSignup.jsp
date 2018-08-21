@@ -81,7 +81,7 @@
 	
 	/* 로그인 */
 	#myModal1 .modal-body{
-		height:85vh;
+		height:80vh;
 	} 
 	#mheader1{
 		border-bottom-width:0px;
@@ -148,7 +148,7 @@
 	#loginEmailIcon{
 	position:absolute;
 	left:86%;
-	top:62%;
+	top:61%;
 	color:silver;
 	}
 	#loginPwIcon{

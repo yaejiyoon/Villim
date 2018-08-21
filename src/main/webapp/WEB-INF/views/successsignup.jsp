@@ -37,6 +37,19 @@
         font-family: font;
       src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
    }
+   #loginPage{
+   		
+   		width:25%;
+   		padding-top:1%;
+   		padding-bottom:1%;
+   		margin-right:5%;
+   		background-color:#c9211c;
+   
+   }
+   #welcome h3{
+   		margin-right:10%;
+   		margin-bottom:5%;
+   }
    
 </style>
 </head>
@@ -57,11 +70,11 @@
 	<div class="jumbotron">
       <div id="welcome">
          <p><font>회원가입에 성공하셨습니다.</font></p>
-         <h3><font>로그인을 통해 더 많은 빌림의 서비스를 이용하세요</font></h3>
-         <button class="btn btn-success" id="loginPage">로그인</button>
+         <h3><strong><font>로그인을 통해 더 많은 빌림의 서비스를 이용하세요</font></strong></h3>
+         <button class="btn btn-danger" id="loginPage"><strong><h4>로그인</h4></strong></button>
       </div>
     </div>
-<%-- <%@ include file="../resource/include/modal_signup/indexSignup.jsp"%> --%>
-<%@ include file="../resource/include/footer.jsp"%>
+
+<%@ include file="../resource/include/footer.jsp"%> 
 </body>
 </html>
