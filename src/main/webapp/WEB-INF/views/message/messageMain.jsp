@@ -123,7 +123,7 @@ $(document).ready(function() {
 						
 						
 						<div style="position:relative;height:10vh;">
-							<c:forEach items="${memberInfo}"  var="member">
+							<c:forEach items="${hostMemberInfo}"  var="member">
 							<c:if test="${member.member_email eq message.host_email}">
 							<img style="position:relative;left:1vw;top:1.3vh;width:7vh;height:7vh;" src="files/${member.member_picture}" class="img-circle">
 							
@@ -137,8 +137,27 @@ $(document).ready(function() {
 							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if></c:forEach>
 							
 						</div>
-						<div class="tab-pane" id="tab_default_2">
-							여기다 호슽팅 관련된 내가 쓴 거 나타내기
+						<div class="tab-pane" id="tab_default_2" style="height:auto;">
+						
+						
+							<c:forEach items="${hostMessage}" var="messageH" varStatus="i">
+						
+						
+						<div style="position:relative;height:10vh;">
+							<c:forEach items="${guestMemberInfo}"  var="memberH">
+							<c:if test="${messageH.host_email eq userId}">
+							<img style="position:relative;left:1vw;top:1.3vh;width:7vh;height:7vh;" src="files/${memberH.member_picture}" class="img-circle">
+							
+							<h5 style="position:relative; left:6vw;top:-6.3vh;">${memberH.member_name}</h5>
+							<h5 style="position:relative; left:6vw;top:-6.3vh;">${messageH.message_time}</h5>
+							
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}" style="position:relative;left:17.5vw;top:-13.3vh;color:gray;text-decoration:none;">${messageH.message_content}</a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}" style="position:relative;left:17.5vw;top:-13.3vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
+							
+							<h5 style="position:relative; left:40vw;top:-18.5vh;color:#f9c945;font-weight:800;">문의</h5>
+							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if></c:forEach>
+							
+							
 						</div>
 						
 					</div>
