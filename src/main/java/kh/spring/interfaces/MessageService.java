@@ -35,4 +35,10 @@ public interface MessageService {
 	public MessageDTO getOneMessage(int message_seq);
 	
 	public int getMessageSeq();
+	
+	public List<GuestMsgDTO> hostMessageMain(String userId);
+	
+	public int hostMsgAllCount(String userId);
+	
+	public List<HomeDTO> getHomeNames(String userId);
 }

@@ -40,13 +40,9 @@
 		values(#{message_room_seq},#{home_seq},#{host_email},#{guest_email},#{checkIn},#{checkOut},#{totalNumber})
 	</insert>
 
-	<select id="guestMessageMain" resultType="GuestMsg">
-		select
-		mr.message_room_seq,m.message_seq,mr.home_seq,mr.guest_email,mr.host_email,mr.checkIn,mr.checkOut,mr.totalNumber,m.message_content,m.message_time
-		from message_room mr,message m where
-		(mr.message_room_seq=m.message_room_seq) and message_time in (select
-		max(message_time) from message where fromID=#{userId} group by
-		fromID,toID) order by m.message_time desc
+	<select id="guestMessageMain" parameterType="string" resultType="GuestMsg">
+select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
+in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} order by message.MESSAGE_TIME desc
 	</select>
 
 	<select id="guestMsgAllCount" resultType="int">
@@ -77,5 +73,18 @@
 	
 	<select id="getMessageSeq" resultType="int">
 	select message_seq.nextval from dual
+	</select>
+	
+		<select id="hostMessageMain" parameterType="string" resultType="GuestMsg">
+select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
+in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} order by message.MESSAGE_TIME desc
+	</select>
+	
+	<select id="hostMsgAllCount" resultType="int">
+		select count(message_room_seq) from message_room where host_email=#{userId}
+	</select>
+	
+	<select id="getHomeNames" resultType="Home">
+	select * from home where member_email=#{userId}
 	</select>
 </mapper>

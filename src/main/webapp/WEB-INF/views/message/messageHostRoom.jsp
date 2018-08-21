@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,13 +26,12 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>${host_name}님과의 대화</title>
-
+<title>${guest_name}님과의 대화</title>
 <style>
 .card {
 	transition: 0.3s;
 	width: 18vw;
-	height: 115vh;
+	height: 170vh;
 	border: 1px solid #c9cacc;
 	position: relative;
 	left:22.5vw;
@@ -39,10 +39,7 @@
 	margin-bottom:10vh;
 }
 
-
-
-/*  */
-
+ 
 /* * {
   box-sizing: border-box;
   margin: 0;
@@ -51,11 +48,11 @@
   -webkit-box-sizing: border-box;
  	-moz-box-sizing: border-box;
 }
- */
+
 body{
 
   font-family: "Roboto", "Tahoma", "Arial", sans-serif;,
-}
+} */
 
 .text-right{ text-align: right; }
 
@@ -79,7 +76,7 @@ body{
 .comment-form .form{ margin-left: 100px; }
 
 .comment-form .form .form-row{ /* margin-bottom: 10px; */ }
-.comment-form .form .form-row:last-child{ margin-bottom: 0; }
+ .comment-form .form .form-row:last-child{ margin-bottom: 0; }
 
 .comment-form .form .input{
   background-color: #fcfcfc;
@@ -149,15 +146,15 @@ body{
 }
 
 
-.comments{  }
 
 .comment-form,
-.comment{
- /*  margin-bottom: 0vh; */
- height:auto;
+.comment{ 
+   margin-bottom: 0vh; */
+  height:auto;
   position: relative;
   z-index: 0;
-}
+} 
+
 
 .comment-form .comment-avatar,
 .comment .comment-avatar{
@@ -256,8 +253,8 @@ body{
   width: 15%;
 }
 
-/* 
-* {
+
+/* * {
   margin: 0px;
   padding: 0px;
 } */
@@ -353,110 +350,84 @@ body{
     padding: 2px 16px;
 }
 
-
+/* Reset Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2c3e50;
+  background-image: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: block;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #2c3e50;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #fff;
+  cursor: pointer;
+}
+select::-ms-expand {
+  display: none;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: #34495e;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
 </style>
 <script>
+$(document).ready(function(){
+	var week = ['일', '월', '화', '수', '목', '금', '토'];
 
-
-
-</script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
-<script>
-
-          $(document).ready(function(){
-        	var week = ['일', '월', '화', '수', '목', '금', '토'];
-
-  			var dayOfCI = week[new Date($('#checkIn').val()).getDay()];
-  			var dayOfCO = week[new Date($('#checkOut').val()).getDay()];
-  			
-  			$('#dayCI').html(dayOfCI+"요일");
-  			$('#dayCO').html(dayOfCO+"요일");
-  			
-  			
-  			
-  			$('#msgSendBt').click(function(){
-    		
-  				
-  				if(!$('#message_content').val()){
-  					
-  					$('.comments-app').prepend("<div class=\"alert alert-danger\" style=\"position:relative;width:48%;top:4.8vh;left:0.4vw;background-color:white;\"><span class=\"glyphicon glyphicon-alert\"></span><strong  style=\"border:white;background:white;\"> 메세지를 입력후 버튼을 눌러주세요</strong></div>");
-  					window.setTimeout(function() {
-  		        	    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-  		        	        $(this).remove(); 
-  		        	    });
-  		        	}, 3000);
-  		        	
-  		        	return false;
-  					
-  				}
-  				
-  	            
-  				
-  				$.ajax({
-  					type:"POST",
-  				    url:"messageSendInRoom.msg",
-  	/* 			    data:{message_room_seq:parseInt($("#message_room_seq").val())} */
-  					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#host_email').val()+"&message_content="+$('#message_content').val(),
-  					success:function(resp){
-/*   					   var content=[];
-  					   var time=[];
-  					   content.push(resp.split(" ")[0].split(":")[0]); time.push(resp.split(" ")[0].split(":")[1]); */
-  					 
-  		/* 			for(var i=content.length;0<content.length;i--){
-  						for(var j=time.length;0<time.length;j--){ */
-  						$('.co').prepend("<div class=\"comment\" style=\"height:17vh;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
-  					/* }
-  					
-  					} */
-
-  					/* 	$('.comment').prepend("<div class=\"comment\" style=\"border:1px solid purple;height:17vh;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div>"+
-                     +"<div class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
-  						 */
-  						
-  					/* 	$('.comment-form').html("<div class=\"comment\" style=\"border:1px solid purple;height:17vh;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;\">"+resp+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp+"</h5></div></div>");
-  						 */
-  					}
-  					
-  					
-  				});
-  				
-  				$('#message_content').val("");
-  				
-  				
-  			})
-  			
-  			
-  			
-  			
-  			
-  			
-  			
-          });
-			
-          
-          
-
+		var dayOfCI = week[new Date($('#checkIn').val()).getDay()];
+		var dayOfCO = week[new Date($('#checkOut').val()).getDay()];
+		
+		$('#dayCI').html(dayOfCI+"요일");
+		$('#dayCO').html(dayOfCO+"요일");
+		
+	
+	
+	
+})
 </script>
 </head>
 <body>
-
 <%@ include file="../../resource/include/header_profile.jsp" %>
-	<div class="card">
-			
-			
-			<div class="row" style="position:relative;width:100%;left:0.8vw;height:33vh;">
-			<div style="position:relative;top:-1vh;">
- <img src="files/${host_picture}" style="width:47%;height:50%;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
-			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:6.9vw;font-weight:700;">${host_name}</h4>
-			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4.6vw;">${home_location}</h5>
-            <a style="color:#337a46;position:relative;left:7.5vw;top:6.5vh;">신고하기</a>
-			</div>
 
-				</div>
-			
-			<div class="row" style="font-weight:700;width:100%;height:29vh;position:relative;left:0.8vw;">
+<div class="card">
+						<div class="row" style="font-weight:700;width:100%;height:30vh;position:relative;left:0.8vw;">
 			<div style="position:relative;top:2vh;">
-					<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">여행 세부정보</h4>
+					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">예약 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
 				<div style="position:relative;  top:4vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">체크인</h6><h6 style="display: inline !important;top:-2.8vh; margin:1vw;position:relative; left:1vw;font-weight:700;color:#9e9e9e;">체크 아웃</h6></div>
 				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.4vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:1vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
@@ -466,35 +437,75 @@ body{
 				<span class="glyphicon glyphicon-triangle-right" style="position:relative;left:8.8vw;top:-1vh;"></span>
 				<hr style="color:gray;width:70%;position:relative;top:1vh;">
 				<div style="position:relative;  top:3vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">인원</h6></div>
-				<div style="position:relative;  top:3vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;">${msgRoom.totalNumber}명</h6></div>
+				<div style="position:relative;  top:3vh;left:5.4vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;">${msgRoom.totalNumber}명</h6></div>
 		
 			</div>
 			</div>
 			
 			
-			<div class="row" style="height:29vh;position:relative;left:0.8vw;top:0vh;width:100%;">
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:0vh;width:100%;">
 			
-			<div style="position:relative;top:4vh;">
-			<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">결제</h4>
-			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">￦${totalPrice}</h5></div>
+			<div style="position:relative;top:1vh;">
+			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">호스팅 대금</h4>
+			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:5.8vw;">￦${totalPrice}</h5></div>
             <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦0</h5></div>
 			<hr style="color:#666666;width:70%;position:relative;top:1.9vh;font-weight:900;height:15px;">
-			<div style="position:relative;  top:-1vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.1vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">￦${totalPrice}</h5></div>
+			<div style="position:relative;  top:-1vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.1vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10vw;font-weight:700;">￦${totalPrice}</h5></div>
 			
 			<hr style="color:#666666;width:70%;position:relative;top:-2vh;">
 			</div>
 			
 			</div>
-			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:0vh;width:100%;">
+			<hr style="color:#666666;width:70%;position:relative;top:-1.5vh;font-weight:900;height:15px;">
+			
+			
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
+			<div style="width:75%;position:relative;top:0vh;left:3vw;">
+			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">예약 취소</h4>
+			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
+이 예약을 취소하면 페널티를 받게 됩니다. 페널티에는 1년간 슈퍼호스트 지위 박탈, 취소 기록을 보여주는 후기 공개, 취소 수수료가 포함되며, 취소한 예약에 해당하는 날짜가 달력에서 차단됩니다.</h5>
+			</div>
+			</div>
+			
+			<hr style="color:#666666;width:70%;position:relative;top:0.4vh;font-weight:900;height:15px;">
+	
+			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-3vh;width:100%;">
 			<div style="width:75%;position:relative;top:1.7vh;left:3vw;">
 			<h4 style="position:relative;top:1vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">언제나 빌림을 통해 대화하세요</h4>
 			<h5 style="position:relative;top:3vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
 			</div>
 			</div>
 			
+			
+			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;border:1px solid green;">
+			<div style="position:relative;top:-1vh;">
+			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;">게스트 소개 </h4>
+			<div style="width:4.2vw;height:7.7vh;position:relative;left:3vw;top:2.9vh;">
+            <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
+			</div>
+			<h4 style="color:#5e5e5e;position:relative;top:-6vh;left:7.8vw;">${guest_name}</h4>
+			<h5 style="color:#9e9e9e;position:relative;top:-6vh;left:7.8vw;">${guest_location}</h5>
+            <a style="color:#337a46;position:relative;left:7.8vw;top:-6vh;">신고하기</a>
+            <hr style="color:#666666;width:70%;position:relative;top:-6vh;font-weight:900;height:15px;">
+            <c:if test="${!empty getHomeNames}">
+     <div class="select">
+    <select name="slct" id="slct">
+<c:forEach var="homeList" items="${getHomeNames}" varStatus="i">
+ <option value="${getHomeNames.home_name}">${getHomeNames.home_name}</option>
+</c:forEach>
+    </select>
+  </div>
+  </c:if>
+			</div>
+              
+				</div>
+			
+
+			
 		</div>
 		
-<!--예약 확인 카드  -->
+		
+		<!--예약 확인 카드  -->
 <div class="card2">
  
   <div class="container">
@@ -503,6 +514,9 @@ body{
     <button class="btn btn-default" style="background-color:#ff5a5f;color:white;font-weight:800;border:1px solid #ff6b6b;">수락</button><button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">거절</button> 
   </div>
 </div>
+
+
+
 
 <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-130vh;height:auto;">
 
@@ -576,7 +590,7 @@ body{
  
 
 </div>
-	
+
 
    <%@ include file="../../resource/include/footer.jsp" %>   
 
