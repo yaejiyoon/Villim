@@ -8,6 +8,7 @@
 <title>Villim</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
@@ -40,21 +41,23 @@ $(function () {
     a()
 });
 </script>
+
 <script>
 var map, infoWindow;
 function initMap() {
+	
 	var lat = -34.397;
 	var lng = 150.644;
-	
 	
 	<c:if test="${lat eq null}">
 		map = new google.maps.Map(document.getElementById('map'), {
 	 		center: {lat: lat, lng: lng},
-     		zoom: 17
+     		zoom: 14
   		});
 	
  		infoWindow = new google.maps.InfoWindow;
  		
+		
 	 	//   Try HTML5 geolocation.
 	 		if (navigator.geolocation) {
 	 		navigator.geolocation.getCurrentPosition(function(position) {
@@ -84,6 +87,16 @@ function initMap() {
 	 	                        'Error: Your browser doesn\'t support geolocation.');
 	 	  infoWindow.open(map);
 	 	}
+	 	
+		google.maps.event.addListenerOnce(map, 'idle', function(){
+	 		// 남서쪽의 좌표
+	 		var swLatLng = map.getBounds().getSouthWest();
+	 		// 북동쪽의 좌표
+	 		var neLatLng = map.getBounds().getNorthEast(); 
+	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+		  });
+	 	
 	</c:if>
 	
 	<c:if test="${lat ne null}">
@@ -92,13 +105,32 @@ function initMap() {
 	
 		map = new google.maps.Map(document.getElementById('map'), {
 		 	center: {lat: lat, lng: lng},
-	     	zoom: 17
+	     	zoom: 14
 		});
 		infoWindow = new google.maps.InfoWindow;
-	</c:if>
-	
-	var locations=[['399.999원',37.534087 ,126.896957],
-    		['40,000원',37.534240, 126.901989]];
+		
+		google.maps.event.addListenerOnce(map, 'idle', function(){
+
+//	 		// 남서쪽의 좌표
+	 		var swLatLng = map.getBounds().getSouthWest();
+	 		// 북동쪽의 좌표
+	 		var neLatLng = map.getBounds().getNorthEast(); 
+			
+	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+
+		  });
+		
+		</c:if>
+		
+		var locations = [];
+		<c:forEach var="item" items="${homeList}" varStatus="status">
+			locations['${status.index}'] = new Array();
+			locations['${status.index}'][0] = "${item.home_price}";
+			locations['${status.index}'][1] = "${item.home_lat}";
+			locations['${status.index}'][2] = "${item.home_lng}";
+		</c:forEach>
+
 		for (var i = 0; i < locations.length; i++) {
 		 marker = new google.maps.Marker({
 		     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -118,28 +150,50 @@ function initMap() {
 		})(marker, i));
 		}
 		
-
-
-	
-	
-	
-}
-	
-
-// $(document).ready(function() {
-// 	$("#map").mouseup(function() {
-// 		// 남서쪽의 좌표
-// 		var swLatLng = map.getBounds().getSouthWest();
-// 		// 북동쪽의 좌표
-// 		var neLatLng = map.getBounds().getNorthEast(); 
 		
-// 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-// 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
-// 	});
-// })
+}
 
 
 </script>
+<script>
+$(document).ready(function() {
+	$("#map").mouseup(function() {
+		// 남서쪽의 좌표
+		var swLatLng = map.getBounds().getSouthWest();
+		// 북동쪽의 좌표
+		var neLatLng = map.getBounds().getNorthEast(); 
+		
+		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+		
+		var swLat = map.getBounds().getSouthWest().lat();
+		var neLat = map.getBounds().getNorthEast().lat();
+		var swLng = map.getBounds().getSouthWest().lng();
+		var neLng = map.getBounds().getNorthEast().lng();
+		
+		var latlng = {swLat:swLat, neLat:neLat, swLng:swLng, neLng:neLng};
+		
+		$.ajax({
+		       url: "mapMove.do",
+		       type: "POST",
+		       data:latlng,
+		       success:function(returndata){
+		    	   if(chkval==1) {
+						on.style.display = 'block';    
+						off.style.display = 'none';
+		    	   } else if(chkval==2) {
+						on.style.display = 'none';
+						off.style.display = 'block';    
+		    	   }
+		       },error:function(errordata){
+					alert("에러에러");
+		       }
+		});
+	});
+});
+
+</script>
+
 <script>
 $(document).ready(function() {
 		$('body').delegate('#myonoffswitch','click',function(){
@@ -274,14 +328,14 @@ $(document).ready(function() {
  		font-family: Interpark;
 		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
  		width : 100%;
- 		height : 3000px;
+ 		height : 170vh;
  	}
  	
  	
  	
  	#mapOffDiv {
  		width : 100%;
- 		height : 700px;
+ 		height : 300px;
  	}
  	
  	#footer {
@@ -477,8 +531,7 @@ $(document).ready(function() {
 		margin : auto;
 	}
 	
-	
-	#onCardsRow {
+	#onCardsWrapper .row{
 		height : 50%;
 	}
  	
@@ -511,290 +564,68 @@ $(document).ready(function() {
 	<div id="contentsWrapper">
 		<div id="mapOnDiv">
 			<div id="onCardsWrapper">
-				<div class="row" id="onCardsRow">
-				  <div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
-					  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-						</div>
-						<p class="homeType">집 전체·레체</p>
-	                  <p class="homeName">
-	                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
-	                  </p>
-	                  <p class="homePrice">\88,732 /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
-				  
-				  </div>
-				  				  <div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
-					  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-						</div>
-						<p class="homeType">집 전체·레체</p>
-	                  <p class="homeName">
-	                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
-	                  </p>
-	                  <p class="homePrice">\88,732 /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
-				  
-				  </div>
-				  
-				  				  <div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
-					  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-						</div>
-						<p class="homeType">집 전체·레체</p>
-	                  <p class="homeName">
-	                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
-	                  </p>
-	                  <p class="homePrice">\88,732 /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
-				  
-				  </div>
-				  
-				</div>
 				<div class="row">
-									  <div class="col-md-4">
+					<c:forEach var="homeList" items="${homeList}" varStatus="status">
+						<div class="col-md-4">
 				  	<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
-					  </ol>
+						  <ol class="carousel-indicators">
+						    <li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
+						    <li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
+						    <li data-target="#${homeList.home_seq}" data-slide-to="2"></li>
+						  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img src="<c:url value='files/${homeList.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
+					      <img src="<c:url value='files/${homeList.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
+					      <img src="<c:url value='files/${homeList.home_main_pic}'/>">
 					    </div>
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
-						<p class="homeType">집 전체·레체</p>
+						<p class="homeType">${homeList.home_type}</p>
 	                  <p class="homeName">
-	                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+	                     <B>${homeList.home_name}</B>
 	                  </p>
-	                  <p class="homePrice">\88,732 /박</p>
+	                  <p class="homePrice">₩ ${homeList.home_price} /박</p>
 	                  <p class="reviewStar">★★★★★</p>
 	                  <p class="reviewCount">247</p>
 	                  <p class="hostTitle">슈퍼호스트</p>
 					</div>
 				  
 				  </div>
-				  <div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
-					  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-						</div>
-						<p class="homeType">집 전체·레체</p>
-	                  <p class="homeName">
-	                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
-	                  </p>
-	                  <p class="homePrice">\88,732 /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
+					</c:forEach>
+				
 				  
-				  </div>
-				  <div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
-					  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
-						</div>
-						<p class="homeType">집 전체·레체</p>
-	                  <p class="homeName">
-	                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
-	                  </p>
-	                  <p class="homePrice">\88,732 /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
+				  	
 				  
-				  </div>
-
-				</div>
+				</div> 
+<!-- 				row -->
+				
 			</div>
+			
+			
+			
+			
+			
 			<div id="mapWrapper">
 				<div id="map"></div>
 			</div>

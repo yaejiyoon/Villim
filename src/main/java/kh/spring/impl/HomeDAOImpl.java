@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeDAO;
 
 @Component
@@ -26,7 +27,7 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> getAllHomeData() {
 		return ssTemplate.selectList("Home.getAllHomeData");
 	}
-
+	
 	@Override
 	public HomeDTO getOldestHomeData() {
 		return ssTemplate.selectOne("Home.getOldestHomeData");
@@ -142,6 +143,18 @@ public class HomeDAOImpl implements HomeDAO {
 	public int modifyHomeRulesDetails(HomeDTO hdto) {
 		String sql = "update home set home_rules=?, home_details = ? where home_seq = ?";
 		return jdbcTemplate.update(sql,hdto.getHome_rules(), hdto.getHome_details(), hdto.getHome_seq());
+	}
+
+//	예지
+	
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return ssTemplate.selectList("Home.getAllHomeDataMain");
+	}
+	
+	@Override
+	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
+		return ssTemplate.selectList("Home.getHomeOnMap", mdto);
 	}
 
 }

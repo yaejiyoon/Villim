@@ -7,5 +7,6 @@
 		resultType="HomePic">
 		select * from home_pic where home_seq = #{seq}
 	</select>
+	
 
 </mapper>
