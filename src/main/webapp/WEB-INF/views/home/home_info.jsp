@@ -495,9 +495,14 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			</c:forEach>
                			<ul class="pagination">
                				${page}
-               				
-               				
-               			</ul>
+
+								<script type="text/javascript">
+									function pageFunction(i,home_seq) {
+										alert(i+" : "+home_seq);
+									}
+								</script>
+
+							</ul>
                		</div>
                		<div id="info-main05-host">
                			<div id="host-top">
