@@ -50,8 +50,8 @@ public class MessageController {
         String today= sdf.format(new Date());
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		/*session.setAttribute("userId", "jake@gmail.com");*/
-		 session.setAttribute("userId", "plmn855000@gmail.com");
+		session.setAttribute("userId", "jake@gmail.com");
+	/*	 session.setAttribute("userId", "plmn855000@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
         System.out.println("아이디 :"+userId );
 		// 여행
@@ -345,17 +345,21 @@ public class MessageController {
 		session.setAttribute("userId", "plmn855000@gmail.com");
 		String userId = (String) session.getAttribute("userId");
 		List<HomeDTO> getHomeNames=this.service.getHomeNames(userId);
+	    
+		System.out.println("호스트 이메일 : "+userId+" / 게스트 이메일 : "+member_email);
 		System.out.println(getHomeNames.get(0)+" / "+getHomeNames.get(1));
 		MemberDTO hostInfo=this.m_service.getPhoto(userId);
 		MemberDTO guestInfo=this.m_service.getPhoto(member_email);
 		HomeDTO hdto = homeService.getHomeData(home_seq);
+		mav.addObject("message_room_seq", message_room_seq);
+		mav.addObject("home_seq", home_seq);
 		mav.addObject("userId", userId);
+		mav.addObject("guest_email", member_email);
 		mav.addObject("guest_picture", member_picture);
 		mav.addObject("guest_name", member_name);
 		mav.addObject("guest_location", guestInfo.getMember_location());
 		mav.addObject("host_picture", hostInfo.getMember_picture());
 		mav.addObject("getHomeNames", getHomeNames);
-		
 		mav.addObject("home_name", hdto.getHome_name());
 		System.out.println("가격"+hdto.getHome_price());
 		mav.addObject("home_price", hdto.getHome_price());
@@ -401,12 +405,6 @@ public class MessageController {
 		for(MessageDTO tmp:message) {
 			System.out.println(tmp.getMessage_content()+" / "+tmp.getMessage_time());
 		}
-		
-		
-		
-		
-		
-		
 		
 		
 		mav.setViewName("/message/messageHostRoom");

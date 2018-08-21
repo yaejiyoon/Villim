@@ -342,17 +342,35 @@ body{
     border: 1px solid #c9cacc;
     transition: 0.3s;
     width: 30%;
-    height:auto;
+    height:20vh;
     margin: 0 auto;
     position:relative;
     left:10vw;
     top:-125vh;
 }
 
-.container {
-    padding: 2px 16px;
+#reservBefore {
+   position:relative;
+   top:3vh;
+   left:0.5vw;
 }
 
+.card3 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 30%;
+    height:20vh;
+    margin: 0 auto;
+    position:relative;
+    left:10vw;
+    top:-125vh;
+}
+
+#reservAfter{
+   position:relative;
+   top:3vh;
+   left:0.5vw;
+}
 
 </style>
 <script>
@@ -395,26 +413,13 @@ body{
   				$.ajax({
   					type:"POST",
   				    url:"messageSendInRoom.msg",
-  	/* 			    data:{message_room_seq:parseInt($("#message_room_seq").val())} */
   					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#host_email').val()+"&message_content="+$('#message_content').val(),
   					success:function(resp){
-/*   					   var content=[];
-  					   var time=[];
-  					   content.push(resp.split(" ")[0].split(":")[0]); time.push(resp.split(" ")[0].split(":")[1]); */
-  					 
-  		/* 			for(var i=content.length;0<content.length;i--){
-  						for(var j=time.length;0<time.length;j--){ */
-  						$('.co').prepend("<div class=\"comment\" style=\"height:17vh;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
-  					/* }
-  					
-  					} */
 
-  					/* 	$('.comment').prepend("<div class=\"comment\" style=\"border:1px solid purple;height:17vh;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div>"+
-                     +"<div class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
-  						 */
+  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
+  		
   						
-  					/* 	$('.comment-form').html("<div class=\"comment\" style=\"border:1px solid purple;height:17vh;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;\">"+resp+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp+"</h5></div></div>");
-  						 */
+  				
   					}
   					
   					
@@ -446,7 +451,7 @@ body{
 			
 			<div class="row" style="position:relative;width:100%;left:0.8vw;height:33vh;">
 			<div style="position:relative;top:-1vh;">
- <img src="files/${host_picture}" style="width:47%;height:50%;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
+ <img src="files/${host_picture}" style="width:47%;height:15vh;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
 			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:6.9vw;font-weight:700;">${host_name}</h4>
 			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4.6vw;">${home_location}</h5>
             <a style="color:#337a46;position:relative;left:7.5vw;top:6.5vh;">신고하기</a>
@@ -497,10 +502,19 @@ body{
 <!--예약 확인 카드  -->
 <div class="card2">
  
-  <div class="container">
-    <h4><b>예약 신청을 하셨습니다.</b></h4> 
-    <p>Current Position</p>
-    <button class="btn btn-default" style="background-color:#ff5a5f;color:white;font-weight:800;border:1px solid #ff6b6b;">수락</button><button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">거절</button> 
+  <div id="reservBefore" class="container" style="width:100%;padding:1;">
+    <h4><b>${host_name}님에게 숙소 문의 메시지를 보냈습니다</b></h4> 
+    <p >대부분의 호스트는 24시간 이내에 응답합니다. 이 숙소를 1순위로 고려하고 있다면, 결제 정보를 입력하여 정식으로 예약 요청을 하세요.</p>
+    <button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
+  </div>
+</div>
+
+<div class="card3">
+ 
+  <div id="reservAfter" class="container" style="width:100%;padding:1;">
+    <h4><b>${host_name}님의 숙소에 예약 요청을 보내셨습니다</b></h4> 
+    <p>예약이 확정된 것은 아닙니다. ${host_name}님이 빠른 시간안에 예약 요청에 응답할 것입니다.</p>
+    <button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">철회 요청</button> 
   </div>
 </div>
 
@@ -520,7 +534,7 @@ body{
 
     <form class="form" name="form" >
       <div class="form-row">
-        <textarea id="message_content" class="input" style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
+        <textarea id="message_content" class="input" maxlength=800; style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
       </div>
 
    
@@ -545,24 +559,24 @@ body{
 <c:forEach items="${message}" var="message" >
 
  <c:if test="${message.fromID eq userId}">
-    <div class="comment" style="height:17vh;">
-      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;">
+    <div class="comment" style="height:auto;">
+      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:3vh;">
         <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-7vh;">${message.message_content}
+      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       
     </div>
 </c:if>
 <c:if test="${message.fromID eq host_email}">
-    <div class="comment" style="height:17vh;">
+    <div class="comment" style="height:auto;">
       <div class="comment-image"  style="width:3.7vw;height:7vh;">
         <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
       </div>
  
-      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;">${message.message_content}
+      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       
       </div>

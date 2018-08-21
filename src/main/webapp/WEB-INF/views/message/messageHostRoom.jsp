@@ -358,31 +358,38 @@ select {
   appearance: none;
   outline: 0;
   box-shadow: none;
-  border: 0 !important;
-  background: #2c3e50;
+  background: #f9f9f9;
   background-image: none;
+  border:0px;
 }
 /* Custom Select */
 .select {
   position: relative;
   display: block;
-  width: 20em;
+  width: 15.5em;
   height: 3em;
   line-height: 3;
-  background: #2c3e50;
+  background: #f2f2f2;
+  color:black;
   overflow: hidden;
   border-radius: .25em;
+  border:0px;
+    left:3vw;
+  top:-7vh;
 }
 select {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0 0 0 .5em;
-  color: #fff;
+  color: #5e5e5e;
+  left:1vw;
   cursor: pointer;
+  border:0px;
 }
 select::-ms-expand {
   display: none;
+  
 }
 /* Arrow */
 .select::after {
@@ -392,7 +399,7 @@ select::-ms-expand {
   right: 0;
   bottom: 0;
   padding: 0 1em;
-  background: #34495e;
+  background: #f9f9f9;
   pointer-events: none;
 }
 /* Transition */
@@ -416,7 +423,39 @@ $(document).ready(function(){
 		$('#dayCO').html(dayOfCO+"요일");
 		
 	
-	
+  			$('#msgSendBt').click(function(){
+    		
+  				
+  				if(!$('#message_content').val()){
+  					
+  					$('.comments-app').prepend("<div class=\"alert alert-danger\" style=\"position:relative;width:48%;top:4.8vh;left:0.4vw;background-color:white;\"><span class=\"glyphicon glyphicon-alert\"></span><strong  style=\"border:white;background:white;\"> 메세지를 입력후 버튼을 눌러주세요</strong></div>");
+  					window.setTimeout(function() {
+  		        	    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+  		        	        $(this).remove(); 
+  		        	    });
+  		        	}, 3000);
+  		        	
+  		        	return false;
+  					
+  				}
+  				
+  	            
+  				
+  				$.ajax({
+  					type:"POST",
+  				    url:"messageSendInRoom.msg",
+  					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#guest_email').val()+"&message_content="+$('#message_content').val(),
+  					success:function(resp){
+  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${host_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
+  					}
+  					
+  					
+  				});
+  				
+  				$('#message_content').val("");
+  				
+  				
+  			})
 	
 })
 </script>
@@ -491,7 +530,7 @@ $(document).ready(function(){
      <div class="select">
     <select name="slct" id="slct">
 <c:forEach var="homeList" items="${getHomeNames}" varStatus="i">
- <option value="${getHomeNames.home_name}">${getHomeNames.home_name}</option>
+ <option value="${homeList.home_name}">${homeList.home_name}</option>
 </c:forEach>
     </select>
   </div>
@@ -509,8 +548,8 @@ $(document).ready(function(){
 <div class="card2">
  
   <div class="container">
-    <h4><b>예약 신청을 하셨습니다.</b></h4> 
-    <p>Current Position</p>
+    <h4><b>${guest_name}님이 숙소 예약을 요청합니다.</b></h4> 
+    <p>응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
     <button class="btn btn-default" style="background-color:#ff5a5f;color:white;font-weight:800;border:1px solid #ff6b6b;">수락</button><button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">거절</button> 
   </div>
 </div>
@@ -518,23 +557,23 @@ $(document).ready(function(){
 
 
 
-<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-130vh;height:auto;">
+<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-184.5vh;height:auto;">
 
  <input type="hidden" id="message_room_seq" value="${message_room_seq}">
 <input type="hidden" id="home_seq" value="${home_seq}">
 <input type="hidden" id="userId" value="${userId}">
-<input type="hidden" id="host_email" value="${host_email}">
+<input type="hidden" id="guest_email" value="${guest_email}">
 
     <!-- From -->
   <div class="comment-form" style="position:relative;left:0vw;">
     <!-- Comment Avatar -->
     <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:8vh;">
-      <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
+      <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
     </div>
 
     <form class="form" name="form" >
       <div class="form-row">
-        <textarea id="message_content" class="input" style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
+        <textarea id="message_content" class="input" maxlength=500; style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
       </div>
 
    
@@ -551,7 +590,7 @@ $(document).ready(function(){
 
   
   <!-- Comments List -->
-  <div class="comments" >
+  <div class="comments">
   
   <div class="co"></div>
   
@@ -559,24 +598,24 @@ $(document).ready(function(){
 <c:forEach items="${message}" var="message" >
 
  <c:if test="${message.fromID eq userId}">
-    <div class="comment" style="height:17vh;">
-      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;">
-        <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
+    <div class="comment" style="height:auto;">
+      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:3vh;">
+        <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-7vh;">${message.message_content}
+      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-4vh;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       
     </div>
 </c:if>
-<c:if test="${message.fromID eq host_email}">
-    <div class="comment" style="height:17vh;">
+<c:if test="${message.fromID eq guest_email}">
+    <div class="comment" style="height:auto;">
       <div class="comment-image"  style="width:3.7vw;height:7vh;">
-        <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
+        <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
       </div>
  
-      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;">${message.message_content}
+      <div class="box1 sb6" style="width:80%;top:-3vh;left:2.5vw;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       
       </div>
