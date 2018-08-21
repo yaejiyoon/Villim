@@ -90,6 +90,21 @@ public class MessageDAOImpl implements MessageDAO{
 		return template.selectOne("Message.getMessageSeq");
 	}
 
+	@Override
+	public List<GuestMsgDTO> hostMessageMain(String userId) {
+		return template.selectList("Message.hostMessageMain", userId);
+	}
+
+	@Override
+	public int hostMsgAllCount(String userId) {
+		return template.selectOne("Message.hostMsgAllCount", userId);
+	}
+
+	@Override
+	public List<HomeDTO> getHomeNames(String userId) {
+		return template.selectList("Message.getHomeNames",userId);
+	}
+
 	
 
 

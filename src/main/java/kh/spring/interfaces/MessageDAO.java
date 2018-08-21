@@ -10,6 +10,8 @@ import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
 
 public interface MessageDAO {
+	
+	//Message Insert from Guest
 	public int countReview(int home_seq);
 
 	public int messageInsert(MessageDTO dto);
@@ -22,10 +24,12 @@ public interface MessageDAO {
 
 	public int messageRoomInsert(MessageRoomDTO roomdto);
 	
+	//Message Guest Main 
 	public List<GuestMsgDTO> guestMessageMain(String userId);
 	
 	public int guestMsgAllCount(String userId);
 	
+	//Message Guest Room
 	public List<MemberDTO> memberInfo(List<String> hostId);
 	
 	public MessageRoomDTO msgRoomInfo(int message_room_seq);
@@ -35,4 +39,14 @@ public interface MessageDAO {
 	public MessageDTO getOneMessage(int message_seq);
 	
 	public int getMessageSeq();
+	
+	//Message Host Main
+	public List<GuestMsgDTO> hostMessageMain(String userId);
+	
+	public int hostMsgAllCount(String userId);
+	
+	
+	//Message Host Room
+	
+	public List<HomeDTO> getHomeNames(String userId);
 }

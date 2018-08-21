@@ -85,6 +85,21 @@ public class MessageServiceImpl implements MessageService{
 		return dao.getMessageSeq();
 	}
 
+	@Override
+	public List<GuestMsgDTO> hostMessageMain(String userId) {
+		return dao.hostMessageMain(userId);
+	}
+
+	@Override
+	public int hostMsgAllCount(String userId) {
+		return dao.hostMsgAllCount(userId);
+	}
+
+	@Override
+	public List<HomeDTO> getHomeNames(String userId) {
+		return dao.getHomeNames(userId);
+	}
+
 	
 	
 	
