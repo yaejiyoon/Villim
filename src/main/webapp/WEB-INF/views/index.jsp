@@ -300,7 +300,7 @@ $(document).ready(function() {
 		})
 	});
 	
-	google.maps.event.addDomListener(window, 'load', init);
+	google.maps.event.addDomListener(window, 'load', init); 
 </script>
 <script>
 $(document).ready(function() {

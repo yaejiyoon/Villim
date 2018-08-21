@@ -158,6 +158,65 @@
 	color:gold;
 	}
 	
+	/* 비번찾기 모달 */
+	#findModal{
+	
+	text-align:center;
+	
+	z-index: 12000;
+	
+	box-sizing: border-box;
+	}
+	#findModal .modal-body{
+		height:50vh;
+		
+		
+	}
+	
+	#findModal h2{
+		margin-top:8%;
+		margin-bottom:8%;
+	}
+	#findModal h4{
+		
+	
+	}
+	#findModal input{
+		margin-top:5%;
+		margin-left:11%;
+		margin-bottom:5%;
+		width:78%;
+	}
+	#findModal #returnLogin{
+		
+		width:50%;
+		margin-bottom:3%;
+		padding-top:2%;
+		padding-bottom:2%;
+		
+	}
+	#findModal #sendLink{
+		
+		width:50%;
+		padding-top:2%;
+		padding-bottom:2%;
+		
+	}
+	
+	#findModalItag{
+		position: absolute;
+		margin-left:32%;
+		margin-top:3.3%;
+	}
+	
+	#findMHeader{
+		border-bottom-width:0px;
+	
+	}
+	#findMFooter{
+		border-top-width:0px;
+	}
+
 
 </style>
 
@@ -379,6 +438,37 @@
 		$("#moveSignup").click(function(){
 			$("#myModal1").modal('hide');
 			$("#myModal").modal('show');
+		})
+		$("#findPw").click(function(){
+			
+			$("#myModal1").modal('hide');
+			$("#findModal").modal('show');
+		})
+		$("#returnLogin").click(function(){
+			$("#findModal").modal('hide');
+			$("#myModal1").modal('show');
+		})
+		$("#sendLink").click(function(){
+			
+			var mail = $("#loginEmail2").val();
+			$.ajax({
+				url : "find.do",
+				type : "post",
+				data : {
+
+					mail : mail
+					
+				}, 
+				success : function(response) {
+
+					alert(response);
+				
+
+				},
+				error : function() {
+					console.log("에러 발생!");
+				}
+			});
 		})
 		
 	})
@@ -693,5 +783,32 @@ function loginWithEmail(){
       </div>
     </div>
   </div>
+</div>
+
+ <div class="modal fade" id="findModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" id="findMHeader"> 
+      </div>
+      <div class="modal-body">
+       <img src="<c:url value='/resources/img/logo2.png'/>">
+      <h2><strong>비밀번호 재설정</strong></h2>
+  
+      <h4>계정으로 사용하는 이메일 주소를 입력하시면</h4>
+      <h4>비밀번호 재설정 링크를 전송해 드립니다.</h4>
+    
+      
+      <i class="far fa-envelope fa-2x" style="color:black" id="findModalItag"></i>
+      <input name="resetEmail" type="email" class="form-control" id="loginEmail2" placeholder="이메일을 입력하세요">
+
+     <button class="btn btn-success" id="returnLogin">로그인으로 돌아가기</button><br>
+     <button class="btn btn-danger" id="sendLink">재설정 링크 전송하기</button>
+    
+      <div class="modal-footer" id="findMFooter">
+
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 

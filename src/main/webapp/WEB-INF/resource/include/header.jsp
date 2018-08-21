@@ -126,10 +126,10 @@
              	  <img src="${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%">
              	  </c:if>
              	  <c:if test="${fn:endsWith (test, 'jpg')}">
-             	  <img src=" files/${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%"> 
+             	  <img src="files/${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%"> 
              	</c:if>
              	  <c:if test="${fn:endsWith (test, 'png')}">
-             	  <img src=" files/${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%"> 
+             	  <img src="files/${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%"> 
              	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">

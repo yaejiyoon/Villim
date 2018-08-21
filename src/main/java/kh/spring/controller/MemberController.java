@@ -7,7 +7,6 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -31,8 +28,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
-import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.MailSendDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
@@ -41,9 +38,15 @@ import kh.spring.interfaces.MemberService;
 
 @Controller
 public class MemberController {
-
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	@Autowired
 	MemberDTO dto;
+	
+	@Autowired
+	MailSendDTO mailDto;
 
 	@Autowired
 	MemberService service;
@@ -488,6 +491,29 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 		
+	}
+	@RequestMapping("find.do")
+	public void find(HttpServletRequest request, HttpServletResponse response) {
+		
+		String mail = request.getParameter("mail");
+		System.out.println(mail);
+		try {
+		
+		mailDto.setSubject("Villim 입니다.");
+		mailDto.setText(new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080>재설정 링크</a>").toString());
+		mailDto.setFrom("villim", "나");
+		mailDto.setTo(mail);
+		mailDto.send();
+		System.out.println("메일보내기 성공");
+		String msg = "성공";
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		new Gson().toJson(msg, response.getWriter());
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
