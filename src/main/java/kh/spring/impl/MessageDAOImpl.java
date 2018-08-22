@@ -12,6 +12,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MessageDAO;
 
 @Component
@@ -103,6 +104,12 @@ public class MessageDAOImpl implements MessageDAO{
 	@Override
 	public List<HomeDTO> getHomeNames(String userId) {
 		return template.selectList("Message.getHomeNames",userId);
+	}
+
+	@Override
+	public ReservationDTO reservCheck(ReservationDTO dto2) {
+		return template.selectOne("Message.reservCheck", dto2);
+		
 	}
 
 	

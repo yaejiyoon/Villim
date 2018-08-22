@@ -214,7 +214,7 @@
                			<span data-hover="메세지" style="color:black;">메세지</span>
                			<ul>
         					<li><a href="messageRoomEnter.msg">Item</a></li>
-        					<li><a href="#">Product</a></li>
+        					<li><a href="ok.msg">Product</a></li>
         					<li><a href="#">Text</a></li>
       					</ul>
                		</a>

@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Latest compiled and minified CSS -->
@@ -26,6 +25,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Baloo|Ubuntu" rel="stylesheet">
 <title>${guest_name}님과의 대화</title>
 <style>
 .card {
@@ -336,14 +336,14 @@ body{
 
 
 .card2 {
-    border: 1px solid #c9cacc;
+    border: 1.3px solid #e8e8e8;
     transition: 0.3s;
     width: 30%;
-    height:auto;
+    height:26vh;
     margin: 0 auto;
     position:relative;
     left:10vw;
-    top:-125vh;
+    top:-180vh;
 }
 
 .container {
@@ -411,6 +411,10 @@ select::-ms-expand {
   -o-transition: .25s all ease;
   transition: .25s all ease;
 }
+
+/* calender */
+
+
 </style>
 <script>
 $(document).ready(function(){
@@ -423,6 +427,7 @@ $(document).ready(function(){
 		$('#dayCO').html(dayOfCO+"요일");
 		
 	
+		
   			$('#msgSendBt').click(function(){
     		
   				
@@ -463,6 +468,10 @@ $(document).ready(function(){
 <body>
 <%@ include file="../../resource/include/header_profile.jsp" %>
 
+
+
+		
+
 <div class="card">
 						<div class="row" style="font-weight:700;width:100%;height:30vh;position:relative;left:0.8vw;">
 			<div style="position:relative;top:2vh;">
@@ -486,16 +495,17 @@ $(document).ready(function(){
 			
 			<div style="position:relative;top:1vh;">
 			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">호스팅 대금</h4>
-			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:5.8vw;">￦${totalPrice}</h5></div>
-            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦0</h5></div>
-			<hr style="color:#666666;width:70%;position:relative;top:1.9vh;font-weight:900;height:15px;">
-			<div style="position:relative;  top:-1vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.1vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10vw;font-weight:700;">￦${totalPrice}</h5></div>
+			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:5.8vw;">￦${stayPrice}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦${home_servicefee}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.2vw;">￦${home_cleaningfee}</h5></div>
+			<hr style="background-color:#727272;width:70%;position:relative;top:1.9vh;font-weight:900;height:3px;">
+			<div style="position:relative;  top:-1vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.1vw;top:1vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10vw;font-weight:700;top:1vh;">￦${totalPrice}</h5></div>
 			
-			<hr style="color:#666666;width:70%;position:relative;top:-2vh;">
+			
 			</div>
 			
 			</div>
-			<hr style="color:#666666;width:70%;position:relative;top:-1.5vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:-0vh;font-weight:900;height:15px;">
 			
 			
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
@@ -533,6 +543,16 @@ $(document).ready(function(){
  <option value="${homeList.home_name}">${homeList.home_name}</option>
 </c:forEach>
     </select>
+    <!-- 달력    -->
+    
+
+    
+    
+    
+    
+    
+    
+    
   </div>
   </c:if>
 			</div>
@@ -542,19 +562,54 @@ $(document).ready(function(){
 
 			
 		</div>
-		
+
 		
 		<!--예약 확인 카드  -->
-<div class="card2">
+<c:if test="${reservCheck.reserv_state==0}">
+<div class="card2 animated slideInRight">
  
-  <div class="container">
+  <div class="container"  style="width:100%;padding:1;">
     <h4><b>${guest_name}님이 숙소 예약을 요청합니다.</b></h4> 
-    <p>응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
-    <button class="btn btn-default" style="background-color:#ff5a5f;color:white;font-weight:800;border:1px solid #ff6b6b;">수락</button><button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">거절</button> 
+    
+    <p style="color:gray;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp;응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
+    <div style="border:1.3px solid #e8e8e8;width:98%;height:10vh;">
+    <img src="<c:url value='/resources/img/barchart.png'/>" style="width:3.5vw;height:6vh;position:relative;top:1.5vh;left:1vw;">
+    <h5 style="font-weight:1000;position:relative;left:6vw;top:-6.5vh;">품격 있는 시작</h5>
+    <br>
+    <p style="color:gray;position:relative;top:-8.8vh;left:6vw;width:16vw;">게스트의 예약을 자꾸 거절하면 검색 결과에서 뒤로 밀려날 수 있습니다.</p>
+    </div>
+    
+    <button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;">수락</button><button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:2vh;left:1vw;">거절</button> 
   </div>
 </div>
+</c:if>
 
-
+<!-- Modal -->
+  <div class="modal fade" id="demo-1" tabindex="-1" style="margin-top:10vh;height:65vh;">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
+      <div class="modal-header" style="border:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;"><strong>${guest_name}님의 예약 요청을 거절하시겠어요?</strong></h4>
+      </div>
+      <div class="modal-body">
+     <h5 style="line-height:2;color:gray;position:relative;top:2.5vh;left:0.5vw;width:28vw;">게스트는 여행에 적합한 숙소를 찾기 위해 심혈을 기울입니다. 계속하기 전에 ${guest_name}님의 프로필 세부정보를 확인하세요.</h5>
+      		<div style="width:4.5vw;height:8.5vh;position:relative;left:24.5vw;top:3.5vh;">
+            <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
+			</div>
+			<h4 style="color:#5e5e5e;position:relative;top:-5vh;left:0.5vw;font-weight:800;">${guest_name}</h4>
+			<h5 style="color:#9e9e9e;position:relative;top:-5vh;left:0.5vw;"><span class="glyphicon glyphicon-home" style="color:gray;padding:0;"></span>&nbsp; ${guest_location}</h5>	
+      <h5 style="color:#9e9e9e;position:relative;top:-5vh;left:0.5vw;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp; 회원가입 : ${guest_regdate}</h5>
+      </div>
+       <div class="modal-footer" style="border:none;">
+       <button type="button" class="btn btn-default" style="position:relative;left:-19.5vw;top:-4vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">예, 거절합니다</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal" style="position:relative;left:-19.5vw;top:-4vh; border:2px solid #008489;color:#008489;font-weight:800;">뒤로</button>
+        </div>
+     </div>
+    </div>
+  </div>
+<!-- Modal -->
 
 
 <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-184.5vh;height:auto;">
@@ -612,7 +667,7 @@ $(document).ready(function(){
 <c:if test="${message.fromID eq guest_email}">
     <div class="comment" style="height:auto;">
       <div class="comment-image"  style="width:3.7vw;height:7vh;">
-        <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
+       <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" >
       </div>
  
       <div class="box1 sb6" style="width:80%;top:-3vh;left:2.5vw;margin-bottom:0;margin-top:0;">${message.message_content}
