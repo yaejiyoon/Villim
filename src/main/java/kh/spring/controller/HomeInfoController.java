@@ -13,11 +13,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -43,16 +47,37 @@ public class HomeInfoController {
 	public ModelAndView home_Info(HttpServletRequest req) {
 		
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
+		String hidden = req.getParameter("move");
+		int move = 0;
 		
+		if(hidden != null) {
+			move=1;
+		}
 		System.out.println("homeseq : " + home_seq);
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
+		
+		//date형태 변환 
+		SimpleDateFormat fm1 = new SimpleDateFormat("yy/MM/dd");
+	    SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월");
 		
 		//blockedDate불러오기
 		String getBlockedDate = homeService.getBlockedDate(home_seq);
 		
 		//hostReview
 		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
+		
+		//guestReview date 변환
+		for(int i=0; i<hostReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(hostReviewList.get(i).getH_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			hostReviewList.get(i).setH_review_date(str);
+		}
 		
 		//Review paging
 		int currentPage = 0;
@@ -65,14 +90,28 @@ public class HomeInfoController {
 		}
 		
 		Map<String, Integer> map = new HashMap<>();
-		map.put("startNum", currentPage * 5-4); 
-		map.put("endNum", currentPage * 5);
+		map.put("startNum", currentPage * 3-2); 
+		map.put("endNum", currentPage * 3);
 		map.put("home_seq", home_seq);
 		
 		//guestReivew
 		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
 		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
 		
+
+		//guestReview date 변환
+		for(int i=0; i<guestReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(guestReviewList.get(i).getG_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			guestReviewList.get(i).setG_review_date(str);
+		}
+
+		System.out.println("move : " + move);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
@@ -80,11 +119,61 @@ public class HomeInfoController {
 		mav.addObject("guestReviewList", guestReviewList);
 		mav.addObject("hostReviewList", hostReviewList);
 		mav.addObject("page", page);
+		mav.addObject("move", move);
 		mav.setViewName("home/home_info");
-
+		
 		return mav;
 	}
 	
+	@RequestMapping("/reviewList.info")
+	public void reviewList(HttpServletRequest req,HttpServletResponse response) {
+		String currentPageString = req.getParameter("currentPage");
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		
+		System.out.println(currentPageString + " ddd " + home_seq);
+		
+		//Review paging
+		
+		int currentPage = 0;
+				
+		if (currentPageString == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(currentPageString);
+		}
+				
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", currentPage * 3-2); 
+		map.put("endNum", currentPage * 3);
+		map.put("home_seq", home_seq);
+		
+		//guestReivew
+		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
+		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
+		
+		//hostReview
+		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
+
+		//totalNavi
+		int totalNavi = reviewService.countTotalNavi();
+		
+		Map<String, Object> reviewmap = new HashMap<String, Object>();
+		
+		reviewmap.put("guestReviewList", guestReviewList);
+		reviewmap.put("hostReviewList", hostReviewList);
+		reviewmap.put("page", page);
+		reviewmap.put("totalNavi", totalNavi);
+		
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			new Gson().toJson(reviewmap,response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@RequestMapping("/clickDate.re")
 	public void clickDate (HttpServletRequest request, HttpServletResponse response) {
@@ -229,6 +318,7 @@ public class HomeInfoController {
 		dto.setGuset_review("N");
 		dto.setReservation_seq(1);
 		dto.setTotalAmount(amount.replaceAll("[^0-9]", ""));
+		
 		
 //		System.out.println(dto.getReservation_seq());
 //		System.out.println(dto.getMember_email());

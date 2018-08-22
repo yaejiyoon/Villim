@@ -32,6 +32,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDAO.getReviewPageNavi(currentPageNo,home_seq);
 	}
 
+	@Override
+	public int countTotalNavi() {
+		return reviewDAO.countTotalNavi();
+	}
+
 	
 	
 	

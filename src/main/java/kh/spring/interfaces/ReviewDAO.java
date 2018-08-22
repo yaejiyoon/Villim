@@ -13,4 +13,5 @@ public interface ReviewDAO {
 	
 	public String getReviewPageNavi(int currentPageNo,int home_seq);
 	
+	public int countTotalNavi();
 }

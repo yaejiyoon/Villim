@@ -151,7 +151,9 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 				return null;
 			};
 		
-		
+			
+			
+
 	})
 	
 	
@@ -161,6 +163,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <%@ include file="../../resource/include/header.jsp" %>
    
    <!-- scrollspy -->
+
    
    <div id="scrollNav">
 		<div id="scrollNav-contents">
@@ -231,7 +234,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<div id="info-title">
                			<div id="info-title-left">
                				<span>집 전체</span>
-               				<h2 style="color:black; margin-top:2px;">${hdto.getHome_name() }</h2>
+               				<h2 style="color:black; margin-top:2px;">
+               				${hdto.getHome_name() }
+							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
+               				</h2>
                				<span>Seongsan-eup, Seogwipo-si</span>
                				<br>
                				<br>
@@ -243,10 +249,33 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<div id="info-title-right">
                				<img src="<c:url value='../resources/img/1.jpg'/>">
                				<br>
-               				<h5 style="padding-left: 25px;">kim</h5>
+               				<div style="width:80px;">
+               				<h5 style="padding-left: 25px;">kimㅇㅁㄴㄹㄴㅇㄴㅇ</h5>
+               				</div>
                			</div>
                		</div>
                		<div id="info-details">
+               			<br>
+               			<br>
+               			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
+               			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
+               			약 2천 권의 책이 비치되어 있습니다. 독서, 일행과의 대화를 위해 TV는 일부러 두지 않았습니다.
+               			<br>
+               			<br>
+               			방문으로 구분된 방이 2개, 문이 없는 서재공간 겸 방이 1개입니다. 방 하나에는 더블침대, 다른 방에는 침구(요)를 준비해드립니다.
+               			작은 욕실 2개, 간단한 취사가 가능한 주방이 있습니다.
+               			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
+               			<br>
+               			<br>
+               			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
+               			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
+               			약 2천 권의 책이 비치되어 있습니다. 독서, 일행과의 대화를 위해 TV는 일부러 두지 않았습니다.
+               			<br>
+               			<br>
+               			방문으로 구분된 방이 2개, 문이 없는 서재공간 겸 방이 1개입니다. 방 하나에는 더블침대, 다른 방에는 침구(요)를 준비해드립니다.
+               			작은 욕실 2개, 간단한 취사가 가능한 주방이 있습니다.
+               			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
+               			<br>
                			<br>
                			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
                			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
@@ -259,9 +288,13 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			<br>
                			<a href="" class="green">이 공간 자세히 알아보기 </a>
+               			<div id="details-collapse">
+               				
+               			</div>
                			<br>
                			<br>
                			<a href="" class="green">호스트에게 연락하기 </a>
+               			<br>
                			<br>
                			<br>
                		</div>
@@ -284,7 +317,11 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			건물 내 무료 주차
                			<br>
                			<br>
+               			
                			<a href="" class="green">30개 편의시설 모두 보기 </a>
+               			<br>
+               			<br>
+               			<br>
                		</div>
                		<div id="info-main02-right">
                			<br>
@@ -309,6 +346,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<div id="info-main03-top">
                			<br>
                			<span>침대/침구</span>
+               			<br>
+               			<br>
                		</div>
                		<div id="info-main03-bottom">
                			<div class="bed-div">
@@ -353,6 +392,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<h5>체크아웃: 11:00까</h5>
 					<br>
 					<a href="" class="green">숙소 이용규칙 모두 보기</a>
+					<br><br><br>
                </div>
                <div id="info-main08">
                		<br>
@@ -365,18 +405,19 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<br>
                		<br>
                		<a href="" class="green">정책 자세히 읽기</a>
+               		<br><br><br>
                </div>
                <div id="info-main04">
                		<br>
                		<span>예약 가능 여부</span>
-               		<br>
+               		<br><br><br>
                		<!-- <div  id="inlineCal" class="datepicker-here" data-language='en' data-range="true"></div> -->
                		
                </div>
                <div id="info-main05">
                		<div id="info-main05-top">
                			<div id="main05-top-sub01">
-               				<br>
+               				<br><br>
                				<span>후기 342개</span>
                				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
@@ -449,26 +490,26 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				</div>
                			</div>
                		</div>
+               		<% int cnt=0; %>
                		<div id="info-main05-review">
+               			<div class="guestWrapperDiv">
                			<c:forEach items="${guestReviewList }" var="guestReviewList">
-               			<fmt:parseDate value="${guestReviewList.g_review_date}" var="time" pattern="yy/MM/dd"/>
-               			<div class="review-wrapper">
+               			<div class="review-wrapper" id="guestReviewWrapper<%=cnt%>">
                				<ul class="media-list">
 								<li class="media" style="margin-bottom: 20px; margin-top: 20px;">
 								<a class="pull-left" href="#">
-									<img class="media-object" src="<c:url value='files/${guestReviewList.member_picture }'/>">
+									<img class="media-object" src="<c:url value='files/${guestReviewList.member_picture }'/>" 
+									id="guestReviewImg<%=cnt%>">
 								</a>
 									<div class="media-body">
-										<h4 class="media-heading">${guestReviewList.member_name }</h4>
-										<h6>
-											<fmt:formatDate value="${time}" pattern="yyyy"/>년 
-											<fmt:formatDate value="${time}" pattern="M"/>월 
+										<h4 class="media-heading" id="guestReviewMemberName<%=cnt%>">${guestReviewList.member_name }</h4>
+										<h6 id="guestReviewdate<%=cnt%>">
+											${guestReviewList.g_review_date}
 										</h6>
-										<p>${guestReviewList.g_review_public}</p>
+										<p id="guestReviewPublic<%=cnt%>">${guestReviewList.g_review_public}</p>
 										
 										<c:forEach items="${hostReviewList }" var="hostReviewList">
 										<c:if test="${guestReviewList.g_review_seq eq hostReviewList.g_review_seq}">
-										<fmt:parseDate value="${hostReviewList.h_review_date}" var="time2" pattern="yy/MM/dd"/>
 											<!-- Nested media object -->
 											<div class="media">
 												<a class="pull-left" href="#"> <img class="media-object"
@@ -479,8 +520,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 												<h4 class="media-heading">${hostReviewList.member_name }님의 답변:</h4>
 												<p>${hostReviewList.h_review_public }</p>
 												<h6>
-													<fmt:formatDate value="${time2}" pattern="yyyy"/>년 
-													<fmt:formatDate value="${time2}" pattern="M"/>월 
+													${hostReviewList.h_review_date}
 												</h6>
 												<!-- Nested media object -->
 											</div>
@@ -491,22 +531,90 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							</ul>
                				
                			</div>
-               			
+               			<% cnt++; %>
                			</c:forEach>
+               			</div>
                			<ul class="pagination">
                				${page}
 
+								
+
 								<script type="text/javascript">
 									function pageFunction(i,home_seq) {
-										alert(i+" : "+home_seq);
+										//alert(i+" : "+home_seq);
+										
+										var currentPage = i;
+										var home_seq = home_seq;
+										
+										$.ajax({
+			                                 url:"reviewList.info",
+			                                 type:"get",
+			                                 data:{
+			                                    currentPage:currentPage,
+			                                    home_seq:home_seq
+			                                        },
+			                                 success:function(resp){
+			                                    <%int num = 0;%>
+			                                    $('.review-wrapper').remove();
+			                                    
+			                                    for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                       $('.guestWrapperDiv').append(
+			                                                  $('<div>').attr('class','review-wrapper').append(
+			                                                       $('<ul>').attr('class','media-list').append(
+			                                                             $('<li>').attr('class','media '+resp.guestReviewList[i].g_review_seq).attr('id','li'+resp.guestReviewList[i].g_review_seq).attr('style','margin-bottom: 20px; margin-top: 20px;')
+			                                                       )
+			                                                    )
+			                                            );
+			                                       
+			                                    }
+			                                    /* 
+			                                    $('.media').after(
+			                                          $('<a>').attr('class','pull-left').append(
+			                                             $('<img>').attr('class','media-object').append()      
+			                                          )
+			                                       );
+			                                     */
+			                                    
+			                                     for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                     $('#li'+resp.guestReviewList[i].g_review_seq).after(
+			                                    		   $('<a>').attr('class','pull-left '+resp.guestReviewList[i].g_review_seq).append(
+			                                    				$('<img>').attr('class','media-object').attr('id','img'+resp.guestReviewList[i].g_review_seq).attr("src","<c:url value='files/"+resp.guestReviewList[i].member_picture+"'/>")
+			                                    		   )
+			                                    	);
+			                                     }
+			                                       
+			                                     
+			                                     /* for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                    	  $('.media '+resp.guestReviewList[i].g_review_seq).after(
+				                                    		   $('<a>').attr('class','pull-left')
+				                                       );
+			                                     } */
+			                                    
+			                                    },
+			                                 error:function(request,status,error){
+			                                    console.log(request.status + " : " + status + " : " + error);
+			                                 }
+			                              }); 
+										
 									}
+									
+									function fnMove(){
+										var offset = $("#info-main05").offset();
+								        $('html, body').animate({scrollTop : offset.top}, 400);
+								        
+								        alert(offset.top);
+								    }
 								</script>
 
 							</ul>
+							
+							
                		</div>
                		<div id="info-main05-host">
                			<div id="host-top">
+               			<br>
                				<div id="host-top-left">
+               					
                					<p>호스트: Kim님</p>
                					Seogwipo-si, 한국 · 회원 가입: 2013년 10월
                				</div>
@@ -526,6 +634,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							<P>응답 시간: </P><span>1시간 이내</span>
                			</div>
                			<button id="toHost" class="btn btn-secondary">호스트에게 연락하기</button>
+               			<br><br><br>
                		</div>
                </div>
                <div id="info-main06">
@@ -1057,7 +1166,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<br>
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             			
-            			
+            			<!-- 게스트 이메일로 바꾸기 -->
             			<input type="hidden" name="member_email" value="${hdto.getMember_email() }">
             		 	<input type="hidden" name="reserv_checkin" id="reserv_checkin" value="">
             		 	<input type="hidden" name="reserv_checkout" id="reserv_checkout" value="">

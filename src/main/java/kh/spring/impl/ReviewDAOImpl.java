@@ -39,8 +39,8 @@ public class ReviewDAOImpl implements ReviewDAO{
 
 		int recordTotalCount = count;
 
-		int recordCountPerPage = 5;
-		int naviCountPerPage = 5;
+		int recordCountPerPage = 3;
+		int naviCountPerPage = 3;
 		int pageTotalCount = 0;
 
 		if (recordTotalCount % recordCountPerPage > 0) {
@@ -107,6 +107,12 @@ public class ReviewDAOImpl implements ReviewDAO{
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public int countTotalNavi() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

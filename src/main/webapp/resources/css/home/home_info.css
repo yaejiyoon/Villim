@@ -80,7 +80,7 @@ body{
 /* -------------- content -------------- */
 #info-wrapper {
 	width: 100%;
-	height: 5500px;
+	height: auto;
 	font-family: font2;
 }
 
@@ -152,38 +152,51 @@ body{
 #info-contents-main {
 	margin: 0 auto;
 	width: 57vw;
-	height: 82%;
+	height: auto;
+}
+
+#info-contents-main:after{
+	content: "";
+   display: block;
+   clear: both;
 }
 
 #info-main-left {
 	float: left;
 	width: 66%;
-	height: 100%;
+	height: auto;
 	padding-right: 2vw;
 }
 
 #info-main-right {
 	float: left;
 	width: 34%;
-	height: 100%;
+	height: auto;
 }
 
 #info-main01 {
 	width: 100%;
-	height:15%;
+	height:auto;
 	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-title{
 	width:100%;
-	height:40%
+	height:auto;
+}
+
+#info-title:after {
+	content: "";
+	display: block;
+	clear: both;
 }
 
 #info-title-left{
 	float:left;
 	width:80%;
-	height:100%;
+	height:auto;
 	margin-top:10px;
+	display: block;
 }
 
 #info-title-left span{
@@ -198,10 +211,11 @@ body{
 
 #info-title-right{
 	float:left;
-	height:100%;
+	height:auto;
 	width:20%;
 	padding-top: 30px;
 	padding-left: 15px;
+	margin-top:10px;
 }
 
 #info-title-right img{
@@ -214,16 +228,28 @@ body{
 	height:60%;
 }
 
+#details-collapse{
+	border: 1px solid black;
+}
+
 .green{
 	color:#008489;
 	font-weight: 600;
 	font-size: 1.1em;
 }
 
+/* -------------- 편의시설 -------------- */
+
 #info-main02 {
 	width: 100%;
-	height: 8%;
+	height: auto;
 	border-bottom:  1px solid #d6d6d6;
+}
+
+#info-main02:after {
+	content: "";
+	display: block;
+	clear: both;
 }
 
 #info-main02 span{
@@ -234,7 +260,7 @@ body{
 #info-main02-left{
 	float:left;
 	width:50%;
-	height:100%
+	height:auto;
 }
 
 .amenities{
@@ -244,18 +270,21 @@ body{
 #info-main02-right{
 	float:left;
 	width:50%;
-	height:100%
+	height:auto;
 }
+
+
+/* -------------- 침대침구 -------------- */
 
 #info-main03 {
 	width: 100%;
-	height: 8%;
+	height: auto;
 	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-main03-top{
 	width:100%;
-	height:20%;
+	height:auto;
 }
 
 #info-main03-top span{
@@ -265,21 +294,28 @@ body{
 
 #info-main03-bottom{
 	width:100%;
-	height:80%;
+	height:auto;
+}
+
+#info-main03-bottom:after {
+	content: "";
+	display: block;
+	clear: both;
 }
 
 .bed-div{
 	float:left;
 	width:30.5%;
-	height:90%;
+	height:200px;
 	border-radius:5px;
 	border:  1px solid #d6d6d6;
 	margin-right: 10px;
+	margin-bottom: 35px;
 }
 
 .bed-div div{
-	width:80%;
-	height:80%;
+	width:70%;
+	height:auto;
 	margin:0 auto;
 	margin-top: 8px;
 }
@@ -300,9 +336,11 @@ body{
 	margin-right: 20px;
 }
 
+/* -------------- 예약 가능 여부 -------------- */
+
 #info-main04 {
 	width: 100%;
-	height: 10%;
+	height: auto;
 	border-bottom:  1px solid #d6d6d6;
 }
 
@@ -310,22 +348,25 @@ body{
 	font-weight: 800;
 }
 
+/* -------------- 후기 -------------- */
+
 #info-main05 {
 	width: 100%;
-	height: 35%;
+	height: auto;
 	border-bottom:  1px solid #d6d6d6;
 }
 
 #info-main05-top{
 	width:100%;
-	height:15%;
+	height:auto;
 }
 
 #main05-top-sub01{
 	width:100%;
-	height:35%;
+	height:auto;
 	border-bottom:  1px solid #d6d6d6;
 	position: relative;
+	margin-bottom: 10px;
 }
 
 .main05-star{
@@ -361,10 +402,16 @@ input.search-query2 {
 	font-size: 1.5em;
 }
 
+#main05-top-sub02:after{
+	content: "";
+	display: block;
+   	clear: both;
+}
+
 .main05-top-sub02{
 	float:left;
 	width:50%;
-	height:100%;
+	height:auto;
 }
 
 .review-text{
@@ -391,11 +438,11 @@ input.search-query2 {
 
 #main05-top-sub02{
 	width:100%;
-	height:65%;
+	height:auto;
 }
 #info-main05-review{
 	width:100%;
-	height:58%;
+	height:auto;
 }
 
 .review-wrapper{
@@ -440,19 +487,26 @@ input.search-query2 {
 
 #info-main05-host{
 	width:100%;
-	height:28%;
+	height:auto;
 	border-top:  1px solid #d6d6d6;
 }
 
 #host-top{
 	width:100%;
-	height:30%;
+	height:auto;
+	margin-bottom: 15px;
+}
+
+#host-top:after{
+	 content: "";
+  	 display: block;
+  	 clear: both;
 }
 
 #host-top-left{
 	float:left;
 	width:80%;
-	height:100%;
+	height:auto;
 	padding-top:10px;
 }
 
@@ -465,7 +519,7 @@ input.search-query2 {
 #host-top-right{
 	float:left;
 	width:20%;
-	height:100%;
+	height:auto;
 	text-align:center;
 }
 
@@ -477,12 +531,14 @@ input.search-query2 {
 
 #host-contents{
 	width:100%;
-	height:27%;
+	height:auto;
+	margin-bottom: 15px;
 }
 
 #host-bottom{
 	width:100%;
-	height:25%;
+	height:auto;
+	margin-bottom: 25px;
 }
 
 #host-bottom span{
@@ -503,7 +559,7 @@ input.search-query2 {
 
 #info-main06 {
 	width: 100%;
-	height: 10%;
+	height: auto;
 }
 
 #info-main06-top{
@@ -522,9 +578,11 @@ input.search-query2 {
 	height:75%;
 }
 
+/* -------------- 숙소 이용규칙 -------------- */
+
 #info-main07 {
 	width: 100%;
-	height: 9%;
+	height: auto;
 	border-bottom:  1px solid #d6d6d6;
 }
 
@@ -532,9 +590,11 @@ input.search-query2 {
 	font-weight: 800;
 }
 
+/* -------------- 예약취소 -------------- */
+
 #info-main08 {
 	width: 100%;
-	height: 6%;
+	height: auto;
 	border-bottom:  1px solid #d6d6d6;
 }
 
