@@ -93,8 +93,8 @@ function initMap() {
 	 		var swLatLng = map.getBounds().getSouthWest();
 	 		// 북동쪽의 좌표
 	 		var neLatLng = map.getBounds().getNorthEast(); 
-	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+// 	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+// 	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
 		  });
 	 	
 	</c:if>
@@ -116,8 +116,8 @@ function initMap() {
 	 		// 북동쪽의 좌표
 	 		var neLatLng = map.getBounds().getNorthEast(); 
 			
-	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+// 	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+// 	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
 
 		  });
 		
@@ -163,32 +163,78 @@ $(document).ready(function() {
 		// 북동쪽의 좌표
 		var neLatLng = map.getBounds().getNorthEast(); 
 		
-		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
+// 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
+// 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
 		
 		var swLat = map.getBounds().getSouthWest().lat();
 		var neLat = map.getBounds().getNorthEast().lat();
 		var swLng = map.getBounds().getSouthWest().lng();
 		var neLng = map.getBounds().getNorthEast().lng();
 		
+// 		$(location).attr("href","mapMove.do?swLat="+swLat+"&neLat="+neLat+"&swLng="+swLng+"&neLng="+neLng);
 		var latlng = {swLat:swLat, neLat:neLat, swLng:swLng, neLng:neLng};
+		
+		var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
 		
 		$.ajax({
 		       url: "mapMove.do",
-		       type: "POST",
+		       type: "post",
 		       data:latlng,
-		       success:function(returndata){
-		    	   if(chkval==1) {
-						on.style.display = 'block';    
-						off.style.display = 'none';
-		    	   } else if(chkval==2) {
-						on.style.display = 'none';
-						off.style.display = 'block';    
-		    	   }
+		       success:function(resp){
+		    	   $('.col-md-4').remove();
+		    	   for(var i = 0; i < resp.length ; i++) {
+		    		   $('.row').append(
+		    			$('<div>').attr('class','col-md-4').append(
+		    			 $('<div>').attr('id','carouselDiv '+i).append(
+		    			  $('<div>').attr('id',resp[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
+		    			  	$('<ol>').attr('class','carousel-indicators').append(
+		    			  	  $('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','0').attr('class','active '+i).attr('id','li'+resp[i].home_seq)
+		    			  	)
+		    			  )
+		    			 )
+		    			)
+		    		   );
+					}
+		    	   
+		    	   for(var i = 0; i < resp.length ; i++) {
+						$('#li'+resp[i].home_seq).after($('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','2'));
+						$('#li'+resp[i].home_seq).after($('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','1'));
+					}
+		    	   
+					for(var i = 0; i < resp.length ; i++) {
+						$('#'+resp[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp[i].home_price+" /박"));
+						$('#'+resp[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp[i].home_name+"</b>"));
+						$('#'+resp[i].home_seq).after($('<p>').attr('class','homeType').append(resp[i].home_type));
+					}
+					
+		    	    for(var i = 0; i < resp.length ; i++) {
+					  $('#'+resp[i].home_seq).after($('<div>').attr('class','carousel-inner '+i).append(
+						$('<div>').attr('class','item active').append(
+								 $('<img>').attr('src',"<c:url value='files/"+resp[i].home_main_pic+"'/>")
+					  )));
+				    }
+		    	    
+		    	    for(var i = 0; i < resp.length ; i++) {
+					  $('.carousel-inner '+resp[i].home_seq).after(
+					  	$('<a>').attr('class','left carousel-control').attr('href','#'+resp[i].home_seq).attr('data-slide','prev').append(
+					  	  $('<span>').attr('class','glyphicon glyphicon-chevron-right').attr('id','prev '+resp[i].home_seq)
+					  	)
+					  );
+				    }
+		    	    
+		    	    for(var i = 0; i < resp.length ; i++) {
+					  $('#prev '+resp[i].home_seq).after($('<span>').attr('class','sr-only').append("Previous"));
+					}
+					
+					on.style.display = 'block';    
+					off.style.display = 'none';
 		       },error:function(errordata){
 					alert("에러에러");
 		       }
 		});
+
+		
 	});
 });
 
@@ -492,8 +538,6 @@ $(document).ready(function() {
  		color : #3a3b3d;
  	}
  	
- 	
- 	
  	#mapOnDiv {
  		width : 100%;
  		height : 500px;
@@ -560,11 +604,11 @@ $(document).ready(function() {
 	</div>
 	
 	
-	
 	<div id="contentsWrapper">
 		<div id="mapOnDiv">
 			<div id="onCardsWrapper">
 				<div class="row">
+				<%int cnt=0;%>
 					<c:forEach var="homeList" items="${homeList}" varStatus="status">
 						<div class="col-md-4">
 				  	<div id="carouselDiv">
@@ -579,15 +623,15 @@ $(document).ready(function() {
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='files/${homeList.home_main_pic}'/>">
+					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='files/${homeList.home_main_pic}'/>">
+					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='files/${homeList.home_main_pic}'/>">
+					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
 					    </div>
 					  </div>
 					
@@ -601,21 +645,18 @@ $(document).ready(function() {
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
-						<p class="homeType">${homeList.home_type}</p>
-	                  <p class="homeName">
+						<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
+	                  <p class="homeName" id="homeName<%=cnt%>">
 	                     <B>${homeList.home_name}</B>
 	                  </p>
-	                  <p class="homePrice">₩ ${homeList.home_price} /박</p>
+	                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
 	                  <p class="reviewStar">★★★★★</p>
 	                  <p class="reviewCount">247</p>
 	                  <p class="hostTitle">슈퍼호스트</p>
 					</div>
-				  
 				  </div>
+					<%cnt++; %>
 					</c:forEach>
-				
-				  
-				  	
 				  
 				</div> 
 <!-- 				row -->

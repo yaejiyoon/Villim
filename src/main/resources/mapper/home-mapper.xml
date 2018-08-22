@@ -21,7 +21,7 @@
 <!--    </select> -->
    
    
-   <select id="getHomeOnMap" resultType="Home">
+   <select id="getHomeOnMap" resultType="Home" parameterType="Double">
       select * from home where home_lat between #{swLat} and #{neLat} and home_lng between #{swLng} and #{neLng}
    </select>
 	
