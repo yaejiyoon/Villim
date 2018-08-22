@@ -754,13 +754,13 @@ function loginWithEmail(){
       </button><br>
  	 
  	 
- 	 <form action="snslogin.do" method="post" id="googleLoginForm">
+<!--  	 <form action="snslogin.do" method="post" id="googleLoginForm">
       <input type="hidden" id="logingoogleEmail" name="member_email">
       <input type="hidden" id="logingoogleId" name="member_pw">
      </form>
      <form action="oauth2callback" method="post" id="loginCheck">
      <input type="hidden" id="iamlogin" name="iamlogin" value="login">
-     </form>
+     </form> -->
       <button type="button" class="btn btn-default" onclick="loginWithGoogle();" id="googleLogin">
       	<i class="fab fa-google fa-2x" style="color:red"></i>
       	<font> 구글 계정으로 로그인</font>

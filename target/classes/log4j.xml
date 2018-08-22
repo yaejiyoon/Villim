@@ -17,6 +17,9 @@
 	<logger name="kh.spring.controller">
 		<level value="info" />
 	</logger>
+	<logger name="kh.spring.aspect">
+        <level value="info" />
+    </logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

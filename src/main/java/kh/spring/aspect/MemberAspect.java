@@ -10,11 +10,14 @@ import org.slf4j.LoggerFactory;
 @Aspect
 public class MemberAspect {
 	
+
+
+	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
     @Before("execution(* kh.spring.controller.MemberController.*(..))")
     public void beforeLog(JoinPoint jp) {
-
+    	System.out.println("before aspect");
           logger.info("[" + jp.getTarget().getClass().getSimpleName() + " " + jp.getSignature().getName() + " START]");
 
     }
