@@ -475,15 +475,15 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 													src="<c:url value='files/${hostReviewList.member_picture }'/>">
 												</a>
 
-											<div class="media-body">
-												<h4 class="media-heading">${hostReviewList.member_name }님의 답변:</h4>
-												<p>${hostReviewList.h_review_public }</p>
-												<h6>
-													${hostReviewList.h_review_date}
-												</h6>
+												<div class="media-body">
+													<h4 class="media-heading">${hostReviewList.member_name }님의 답변:</h4>
+													<p>${hostReviewList.h_review_public }</p>
+													<h6>
+														${hostReviewList.h_review_date}
+													</h6>
 												<!-- Nested media object -->
+												</div>
 											</div>
-										</div>
 										</c:if>
 										</c:forEach>
 									</div>	

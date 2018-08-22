@@ -29,7 +29,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 	
 	@Override
 	public List<HostReviewDTO> getAllHostReviewData(int home_seq) {
-		return sqlSessionTemplate.selectList("HostReview.getAllData",home_seq);
+		return sqlSessionTemplate.selectList("HostReview.getAllHostReviewData",home_seq);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 
 		int recordTotalCount = count;
 
-		int recordCountPerPage = 3;
+		int recordCountPerPage = 5;
 		int naviCountPerPage = 3;
 		int pageTotalCount = 0;
 
@@ -83,17 +83,15 @@ public class ReviewDAOImpl implements ReviewDAO{
 
 		StringBuilder sb = new StringBuilder();
 
-		if (needPrev) {
-			sb.append("<li><a href='home_info.do?currentPage=" + (startNavi - 1)
-					+ "&seq="+home_seq+"' id='naviPrev'> < </a></li>");
+		if (currentPage == 1) {
+			sb.append("<li class='disabled'><a href='javascript:void(0);' onclick='pageFunction("+(currentPage - 1)+","+home_seq+");' id='naviPrev'> < </a></li>");
 		}else {
-			sb.append("<li class='disabled'><a href='home_info.do?currentPage=" + (startNavi - 1)
-					+ "&seq="+home_seq+"' id='naviPrev'> < </a></li>");
+			sb.append("<li><a href='javascript:void(0);' onclick='pageFunction("+(currentPage - 1)+","+home_seq+");' id='naviPrev'> < </a></li>");
 		}
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (currentPage == i) {
-				sb.append("<li class='active'><a href='home_info.do?currentPage=" + i + "&seq="+home_seq+"' class='naviCurrentPage'> <b>" + i + "</b></a></li>");
+				sb.append("<li class='active'><a href='javascript:void(0);' class='naviCurrentPage' onclick='pageFunction("+i+","+home_seq+");'> <b>" + i + "</b></a></li>");
 			} else {
 				sb.append("<li><a href='javascript:void(0);' class='naviPage' onclick='pageFunction("+i+","+home_seq+");'>" + i + "</a></li>");
 			}
@@ -101,9 +99,17 @@ public class ReviewDAOImpl implements ReviewDAO{
 			
 		}
 		
+		if(endNavi == pageTotalCount) {
+		}
+		
+		if(currentPage == pageTotalCount){
+			sb.append("<li class='disabled'><a href='javascript:void(0);'id='naviNext' onclick='pageFunction("+(currentPage + 1)+","+home_seq+");'> > </a></li>");			
+		}else {
+			sb.append("<li ><a href='javascript:void(0);'id='naviNext' onclick='pageFunction("+(currentPage + 1)+","+home_seq+");'> > </a></li>");
+			
+		}
+		
 		if (needNext) {
-			sb.append("<li><a href='home_info.do?currentPage=" + (endNavi + 1)
-					+ "&seq="+home_seq+"'id='naviNext'> > </a></li>");
 		}
 
 		return sb.toString();

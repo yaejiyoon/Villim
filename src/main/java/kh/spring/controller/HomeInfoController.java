@@ -47,12 +47,7 @@ public class HomeInfoController {
 	public ModelAndView home_Info(HttpServletRequest req) {
 		
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
-		String hidden = req.getParameter("move");
-		int move = 0;
 		
-		if(hidden != null) {
-			move=1;
-		}
 		System.out.println("homeseq : " + home_seq);
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
@@ -67,7 +62,7 @@ public class HomeInfoController {
 		//hostReview
 		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
 		
-		//guestReview date 변환
+		//hostReview date 변환
 		for(int i=0; i<hostReviewList.size(); i++) {
 			Date to1 = null;
 			try {
@@ -90,8 +85,8 @@ public class HomeInfoController {
 		}
 		
 		Map<String, Integer> map = new HashMap<>();
-		map.put("startNum", currentPage * 3-2); 
-		map.put("endNum", currentPage * 3);
+		map.put("startNum", currentPage * 5-4); 
+		map.put("endNum", currentPage * 5);
 		map.put("home_seq", home_seq);
 		
 		//guestReivew
@@ -111,7 +106,7 @@ public class HomeInfoController {
 			guestReviewList.get(i).setG_review_date(str);
 		}
 
-		System.out.println("move : " + move);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
@@ -119,7 +114,6 @@ public class HomeInfoController {
 		mav.addObject("guestReviewList", guestReviewList);
 		mav.addObject("hostReviewList", hostReviewList);
 		mav.addObject("page", page);
-		mav.addObject("move", move);
 		mav.setViewName("home/home_info");
 		
 		return mav;
@@ -130,10 +124,11 @@ public class HomeInfoController {
 		String currentPageString = req.getParameter("currentPage");
 		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
 		
-		System.out.println(currentPageString + " ddd " + home_seq);
+		//date형태 변환 
+		SimpleDateFormat fm1 = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월");
 		
 		//Review paging
-		
 		int currentPage = 0;
 				
 		if (currentPageString == null) {
@@ -143,17 +138,42 @@ public class HomeInfoController {
 		}
 				
 		Map<String, Integer> map = new HashMap<>();
-		map.put("startNum", currentPage * 3-2); 
-		map.put("endNum", currentPage * 3);
+		map.put("startNum", currentPage * 5-4); 
+		map.put("endNum", currentPage * 5);
 		map.put("home_seq", home_seq);
 		
 		//guestReivew
 		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
 		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
+
+		//guestReview date 변환
+		for(int i=0; i<guestReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(guestReviewList.get(i).getG_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			guestReviewList.get(i).setG_review_date(str);
+		}
 		
 		//hostReview
 		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
-
+		
+		//hostReview date 변환
+		for(int i=0; i<hostReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(hostReviewList.get(i).getH_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			hostReviewList.get(i).setH_review_date(str);
+		}
+		
+		
 		//totalNavi
 		int totalNavi = reviewService.countTotalNavi();
 		

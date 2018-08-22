@@ -228,6 +228,13 @@ body{
 	height:60%;
 }
 
+#detailsDown{
+	color:	#008489;
+	position: relative;
+	top:-20px;
+	right:-175px;
+}
+
 #details-collapse{
 	border: 1px solid black;
 }
@@ -237,6 +244,19 @@ body{
 	font-weight: 600;
 	font-size: 1.1em;
 }
+
+.green:visited, .green:hover, .green:active, .green:link{
+	color:#008489;
+}
+
+.green:hover{
+	text-decoration: underline !important;
+}
+
+.green:visited, .green:active, .green:link{
+	text-decoration: none;
+}
+
 
 /* -------------- 편의시설 -------------- */
 
@@ -366,7 +386,13 @@ body{
 	height:auto;
 	border-bottom:  1px solid #d6d6d6;
 	position: relative;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
+}
+
+#main05-top-sub01:after{
+	content: "";
+   display: block;
+   clear: both;
 }
 
 .main05-star{
@@ -388,8 +414,8 @@ body{
 	width:15px;
 	position: absolute;
 	z-index:1000;
-	top: 3.5vh;
-	right: 10.8vw;
+	top: 27px;
+	right: 0.5vw;
 	/* transform: translate(1080%, 90%); */
 }
 
@@ -473,6 +499,7 @@ input.search-query2 {
 	width:50px;
 	height:50px;
 	border-radius: 50%;
+	
 }
 
 .review-date span{
@@ -485,10 +512,15 @@ input.search-query2 {
 	padding-bottom:15px;
 }
 
+#paginationID{
+	width:100%;
+	text-align: center;
+}
+
 #info-main05-host{
 	width:100%;
 	height:auto;
-	border-top:  1px solid #d6d6d6;
+	/* border-top:  1px solid #d6d6d6; */
 }
 
 #host-top{

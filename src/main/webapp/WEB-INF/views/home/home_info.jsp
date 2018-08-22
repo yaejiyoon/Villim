@@ -15,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -287,10 +287,44 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
                			<br>
                			<br>
-               			<a href="" class="green">이 공간 자세히 알아보기 </a>
-               			<div id="details-collapse">
+               			<a id="detailsA"class="green" data-toggle="collapse" href="#details-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+               			이 공간 자세히 알아보기
+               				<div style="position: static;">
+               					<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="detailsDown"></span>
+               				</div>
+               			</a>
+               			
+               			<div id="details-collapse" class="collapse">
+               				<div class="card card-body">
+               					이야이야이야이야이야이야이야
+               				</div>
                				
                			</div>
+               			
+               			<script>
+               				$('#details-collapse').on('shown.bs.collapse', function () {
+               				 $(this)
+                             .parent()
+                             .find(".glyphicon-menu-down")
+                             .removeClass("glyphicon-menu-down")
+                             .addClass("glyphicon-menu-up");
+               				 
+               				$(this)
+                            .parent()
+                            .find("#detailsA").text("숨기기");
+               				 
+               				});
+	
+               				//The reverse of the above on hidden event:
+
+               				$('#details-collapse').on('hidden.bs.collapse', function () {
+               					$(this)
+                                .parent()
+                                .find(".glyphicon-menu-up")
+                                .removeClass("glyphicon-menu-up")
+                                .addClass("glyphicon-menu-down");
+               				});
+               			</script>
                			<br>
                			<br>
                			<a href="" class="green">호스트에게 연락하기 </a>
@@ -417,7 +451,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                <div id="info-main05">
                		<div id="info-main05-top">
                			<div id="main05-top-sub01">
-               				<br><br>
+               				<br>
                				<span>후기 342개</span>
                				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
@@ -425,7 +459,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='/resources/img/search.png'/>" id="reviewSearch">
-							<input type="text" class="search-query2 form-control" placeholder="후기 검색" />
+							<input type="text" class="search-query2 form-control" placeholder="후기 검색"
+							style="float:right;" />
                			</div>
                			<div id="main05-top-sub02">
                				<div class="main05-top-sub02">
@@ -490,23 +525,22 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				</div>
                			</div>
                		</div>
-               		<% int cnt=0; %>
+               		
                		<div id="info-main05-review">
                			<div class="guestWrapperDiv">
                			<c:forEach items="${guestReviewList }" var="guestReviewList">
-               			<div class="review-wrapper" id="guestReviewWrapper<%=cnt%>">
+               			<div class="review-wrapper" >
                				<ul class="media-list">
 								<li class="media" style="margin-bottom: 20px; margin-top: 20px;">
-								<a class="pull-left" href="#">
-									<img class="media-object" src="<c:url value='files/${guestReviewList.member_picture }'/>" 
-									id="guestReviewImg<%=cnt%>">
+								<a class="pull-left">
+									<img class="media-object" src="<c:url value='files/${guestReviewList.member_picture }'/>">
 								</a>
 									<div class="media-body">
-										<h4 class="media-heading" id="guestReviewMemberName<%=cnt%>">${guestReviewList.member_name }</h4>
-										<h6 id="guestReviewdate<%=cnt%>">
+										<h4 class="media-heading" >${guestReviewList.member_name }</h4>
+										<h6>
 											${guestReviewList.g_review_date}
 										</h6>
-										<p id="guestReviewPublic<%=cnt%>">${guestReviewList.g_review_public}</p>
+										<p >${guestReviewList.g_review_public}</p>
 										
 										<c:forEach items="${hostReviewList }" var="hostReviewList">
 										<c:if test="${guestReviewList.g_review_seq eq hostReviewList.g_review_seq}">
@@ -531,13 +565,15 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							</ul>
                				
                			</div>
-               			<% cnt++; %>
+               			
                			</c:forEach>
                			</div>
-               			<ul class="pagination">
+               			<div id="paginationID">
+               			<ul class="pagination" >
                				${page}
 
-								
+						</ul>
+						</div>	
 
 								<script type="text/javascript">
 									function pageFunction(i,home_seq) {
@@ -554,7 +590,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 			                                    home_seq:home_seq
 			                                        },
 			                                 success:function(resp){
-			                                    <%int num = 0;%>
+			                                	 
+			                                	 var page = resp.page;
+			                                	 $(".pagination").html(page);
+			                                	 
 			                                    $('.review-wrapper').remove();
 			                                    
 			                                    for(var i = 0; i < resp.guestReviewList.length ; i++){
@@ -567,29 +606,72 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 			                                            );
 			                                       
 			                                    }
-			                                    /* 
-			                                    $('.media').after(
-			                                          $('<a>').attr('class','pull-left').append(
-			                                             $('<img>').attr('class','media-object').append()      
-			                                          )
-			                                       );
-			                                     */
 			                                    
 			                                     for(var i = 0; i < resp.guestReviewList.length ; i++){
 			                                     $('#li'+resp.guestReviewList[i].g_review_seq).after(
-			                                    		   $('<a>').attr('class','pull-left '+resp.guestReviewList[i].g_review_seq).append(
+			                                    		   $('<a>').attr('class','pull-left '+resp.guestReviewList[i].g_review_seq).attr('id','a'+resp.guestReviewList[i].g_review_seq).append(
 			                                    				$('<img>').attr('class','media-object').attr('id','img'+resp.guestReviewList[i].g_review_seq).attr("src","<c:url value='files/"+resp.guestReviewList[i].member_picture+"'/>")
+			                                    				.attr('style','margin-right:10px;')
 			                                    		   )
 			                                    	);
 			                                     }
 			                                       
+			                                     for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                    	 $('#a'+resp.guestReviewList[i].g_review_seq).after(
+			                                    		$('<div>').attr('id','media-body'+resp.guestReviewList[i].g_review_seq).attr('class','media-body').append(
+			                                    			$('<h4>').attr('class','media-heading '+resp.guestReviewList[i].g_review_seq).attr('id','h4'+resp.guestReviewList[i].g_review_seq).html(resp.guestReviewList[i].member_name)		
+			                                    		)
+			                                    	 );
+			                                     }
 			                                     
-			                                     /* for(var i = 0; i < resp.guestReviewList.length ; i++){
-			                                    	  $('.media '+resp.guestReviewList[i].g_review_seq).after(
-				                                    		   $('<a>').attr('class','pull-left')
-				                                       );
-			                                     } */
-			                                    
+			                                     for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                    	 $('#h4'+resp.guestReviewList[i].g_review_seq).after(
+			                                    		$('<h6>').attr('id','h6'+resp.guestReviewList[i].g_review_seq).html(resp.guestReviewList[i].g_review_date)
+			                                    	 );
+			                                     }
+			                                     
+			                                     for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                    	 $('#h6'+resp.guestReviewList[i].g_review_seq).after(
+			                                    		$('<p>').attr('id','p'+resp.guestReviewList[i].g_review_seq).html(resp.guestReviewList[i].g_review_public)
+			                                    	 );
+			                                     }
+			                                     
+			                                     for(var i = 0; i < resp.guestReviewList.length ; i++){
+			                                    	 for(var j=0;j<resp.hostReviewList.length;j++){
+			                                    		 if(resp.guestReviewList[i].g_review_seq === resp.hostReviewList[j].g_review_seq){
+			                                    			$("#p"+resp.guestReviewList[i].g_review_seq).after(
+			                                    				$('<div>').attr('class','media').attr('id','mediaDIV'+resp.hostReviewList[j].h_review_seq).append(
+			                                    					$('<a>').attr('class','pull-left').attr('id','hostA'+resp.hostReviewList[j].h_review_seq).append(
+			                                    							$('<img>').attr('class','media-object').attr('id','hostImg'+resp.hostReviewList[j].h_review_seq).attr("src","<c:url value='files/"+resp.hostReviewList[j].member_picture+"'/>")	
+			                                    					)
+			                                    				)
+			                                    			)
+			                                    		 }
+			                                    	 }
+			                                     }
+			                                     
+			                                     for(var i = 0; i < resp.hostReviewList.length ; i++){
+			                                    	 $("#hostA"+resp.hostReviewList[i].h_review_seq).after(
+			                                    		$('<div>').attr('class','media-body').attr('id','hostMediabody'+resp.hostReviewList[i].h_review_seq).append(
+			                                    			$('<h4>').attr('class','media-heading').attr('id','hostH4'+resp.hostReviewList[i].h_review_seq).html(resp.hostReviewList[i].member_name+"님의 답변:")
+			                                    		)
+			                                    	 )
+			                                     }
+			                                     
+			                                     for(var i = 0; i < resp.hostReviewList.length ; i++){
+			                                    	 $("#hostH4"+resp.hostReviewList[i].h_review_seq).after(
+			                                    		$('<p>').attr('id','hostP'+resp.hostReviewList[i].h_review_seq).html(resp.hostReviewList[i].h_review_public)
+			                                    	 )
+			                                     }
+			                                     
+			                                     for(var i = 0; i < resp.hostReviewList.length ; i++){
+			                                    	 $("#hostP"+resp.hostReviewList[i].h_review_seq).after(
+			                                    		$('<h6>').attr('id','hostH6'+resp.hostReviewList[i].h_review_seq).html(resp.hostReviewList[i].h_review_date)
+			                                    	 )
+			                                     }
+			                                     
+			                                     fnMove();
+			                                     
 			                                    },
 			                                 error:function(request,status,error){
 			                                    console.log(request.status + " : " + status + " : " + error);
@@ -602,11 +684,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 										var offset = $("#info-main05").offset();
 								        $('html, body').animate({scrollTop : offset.top}, 400);
 								        
-								        alert(offset.top);
 								    }
 								</script>
 
-							</ul>
+							
 							
 							
                		</div>
