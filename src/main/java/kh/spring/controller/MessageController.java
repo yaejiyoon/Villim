@@ -1,6 +1,10 @@
 package kh.spring.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
 import kh.spring.interfaces.MessageService;
 
@@ -21,32 +28,87 @@ public class MessageController {
 
 	@Autowired
 	MessageService service;
-	
+
 	@Autowired
 	MemberService m_service;
 	
+	@Autowired
+	private HomeService homeService;
+
 	@RequestMapping("/messageMain.msg")
-	public String main() {
+	public ModelAndView main(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        String today= sdf.format(new Date());
+        System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		return "/message/messageMain";
-	}
+		session.setAttribute("userId", "jake@gmail.com");
+		/* session.setAttribute("userId", "plmna855000@gmail.com"); */
+		String userId = (String) session.getAttribute("userId");
+
+		// 여행
+		// 내용 가져오고 그다음 host email 에 따라서 사진과 이름 가져오기
 	
+
+		List<GuestMsgDTO> guestMessage = this.service.guestMessageMain(userId);
+		List<String> host_email = new ArrayList<>();
+        
+		if (!guestMessage.isEmpty()) {
+			for (GuestMsgDTO tmp : guestMessage) {
+				System.out.println("메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
+						+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time());
+				
+				if(today.equals(tmp.getMessage_time().substring(0,13))) {
+					tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
+				}else {
+					tmp.setMessage_time(tmp.getMessage_time().substring(7, 7));
+				}
+				
+				host_email.add(tmp.getHost_email());
+			}
+
+			System.out.println("email= "+host_email.get(0)+" / "+host_email.get(1));
+			List<MemberDTO> memberInfo = this.service.memberInfo(host_email);
+			
+			mav.addObject("guestMessage", guestMessage);
+			mav.addObject("memberInfo", memberInfo);
+			for (MemberDTO tmp : memberInfo) {
+				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
+			}
+		}
+
+		int guestMsgAllCount = this.service.guestMsgAllCount(userId);
+		if (guestMsgAllCount > 0) {
+			System.out.println("모든개수 :" + guestMsgAllCount);
+			mav.addObject("guestMsgAllCount", guestMsgAllCount);
+		}
+
+		// 호스팅
+
+		mav.setViewName("/message/messageMain");
+		return mav;
+	}
+
 	@RequestMapping("/messageSend.msg")
 	public ModelAndView messageSend(HttpSession session) {
 		System.out.println("messageSend");
 		session.setAttribute("userId", "jake@gmail.com");
-		String userId =(String) session.getAttribute("userId");
-		int home_seq=1; 
-		String host_name="Sarah Son";String host_picture="지창욱.jpg"; int home_price=50000;String home_type="아파트";String home_main_pic="plmn집사진.jpg";
-        
-		//review 갯수
-		int reviewCount=this.service.countReview(home_seq);
-		
-		String Q1="건물 내 무료 주차";
-		String Q2="체크인 가능 시간: 19:00 - 00:00";
-		String Q3="체크인 5일 전까지 취소할 경우 서비스 수수료를 제외한 요금 전액이 환불됩니다.";
-		
-		ModelAndView mav=new ModelAndView();
+		String userId = (String) session.getAttribute("userId");
+		int home_seq = 1;
+		String host_name = "Sarah Son";
+		String host_picture = "지창욱.jpg";
+		int home_price = 50000;
+		String home_type = "아파트";
+		String home_main_pic = "plmn집사진.jpg";
+
+		// review 갯수
+		int reviewCount = this.service.countReview(home_seq);
+
+		String Q1 = "건물 내 무료 주차";
+		String Q2 = "체크인 가능 시간: 19:00 - 00:00";
+		String Q3 = "체크인 5일 전까지 취소할 경우 서비스 수수료를 제외한 요금 전액이 환불됩니다.";
+
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("host_name", host_name);
 		mav.addObject("host_picture", host_picture);
 		mav.addObject("home_price", home_price);
@@ -59,60 +121,108 @@ public class MessageController {
 		mav.setViewName("/message/messageSend");
 		return mav;
 	}
-	
+
 	@RequestMapping("/messageInsertDB.msg")
-	public ModelAndView messageInsertDB(HttpSession session,String host_name,MessageDTO dto,MessageRoomDTO roomdto,String seq,String checkIn,String checkOut,String number) {
-		ModelAndView mav=new ModelAndView();
+	public ModelAndView messageInsertDB(HttpSession session, String host_name, MessageDTO dto, MessageRoomDTO roomdto,
+			String seq, String checkIn, String checkOut, String number) {
+		ModelAndView mav = new ModelAndView();
 		System.out.println("messageInsertDB");
-		System.out.println("내용 : "+dto.getMessage_content());
+		System.out.println("내용 : " + dto.getMessage_content());
 		session.setAttribute("userId", "jake@gmail.com");
-		String userId =(String) session.getAttribute("userId");
-		
-		int home_seq=Integer.parseInt(seq);
-		HomeDTO getHomeInfo= this.service.getHomeInfo(home_seq);
-        String host_email=getHomeInfo.getMember_email();
-		
-	//1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
-        roomdto.setHost_email(host_email);roomdto.setGuest_email(userId);roomdto.setHome_seq(home_seq);
-        MessageRoomDTO messageRoomSeqExist=this.service.messageRoomSeqExist(roomdto);
-		int message_room_seq=0;
-		if(messageRoomSeqExist!=null) {
-			message_room_seq=messageRoomSeqExist.getMessage_room_seq();
+		String userId = (String) session.getAttribute("userId");
+
+		int home_seq = Integer.parseInt(seq);
+		HomeDTO getHomeInfo = this.service.getHomeInfo(home_seq);
+		String host_email = getHomeInfo.getMember_email();
+
+		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
+		roomdto.setHost_email(host_email);
+		roomdto.setGuest_email(userId);
+		roomdto.setHome_seq(home_seq);
+		MessageRoomDTO messageRoomSeqExist = this.service.messageRoomSeqExist(roomdto);
+		int message_room_seq = 0;
+		if (messageRoomSeqExist != null) {
+			message_room_seq = messageRoomSeqExist.getMessage_room_seq();
 			System.out.println("msgroom정보 이미 존재");
-		}else {
-			 int messageRoomSeq=this.service.getRoomSeq();
-			 message_room_seq=messageRoomSeq;
-			
-			 roomdto.setMessage_room_seq(message_room_seq);
-             roomdto.setHome_seq(home_seq);
-             roomdto.setHost_email(host_email);
-             roomdto.setGuest_email(userId);
-             roomdto.setCheckIn(checkIn);
-             roomdto.setCheckOut(checkOut);
-             roomdto.setTotalNumber(Integer.parseInt(number));
-			 int messageInfoInsert=this.service.messageRoomInsert(roomdto);
-			if(messageInfoInsert>0) {System.out.println("msgroom정보 입력에 성공!");};
+		} else {
+			int messageRoomSeq = this.service.getRoomSeq();
+			message_room_seq = messageRoomSeq;
+
+			roomdto.setMessage_room_seq(message_room_seq);
+			roomdto.setHome_seq(home_seq);
+			roomdto.setHost_email(host_email);
+			roomdto.setGuest_email(userId);
+			roomdto.setCheckIn(checkIn);
+			roomdto.setCheckOut(checkOut);
+			roomdto.setTotalNumber(Integer.parseInt(number));
+			int messageInfoInsert = this.service.messageRoomInsert(roomdto);
+			if (messageInfoInsert > 0) {
+				System.out.println("msgroom정보 입력에 성공!");
+			}
+			;
 		}
-		
-		System.out.println("message_room_seq= "+message_room_seq);
-		
+
+		System.out.println("message_room_seq= " + message_room_seq);
+
 		dto.setMessage_room_seq(message_room_seq);
 		dto.setHome_seq(home_seq);
 		dto.setFromID(userId);
 		dto.setToID(host_email);
-		
-	//2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
-		int messageInsertResult=this.service.messageInsert(dto);
-		if(messageInsertResult>0) {
+
+		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
+		int messageInsertResult = this.service.messageInsert(dto);
+		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
-		    mav.addObject("host_name",host_name);
+			mav.addObject("host_name", host_name);
 			mav.setViewName("/message/messageInsertConfirm");
-		}else {
+		} else {
 			mav.setViewName("error");
 		}
-		
+
 		return mav;
 	}
-	
-	
+
+	@RequestMapping("/messageRoomEnter.msg")
+	public ModelAndView messageRoomEnter(HttpSession session,int message_room_seq,int home_seq,String member_picture,String member_name) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("messageRoomEnter");
+        System.out.println("room_seq : "+message_room_seq);
+		session.setAttribute("userId", "jake@gmail.com");
+		String userId = (String) session.getAttribute("userId");
+		
+        mav.addObject("host_picture", member_picture);
+        mav.addObject("host_name", member_name);
+        HomeDTO hdto = homeService.getHomeData(home_seq);
+        mav.addObject("home_location", hdto.getHome_nation()+" "+hdto.getHome_addr1()+" "+hdto.getHome_addr3());
+        mav.addObject("home_price", hdto.getHome_price());
+        MessageRoomDTO dto=this.service.msgRoomInfo(message_room_seq);
+        String cI= "20180"+dto.getCheckIn().split("월")[0]+dto.getCheckIn().split("일")[0].split("월")[1]; String cO="20180"+dto.getCheckOut().split("월")[0]+dto.getCheckOut().split("일")[0].split("월")[1];
+        String transCI="2018-"+dto.getCheckIn().split("월")[0]+"-"+dto.getCheckIn().split("일")[0].split("월")[1]; String transCO="2018-"+dto.getCheckOut().split("월")[0]+"-"+dto.getCheckOut().split("일")[0].split("월")[1];
+        mav.addObject("splitCheckIn", transCI);
+        mav.addObject("splitCheckOut", transCO);
+        long amount=hdto.getHome_price();
+       SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+       try {
+		Date checkIn=sdf.parse(cI);
+		Date checkOut=sdf.parse(cO);
+		long diffDay=(checkOut.getTime()-checkIn.getTime())/(24*60*60*1000);
+		long totalPrice=amount*diffDay;
+		String tp=Long.toString(totalPrice);
+		mav.addObject("totalPrice", tp);
+		mav.addObject("diffDay", diffDay);
+	} catch (ParseException e) {
+		e.printStackTrace();
+	} 
+       mav.addObject("msgRoom", dto);
+        mav.addObject("messageRoomInfo", dto);
+        
+		
+		
+		
+		
+		mav.setViewName("/message/messageRoom");
+		return mav;
+
+	}
+
 }

@@ -18,7 +18,7 @@
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 
 <!-- google 검색 api -->
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxwlQzLFSDHDwe0Wf_J9bmYrGNxC-R-E&libraries=places"></script>
 
 <!-- 달력 -->
@@ -86,6 +86,12 @@ $(document).ready(function() {
 	       $("#pcount").text(intmax+1 + "+")
 	    }
 	 });
+	 
+	 var pcount = $("#pcount").text();
+	  $("#hiddenPeople").val(pcount);
+	 
+	 
+	 
 });
 
    $(document).ready(function() {
@@ -99,6 +105,8 @@ $(document).ready(function() {
     	  typeTitle.style.color = '#848281';
     	  $("#typeDropBtn").text("");
     	  $("#typeDropBtn").text(type);
+    	  var typeDropBtn = $("#typeDropBtn").text();
+    	  $("#hiddenHomeType").val(typeDropBtn);
       })
       
       $("#peopleSubmit").click(function() {
@@ -107,6 +115,7 @@ $(document).ready(function() {
     	  $("#peopleDropBtn").text("");
     	  var pcount = $("#pcount").text();
     	  $("#peopleDropBtn").text(pcount+" 명");
+    	  $("#hiddenPeople").val(pcount);
     	  
     	  var dropdowns = document.getElementsByClassName("dropdown-content");
     	    var i;
@@ -278,24 +287,37 @@ $(document).ready(function() {
 </style>
 <script>
 	
+	window.onload = function() { 
+		if (navigator.geolocation) { 
+			navigator.geolocation.getCurrentPosition(MyPosition); 
+		} 
+	} 
+	
+	function MyPosition(position) { 
+		var lat = position.coords.latitude; 
+		var lng = position.coords.longitude; 
+		
+		$("#hiddenLocationLat").val(lat);
+		$("#hiddenLocationLng").val(lng);
+	}
+
 	$(document).ready(function init() {
+			
 		var input = document.getElementById('locationTextField');
 		var autocomplete = new google.maps.places.Autocomplete(input);
+		
 		
 		$("#searchBt").click(function() {
 			var place = autocomplete.getPlace();
 
 			var lat = place.geometry.location.lat();
 			var lng = place.geometry.location.lng();
-			var text =  $("#typeDropBtn").text();
-			var pcount = $("#pcount").text();
-
-			alert("검색어의 위도는 "+lat+" 경도는 "+lng+"\n"
-					+text+"\n"
-					+pcount);
 			
-			
+			$("#hiddenLocationLat").val(lat);
+			$("#hiddenLocationLng").val(lng);
 		})
+
+		
 	});
 	
 	$('.datepicker-here').datepicker({
@@ -329,6 +351,7 @@ $(document).ready(function() {
 <!-- 재호 -->
 </head>
 <body>
+	
    <%@ include file="../resource/include/header.jsp"%>
    <ul class="cb-slideshow">
       <li><span>Image 01</span></li>
@@ -345,14 +368,16 @@ $(document).ready(function() {
          <p>빌림과 함께 여행을 떠나볼까요?</p>
       </div>
       <Br>
+      <form action="search.do" method="post">
       <div id="searchBar">
          <div id="type">
+         	<input type="hidden" name="homeType" id="hiddenHomeType" value="0">
          	<div class="dropdown" >
          	  <p id="typeTitle">숙소유형</p>
-			  <button onclick="typeFunction()" class="dropbtn" id="typeDropBtn">
+			  <button onclick="typeFunction()" class="dropbtn" id="typeDropBtn" type="button" >
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
 			  </button>
-			  <div class="dropdown-content" id="typeDropdownContent">
+			  <div class="dropdown-content" id="typeDropdownContent" >
 			    <a class="typeName" href="#">집 전체</a>
 			    <a class="typeName" href="#">다인실</a>
 			    <a class="typeName" href="#">개인실</a>
@@ -360,24 +385,27 @@ $(document).ready(function() {
 			</div>
          </div>
          <div id="people">
+         	<input type="hidden" name="people" id="hiddenPeople">
          	<div class="dropdown">
          		<p id="peopleTitle">인원수</p>
-			  <button onclick="peopleFunction()" class="dropbtn" id="peopleDropBtn">
+			  <button onclick="peopleFunction()" class="dropbtn" id="peopleDropBtn" type="button" >
 			  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&ensp;인원 수
 			   </button>
 			  <div class="dropdown-content" id="peopleDropdownContent">
 			  		<div id="peopleDropdownContentInner">
 				   		<span>인원</span>&emsp;
-	               		<button id="peopleup" class="btn btn-primary-outline">+</button>
+	               		<button id="peopleup" class="btn btn-primary-outline" type="button">+</button>
 	               		&ensp;<span id="pcount">0</span>&ensp;
-	               		<button id="peopledis" class="btn btn-primary-outline">-</button>
+	               		<button id="peopledis" class="btn btn-primary-outline" type="button">-</button>
 	               		<br>
-	               		<button class="btn btn-primary-outline" id="peopleSubmit">적용하기</button> 
+	               		<button class="btn btn-primary-outline" id="peopleSubmit" type="button">적용하기</button> 
 			  		</div>
 			  </div>
          	</div>
          </div>
          <div id="location">
+         	<input type="hidden" name="lat" id="hiddenLocationLat" value="0">
+         	<input type="hidden" name="lng" id="hiddenLocationLng" value="0">
          	<i class="glyphicon glyphicon-map-marker" id="mapGlyphicon"></i>
          	<input id="locationTextField" type="text" placeholder="위치를 입력해주세요"></input>
          </div>
@@ -390,6 +418,7 @@ $(document).ready(function() {
          	</div>
          <button id="searchBt"><span class="glyphicon glyphicon-search" aria-hidden="true" id="searchicon"></span></button>
       </div>
+      </form>
    </div>
    
    
@@ -530,6 +559,8 @@ $(document).ready(function() {
       </div>
    </div>
  </div>
+ 
+ 					
    <%@ include file="../resource/include/footer.jsp"%>
 </body>
 </html>

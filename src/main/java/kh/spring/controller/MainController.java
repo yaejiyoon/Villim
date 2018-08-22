@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.MemberDTO;
+import kh.spring.interfaces.HomeService;
+import kh.spring.interfaces.MemberService;
+
 
 @Controller
 public class MainController {
@@ -31,6 +38,15 @@ public class MainController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
+	
+	@Autowired
+	MemberDTO dto;
+	
+	@Autowired
+	MemberService service;
+	
+	@Autowired
+	private HomeService homeService;
 	
 	
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
@@ -48,15 +64,13 @@ public class MainController {
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
 		mav.setViewName("index");
-		//System.out.println("ffff");
-		
 		
 		return mav;
 	}
 	
 	//---재호
 	@RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView googleCallback(HttpServletRequest request) throws IOException {
+	public ModelAndView googleCallback(HttpServletRequest request, HttpSession session) throws IOException {
 		System.out.println("googleCallback");
 		ModelAndView mav = new ModelAndView();
 		System.out.println("asdasdasd");
@@ -67,41 +81,74 @@ public class MainController {
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		  AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
 		      null);
-		  System.out.println(1);
+		  System.out.println(oauthOperations);
 		  String accessToken = accessGrant.getAccessToken();
 		  Long expireTime = accessGrant.getExpireTime();
 		  if (expireTime != null && expireTime < System.currentTimeMillis()) {
 		    accessToken = accessGrant.getRefreshToken();
 		    System.out.printf("accessToken is expired. refresh token = {}", accessToken);
 		  }
-		  System.out.println(2);
+		 
+		  System.out.println("메롱1");
 		  Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
 		  Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
-		  System.out.println(3);
+		  System.out.println("메롱2");
 		  PlusOperations plusOperations = google.plusOperations();
 		  Person profile = plusOperations.getGoogleProfile();
-		  System.out.println(4);
-		  mav.addObject("accountEmail", profile.getAccountEmail());
-		  mav.addObject("googlePw", profile.getId());
-		  mav.addObject("firstName", profile.getFamilyName());
-		  mav.addObject("secondName", profile.getGivenName());
-		  mav.addObject("picture", profile.getImageUrl());
-		  System.out.println(profile.getImageUrl());
-		  System.out.println("생일" + profile.getGender());
-		  mav.setViewName("signup");
+		  System.out.println("메롱3");
+		  System.out.println(profile.getAccountEmail());
+		  dto.setMember_email(profile.getAccountEmail());
+		  System.out.println("메롱4");
+		  dto.setMember_pw(profile.getId());
+		  System.out.println("메롱5");
+		  String picture = service.isMember(dto);
+		  System.out.println("메롱6");
+		  System.out.println(request.getParameter("googleTypeSignup"));
+		  if(!(picture.equals(""))) {
+			  
+			  		String login = "login";
+					System.out.println("로그인성공");
+					System.out.println(dto.getMember_email());
+					session.setAttribute("login_email", dto.getMember_email());
+					session.setAttribute("login", login);
+					session.setAttribute("login_picture", dto.getMember_picture());
+//					mav.addObject("login_picture", picture);
+//					mav.addObject("login", login);
+					mav.setViewName("alreadysignup");
+				
+			  
+		  }else {
+			  //로그인 실패하면 가입페이지로 보내
+			  //가입하지 않으셨나요?
+			  mav.addObject("accountEmail", profile.getAccountEmail());
+			  mav.addObject("googlePw", profile.getId());
+			  mav.addObject("firstName", profile.getFamilyName());
+			  mav.addObject("secondName", profile.getGivenName());
+			  mav.addObject("picture", profile.getImageUrl());
+			  mav.setViewName("signup");
+			  
+		  }
 		
+		  
+		  
+		return mav;
+	}
+	@RequestMapping("googleIndex.do")
+	public ModelAndView googleIndex() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
 		return mav;
 	}
 	
 	@RequestMapping("/homeMain.do")
-	public String homeMain() {
-		return "home_main";
+	public ModelAndView homeMain() {
+		ModelAndView mav = new ModelAndView();
+		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
+		mav.addObject("homeList", homeList);
+		mav.setViewName("home_main");
+		return mav;
 	}
 	
-	@RequestMapping("/home_info.do")
-	public String home_info() {
-		return "home/home_info";
-	}
 	
 }
 
