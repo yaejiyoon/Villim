@@ -42,20 +42,20 @@ public class MemberDAOImpl implements MemberDAO {
 		String sql = "select member_picture from member where member_email=? and member_pw=?";
 		System.out.println(dto.getMember_email() + ":" + dto.getMember_pw()); 
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper() {
-						@Override
-						public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-							dto.setMember_picture(rs.getString("member_picture"));
-							
-							return dto;
-				}
-		
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				dto.setMember_picture(rs.getString("member_picture"));
+
+				return dto;
+			}
+
 		},dto.getMember_email(), dto.getMember_pw());
 		if(result.size() == 0) {
-		
-		return "";
+
+			return "";
 		}else {
-		
-		return result.get(0).getMember_picture();
+
+			return result.get(0).getMember_picture();
 		}
 	}
 	@Override
@@ -63,22 +63,45 @@ public class MemberDAOImpl implements MemberDAO {
 		String sql = "select member_picture from member where member_email=?";
 		System.out.println(dto.getMember_email() + ":" + dto.getMember_pw()); 
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper() {
-						@Override
-						public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-							dto.setMember_picture(rs.getString("member_picture"));
-							
-							return dto;
-				}
-		
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				dto.setMember_picture(rs.getString("member_picture"));
+
+				return dto;
+			}
+
 		},dto.getMember_email());
 		if(result.size() == 0) {
-		
-		return "";
+
+			return "";
 		}else {
-		
-		return result.get(0).getMember_picture();
+
+			return result.get(0).getMember_picture();
 		}
 	}
+	@Override
+	public String isMail(String mail) {
+		String sql = "select member_name from member where member_email = ?";
+		
+		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String name = rs.getString("member_name");
+
+				return name;
+			}
+
+		},mail);
+		if(result.size() == 0) {
+
+			return "";
+		}else {
+
+			return result.get(0);
+		}
+	}
+
+
 
 	@Override
 	public MemberDTO printProfile(String userId) {

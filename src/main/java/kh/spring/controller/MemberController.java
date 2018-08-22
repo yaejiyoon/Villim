@@ -496,12 +496,27 @@ public class MemberController {
 	public void find(HttpServletRequest request, HttpServletResponse response) {
 		
 		String mail = request.getParameter("mail");
+		String name = service.isMail(mail);
 		System.out.println(mail);
+		System.out.println(name);
+		String url = "<img src='<c:url value='/resources/img/logo2.png'/>'"
+				+ "<br>" + name + "<h4>님, 안녕하세요.</h4><br>"
+				+ "<h4>비밀번호 재설정을 요청하셨습니다.</h4><br>"
+				+ "<h4>회원님이 요청하지 않은 경우 아무런 조치를 취하실 필요가 없습니다.</h4><br>"
+				+ "<h4>요청하셨다면 다음 링크를 이용해 비밀번호를 재설정하세요.</h4><br>"
+				+ "<a class='btn btn-danger'>비밀번호 재설정 하기</a>"
+				+ "<h4>감사합니다. </h4><br>"
+				+ "<h4>Villim 팀 드림 </h4><br>";
+		
+		String url1 ="<a style='display:inline-block; text-align:center; vertical-align:middle; text-decoration:none; font-size:12px; color:#fff;background-color:#d9534f;border-color:#d43f3a width:118px; height:38px; line-height:38px;'" + "href='#'>비밀번호 재설정 하기</a>"
+		+"<h4>감사합니다. </h4>"+"<h4>Villim 팀 드림 </h4><br>";
+		
 		try {
 		
 		mailDto.setSubject("Villim 입니다.");
-		mailDto.setText(new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080>재설정 링크</a>").toString());
-		mailDto.setFrom("villim", "나");
+		mailDto.setText(new StringBuffer().append(url1).toString());
+		/*mailDto.addInline(contentId, dataSource);*/
+		mailDto.setFrom("villim", "Villim");
 		mailDto.setTo(mail);
 		mailDto.send();
 		System.out.println("메일보내기 성공");

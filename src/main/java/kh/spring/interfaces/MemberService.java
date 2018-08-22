@@ -17,6 +17,7 @@ public interface MemberService {
 	public int signup(MemberDTO dto);
 	public String isMember(MemberDTO dto);
 	public String isSnsMember(MemberDTO dto);
+	public String isMail(String mail);
 	
 	
 	//지은

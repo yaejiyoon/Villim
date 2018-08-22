@@ -25,6 +25,7 @@ public class MailSendDTO {
         messageHelper.setSubject(subject);
     }
     public void setText(String htmlContent) throws MessagingException {
+    	System.out.println(htmlContent);
         messageHelper.setText(htmlContent, true);
     }
     public void setFrom(String email, String name) throws UnsupportedEncodingException, MessagingException {

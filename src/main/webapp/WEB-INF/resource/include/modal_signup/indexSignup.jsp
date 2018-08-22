@@ -439,6 +439,11 @@
 			$("#myModal1").modal('hide');
 			$("#myModal").modal('show');
 		})
+		$("#moveLogin").click(function(){
+			$("#myModal").modal('hide');
+			$("#myModal1").modal('show');
+			
+		})
 		$("#findPw").click(function(){
 			
 			$("#myModal1").modal('hide');
@@ -713,7 +718,7 @@ function loginWithEmail(){
       </div>
       <div class="modal-footer" id="mfooter">
       <!--   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-       <font>Villim의 회원이신가요?</font> <a href="#"><font>로그인</font></a>
+       <font>Villim의 회원이신가요?</font> <a href="#" id="moveLogin"><font>로그인</font></a>
        
       </div>
     </div>

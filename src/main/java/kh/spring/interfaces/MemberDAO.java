@@ -17,6 +17,7 @@ public interface MemberDAO {
 	public int signup(MemberDTO dto);
 	public String isMember(MemberDTO dto);
 	public String isSnsMember(MemberDTO dto);
+	public String isMail(String mail);
 	
 	//지은
 	public MemberDTO printProfile(String userId);
