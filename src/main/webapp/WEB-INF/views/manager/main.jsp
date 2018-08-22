@@ -12,6 +12,9 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">	
+
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script
@@ -73,6 +76,7 @@ $(document).ready(function(){
 <div id="navi">
 <ul class="nav nav-pills nav-stacked" id="collapseExample">
 <li role="presentation"><img src="../resources/img/logo2.png"></li>
+<li role="presentation"><a href="#">admin 계정 정보</a></li>
  <li role="presentation"><a href="#">Home</a></li>
   <li role="presentation"><a href="#">Profile</a></li>
   <li role="presentation"><a href="#">Messages</a></li>
@@ -82,11 +86,11 @@ $(document).ready(function(){
 <div id="content">
 	<div id="contentHeader">
 		<button id="btn">버튼</button>
-		<a>adssad</a>	
-		<a>adssad</a>	
-		<a>adssad</a>	
-		<a>adssad</a>	
+		<a href="#">
+ 		 <i class="fas fa-envelope fa-2x"></i> <span class="badge" style="wi">4</span>
+		</a>		
 	</div>
+	<div><h2>Dashboard</h2></div>
 
 </div>
 
