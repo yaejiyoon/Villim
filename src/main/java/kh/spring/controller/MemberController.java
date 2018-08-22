@@ -416,9 +416,7 @@ public class MemberController {
 		dto.setMember_email(session.getAttribute("login_email").toString());
 		
 		String picture = service.isSnsMember(dto);
-		System.out.println(dto.getMember_email());
-		System.out.println(dto.getMember_picture());
-		System.out.println(picture);
+
 		
 //		if(!(picture.equals(""))) {
 //			System.out.println("이미 가입 되어있는 아이디 입니다.");
@@ -449,8 +447,6 @@ public class MemberController {
 		
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
-			System.out.println(dto.getMember_email());
-			System.out.println(picture);
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			
@@ -468,13 +464,10 @@ public class MemberController {
 		
 		System.out.println("sns 로그인 부분입니다.");
 		ModelAndView mav = new ModelAndView();
-		System.out.println(dto.getMember_email());
-		System.out.println(dto.getMember_pw());
 		String picture = service.isSnsMember(dto);
-		System.out.println(picture);
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
-			System.out.println(dto.getMember_email());
+			
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			mav.setViewName("index");

@@ -765,6 +765,7 @@ function loginWithEmail(){
       	<i class="fab fa-google fa-2x" style="color:red"></i>
       	<font> 구글 계정으로 로그인</font>
       </button><br>
+      <input type="hidden" id="googleSignup" value="">
       <img src="<c:url value='/resources/img/signup/underline5.png'/>" id="underline">
     
       

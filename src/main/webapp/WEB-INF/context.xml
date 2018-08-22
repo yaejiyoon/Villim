@@ -95,7 +95,7 @@
 
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />
-	
+	<bean id="MemberAspect" class="kh.spring.aspect.MemberAspect" />
 	
 <!--     <mvc:default-servlet-handler/>
     <mvc:annotation-driven></mvc:annotation-driven> -->
