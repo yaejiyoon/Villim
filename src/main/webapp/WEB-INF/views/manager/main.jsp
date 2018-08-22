@@ -16,7 +16,35 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<style>
+	#wrapper{
+		width:100%;
+	}
+	#collapseExample{
 	
+		
+		
+	}
+	div{
+		border:1px solid black;
+	}
+	#navi{
+		display:inline-block;
+		
+		
+	}
+	#content{
+	display:inline-block;
+	position:absolute;
+	width:100%;
+	
+	}
+	#btn{
+		width:100px;
+	}
+
+</style>	
 <script>
 /* $("#slide").animate({width:'toggle'},350); */
 $(document).ready(function(){
@@ -24,25 +52,45 @@ $(document).ready(function(){
 	 /* $("#collapseExample").animate({width:'toggle'},350); */
 	$("#btn").click(function(){
 		 $("#collapseExample").animate({width:'toggle'},350);
-		
+		  $("#btn").animate({width:'100px'},350); 
 	})
 	 
 })
 
 </script>
+
+
 </head>
 <body>
 
 <!-- <a aria-expanded="false" aria-controls="collapseExample">
   Link with href
 </a> -->
-<button id="btn">버튼</button>
 
+<div id="wrapper">
+
+
+<div id="navi">
 <ul class="nav nav-pills nav-stacked" id="collapseExample">
- <li role="presentation" class="active"><a href="#">Home</a></li>
+<li role="presentation"><img src="../resources/img/logo2.png"></li>
+ <li role="presentation"><a href="#">Home</a></li>
   <li role="presentation"><a href="#">Profile</a></li>
   <li role="presentation"><a href="#">Messages</a></li>
 </ul>
+</div>
 
+<div id="content">
+	<div id="contentHeader">
+		<button id="btn">버튼</button>
+		<a>adssad</a>	
+		<a>adssad</a>	
+		<a>adssad</a>	
+		<a>adssad</a>	
+	</div>
+
+</div>
+
+
+</div>
 </body>
 </html>
