@@ -87,4 +87,8 @@ in (select max(message_time) from message group by message_room_seq) and message
 	<select id="getHomeNames" resultType="Home">
 	select * from home where member_email=#{userId}
 	</select>
+
+	<select id="reservCheck" resultType="Reservation">
+	select * from reservation where member_email=#{member_email} and home_seq=#{home_seq}
+	</select>
 </mapper>

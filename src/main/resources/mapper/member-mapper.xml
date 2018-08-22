@@ -37,8 +37,6 @@ select * from reservation where member_email=#{userId} and reserv_checkout<![CDA
 
 <select id="getHomePhoto" resultType="Home">
 select home_main_pic from home where home_seq=#{home_seq}
-
-
 </select>
 
 <select id="getMemberEmail" resultType="Home">
