@@ -8,6 +8,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReservationDTO;
 
 public interface MessageService {
 	public int countReview(int home_seq);
@@ -41,4 +42,6 @@ public interface MessageService {
 	public int hostMsgAllCount(String userId);
 	
 	public List<HomeDTO> getHomeNames(String userId);
+	
+	public ReservationDTO reservCheck(ReservationDTO dto2);
 }

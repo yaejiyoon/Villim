@@ -349,6 +349,20 @@ body{
     top:-125vh;
 }
 
+#close-button-1,#close-button-2,#close-button-3{ 
+  position: absolute;
+  right:1vw;
+  top:-3vh;
+  font-family:sans-serif;
+  font-size:28px;
+  transform: rotate(45deg);
+  border:none;
+  cursor:pointer;
+  background:none;
+  outline:none;
+     
+} 
+
 #reservBefore {
    position:relative;
    top:3vh;
@@ -358,26 +372,42 @@ body{
 .card3 {
     border: 1px solid #c9cacc;
     transition: 0.3s;
-    width: 30%;
+    width: 25%;
     height:20vh;
     margin: 0 auto;
     position:relative;
-    left:10vw;
+    left:7.5vw;
     top:-125vh;
 }
-
+.card4 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:15vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
 #reservAfter{
    position:relative;
    top:3vh;
    left:0.5vw;
 }
+#reservConfirm{
+position:relative;
+   top:3vh;
+   left:0.5vw;
+}
+.unactive {
+  display:none;
+}
 
+.invisible {
+  display:none;
+}
 </style>
-<script>
 
-
-
-</script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 <script>
 
@@ -391,6 +421,20 @@ body{
   			$('#dayCO').html(dayOfCO+"요일");
   			
   			
+  			
+  		
+  			
+  			$('#close-button-1').on('click', function() {
+  			  $(this).parents('.card2').fadeOut();
+  			});
+  			
+  			$('#close-button-2').on('click', function() {
+    			  $(this).parents('.card3').fadeOut();
+    			});
+  			
+  			$('#close-button-3').on('click', function() {
+  			  $(this).parents('.card4').fadeOut();
+  			});
   			
   			$('#msgSendBt').click(function(){
     		
@@ -429,9 +473,6 @@ body{
   				
   				
   			})
-  			
-  			
-  			
   			
   			
   			
@@ -481,10 +522,11 @@ body{
 			
 			<div style="position:relative;top:4vh;">
 			<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">결제</h4>
-			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">￦${totalPrice}</h5></div>
-            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦0</h5></div>
-			<hr style="color:#666666;width:70%;position:relative;top:1.9vh;font-weight:900;height:15px;">
-			<div style="position:relative;  top:-1vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.1vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">￦${totalPrice}</h5></div>
+			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">￦${stayPrice}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:7vw;">￦${home_servicefee}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:3vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.4vw;">￦${home_cleaningfee}</h5></div>
+			<hr style="background-color:#727272;width:70%;position:relative;top:1.9vh;font-weight:900;height:3px;">
+			<div style="position:relative;  top:0vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.3vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">￦${totalPrice}</h5></div>
 			
 			<hr style="color:#666666;width:70%;position:relative;top:-2vh;">
 			</div>
@@ -499,26 +541,39 @@ body{
 			
 		</div>
 		
-<!--예약 확인 카드  -->
-<div class="card2">
- 
+
+<c:choose>
+<c:when test="${reservCheck.reserv_state==0}">
+<div class="card3  animated slideInRight">
+  <div id="reservAfter" class="container" style="width:100%;padding:1;">
+   <button class="close-button" id="close-button-2">+</button>
+    <h4><b>${host_name}님의 숙소에 예약 요청을 보내셨습니다</b></h4>
+    <br> 
+    <p>예약이 확정된 것은 아닙니다.</p> <p>${host_name}님이 빠른 시간안에 예약 요청에 응답할 것입니다.</p>
+  </div>
+</div>
+</c:when>
+<c:when test="${reservCheck.reserv_state==1}">
+<div class="card4  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;">
+   <button class="close-button" id="close-button-3">+</button>
+    <h4><b>${host_name}님의 숙소에 예약하셨습니다.</b></h4> 
+    <p>${host_name}님이 예약에 수락하셨습니다. 즐거운 여행 되세요</p>
+  </div>
+</div>
+</c:when>
+<c:otherwise>
+<div class="card2 animated slideInRight">
   <div id="reservBefore" class="container" style="width:100%;padding:1;">
+  <button class="close-button" id="close-button-1">+</button>
     <h4><b>${host_name}님에게 숙소 문의 메시지를 보냈습니다</b></h4> 
     <p >대부분의 호스트는 24시간 이내에 응답합니다. 이 숙소를 1순위로 고려하고 있다면, 결제 정보를 입력하여 정식으로 예약 요청을 하세요.</p>
-    <button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
+    <button class="btn btn-default" onclick="location.href='reservation.ho?'" id="reservRequestBt" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
   </div>
 </div>
-
-<div class="card3">
- 
-  <div id="reservAfter" class="container" style="width:100%;padding:1;">
-    <h4><b>${host_name}님의 숙소에 예약 요청을 보내셨습니다</b></h4> 
-    <p>예약이 확정된 것은 아닙니다. ${host_name}님이 빠른 시간안에 예약 요청에 응답할 것입니다.</p>
-    <button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">철회 요청</button> 
-  </div>
-</div>
-
-<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-130vh;height:auto;">
+</c:otherwise>
+</c:choose>
+<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-125vh;height:auto;">
 
  <input type="hidden" id="message_room_seq" value="${message_room_seq}">
 <input type="hidden" id="home_seq" value="${home_seq}">

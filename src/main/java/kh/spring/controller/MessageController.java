@@ -25,6 +25,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
 import kh.spring.interfaces.MessageService;
@@ -50,8 +51,9 @@ public class MessageController {
         String today= sdf.format(new Date());
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		session.setAttribute("userId", "jake@gmail.com");
-	/*	 session.setAttribute("userId", "plmn855000@gmail.com");*/
+		/*session.setAttribute("userId", "jake@gmail.com");*/
+        session.setAttribute("userId", "plmn855000@gmail.com");
+		 /*session.setAttribute("userId", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
         System.out.println("아이디 :"+userId );
 		// 여행
@@ -72,7 +74,7 @@ public class MessageController {
 				host_email.add(tmp.getHost_email());
 			}
 
-			System.out.println("email= "+host_email.get(0)+" / "+host_email.get(1));
+		
 			List<MemberDTO> hostMemberInfo = this.service.memberInfo(host_email);
 			
 			mav.addObject("guestMessage", guestMessage);
@@ -230,7 +232,7 @@ public class MessageController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageRoomEnter");
         System.out.println("room_seq : "+message_room_seq);
-		session.setAttribute("userId", "jake@gmail.com");
+/*		session.setAttribute("userId", "jake@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
 		MemberDTO guestInfo=this.m_service.getPhoto(userId);
 		mav.addObject("userId", userId);
@@ -242,6 +244,7 @@ public class MessageController {
         HomeDTO hdto = homeService.getHomeData(home_seq);
         mav.addObject("home_location", hdto.getHome_nation()+" "+hdto.getHome_addr1()+" "+hdto.getHome_addr3());
         mav.addObject("home_price", hdto.getHome_price());
+
         mav.addObject("host_email", hdto.getMember_email());
         MessageRoomDTO dto=this.service.msgRoomInfo(message_room_seq);
         String cI= "20180"+dto.getCheckIn().split("월")[0]+dto.getCheckIn().split("일")[0].split("월")[1]; String cO="20180"+dto.getCheckOut().split("월")[0]+dto.getCheckOut().split("일")[0].split("월")[1];
@@ -249,7 +252,7 @@ public class MessageController {
         System.out.println("체크인 시간 : "+cI+" 체크아웃시간: "+cO);
         mav.addObject("splitCheckIn", transCI);
         mav.addObject("splitCheckOut", transCO);
-        long amount=hdto.getHome_price();
+        int amount=hdto.getHome_price();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 		SimpleDateFormat sdf2=new SimpleDateFormat("yyyyMMdd");
         String today= sdf.format(new Date());
@@ -258,11 +261,16 @@ public class MessageController {
 		Date checkIn=sdf2.parse(cI);
 		Date checkOut=sdf2.parse(cO);
 		long diffDay=(checkOut.getTime()-checkIn.getTime())/(24*60*60*1000);
-		long totalPrice=amount*diffDay;
-		String tp=Long.toString(totalPrice);
+		int stayPrice=(int) (amount*diffDay);
+		int home_servicefee=(int) (amount*0.05);
+		int home_cleaningfee= (int) (amount*0.1);
 		System.out.println(diffDay+"박");
-
-		mav.addObject("totalPrice", tp);
+        
+		int totalPrice=(int) (stayPrice+(hdto.getHome_price()*0.05)+(hdto.getHome_price()*0.1));
+        mav.addObject("home_servicefee", home_servicefee);
+        mav.addObject("home_cleaningfee",home_cleaningfee);
+		mav.addObject("totalPrice", totalPrice);
+		mav.addObject("stayPrice", stayPrice);
 		mav.addObject("diffDay", diffDay);
 	} catch (ParseException e) {
 		e.printStackTrace();
@@ -282,6 +290,18 @@ public class MessageController {
 		mav.addObject("message", message);
 		for(MessageDTO tmp:message) {
 			System.out.println(tmp.getMessage_content()+" / "+tmp.getMessage_time());
+		}
+	    
+		ReservationDTO dto2= new ReservationDTO();
+		dto2.setMember_email(userId);
+		dto2.setHome_seq(home_seq);
+
+		ReservationDTO reservCheck=this.service.reservCheck(dto2);
+		if(reservCheck!=null) {
+			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
+			mav.addObject("reservCheck", reservCheck);
+		}else {
+			System.out.println("예약을 안함 아직");
 		}
 		
        
@@ -342,12 +362,11 @@ public class MessageController {
 		System.out.println("messageHostRoomEnter");
 		System.out.println("room_seq : "+message_room_seq);
 		System.out.println("home_seq : "+home_seq);
-		session.setAttribute("userId", "plmn855000@gmail.com");
+		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
 		List<HomeDTO> getHomeNames=this.service.getHomeNames(userId);
 	    
 		System.out.println("호스트 이메일 : "+userId+" / 게스트 이메일 : "+member_email);
-		System.out.println(getHomeNames.get(0)+" / "+getHomeNames.get(1));
 		MemberDTO hostInfo=this.m_service.getPhoto(userId);
 		MemberDTO guestInfo=this.m_service.getPhoto(member_email);
 		HomeDTO hdto = homeService.getHomeData(home_seq);
@@ -362,6 +381,7 @@ public class MessageController {
 		mav.addObject("getHomeNames", getHomeNames);
 		mav.addObject("home_name", hdto.getHome_name());
 		System.out.println("가격"+hdto.getHome_price());
+		mav.addObject("guest_regdate", guestInfo.getMember_date());
 		mav.addObject("home_price", hdto.getHome_price());
 		
 		
@@ -380,7 +400,15 @@ public class MessageController {
 		Date checkIn=sdf2.parse(cI);
 		Date checkOut=sdf2.parse(cO);
 		long diffDay=(checkOut.getTime()-checkIn.getTime())/(24*60*60*1000);
-		long totalPrice=amount*diffDay;
+		int stayPrice=(int) (amount*diffDay);
+		int home_servicefee=(int) (amount*0.05);
+		int home_cleaningfee= (int) (amount*0.1);
+        int totalPrice=(int) (stayPrice-(hdto.getHome_price()*0.05)-(hdto.getHome_price()*0.1));
+        mav.addObject("home_servicefee", home_servicefee);
+        mav.addObject("home_cleaningfee",home_cleaningfee);
+		mav.addObject("totalPrice", totalPrice);
+		mav.addObject("stayPrice", stayPrice);
+		
 		String tp=Long.toString(totalPrice);
 		System.out.println(diffDay+"박");
 
@@ -407,11 +435,34 @@ public class MessageController {
 		}
 		
 		
+		ReservationDTO dto2= new ReservationDTO();
+		dto2.setMember_email(member_email);
+		dto2.setHome_seq(home_seq);
+        System.out.println("이메일 : "+dto2.getMember_email()+" / 홈시퀸스 : "+dto2.getHome_seq());
+		ReservationDTO reservCheck=this.service.reservCheck(dto2);
+		if(reservCheck!=null) {
+			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
+			mav.addObject("reservCheck", reservCheck);
+		}else {
+			
+			System.out.println("예약을 안함 아직");
+		}
+		
+		
 		mav.setViewName("/message/messageHostRoom");
 		return mav;
 	
 	
 	}
 	
+@RequestMapping("/ok.msg")
+public ModelAndView ok() {
+	ModelAndView mav=new ModelAndView();
+	
+	
+	mav.setViewName("/message/calender");
+	return mav;
+}
 
+	
 }
