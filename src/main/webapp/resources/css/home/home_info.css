@@ -235,10 +235,6 @@ body{
 	right:-175px;
 }
 
-#details-collapse{
-	border: 1px solid black;
-}
-
 .green{
 	color:#008489;
 	font-weight: 600;
@@ -256,6 +252,12 @@ body{
 .green:visited, .green:active, .green:link{
 	text-decoration: none;
 }
+
+.homeDescTitle{
+	font-weight: 600;
+	font-size: 15px;
+}
+
 
 
 /* -------------- 편의시설 -------------- */
