@@ -199,9 +199,19 @@ transition: transform .1s ease-in;
 	    		success:function(data){
 	    			/* alert(data.jarrayContent.message_content); */
 	    			
-	    			
-                    alert(data.jarrayContent);
-	    			guestUnreadMsg=(data.jarrayContent);
+	    			/* alert(data.jarrayContent); */
+	    			var string=data.jarrayContent;
+	    			var stringarray=string.toString().split(':');
+	    			alert(stringarray);
+	    			alert(stringarray[0]+" : "+stringarray[1]+" : "+stringarray[2]+" : "+stringarray[3]);
+	    			alert(data.jarrayContent);
+                    
+	    			for(var i=0;i<stringarray.length;i++){
+	    				alert(stringarray[i]);
+	    				$('.tab-pane active').html(
+	    			}
+	    		
+	    	/* 		guestUnreadMsg=(data.jarrayContent);
 	    			guestMemberInfo=(data.jarrayguestMember);
 	    			
 	    			if(guestUnreadMsg.length>0||guestMemberInfo.length>0){
@@ -213,7 +223,7 @@ transition: transform .1s ease-in;
 	    					console.log(guestMemberInfo[i]);
 	    				}
 	    				
-	    			}
+	    			} */
 	    			/* $('.guestMsg').html(); */
 
 	    		}
@@ -227,7 +237,7 @@ transition: transform .1s ease-in;
 	    	alert("allHostMsg선택");
 	    	
            $.ajax({
-	    		
+
 	    		type:"GET",
 	    		url:"msgMainGuestAllRead.msg",
 	    		success:function(data){

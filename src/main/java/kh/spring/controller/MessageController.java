@@ -554,7 +554,7 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	
     	host_email.add(tmp.getHost_email());
     	
-    	jarrayContent.add(tmp);
+    	jarrayContent.add(tmp.json1());
     	
     	}
     	
@@ -571,11 +571,18 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
         	jarrayguestMember.add(tmp);
         }
     }
-
+for(int i=0; i<jarrayContent.size();i++) {
+	System.out.println(jarrayContent.get(i));
+}
+for(int j=0;j<jarrayguestMember.size();j++) {
+	System.out.println(jarrayguestMember.get(j));
+}
    System.out.println("내용 : "+jarrayContent+" 멤버내용"+jarrayguestMember);
   object.put("jarrayContent",jarrayContent);
   object.put("jarrayguestMember", jarrayguestMember);
  
+  
+  
 /*    Map<String, Object> map = new HashMap<String, Object>();*/
 	response.setContentType("application/json");
 	response.setCharacterEncoding("UTF-8");
