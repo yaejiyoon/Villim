@@ -1,5 +1,9 @@
 package kh.spring.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,23 +42,27 @@ public class HomeMainController {
 	}
 	
 	@RequestMapping("/search.do")
-	public ModelAndView search(HttpSession session, String homeType, String people, String lat, String lng) throws Exception  {
-		System.out.println("집 유형 : "+homeType);
+	public ModelAndView search(HttpServletRequest request, HttpSession session, String homeType, int people, String lat, String lng) throws Exception  {
 		session.setAttribute("homeType", homeType);
-		if(!session.getAttribute("homeType").equals("0")) {
-			System.out.println("homesession이 들어왔나?? : "+session.getAttribute("homeType"));
-		}
-		System.out.println("인원 수 : "+people);
-//		session.setAttribute("people", people);
-		System.out.println("장소 위도 : "+ lat);
-		System.out.println("장소 경도 : "+ lng);
+		session.setAttribute("people", people);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("mapOn", "mapOn");
 		mav.addObject("lat", lat);
 		mav.addObject("lng", lng);
 		
-		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
+		if(session.getAttribute("tempDates")!=null) {
+			System.out.println(session.getAttribute("tempDates"));
+		}
+		
+		List tempDates = new ArrayList<>();
+		tempDates = (List) session.getAttribute("tempDates");
+		
+		System.out.println("잘들어감? "+tempDates);
+		
+		List<HomeDTO> homeList = homeService.searchHomeData(homeType, people);
+		
 		mav.addObject("homeList", homeList);
 		mav.setViewName("home_main");
 		return mav;
@@ -87,6 +95,43 @@ public class HomeMainController {
 		
 		new Gson().toJson(homeMapChange ,response.getWriter());
 		
+	}
+	
+	@RequestMapping("/searchDate.do")
+	public void datePick(HttpServletRequest request, HttpSession session) {
+		String checkinDate = request.getParameter("checkinDate");
+		String checkoutDate = request.getParameter("checkoutDate");
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+        Date FirstDate = null;
+        Date SecondDate = null;
+	      try {
+	         FirstDate = format.parse(checkinDate);
+	         SecondDate = format.parse(checkoutDate);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      
+	    //두 날짜 사이의 날짜 구하기
+	      StringBuilder sb = new StringBuilder();
+
+//	      ArrayList<String> dates = new ArrayList<String>();
+	      List dates = new ArrayList<>();
+	      Date currentDate = FirstDate;
+	      while (currentDate.compareTo(SecondDate) <= 0) {
+	         dates.add(format.format(currentDate));
+	         Calendar c = Calendar.getInstance();
+	         c.setTime(currentDate);
+	         c.add(Calendar.DAY_OF_MONTH, 1);
+	         currentDate = c.getTime();
+	      }
+	              
+//	      System.out.println("dates 배열 : "+dates);
+	      session.setAttribute("tempDates", dates);
+//	      String blockedDate = sb.toString();
+//	      System.out.println(sb.toString());
+	      
 	}
 	
 }

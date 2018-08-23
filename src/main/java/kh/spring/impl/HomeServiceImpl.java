@@ -135,4 +135,9 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getHomePic();
 	}
 
+	@Override
+	public List<HomeDTO> searchHomeData(String homeType, int people) {
+		return hdao.searchHomeData(homeType, people);
+	}
+
 }

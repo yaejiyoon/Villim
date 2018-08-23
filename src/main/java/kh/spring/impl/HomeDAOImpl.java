@@ -1,5 +1,6 @@
 package kh.spring.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -160,6 +161,14 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<HomePicDTO> getHomePic() {
 		return ssTemplate.selectList("HomePic.getHomePic");
+	}
+
+	@Override
+	public List<HomeDTO> searchHomeData(String homeType, int people) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", homeType);
+		param.put("people", people);
+		return ssTemplate.selectList("Home.searchHomeData", param);
 	}
 
 }

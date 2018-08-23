@@ -369,9 +369,20 @@ $(document).ready(function() {
                 checkinDate = formatDate(date[0]);
                 checkoutDate = formatDate(date[1]);
                 
-                alert(checkinDate+" : "+checkoutDate);
-                
-                
+                $.ajax({
+                    url:"searchDate.do",
+                    type:"get",
+                    data:{
+                       checkinDate:checkinDate,
+                       checkoutDate:checkoutDate
+                       },
+                    success:function(resp){
+                       
+                    },
+                    error : function(request,status,error) {
+                       console.log(request.status + " : " + status + " : " + error);
+                    }
+                 })
                 
              }
           }
@@ -409,7 +420,7 @@ $(document).ready(function() {
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
 			  </button>
 			  <div class="dropdown-content" id="typeDropdownContent" >
-			    <a class="typeName" href="#">집 전체</a>
+			    <a class="typeName" href="#">집전체</a>
 			    <a class="typeName" href="#">다인실</a>
 			    <a class="typeName" href="#">개인실</a>
 			  </div>
