@@ -6,8 +6,10 @@ import java.util.Map;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.MapDTO;
 
 public interface HomeDAO {
+	
 	public List<HomeDTO> getAllHomeData();
 
 	public HomeDTO getOldestHomeData();
@@ -51,4 +53,11 @@ public interface HomeDAO {
 	//----------------지혜-----------------
 	public int updateBlockedDate(String blockedDate,int home_seq);
 	
+	
+//	예지
+	public List<HomeDTO> getAllHomeDataMain();
+	
+	public List<HomeDTO> getHomeOnMap(MapDTO mdto);
+	
+	public List<HomePicDTO> getHomePic();
 }

@@ -15,8 +15,8 @@ public class HomeDTO {
 	private String home_addr3;
 	private String home_addr4;
 	private String home_zipcode;
-	private String home_lat;
-	private String home_lng;
+	private double home_lat;
+	private double home_lng;
 	private String home_amenities;
 	private String home_safety;
 	private String home_guest_access;
@@ -42,8 +42,8 @@ public class HomeDTO {
 
 	public HomeDTO(String member_email, int home_seq, String home_name, String home_contents, String home_type,
 			int home_people, String home_bedroom, String home_bed, String home_nation, String home_addr1,
-			String home_addr2, String home_addr3, String home_addr4, String home_zipcode, String home_lat,
-			String home_lng, String home_amenities, String home_safety, String home_guest_access, String home_rules,
+			String home_addr2, String home_addr3, String home_addr4, String home_zipcode, double home_lat,
+			double home_lng, String home_amenities, String home_safety, String home_guest_access, String home_rules,
 			String home_details, String home_checkin_start, String home_checkin_end, String home_checkout,
 			int home_min_stay, int home_max_stay, String home_blocked_date, int home_price, String home_currency,
 			String home_main_pic, int home_state, String home_rest_start, String home_rest_end) {
@@ -195,19 +195,20 @@ public class HomeDTO {
 		this.home_zipcode = home_zipcode;
 	}
 
-	public String getHome_lat() {
+
+	public double getHome_lat() {
 		return home_lat;
 	}
 
-	public void setHome_lat(String home_lat) {
+	public void setHome_lat(double home_lat) {
 		this.home_lat = home_lat;
 	}
 
-	public String getHome_lng() {
+	public double getHome_lng() {
 		return home_lng;
 	}
 
-	public void setHome_lng(String home_lng) {
+	public void setHome_lng(double home_lng) {
 		this.home_lng = home_lng;
 	}
 
