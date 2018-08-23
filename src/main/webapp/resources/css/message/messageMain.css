@@ -61,9 +61,11 @@
   border: 1px solid #eee;
   border-top: 1px solid #eee;
   padding: 15px 0;
+ 
 }
 .portlet .tabbable-line > .tab-content {
   padding-bottom: 0;
+  
 }
 
 /* Below tabs mode */
@@ -88,6 +90,7 @@
   border-top: 0;
   border-bottom: 1px solid #eee;
   padding-bottom: 15px;
+  
 }
 
 /* dropdown */
