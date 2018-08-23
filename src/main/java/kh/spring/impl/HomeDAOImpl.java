@@ -15,6 +15,7 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeDAO;
 
 @Component
@@ -30,7 +31,7 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> getAllHomeData(String member_email) {
 		return ssTemplate.selectList("Home.getAllHomeData", member_email);
 	}
-
+	
 	@Override
 	public HomeDTO getOldestHomeData() {
 		return ssTemplate.selectOne("Home.getOldestHomeData");
@@ -222,5 +223,30 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 	
 	
+
+	
+	//----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
+		return jdbcTemplate.update(sql,blockedDate,home_seq);
+	}
+
+//	예지
+	
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return ssTemplate.selectList("Home.getAllHomeDataMain");
+	}
+	
+	@Override
+	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
+		return ssTemplate.selectList("Home.getHomeOnMap", mdto);
+	}
+	
+	@Override
+	public List<HomePicDTO> getHomePic() {
+		return ssTemplate.selectList("HomePic.getHomePic");
+	}
 
 }

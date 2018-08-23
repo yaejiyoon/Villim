@@ -3,20 +3,42 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
+<!--    예지 -->
+	<select id="getAllHomeDataMain" resultType="Home">
+      select * from home
+   </select>
+	
+<!-- 	<select id="searchHomeData" resultType="Home"> -->
+<!--       select * from home -->
+<!--       	<trim prefix="where" prefixOverrides="and"> -->
+<!--          <if test="homeType!=0"> -->
+<!--             home_type = #{homeType} -->
+<!--          </if> -->
+<!--          <if test="people!=null"> -->
+<!--             and home_people >= #{homeType} -->
+<!--          </if> -->
+<!--        </trim> -->
+<!--    </select> -->
+   
+   
+   <select id="getHomeOnMap" resultType="Home" parameterType="Double">
+      select * from home where home_lat between #{swLat} and #{neLat} and home_lng between #{swLng} and #{neLng}
+   </select>
+	
 	<select id="getAllHomeData" parameterType="String"
 		resultType="Home">
 		select * from Home where member_email= #{member_email}
 	</select>
 
-	<select id="getOldestHomeData" resultType="Home">
-		select * from (select
-		* from home order by home_seq) where rownum = 1
-	</select>
+   <select id="getOldestHomeData" resultType="Home">
+      select * from (select
+      * from home order by home_seq) where rownum = 1
+   </select>
 
-	<select id="getHomeData" parameterType="int" resultType="Home">
-		select *
-		from home where home_seq = #{home_seq}
-	</select>
+   <select id="getHomeData" parameterType="int" resultType="Home">
+      select *
+      from home where home_seq = #{home_seq}
+   </select>
 
 	<select id="getHomePicData" parameterType="int"
 		resultType="HomePic">

@@ -10,9 +10,12 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.dto.MapDTO;
 
 public interface HomeDAO {
 	public List<HomeDTO> getAllHomeData(String member_email);
+	
+	public List<HomeDTO> getAllHomeData();
 
 	public HomeDTO getOldestHomeData();
 
@@ -80,4 +83,15 @@ public interface HomeDAO {
 
 	public List<MessageDTO> getAllMessage(int home_seq);
 
+	
+	//----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate,int home_seq);
+	
+	
+//	예지
+	public List<HomeDTO> getAllHomeDataMain();
+	
+	public List<HomeDTO> getHomeOnMap(MapDTO mdto);
+	
+	public List<HomePicDTO> getHomePic();
 }
