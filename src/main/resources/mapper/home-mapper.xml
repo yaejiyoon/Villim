@@ -3,8 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
-	<select id="getAllHomeData" resultType="Home">
-		select * from Home
+	<select id="getAllHomeData" parameterType="String"
+		resultType="Home">
+		select * from Home where member_email= #{member_email}
 	</select>
 
 	<select id="getOldestHomeData" resultType="Home">
@@ -22,22 +23,172 @@
 		select * from home_pic where home_seq = #{seq} order by
 		home_pic_seq
 	</select>
-	
-	<select id="getCalendarDate" parameterType="map" resultType="String">
+
+	<select id="getCalendarDate" parameterType="map"
+		resultType="String">
 		select * from(
 		select start_day + level -1 days
 		from(
 		select
 		to_date(#{start}, 'yyyy/mm/dd') start_day,
-		to_date(#{end}, 'yyyy/mm/dd') end_day from dual)
-		connect by start_day + level -1 <![CDATA[ <= ]]> end_day) order by days asc
+		to_date(#{end},
+		'yyyy/mm/dd') end_day from dual)
+		connect by start_day + level -1 <![CDATA[ <= ]]>
+		end_day) order by days asc
 	</select>
 
-	<select id="getBlockedDate" parameterType="int" resultType="String">
-		select home_blocked_date from home where home_seq = #{home_seq}
+	<select id="getBlockedDate" parameterType="int"
+		resultType="String">
+		select home_blocked_date from home where home_seq =
+		#{home_seq}
 	</select>
+
+	<select id="getAllReservation" parameterType="String"
+		resultType="Reservation">
+		select * from member m, reservation r, home h
+		where
+		m.member_email = r.member_email and h.home_seq = r.home_seq and
+		r.host_email = #{host_email} order by reserv_date desc
+	</select>
+
+	<select id="getAllMessage" resultType="Message">
+		select * from message mg,
+		member m, home h
+		where mg.fromid = m.member_email and
+		mg.home_seq = h.home_seq
+	</select>
+
+
+	<select id="getGuestReview" parameterType="String"
+		resultType="GuestReview">
+		select * from guest_review g, host_review h where
+		g.g_review_seq = h.g_review_seq and h.home_seq IN
+		(select
+		home_seq from
+		home where member_email = #{member_email})
+	</select>
+
+	<select id="getAllHostReview" parameterType="int"
+		resultType="HostReview">
+		select * from host_review where host_seq = #{host_seq}
+	</select>
+
+
+
+	<select id="getGuestHostJoin" resultType="GuestReview">
+		select * from
+		guest_review g, host_review h
+		where g.g_review_seq = h.g_review_seq;
+	</select>
+
+	<select id="getSatisfaction" resultType="GuestReview">
+		select
+		G_REVIEW_SATISFACTION , count(G_REVIEW_SATISFACTION) as count from
+		guest_review
+		group by G_REVIEW_SATISFACTION having
+		G_REVIEW_SATISFACTION
+		in(5,4,3,2,1)
+		order by G_REVIEW_SATISFACTION desc
+	</select>
+
+	<select id="getAccuracy" resultType="GuestReview">
+		select
+		G_REVIEW_ACCURACY
+		,
+		count(G_REVIEW_ACCURACY) as count from
+		guest_review
+		group by
+		G_REVIEW_ACCURACY having
+		G_REVIEW_ACCURACY
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_ACCURACY desc
+	</select>
+
+	<select id="getCleanLiness" resultType="GuestReview">
+		select
+		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
+		guest_review
+		group by G_REVIEW_CLEANLINESS having
+		G_REVIEW_CLEANLINESS
+		in(5,4,3,2,1)
+		order by G_REVIEW_CLEANLINESS desc
+	</select>
+
+	<select id="getCheckin" resultType="GuestReview">
+		select
+		G_REVIEW_CHECKIN ,
+		count(G_REVIEW_CHECKIN) as count from
+		guest_review
+		group by
+		G_REVIEW_CHECKIN having
+		G_REVIEW_CHECKIN
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_CHECKIN desc
+	</select>
+
+	<select id="getAmenities" resultType="GuestReview">
+		select
+		G_REVIEW_AMENITIES,
+		count(G_REVIEW_AMENITIES) as count from
+		guest_review
+		group by
+		G_REVIEW_AMENITIES having
+		G_REVIEW_AMENITIES
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_AMENITIES desc
+	</select>
+
+	<select id="getCommunication" resultType="GuestReview">
+		select
+		G_REVIEW_COMMUNICATION , count(G_REVIEW_COMMUNICATION) as count from
+		guest_review
+		group by G_REVIEW_COMMUNICATION having
+		G_REVIEW_COMMUNICATION
+		in(5,4,3,2,1)
+		order by G_REVIEW_COMMUNICATION
+		desc
+	</select>
+
+	<select id="getLocation" resultType="GuestReview">
+		select
+		G_REVIEW_LOCATION
+		,
+		count(G_REVIEW_LOCATION) as count from
+		guest_review
+		group by
+		G_REVIEW_LOCATION having
+		G_REVIEW_LOCATION
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_LOCATION desc
+	</select>
+
+	<select id="getValue" resultType="GuestReview">
+		select
+		G_REVIEW_VALUE,
+		count(G_REVIEW_VALUE) as count from
+		guest_review
+		group by
+		G_REVIEW_VALUE
+		having
+		G_REVIEW_VALUE
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_VALUE desc
+	</select>
+
+
 
 </mapper>
+<!-- <select id="getReviewCheckin" resultType="int"> -->
+<!-- select G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) from guest_review -->
+<!-- group by G_REVIEW_CLEANLINESS having G_REVIEW_CLEANLINESS -->
+<!-- in(5,4,3,2,1) -->
+<!-- order by G_REVIEW_CLEANLINESS -->
+<!-- </select> -->
 
 <!-- <insert id="addHomePicData" parameterType="HomePic"> -->
 <!-- insert into home_pic values(home_pic_seq.nextval, #{home_seq}, #{home_pic_name}) -->

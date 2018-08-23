@@ -25,11 +25,10 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
-	width: 70%;
-	overflow: hidden;
+	margin-bottom: 100px;
 	height: auto;
+	width: 70%;
 }
 
 #wrapper-sub {
@@ -86,13 +85,17 @@ div {
 
 {
 margin-top
+
+
 :
+
  
+
 30
 px
+
+
 ;
-
-
 }
 .wrap {
 	width: 100%;
@@ -103,12 +106,22 @@ px
 }
 
 .btn-group {
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 20px;
 }
 
 .btn-group button:first-child {
 	margin-right: 30px;
+}
+
+.save {
+	background-color: #008489;
+	color: white;
+}
+
+.cancel {
+	background-color: white;
+	color: #008489;
+	border: 2px solid #008489;
 }
 </style>
 
@@ -139,8 +152,7 @@ px
 				<div class=wrap>
 					<div class=wrap-sub>
 						<input type=tel class="form-control input-lg" name=home_min_stay
-						value=${hdto.home_min_stay }>
-						<span>박</span>
+							value=${hdto.home_min_stay }> <span>박</span>
 					</div>
 				</div>
 
@@ -150,16 +162,20 @@ px
 				<div class=wrap>
 					<div class=wrap-sub>
 						<input type=tel class="form-control input-lg" name=home_max_stay
-						value=${hdto.home_max_stay }>
-						<span>박</span>
+							value=${hdto.home_max_stay }> <span>박</span>
 					</div>
 				</div>
 
-				<div class="btn-group">
-					<button class="btn btn-info btn-lg">저장</button>
-					<button type="button" class="btn btn-info btn-lg"
-						onclick="history.back()">취소</button>
-				</div>
+				<nav class="navbar navbar-default navbar-fixed-bottom"
+					style="width: 70%; height: 12%; margin: 0 auto;">
+					<div class="container">
+						<div class="btn-group">
+							<button class="btn btn-lg save">저장</button>
+							<button type="button" class="btn btn-lg cancel"
+								onclick="history.back()">취소</button>
+						</div>
+					</div>
+				</nav>
 
 				<input type=hidden name=seq value=${hdto.home_seq }>
 			</form>

@@ -25,11 +25,10 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
-	width: 70%;
-	overflow: hidden;
+	margin-bottom: 100px;
 	height: auto;
+	width: 70%;
 }
 
 #wrapper-sub {
@@ -188,7 +187,7 @@ div {
 					
 					$('.main-pic-wrap').hover(
 							function(){
-								$(".add-pic1").find("img").each(function() {
+								$("#add-pic1").find("img").each(function() {
 									console.log("메인사진 삭제 후 경로: "+ $(this).attr('src'));
 									var tomainpic = $(this).attr('src');
 									console.log("tomainpic:" +tomainpic);
@@ -231,13 +230,10 @@ div {
 										
 										var separate = 3;
 										
-										$(".add-pic1").find("img").each(function() {
+										$("#add-pic1").find("img").each(function() {
 											console.log("메인사진 삭제 후 경로: "+ $(this).attr('src'));
 											toMainPic = $(this).attr('src');
 										});
-										
-										$("#main-pic").attr('src', "<c:url value ='"+toMainPic+"'/>");
-										
 										
 										
 										console.log("home.home_seq" + seq);
@@ -253,6 +249,7 @@ div {
 											},
 											success:function(resp){
 												console.log("메인사진으로 고고씽 성공");
+												$("#main-pic").attr('src', "<c:url value ='"+toMainPic+"'/>");
 												location.reload();
 											}
 										});
@@ -274,9 +271,9 @@ div {
 				<c:if test="${hplist.size() > 0 }">
 					<c:forEach var="hplist" items="${hplist }">
 						<%cnt++; %>
-						<div class="add-pic-wrap col-md-4" > 
-							<div class="add-pic<%=cnt%> add-pic-fix" >
-								<img class="pic-list separate<%=cnt %>" 
+						<div id="add-pic-wrap" class="add-pic-wrap col-md-4" > 
+							<div id="add-pic<%=cnt %>" class="add-pic add-pic-fix" >
+								<img id="pic-list<%=cnt %>" class="pic-list" 
 									src="<c:url value='files/${hplist.home_pic_name }'/>">
 							</div>
 <!-- 							<p id="deltab" class="deltab">hi</p> -->
@@ -284,18 +281,18 @@ div {
 					
 					<!-- hplist  삭제 로직 -->
 						<script>
-						$(document).on('click', '.separate<%=cnt%>',function(){
-							$(".add-pic<%=cnt%>").find("img").each(function() {
+						$(document).on('click', 'pic-list<%=cnt%>',function(){
+							$("#add-pic<%=cnt%>").find("img").each(function() {
 								console.log("경로: "+ $(this).attr('src'));
 							})
 						})
-						$('.add-pic<%=cnt%>').hover(
+						$('#add-pic<%=cnt%>').hover(
 							function(){
 								console.log("in");
 								$(this).prepend("<button id='delbtn<%=cnt%>' class='btn btn-danger' type='button'>삭제</button>");
 								$('#delbtn<%=cnt%>').css('position','absolute');
 								$('#delbtn<%=cnt%>').css('z-index','100');
-								$('.add-pic-fix').css('z-index','1');
+// 								$('.add-pic-fix').css('z-index','1');
 							},function(){
 								console.log("out");
 								$("#delbtn<%=cnt%>").remove();
@@ -306,7 +303,7 @@ div {
 						$(document).on('click', '#delbtn<%=cnt%>',function(){
 							var file;
 							var separate=2;
-							$(".add-pic<%=cnt%>").find("img").each(function() {
+							$("#add-pic<%=cnt%>").find("img").each(function() {
 								console.log("경로: "+ $(this).attr('src'));
 								file = $(this).attr('src');
 								console.log("file : " + file);
@@ -358,6 +355,7 @@ div {
 		$(document).ready(function(){
 			
 		$(document).on('click', '#upimgg', function() {
+			console.log(<%=cnt%>);  
 			console.log("upimgg");
 			$("#file3").click();
 		}); 
@@ -379,6 +377,8 @@ div {
 											console.log("성공 : " + resp);
 											console.log(resp.hdto.home_main_pic);
 											console.log(resp.filename);
+											console.log(resp.hplist)
+											console.log(resp.hplist.length);
 											var output;
 											var upimgg = $("#upimgg");
 											var addpiclw = $("#add-pic-list-wrap");
@@ -400,9 +400,10 @@ div {
 // 									output += "</div>";
 // 									output += "</div>";
 									
-									location.reload();
+	// 								$("#wrapper-sub").append(output);
+	
+// 									location.reload();
 									
-								$("#wrapper-sub").append(output);
 							},
 								error : function(resp) {
 									console.log("실패");
@@ -439,7 +440,6 @@ div {
 											var wrap = $("#add-mainpic-wrap");
 
 											if (resp.hdto.home_main_pic != null) {
-alert('files/'+resp.hdto.home_main_pic);
 												wrap.removeClass('add-mainpic-wrap');
 												mainpic.attr('src',"<c:url value ='files/"+resp.hdto.home_main_pic+"'/>");
 												mainpic.removeClass('add-img');

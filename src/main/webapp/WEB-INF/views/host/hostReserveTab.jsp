@@ -26,36 +26,42 @@ div {
 #wrapper {
 	border: 1px solid black;
 	margin: 30px auto;
-	width: 70%;
-	height: 1000px;
+	height: auto;
 	width: 70%;
 }
 
 .wrapper-sub {
-	width: 70%;
+	width: 65%;
 }
 
 .home-reserve {
-	margin-top: 60px;
+	margin-left: 0;
+	margin-top: 60px; 
+	width: 60%;
+	float: left;
+	padding: 0;
+	margin-bottom: -30px;
+	border: 1px solid black;
 }
 
 .home-reserve div {
 	display: inline-block;
+	float: left;
+	padding: 0;
 }
 
-.home-reserve div button {
-	background-color: white;
-	border: none;
-	text-decoration: none;
-	outline: 1;
-	border-bottom: thin;
-	border-bottom-color: black;
-	width: 120px;
-	height: 70px;
-	padding-left: 0;
-	font-size: 17px;
-}
-
+/* .home-reserve div button { */
+/* 	background-color: white; */
+/* 	border: none; */
+/* 	text-decoration: none; */
+/* 	outline: 1; */
+/* 	border-bottom: thin; */
+/* 	border-bottom-color: black; */
+/* 	width: 120px; */
+/* 	height: 70px; */
+/* 	padding-left: 0; */
+/* 	font-size: 15px; */
+/* } */
 .home-reserve-line {
 	border: 0.5px solid #E6E6E6;
 	display: inline-block;
@@ -126,16 +132,17 @@ div {
 
 .nav-btn {
 	background-color: white;
+	text-align: center;
 	border: none;
 	text-decoration: none;
-	width: 120px;
+	width: 100%;
 	height: 70px;
-	padding-left: 0;
-	font-size: 17px;
+	padding: 0;
+	font-size: 15px;
 }
 
 .nav-btn:hover {
-	border-bottom: 2px solid blue;
+	border-bottom: 2px solid #008489;
 }
 
 .nav-btn:active {
@@ -153,6 +160,12 @@ div {
 .nav-btn:checked {
 	text-decoration: none;
 }
+
+.btn {
+	background-color: white;
+	color: #008489;
+	border: 1px solid #008489;
+}
 </style>
 
 </head>
@@ -160,34 +173,45 @@ div {
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<h2>Yuljeon-dong, Jangan-gu, Suwon의 아파트</h2>
+			<div
+				style="display: inline-block; width: 79%; border: 1px dotted black;">
+				<h2>${hdto.home_name }</h2>
+			</div>
+			<div
+				style="display: inline-block; width: 20%; border: 1px dotted black; text-align: right;">
+				<button type="button" class="btn"
+					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
+					<b>달력보기</b>
+				</button>
+			</div>
 		</div>
 
-		<div class="home-reserve">
-			<div>
+		<div class="home-reserve row">
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">숙소
 					세부정보</button>
 			</div>
-			<div>
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
-					설정</button>
+			<div class="col-md-2">
+				<button class="nav-btn" type="button" style="color: #008489;"
+					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">
+					<b>예약 설정</b>
+				</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
 					가능 여부</button>
 			</div>
-			<div>
-				<button type="button">현지 법규</button>
+			<div class="col-md-2">
+				<button class="nav-btn" type="button">현지 법규</button>
 			</div>
-			<div>
-				<button type="button">공동 호스트</button>
+			<div class="col-md-2">
+				<button class="nav-btn" type="button">공동 호스트</button>
 			</div>
 		</div>
 
@@ -202,7 +226,9 @@ div {
 					</h4>
 				</div>
 				<div class="guest-rule-mod">
-					<button type="button" class="btn btn-info">수정</button>
+					<button type="button" class="btn">
+						<b>수정</b>
+					</button>
 				</div>
 				<div class="policy">
 					<div class="policy-sub1">
@@ -226,8 +252,10 @@ div {
 					</h4>
 				</div>
 				<div class="guest-rule-mod">
-					<button type="button" class="btn btn-info"
-					onclick="location.href='hostReserveModifyRule.do?home_seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostReserveModifyRule.do?home_seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 				<!-- for문으로 체크된것 출력하기 -->
 				<c:forEach var="list" items="${ruleList }">
@@ -240,6 +268,7 @@ div {
 					<div class="details-contents">${list }</div>
 				</c:forEach>
 			</div>
+			<div class="home-reserve-line"></div>
 
 		</div>
 	</div>

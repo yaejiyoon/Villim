@@ -3,12 +3,16 @@ package kh.spring.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.MessageDTO;
+import kh.spring.dto.ReservationDTO;
 
 public interface HomeService {
-	public List<HomeDTO> getAllHomeData();
+	public List<HomeDTO> getAllHomeData(String member_email);
 
 	public HomeDTO getOldestHomeData();
 
@@ -47,5 +51,33 @@ public interface HomeService {
 	public List<String> getCalendarDate(Map<String, String> map);
 
 	public String getBlockedDate(int home_seq);
+
+	public List<ReservationDTO> getAllReservation(String member_email);
+
+	public List<GuestReviewDTO> getAllGuestReview(String member_email);
+
+	public List<HostReviewDTO> getAllHostReview(int home_seq);
+
+	public int guestReviewCount(String member_email);
+
+	public int hostReivewCount(int home_Seq);
+
+	public List<GuestReviewDTO> getSatisfaction();
+
+	public List<GuestReviewDTO> getAccuracy();
+
+	public List<GuestReviewDTO> getCleanLiness();
+
+	public List<GuestReviewDTO> getCheckin();
+
+	public List<GuestReviewDTO> getAmenities();
+
+	public List<GuestReviewDTO> getCommunication();
+
+	public List<GuestReviewDTO> getLocation();
+
+	public List<GuestReviewDTO> getValue();
+	
+	public List<MessageDTO> getAllMessage(int home_seq);
 
 }
