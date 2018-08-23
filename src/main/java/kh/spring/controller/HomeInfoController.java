@@ -115,8 +115,8 @@ public class HomeInfoController {
 		List<String> amenitiesList = new ArrayList<>();
 		System.out.println(amenities);
 		
-		for(int i=0;i<amenities.split(", ").length;i++) {
-			amenitiesList.add(amenities.split(", ")[i]);
+		for(int i=0;i<amenities.split(",").length;i++) {
+			amenitiesList.add(amenities.split(",")[i]);
 		}
 		
 		//사용 가능 공간
@@ -124,8 +124,8 @@ public class HomeInfoController {
 		List<String> accessList = new ArrayList<>();
 		System.out.println(access);
 		
-		for(int i=0;i<access.split(", ").length;i++) {
-			accessList.add(access.split(", ")[i]);
+		for(int i=0;i<access.split(",").length;i++) {
+			accessList.add(access.split(",")[i]);
 		}
 		
 		//안전 시설
@@ -133,8 +133,8 @@ public class HomeInfoController {
 		List<String> safetyList = new ArrayList<>();
 		System.out.println(safety);
 
-		for(int i=0;i<safety.split(", ").length;i++) {
-			safetyList.add(safety.split(", ")[i]);
+		for(int i=0;i<safety.split(",").length;i++) {
+			safetyList.add(safety.split(",")[i]);
 		}
 
 		//편의시설 total
@@ -269,14 +269,11 @@ public class HomeInfoController {
         System.out.println("두 날짜의 날짜 차이: "+calDateDays);
         
         
-		
-        
 		int home_seq = 1;
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		
 		//두 날짜 사이의 날짜 구하기
-		
 		StringBuilder sb = new StringBuilder();
 
 		ArrayList<String> dates = new ArrayList<String>();

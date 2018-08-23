@@ -25,7 +25,7 @@
       select * from home where home_lat between #{swLat} and #{neLat} and home_lng between #{swLng} and #{neLng}
    </select>
 	
-<!--    인형 -->
+<!-- 인형 -->
    <select id="getAllHomeData" parameterType="String"
       resultType="Home">
       select * from Home where member_email= #{member_email}
