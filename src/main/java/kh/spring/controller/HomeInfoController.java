@@ -110,6 +110,37 @@ public class HomeInfoController {
 		//숙소 상세 설명 
 		HomeDescDTO hddto = homeService.getHomeDescData(home_seq);
 		
+		//편의시설
+		String amenities = hdto.getHome_amenities();
+		List<String> amenitiesList = new ArrayList<>();
+		System.out.println(amenities);
+		
+		for(int i=0;i<amenities.split(", ").length;i++) {
+			amenitiesList.add(amenities.split(", ")[i]);
+		}
+		
+		//사용 가능 공간
+		String access = hdto.getHome_guest_access();
+		List<String> accessList = new ArrayList<>();
+		System.out.println(access);
+		
+		for(int i=0;i<access.split(", ").length;i++) {
+			accessList.add(access.split(", ")[i]);
+		}
+		
+		//안전 시설
+		String safety = hdto.getHome_safety();
+		List<String> safetyList = new ArrayList<>();
+		System.out.println(safety);
+
+		for(int i=0;i<safety.split(", ").length;i++) {
+			safetyList.add(safety.split(", ")[i]);
+		}
+
+		//편의시설 total
+		int amenitiesCount = amenitiesList.size() + accessList.size() + safetyList.size();
+		System.out.println(amenitiesCount);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
@@ -117,6 +148,10 @@ public class HomeInfoController {
 		mav.addObject("hostReviewList", hostReviewList);
 		mav.addObject("page", page);
 		mav.addObject("hddto", hddto);
+		mav.addObject("amenitiesList", amenitiesList);
+		mav.addObject("accessList", accessList);
+		mav.addObject("safetyList", safetyList);
+		mav.addObject("amenitiesCount", amenitiesCount);
 		mav.setViewName("home/home_info");
 		
 		return mav;

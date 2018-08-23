@@ -388,7 +388,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			건물 내 무료 주차
                			<br>
                			<br>
-               			<a href="#amenitiesModal" class="green" data-toggle="modal" id="amenitiesLink" >30개 편의시설 모두 보기 </a>
+               			<a href="#amenitiesModal" class="green" data-toggle="modal" id="amenitiesLink" >${amenitiesCount }개 편의시설 모두 보기 </a>
                			<br>
                			<br>
                			<br>
@@ -824,7 +824,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                		</div>
 
-						<script>
+						<!-- <script>
         					var map;
 							function initMap() {
 								map = new google.maps.Map(document
@@ -853,7 +853,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							}
 							
 							
-						</script>
+						</script> -->
 
 					</div>
                
@@ -1383,8 +1383,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <%@ include file="../../resource/include/footer.jsp" %>
    <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
    <!-- 지도 -->
-	<script 
+	<!-- <script 
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>
-	</script>
+	</script> -->
 </body>
 </html>
