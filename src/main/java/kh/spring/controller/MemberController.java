@@ -439,7 +439,7 @@ public class MemberController {
 	
 	// 로그인 체크
 	@RequestMapping("login.do")
-	public ModelAndView login(MemberDTO dto, HttpSession session) {
+	public ModelAndView login(MemberDTO dto, HttpSession session, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		

@@ -59,13 +59,13 @@
 		<constructor-arg value="Eldfe1PMxby23ofR2IYx5Xb4" />
 	</bean>
 	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
-	<bean id="googleOAuth2Parameters"
-		class="org.springframework.social.oauth2.OAuth2Parameters">
-		<property name="scope"
-			value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/>
-		<property name="redirectUri"
-			value="http://localhost:8080/oauth2callback" />
-	</bean>
+ 	<bean id="googleOAuth2Parameters" 
+		class="org.springframework.social.oauth2.OAuth2Parameters"> 
+		<property name="scope" 
+ 			value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/> 
+ 		<property name="redirectUri" 
+			value="https://villim.cf/oauth2callback" />
+ 	</bean> 
 	
 
 	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
@@ -92,7 +92,8 @@
 			</props>
 		</property>
 	 </bean>
-
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven />
 	<bean id="MemberAspect" class="kh.spring.aspect.MemberAspect" />
