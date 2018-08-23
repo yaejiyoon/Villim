@@ -23,13 +23,11 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
-	width: 70%;
-	overflow: hidden;
+	margin-bottom: 100px;
 	height: auto;
+	width: 70%;
 }
-
 #wrapper-sub {
 	border: 1px dotted black;
 	width: 70%;
@@ -171,11 +169,22 @@ textarea {
 }
 
 .btn-group {
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 20px;
 }
+
 .btn-group button:first-child {
 	margin-right: 30px;
+}
+
+.save {
+	background-color: #008489;
+	color: white;
+}
+
+.cancel {
+	background-color: white;
+	color: #008489;
+	border: 2px solid #008489;
 }
 </style>
 
@@ -318,17 +327,21 @@ textarea {
 					</div>
 				</div>
 
+			<nav class="navbar navbar-default navbar-fixed-bottom"
+			style="width: 70%; height: 12%; margin: 0 auto;">
+			<div class="container">
 				<div class="btn-group">
-					<button class="btn btn-info btn-lg">저장</button>
-					<button type="button" class="btn btn-info btn-lg"
+					<button class="btn btn-lg save">저장</button>
+					<button type="button" class="btn btn-lg cancel"
 						onclick="history.back()">취소</button>
 				</div>
+			</div>
+		</nav>
 				
 				<input type="hidden" name="home_desc_seq" value="${hddto.home_desc_seq }">
 				<input type="hidden" name="home_seq" value="${hdto.home_seq }">
 			</form>
 		</div>
 	</div>
-	<%@ include file="../../resource/include/footer.jsp"%>
 </body>
 </html>
