@@ -19,7 +19,7 @@ body{
 	height: 50px;
 	background-color: white;
 	box-shadow: 1px 1px 1px #d6d6d6;
-	z-index: 10000;
+	z-index: 500 !important;
 }
 
 #scrollNav-contents{
@@ -600,6 +600,8 @@ input.search-query2 {
 	border:1px solid #008489;
 }
 
+/* -------------- map -------------- */
+
 #info-main06 {
 	width: 100%;
 	height: auto;
@@ -618,7 +620,12 @@ input.search-query2 {
 
 #info-main06-map{
 	width:100%;
-	height:75%;
+	height:auto;
+}
+
+#mapmap{
+	width:100%;
+	height:400px;
 }
 
 /* -------------- 숙소 이용규칙 -------------- */

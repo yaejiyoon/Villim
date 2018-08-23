@@ -15,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -31,8 +31,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
 
-<!-- 지도 -->
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer></script> -->
+
 <style>
 
 	
@@ -151,9 +150,11 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 				return null;
 			};
 		
+		$("#amenitiesLink").click(function(){
+			/* $("#scrollNav").css({"display":"none"}); */
+		});
 			
-			
-
+		
 	})
 	
 	
@@ -387,8 +388,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			건물 내 무료 주차
                			<br>
                			<br>
-               			
-               			<a href="" class="green">30개 편의시설 모두 보기 </a>
+               			<a href="#amenitiesModal" class="green" data-toggle="modal" id="amenitiesLink" >30개 편의시설 모두 보기 </a>
                			<br>
                			<br>
                			<br>
@@ -771,7 +771,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			</div>
                			
                			<a id="mapAtag" class="green" data-toggle="collapse" href="#map-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-               			<div id="mapA-content">이 지역 자세히 알아보기</div>
+               				<div id="mapA-content">이 지역 자세히 알아보기</div>
                				<div style="position: static;">
                					<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="mapDown"></span>
                				</div>
@@ -817,22 +817,43 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			</script>
                		</div>
                		<div id="info-main06-map">
-               			
+               			<div id="mapmap">
+               				
+               			</div>
+               			<br>
+               			<br>
                		</div>
 
-						<!-- <script>
+						<script>
         					var map;
 							function initMap() {
 								map = new google.maps.Map(document
-										.getElementById('info-main06-map'), {
+										.getElementById('mapmap'), {
 									center : {
 										lat : 37.5338151,
 										lng : 126.89697839999997
 									},
 									zoom : 14
 								});
+								
+								var cityCircle = new google.maps.Circle({
+									  center:{
+										  lat:37.5338151,
+										  lng:126.89697839999997
+									  },
+									  radius:500,
+									  strokeColor:"#04B4AE",
+									  strokeOpacity:0.8,
+									  strokeWeight:2,
+									  fillColor:"#81F7D8",
+									  fillOpacity:0.4,
+									  map:map,
+								});
+								
 							}
-						</script> -->
+							
+							
+						</script>
 
 					</div>
                
@@ -1360,5 +1381,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    </div>
    
    <%@ include file="../../resource/include/footer.jsp" %>
+   <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
+   <!-- 지도 -->
+	<script 
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>
+	</script>
 </body>
 </html>
