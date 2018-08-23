@@ -235,6 +235,15 @@ body{
 	right:-177px;
 }
 
+#mapDown{
+	font-weight: 400 !important;
+	font-size: 15px !important;
+	color:	#008489;
+	position: relative;
+	top:-17px;
+	right:-177px;
+}
+
 .green{
 	color:#008489;
 	font-weight: 600;

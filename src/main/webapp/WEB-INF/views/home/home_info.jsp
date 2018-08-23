@@ -338,7 +338,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				
                				$(this)
                             .parent()
-                            .find(".glyphicon").attr('style','right:-55px;')
+                            .find(".glyphicon").attr('style','right:-55px; top:-15px;')
                				
                				 
                				});
@@ -358,7 +358,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                					
                					$(this)
                                 .parent()
-               					.find(".glyphicon").attr('style','right:-177px;')
+               					.find(".glyphicon").attr('style','right:-177px; ')
                					
                				});
                			</script>
@@ -761,7 +761,60 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			<h5>Kim님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
                			<p>${hddto.home_desc_region }</p>
-               			<br>
+               			<div id="map-collapse" class="collapse">
+               				<div class="card card-body">
+               					<p class="homeDescTitle">
+               						교통편
+               					</p>
+               					<p>${hddto.home_desc_traffic }</p>
+               				</div>
+               			</div>
+               			
+               			<a id="mapAtag" class="green" data-toggle="collapse" href="#map-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+               			<div id="mapA-content">이 지역 자세히 알아보기</div>
+               				<div style="position: static;">
+               					<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="mapDown"></span>
+               				</div>
+               			</a>
+               			
+               			<script>
+               				$('#map-collapse').on('shown.bs.collapse', function () {
+               				 $(this)
+                             .parent()
+                             .find(".glyphicon-menu-down")
+                             .removeClass("glyphicon-menu-down")
+                             .addClass("glyphicon-menu-up");
+               				 
+               				$(this)
+                            .parent()
+                            .find("#mapA-content").html("숨기기");
+               				
+               				$(this)
+                            .parent()
+                            .find(".glyphicon").attr('style','right:-55px; top:-15px;')
+               				
+               				 
+               				});
+	
+               				//The reverse of the above on hidden event:
+
+               				$('#map-collapse').on('hidden.bs.collapse', function () {
+               					$(this)
+                                .parent()
+                                .find(".glyphicon-menu-up")
+                                .removeClass("glyphicon-menu-up")
+                                .addClass("glyphicon-menu-down");
+               					
+               					$(this)
+                              	.parent()
+                              	.find("#mapA-content").html("이 지역 자세히 알아보기");
+               					
+               					$(this)
+                                .parent()
+               					.find(".glyphicon").attr('style','right:-177px;')
+               					
+               				});
+               			</script>
                		</div>
                		<div id="info-main06-map">
                			
