@@ -5,8 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,27 +50,28 @@ public class MessageController {
 	public ModelAndView main(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-        String today= sdf.format(new Date());
+        String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		/*session.setAttribute("userId", "jake@gmail.com");*/
-        session.setAttribute("userId", "plmn855000@gmail.com");
+		session.setAttribute("userId", "jake@gmail.com");
+        /*session.setAttribute("userId", "plmn855000@gmail.com");*/
 		 /*session.setAttribute("userId", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
         System.out.println("아이디 :"+userId );
 		// 여행
 		List<GuestMsgDTO> guestMessage = this.service.guestMessageMain(userId);
 		List<String> host_email = new ArrayList<>();
-        
+        System.out.println("총개수 :"+guestMessage.size());
 		if (!guestMessage.isEmpty()) {
 			for (GuestMsgDTO tmp : guestMessage) {
 				System.out.println("메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
 						+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time());
 				
 				if(today.equals(tmp.getMessage_time().substring(0,13))) {
+					System.out.println("근꼐 오늘 같다는겨?");
 					tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
 				}else {
-					tmp.setMessage_time(tmp.getMessage_time().substring(7, 7));
+					tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
 				}
 				
 				host_email.add(tmp.getHost_email());
@@ -83,12 +86,24 @@ public class MessageController {
 				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
 			}
 			
+			//모든개수
 			int guestMsgAllCount = this.service.guestMsgAllCount(userId);
 			if (guestMsgAllCount > 0) {
 				System.out.println("모든개수 :" + guestMsgAllCount);
 				mav.addObject("guestMsgAllCount", guestMsgAllCount);
+			}else {
+				System.out.println("모든개수 없음");
+				mav.addObject("guestMsgAllCount", guestMsgAllCount);
 			}
-			
+			//읽지않은개수
+			int guestMsgUnreadCount= this.service.guestMsgUnreadCount(userId);
+			if(guestMsgUnreadCount>0) {
+				System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+				mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+			}else {
+				System.out.println("읽지않은개수 없음");
+				mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+			}
 			
 		}else {
 			System.out.println("guest메세지 없음 !!!!!!!!!!");
@@ -101,14 +116,22 @@ public class MessageController {
 		if(!hostMessage.isEmpty()) {
 			for(GuestMsgDTO tmp:hostMessage) {
 				System.out.println("호스트메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
-				+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time());
+				+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time()+"읽음 여부 :"+tmp.getMessage_read());
 				
-				if(today.equals(tmp.getMessage_time().substring(0,13))) {
-					tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
-				}else {
-					tmp.setMessage_time(tmp.getMessage_time().substring(7, 7));
-				}
 				guest_email.add(tmp.getGuest_email());
+				
+				String messageDate=tmp.getMessage_time();
+				System.out.println("날짜 : "+messageDate.substring(0,13));
+				if(today.equals(messageDate.substring(0,13))) {
+					tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
+					System.out.println("수정된 날짜 : "+tmp.getMessage_time());
+				}else {
+					
+					tmp.setMessage_time(messageDate.substring(7, 21));
+			
+					System.out.println("수정된 날짜 : "+tmp.getMessage_time());
+				}
+				
 				
 			}
 			
@@ -464,5 +487,84 @@ public ModelAndView ok() {
 	return mav;
 }
 
+@RequestMapping("/msgMainGuestAllRead.msg")
+public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response) {
+	System.out.println("msgMainGuestAllRead");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+    String today= sdf.format(new Date());
+    System.out.println("오늘 날짜: "+today);
+    String userId = (String) session.getAttribute("userId");
+	List<GuestMsgDTO> guestAllMessage = this.service.guestMessageMain(userId);
+	List<String> host_email = new ArrayList<>();
+    System.out.println("총개수 :"+guestAllMessage.size());
+	if (!guestAllMessage.isEmpty()) {
+		for (GuestMsgDTO tmp : guestAllMessage) {
+			System.out.println("메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
+					+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time());
+			
+			if(today.equals(tmp.getMessage_time().substring(0,13))) {
+				System.out.println("근꼐 오늘 같다는겨?");
+				tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
+			}else {
+				tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
+			}
+			
+			host_email.add(tmp.getHost_email());
+		}
+
 	
+		List<MemberDTO> hostMemberInfo = this.service.memberInfo(host_email);
+		
+		
+}
+
+	
+}
+
+@RequestMapping("/msgMainGuestUnRead.msg")
+public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response) throws Exception {
+	System.out.println("msgMainGuestUnRead");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+    String today= sdf.format(new Date());
+    System.out.println("오늘 날짜: "+today);
+    String userId = (String) session.getAttribute("userId");
+    
+    List<GuestMsgDTO> guestUnreadMsg=this.service.guestUnreadMsg(userId);
+    List<String> host_email = new ArrayList<>();
+    
+    if (!guestUnreadMsg.isEmpty()) {
+    	for(GuestMsgDTO tmp:guestUnreadMsg) {
+        	System.out.println("읽지않은 내용"+tmp.getMessage_content()+"안 읽었니 메세지 리드 : "+tmp.getMessage_read());
+        
+    	
+    	if(today.equals(tmp.getMessage_time().substring(0,13))) {
+			System.out.println("근꼐 오늘 같다는겨?");
+			tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
+		}else {
+			
+			tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
+			System.out.println(tmp.getMessage_time());
+		}
+    	
+    	host_email.add(tmp.getHost_email());
+    	
+    	}
+    	
+    	
+    
+    	
+    }else {
+    	
+    	System.out.println("게스트가 안 읽은 메세지가 없다니 이럴수가!!!!!!!!");
+    }
+    List<MemberDTO> guestMemberInfo = this.service.memberInfo(host_email);
+    Map<String, Object> map = new HashMap<String, Object>();
+	response.setContentType("application/json");
+	response.setCharacterEncoding("UTF-8");
+    map.put("guestUnreadMsg", guestUnreadMsg);
+    map.put("hostMemberInfo", guestMemberInfo);
+
+	new Gson().toJson(map, response.getWriter());
+
+}
 }

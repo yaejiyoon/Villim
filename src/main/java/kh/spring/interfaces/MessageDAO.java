@@ -30,6 +30,10 @@ public interface MessageDAO {
 	
 	public int guestMsgAllCount(String userId);
 	
+	public int guestMsgUnreadCount(String userId);
+	
+	public List<GuestMsgDTO> guestUnreadMsg(String userId);
+	
 	//Message Guest Room
 	public List<MemberDTO> memberInfo(List<String> hostId);
 	
