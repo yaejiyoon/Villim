@@ -54,4 +54,6 @@ public interface HomeDAO {
 	public List<HomeDTO> getAllHomeDataMain();
 	
 	public List<HomeDTO> getHomeOnMap(MapDTO mdto);
+	
+	public List<HomePicDTO> getHomePic();
 }

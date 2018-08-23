@@ -1,6 +1,8 @@
 package kh.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeService;
 
@@ -56,26 +59,19 @@ public class HomeMainController {
 		mdto.setNeLat(neLat);
 		mdto.setNeLng(neLng);
 		
-//		System.out.println("남서쪽 위도"+mdto.getSwLat());
-//		System.out.println("북동쪽 위도"+mdto.getNeLat());
-//		System.out.println("남서쪽 경도"+mdto.getSwLng());
-//		System.out.println("북동쪽 경도"+mdto.getNeLng());
 		List<HomeDTO> homeList = homeService.getHomeOnMap(mdto);
+		List<HomePicDTO> homePic = homeService.getHomePic();
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
-//		
-		new Gson().toJson(homeList ,response.getWriter());
 		
-//		for (HomeDTO tmp : homeList) {
-//			System.out.println(tmp.getHome_seq());
-//		}
+		Map<String, Object> homeMapChange = new HashMap<String, Object>();
+	      
+		homeMapChange.put("home", homeList);
+		homeMapChange.put("pic", homePic);
 		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("homeList", homeList);
-//		mav.addObject("mapOn", "mapOn");
-//		mav.setViewName("home_main");
-//		return mav;
+		new Gson().toJson(homeMapChange ,response.getWriter());
+		
 	}
 	
 }

@@ -156,5 +156,10 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
 		return ssTemplate.selectList("Home.getHomeOnMap", mdto);
 	}
+	
+	@Override
+	public List<HomePicDTO> getHomePic() {
+		return ssTemplate.selectList("HomePic.getHomePic");
+	}
 
 }

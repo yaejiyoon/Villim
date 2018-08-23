@@ -130,6 +130,9 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getHomeOnMap(mdto);
 	}
 
-	
+	@Override
+	public List<HomePicDTO> getHomePic() {
+		return hdao.getHomePic();
+	}
 
 }

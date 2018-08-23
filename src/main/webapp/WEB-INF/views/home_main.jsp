@@ -183,13 +183,13 @@ $(document).ready(function() {
 		       data:latlng,
 		       success:function(resp){
 		    	   $('.col-md-4').remove();
-		    	   for(var i = 0; i < resp.length ; i++) {
+		    	   for(var i = 0; i < resp.home.length ; i++) {
 		    		   $('.row').append(
 		    			$('<div>').attr('class','col-md-4').append(
 		    			 $('<div>').attr('id','carouselDiv '+i).append(
-		    			  $('<div>').attr('id',resp[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
+		    			  $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
 		    			  	$('<ol>').attr('class','carousel-indicators').append(
-		    			  	  $('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','0').attr('class','active '+i).attr('id','li'+resp[i].home_seq)
+		    			  	  $('<li>').attr('data-target','#'+resp.home[i].home_seq).attr('data-slide-to','0').attr('class','active '+i).attr('id','li'+resp.home[i].home_seq)
 		    			  	)
 		    			  )
 		    			 )
@@ -197,34 +197,34 @@ $(document).ready(function() {
 		    		   );
 					}
 		    	   
-		    	   for(var i = 0; i < resp.length ; i++) {
-						$('#li'+resp[i].home_seq).after($('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','2'));
-						$('#li'+resp[i].home_seq).after($('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','1'));
+		    	   for(var i = 0; i < resp.home.length ; i++) {
+						$('#li'+resp.home[i].home_seq).after($('<li>').attr('data-target','#'+resp.home[i].home_seq).attr('data-slide-to','2'));
+						$('#li'+resp.home[i].home_seq).after($('<li>').attr('data-target','#'+resp.home[i].home_seq).attr('data-slide-to','1'));
 					}
 		    	   
-					for(var i = 0; i < resp.length ; i++) {
-						$('#'+resp[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp[i].home_price+" /박"));
-						$('#'+resp[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp[i].home_name+"</b>"));
-						$('#'+resp[i].home_seq).after($('<p>').attr('class','homeType').append(resp[i].home_type));
+					for(var i = 0; i < resp.home.length ; i++) {
+						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp.home[i].home_price+" /박"));
+						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp.home[i].home_name+"</b>"));
+						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeType').append(resp.home[i].home_type));
 					}
 					
-		    	    for(var i = 0; i < resp.length ; i++) {
-					  $('#'+resp[i].home_seq).after($('<div>').attr('class','carousel-inner '+i).append(
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+					  $('#'+resp.home[i].home_seq).after($('<div>').attr('class','carousel-inner '+i).append(
 						$('<div>').attr('class','item active').append(
-								 $('<img>').attr('src',"<c:url value='files/"+resp[i].home_main_pic+"'/>")
+								 $('<img>').attr('src',"<c:url value='files/"+resp.home[i].home_main_pic+"'/>")
 					  )));
 				    }
 		    	    
-		    	    for(var i = 0; i < resp.length ; i++) {
-					  $('.carousel-inner '+resp[i].home_seq).after(
-					  	$('<a>').attr('class','left carousel-control').attr('href','#'+resp[i].home_seq).attr('data-slide','prev').append(
-					  	  $('<span>').attr('class','glyphicon glyphicon-chevron-right').attr('id','prev '+resp[i].home_seq)
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+					  $('.carousel-inner '+resp.home[i].home_seq).after(
+					  	$('<a>').attr('class','left carousel-control').attr('href','#'+resp.home[i].home_seq).attr('data-slide','prev').append(
+					  	  $('<span>').attr('class','glyphicon glyphicon-chevron-right').attr('id','prev '+resp.home[i].home_seq)
 					  	)
 					  );
 				    }
 		    	    
-		    	    for(var i = 0; i < resp.length ; i++) {
-					  $('#prev '+resp[i].home_seq).after($('<span>').attr('class','sr-only').append("Previous"));
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+					  $('#prev '+resp.home[i].home_seq).after($('<span>').attr('class','sr-only').append("Previous"));
 					}
 					
 					on.style.display = 'block';    
