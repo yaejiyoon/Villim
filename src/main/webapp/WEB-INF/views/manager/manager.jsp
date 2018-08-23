@@ -87,7 +87,7 @@
 <body>
 
 	<div id="bg">
-		<img src="./resources/images/6.jpg" alt="">
+		<img src="./resources/images/17.jpg" alt="">
 	</div>
 	
 	<div id="logo">
