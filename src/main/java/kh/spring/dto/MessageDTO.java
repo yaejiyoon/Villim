@@ -9,6 +9,9 @@ public class MessageDTO {
 	String message_content;
 	String message_time;
 	int message_read;
+	String home_name;
+	String member_picture;
+	String member_name;
 
 	public MessageDTO() {
 	}
@@ -90,4 +93,29 @@ public class MessageDTO {
 		this.message_read = message_read;
 	}
 
+	public String getHome_name() {
+		return home_name;
+	}
+
+	public void setHome_name(String home_name) {
+		this.home_name = home_name;
+	}
+
+	public String getMember_picture() {
+		return member_picture;
+	}
+
+	public void setMember_picture(String member_picture) {
+		this.member_picture = member_picture;
+	}
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	
 }
