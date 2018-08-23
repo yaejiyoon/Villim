@@ -219,7 +219,7 @@ public class HomeDAOImpl implements HomeDAO {
 
 	@Override
 	public List<MessageDTO> getAllMessage(int home_seq) {
-		return ssTemplate.selectList("Home.getAllMessage", home_seq);
+		return ssTemplate.selectList("Home.getAllMessage");
 	}
 	
 	
@@ -247,6 +247,11 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<HomePicDTO> getHomePic() {
 		return ssTemplate.selectList("HomePic.getHomePic");
+	}
+
+	@Override
+	public List<HomeDTO> getAllHomeData() {
+		return ssTemplate.selectList("Home.getAllHomeDataMain");
 	}
 
 }

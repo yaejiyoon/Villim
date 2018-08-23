@@ -40,7 +40,6 @@ public class HostController {
 
 	@RequestMapping("/hostMain.do")
 	public ModelAndView toHostMain() throws Exception {
-
 		// 세션에서 member_email 꺼내기
 		String member_email = "sksksrff@gmail.com";
 		List<HomeDTO> homeList = homeService.getAllHomeData(member_email);
@@ -55,7 +54,7 @@ public class HostController {
 
 		List<GuestReviewDTO> listGR = homeService.getAllGuestReview(member_email);
 		int cnt = homeService.guestReviewCount(member_email);
-		
+
 		List<MessageDTO> mlist = homeService.getAllMessage(hdto.getHome_seq());
 
 		SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,6 +73,10 @@ public class HostController {
 		mav.addObject("mlist", mlist);
 		mav.addObject("rlist", rlist);
 		mav.addObject("homeList", homeList);
+		System.out.println("homelist::"+homeList.size());
+		for(int i=0; i<homeList.size(); i++) {
+			System.out.println(homeList.get(i));
+		}
 		mav.addObject("hdto", hdto);
 		mav.addObject("listGR", listGR);
 		mav.addObject("cnt", cnt);
@@ -137,9 +140,23 @@ public class HostController {
 
 		List<String> list = new ArrayList<String>();
 
-		String[] amenities = hdto.getHome_amenities().split(",");
-		String[] safety = hdto.getHome_safety().split(",");
-		String[] guest_access = hdto.getHome_guest_access().split(",");
+		String[] amenities = {};
+		String[] safety = {};
+		String[] guest_access = {};
+
+		if (hdto.getHome_amenities() == null) {
+
+		}
+		if (hdto.getHome_safety() == null) {
+
+		}
+		if (hdto.getHome_guest_access() == null) {
+
+		}
+
+		amenities = hdto.getHome_amenities().split(",");
+		safety = hdto.getHome_safety().split(",");
+		guest_access = hdto.getHome_guest_access().split(",");
 
 		for (int i = 0; i < amenities.length; i++) {
 			list.add(amenities[i]);
@@ -232,9 +249,9 @@ public class HostController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
 		mav.addObject("hplist", hplist);
-		
+
 		System.out.println("### : " + hplist.size() + " : " + hdto);
-		
+
 		mav.setViewName("/host/hostHomePhotoModifyTab");
 
 		return mav;
@@ -298,7 +315,7 @@ public class HostController {
 		map.put("hplist", hplist);
 		map.put("hdto", hdto);
 		map.put("filename", filename);
-	
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
