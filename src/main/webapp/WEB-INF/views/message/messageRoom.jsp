@@ -25,7 +25,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>님과의 대화</title>
+<title>${host_name}님과의 대화</title>
 
 <style>
 .card {
@@ -43,7 +43,7 @@
 
 /*  */
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -51,7 +51,7 @@
   -webkit-box-sizing: border-box;
  	-moz-box-sizing: border-box;
 }
-
+ */
 body{
 
   font-family: "Roboto", "Tahoma", "Arial", sans-serif;,
@@ -256,11 +256,11 @@ body{
   width: 15%;
 }
 
-
+/* 
 * {
   margin: 0px;
   padding: 0px;
-}
+} */
 
 .box1 {
   width: 300px;
@@ -342,24 +342,72 @@ body{
     border: 1px solid #c9cacc;
     transition: 0.3s;
     width: 30%;
-    height:auto;
+    height:20vh;
     margin: 0 auto;
     position:relative;
     left:10vw;
     top:-125vh;
 }
 
-.container {
-    padding: 2px 16px;
+#close-button-1,#close-button-2,#close-button-3{ 
+  position: absolute;
+  right:1vw;
+  top:-3vh;
+  font-family:sans-serif;
+  font-size:28px;
+  transform: rotate(45deg);
+  border:none;
+  cursor:pointer;
+  background:none;
+  outline:none;
+     
+} 
+
+#reservBefore {
+   position:relative;
+   top:3vh;
+   left:0.5vw;
 }
 
+.card3 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:20vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
+.card4 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:15vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
+#reservAfter{
+   position:relative;
+   top:3vh;
+   left:0.5vw;
+}
+#reservConfirm{
+position:relative;
+   top:3vh;
+   left:0.5vw;
+}
+.unactive {
+  display:none;
+}
 
+.invisible {
+  display:none;
+}
 </style>
-<script>
 
-
-
-</script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 <script>
 
@@ -373,6 +421,20 @@ body{
   			$('#dayCO').html(dayOfCO+"요일");
   			
   			
+  			
+  		
+  			
+  			$('#close-button-1').on('click', function() {
+  			  $(this).parents('.card2').fadeOut();
+  			});
+  			
+  			$('#close-button-2').on('click', function() {
+    			  $(this).parents('.card3').fadeOut();
+    			});
+  			
+  			$('#close-button-3').on('click', function() {
+  			  $(this).parents('.card4').fadeOut();
+  			});
   			
   			$('#msgSendBt').click(function(){
     		
@@ -397,7 +459,11 @@ body{
   				    url:"messageSendInRoom.msg",
   					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#host_email').val()+"&message_content="+$('#message_content').val(),
   					success:function(resp){
-  						alert(resp.message_content);
+
+  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
+  		
+  						
+  				
   					}
   					
   					
@@ -407,9 +473,6 @@ body{
   				
   				
   			})
-  			
-  			
-  			
   			
   			
   			
@@ -429,7 +492,7 @@ body{
 			
 			<div class="row" style="position:relative;width:100%;left:0.8vw;height:33vh;">
 			<div style="position:relative;top:-1vh;">
- <img src="files/${host_picture}" style="width:47%;height:50%;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
+ <img src="files/${host_picture}" style="width:47%;height:15vh;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
 			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:6.9vw;font-weight:700;">${host_name}</h4>
 			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4.6vw;">${home_location}</h5>
             <a style="color:#337a46;position:relative;left:7.5vw;top:6.5vh;">신고하기</a>
@@ -459,10 +522,11 @@ body{
 			
 			<div style="position:relative;top:4vh;">
 			<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">결제</h4>
-			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">￦${totalPrice}</h5></div>
-            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦0</h5></div>
-			<hr style="color:#666666;width:70%;position:relative;top:1.9vh;font-weight:900;height:15px;">
-			<div style="position:relative;  top:-1vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.1vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">￦${totalPrice}</h5></div>
+			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">￦${stayPrice}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:7vw;">￦${home_servicefee}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:3vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.4vw;">￦${home_cleaningfee}</h5></div>
+			<hr style="background-color:#727272;width:70%;position:relative;top:1.9vh;font-weight:900;height:3px;">
+			<div style="position:relative;  top:0vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.3vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">￦${totalPrice}</h5></div>
 			
 			<hr style="color:#666666;width:70%;position:relative;top:-2vh;">
 			</div>
@@ -477,17 +541,39 @@ body{
 			
 		</div>
 		
-<!--예약 확인 카드  -->
-<div class="card2">
- 
-  <div class="container">
-    <h4><b>예약 신청을 하셨습니다.</b></h4> 
-    <p>Current Position</p>
-    <button class="btn btn-default" style="background-color:#ff5a5f;color:white;font-weight:800;border:1px solid #ff6b6b;">수락</button><button class="btn btn-default" style="border: 1px solid #c9cacc;font-weight:800;">거절</button> 
+
+<c:choose>
+<c:when test="${reservCheck.reserv_state==0}">
+<div class="card3  animated slideInRight">
+  <div id="reservAfter" class="container" style="width:100%;padding:1;">
+   <button class="close-button" id="close-button-2">+</button>
+    <h4><b>${host_name}님의 숙소에 예약 요청을 보내셨습니다</b></h4>
+    <br> 
+    <p>예약이 확정된 것은 아닙니다.</p> <p>${host_name}님이 빠른 시간안에 예약 요청에 응답할 것입니다.</p>
   </div>
 </div>
-
-<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-130vh;border:1px solid blue;height:auto;">
+</c:when>
+<c:when test="${reservCheck.reserv_state==1}">
+<div class="card4  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;">
+   <button class="close-button" id="close-button-3">+</button>
+    <h4><b>${host_name}님의 숙소에 예약하셨습니다.</b></h4> 
+    <p>${host_name}님이 예약에 수락하셨습니다. 즐거운 여행 되세요</p>
+  </div>
+</div>
+</c:when>
+<c:otherwise>
+<div class="card2 animated slideInRight">
+  <div id="reservBefore" class="container" style="width:100%;padding:1;">
+  <button class="close-button" id="close-button-1">+</button>
+    <h4><b>${host_name}님에게 숙소 문의 메시지를 보냈습니다</b></h4> 
+    <p >대부분의 호스트는 24시간 이내에 응답합니다. 이 숙소를 1순위로 고려하고 있다면, 결제 정보를 입력하여 정식으로 예약 요청을 하세요.</p>
+    <button class="btn btn-default" onclick="location.href='reservation.ho?'" id="reservRequestBt" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
+  </div>
+</div>
+</c:otherwise>
+</c:choose>
+<div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-125vh;height:auto;">
 
  <input type="hidden" id="message_room_seq" value="${message_room_seq}">
 <input type="hidden" id="home_seq" value="${home_seq}">
@@ -503,7 +589,7 @@ body{
 
     <form class="form" name="form" >
       <div class="form-row">
-        <textarea id="message_content" class="input" style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
+        <textarea id="message_content" class="input" maxlength=800; style="resize:vertical;position:relative;left:-4.9vw;border: 2px solid #e2e2e2;" ng-model="cmntCtrl.comment.text" required></textarea>
       </div>
 
    
@@ -521,25 +607,34 @@ body{
   
   <!-- Comments List -->
   <div class="comments" >
+  
+  <div class="co"></div>
+  
+  
 <c:forEach items="${message}" var="message" >
 
  <c:if test="${message.fromID eq userId}">
-    <div class="comment" style="border:1px solid purple;height:17vh;">
-      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;">
+    <div class="comment" style="height:auto;">
+      <div class="comment-image" style="width:3.7vw;height:7vh;position:relative;left:26vw;top:3vh;">
         <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-7vh;">${message.message_content}</div>
+      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;">${message.message_content}
+      <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
+      </div>
       
     </div>
 </c:if>
 <c:if test="${message.fromID eq host_email}">
-    <div class="comment" style="border:1px solid pink;height:17vh;">
+    <div class="comment" style="height:auto;">
       <div class="comment-image"  style="width:3.7vw;height:7vh;">
         <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
       </div>
  
-      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;">${message.message_content}</div>
+      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;margin-bottom:0;margin-top:0;">${message.message_content}
+      <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
+      
+      </div>
       
     </div>
 </c:if>

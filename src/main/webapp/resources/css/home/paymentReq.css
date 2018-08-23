@@ -4,7 +4,7 @@
 
 div {
 	box-sizing: border-box;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 #paymemntWrapper{
@@ -18,14 +18,15 @@ div {
 
 #paymentContent{
 	margin: 0 auto;
-	width:65vw;
+	width:55vw;
 	height:100vh;
 }
 
 #paymentfooter{
 	margin: 0 auto;
-	width:65vw;
+	width:55vw;
 	height:10vh;
+	border-top: 1px solid #d6d6d6;
 }
 
 #toindex {
@@ -51,8 +52,12 @@ div {
 
 #paymentLeft{
 	float:left;
-	width:60%;
+	width:55%;
 	height:100%;
+}
+
+#paymentLeft-content01{
+	border-bottom: 1px solid #d6d6d6;
 }
 
 #paymentLeft-content01 p:nth-child(1){
@@ -70,19 +75,48 @@ div {
 }
 
 #paymentLeft-content01 li{
-	margin-bottom: 7px;
+	margin-bottom: 15px;
+}
+
+#paymentLeft-content01 li:last-child{
+	padding-bottom: 15px;
+}
+
+#paymentLeft-content02{
+	margin-top: 30px;
+}
+
+.content02{
+	padding:20px;
+	border-bottom: 1px solid #d6d6d6;
+}
+
+#paymentLeft-content02 a{
+	color: #008489;
+	font-size: 2vh;
+}
+
+#requestBT{
+	background-color: #ff5a5f;
+	color: white;
+	font-size: 2vh;
+	font-weight: 600;
+	width: 210px;
+	height: 45px;
 }
 
 /* ---------------- 오른쪽 ----------------*/
+
+
 #paymentRight{
 	float:left;
-	width:40%;
+	width:45%;
 	height:100%;
 }
 
 #paymentRight-content{
 	margin: 0 auto;
-	width:80%;
+	width:85%;
 	height:420px;
 	border: 1px solid #d6d6d6;
 }
@@ -156,11 +190,13 @@ div {
 
 #group{
 	margin-top: 5px;
+	margin-right: 5px;
 	width:35px;
 }
 
 #calen{
 	margin-top: 5px;
+	margin-right: 5px;
 	width:35px;
 }
 
@@ -193,3 +229,18 @@ div {
 	margin-top: 10px;
 	font-size: 1.95vh;
 }
+
+/* ---------------- 푸터 ----------------*/
+
+#paymentfooter img{
+		width:80px;
+		padding-top: 10px;
+	}
+	
+#paymentfooter p{
+		display: inline;
+		font-family: font;
+		padding-top:20px;
+		font-size: 0.8vw;
+	}
+
