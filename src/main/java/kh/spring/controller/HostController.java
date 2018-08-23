@@ -471,8 +471,8 @@ public class HostController {
 		System.out.println(hdto.getHome_lat());
 		System.out.println(hdto.getHome_lng());
 
-		double lat = Double.parseDouble(hdto.getHome_lat());
-		double lng = Double.parseDouble(hdto.getHome_lng());
+		double lat = hdto.getHome_lat();
+		double lng = hdto.getHome_lng();
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("seq", seq);
