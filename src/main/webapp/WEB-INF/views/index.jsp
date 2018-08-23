@@ -343,7 +343,38 @@ $(document).ready(function() {
 	        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
 	        dateFormat: "yyyy/mm/dd",
 	        timeFormat: 'hh:ii aa'
-	     }
+	     },
+	     onSelect: function(formattedDate, date, inst){
+             
+             function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+
+                     return [year, month, day].join('-');
+                }
+             
+             var checkin = formatDate(date);
+             
+               var inYear = checkin.split('-')[0];
+               var inMonth = checkin.split('-')[1];
+               var inDay = checkin.split('-')[2];
+             
+             if(date.length == 2){
+                
+                checkinDate = formatDate(date[0]);
+                checkoutDate = formatDate(date[1]);
+                
+                alert(checkinDate+" : "+checkoutDate);
+                
+                
+                
+             }
+          }
 	})
 });
 </script>

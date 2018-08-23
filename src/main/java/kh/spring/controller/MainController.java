@@ -140,14 +140,6 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("/homeMain.do")
-	public ModelAndView homeMain() {
-		ModelAndView mav = new ModelAndView();
-		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
-		mav.addObject("homeList", homeList);
-		mav.setViewName("home_main");
-		return mav;
-	}
 	
 	
 }
