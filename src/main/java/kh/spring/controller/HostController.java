@@ -144,20 +144,23 @@ public class HostController {
 		String[] safety = {};
 		String[] guest_access = {};
 
-		if (hdto.getHome_amenities() == null) {
-
-		}
-		if (hdto.getHome_safety() == null) {
-
-		}
-		if (hdto.getHome_guest_access() == null) {
+		if (hdto.getHome_amenities() != null) {
+			amenities = hdto.getHome_amenities().split(",");
+		}else {
 
 		}
 
-		amenities = hdto.getHome_amenities().split(",");
-		safety = hdto.getHome_safety().split(",");
-		guest_access = hdto.getHome_guest_access().split(",");
+		if (hdto.getHome_safety() != null) {
+			safety = hdto.getHome_safety().split(",");
+		}else {
 
+		}
+
+		if (hdto.getHome_guest_access() != null) {
+			guest_access = hdto.getHome_guest_access().split(",");
+		}else {
+
+		}
 		for (int i = 0; i < amenities.length; i++) {
 			list.add(amenities[i]);
 		}
@@ -187,9 +190,20 @@ public class HostController {
 
 		HomeDTO hdto = homeService.getHomeData(seq);
 
-		String[] rules = hdto.getHome_rules().split(",");
-		String[] details = hdto.getHome_details().split(",");
-
+		String[] rules = {};
+	      String[] details = {};
+	      
+	      if(hdto.getHome_rules() != null) {
+	         rules = hdto.getHome_rules().split(",");
+	      }else {
+	         
+	      }
+	      
+	      if(hdto.getHome_details() != null) {
+	         details = hdto.getHome_details().split(",");
+	      }else {
+	         
+	      }
 		List<String> ruleList = new ArrayList<String>();
 		List<String> detailsList = new ArrayList<String>();
 
