@@ -13,6 +13,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -531,7 +533,11 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     
     List<GuestMsgDTO> guestUnreadMsg=this.service.guestUnreadMsg(userId);
     List<String> host_email = new ArrayList<>();
-    
+    JSONArray jarrayContent = new JSONArray();
+    JSONArray jarrayguestMember = new JSONArray();
+    JSONObject object = new JSONObject();
+ 
+   
     if (!guestUnreadMsg.isEmpty()) {
     	for(GuestMsgDTO tmp:guestUnreadMsg) {
         	System.out.println("읽지않은 내용"+tmp.getMessage_content()+"안 읽었니 메세지 리드 : "+tmp.getMessage_read());
@@ -548,6 +554,8 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	
     	host_email.add(tmp.getHost_email());
     	
+    	jarrayContent.add(tmp);
+    	
     	}
     	
     	
@@ -558,13 +566,23 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	System.out.println("게스트가 안 읽은 메세지가 없다니 이럴수가!!!!!!!!");
     }
     List<MemberDTO> guestMemberInfo = this.service.memberInfo(host_email);
-    Map<String, Object> map = new HashMap<String, Object>();
+    if(!guestMemberInfo.isEmpty()) {
+        for(MemberDTO tmp:guestMemberInfo) {
+        	jarrayguestMember.add(tmp);
+        }
+    }
+
+   System.out.println("내용 : "+jarrayContent+" 멤버내용"+jarrayguestMember);
+  object.put("jarrayContent",jarrayContent);
+  object.put("jarrayguestMember", jarrayguestMember);
+ 
+/*    Map<String, Object> map = new HashMap<String, Object>();*/
 	response.setContentType("application/json");
 	response.setCharacterEncoding("UTF-8");
-    map.put("guestUnreadMsg", guestUnreadMsg);
-    map.put("hostMemberInfo", guestMemberInfo);
+/*    map.put("guestUnreadMsg", guestUnreadMsg);
+    map.put("hostMemberInfo", guestMemberInfo);*/
 
-	new Gson().toJson(map, response.getWriter());
+	new Gson().toJson(object, response.getWriter());
 
 }
 }
