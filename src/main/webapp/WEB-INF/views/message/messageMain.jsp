@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
     
 <!DOCTYPE html>
 <html>
@@ -53,143 +53,18 @@ transition: transform .1s ease-in;
 </style>
 <script>
 
-
- $(document).ready(function() { 
-	
-	 
-/* 	 $('#select-default').bind("click", toggle);
-
-	function toggle() {
-		if ($('#select-dropdown').hasClass('open')) {
-			collapse();
-		} else {
-			expand();
-		}
-	}
-	function expand() {
-		$('#select-dropdown').removeClass('closed').addClass('open');
-
-		options = $('.select');
-
-		options.each(function(index) {
-			var layer = options.length - index;
-			$(this).css("top", 40 * index + "px");
-			$(this).css("width", 230);
-			$(this).css("margin-left", -115);
-		});
-	}
-	function collapse() {
-		$('#select-dropdown').removeClass('open').addClass('closed');
-
-		options = $('.select');
-
-		options.each(function(index) {
-			var layer = options.length - index;
-			$(this).css("z-index", layer);
-			$(this).css("top", 2 * index + "px");
-			$(this).css("width", 230 - 2 * index);
-			$(this).css("margin-left", -115 + index);
-		});
-	}
-
-	$('.option').bind("click", select);
-
-	function select() {
-		if ($('#select-dropdown').hasClass('open')) {
-			var selection = $(this).text();
-			$('#select-default').text(selection);
-			var data = $(this).data("id");
-
-			window.dropdown = data;
-			console.log(window.dropdown);
-
-			collapse();
-		} else {
-			expand();
-		}
-	}
-
-	collapse();  */
-	
-
-	
-	/* host */
-	
-/* 	
-	 $('#select-default2').bind("click", toggle);
-
-		function toggle() {
-			if ($('#select-dropdown2').hasClass('opens')) {
-				collapse();
-			} else {
-				expand();
-			}
-		}
-		function expand() {
-			$('#select-dropdown2').removeClass('closeds').addClass('opens');
-
-			options = $('.choice');
-
-			options.each(function(index) {
-				var layer = options.length - index;
-				$(this).css("top", 40 * index + "px");
-				$(this).css("width", 230);
-				$(this).css("margin-left", -115);
-			});
-		}
-		function collapse() {
-			$('#select-dropdown2').removeClass('open').addClass('closed');
-
-			options = $('.choice');
-
-			options.each(function(index) {
-				var layer = options.length - index;
-				$(this).css("z-index", layer);
-				$(this).css("top", 2 * index + "px");
-				$(this).css("width", 230 - 2 * index);
-				$(this).css("margin-left", -115 + index);
-			});
-		}
-
-		$('.option').bind("click", select);
-
-		function select() {
-			if ($('#select-dropdown2').hasClass('open')) {
-				var selection = $(this).text();
-				$('#select-default2').text(selection);
-				var data = $(this).data("id");
-
-				window.dropdown = data;
-				console.log(window.dropdown);
-
-				collapse();
-			} else {
-				expand();
-			}
-		}
-
-		collapse();  */
-	
-		
- }); 
-	
 	
  function ChangeGuestList() {
 	    var guestList = document.getElementById("guestCheck");
 	 
-       
-       
-        
 	    var selGuestList = guestList.options[guestList.selectedIndex].value;
-	    alert("게스트 : "+selGuestList);
+	   
 	    if(selGuestList=="noGuestRead"){
-	    	alert("noGuestRead선택");
+	    alert("dhdddh");
 	    	$('.guestMsg').hide();
-	         
-	   var guestUnreadMsg=[];
-	   var guestMemberInfo=[];
-	   
-	   
+	    	/* $('.guestList').empty(); */
+	    	/* $('#tab_default_1').remove(); */
+$("#tab_default_1").find(".guestMsg").remove();
 	    	
 	    	$.ajax({
 	    		contentType : 'application/json; charset=UTF-8',
@@ -197,62 +72,101 @@ transition: transform .1s ease-in;
 	    		url:"msgMainGuestUnRead.msg",
 	    		 dataType : 'json',
 	    		success:function(data){
-	    			/* alert(data.jarrayContent.message_content); */
+	    			$('.guestMsg').hide(); $('.guestMsg').empty();
+	    			var guestUnreadMsg=data.guestUnreadMsg;
+	    			var guestMemberInfo=data.guestMemberInfo;
 	    			
-	    			/* alert(data.jarrayContent); */
-	    			var string=data.jarrayContent;
-	    			var stringarray=string.toString().split(':');
-	    			alert(stringarray);
-	    			alert(stringarray[0]+" : "+stringarray[1]+" : "+stringarray[2]+" : "+stringarray[3]);
-	    			alert(data.jarrayContent);
-                    
-	    			for(var i=0;i<stringarray.length;i++){
-	    				alert(stringarray[i]);
-	    				$('.tab-pane active').html(
-	    			}
-	    		
-	    	/* 		guestUnreadMsg=(data.jarrayContent);
-	    			guestMemberInfo=(data.jarrayguestMember);
+	    			console.log(data);
+	    			var output="";
 	    			
-	    			if(guestUnreadMsg.length>0||guestMemberInfo.length>0){
-	    				for(var i=0;i<guestUnreadMsg.length;i++){
-	    					console.log(guestUnreadMsg[i]);
-	    				}
-	    				
+	    			
+	    			for(var i=0;i<guestUnreadMsg.length;i++){
 	    				for(var i=0;i<guestMemberInfo.length;i++){
-	    					console.log(guestMemberInfo[i]);
+	    				output+="<div  style=\"position:relative;height:10vh;top:-2vh;border:1px solid red;\">";
+	    				output+="<img style=\"position:relative;left:1vw;top:-1vh;width:7vh;height:7vh;\" src=\"files/"+guestMemberInfo[i].member_picture+"\" class=\"img-circle\">";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestMemberInfo[i].member_name+"</h5>";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestUnreadMsg[i].message_time+"</h5>";
+	    				if(guestUnreadMsg[i].message_read==0){
+	    					output+="<div class=\"new-item-badge\">New</div>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+guestUnreadMsg[i].message_content+"</a><br>";
+	    				}else{
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestUnreadMsg[i].message_content+"</a><br>";
 	    				}
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+guestUnreadMsg[i].checkIn+" - "+guestUnreadMsg[i].checkOut+")</a>";
+	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
-	    			} */
-	    			/* $('.guestMsg').html(); */
-
+	    				
+	    				output+="</div>";
+	    				 if(!((i + 1) == (guestUnreadMsg.length))){
+	    					output+="<hr style=\"width:88%; color:gray;position:relative;top:-2vh;\">";
+	    				}  
+	    				
+	    				}
+	    			
+	    			}
+	    			 $(".guestMsg").empty(); 
+	    			$('#tab_default_1').append(output);
+    				
 	    		}
 	    		
 	    		
-	    		
+	    	
 	    		
 	    	});//ajax
-	    	alert("ajax진입");
-	    }else{
-	    	alert("allHostMsg선택");
 	    	
+	    	
+	    }else{
+	    	
+	    	$('.guestMsg').empty();
            $.ajax({
 
-	    		type:"GET",
+	    		type:"POST",
 	    		url:"msgMainGuestAllRead.msg",
 	    		success:function(data){
-	    			alert();
+	    			$('.guestMsg').hide();
+	    			var guestAllMsg=data.guestAllMsg;
+	    			var guestAllMemberInfo=data.guestAllMemberInfo;
+	    			
+	    			console.log(data);
+	    			var output="";
+	    			
+	    			
+	    			for(var i=0;i<guestAllMsg.length;i++){
+	    				for(var i=0;i<guestAllMemberInfo.length;i++){
+	    				output+="<div style=\"position:relative;height:10vh;top:-2vh;border:1px solid red;\">";
+	    				output+="<img style=\"position:relative;left:1vw;top:-1vh;width:7vh;height:7vh;\" src=\"files/"+guestAllMemberInfo[i].member_picture+"\" class=\"img-circle\">";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestAllMemberInfo[i].member_name+"</h5>";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestAllMsg[i].message_time+"</h5>";
+	    				if(guestAllMsg[i].message_read==0){
+	    					output+="<div class=\"new-item-badge\">New</div>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+guestAllMsg[i].message_content+"</a><br>";
+	    				}else{
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMsg[i].message_content+"</a><br>";
+	    				}
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMsg[i].member_location+" &nbsp;("+guestAllMsg[i].checkIn+" - "+guestAllMsg[i].checkOut+")</a>";
+	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
+	    				
+	    				
+	    				output+="</div>";
+	    				 if(!((i + 1) == (guestAllMsg.length))){
+	    					output+="<hr style=\"width:88%; color:gray;position:relative;top:-2vh;\">";
+	    				}  
+	    				
+	    				}
+	    			
+	    			}
+	    			
+    				$('#tab_default_1').append(output);
+	    			
+	    			
+	    			
+	    			
 	    		}
-	    		
-	    		
 	    		
 	    		
 	    	});//ajax
 	    	
 	    	
-	    	
-	    	
-	    	$('.guestMsg').hide();
 	    }
 
 	} 
@@ -261,6 +175,7 @@ function ChangeHostList(){
 	var hostList = document.getElementById("hostCheck");
 	 var selhostList = hostList.options[hostList.selectedIndex].value;
 	 alert(" 호스트 : "+selhostList);
+	 
 }	
 </script>
 </head>
@@ -293,19 +208,12 @@ function ChangeHostList(){
         <option id="allGuestMsg" value="allGuestMsg">모든 여행 메세지 ( ${guestMsgAllCount}개 ) </option>
         <option id="noGuestRead" value="noGuestRead">읽지 않음 ( ${guestMsgUnreadCount} 개)</option>
       </select>
-<%-- 			 <div id="select-dropdown" class="closed" >
-    <div id="select-default" class="select default">모든 여행 메세지 ( ${guestMsgAllCount}개 ) </div>
-    <div class="select option" data-id="allGuestMsg">모든 여행 메세지 ( ${guestMsgAllCount}개 )</div>
-    <div class="select option" data-id="noGuestRead">읽지 않음 (몇개)</div>
 
-		</div>  --%>
-		
-	
-						
+						<div class="guestMsg" style="border:1px solid blue;width:100%;height:auto;">
 						<c:forEach items="${guestMessage}" var="message" varStatus="i">
 						
-						<div class="guestMsg">
-						<div style="position:relative;height:10vh;">
+						
+						<div id="guest" class="guestList" style="position:relative;height:10vh;top:-2vh;border:1px solid red;">
 							<c:forEach items="${hostMemberInfo}"  var="member">
 							<c:if test="${member.member_email eq message.host_email}">
 							<c:choose>
@@ -329,11 +237,11 @@ function ChangeHostList(){
 							</c:choose>
 							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;">${member.member_location} &nbsp;(${message.checkIn} - ${message.checkOut})</a></c:if></c:forEach>
 							
-							<h5 style="position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;">문의</h5>
+							<h5 style="position:relative; left:40vw;top:-20vh;color:#f9c945;font-weight:800;">문의</h5>
 							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;position:relative;top:-2vh;"></c:if>
-							</div>
-							</c:forEach>
 							
+							</c:forEach>
+							</div>
 						</div>
 						
 						
