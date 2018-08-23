@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeDAO;
 import kh.spring.interfaces.HomeService;
 
@@ -17,7 +18,7 @@ public class HomeServiceImpl implements HomeService {
 
 	@Autowired
 	private HomeDAO hdao;
-
+	
 	@Override
 	public List<HomeDTO> getAllHomeData() {
 		return hdao.getAllHomeData();
@@ -116,6 +117,22 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public int modifyHomeRulesDetails(HomeDTO hdto) {
 		return hdao.modifyHomeRulesDetails(hdto);
+	}
+	
+//	예지
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return hdao.getAllHomeDataMain();
+	}
+
+	@Override
+	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
+		return hdao.getHomeOnMap(mdto);
+	}
+
+	@Override
+	public List<HomePicDTO> getHomePic() {
+		return hdao.getHomePic();
 	}
 
 }

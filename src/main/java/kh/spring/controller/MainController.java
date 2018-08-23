@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
 
 
@@ -34,11 +38,15 @@ public class MainController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
+	
 	@Autowired
 	MemberDTO dto;
 	
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	private HomeService homeService;
 	
 	
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
@@ -55,9 +63,7 @@ public class MainController {
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
-		mav.setViewName("yaeji_carousel");
-		System.out.println("ffff");
-		
+		mav.setViewName("index");
 		
 		return mav;
 	}
@@ -135,8 +141,12 @@ public class MainController {
 	}
 	
 	@RequestMapping("/homeMain.do")
-	public String homeMain() {
-		return "home_main";
+	public ModelAndView homeMain() {
+		ModelAndView mav = new ModelAndView();
+		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
+		mav.addObject("homeList", homeList);
+		mav.setViewName("home_main");
+		return mav;
 	}
 	
 	
