@@ -11,6 +11,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MessageDAO;
 import kh.spring.interfaces.MessageService;
 
@@ -68,6 +69,41 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public MessageRoomDTO msgRoomInfo(int message_room_seq) {
 		return dao.msgRoomInfo(message_room_seq);
+	}
+
+	@Override
+	public List<MessageDTO> getMessage(int message_room_seq) {
+		return dao.getMessage(message_room_seq);
+	}
+
+	@Override
+	public MessageDTO getOneMessage(int message_seq) {
+		return dao.getOneMessage(message_seq);
+	}
+
+	@Override
+	public int getMessageSeq() {
+		return dao.getMessageSeq();
+	}
+
+	@Override
+	public List<GuestMsgDTO> hostMessageMain(String userId) {
+		return dao.hostMessageMain(userId);
+	}
+
+	@Override
+	public int hostMsgAllCount(String userId) {
+		return dao.hostMsgAllCount(userId);
+	}
+
+	@Override
+	public List<HomeDTO> getHomeNames(String userId) {
+		return dao.getHomeNames(userId);
+	}
+
+	@Override
+	public ReservationDTO reservCheck(ReservationDTO dto2) {
+		return dao.reservCheck(dto2);
 	}
 
 	

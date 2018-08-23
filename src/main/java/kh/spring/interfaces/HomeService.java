@@ -55,5 +55,7 @@ public interface HomeService {
 	public List<HomeDTO> getHomeOnMap(MapDTO mdto);
 	
 	public List<HomePicDTO> getHomePic();
+	
+	public List<HomeDTO> searchHomeData(String homeType, int people);
 
 }
