@@ -186,19 +186,35 @@ transition: transform .1s ease-in;
 	    	alert("noGuestRead선택");
 	    	$('.guestMsg').hide();
 	         
+	   var guestUnreadMsg=[];
+	   var guestMemberInfo=[];
+	   
+	   
+	    	
 	    	$.ajax({
 	    		contentType : 'application/json; charset=UTF-8',
 	    		type:"GET",
 	    		url:"msgMainGuestUnRead.msg",
 	    		 dataType : 'json',
-	    		 data: JSON.stringify(),
 	    		success:function(data){
-	    			alert("result : "+JSON.stringify(data.guestUnreadMsg));
-	    			var guestUnreadMsg=[];
-	    		     guestUnreadMsg=JSON.stringify(data.guestUnreadMsg);
-	    		
+	    			/* alert(data.jarrayContent.message_content); */
 	    			
-	    			$('.guestMsg').html();
+	    			
+                    alert(data.jarrayContent);
+	    			guestUnreadMsg=(data.jarrayContent);
+	    			guestMemberInfo=(data.jarrayguestMember);
+	    			
+	    			if(guestUnreadMsg.length>0||guestMemberInfo.length>0){
+	    				for(var i=0;i<guestUnreadMsg.length;i++){
+	    					console.log(guestUnreadMsg[i]);
+	    				}
+	    				
+	    				for(var i=0;i<guestMemberInfo.length;i++){
+	    					console.log(guestMemberInfo[i]);
+	    				}
+	    				
+	    			}
+	    			/* $('.guestMsg').html(); */
 
 	    		}
 	    		
