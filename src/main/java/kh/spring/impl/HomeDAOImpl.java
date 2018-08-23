@@ -249,4 +249,9 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectList("HomePic.getHomePic");
 	}
 
+	@Override
+	public List<HomeDTO> getAllHomeData() {
+		return ssTemplate.selectList("Home.getAllHomeDataMain");
+	}
+
 }
