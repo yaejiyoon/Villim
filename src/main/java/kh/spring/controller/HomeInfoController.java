@@ -25,6 +25,7 @@ import com.google.gson.JsonIOException;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.ReviewService;
@@ -106,7 +107,8 @@ public class HomeInfoController {
 			guestReviewList.get(i).setG_review_date(str);
 		}
 
-		
+		//숙소 상세 설명 
+		HomeDescDTO hddto = homeService.getHomeDescData(home_seq);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
@@ -114,6 +116,7 @@ public class HomeInfoController {
 		mav.addObject("guestReviewList", guestReviewList);
 		mav.addObject("hostReviewList", hostReviewList);
 		mav.addObject("page", page);
+		mav.addObject("hddto", hddto);
 		mav.setViewName("home/home_info");
 		
 		return mav;
