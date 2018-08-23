@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/paymentReq.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/paymentReq.css?var=3" />" rel="stylesheet" />
 <script>
 	$(document).ready(function(){
 		$("#toindex").click(function(){
@@ -55,7 +55,25 @@
 						<li>숙소 편의시설: 개인실와(과) 주방</li>
 					</ul>
 				</div>
-				<div id="paymentLeft-content02"></div>
+				<div id="paymentLeft-content02">
+					<p class="title">주의할 사항</p>
+					<div class="content02">어린이(0~12세), 파티 및 이벤트에 적합한 숙소입니다.</div>
+					<div class="content02">체크인 가능 시간: 16:00 이후와(과) 체크아웃: 11:00까지</div>
+					<div class="content02">흡연 금지와(과) 반려동물 동반 불가</div>
+					<div class="content02">키패드(으)로 셀프 체크인</div>
+					<p style="margin-top: 20px; font-size: 2vh;">알아두어야 할 사항</p>
+					계단을 올라가야 함
+					<br>
+					<br>
+					<a href="">더 보기</a>
+					<br>
+					<br>
+					<br>
+					<button id="requestBT" class="btn btn-secondary">확인 및 예약 요청</button>
+					<br>
+					<br>
+					<br>
+				</div>
 			</div>
 			<div id="paymentRight">
 				<div id="paymentRight-content">
@@ -101,7 +119,9 @@
 			</div>
 		</div>
 		<div id="paymentfooter">
-		
+			<img src="<c:url value='/resources/img/logo.png'/>">
+			<img src="<c:url value='/resources/img/copyright.png'/>" style="width:15px;">
+			<p>villim, Inc.</p>
 		</div>
 	</div>
 </body>

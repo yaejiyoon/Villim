@@ -523,8 +523,9 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-		 session.setAttribute("userId", "jake@gmail.com");
-		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
+		 /*session.setAttribute("userId", "jake@gmail.com");*/
+		session.setAttribute("userId", "plmn855000@gmail.com");
+		/*session.setAttribute("userId", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
 		System.out.println("들어온 사람 : " + userId);
 		MemberDTO result = this.service.printProfile(userId);

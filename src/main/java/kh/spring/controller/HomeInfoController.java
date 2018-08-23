@@ -3,20 +3,32 @@ package kh.spring.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.HomeDescDTO;
+import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.ReservationDTO;
+import kh.spring.interfaces.ReviewService;
 import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.ReservService;
 
@@ -29,18 +41,161 @@ public class HomeInfoController {
 	@Autowired
 	private ReservService reservService;
 	
+	@Autowired
+	private ReviewService reviewService;
+	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
+		
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
+		
 		System.out.println("homeseq : " + home_seq);
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		
+		//date형태 변환 
+		SimpleDateFormat fm1 = new SimpleDateFormat("yy/MM/dd");
+	    SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월");
+		
+		//blockedDate불러오기
+		String getBlockedDate = homeService.getBlockedDate(home_seq);
+		
+		//hostReview
+		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
+		
+		//hostReview date 변환
+		for(int i=0; i<hostReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(hostReviewList.get(i).getH_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			hostReviewList.get(i).setH_review_date(str);
+		}
+		
+		//Review paging
+		int currentPage = 0;
+		String currentPageString = req.getParameter("currentPage");
+		
+		if (currentPageString == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(currentPageString);
+		}
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", currentPage * 5-4); 
+		map.put("endNum", currentPage * 5);
+		map.put("home_seq", home_seq);
+		
+		//guestReivew
+		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
+		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
+		
+
+		//guestReview date 변환
+		for(int i=0; i<guestReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(guestReviewList.get(i).getG_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			guestReviewList.get(i).setG_review_date(str);
+		}
+
+		//숙소 상세 설명 
+		HomeDescDTO hddto = homeService.getHomeDescData(home_seq);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
+		mav.addObject("getBlockedDate", getBlockedDate);
+		mav.addObject("guestReviewList", guestReviewList);
+		mav.addObject("hostReviewList", hostReviewList);
+		mav.addObject("page", page);
+		mav.addObject("hddto", hddto);
 		mav.setViewName("home/home_info");
-
+		
 		return mav;
+	}
+	
+	@RequestMapping("/reviewList.info")
+	public void reviewList(HttpServletRequest req,HttpServletResponse response) {
+		String currentPageString = req.getParameter("currentPage");
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		
+		//date형태 변환 
+		SimpleDateFormat fm1 = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월");
+		
+		//Review paging
+		int currentPage = 0;
+				
+		if (currentPageString == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(currentPageString);
+		}
+				
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", currentPage * 5-4); 
+		map.put("endNum", currentPage * 5);
+		map.put("home_seq", home_seq);
+		
+		//guestReivew
+		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
+		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
+
+		//guestReview date 변환
+		for(int i=0; i<guestReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(guestReviewList.get(i).getG_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			guestReviewList.get(i).setG_review_date(str);
+		}
+		
+		//hostReview
+		List<HostReviewDTO> hostReviewList = reviewService.getAllHostReviewData(home_seq);
+		
+		//hostReview date 변환
+		for(int i=0; i<hostReviewList.size(); i++) {
+			Date to1 = null;
+			try {
+				to1 = fm1.parse(hostReviewList.get(i).getH_review_date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String str = fm2.format(to1);
+			hostReviewList.get(i).setH_review_date(str);
+		}
+		
+		
+		//totalNavi
+		int totalNavi = reviewService.countTotalNavi();
+		
+		Map<String, Object> reviewmap = new HashMap<String, Object>();
+		
+		reviewmap.put("guestReviewList", guestReviewList);
+		reviewmap.put("hostReviewList", hostReviewList);
+		reviewmap.put("page", page);
+		reviewmap.put("totalNavi", totalNavi);
+		
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			new Gson().toJson(reviewmap,response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping("/clickDate.re")
@@ -48,7 +203,7 @@ public class HomeInfoController {
 		String checkinDate = request.getParameter("checkinDate");
 		String checkoutDate = request.getParameter("checkoutDate");
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
         Date FirstDate = null;
         Date SecondDate = null;
@@ -60,8 +215,11 @@ public class HomeInfoController {
 			e.printStackTrace();
 		}
         
-		System.out.println(FirstDate);
-		System.out.println(SecondDate);
+		System.out.println(checkinDate);
+		System.out.println(checkoutDate);
+		
+		
+
         
         // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
         // 연산결과 -950400000. long type 으로 return 된다.
@@ -74,11 +232,54 @@ public class HomeInfoController {
         calDateDays = Math.abs(calDateDays);
 		
         System.out.println("두 날짜의 날짜 차이: "+calDateDays);
+        
+        
 		
         
-		int home_seq = 5;
+		int home_seq = 1;
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);
+		
+		//두 날짜 사이의 날짜 구하기
+		
+		StringBuilder sb = new StringBuilder();
+
+		ArrayList<String> dates = new ArrayList<String>();
+		Date currentDate = FirstDate;
+		while (currentDate.compareTo(SecondDate) <= 0) {
+			dates.add(format.format(currentDate));
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			currentDate = c.getTime();
+		}
+
+		
+		if(hdto.getHome_blocked_date() != null) {
+			sb.append(",");
+		}
+		
+		for(int i=0;i<dates.size();i++) {
+			if(i == dates.size()-1) {
+				sb.append(dates.get(i));
+			}else {
+				sb.append(dates.get(i)+",");
+			}
+		}
+		        
+//		        for (String date : dates) {
+//		            System.out.println(date);
+//		            sb.append(date+",");
+//		        }
+		        
+		System.out.println(dates);
+		
+		String blockedDate = sb.toString();
+		
+		System.out.println(sb.toString());
+		
+		
+		
 		
 		//1박 가격
 		int price = hdto.getHome_price();
@@ -108,6 +309,7 @@ public class HomeInfoController {
 		json.put("cleaningfee", "₩"+cleaningfee);
 		json.put("servicefee", "₩"+servicefee);
 		json.put("total", "₩"+total);
+		json.put("blockedDate", blockedDate);
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
@@ -125,11 +327,21 @@ public class HomeInfoController {
 	@RequestMapping("/reservation.re")
 	public ModelAndView reservation(ReservationDTO dto,HttpServletRequest req) {
 		
+		String blockedDate = req.getParameter("blockedDate");
+		System.out.println(blockedDate);
+		
+		int updateBlockDate = homeService.updateBlockedDate(blockedDate, dto.getHome_seq());
+		
+		if(updateBlockDate>0) {
+			System.out.println("???????");
+		}
+		
 		String amount = dto.getTotalAmount();
 		
 		dto.setGuset_review("N");
 		dto.setReservation_seq(1);
 		dto.setTotalAmount(amount.replaceAll("[^0-9]", ""));
+		
 		
 //		System.out.println(dto.getReservation_seq());
 //		System.out.println(dto.getMember_email());
