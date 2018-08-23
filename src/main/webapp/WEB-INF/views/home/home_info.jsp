@@ -759,7 +759,9 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			<span>지역 정보</span>
                			<br>
-               			<h5>Kim님의 숙소는 Seongsan-eup, Seogwipo-si,제주도,한국에 있습니다.</h5>
+               			<h5>Kim님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
+               			<p>${hddto.home_desc_region }</p>
+               			<br>
                		</div>
                		<div id="info-main06-map">
                			

@@ -84,7 +84,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 		StringBuilder sb = new StringBuilder();
 
 		if (currentPage == 1) {
-			sb.append("<li class='disabled'><a href='javascript:void(0);' onclick='pageFunction("+(currentPage - 1)+","+home_seq+");' id='naviPrev'> < </a></li>");
+			sb.append("<li class='disabled'><a href='javascript:void(0);' id='naviPrev'> < </a></li>");
 		}else {
 			sb.append("<li><a href='javascript:void(0);' onclick='pageFunction("+(currentPage - 1)+","+home_seq+");' id='naviPrev'> < </a></li>");
 		}
@@ -103,7 +103,7 @@ public class ReviewDAOImpl implements ReviewDAO{
 		}
 		
 		if(currentPage == pageTotalCount){
-			sb.append("<li class='disabled'><a href='javascript:void(0);'id='naviNext' onclick='pageFunction("+(currentPage + 1)+","+home_seq+");'> > </a></li>");			
+			sb.append("<li class='disabled'><a href='javascript:void(0);'id='naviNext'> > </a></li>");			
 		}else {
 			sb.append("<li ><a href='javascript:void(0);'id='naviNext' onclick='pageFunction("+(currentPage + 1)+","+home_seq+");'> > </a></li>");
 			
