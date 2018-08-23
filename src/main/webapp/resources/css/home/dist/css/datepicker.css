@@ -173,6 +173,7 @@
       display: none; } }
 
 .datepicker {
+	
   background: #fff;
   border: 1px solid #dbdbdb;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -183,7 +184,8 @@
   color: #4a4a4a;
   width: 17vw;
   position: absolute; 
-  left: -100000px;
+  /* left: -100000px; */
+  left : 0px !important;
   opacity: 0;
   transition: opacity 0.3s ease, left 0s 0.3s, -webkit-transform 0.3s ease;
   transition: opacity 0.3s ease, transform 0.3s ease, left 0s 0.3s;

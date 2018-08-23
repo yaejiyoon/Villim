@@ -589,6 +589,9 @@
         },
 
         clear: function () {
+        	
+        	$("#calendarDrop").val("");
+        	
             this.selectedDates = [];
             this.minRange = '';
             this.maxRange = '';

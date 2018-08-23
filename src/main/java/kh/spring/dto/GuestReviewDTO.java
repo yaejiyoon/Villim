@@ -1,6 +1,6 @@
 package kh.spring.dto;
 
-public class GuestReviewDTO {
+public class GuestReviewDTO implements Comparable<GuestReviewDTO> {
 	int g_review_seq;
 	int home_seq;
 	String member_email;
@@ -16,14 +16,22 @@ public class GuestReviewDTO {
 	String g_review_public;
 	String g_review_private;
 	String g_review_date;
+	int count;
+	String h_review_public;
+	String h_review_date;
 
+	String member_name;
+	String member_picture;
+	
 	public GuestReviewDTO() {
+		
 	}
 
 	public GuestReviewDTO(int g_review_seq, int home_seq, String member_email, int g_review_satisfaction,
 			int g_review_accuracy, int g_review_cleanliness, int g_review_checkIn, int g_review_amenities,
 			int g_review_communication, int g_review_location, int g_review_value, String g_review_repurchase,
-			String g_review_public, String g_review_private, String g_review_date) {
+			String g_review_public, String g_review_private, String g_review_date, String member_name,
+			String member_picture) {
 		super();
 		this.g_review_seq = g_review_seq;
 		this.home_seq = home_seq;
@@ -40,6 +48,8 @@ public class GuestReviewDTO {
 		this.g_review_public = g_review_public;
 		this.g_review_private = g_review_private;
 		this.g_review_date = g_review_date;
+		this.member_name = member_name;
+		this.member_picture = member_picture;
 	}
 
 	public int getG_review_seq() {
@@ -162,6 +172,82 @@ public class GuestReviewDTO {
 		this.g_review_date = g_review_date;
 	}
 
-	
+	public int getCount() {
+		return count;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getMember_picture() {
+		return member_picture;
+	}
+
+	public void setMember_picture(String member_picture) {
+		this.member_picture = member_picture;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getH_review_public() {
+		return h_review_public;
+	}
+
+	public void setH_review_public(String h_review_public) {
+		this.h_review_public = h_review_public;
+	}
+
+	public String getH_review_date() {
+		return h_review_date;
+	}
+
+	public void setH_review_date(String h_review_date) {
+		this.h_review_date = h_review_date;
+	}
+
+	@Override
+	public int compareTo(GuestReviewDTO o) {
+		if (g_review_satisfaction > o.getG_review_satisfaction()) {
+			return -1;
+		} else if (g_review_satisfaction < o.getG_review_satisfaction()) {
+			return 1;
+		} else if (g_review_accuracy > o.getG_review_accuracy()) {
+			return -1;
+		} else if (g_review_accuracy < o.getG_review_accuracy()) {
+			return 1;
+		} else if (g_review_cleanliness > o.getG_review_cleanliness()) {
+			return -1;
+		} else if (g_review_cleanliness < o.getG_review_cleanliness()) {
+			return 1;
+		} else if (g_review_checkIn > o.getG_review_checkIn()) {
+			return -1;
+		} else if (g_review_checkIn < o.getG_review_checkIn()) {
+			return 1;
+		} else if (g_review_amenities > o.getG_review_amenities()) {
+			return -1;
+		} else if (g_review_amenities < o.getG_review_amenities()) {
+			return 1;
+		} else if (g_review_communication > o.getG_review_communication()) {
+			return -1;
+		} else if (g_review_communication < o.getG_review_communication()) {
+			return 1;
+		} else if (g_review_location > o.getG_review_location()) {
+			return -1;
+		} else if (g_review_location < o.getG_review_location()) {
+			return 1;
+		} else if (g_review_value > o.getG_review_value()) {
+			return -1;
+		} else if (g_review_value < o.getG_review_value()) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 }
