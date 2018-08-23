@@ -49,6 +49,10 @@ public interface HomeService {
 
 	public String getBlockedDate(int home_seq);
 	
+	//----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate,int home_seq);
+	
+	
 //	예지
 	public List<HomeDTO> getAllHomeDataMain();
 	

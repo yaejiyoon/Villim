@@ -145,6 +145,14 @@ public class HomeDAOImpl implements HomeDAO {
 		return jdbcTemplate.update(sql,hdto.getHome_rules(), hdto.getHome_details(), hdto.getHome_seq());
 	}
 
+	
+	//----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
+		return jdbcTemplate.update(sql,blockedDate,home_seq);
+	}
+
 //	예지
 	
 	@Override

@@ -135,4 +135,10 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getHomePic();
 	}
 
+	
+	//----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		return hdao.updateBlockedDate(blockedDate, home_seq);
+	}
 }
