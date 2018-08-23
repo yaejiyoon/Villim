@@ -287,19 +287,42 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
                			<br>
                			<br>
-               			<a id="detailsA"class="green" data-toggle="collapse" href="#details-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-               			이 공간 자세히 알아보기
+               			<div id="details-collapse" class="collapse">
+               				<div class="card card-body">
+               					<div id="homeExplain">
+               						<p class="homeDescTitle">
+               							숙소
+               						</p>
+               						<p>${hddto.home_desc_explain }</p>
+               					</div>
+               					<div id="homeSpace">
+               						<p class="homeDescTitle">
+               							사용가능 공간/시설
+               						</p>
+               						<p>${hddto.home_desc_space }</p>
+               					</div>
+               					<div id="homewithGuest">
+               						<p class="homeDescTitle">
+               							게스트와의 교류
+               						</p>
+               						<p>${hddto.home_desc_guest }</p>
+               					</div>
+               					<div id="homeEtc">
+               						<p class="homeDescTitle">
+               							기타 사항
+               						</p>
+               						<p>${hddto.home_desc_etc }</p>
+               					</div>
+               				</div>
+               				
+               			</div>
+               			
+               			<a id="detailsA" class="green" data-toggle="collapse" href="#details-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+               			<div id="a-content">이 공간 자세히 알아보기</div>
                				<div style="position: static;">
                					<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="detailsDown"></span>
                				</div>
                			</a>
-               			
-               			<div id="details-collapse" class="collapse">
-               				<div class="card card-body">
-               					이야이야이야이야이야이야이야
-               				</div>
-               				
-               			</div>
                			
                			<script>
                				$('#details-collapse').on('shown.bs.collapse', function () {
@@ -311,7 +334,12 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				 
                				$(this)
                             .parent()
-                            .find("#detailsA").text("숨기기");
+                            .find("#a-content").html("숨기기");
+               				
+               				$(this)
+                            .parent()
+                            .find(".glyphicon").attr('style','right:-55px;')
+               				
                				 
                				});
 	
@@ -323,9 +351,17 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                                 .find(".glyphicon-menu-up")
                                 .removeClass("glyphicon-menu-up")
                                 .addClass("glyphicon-menu-down");
+               					
+               					$(this)
+                              	.parent()
+                              	.find("#a-content").html("이 공간 자세히 알아보기");
+               					
+               					$(this)
+                                .parent()
+               					.find(".glyphicon").attr('style','right:-177px;')
+               					
                				});
                			</script>
-               			<br>
                			<br>
                			<a href="" class="green">호스트에게 연락하기 </a>
                			<br>
