@@ -155,8 +155,8 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
-	$("#map").mouseup(function() {
-// 	$("#map").mousemove(function() {
+// 	$("#map").mouseup(function() {
+	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
 		var swLatLng = map.getBounds().getSouthWest();
 		// 북동쪽의 좌표
