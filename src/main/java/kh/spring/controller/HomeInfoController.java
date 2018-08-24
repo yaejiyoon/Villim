@@ -137,9 +137,39 @@ public class HomeInfoController {
 			safetyList.add(safety.split(",")[i]);
 		}
 
-		//편의시설 total
+		//편의시설 totalCount
 		int amenitiesCount = amenitiesList.size() + accessList.size() + safetyList.size();
 		System.out.println(amenitiesCount);
+		
+		//숙소 이용 규칙
+		String rules = hdto.getHome_rules();
+		List<String> rulesList = new ArrayList<>();
+		System.out.println(rules);
+
+		for(int i=0;i<rules.split(",").length;i++) {
+			rulesList.add(rules.split(",")[i]);
+		}
+		
+		//숙소 이용 규칙 더보기
+		String rulesDetails = hdto.getHome_details();
+		List<String> rulesDetailsList = new ArrayList<>();
+		List<String> rulesDetailsList1 = new ArrayList<>();
+		List<String> rulesDetailsList2 = new ArrayList<>();
+		System.out.println(rules);
+		
+
+		for(int i=0;i<rulesDetails.split(",").length;i++) {
+			rulesDetailsList.add(rulesDetails.split(",")[i]);
+		}
+		
+		for(int i=0;i<rulesDetailsList.size();i++) {
+			rulesDetailsList1.add(rulesDetailsList.get(i).split(":")[0]);
+		}
+		
+		for(int i=0;i<rulesDetailsList.size();i++) {
+			rulesDetailsList2.add(rulesDetailsList.get(i).split(":")[1]);
+		}
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
@@ -152,6 +182,10 @@ public class HomeInfoController {
 		mav.addObject("accessList", accessList);
 		mav.addObject("safetyList", safetyList);
 		mav.addObject("amenitiesCount", amenitiesCount);
+		mav.addObject("rulesList", rulesList);
+		mav.addObject("rulesDetailsList", rulesDetailsList);
+		mav.addObject("rulesDetailsList1", rulesDetailsList1);
+		mav.addObject("rulesDetailsList2", rulesDetailsList2);
 		mav.setViewName("home/home_info");
 		
 		return mav;
@@ -285,7 +319,6 @@ public class HomeInfoController {
 			c.add(Calendar.DAY_OF_MONTH, 1);
 			currentDate = c.getTime();
 		}
-
 		
 		if(hdto.getHome_blocked_date() != null) {
 			sb.append(",");
