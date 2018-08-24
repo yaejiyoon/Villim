@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -172,6 +173,7 @@ public class MessageController {
 			mav.addObject("hostMsgAllCount", 0);
 			mav.addObject("hostMsgUnreadCount", 0);
 		}
+		
 		mav.addObject("userId", userId);
 		mav.setViewName("/message/messageMain");
 		return mav;
@@ -439,6 +441,44 @@ public class MessageController {
 		SimpleDateFormat sdf2=new SimpleDateFormat("yyyyMMdd");
         String today= sdf.format(new Date());
         System.out.println("오늘 날짜: "+today);
+        
+        //날짜 
+        String checkinDate ="2018-"+dto.getCheckIn().split("월")[0]+"-"+dto.getCheckIn().split("일")[0].split("월")[1];
+        String checkoutDate ="2018-"+dto.getCheckOut().split("월")[0]+"-"+dto.getCheckOut().split("일")[0].split("월")[1];
+        
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+          Date FirstDate = null;
+          Date SecondDate = null;
+        try {
+           FirstDate = format.parse(checkinDate);
+           SecondDate = format.parse(checkoutDate);
+        } catch (Exception e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+        }
+        
+        ArrayList<String> dates = new ArrayList<String>();
+        Date currentDate = FirstDate;
+        while (currentDate.compareTo(SecondDate) <= 0) {
+           dates.add(format.format(currentDate));
+           Calendar c = Calendar.getInstance();
+           c.setTime(currentDate);
+           c.add(Calendar.DAY_OF_MONTH, 1);
+           currentDate = c.getTime();
+        }
+        System.out.println("지혜언니가 준 날짜     >        "+dates);
+       String date = dates.toString().replaceAll("[\\[\\]]", "");
+        System.out.println("자른거 : "+date);
+        
+       String[] str=date.split(", ");
+       List<String> datess=new ArrayList<>();
+       for(String tmp:str) {
+    	   datess.add(tmp);
+    	   System.out.println(tmp);
+       }
+        mav.addObject("date", datess);
        try {
 		Date checkIn=sdf2.parse(cI);
 		Date checkOut=sdf2.parse(cO);

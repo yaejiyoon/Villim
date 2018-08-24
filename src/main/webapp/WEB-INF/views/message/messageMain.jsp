@@ -50,6 +50,45 @@ transform: rotate(-0deg);
 transition: transform .1s ease-in;
 } /* Most of this code is necessary to style and position the badge. */
 
+.holder {
+  padding: 20px 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.btn {
+  background: white;
+  text-decoration: none;
+  padding: 20px;
+  margin: 10px;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+  transition: box-shadow 0.4s;
+}
+
+.btn:hover {
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.btn__badge {
+  background: #FF5D5D;
+  color: white;
+  font-size: 7px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 8px;
+  border-radius: 15px;
+  z-index:2000;
+}
+
+
+.fa {
+  color: #8E8E8E;
+}
 </style>
 <script>
 
@@ -306,12 +345,30 @@ function ChangeHostList(){
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
 						<li class="active">
+						<c:choose>
+						<c:when  test="${guestMsgUnreadCount>0}">
 							<a href="#tab_default_1" data-toggle="tab">
-							여행 </a>
+							<i class="fa fa-archive"></i>
+							  <span class="btn__badge">${guestMsgUnreadCount}</span>
+							여행 </a></c:when>
+							<c:otherwise>
+							<a href="#tab_default_1" data-toggle="tab">여행</a>
+							</c:otherwise>
+							</c:choose>
 						</li>
 						<li>
+						<c:choose>
+						<c:when test="${hostMsgUnreadCount>0}">
 							<a href="#tab_default_2" data-toggle="tab">
+							 <i class="fa fa-archive"></i>
+    <span class="btn__badge">${hostMsgUnreadCount}</span>    
 							호스팅 </a>
+							</c:when>
+							<c:otherwise>
+							<a href="#tab_default_2" data-toggle="tab">호스팅 </a>
+							</c:otherwise>
+							
+							</c:choose>
 						</li>
 						
 					</ul>
