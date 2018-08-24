@@ -47,7 +47,22 @@ public class MemberServiceImpl implements MemberService{
 	public String isMail(String mail) {
 		return dao.isMail(mail);
 	}
-   
+	
+	@Override
+	public String getAllMemberCountData() {
+		return dao.getAllMemberCountData();
+	}
+	
+	@Override
+	public List<MemberDTO> getAllMemberData() {
+
+		return dao.getAllMemberData();
+	}
+
+
+
+
+   //--- 여기까지 재호
 
 	
 	@Override

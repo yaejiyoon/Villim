@@ -18,6 +18,8 @@ public interface MemberService {
 	public String isMember(MemberDTO dto);
 	public String isSnsMember(MemberDTO dto);
 	public String isMail(String mail);
+	public String getAllMemberCountData();
+	public List<MemberDTO> getAllMemberData();
 	
 	
 	//지은

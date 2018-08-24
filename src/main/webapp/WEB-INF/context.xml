@@ -64,11 +64,11 @@
 		<property name="scope" 
  			value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/> 
  		<property name="redirectUri" 
-			value="https://villim.cf/oauth2callback" />
+			value="https://www.villim.cf/oauth2callback" />
  	</bean> 
 	
 
-	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
+	
 	 <bean id="MailSendDTO" class="kh.spring.dto.MailSendDTO">
 	 	 <constructor-arg ref="mailSender"/>
 	 </bean> 

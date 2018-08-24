@@ -21,8 +21,33 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style>
+	#bg {
+	position: fixed;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+
+
+
+}
+
+#bg img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	min-width: 50%;
+	min-height: 50%;
+}
+
 	#wrapper{
 		width:100%;
+		position: absolute;
+		z-index: 10;
+		height:100vh;
 	}
 	#collapseExample{
 	
@@ -30,7 +55,8 @@
 		
 	}
 	div{
-		border:1px solid black;
+		border:1px solid white;
+		color:white;
 	}
 	#navi{
 		display:inline-block;
@@ -41,10 +67,14 @@
 	display:inline-block;
 	position:absolute;
 	width:100%;
+	height:100%;
 	
 	}
 	#btn{
 		width:100px;
+	}
+	#title{
+		color:white;
 	}
 
 </style>	
@@ -57,6 +87,25 @@ $(document).ready(function(){
 		 $("#collapseExample").animate({width:'toggle'},350);
 		  $("#btn").animate({width:'100px'},350); 
 	})
+	$("#memberCheck").click(function(){
+	
+		$("#memberChkModal").modal('show');
+		$.ajax({
+			url:"mainMemberInfoLoad.admin",
+			type : "get",
+			success : function(response) {
+				
+				for(var i=0; i<response.length; i++){
+			
+				}
+				
+			}
+				
+			
+			
+		});
+	})
+	
 	 
 })
 
@@ -65,11 +114,21 @@ $(document).ready(function(){
 
 </head>
 <body>
+<script>
+	$.ajax({
+		url:"mainMemberCountLoad.admin",
+		type : "get",
+		success : function(response) {
+			
+			$("#memberCount").html(response);
+		}
+			
+	})
+</script>	
 
-<!-- <a aria-expanded="false" aria-controls="collapseExample">
-  Link with href
-</a> -->
-
+<div id="bg">
+		<img src="./resources/images/17.jpg" alt="">
+</div>
 <div id="wrapper">
 
 
@@ -90,11 +149,45 @@ $(document).ready(function(){
  		 <i class="fas fa-envelope fa-2x"></i> <span class="badge" style="wi">4</span>
 		</a>		
 	</div>
-	<div><h2>Dashboard</h2></div>
+	<div><h2 id="title">Dashboard</h2>
+	
+	<div style="background-color:purple; width:15%;">
+		<h3 id="memberCount"></h3>
+		<p style="display:inline">전체 회원수</p>
+		<i class="fas fa-users fa-2x"></i>
+		<a href="#" style="display:block" id="memberCheck">조회</a>
+	</div>
+</div>
+</div>
 
 </div>
 
-
+<div class="modal fade" id="memberChkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+ 		<table class="table table-striped">
+			<tr>
+				<td>회원번호
+				<td>이메일
+				<td>이름
+				<td>생년월일
+				<td>프로필
+				<td>차단여부
+				<td>가입 날짜
+				<td>주소
+			</tr>	
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

@@ -19,8 +19,6 @@ import kh.spring.interfaces.MemberService;
 @Component
 public class MemberAspect {
 	
-	@Autowired
-	MemberDTO dto;
 	
 	@Autowired
 	MemberService service;
@@ -34,10 +32,11 @@ public class MemberAspect {
 	
 	@Around("login()")
 	public ModelAndView loginAop(ProceedingJoinPoint pjp) {
+		MemberDTO dto = new MemberDTO();
 		logger.info("출력");
 		ModelAndView mav = new ModelAndView();
 		System.out.println("aspect");
-		MemberDTO dto = (MemberDTO)pjp.getArgs()[0];
+		dto = (MemberDTO)pjp.getArgs()[0];
 		String email = dto.getMember_email();
 		
 		Object result = null;

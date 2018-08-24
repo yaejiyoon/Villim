@@ -42,9 +42,9 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	@Autowired
-	MemberDTO dto;
-	
+//	@Autowired
+//	MemberDTO dto;
+
 	@Autowired
 	MailSendDTO mailDto;
 
@@ -120,7 +120,8 @@ public class MemberController {
 	@RequestMapping("info.do")
 	public ModelAndView info(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-
+		MemberDTO dto = new MemberDTO(); // 새로 추가됨
+		
 		String secondName = request.getParameter("secondName");
 		String firstName = request.getParameter("firstName");
 		String accountEmail = request.getParameter("accountEmail");

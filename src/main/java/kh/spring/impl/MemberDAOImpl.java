@@ -2,6 +2,7 @@ package kh.spring.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
-import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
@@ -22,13 +22,15 @@ import kh.spring.interfaces.MemberDAO;
 
 @Component
 public class MemberDAOImpl implements MemberDAO {
+	
 
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private SqlSession template;
-
+	
 	@Override
 	public int signup(MemberDTO dto) {
 
@@ -100,6 +102,61 @@ public class MemberDAOImpl implements MemberDAO {
 			return result.get(0);
 		}
 	}
+	
+	@Override
+	public String getAllMemberCountData() {
+		String sql = "select count(*) as count from member";
+		
+		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String count = rs.getString("count");
+
+				return count;
+			}
+
+		});
+		return result.get(0);
+	}
+	
+	@Override
+	public List<MemberDTO> getAllMemberData() {
+	String sql = "select * from member";
+		
+		List<MemberDTO> list = new ArrayList<>();
+		
+		
+		
+		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper <MemberDTO>() {
+			@Override
+			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				MemberDTO adminDto = new MemberDTO();
+				adminDto.setMember_seq(rs.getInt("member_seq"));
+				adminDto.setMember_email(rs.getString("member_email"));
+				adminDto.setMember_name(rs.getString("member_name"));
+				adminDto.setMember_birth(rs.getString("member_birth"));
+				adminDto.setMember_picture(rs.getString("member_picture"));
+				adminDto.setMember_block(rs.getString("member_block"));
+				adminDto.setMember_date(rs.getString("member_signup_date"));
+				adminDto.setMember_location(rs.getString("member_location"));
+				
+				list.add(adminDto);
+				System.out.println(rowNum +"번째");
+				System.out.println("내부"+list.get(rowNum).getMember_seq());
+				
+				return adminDto;
+			}
+			
+		});
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i).getMember_seq());
+		}
+		return list;
+	}
+
+	
+	//-- 여기까지 재호
 
 
 
@@ -185,6 +242,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public int insertHostReview(HostReviewDTO dto) {
 		return template.insert("Member.insertHostReview", dto);
 	}
+
+
+
 
 
 

@@ -34,8 +34,8 @@ public class MainController {
 	private GoogleConnectionFactory googleConnectionFactory;
 	@Autowired
 	private OAuth2Parameters googleOAuth2Parameters;
-	@Autowired
-	MemberDTO dto;
+	/*@Autowired
+	MemberDTO dto;*/
 
 	@Autowired
 	MemberService service;
@@ -70,7 +70,7 @@ public class MainController {
 		System.out.println("asdasdasd");
 		String code = request.getParameter("code");
 		System.out.println(code);
-
+		MemberDTO dto = new MemberDTO();
 
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
