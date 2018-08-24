@@ -523,8 +523,8 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-		 /*session.setAttribute("userId", "jake@gmail.com");*/
-		session.setAttribute("userId", "plmn855000@gmail.com");
+		 session.setAttribute("userId", "jake@gmail.com");
+		/*session.setAttribute("userId", "plmn855222@gmail.com");*/
 		/*session.setAttribute("userId", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
 		System.out.println("들어온 사람 : " + userId);
@@ -624,8 +624,9 @@ public class MemberController {
 		List<Integer> hostHome_seq = new ArrayList<Integer>();
 
 		List<Integer> g_review_seq = new ArrayList<Integer>();
-		session.setAttribute("userId", "jake@gmail.com"); 
+		/*session.setAttribute("userId", "jake@gmail.com"); */
 		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
+		session.setAttribute("userId", "plmn855222@gmail.com");
 		String userId = (String) session.getAttribute("userId");
 		System.out.println("아이디:" + userId);
 
