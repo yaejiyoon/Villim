@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
 <link href="<c:url value="/resources/css/main/header.css?var=2" />"
@@ -11,21 +11,9 @@
 	rel="stylesheet" />
 
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-<style>
-.circle-badge {
-  height: 10px;
-  width: 10px;
-  position:relative;
-  top:0.5vh;
-  left:4.3vw;
-  border-radius: 25px;
-  background: #1ACAC0;
-  margin-left:auto;
-  margin-right:auto;
-}
-</style>
+
+
 <script>
 	$(document).ready(function(){
 		$(document).click(function(event) {
@@ -108,16 +96,12 @@
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               		<span data-hover="메세지" style="color:black;">메세지</span>
-               			<c:if test="${guestMsgUnreadCount+hostMsgUnreadCount>0}">
-               			<div class="circle-badge" style="background:#1ACAC0"></div>
-               			</c:if>
-             			
-             			<!-- <ul>
+               			<span data-hover="메세지" style="color:black;">메세지</span>
+             			<ul>
         					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
-      					</ul> -->
+      					</ul>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
