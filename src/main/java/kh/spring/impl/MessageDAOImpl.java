@@ -122,6 +122,16 @@ public class MessageDAOImpl implements MessageDAO{
 		return template.selectList("Message.guestUnreadMsg", userId);
 	}
 
+	@Override
+	public List<GuestMsgDTO> hostUnreadMsg(String userId) {
+		return template.selectList("Message.hostUnreadMsg", userId);
+	}
+
+	@Override
+	public int hostMsgUnreadCount(String userId) {
+		return template.selectOne("Message.hostMsgUnreadCount", userId);
+	}
+
 	
 
 

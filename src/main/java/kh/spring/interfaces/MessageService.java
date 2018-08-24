@@ -48,4 +48,8 @@ public interface MessageService {
 	public int guestMsgUnreadCount(String userId);
 	
 	public List<GuestMsgDTO> guestUnreadMsg(String userId);
+	
+	public List<GuestMsgDTO> hostUnreadMsg(String userId);
+	
+	public int hostMsgUnreadCount(String userId);
 }

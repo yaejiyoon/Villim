@@ -52,6 +52,10 @@ public interface MessageDAO {
 	
 	public int hostMsgAllCount(String userId);
 	
+	public int hostMsgUnreadCount(String userId);
+	
+	public List<GuestMsgDTO> hostUnreadMsg(String userId);
+	
 	
 	//Message Host Room
 	

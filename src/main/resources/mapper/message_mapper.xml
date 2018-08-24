@@ -97,8 +97,20 @@ in (select max(message_time) from message group by message_room_seq) and message
 	select count(message.MESSAGE_CONTENT)  from message,message_room where message_time in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
 	</select>
 	
+
 	<select id="guestUnreadMsg" resultType="GuestMsg">
 	select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
 in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
 	</select>
+	
+		<select id="hostMsgUnreadCount" resultType="int">
+	select count(message.MESSAGE_CONTENT)  from message,message_room where message_time in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
+	</select>
+	
+	
+	<select id="hostUnreadMsg" resultType="GuestMsg">
+	select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
+in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
+	</select>
+	
 </mapper>
