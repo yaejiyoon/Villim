@@ -63,7 +63,7 @@ public class MainController {
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
-		mav.setViewName("test.jsp");
+		mav.setViewName("index");
 		
 		return mav;
 	}

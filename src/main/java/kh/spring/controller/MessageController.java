@@ -57,7 +57,7 @@ public class MessageController {
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
 		/*session.setAttribute("userId", "jake@gmail.com");*/
-       session.setAttribute("userId", "plmn855000@gmail.com");
+       session.setAttribute("userId", "c@c.com");
 		 /*session.setAttribute("userId", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
         System.out.println("아이디 :"+userId );
