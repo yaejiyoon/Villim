@@ -50,6 +50,45 @@ transform: rotate(-0deg);
 transition: transform .1s ease-in;
 } /* Most of this code is necessary to style and position the badge. */
 
+.holder {
+  padding: 20px 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.btn {
+  background: white;
+  text-decoration: none;
+  padding: 20px;
+  margin: 10px;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+  transition: box-shadow 0.4s;
+}
+
+.btn:hover {
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.btn__badge {
+  background: #FF5D5D;
+  color: white;
+  font-size: 7px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 8px;
+  border-radius: 15px;
+  z-index:2000;
+}
+
+
+.fa {
+  color: #8E8E8E;
+}
 </style>
 <script>
 
@@ -60,19 +99,17 @@ transition: transform .1s ease-in;
 	    var selGuestList = guestList.options[guestList.selectedIndex].value;
 	   
 	    if(selGuestList=="noGuestRead"){
-	    alert("dhdddh");
-	    	$('.guestMsg').hide();
-	    	/* $('.guestList').empty(); */
-	    	/* $('#tab_default_1').remove(); */
-$("#tab_default_1").find(".guestMsg").remove();
+	   
+	    	/* $('.guestMsg').hide(); */
+
 	    	
 	    	$.ajax({
 	    		contentType : 'application/json; charset=UTF-8',
-	    		type:"GET",
+	    		type:"POST",
 	    		url:"msgMainGuestUnRead.msg",
 	    		 dataType : 'json',
 	    		success:function(data){
-	    			$('.guestMsg').hide(); $('.guestMsg').empty();
+	    		
 	    			var guestUnreadMsg=data.guestUnreadMsg;
 	    			var guestMemberInfo=data.guestMemberInfo;
 	    			
@@ -104,8 +141,8 @@ $("#tab_default_1").find(".guestMsg").remove();
 	    				}
 	    			
 	    			}
-	    			 $(".guestMsg").empty(); 
-	    			$('#tab_default_1').append(output);
+	    			  
+	    			$('.guestMsg').html(output);
     				
 	    		}
 	    		
@@ -117,13 +154,13 @@ $("#tab_default_1").find(".guestMsg").remove();
 	    	
 	    }else{
 	    	
-	    	$('.guestMsg').empty();
+	    	
            $.ajax({
 
 	    		type:"POST",
 	    		url:"msgMainGuestAllRead.msg",
 	    		success:function(data){
-	    			$('.guestMsg').hide();
+	    			/* $('.guestMsg').hide(); */
 	    			var guestAllMsg=data.guestAllMsg;
 	    			var guestAllMemberInfo=data.guestAllMemberInfo;
 	    			
@@ -143,7 +180,7 @@ $("#tab_default_1").find(".guestMsg").remove();
 	    				}else{
 	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMsg[i].message_content+"</a><br>";
 	    				}
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMsg[i].member_location+" &nbsp;("+guestAllMsg[i].checkIn+" - "+guestAllMsg[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMemberInfo[i].member_location+" &nbsp;("+guestAllMsg[i].checkIn+" - "+guestAllMsg[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -156,7 +193,7 @@ $("#tab_default_1").find(".guestMsg").remove();
 	    			
 	    			}
 	    			
-    				$('#tab_default_1').append(output);
+    				$('.guestMsg').html(output);
 	    			
 	    			
 	    			
@@ -175,6 +212,122 @@ function ChangeHostList(){
 	var hostList = document.getElementById("hostCheck");
 	 var selhostList = hostList.options[hostList.selectedIndex].value;
 	 alert(" 호스트 : "+selhostList);
+	 if(selhostList=="noHostRead"){
+		 /*  $('.hostMsg').hide(); */ 
+		 
+			$.ajax({
+	    		contentType : 'application/json; charset=UTF-8',
+	    		type:"POST",
+	    		url:"msgMainhostUnRead.msg",
+	    		 dataType : 'json',
+	    		success:function(data){
+	    			
+	    			var hostUnreadMsg=data.hostUnreadMsg;
+	    			var guestMemberInfo=data.guestMemberInfo;
+	    			
+	    			console.log(data);
+	    			var output="";
+	    			
+	    			
+	    		 for(var i=0;i<hostUnreadMsg.length;i++){
+	    				for(var i=0;i<guestMemberInfo.length;i++){
+	    				output+="<div  style=\"position:relative;height:10vh;top:-2vh;border:1px solid red;\">";
+	    				output+="<img style=\"position:relative;left:1vw;top:-1vh;width:7vh;height:7vh;\" src=\"files/"+guestMemberInfo[i].member_picture+"\" class=\"img-circle\">";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestMemberInfo[i].member_name+"</h5>";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+hostUnreadMsg[i].message_time+"</h5>";
+	    				if(hostUnreadMsg[i].message_read==0){
+	    					output+="<div class=\"new-item-badge\">New</div>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+hostUnreadMsg[i].message_content+"</a><br>";
+	    				}else{
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+hostUnreadMsg[i].message_content+"</a><br>";
+	    				}
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostUnreadMsg[i].checkIn+" - "+hostUnreadMsg[i].checkOut+")</a>";
+	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
+	    				
+	    				
+	    				output+="</div>";
+	    				 if(!((i + 1) == (hostUnreadMsg.length))){
+	    					output+="<hr style=\"width:88%; color:gray;position:relative;top:-2vh;\">";
+	    				}  
+	    				
+	    				}
+	    			
+	    			}
+	    			
+	    			$('.hostMsg').html(output); 
+    				
+	    		}
+	    		
+	    		
+	    	
+	    		
+	    	});//ajax
+		 
+		 
+		 
+		 
+		 
+		 
+	 }else{
+		 
+		 /* $('.hostMsg').hide(); */
+		 
+		 
+		  $.ajax({
+			  contentType : 'application/json; charset=UTF-8',
+	    		type:"POST",
+	    		url:"msgMainHostAllRead.msg",
+	    		 dataType : 'json',
+	    		success:function(data){
+	    
+	    			var hostAllMessage=data.hostAllMessage;
+	    			var guestMemberInfo=data.guestAllMemberInfo;
+	    			
+	    			console.log(data);
+	    			var output="";
+	    			
+	    			
+	    			for(var i=0;i<hostAllMessage.length;i++){
+	    				for(var i=0;i<guestMemberInfo.length;i++){
+	    				output+="<div style=\"position:relative;height:10vh;top:-2vh;border:1px solid red;\">";
+	    				output+="<img style=\"position:relative;left:1vw;top:-1vh;width:7vh;height:7vh;\" src=\"files/"+guestMemberInfo[i].member_picture+"\" class=\"img-circle\">";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestMemberInfo[i].member_name+"</h5>";
+	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+hostAllMessage[i].message_time+"</h5>";
+	    				if(hostAllMessage[i].message_read==0){
+	    					output+="<div class=\"new-item-badge\">New</div>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+hostAllMessage[i].message_content+"</a><br>";
+	    				}else{
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+hostAllMessage[i].message_content+"</a><br>";
+	    				}
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostAllMessage[i].checkIn+" - "+hostAllMessage[i].checkOut+")</a>";
+	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
+	    				
+	    				
+	    				output+="</div>";
+	    				 if(!((i + 1) == (hostAllMessage.length))){
+	    					output+="<hr style=\"width:88%; color:gray;position:relative;top:-2vh;\">";
+	    				}  
+	    				
+	    				}
+	    			
+	    			}
+	    			
+  				$('.hostMsg').html(output);
+	    			
+	    			
+	    			
+	    			
+	    		}
+	    		
+	    		
+	    	});//ajax
+		 
+		 
+		 
+		 
+		 
+	 }
+	
 	 
 }	
 </script>
@@ -192,28 +345,47 @@ function ChangeHostList(){
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
 						<li class="active">
+						<c:choose>
+						<c:when  test="${guestMsgUnreadCount>0}">
 							<a href="#tab_default_1" data-toggle="tab">
-							여행 </a>
+							<i class="fa fa-archive"></i>
+							  <span class="btn__badge">${guestMsgUnreadCount}</span>
+							여행 </a></c:when>
+							<c:otherwise>
+							<a href="#tab_default_1" data-toggle="tab">여행</a>
+							</c:otherwise>
+							</c:choose>
 						</li>
 						<li>
+						<c:choose>
+						<c:when test="${hostMsgUnreadCount>0}">
 							<a href="#tab_default_2" data-toggle="tab">
+							 <i class="fa fa-archive"></i>
+    <span class="btn__badge">${hostMsgUnreadCount}</span>    
 							호스팅 </a>
+							</c:when>
+							<c:otherwise>
+							<a href="#tab_default_2" data-toggle="tab">호스팅 </a>
+							</c:otherwise>
+							
+							</c:choose>
 						</li>
 						
 					</ul>
 					<div class="tab-content" id="dd">
 		
-		<div class="tab-pane active" id="tab_default_1" style="height:auto;">
+		<div class="tab-pane active" id="tab_default_1" style="height:auto;border:1px solid red;">
 		<select class="Guest" name="guestSelect" id="guestCheck" onchange="ChangeGuestList();" style="position:relative;left:33.8vw;top:-7vh;width:15vw;height:4.5vh;padding:0" required>
         <option id="allGuestMsg" value="allGuestMsg">모든 여행 메세지 ( ${guestMsgAllCount}개 ) </option>
-        <option id="noGuestRead" value="noGuestRead">읽지 않음 ( ${guestMsgUnreadCount} 개)</option>
+        <option id="noGuestRead" value="noGuestRead">읽지 않음 ( ${guestMsgUnreadCount}개)</option>
       </select>
 
-						<div class="guestMsg" style="border:1px solid blue;width:100%;height:auto;">
+						<div id="guestMsg" class="guestMsg" style="border:1px solid blue;width:100%;height:15vh">
+						  <c:choose><c:when test="${not empty guestMessage}">
 						<c:forEach items="${guestMessage}" var="message" varStatus="i">
 						
 						
-						<div id="guest" class="guestList" style="position:relative;height:10vh;top:-2vh;border:1px solid red;">
+						<div id="guest" class="guestList" style="position:relative;height:10vh;top:-2vh;border:1px solid yellow;">
 							<c:forEach items="${hostMemberInfo}"  var="member">
 							<c:if test="${member.member_email eq message.host_email}">
 							<c:choose>
@@ -240,28 +412,38 @@ function ChangeHostList(){
 							<h5 style="position:relative; left:40vw;top:-20vh;color:#f9c945;font-weight:800;">문의</h5>
 							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;position:relative;top:-2vh;"></c:if>
 							
-							</c:forEach>
+							</c:forEach></c:when>
+							<c:otherwise>
+							<div style="position:relative;height:10vh;top:-0.8vh;" >
+						<h3 style="color:black;margin:0;padding:0;">아직 메세지가 없습니다</h3>
+					<h5 style="color:gray;text-align:center;">여행을 준비하며 호스트에게 받는 메세지가 여기에 표시됩니다.</h5>
+					<button class="btn btn-default" style="position:relative;left:21vw;text-align:center;margin-top:1vh;background:#ff5a5f;border:#ff5a5f;color:white;font-weight:800">숙소 둘러보기</button>
+					</div>
+					</c:otherwise>
+							
+							</c:choose>
+							
 							</div>
 						</div>
 						
 						
 						<div class="tab-pane" id="tab_default_2" style="height:auto;">
 
-		  <select class="" name="category" id="hostCheck" onchange="ChangeHostList()" style="position:relative;left:33.8vw;top:-7vh;width:15vw;height:4.5vh;padding:0;" required >
-        <option id="allHostMsg">모든 여행 메세지 ( ${hostMsgAllCount}개 )</option>
-        <option id="noHostRead">읽지 않음 (몇개)</option>
+		  <select class="Host" name="hostSelect" id="hostCheck" onchange="ChangeHostList()" style="position:relative;left:33.8vw;top:-7vh;width:15vw;height:4.5vh;padding:0;" required >
+        <option id="allHostMsg" value="allHostMsg">모든 여행 메세지 ( ${hostMsgAllCount}개 )</option>
+        <option id="noHostRead" value="noHostRead">읽지 않음 ( ${hostMsgUnreadCount}개 )</option>
 
       </select>
 
-				
+				       <div class="hostMsg"  style="border:1px solid blue;width:100%;height:15vh"> 
+				      <c:choose><c:when test="${not empty hostMessage}">	
 							<c:forEach items="${hostMessage}" var="messageH" varStatus="i">
 						
-						
-						<div style="position:relative;height:10vh;" >
+					
+						<div id="host" class="hostList" style="position:relative;height:10vh;top:-2vh;border:1px solid yellow;" >
 							<c:forEach items="${guestMemberInfo}"  var="memberH">
-							<c:if test="${messageH.host_email eq userId}">
+							 <c:if test="${messageH.host_email eq userId}">
 							<img style="position:relative;left:1vw;top:-1vh;width:7vh;height:7vh;" src="files/${memberH.member_picture}" class="img-circle">
-							
 							<h5 style="position:relative; left:6vw;top:-7vh;">${memberH.member_name}</h5>
 							<h5 style="position:relative; left:6vw;top:-7vh;">${messageH.message_time}</h5>
 							
@@ -277,9 +459,17 @@ function ChangeHostList(){
 							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
 							
 							<h5 style="position:relative; left:40vw;top:-18vh;color:#f9c945;font-weight:800;">문의</h5>
-							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if></c:forEach>
+							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if>
+							</c:forEach></c:when>
+					         <c:otherwise>
+					 <div style="position:relative;height:10vh;top:-0.8vh;" > 
+					<h3 style="color:black;margin:0;padding:0;">아직 메세지가 없습니다</h3>
+					<h5 style="color:gray;text-align:center;">게스트가 연락하거나 예약 요청을 보내면 여기에 메시지가 표시됩니다.</h5>
+					 </div> 
+					</c:otherwise>
+					</c:choose>
 					
-							
+							</div> 
 						</div>
 						
 					</div>

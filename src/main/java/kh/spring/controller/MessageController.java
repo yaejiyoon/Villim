@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -55,8 +56,8 @@ public class MessageController {
         String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		session.setAttribute("userId", "jake@gmail.com");
-        /*session.setAttribute("userId", "plmn855000@gmail.com");*/
+		/*session.setAttribute("userId", "jake@gmail.com");*/
+       session.setAttribute("userId", "plmn855000@gmail.com");
 		 /*session.setAttribute("userId", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
         System.out.println("아이디 :"+userId );
@@ -95,7 +96,7 @@ public class MessageController {
 				mav.addObject("guestMsgAllCount", guestMsgAllCount);
 			}else {
 				System.out.println("모든개수 없음");
-				mav.addObject("guestMsgAllCount", guestMsgAllCount);
+				mav.addObject("guestMsgAllCount",0);
 			}
 			//읽지않은개수
 			int guestMsgUnreadCount= this.service.guestMsgUnreadCount(userId);
@@ -104,11 +105,13 @@ public class MessageController {
 				mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
 			}else {
 				System.out.println("읽지않은개수 없음");
-				mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+				mav.addObject("guestMsgUnreadCount", 0);
 			}
 			
 		}else {
 			System.out.println("guest메세지 없음 !!!!!!!!!!");
+			mav.addObject("guestMsgAllCount",0);
+			mav.addObject("guestMsgUnreadCount", 0);
 		}
 
 		// 호스팅
@@ -118,7 +121,7 @@ public class MessageController {
 		if(!hostMessage.isEmpty()) {
 			for(GuestMsgDTO tmp:hostMessage) {
 				System.out.println("호스트메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
-				+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time()+"읽음 여부 :"+tmp.getMessage_read());
+				+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"게스트메일:"+tmp.getGuest_email()+"날짜 :"+tmp.getMessage_time()+"읽음 여부 :"+tmp.getMessage_read());
 				
 				guest_email.add(tmp.getGuest_email());
 				
@@ -145,15 +148,32 @@ public class MessageController {
 				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
 			}
 			
+			//모든 개수
 			int hostMsgAllCount = this.service.hostMsgAllCount(userId);
 			if (hostMsgAllCount > 0) {
 				System.out.println("모든개수 :" + hostMsgAllCount);
 				mav.addObject("hostMsgAllCount", hostMsgAllCount);
+			}else {
+				mav.addObject("hostMsgAllCount", 0);
 			}
+			
+			//읽지않은개수
+			int hostMsgUnreadCount=this.service.hostMsgUnreadCount(userId);
+			if (hostMsgUnreadCount > 0) {
+				System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+				mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+			}else {
+				System.out.println("읽지않은개수 없음");
+				mav.addObject("hostMsgUnreadCount", 0);
+			}
+			
 			
 		}else {
 			System.out.println("host메세지 없음 !!!!!!!!!!");
+			mav.addObject("hostMsgAllCount", 0);
+			mav.addObject("hostMsgUnreadCount", 0);
 		}
+		
 		mav.addObject("userId", userId);
 		mav.setViewName("/message/messageMain");
 		return mav;
@@ -421,6 +441,44 @@ public class MessageController {
 		SimpleDateFormat sdf2=new SimpleDateFormat("yyyyMMdd");
         String today= sdf.format(new Date());
         System.out.println("오늘 날짜: "+today);
+        
+        //날짜 
+        String checkinDate ="2018-"+dto.getCheckIn().split("월")[0]+"-"+dto.getCheckIn().split("일")[0].split("월")[1];
+        String checkoutDate ="2018-"+dto.getCheckOut().split("월")[0]+"-"+dto.getCheckOut().split("일")[0].split("월")[1];
+        
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+          Date FirstDate = null;
+          Date SecondDate = null;
+        try {
+           FirstDate = format.parse(checkinDate);
+           SecondDate = format.parse(checkoutDate);
+        } catch (Exception e) {
+           // TODO Auto-generated catch block
+           e.printStackTrace();
+        }
+        
+        ArrayList<String> dates = new ArrayList<String>();
+        Date currentDate = FirstDate;
+        while (currentDate.compareTo(SecondDate) <= 0) {
+           dates.add(format.format(currentDate));
+           Calendar c = Calendar.getInstance();
+           c.setTime(currentDate);
+           c.add(Calendar.DAY_OF_MONTH, 1);
+           currentDate = c.getTime();
+        }
+        System.out.println("지혜언니가 준 날짜     >        "+dates);
+       String date = dates.toString().replaceAll("[\\[\\]]", "");
+        System.out.println("자른거 : "+date);
+        
+       String[] str=date.split(", ");
+       List<String> datess=new ArrayList<>();
+       for(String tmp:str) {
+    	   datess.add(tmp);
+    	   System.out.println(tmp);
+       }
+        mav.addObject("date", datess);
        try {
 		Date checkIn=sdf2.parse(cI);
 		Date checkOut=sdf2.parse(cO);
@@ -638,4 +696,183 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
 	new Gson().toJson(obj, response.getWriter());
 
 }
+
+@RequestMapping("/msgMainhostUnRead.msg")
+public void msgMainhostUnRead(HttpSession session,HttpServletResponse response) throws Exception {
+	System.out.println("msgMainhostUnRead");
+	
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+    String today= sdf.format(new Date());
+    System.out.println("오늘 날짜: "+today);
+    String userId = (String) session.getAttribute("userId");
+    
+    List<GuestMsgDTO> hostUnreadMsg=this.service.hostUnreadMsg(userId);
+    List<String> guest_email = new ArrayList<>();
+
+
+    JSONObject obj=new JSONObject();
+    JSONArray jArray=new JSONArray();
+	
+    if (!hostUnreadMsg.isEmpty()) {
+    	for(GuestMsgDTO tmp:hostUnreadMsg) {
+        	System.out.println("읽지않은 내용"+tmp.getMessage_content()+"안 읽었니 메세지 리드 : "+tmp.getMessage_read());
+        
+    	
+    	if(today.equals(tmp.getMessage_time().substring(0,13))) {
+			System.out.println("근꼐 오늘 같다는겨?");
+			tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
+		}else {
+			
+			tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
+			System.out.println(tmp.getMessage_time());
+		}
+    	
+    	guest_email.add(tmp.getGuest_email());
+    	
+    	
+    	
+    	}
+    	for(int i=0;i<hostUnreadMsg.size();i++) {
+    		JSONObject gmI=new JSONObject();
+    		gmI.put("message_room_seq", hostUnreadMsg.get(i).getMessage_room_seq());
+    		gmI.put("home_seq", hostUnreadMsg.get(i).getHome_seq());
+    		gmI.put("message_time", hostUnreadMsg.get(i).getMessage_time());
+    		gmI.put("message_content", hostUnreadMsg.get(i).getMessage_content());
+    		gmI.put("checkIn", hostUnreadMsg.get(i).getCheckIn());
+    		gmI.put("checkOut", hostUnreadMsg.get(i).getCheckOut());
+    		gmI.put("message_read", hostUnreadMsg.get(i).getMessage_read());
+    		gmI.put("host_email", hostUnreadMsg.get(i).getHost_email());
+    		jArray.add(gmI);
+    	}
+    	obj.put("hostUnreadMsg", jArray);
+    	
+    
+    	
+    }else {
+    	
+    	System.out.println("게스트가 안 읽은 메세지가 없다니 이럴수가!!!!!!!!");
+    }
+    List<MemberDTO> guestMemberInfo = this.service.memberInfo(guest_email);
+
+    JSONArray jArray2 = new JSONArray();
+
+    for(int i=0;i<guestMemberInfo.size();i++) {
+    	JSONObject gmI=new JSONObject();
+    	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
+		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
+		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		jArray2.add(gmI);
+    }
+    obj.put("guestMemberInfo", jArray2);
+    
+   System.out.println(obj);
+
+	response.setContentType("application/json");
+	response.setCharacterEncoding("UTF-8");
+
+
+	new Gson().toJson(obj, response.getWriter());
+	
+	
 }
+
+
+
+@RequestMapping("/msgMainHostAllRead.msg")
+public void msgMainHostAllRead(HttpSession session,HttpServletResponse response) throws Exception {
+	System.out.println("msgMainHostAllRead");
+	
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+    String today= sdf.format(new Date());
+    System.out.println("오늘 날짜: "+today);
+    String userId = (String) session.getAttribute("userId");
+    
+    List<GuestMsgDTO> hostMessage = this.service.hostMessageMain(userId);
+	List<String> guest_email = new ArrayList<>();
+
+
+
+    JSONObject obj=new JSONObject();
+    JSONArray jArray=new JSONArray();
+	
+    if (!hostMessage.isEmpty()) {
+    	for(GuestMsgDTO tmp:hostMessage) {
+        	System.out.println("읽지않은 내용"+tmp.getMessage_content()+"안 읽었니 메세지 리드 : "+tmp.getMessage_read());
+        
+    	
+    	if(today.equals(tmp.getMessage_time().substring(0,13))) {
+			System.out.println("근꼐 오늘 같다는겨?");
+			tmp.setMessage_time(tmp.getMessage_time().substring(15, 21));
+		}else {
+			
+			tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
+			System.out.println(tmp.getMessage_time());
+		}
+    	
+    	guest_email.add(tmp.getGuest_email());
+    	
+    	
+    	
+    	}
+    	for(int i=0;i<hostMessage.size();i++) {
+    		JSONObject gmI=new JSONObject();
+    		gmI.put("message_room_seq", hostMessage.get(i).getMessage_room_seq());
+    		gmI.put("home_seq", hostMessage.get(i).getHome_seq());
+    		gmI.put("message_time", hostMessage.get(i).getMessage_time());
+    		gmI.put("message_content", hostMessage.get(i).getMessage_content());
+    		gmI.put("checkIn", hostMessage.get(i).getCheckIn());
+    		gmI.put("checkOut", hostMessage.get(i).getCheckOut());
+    		gmI.put("message_read", hostMessage.get(i).getMessage_read());
+    		gmI.put("host_email", hostMessage.get(i).getHost_email());
+    		jArray.add(gmI);
+    	}
+    	obj.put("hostAllMessage", jArray);
+    	
+    
+    	
+    }else {
+    	
+    	System.out.println("게스트가 안 읽은 메세지가 없다니 이럴수가!!!!!!!!");
+    }
+    List<MemberDTO> guestMemberInfo = this.service.memberInfo(guest_email);
+
+    JSONArray jArray2 = new JSONArray();
+
+    for(int i=0;i<guestMemberInfo.size();i++) {
+    	JSONObject gmI=new JSONObject();
+    	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
+		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
+		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		jArray2.add(gmI);
+    }
+    obj.put("guestAllMemberInfo", jArray2);
+    
+   System.out.println(obj);
+
+	response.setContentType("application/json");
+	response.setCharacterEncoding("UTF-8");
+
+
+	new Gson().toJson(obj, response.getWriter());
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+
+}
+
+
+
