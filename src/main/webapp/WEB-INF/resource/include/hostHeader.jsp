@@ -11,7 +11,6 @@
 <link href="<c:url value="/resources/css/main/normalize.css" />"
 	rel="stylesheet" />
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <style>
 body {
@@ -138,37 +137,40 @@ div {
 	float: left;
 	display: inline-block;
 	padding-left: 0;
+	margin-left : 15px;
 }
 
 #menu-ul li {
 	height: 100%;
 	display: inline-block;
 	float: left;
-	font-size: 16px;
+	font-size: 15px;
 	text-align: center;
 	text-decoration: none;
 	margin-top: 20px;
 	overflow: hidden;
+	padding: 0px;
 }
 </style>
 
 <div id="header">
 	<div id="header-logo">
-		<img src="<c:url value='/resources/img/logo2.png'/>">
+		<a href="hostMain.do"> <img src="<c:url value='/resources/img/logo2.png'/>">
+		</a>
 	</div>
 	<div id="header-menu" class="container">
 		<ul id="menu-ul" class="row">
-		<!-- 링크 연결할때 세션에서 아이디값 꺼내서 그걸로 정보 가져오기 
+			<!-- 링크 연결할때 세션에서 아이디값 꺼내서 그걸로 정보 가져오기 
 		지금은 로그인 안되니 우선 연결만-->
-		
+
 			<li class="col-md-2"><a href="hostMain.do" style="color: black;"><span
 					data-hover="홈"><b>홈</b></span></a></li>
 			<li class="col-md-2"><a href="#" style="color: black;"><span
 					data-hover="메시지"><b>메시지</b></span></a></li>
-			<li class="col-md-2"><a href="#" style="color: black;"><span
-					data-hover="달력"><b>달력</b></span></a></li>
-			<li class="col-md-2"><a href="#" style="color: black;"><span
-					data-hover="숙소"><b>숙소</b></span></a></li>
+			<li class="col-md-2"><a href="fullCalendar.do"
+				style="color: black;"><span data-hover="달력"><b>달력</b></span></a></li>
+			<li class="col-md-2"><a href="hostHomeList.do"
+				style="color: black;"><span data-hover="숙소"><b>숙소</b></span></a></li>
 			<li class="col-md-2"><a href="hostHomeAchievement.do"
 				style="color: black;"><span data-hover="성취도"><b>성취도</b></span></a></li>
 			<li class="col-md-2"><a href="#" style="color: black;"><span
@@ -186,7 +188,7 @@ div {
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="#">프로필 수정</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"
-				href="hostHomeManage.do">계정관리</a></li>
+				href="hostHomePayment.do">계정관리</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="#">로그아웃</a></li>
 		</ul>

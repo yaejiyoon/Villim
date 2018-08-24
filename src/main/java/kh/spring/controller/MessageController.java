@@ -490,7 +490,7 @@ public ModelAndView ok() {
 }
 
 @RequestMapping("/msgMainGuestAllRead.msg")
-public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response) {
+public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response) throws Exception{
 	System.out.println("msgMainGuestAllRead");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
@@ -498,7 +498,10 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
     String userId = (String) session.getAttribute("userId");
 	List<GuestMsgDTO> guestAllMessage = this.service.guestMessageMain(userId);
 	List<String> host_email = new ArrayList<>();
-    System.out.println("총개수 :"+guestAllMessage.size());
+	
+    JSONObject obj=new JSONObject();
+    JSONArray jArray=new JSONArray();
+	
 	if (!guestAllMessage.isEmpty()) {
 		for (GuestMsgDTO tmp : guestAllMessage) {
 			System.out.println("메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
@@ -514,12 +517,47 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
 			host_email.add(tmp.getHost_email());
 		}
 
+		for(int i=0;i<guestAllMessage.size();i++) {
+			JSONObject gmI=new JSONObject();
+    		gmI.put("message_room_seq", guestAllMessage.get(i).getMessage_room_seq());
+    		gmI.put("home_seq", guestAllMessage.get(i).getHome_seq());
+    		gmI.put("message_time", guestAllMessage.get(i).getMessage_time());
+    		gmI.put("message_content", guestAllMessage.get(i).getMessage_content());
+    		gmI.put("checkIn", guestAllMessage.get(i).getCheckIn());
+    		gmI.put("checkOut", guestAllMessage.get(i).getCheckOut());
+    		gmI.put("message_read", guestAllMessage.get(i).getMessage_read());
+    		gmI.put("host_email", guestAllMessage.get(i).getHost_email());
+    		jArray.add(gmI);
+    	}
+    	obj.put("guestAllMsg", jArray);
 	
-		List<MemberDTO> hostMemberInfo = this.service.memberInfo(host_email);
 		
 		
+		
+}else {
+	System.out.println("게스트가 모든 메세지가 없다니 이럴수가!!!!!!!!");
 }
+	List<MemberDTO> guestMemberInfo = this.service.memberInfo(host_email);
+	
+    JSONArray jArray2 = new JSONArray();
 
+    for(int i=0;i<guestMemberInfo.size();i++) {
+    	JSONObject gmI=new JSONObject();
+    	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
+		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
+		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		jArray2.add(gmI);
+    }
+    obj.put("guestAllMemberInfo", jArray2);
+    
+   System.out.println(obj);
+
+	response.setContentType("application/json");
+	response.setCharacterEncoding("UTF-8");
+
+
+	new Gson().toJson(obj, response.getWriter());
+	
 	
 }
 
@@ -533,11 +571,12 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     
     List<GuestMsgDTO> guestUnreadMsg=this.service.guestUnreadMsg(userId);
     List<String> host_email = new ArrayList<>();
-    JSONArray jarrayContent = new JSONArray();
-    JSONArray jarrayguestMember = new JSONArray();
-    JSONObject object = new JSONObject();
- 
-   
+
+
+    JSONObject obj=new JSONObject();
+    JSONArray jArray=new JSONArray();
+    
+    
     if (!guestUnreadMsg.isEmpty()) {
     	for(GuestMsgDTO tmp:guestUnreadMsg) {
         	System.out.println("읽지않은 내용"+tmp.getMessage_content()+"안 읽었니 메세지 리드 : "+tmp.getMessage_read());
@@ -554,10 +593,22 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	
     	host_email.add(tmp.getHost_email());
     	
-    	jarrayContent.add(tmp.json1());
+    	
     	
     	}
-    	
+    	for(int i=0;i<guestUnreadMsg.size();i++) {
+    		JSONObject gmI=new JSONObject();
+    		gmI.put("message_room_seq", guestUnreadMsg.get(i).getMessage_room_seq());
+    		gmI.put("home_seq", guestUnreadMsg.get(i).getHome_seq());
+    		gmI.put("message_time", guestUnreadMsg.get(i).getMessage_time());
+    		gmI.put("message_content", guestUnreadMsg.get(i).getMessage_content());
+    		gmI.put("checkIn", guestUnreadMsg.get(i).getCheckIn());
+    		gmI.put("checkOut", guestUnreadMsg.get(i).getCheckOut());
+    		gmI.put("message_read", guestUnreadMsg.get(i).getMessage_read());
+    		gmI.put("host_email", guestUnreadMsg.get(i).getHost_email());
+    		jArray.add(gmI);
+    	}
+    	obj.put("guestUnreadMsg", jArray);
     	
     
     	
@@ -566,30 +617,25 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	System.out.println("게스트가 안 읽은 메세지가 없다니 이럴수가!!!!!!!!");
     }
     List<MemberDTO> guestMemberInfo = this.service.memberInfo(host_email);
-    if(!guestMemberInfo.isEmpty()) {
-        for(MemberDTO tmp:guestMemberInfo) {
-        	jarrayguestMember.add(tmp);
-        }
+
+    JSONArray jArray2 = new JSONArray();
+
+    for(int i=0;i<guestMemberInfo.size();i++) {
+    	JSONObject gmI=new JSONObject();
+    	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
+		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
+		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		jArray2.add(gmI);
     }
-for(int i=0; i<jarrayContent.size();i++) {
-	System.out.println(jarrayContent.get(i));
-}
-for(int j=0;j<jarrayguestMember.size();j++) {
-	System.out.println(jarrayguestMember.get(j));
-}
-   System.out.println("내용 : "+jarrayContent+" 멤버내용"+jarrayguestMember);
-  object.put("jarrayContent",jarrayContent);
-  object.put("jarrayguestMember", jarrayguestMember);
- 
-  
-  
-/*    Map<String, Object> map = new HashMap<String, Object>();*/
+    obj.put("guestMemberInfo", jArray2);
+    
+   System.out.println(obj);
+
 	response.setContentType("application/json");
 	response.setCharacterEncoding("UTF-8");
-/*    map.put("guestUnreadMsg", guestUnreadMsg);
-    map.put("hostMemberInfo", guestMemberInfo);*/
 
-	new Gson().toJson(object, response.getWriter());
+
+	new Gson().toJson(obj, response.getWriter());
 
 }
 }
