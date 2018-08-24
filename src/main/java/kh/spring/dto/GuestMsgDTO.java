@@ -120,5 +120,10 @@ public class GuestMsgDTO {
 	public void setMessage_read(int message_read) {
 		this.message_read = message_read;
 	};
+	
+	public String json1() {
+		return this.message_room_seq+":"+this.message_seq+":"+this.home_seq+":"+this.guest_email+":"+this.host_email+":"+
+				":"+this.checkIn+":"+this.checkOut+":"+this.totalNumber+":"+this.message_content+":"+this.message_time+":"+this.message_read+"";
+	}
 
 }

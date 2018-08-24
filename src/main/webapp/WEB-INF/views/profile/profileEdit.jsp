@@ -109,8 +109,8 @@ left:100%;
   }
   
   
-  .animated bounce delay-10s msg msg-magick {
-  animation: bounce 10s;
+  .animated bounce delay-3s msg msg-magick {
+  animation: bounce 3s;
   -webkit-transition: opacity 10s ease-in-out;
   -moz-transition: opacity 10s ease-in-out;
   transition: opacity 10s ease-in-out;
@@ -145,10 +145,16 @@ left:100%;
 		 $('#day').val(date);
 		 
 		 
-		 /* 정규표현식 */
-		 
-	         
-		 
+	        if($('#success').val() =="success"){
+	        	$('#profileForm').prepend("<div class=\"alert alert-success\" style=\"width:100%;position:relative;text-align:center;border:none;\" role=\"alert\"><strong>Success! 업데이트에 성공하셨습니다! </strong></div>");
+	        	window.setTimeout(function() {
+	        	    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+	        	        $(this).remove(); 
+	        	    });
+	        	}, 3000);
+	        	
+	        } 
+		
 	}); 
 	 
 	 
@@ -160,13 +166,10 @@ left:100%;
 <body>
 	<%@ include file="../../resource/include/header_profile.jsp" %>
 	
-<c:if test="${inputSuccess eq 'success'}">
-	<div class="animated bounce delay-10s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>
-	</c:if>
+	<input type="hidden" id="success" value="${inputSuccess}">
 	
-	
-	
-	<div class="" style="position: relative; left: 250px; top: 56px;">
+	<div  id="profileForm">
+	<div style="position: relative; left: 250px; top: 56px;">
 		<a style="font-size: 19px; position: relative; top: -24px; left: 0px; color:gray;text-decoration: none;font-weight:bold;">프로필
 			수정</a> <a href="profileReview.mo"
 			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
@@ -291,7 +294,7 @@ left:100%;
 		</div>
 	
 	</div>
-
+</div>
 
 <!-- 사진 수정  -->
 <script>

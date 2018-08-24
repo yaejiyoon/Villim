@@ -106,6 +106,26 @@ public class MessageServiceImpl implements MessageService{
 		return dao.reservCheck(dto2);
 	}
 
+	@Override
+	public int guestMsgUnreadCount(String userId) {
+		return dao.guestMsgUnreadCount(userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> guestUnreadMsg(String userId) {
+		return dao.guestUnreadMsg(userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> hostUnreadMsg(String userId) {
+		return dao.hostUnreadMsg(userId);
+	}
+
+	@Override
+	public int hostMsgUnreadCount(String userId) {
+		return dao.hostMsgUnreadCount(userId);
+	}
+
 	
 	
 	
