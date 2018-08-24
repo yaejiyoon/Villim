@@ -277,7 +277,7 @@ $(document).ready(function() {
 	#datepicker {
 		border : 1px solid white;
 		font-family: font;
-		font-size : 2vh;
+		font-size : 1.8vh;
 	}
 
 	#searchicon {
@@ -326,7 +326,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	google.maps.event.addDomListener(window, 'load', init);
+	google.maps.event.addDomListener(window, 'load');
+// 	google.maps.event.addDomListener(window, 'load', init);
 </script>
 <script>
 $(document).ready(function() {
@@ -369,20 +370,8 @@ $(document).ready(function() {
                 checkinDate = formatDate(date[0]);
                 checkoutDate = formatDate(date[1]);
                 
-                $.ajax({
-                    url:"searchDate.do",
-                    type:"get",
-                    data:{
-                       checkinDate:checkinDate,
-                       checkoutDate:checkoutDate
-                       },
-                    success:function(resp){
-                       
-                    },
-                    error : function(request,status,error) {
-                       console.log(request.status + " : " + status + " : " + error);
-                    }
-                 })
+                $("#hiddenStartDate").val(checkinDate);
+    			$("#hiddenEndDate").val(checkoutDate);
                 
              }
           }
@@ -452,9 +441,11 @@ $(document).ready(function() {
          	<input id="locationTextField" type="text" placeholder="위치를 입력해주세요"></input>
          </div>
          <div id="calendar">
+         	<input type="hidden" name="startDate" id="hiddenStartDate" value="0">
+         	<input type="hidden" name="endDate" id="hiddenEndDate" value="0">
          	<i class="glyphicon glyphicon-calendar" id="calendarGlyphicon"></i>
 	         	<input id="datepicker" type="text" data-range="true"
-	                   data-multiple-dates-separator="    ~    "
+	                   data-multiple-dates-separator="  ~  "
 	                   todayButton="true" class="datepicker-here"
 	                     placeholder="  체크인       ㅡ       체크아웃" />
          	</div>

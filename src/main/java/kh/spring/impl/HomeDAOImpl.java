@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
-import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeDAO;
 
 @Component
@@ -154,8 +153,8 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 	
 	@Override
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
-		return ssTemplate.selectList("Home.getHomeOnMap", mdto);
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return ssTemplate.selectList("Home.getHomeOnMap", param);
 	}
 	
 	@Override
@@ -164,10 +163,12 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public List<HomeDTO> searchHomeData(String homeType, int people) {
+	public List<HomeDTO> searchHomeData(String homeType, int people, List dates, String dateIsChecked) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("homeType", homeType);
 		param.put("people", people);
+		param.put("dates", dates);
+		param.put("dateIsChecked", dateIsChecked);
 		return ssTemplate.selectList("Home.searchHomeData", param);
 	}
 

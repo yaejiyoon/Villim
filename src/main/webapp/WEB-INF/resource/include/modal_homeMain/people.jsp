@@ -36,6 +36,7 @@ $(document).ready(function() {
 </script>
 
 <style>
+
 	#peopleDialog {
 		margin-left : 13vh;
 		margin-top : 20vh;
@@ -109,7 +110,7 @@ $(document).ready(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">인원 수 선택하기</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                		<span>인원</span>&emsp;
                		<button id="peopleup" class="btn btn-primary-outline">+</button>
                		&emsp;<span id="pcount">0</span>&emsp;

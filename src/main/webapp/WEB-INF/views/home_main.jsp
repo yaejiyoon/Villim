@@ -109,14 +109,6 @@ function initMap() {
 		
 		google.maps.event.addListenerOnce(map, 'idle', function(){
 
-//	 		// 남서쪽의 좌표
-	 		var swLatLng = map.getBounds().getSouthWest();
-	 		// 북동쪽의 좌표
-	 		var neLatLng = map.getBounds().getNorthEast(); 
-			
-// 	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-// 	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
-
 		  });
 		
 		</c:if>
@@ -307,13 +299,13 @@ $(document).ready(function() {
 	   });  
 	
 	
-	<c:if test="${mapOn!=null}">
-	   $('#myonoffswitch').prop('checked', true);
-	   var on = document.getElementById('mapOnDiv');
-	   var off = document.getElementById('mapOffDiv');
-	   on.style.display = 'block';
-	   off.style.display = 'none';
-	</c:if>
+		<c:if test="${mapOn!=null}">
+		   $('#myonoffswitch').prop('checked', true);
+		   var on = document.getElementById('mapOnDiv');
+		   var off = document.getElementById('mapOffDiv');
+		   on.style.display = 'block';
+		   off.style.display = 'none';
+		</c:if>
 
 	$('body').delegate('.submit','click',function(){
         var chkval = 1;
@@ -324,7 +316,6 @@ $(document).ready(function() {
        url: "homeMain.do",
        type: "get",
        data:{chkval:chkval},
-
        
        success:function(returndata){
 			on.style.display = 'block';    
@@ -334,10 +325,39 @@ $(document).ready(function() {
        }
      });
    });  
+	
 })
 
 
 </script>
+<script>
+
+	<%
+	String homeType = (String)session.getAttribute("homeType");
+	if(!homeType.equals("0")) {%>
+		$(document).ready(function() {
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
+			homeTypeBt.style.backgroundColor = '#008489';
+			homeTypeBt.style.color = "white";
+			homeTypeBt.style.borderRadius = "10px";
+		})
+	<%}%>
+	
+	<%
+	int people = (int) session.getAttribute("people"); 
+	if(people!=0) {%>
+		$(document).ready(function() {
+			var homeTypeBt = document.getElementById('peopleBt');
+			homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
+			homeTypeBt.style.backgroundColor = '#008489';
+			homeTypeBt.style.color = "white";
+			homeTypeBt.style.borderRadius = "10px";
+		})
+	<%}%>
+	
+</script>
+
 
 <style>
 	@font-face {
@@ -645,49 +665,44 @@ $(document).ready(function() {
 				<%int cnt=0;%>
 					<c:forEach var="homeList" items="${homeList}" varStatus="status">
 						<div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-						  <ol class="carousel-indicators">
-						    <li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
-						    <li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
-						    <li data-target="#${homeList.home_seq}" data-slide-to="2"></li>
-						  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					
-					    <div class="item">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					
-					    <div class="item">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
+					  		<div id="carouselDiv">
+								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
+								  		<!-- Indicators -->
+								  <ol class="carousel-indicators">
+									<li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
+									<li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
+								  </ol>
+							 		 <!-- Wrapper for slides -->
+								  <div class="carousel-inner">
+								    <div class="item active">
+								      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
+								    </div>
+								
+								    <div class="item">
+								      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
+								    </div>
+								
+								  </div>
+							
+							  		<!-- Left and right controls -->
+								  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
+								    <span class="glyphicon glyphicon-chevron-left"></span>
+								    <span class="sr-only">Previous</span>
+								  </a>
+								  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
+								    <span class="glyphicon glyphicon-chevron-right"></span>
+								    <span class="sr-only">Next</span>
+								  </a>
+								</div>
+							<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
+		                  <p class="homeName" id="homeName<%=cnt%>">
+		                     <B>${homeList.home_name}</B>
+		                  </p>
+		                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
+		                  <p class="reviewStar">★★★★★</p>
+		                  <p class="reviewCount">247</p>
+		                  <p class="hostTitle">슈퍼호스트</p>
 						</div>
-						<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
-	                  <p class="homeName" id="homeName<%=cnt%>">
-	                     <B>${homeList.home_name}</B>
-	                  </p>
-	                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
 				  </div>
 					<%cnt++; %>
 					</c:forEach>
