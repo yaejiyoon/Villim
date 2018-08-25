@@ -15,5 +15,8 @@
 		<typeAlias type="kh.spring.dto.HostReviewDTO" alias="HostReview"/>
 		<typeAlias type="kh.spring.dto.MessageDTO" alias="Message"/>
 		<typeAlias type="kh.spring.dto.MessageRoomDTO" alias="MessageRoom"/>
+		<typeAlias type="kh.spring.dto.GuestMsgDTO" alias="GuestMsg"/>
+		<typeAlias type="kh.spring.dto.MapDTO" alias="MapLatLng"/>
+		
 	</typeAliases>
 </configuration>

@@ -27,36 +27,41 @@ div {
 #wrapper {
 	border: 1px solid black;
 	margin: 30px auto;
+	height: auto;
 	width: 70%;
-	height: 1000px;
 }
 
 .wrapper-sub {
-	width: 70%;
+	width: 65%;
 }
 
 .home-reserve {
+	border: 1px solid black;
 	margin-top: 60px;
+	width: 60%;
+	float: left;
+	padding: 0;
+	margin-bottom: -30px;
 }
 
 .home-reserve div {
 	display: inline-block;
 	float: left;
+	padding: 0;
 }
 
-.home-reserve div button {
-	background-color: white;
-	border: none;
-	text-decoration: none;
-	outline: 1;
-	border-bottom: thin;
-	border-bottom-color: black;
-	width: 120px;
-	height: 70px;
-	padding-left: 0;
-	font-size: 17px;
-}
-
+/* .home-reserve div button { */
+/* 	background-color: white; */
+/* 	border: none; */
+/* 	text-decoration: none; */
+/* 	outline: 1; */
+/* 	border-bottom: thin; */
+/* 	border-bottom-color: black; */
+/* 	width: 120px; */
+/* 	height: 70px; */
+/* 	padding-left: 0; */
+/* 	font-size: 17px; */
+/* } */
 .price-line {
 	border: 0.5px solid #E6E6E6;
 	display: inline-block;
@@ -141,16 +146,17 @@ div {
 
 .nav-btn {
 	background-color: white;
+	text-align: center;
 	border: none;
 	text-decoration: none;
-	width: 120px;
+	width: 100%;
 	height: 70px;
-	padding-left: 0;
-	font-size: 17px;
+	padding: 0;
+	font-size: 15px;
 }
 
 .nav-btn:hover {
-	border-bottom: 2px solid blue;
+	border-bottom: 2px solid #008489;
 }
 
 .nav-btn:active {
@@ -168,6 +174,12 @@ div {
 .nav-btn:checked {
 	text-decoration: none;
 }
+
+.btn {
+	background-color: white;
+	color: #008489;
+	border: 1px solid #008489;
+}
 </style>
 
 
@@ -176,34 +188,41 @@ div {
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<h2>${hdto.home_name }</h2>
+			<div style="display: inline-block; width:79%; border: 1px dotted black;">
+				<h2>${hdto.home_name }</h2>
+			</div>
+			<div style="display: inline-block; width:20%; border: 1px dotted black; text-align: right;">
+				<button type="button" class="btn"
+					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'"><b>달력보기</b></button>
+			</div>
 		</div>
 
 		<div class="home-reserve">
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">숙소
 					세부정보</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
 					설정</button>
 			</div>
-			<div>
+			<div class="col-md-2">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
 			</div>
-			<div>
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
-					가능 여부</button>
+			<div class="col-md-2">
+				<button class="nav-btn" type="button" style="color: #008489;"
+					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">
+					<b>예약 가능 여부</b>
+				</button>
 			</div>
-			<div>
-				<button type="button">현지 법규</button>
+			<div class="col-md-2">
+				<button class="nav-btn" type="button">현지 법규</button>
 			</div>
-			<div>
-				<button type="button">공동 호스트</button>
+			<div class="col-md-2">
+				<button class="nav-btn" type="button">공동 호스트</button>
 			</div>
 		</div>
 
@@ -219,18 +238,24 @@ div {
 					</h4>
 				</div>
 				<div class="stay-mod">
-					<button type="button" class="btn btn-default"
-					onclick="location.href='hostReserveModifyNight.do?seq=${hdto.home_seq}'" >수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostReserveModifyNight.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 
 				<div class="stayPeriod">
 					<div class="stayPeriod-sub1">최소 숙박일</div>
-					<div class="stayPeriod-sub2"><b>${hdto.home_min_stay }박</b></div>
+					<div class="stayPeriod-sub2">
+						<b>${hdto.home_min_stay }박</b>
+					</div>
 
 					<div class="price-line"></div>
 
 					<div class="stayPeriod-sub1">최대 숙박일</div>
-					<div class="stayPeriod-sub2"><b>${hdto.home_max_stay }박</b> </div>
+					<div class="stayPeriod-sub2">
+						<b>${hdto.home_max_stay }박</b>
+					</div>
 				</div>
 				<div class="price-line"></div>
 
@@ -243,41 +268,51 @@ div {
 					</h4>
 				</div>
 				<div class="check-mod">
-					<button type="button" class="btn btn-default"
-						onclick="location.href='hostReserveModifyCheckin.do?seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostReserveModifyCheckin.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 
 				<div class="checkInOut">
 					<div class="checkInOut-sub1">체크 인 가능 시간</div>
-					<c:if test="${hdto.home_checkin_start == '시간 선택' || hdto.home_checkin_start eq null}">
-						<div class="checkInOut-sub2"><b>설정되지 않음</b></div>
+					<c:if
+						test="${hdto.home_checkin_start == '시간 선택' || hdto.home_checkin_start eq null}">
+						<div class="checkInOut-sub2">
+							<b>설정되지 않음</b>
+						</div>
 					</c:if>
 					<c:if test="${hdto.home_checkin_start == '조정 가능'}">
-						<div class="checkInOut-sub2"><b>조정 가능</b></div>
+						<div class="checkInOut-sub2">
+							<b>조정 가능</b>
+						</div>
 					</c:if>
 					<c:if
 						test="${(hdto.home_checkin_start != '조정 가능' && hdto.home_checkin_start != '시간 선택' )
 					  && (hdto.home_checkin_end == '조정 가능' || hdto.home_checkin_end == '시간 선택' )}">
-						<div class="checkInOut-sub2"><b>${hdto.home_checkin_start}:00이후</b></div>
+						<div class="checkInOut-sub2">
+							<b>${hdto.home_checkin_start}:00이후</b>
+						</div>
 					</c:if>
 					<c:if
 						test="${(hdto.home_checkin_start != '조정 가능' && hdto.home_checkin_start != '시간 선택' )
 					  && (hdto.home_checkin_end != '조정 가능' && hdto.home_checkin_end != '시간 선택' ) &&  hdto.home_checkin_start ne null}">
-						<div class="checkInOut-sub2"><b>${hdto.home_checkin_start}:00 ~ ${hdto.home_checkin_end }:00</b></div>
+						<div class="checkInOut-sub2">
+							<b>${hdto.home_checkin_start}:00 ~ ${hdto.home_checkin_end }:00</b>
+						</div>
 					</c:if>
 					<div class="price-line"></div>
 
 					<div class="checkInOut-sub1">체크 아웃 가능 시간</div>
-					<div class="checkInOut-sub2"><b>${hdto.home_checkout }:00</b></div>
+					<div class="checkInOut-sub2">
+						<b>${hdto.home_checkout }:00</b>
+					</div>
 
 					<div class="price-line"></div>
 				</div>
 			</div>
-			
-				<button type="button" class="btn btn-default"
-						onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">달력보기</button>
-			
-			
+
+			<div class="price-line"></div>
 		</div>
 	</div>
 	<%@ include file="../../resource/include/footer.jsp"%>
