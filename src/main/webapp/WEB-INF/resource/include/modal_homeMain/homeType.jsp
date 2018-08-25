@@ -119,7 +119,6 @@
 				homeTypeBt.style.color = "white";
 				homeTypeBt.style.borderRadius = "10px";
 			}
-			//alert(values[i].value);
 		});
 		
 		$("#homeTypeDelete").click(function() {
@@ -141,7 +140,7 @@
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">숙소 종류</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	<label class="Container"><b>집 전체</b><br>
                   		집 전체를 단독으로 사용합니다
 					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="집전체">

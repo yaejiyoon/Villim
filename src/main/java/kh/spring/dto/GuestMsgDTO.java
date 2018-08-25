@@ -12,7 +12,7 @@ public class GuestMsgDTO {
 	String message_content;
 	String message_time;
 	int message_read;
-
+    
 	public GuestMsgDTO() {
 	}
 

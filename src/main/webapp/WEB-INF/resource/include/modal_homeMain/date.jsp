@@ -11,6 +11,10 @@
    		background-color: #f9f2ef;
 	}
 	
+	.mainModal{
+		height : auto;
+	}
+	
 </style>
 
       <div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -22,7 +26,7 @@
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">참가신청 완료하기</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	여기는 달력이 들어가겠쥬?
                </div>
                <div class="modal-footer">

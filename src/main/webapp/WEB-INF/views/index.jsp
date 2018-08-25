@@ -277,7 +277,7 @@ $(document).ready(function() {
 	#datepicker {
 		border : 1px solid white;
 		font-family: font;
-		font-size : 2vh;
+		font-size : 1.8vh;
 	}
 
 	#searchicon {
@@ -326,7 +326,8 @@ $(document).ready(function() {
 	    }
 	});
 	
-	google.maps.event.addDomListener(window, 'load', init);
+	google.maps.event.addDomListener(window, 'load');
+// 	google.maps.event.addDomListener(window, 'load', init);
 </script>
 <script>
 $(document).ready(function() {
@@ -343,7 +344,37 @@ $(document).ready(function() {
 	        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
 	        dateFormat: "yyyy/mm/dd",
 	        timeFormat: 'hh:ii aa'
-	     }
+	     },
+	     onSelect: function(formattedDate, date, inst){
+             
+             function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+
+                     return [year, month, day].join('-');
+                }
+             
+             var checkin = formatDate(date);
+             
+               var inYear = checkin.split('-')[0];
+               var inMonth = checkin.split('-')[1];
+               var inDay = checkin.split('-')[2];
+             
+             if(date.length == 2){
+                
+                checkinDate = formatDate(date[0]);
+                checkoutDate = formatDate(date[1]);
+                
+                $("#hiddenStartDate").val(checkinDate);
+    			$("#hiddenEndDate").val(checkoutDate);
+                
+             }
+          }
 	})
 });
 </script>
@@ -378,7 +409,7 @@ $(document).ready(function() {
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
 			  </button>
 			  <div class="dropdown-content" id="typeDropdownContent" >
-			    <a class="typeName" href="#">집 전체</a>
+			    <a class="typeName" href="#">집전체</a>
 			    <a class="typeName" href="#">다인실</a>
 			    <a class="typeName" href="#">개인실</a>
 			  </div>
@@ -410,9 +441,11 @@ $(document).ready(function() {
          	<input id="locationTextField" type="text" placeholder="위치를 입력해주세요"></input>
          </div>
          <div id="calendar">
+         	<input type="hidden" name="startDate" id="hiddenStartDate" value="0">
+         	<input type="hidden" name="endDate" id="hiddenEndDate" value="0">
          	<i class="glyphicon glyphicon-calendar" id="calendarGlyphicon"></i>
 	         	<input id="datepicker" type="text" data-range="true"
-	                   data-multiple-dates-separator="    ~    "
+	                   data-multiple-dates-separator="  ~  "
 	                   todayButton="true" class="datepicker-here"
 	                     placeholder="  체크인       ㅡ       체크아웃" />
          	</div>

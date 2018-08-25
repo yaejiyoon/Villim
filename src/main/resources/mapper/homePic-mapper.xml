@@ -8,5 +8,9 @@
 		select * from home_pic where home_seq = #{seq}
 	</select>
 	
-
+	<select id="getHomePic" parameterType="int"
+		resultType="HomePic">
+		select * from home_pic
+	</select>
+	
 </mapper>

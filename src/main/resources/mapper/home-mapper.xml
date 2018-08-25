@@ -3,29 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
-<!--    예지 -->
-	<select id="getAllHomeDataMain" resultType="Home">
-      select * from home
-   </select>
-	
-<!-- 	<select id="searchHomeData" resultType="Home"> -->
-<!--       select * from home -->
-<!--       	<trim prefix="where" prefixOverrides="and"> -->
-<!--          <if test="homeType!=0"> -->
-<!--             home_type = #{homeType} -->
-<!--          </if> -->
-<!--          <if test="people!=null"> -->
-<!--             and home_people >= #{homeType} -->
-<!--          </if> -->
-<!--        </trim> -->
-<!--    </select> -->
-   
-   
-   <select id="getHomeOnMap" resultType="Home" parameterType="Double">
-      select * from home where home_lat between #{swLat} and #{neLat} and home_lng between #{swLng} and #{neLng}
-   </select>
-	
-<!--    인형 -->
    <select id="getAllHomeData" parameterType="String"
       resultType="Home">
       select * from Home where member_email= #{member_email}
@@ -175,7 +152,42 @@
       order by
       G_REVIEW_VALUE desc
    </select>
-
+   
+   <!--  예지 -->
+	<select id="getAllHomeDataMain" resultType="Home">
+      select * from home
+   </select>
+	
+   <select id="getHomeOnMap" resultType="Home" parameterType="map" >
+      select * from home where home_lat between #{swLat} and #{neLat} and home_lng between #{swLng} and #{neLng} and home_people >= #{people}
+   		<if test="!homeType.equalsIgnoreCase('0')">
+            and home_type = #{homeType}
+         </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+   
+   	<select id="searchHomeData" resultType="Home" parameterType="map" >
+      select * from home where home_people >= #{people}
+         <if test="!homeType.equalsIgnoreCase('0')">
+            and home_type = #{homeType}
+         </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+   
 
    <!-- <select id="getReviewCheckin" resultType="int"> -->
    <!-- select G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) from guest_review -->

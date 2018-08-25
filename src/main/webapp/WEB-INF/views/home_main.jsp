@@ -93,8 +93,6 @@ function initMap() {
 	 		var swLatLng = map.getBounds().getSouthWest();
 	 		// 북동쪽의 좌표
 	 		var neLatLng = map.getBounds().getNorthEast(); 
-// 	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-// 	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
 		  });
 	 	
 	</c:if>
@@ -110,14 +108,6 @@ function initMap() {
 		infoWindow = new google.maps.InfoWindow;
 		
 		google.maps.event.addListenerOnce(map, 'idle', function(){
-
-//	 		// 남서쪽의 좌표
-	 		var swLatLng = map.getBounds().getSouthWest();
-	 		// 북동쪽의 좌표
-	 		var neLatLng = map.getBounds().getNorthEast(); 
-			
-// 	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-// 	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
 
 		  });
 		
@@ -138,7 +128,7 @@ function initMap() {
 		 });
 		google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
 		    return function() {
-		      infoWindow.setContent(locations[i][0]);
+		      infoWindow.setContent(locations[i][0]+" 원");
 		      infoWindow.open(map, marker);
 		    }
 		})(marker, i));
@@ -157,21 +147,18 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
-	$("#map").mouseup(function() {
+// 	$("#map").mouseup(function() {
+	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
 		var swLatLng = map.getBounds().getSouthWest();
 		// 북동쪽의 좌표
 		var neLatLng = map.getBounds().getNorthEast(); 
-		
-// 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-// 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
 		
 		var swLat = map.getBounds().getSouthWest().lat();
 		var neLat = map.getBounds().getNorthEast().lat();
 		var swLng = map.getBounds().getSouthWest().lng();
 		var neLng = map.getBounds().getNorthEast().lng();
 		
-// 		$(location).attr("href","mapMove.do?swLat="+swLat+"&neLat="+neLat+"&swLng="+swLng+"&neLng="+neLng);
 		var latlng = {swLat:swLat, neLat:neLat, swLng:swLng, neLng:neLng};
 		
 		var on = document.getElementById('mapOnDiv');
@@ -183,13 +170,12 @@ $(document).ready(function() {
 		       data:latlng,
 		       success:function(resp){
 		    	   $('.col-md-4').remove();
-		    	   for(var i = 0; i < resp.length ; i++) {
+		    	   for(var i = 0; i < resp.home.length ; i++) {
 		    		   $('.row').append(
 		    			$('<div>').attr('class','col-md-4').append(
 		    			 $('<div>').attr('id','carouselDiv '+i).append(
-		    			  $('<div>').attr('id',resp[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
-		    			  	$('<ol>').attr('class','carousel-indicators').append(
-		    			  	  $('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','0').attr('class','active '+i).attr('id','li'+resp[i].home_seq)
+		    			  $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
+		    			  	$('<ol>').attr('class','carousel-indicators').attr('id','ol'+resp.home[i].home_seq).append(
 		    			  	)
 		    			  )
 		    			 )
@@ -197,34 +183,74 @@ $(document).ready(function() {
 		    		   );
 					}
 		    	   
-		    	   for(var i = 0; i < resp.length ; i++) {
-						$('#li'+resp[i].home_seq).after($('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','2'));
-						$('#li'+resp[i].home_seq).after($('<li>').attr('data-target','#'+resp[i].home_seq).attr('data-slide-to','1'));
+		    	   for(var i = 0; i < resp.home.length ; i++) {
+			    	   var count = 0;
+			    	   for(var j = 0; j < resp.pic.length ; j++) {
+			    		   if(resp.home[i].home_seq == resp.pic[j].home_seq) {
+			    			    if(count==0) {
+									$('#ol'+resp.home[i].home_seq).append($('<li>').attr('data-target','#'+resp.home[i].home_seq).attr('data-slide-to',count).attr('class','active'));
+			    			    } else {
+									$('#ol'+resp.home[i].home_seq).append($('<li>').attr('data-target','#'+resp.home[i].home_seq).attr('data-slide-to',count));
+			    			    }
+								count++;
+			    		   }
+						}
 					}
 		    	   
-					for(var i = 0; i < resp.length ; i++) {
-						$('#'+resp[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp[i].home_price+" /박"));
-						$('#'+resp[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp[i].home_name+"</b>"));
-						$('#'+resp[i].home_seq).after($('<p>').attr('class','homeType').append(resp[i].home_type));
+					for(var i = 0; i < resp.home.length ; i++) {
+						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp.home[i].home_price+" /박"));
+						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp.home[i].home_name+"</b>"));
+						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeType').append(resp.home[i].home_type));
 					}
 					
-		    	    for(var i = 0; i < resp.length ; i++) {
-					  $('#'+resp[i].home_seq).after($('<div>').attr('class','carousel-inner '+i).append(
-						$('<div>').attr('class','item active').append(
-								 $('<img>').attr('src',"<c:url value='files/"+resp[i].home_main_pic+"'/>")
-					  )));
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+					  $('#ol'+resp.home[i].home_seq).after($('<div>').attr('class','carousel-inner').attr('id','inner'+resp.home[i].home_seq));
 				    }
 		    	    
-		    	    for(var i = 0; i < resp.length ; i++) {
-					  $('.carousel-inner '+resp[i].home_seq).after(
-					  	$('<a>').attr('class','left carousel-control').attr('href','#'+resp[i].home_seq).attr('data-slide','prev').append(
-					  	  $('<span>').attr('class','glyphicon glyphicon-chevron-right').attr('id','prev '+resp[i].home_seq)
-					  	)
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+		    	    	var count = 0;
+		    	    	for(var j = 0; j < resp.pic.length ; j++) {
+		    	    		if(resp.home[i].home_seq == resp.pic[j].home_seq) {
+		    	    			if(count==0) {
+									$('#inner'+resp.home[i].home_seq).append($('<div>').attr('class','item active').append(
+											$('<img>').attr('src',"<c:url value='files/"+resp.pic[j].home_pic_name+"'/>")
+									));
+			    			    } else {
+			    			    	$('#inner'+resp.home[i].home_seq).append($('<div>').attr('class','item').append(
+											$('<img>').attr('src',"<c:url value='files/"+resp.pic[j].home_pic_name+"'/>")
+									));
+			    			    }
+								count++;
+		    	    		}
+		    	    	}
+		    	    }
+		    	    
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+					  $('#inner'+resp.home[i].home_seq).after(
+					  	$('<a>').attr('class','left carousel-control').attr('href','#'+resp.home[i].home_seq).attr('data-slide','prev').attr('id','prev'+resp.home[i].home_seq)
 					  );
 				    }
 		    	    
-		    	    for(var i = 0; i < resp.length ; i++) {
-					  $('#prev '+resp[i].home_seq).after($('<span>').attr('class','sr-only').append("Previous"));
+		    	    for (var i = 0; i < resp.home.length ; i++) {
+						$('#prev'+resp.home[i].home_seq).append($('<span>').attr('class','glyphicon glyphicon-chevron-left').attr('id','left'+resp.home[i].home_seq));
+					}
+		    	    
+		    	    for (var i = 0; i < resp.home.length ; i++) {
+						$('#left'+resp.home[i].home_seq).after($('<span>').attr('class','sr-only').append("Previous"));
+					}
+		    	    
+		    	    for(var i = 0; i < resp.home.length ; i++) {
+						$('#inner'+resp.home[i].home_seq).after(
+							$('<a>').attr('class','right carousel-control').attr('href','#'+resp.home[i].home_seq).attr('data-slide','next').attr('id','next'+resp.home[i].home_seq)
+					   );
+					}
+			    	    
+			    	for (var i = 0; i < resp.home.length ; i++) {
+						$('#next'+resp.home[i].home_seq).append($('<span>').attr('class','glyphicon glyphicon-chevron-right').attr('id','right'+resp.home[i].home_seq));
+					}
+			    	    
+			    	for (var i = 0; i < resp.home.length ; i++) {
+						$('#right'+resp.home[i].home_seq).after($('<span>').attr('class','sr-only').append("Next"));
 					}
 					
 					on.style.display = 'block';    
@@ -273,13 +299,13 @@ $(document).ready(function() {
 	   });  
 	
 	
-	<c:if test="${mapOn!=null}">
-	   $('#myonoffswitch').prop('checked', true);
-	   var on = document.getElementById('mapOnDiv');
-	   var off = document.getElementById('mapOffDiv');
-	   on.style.display = 'block';
-	   off.style.display = 'none';
-	</c:if>
+		<c:if test="${mapOn!=null}">
+		   $('#myonoffswitch').prop('checked', true);
+		   var on = document.getElementById('mapOnDiv');
+		   var off = document.getElementById('mapOffDiv');
+		   on.style.display = 'block';
+		   off.style.display = 'none';
+		</c:if>
 
 	$('body').delegate('.submit','click',function(){
         var chkval = 1;
@@ -290,7 +316,6 @@ $(document).ready(function() {
        url: "homeMain.do",
        type: "get",
        data:{chkval:chkval},
-
        
        success:function(returndata){
 			on.style.display = 'block';    
@@ -300,10 +325,39 @@ $(document).ready(function() {
        }
      });
    });  
+	
 })
 
 
 </script>
+<script>
+
+	<%
+	String homeType = (String)session.getAttribute("homeType");
+	if(!homeType.equals("0")) {%>
+		$(document).ready(function() {
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
+			homeTypeBt.style.backgroundColor = '#008489';
+			homeTypeBt.style.color = "white";
+			homeTypeBt.style.borderRadius = "10px";
+		})
+	<%}%>
+	
+	<%
+	int people = (int) session.getAttribute("people"); 
+	if(people!=0) {%>
+		$(document).ready(function() {
+			var homeTypeBt = document.getElementById('peopleBt');
+			homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
+			homeTypeBt.style.backgroundColor = '#008489';
+			homeTypeBt.style.color = "white";
+			homeTypeBt.style.borderRadius = "10px";
+		})
+	<%}%>
+	
+</script>
+
 
 <style>
 	@font-face {
@@ -611,49 +665,44 @@ $(document).ready(function() {
 				<%int cnt=0;%>
 					<c:forEach var="homeList" items="${homeList}" varStatus="status">
 						<div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-						  <ol class="carousel-indicators">
-						    <li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
-						    <li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
-						    <li data-target="#${homeList.home_seq}" data-slide-to="2"></li>
-						  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					
-					    <div class="item">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					
-					    <div class="item">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
+					  		<div id="carouselDiv">
+								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
+								  		<!-- Indicators -->
+								  <ol class="carousel-indicators">
+									<li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
+									<li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
+								  </ol>
+							 		 <!-- Wrapper for slides -->
+								  <div class="carousel-inner">
+								    <div class="item active">
+								      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
+								    </div>
+								
+								    <div class="item">
+								      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
+								    </div>
+								
+								  </div>
+							
+							  		<!-- Left and right controls -->
+								  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
+								    <span class="glyphicon glyphicon-chevron-left"></span>
+								    <span class="sr-only">Previous</span>
+								  </a>
+								  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
+								    <span class="glyphicon glyphicon-chevron-right"></span>
+								    <span class="sr-only">Next</span>
+								  </a>
+								</div>
+							<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
+		                  <p class="homeName" id="homeName<%=cnt%>">
+		                     <B>${homeList.home_name}</B>
+		                  </p>
+		                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
+		                  <p class="reviewStar">★★★★★</p>
+		                  <p class="reviewCount">247</p>
+		                  <p class="hostTitle">슈퍼호스트</p>
 						</div>
-						<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
-	                  <p class="homeName" id="homeName<%=cnt%>">
-	                     <B>${homeList.home_name}</B>
-	                  </p>
-	                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
 				  </div>
 					<%cnt++; %>
 					</c:forEach>

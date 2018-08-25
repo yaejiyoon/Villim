@@ -465,7 +465,7 @@ $(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">가격대 지정하기</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	가능한 요금의 범위 : <div class="range range-value" id="moneyTop"></div>
 					<p>평균 1박 요금은 <b>₩88,001</b>입니다 </p>
 					<br>
