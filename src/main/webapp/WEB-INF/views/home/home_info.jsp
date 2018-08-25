@@ -956,7 +956,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<h6 style="display: inline;">342</h6>
             		</div>
             		<div id="fixed-sub02">
-            		 	<form action="reservation.re" method="post">
+            		 	<form action="reservReq.re" method="post">
             		 	
             			<br>
             			날짜

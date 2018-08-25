@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,9 +28,11 @@ import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.ReviewService;
 import kh.spring.interfaces.HomeService;
+import kh.spring.interfaces.MemberService;
 import kh.spring.interfaces.ReservService;
 
 @Controller
@@ -43,6 +46,9 @@ public class HomeInfoController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
@@ -115,28 +121,37 @@ public class HomeInfoController {
 		List<String> amenitiesList = new ArrayList<>();
 		System.out.println(amenities);
 		
-		for(int i=0;i<amenities.split(",").length;i++) {
-			amenitiesList.add(amenities.split(",")[i]);
+		if(amenities != null) {
+			for(int i=0;i<amenities.split(",").length;i++) {
+				amenitiesList.add(amenities.split(",")[i]);
+			}
 		}
+		
 		
 		//사용 가능 공간
 		String access = hdto.getHome_guest_access();
 		List<String> accessList = new ArrayList<>();
 		System.out.println(access);
 		
-		for(int i=0;i<access.split(",").length;i++) {
-			accessList.add(access.split(",")[i]);
+		if(access != null) {
+			for(int i=0;i<access.split(",").length;i++) {
+				accessList.add(access.split(",")[i]);
+			}
 		}
+		
 		
 		//안전 시설
 		String safety = hdto.getHome_safety();
 		List<String> safetyList = new ArrayList<>();
 		System.out.println(safety);
 
-		for(int i=0;i<safety.split(",").length;i++) {
-			safetyList.add(safety.split(",")[i]);
+		
+		if(safety != null) {
+			for(int i=0;i<safety.split(",").length;i++) {
+				safetyList.add(safety.split(",")[i]);
+			}
 		}
-
+		
 		//편의시설 totalCount
 		int amenitiesCount = amenitiesList.size() + accessList.size() + safetyList.size();
 		System.out.println(amenitiesCount);
@@ -145,31 +160,23 @@ public class HomeInfoController {
 		String rules = hdto.getHome_rules();
 		List<String> rulesList = new ArrayList<>();
 		System.out.println(rules);
-
-		for(int i=0;i<rules.split(",").length;i++) {
-			rulesList.add(rules.split(",")[i]);
+		
+		if(rules != null) {
+			for(int i=0;i<rules.split(",").length;i++) {
+				rulesList.add(rules.split(",")[i]);
+			}
 		}
 		
 		//숙소 이용 규칙 더보기
 		String rulesDetails = hdto.getHome_details();
 		List<String> rulesDetailsList = new ArrayList<>();
-		List<String> rulesDetailsList1 = new ArrayList<>();
-		List<String> rulesDetailsList2 = new ArrayList<>();
 		System.out.println(rules);
 		
-
-		for(int i=0;i<rulesDetails.split(",").length;i++) {
-			rulesDetailsList.add(rulesDetails.split(",")[i]);
+		if(rulesDetails != null) {
+			for(int i=0;i<rulesDetails.split(",").length;i++) {
+				rulesDetailsList.add(rulesDetails.split(",")[i]);
+			}
 		}
-		
-		for(int i=0;i<rulesDetailsList.size();i++) {
-			rulesDetailsList1.add(rulesDetailsList.get(i).split(":")[0]);
-		}
-		
-		for(int i=0;i<rulesDetailsList.size();i++) {
-			rulesDetailsList2.add(rulesDetailsList.get(i).split(":")[1]);
-		}
-		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
@@ -184,10 +191,7 @@ public class HomeInfoController {
 		mav.addObject("amenitiesCount", amenitiesCount);
 		mav.addObject("rulesList", rulesList);
 		mav.addObject("rulesDetailsList", rulesDetailsList);
-		mav.addObject("rulesDetailsList1", rulesDetailsList1);
-		mav.addObject("rulesDetailsList2", rulesDetailsList2);
 		mav.setViewName("home/home_info");
-		
 		return mav;
 	}
 	
@@ -389,17 +393,17 @@ public class HomeInfoController {
 		}
 	}
 	
-	@RequestMapping("/reservation.re")
-	public ModelAndView reservation(ReservationDTO dto,HttpServletRequest req) {
+	@RequestMapping("/reservReq.re")
+	public ModelAndView reservReq(ReservationDTO dto,HttpServletRequest req, HttpSession session) {
 		
 		String blockedDate = req.getParameter("blockedDate");
 		System.out.println(blockedDate);
 		
-		int updateBlockDate = homeService.updateBlockedDate(blockedDate, dto.getHome_seq());
+		//int updateBlockDate = homeService.updateBlockedDate(blockedDate, dto.getHome_seq());
 		
-		if(updateBlockDate>0) {
-			System.out.println("???????");
-		}
+//		if(updateBlockDate>0) {
+//			System.out.println("???????");
+//		}
 		
 		String amount = dto.getTotalAmount();
 		
@@ -420,26 +424,74 @@ public class HomeInfoController {
 		
 		System.out.println(11);
 		
+		//session에 reservationDTO 정보 저장
+		session.setAttribute("ReserveDTO", dto);
 		
-		int insertReserve = reservService.insertData(dto);
+		
 		HomeDTO hdto = homeService.getHomeData(dto.getHome_seq());
 		
 		
 		System.out.println(22);
-		if(insertReserve>0) {
+		/*if(insertReserve>0) {
 			System.out.println("되라되라도리ㅏㅓㅑㅓㄹ아ㅓ");
+		}*/
+		
+		String checkIn = dto.getReserv_checkin();
+		String checkOut = dto.getReserv_checkout();
+		
+		System.out.println(checkIn+ " : " +checkOut);
+		
+		String checkInDate = null;
+		String checkOutDate = null;
+		
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+	        checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+	        
+			System.out.println(checkInDate+ " : " +checkOutDate);
 		}
+        
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dto", dto);
 		mav.addObject("hdto", hdto);
-		mav.setViewName("home/paymentReq");
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.setViewName("home/reservationReq");
 
 		return mav;
 		
 	}
 	
-	public void paymentReq() {
+	@RequestMapping("/reservReqToHost.re")
+	public String reservReqToHost(HttpServletRequest req) {
+		ReservationDTO reservDTO = (ReservationDTO) req.getSession().getAttribute("ReserveDTO");
+		
+		System.out.println(reservDTO.getTotalAmount());
+		
+		int insertReserve = reservService.insertData(reservDTO);
+		
+		return "redirect:home_info.do?seq="+ reservDTO.getHome_seq();
+	}
+	
+	@RequestMapping("/paymentReq.re")
+	public ModelAndView paymentReq(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
+		
+		//예약 정보
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		
+		System.out.println(reservation_seq);
+		
+		//예약자 정보
+		MemberDTO memberDTO = memberService.printProfile(reservationDTO.getMember_email());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("memberDTO", memberDTO);
+		mav.setViewName("home/payment");
+
+		return mav;
 		
 	}
 	

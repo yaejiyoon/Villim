@@ -1,0 +1,158 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="<c:url value="../resources/css/home/reservationReq.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/payment.css?var=2" />" rel="stylesheet" />
+
+<!-- 결제 -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+
+<script>
+	$(document).ready(function(){
+		$("#toindex").click(function(){
+			$(location).attr("href","/");
+		});
+		
+		$("#paymentBT").click(function(){
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp31935218');
+			
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : 'villim',
+			    amount : ${reservationDTO.totalAmount},
+			    buyer_email : '${memberDTO.member_email}',
+			    buyer_name : '${memberDTO.member_name}',
+			    buyer_tel : '${memberDTO.member_phone}',
+			    buyer_addr : '${memberDTO.member_location}',
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+		});
+	})
+</script>
+<style>
+@font-face {
+	font-family: font2;
+	src: url('<c:url value='/ resources/ fonts/dx.ttf'/>');
+}
+
+@font-face {
+        font-family: font;
+        src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
+   }
+</style>
+</head>
+<body>
+	<div id="paymemntWrapper">
+		<div id="paymentheader">
+			<div style="float:left; width:7%; height:100%;">
+				<img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
+			</div>
+			<div style="float:left; width:93%; height:100%;">
+				<p id="text"> > 확인 및 결제</p>
+			</div>
+		</div>
+		<div id="paymentContent">
+			<div id="paymentLeft">
+				<div id="paymentLeft-content01">
+					<p>확인 및 결제</p>
+					<br>
+					<p class="title">환불 정책: 유연 — 취소 무료</p>
+					<p>체크인 24시간 전까지 예약을 취소하면 전액 환불됩니다. 그 이후 체크인 전에 취소하면 첫 1박 요금은 환불되지 않습니다.</p>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<p><a href="home_info.jsp?seq="+${reservationDTO.home_seq } class="greenA">숙소 이용규칙</a>, <a href="#" class="greenA">환불 정책</a>, 및 <a href="#" class="greenA">게스트 환불 정책</a>에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.</p>
+					
+					<br>
+					<br>
+					<button id="paymentBT" class="btn btn-secondary">확인 및 결제</button>
+					<br>
+					<br>
+					<br>
+				</div>
+			</div>
+			<div id="paymentRight">
+				<div id="paymentRight-content">
+					<div id="content01">
+						<div id="content01-homeName">
+							<p>${hdto.home_name }집집집집집집집집집</p>
+							<p>Jeju-si의 개인실</p>
+							<p>★★★★★</p><p>후기 137개</p>
+							<p></p>
+						</div>
+						<div id="content01-homepic">
+							<img src="<c:url value='/resources/img/home.jpg'/>">
+						</div>
+					</div>
+					<div id="content02">
+						<div style="margin:5px 0px;">
+							<img src="<c:url value='/resources/img/group.png'/>" id="group">
+							<p style="display: inline;">게스트 ${hdto.home_people }명</p>
+						</div>
+						<div style="margin:5px 0px 7px 0px;">
+							<img src="<c:url value='/resources/img/calendar.png'/>" id="calen">
+							<p style="display: inline;">${checkInDate }     →    ${checkOutDate }</p>
+						</div>
+					</div>
+					<div id="content03">
+						<div style="margin:5px 0px;">
+							<p style="display: inline; float:left;">₩85,000 x 2박</p>
+							<p style="display: inline; float:right;">₩170,000</p>
+						</div style="margin:5px 0px;">
+						<div style="margin:5px 0px;">
+							<p style="display: inline; float:left;">청소비</p>
+							<p style="display: inline; float:right;">₩9,000</p>
+						</div>
+						<div style="margin:5px 0px;">
+							<p style="display: inline; float:left;">서비스 수수료</p>
+							<p style="display: inline; float:right;">₩24,730</p>
+						</div>
+					</div>
+					<div id="content04" >
+						<p style="display: inline; float:left;">총 합계 (KRW)</p>
+						<p style="display: inline; float:right; font-weight: 600;">₩203,730</p>
+					</div>
+					<div id="content05">
+						<p class="title" style="float: left;">환불 정책: 유연 — 취소 무료</p>
+						<p style="float: left;">48시간 이내에 취소하면<br> 전액이 환불됩니다. <a class="greenA" href="#" style="font-weight: 400;">자세히 알아보기</a></p>
+						<img src="<c:url value='/resources/img/refund.jpg'/>" style="position:absolute; width:50px; right:15px;">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="paymentfooter">
+			<img src="<c:url value='/resources/img/logo.png'/>">
+			<img src="<c:url value='/resources/img/copyright.png'/>" style="width:15px;">
+			<p>villim, Inc.</p>
+		</div>
+	</div>
+</body>
+</html>

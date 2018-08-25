@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/paymentReq.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/reservationReq.css?var=1" />" rel="stylesheet" />
 <script>
 	$(document).ready(function(){
 		$("#toindex").click(function(){
@@ -23,7 +23,7 @@
 <style>
 @font-face {
 	font-family: font2;
-	src: url('<c:url value='/ resources/ fonts/ dx.ttf '/>');
+	src: url('<c:url value='/ resources/ fonts/ dx.ttf'/>');
 }
 
 @font-face {
@@ -31,6 +31,13 @@
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
    }
 </style>
+<script>
+	$(document).ready(function(){
+		$("#requestBT").click(function(){
+			$(location).attr('href','reservReqToHost.re');
+		});
+	})
+</script>
 </head>
 <body>
 	<div id="paymemntWrapper">
@@ -39,7 +46,7 @@
 				<img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
 			</div>
 			<div style="float:left; width:93%; height:100%;">
-				<p id="text">> 예약 확인 및 요청</p>
+				<p id="text"> > 예약 확인 및 요청</p>
 			</div>
 		</div>
 		<div id="paymentContent">
@@ -49,6 +56,14 @@
 					<br>
 					<p class="title">숙박에 대해 반드시 알아야 할 사항</p>
 					<ul>
+						<li>숙소 편의시설: 개인실와(과) 주방</li>
+						<li>포함 편의시설: 건물 내 무료 주차, 아침식사 등</li>
+						<li>숙소 편의시설: 개인실와(과) 주방</li>
+						<li>숙소 편의시설: 개인실와(과) 주방</li>
+						<li>숙소 편의시설: 개인실와(과) 주방</li>
+						<li>포함 편의시설: 건물 내 무료 주차, 아침식사 등</li>
+						<li>숙소 편의시설: 개인실와(과) 주방</li>
+						<li>숙소 편의시설: 개인실와(과) 주방</li>
 						<li>숙소 편의시설: 개인실와(과) 주방</li>
 						<li>포함 편의시설: 건물 내 무료 주차, 아침식사 등</li>
 						<li>숙소 편의시설: 개인실와(과) 주방</li>
@@ -63,6 +78,7 @@
 					<div class="content02">키패드(으)로 셀프 체크인</div>
 					<p style="margin-top: 20px; font-size: 2vh;">알아두어야 할 사항</p>
 					계단을 올라가야 함
+					
 					<br>
 					<br>
 					<a href="">더 보기</a>
@@ -79,39 +95,40 @@
 				<div id="paymentRight-content">
 					<div id="content01">
 						<div id="content01-homeName">
-							<p>Sometimesjeju 201호!<br>안전도어락!<br>통유리오션뷰!</p>
+							<p>${hdto.home_name }</p>
 							<p>Jeju-si의 개인실</p>
 							<p>★★★★★</p><p>후기 137개</p>
+							<p></p>
 						</div>
 						<div id="content01-homepic">
 							<img src="<c:url value='/resources/img/home.jpg'/>">
 						</div>
 					</div>
 					<div id="content02">
-						<div>
+						<div style="margin:5px 0px;">
 							<img src="<c:url value='/resources/img/group.png'/>" id="group">
-							<p style="display: inline;">게스트 1명</p>
+							<p style="display: inline;">게스트 ${hdto.home_people }명</p>
 						</div>
-						<div>
+						<div style="margin:5px 0px 7px 0px;">
 							<img src="<c:url value='/resources/img/calendar.png'/>" id="calen">
-							<p style="display: inline;">2018년 9월 25일     →    2018년 9월 27일</p>
+							<p style="display: inline;">${checkInDate }     →    ${checkOutDate }</p>
 						</div>
 					</div>
 					<div id="content03">
-						<div>
+						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">₩85,000 x 2박</p>
 							<p style="display: inline; float:right;">₩170,000</p>
-						</div>
-						<div>
+						</div style="margin:5px 0px;">
+						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">청소비</p>
 							<p style="display: inline; float:right;">₩9,000</p>
 						</div>
-						<div>
+						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">서비스 수수료</p>
 							<p style="display: inline; float:right;">₩24,730</p>
 						</div>
 					</div>
-					<div id="content04">
+					<div id="content04" >
 						<p style="display: inline; float:left;">총 합계 (KRW)</p>
 						<p style="display: inline; float:right; font-weight: 600;">₩203,730</p>
 					</div>

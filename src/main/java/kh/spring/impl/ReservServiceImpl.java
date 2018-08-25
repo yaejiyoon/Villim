@@ -18,4 +18,9 @@ public class ReservServiceImpl implements ReservService{
 		return reservDAO.insertData(dto);
 	}
 
+	@Override
+	public ReservationDTO getReservationData(int seq) {
+		return reservDAO.getReservationData(seq);
+	}
+
 }
