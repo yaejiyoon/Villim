@@ -139,4 +139,9 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.searchHomeData(homeType, people, dates, dateIsChecked);
 	}
 
+	@Override
+	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
+	return hdao.modalHomeData(param);
+	}
+
 }

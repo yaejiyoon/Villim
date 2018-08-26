@@ -10,6 +10,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
+
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
 $(function () {
@@ -147,8 +153,8 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
-// 	$("#map").mouseup(function() {
-	$("#map").mousemove(function() {
+	$("#map").mouseup(function() {
+// 	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
 		var swLatLng = map.getBounds().getSouthWest();
 		// 북동쪽의 좌표
@@ -256,7 +262,7 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					alert("에러에러");
+					alert("error");
 		       }
 		});
 
@@ -293,7 +299,7 @@ $(document).ready(function() {
 					off.style.display = 'block';    
 	    	   }
 	       },error:function(errordata){
-				alert("에러에러");
+				alert("error");
 	       }
 	     });
 	   });  
@@ -321,7 +327,7 @@ $(document).ready(function() {
 			on.style.display = 'block';    
 			off.style.display = 'none';
 	   },error:function(errordata){
-			alert("에러에러");
+			alert("error");
        }
      });
    });  

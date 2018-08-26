@@ -47,6 +47,8 @@ public class HomeMainController {
 	public ModelAndView search(HttpServletRequest request, HttpSession session, String homeType, int people, String lat, String lng, String startDate, String endDate) throws Exception  {
 		session.setAttribute("homeType", homeType);
 		session.setAttribute("people", people);
+		session.setAttribute("minMoney", 0);
+		session.setAttribute("maxMoney", 1001000);
 		System.out.println("homeType : "+homeType);
 		System.out.println("people : "+people);
 		System.out.println("startDate : "+startDate);
@@ -112,11 +114,14 @@ public class HomeMainController {
 		Double swLng = Double.parseDouble(request.getParameter("swLng"));
 		Double neLng = Double.parseDouble(request.getParameter("neLng"));
 		
+		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("homeType", (String) session.getAttribute("homeType"));
 		param.put("people", session.getAttribute("people"));
 		param.put("dates", (List) session.getAttribute("dates"));
 		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
 		
 		param.put("swLat", swLat);
 		param.put("neLat", neLat);
@@ -137,5 +142,31 @@ public class HomeMainController {
 		new Gson().toJson(homeMapChange ,response.getWriter());
 		
 	}
+	
+	@RequestMapping("/modalHome.do")
+	public ModelAndView modalChange(HttpSession session, HttpServletRequest request, int modalPeople) {
+		
+		session.setAttribute("people", modalPeople);
+		List dates = (List) session.getAttribute("dates");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", (String) session.getAttribute("homeType"));
+		param.put("people", session.getAttribute("people"));
+		param.put("dates", (List) session.getAttribute("dates"));
+		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		List<HomeDTO> homeList = homeService.modalHomeData(param);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("homeList", homeList);
+		mav.addObject("mapOn", "mapOn");
+		mav.setViewName("home_main");
+		return mav;
+		
+	}
+	
 	
 }
