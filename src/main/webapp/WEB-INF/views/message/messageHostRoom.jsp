@@ -648,9 +648,9 @@ $(document).ready(function(){
     <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:2vh;left:1vw;">거절</button> 
     
     <script>
-    	$("#acceptBT").click(function(){
-    		$(location).attr('href','paymentReq.re?seq='+${reservCheck.reservation_seq});
-    	});
+    $("#acceptBT").click(function(){
+		$(location).attr('href','acceptReserv.re?seq='+${reservCheck.reservation_seq});
+	});
     </script>
   </div>
 </div>

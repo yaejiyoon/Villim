@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -96,7 +97,7 @@
 					<div id="content01">
 						<div id="content01-homeName">
 							<p>${hdto.home_name }</p>
-							<p>Jeju-si의 개인실</p>
+							<p>${hdto.home_addr1 }, ${hdto.home_addr2 }의 ${hdto.home_type }</p>
 							<p>★★★★★</p><p>후기 137개</p>
 							<p></p>
 						</div>
@@ -107,7 +108,7 @@
 					<div id="content02">
 						<div style="margin:5px 0px;">
 							<img src="<c:url value='/resources/img/group.png'/>" id="group">
-							<p style="display: inline;">게스트 ${hdto.home_people }명</p>
+							<p style="display: inline;">게스트 ${reservationDTO.population }명</p>
 						</div>
 						<div style="margin:5px 0px 7px 0px;">
 							<img src="<c:url value='/resources/img/calendar.png'/>" id="calen">
@@ -116,21 +117,24 @@
 					</div>
 					<div id="content03">
 						<div style="margin:5px 0px;">
-							<p style="display: inline; float:left;">₩85,000 x 2박</p>
-							<p style="display: inline; float:right;">₩170,000</p>
+						
+							<p style="display: inline; float:left;">
+							₩<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" /> x ${calDateDays }박
+							</p>
+							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.nightsAmount }" pattern="#,###" /></p>
 						</div style="margin:5px 0px;">
 						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">청소비</p>
-							<p style="display: inline; float:right;">₩9,000</p>
+							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.cleaningFee }" pattern="#,###" /></p>
 						</div>
 						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">서비스 수수료</p>
-							<p style="display: inline; float:right;">₩24,730</p>
+							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.serviceFee }" pattern="#,###" /></p>
 						</div>
 					</div>
 					<div id="content04" >
 						<p style="display: inline; float:left;">총 합계 (KRW)</p>
-						<p style="display: inline; float:right; font-weight: 600;">₩203,730</p>
+						<p style="display: inline; float:right; font-weight: 600;">₩<fmt:formatNumber value="${reservationDTO.totalAmount }" pattern="#,###" /></p>
 					</div>
 				</div>
 			</div>

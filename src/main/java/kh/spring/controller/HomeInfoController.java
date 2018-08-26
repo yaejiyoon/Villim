@@ -394,7 +394,7 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/reservReq.re")
-	public ModelAndView reservReq(ReservationDTO dto,HttpServletRequest req, HttpSession session) {
+	public ModelAndView reservReq(ReservationDTO reservationDTO,HttpServletRequest req, HttpSession session) {
 		
 		String blockedDate = req.getParameter("blockedDate");
 		System.out.println(blockedDate);
@@ -405,39 +405,50 @@ public class HomeInfoController {
 //			System.out.println("???????");
 //		}
 		
-		String amount = dto.getTotalAmount();
+		String amount = reservationDTO.getTotalAmount();
 		
-		dto.setGuset_review("N");
-		dto.setReservation_seq(1);
-		dto.setTotalAmount(amount.replaceAll("[^0-9]", ""));
-		
-		
-//		System.out.println(dto.getReservation_seq());
-//		System.out.println(dto.getMember_email());
-//		System.out.println(dto.getReserv_checkin());
-//		System.out.println(dto.getReserv_checkout());
-//		System.out.println(dto.getPopulation());
-//		System.out.println(dto.getAmount());
-//		System.out.println(dto.getHome_seq());
-//		System.out.println(dto.getHome_name());
-//		System.out.println(dto.getGuset_review());
-		
-		System.out.println(11);
+		reservationDTO.setGuset_review("N");
+		reservationDTO.setReservation_seq(1);
+		reservationDTO.setTotalAmount(amount.replaceAll("[^0-9]", ""));
+		reservationDTO.setNightsAmount(reservationDTO.getNightsAmount().replaceAll("[^0-9]", ""));
+		reservationDTO.setCleaningFee(reservationDTO.getCleaningFee().replaceAll("[^0-9]", ""));
+		reservationDTO.setServiceFee(reservationDTO.getServiceFee().replaceAll("[^0-9]", ""));
 		
 		//session에 reservationDTO 정보 저장
-		session.setAttribute("ReserveDTO", dto);
+		session.setAttribute("ReserveDTO", reservationDTO);
+		
+		// 홈 정보
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
 		
 		
-		HomeDTO hdto = homeService.getHomeData(dto.getHome_seq());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+        Date FirstDate = null;
+        Date SecondDate = null;
+		try {
+			FirstDate = format.parse(reservationDTO.getReserv_checkin());
+			SecondDate = format.parse(reservationDTO.getReserv_checkout());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
+        // 연산결과 -950400000. long type 으로 return 된다.
+        long calDate = FirstDate.getTime() - SecondDate.getTime(); 
+        
+        // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다. 
+        // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+        long calDateDays = calDate / ( 24*60*60*1000); 
+ 
+        calDateDays = Math.abs(calDateDays);
+		
+        System.out.println("두 날짜의 날짜 차이: "+calDateDays);
 		
 		
-		System.out.println(22);
-		/*if(insertReserve>0) {
-			System.out.println("되라되라도리ㅏㅓㅑㅓㄹ아ㅓ");
-		}*/
-		
-		String checkIn = dto.getReserv_checkin();
-		String checkOut = dto.getReserv_checkout();
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
 		
 		System.out.println(checkIn+ " : " +checkOut);
 		
@@ -453,43 +464,65 @@ public class HomeInfoController {
         
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("dto", dto);
+		mav.addObject("reservationDTO", reservationDTO);
 		mav.addObject("hdto", hdto);
 		mav.addObject("checkInDate", checkInDate);
 		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("calDateDays", calDateDays);
 		mav.setViewName("home/reservationReq");
 
 		return mav;
 		
 	}
 	
+	@RequestMapping("/acceptReserv.re")
+	public ModelAndView acceptReserv(HttpServletRequest req) {
+		int reservation_Seq = Integer.parseInt(req.getParameter("seq"));
+		System.out.println("reservation_seq : "+reservation_Seq);
+		
+		//예약상태 업데이트 (1:예약 완료)
+		int updateState = reservService.updateReservState(reservation_Seq, 1);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+
+		return mav;
+	}
+	
 	@RequestMapping("/reservReqToHost.re")
-	public String reservReqToHost(HttpServletRequest req) {
+	public ModelAndView reservReqToHost(HttpServletRequest req) {
 		ReservationDTO reservDTO = (ReservationDTO) req.getSession().getAttribute("ReserveDTO");
 		
 		System.out.println(reservDTO.getTotalAmount());
 		
 		int insertReserve = reservService.insertData(reservDTO);
+		int home_seq = reservDTO.getHome_seq();
 		
-		return "redirect:home_info.do?seq="+ reservDTO.getHome_seq();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("insertReserve", insertReserve);
+		mav.addObject("home_seq", home_seq);
+		mav.setViewName("home/reservationProc");
+
+		return mav;
+		
 	}
 	
 	@RequestMapping("/paymentReq.re")
 	public ModelAndView paymentReq(HttpServletRequest req) {
-		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
-		
-		//예약 정보
-		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
-		
-		System.out.println(reservation_seq);
-		
-		//예약자 정보
-		MemberDTO memberDTO = memberService.printProfile(reservationDTO.getMember_email());
-		
+//		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
+//		
+//		//예약 정보
+//		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+//		
+//		System.out.println(reservation_seq);
+//		
+//		//예약자 정보
+//		MemberDTO memberDTO = memberService.printProfile(reservationDTO.getMember_email());
+//		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("reservationDTO", reservationDTO);
-		mav.addObject("memberDTO", memberDTO);
-		mav.setViewName("home/payment");
+//		mav.addObject("reservationDTO", reservationDTO);
+//		mav.addObject("memberDTO", memberDTO);
+//		mav.setViewName("home/payment");
 
 		return mav;
 		

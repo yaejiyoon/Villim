@@ -1460,7 +1460,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             			
             			<!-- 게스트 이메일로 바꾸기 -->
-            			<input type="hidden" name="member_email" value="${hdto.getMember_email() }">
+            			<input type="hidden" name="member_email" value="${sessionScope.login_email}">
             		 	<input type="hidden" name="reserv_checkin" id="reserv_checkin" value="">
             		 	<input type="hidden" name="reserv_checkout" id="reserv_checkout" value="">
             			<input type="hidden" name="population" id="population" value="1">

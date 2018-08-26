@@ -30,4 +30,10 @@ public class ReservDAOImpl implements ReservDAO{
 		return sqlSessionTemplate.selectOne("Reservation.getReservationData",seq);
 	}
 
+	@Override
+	public int updateReservState(int seq, int state) {
+		String sql = "update reservation set RESERV_STATE=? where reservation_seq=?";
+		return jdbcTemplate.update(sql,state,seq);
+	}
+
 }

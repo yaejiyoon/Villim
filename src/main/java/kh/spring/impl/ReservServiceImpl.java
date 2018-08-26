@@ -23,4 +23,9 @@ public class ReservServiceImpl implements ReservService{
 		return reservDAO.getReservationData(seq);
 	}
 
+	@Override
+	public int updateReservState(int seq, int state) {
+		return reservDAO.updateReservState(seq, state);
+	}
+
 }
