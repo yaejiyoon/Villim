@@ -121,12 +121,10 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Override
 	public List<MemberDTO> getAllMemberData() {
-	String sql = "select * from member";
+	String sql = "select member_seq, member_email, member_name, member_birth, member_picture, member_block,"
+			+ "to_char(to_date(member_signup_date),'YYYY-MM-DD') as member_signup_date, member_location from member";
 		
-		List<MemberDTO> list = new ArrayList<>();
-		
-		
-		
+
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper <MemberDTO>() {
 			@Override
 			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -141,21 +139,17 @@ public class MemberDAOImpl implements MemberDAO {
 				adminDto.setMember_date(rs.getString("member_signup_date"));
 				adminDto.setMember_location(rs.getString("member_location"));
 				
-				list.add(adminDto);
-				System.out.println(rowNum +"번째");
-				System.out.println("내부"+list.get(rowNum).getMember_seq());
-				
 				return adminDto;
 			}
-			
+		
 		});
-		for(int i=0; i<list.size(); i++) {
-			System.out.println(list.get(i).getMember_seq());
+		for(int j=0; j<result.size(); j++) {
+			System.out.println(result.get(j).getMember_seq() + "result");
 		}
-		return list;
-	}
-
-	
+		
+		return result;
+		}
+		
 	//-- 여기까지 재호
 
 

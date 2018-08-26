@@ -56,7 +56,7 @@
 	}
 	div{
 		border:1px solid white;
-		color:white;
+		color:blue;
 	}
 	#navi{
 		display:inline-block;
@@ -76,6 +76,11 @@
 	#title{
 		color:white;
 	}
+	
+	#memberChkModal{
+		width:100%;
+		
+	}
 
 </style>	
 <script>
@@ -93,20 +98,58 @@ $(document).ready(function(){
 		$.ajax({
 			url:"mainMemberInfoLoad.admin",
 			type : "get",
+			
 			success : function(response) {
 				
+/* 				$(".table table-striped").append("<tr>");
+				$(".table table-striped").append("<td>회원번호");
+				$(".table table-striped").append("<td>이메일");
+				$(".table table-striped").append("<td>이름");
+				$(".table table-striped").append("<td>생년월일");
+				$(".table table-striped").append("<td>프로필");
+				$(".table table-striped").append("<td>차단여부");
+				$(".table table-striped").append("<td>가입 날짜");
+				$(".table table-striped").append("<td>주소");
+				$(".table table-striped").append("/<tr>"); */
 				for(var i=0; i<response.length; i++){
-			
+					
+					$("#table").after("<tr>");
+					$("#table").after("<td>" + response[i].member_location);
+					$("#table").after("<td>" + response[i].member_date);
+					if(response[i].member_block == 'N'){
+					$("#table").after("<td><select id=selectbox"+i+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>");
+					
+					}else{
+					$("#table").after("<td><select id=selectbox"+i+"><option value='N'>N</option><option value='Y' selected='selected'>Y</option></select>");	
+					
+					}
+					$("#table").after("<td>" + response[i].member_picture);
+					$("#table").after("<td>" + response[i].member_birth);
+					$("#table").after("<td>" + response[i].member_name);
+					$("#table").after("<td>" + response[i].member_email);
+					$("#table").after("<td>"+ response[i].member_seq);
+					$("#table").after("/<tr>");
+					
+					$("#save").click(function(){
+						 alert($("#selectbox"+i+"" "option:selected").val());
+						
+					})
+					
+					
 				}
 				
-			}
+
 				
+
 			
-			
+			}
+
 		});
 	})
+
+
 	
-	 
+		 
 })
 
 </script>
@@ -170,7 +213,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
  		<table class="table table-striped">
-			<tr>
+			<tr id="table">
 				<td>회원번호
 				<td>이메일
 				<td>이름
@@ -184,7 +227,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" id="save">Save changes</button>
       </div>
     </div>
   </div>

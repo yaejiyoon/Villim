@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,22 +59,30 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 		List<MemberDTO> result = service.getAllMemberData();
 		JSONArray array = new JSONArray();
+		JSONObject json = null;
 		
+		
+
 		for(MemberDTO tmp:result) {
-		  System.out.println(tmp.getMember_seq());
+			
+			json = new JSONObject();
+			json.put("member_seq", tmp.getMember_seq());
+			json.put("member_email", tmp.getMember_email());
+			json.put("member_name", tmp.getMember_name());
+			json.put("member_birth", tmp.getMember_birth());
+			json.put("member_picture", tmp.getMember_picture());
+			json.put("member_block", tmp.getMember_block());
+			json.put("member_date", tmp.getMember_date());
+			json.put("member_location", tmp.getMember_location());
+			array.add(json);
+			
 		}
-//		for(MemberDTO tmp:result) {
-			
-			
-//			array.add(tmp.getMember_seq()+":"+tmp.getMember_email()+":"+tmp.getMember_name()+
-//				":" +tmp.getMember_birth() + ":" + tmp.getMember_picture() + ":" + 
-//				":" +tmp.getMember_block() + ":" + tmp.getMember_date() + ":" +
-//				":" +tmp.getMember_location());
-		
-//		}
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-
+		System.out.println(array.size());
+		for(int i=0; i<array.size(); i++) {
+		System.out.println(array.get(i) + "");
+		}
 		try {
 			
 		new Gson().toJson(array, response.getWriter());

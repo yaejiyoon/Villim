@@ -15,7 +15,13 @@ public class MemberDTO {
 	private String member_gender;
 	private String member_introduction;
 	private String member_type;
-
+	
+/*	public String toString() {
+		
+		return this.member_seq + ":" + this.member_email + ":" + this.member_name + ":" + this.member_birth + ":" + this.member_picture
+				+ ":" + this.member_block + ":" + this.member_date + ":" + this.member_location ;
+	}*/
+	
 	public String getMember_type() {
 		return member_type;
 	}
