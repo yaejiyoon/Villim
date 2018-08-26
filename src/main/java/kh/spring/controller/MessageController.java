@@ -1,15 +1,11 @@
 package kh.spring.controller;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,11 +15,9 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
@@ -273,12 +267,17 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageRoomEnter.msg")
-	public ModelAndView messageRoomEnter(HttpSession session,int message_room_seq,int home_seq,String member_picture,String member_name) {
+	public ModelAndView messageRoomEnter(HttpSession session,int message_room_seq,int home_seq,String member_picture,String member_name,String member_email,int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageRoomEnter");
         System.out.println("room_seq : "+message_room_seq);
+        System.out.println("message_seq : "+message_seq);
+        System.out.println("member_email : "+member_email);
 /*		session.setAttribute("userId", "jake@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
+		
+		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
+		
 		MemberDTO guestInfo=this.m_service.getPhoto(userId);
 		mav.addObject("userId", userId);
 		mav.addObject("message_room_seq", message_room_seq);
@@ -402,13 +401,16 @@ public class MessageController {
 	}
 	
 	@RequestMapping("/messageHostRoomEnter.msg")
-	public ModelAndView messageHostRoomEnter(HttpSession session,int message_room_seq,int home_seq,String member_picture,String member_name,String member_email) {
+	public ModelAndView messageHostRoomEnter(HttpSession session,int message_room_seq,int home_seq,String member_picture,String member_name,String member_email,int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageHostRoomEnter");
 		System.out.println("room_seq : "+message_room_seq);
 		System.out.println("home_seq : "+home_seq);
+		System.out.println("message_seq"+message_seq);
 		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
 		String userId = (String) session.getAttribute("userId");
+		
+		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
 		List<HomeDTO> getHomeNames=this.service.getHomeNames(userId);
 	    
 		System.out.println("호스트 이메일 : "+userId+" / 게스트 이메일 : "+member_email);
@@ -478,6 +480,10 @@ public class MessageController {
     	   datess.add(tmp);
     	   System.out.println(tmp);
        }
+       
+       for(String tmp:datess) {
+    	   System.out.println("최종 보낼 것"+tmp);
+       }
         mav.addObject("date", datess);
        try {
 		Date checkIn=sdf2.parse(cI);
@@ -523,6 +529,7 @@ public class MessageController {
 		dto2.setHome_seq(home_seq);
         System.out.println("이메일 : "+dto2.getMember_email()+" / 홈시퀸스 : "+dto2.getHome_seq());
 		ReservationDTO reservCheck=this.service.reservCheck(dto2);
+		
 		if(reservCheck!=null) {
 			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
 			mav.addObject("reservCheck", reservCheck);
@@ -538,14 +545,6 @@ public class MessageController {
 	
 	}
 	
-@RequestMapping("/ok.msg")
-public ModelAndView ok() {
-	ModelAndView mav=new ModelAndView();
-	
-	
-	mav.setViewName("/message/calender");
-	return mav;
-}
 
 @RequestMapping("/msgMainGuestAllRead.msg")
 public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response) throws Exception{
@@ -578,6 +577,7 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
 		for(int i=0;i<guestAllMessage.size();i++) {
 			JSONObject gmI=new JSONObject();
     		gmI.put("message_room_seq", guestAllMessage.get(i).getMessage_room_seq());
+    		gmI.put("message_seq", guestAllMessage.get(i).getMessage_seq());
     		gmI.put("home_seq", guestAllMessage.get(i).getHome_seq());
     		gmI.put("message_time", guestAllMessage.get(i).getMessage_time());
     		gmI.put("message_content", guestAllMessage.get(i).getMessage_content());
@@ -604,6 +604,7 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
     	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
 		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		gmI.put("member_email",guestMemberInfo.get(i).getMember_email());
 		jArray2.add(gmI);
     }
     obj.put("guestAllMemberInfo", jArray2);
@@ -657,6 +658,7 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	for(int i=0;i<guestUnreadMsg.size();i++) {
     		JSONObject gmI=new JSONObject();
     		gmI.put("message_room_seq", guestUnreadMsg.get(i).getMessage_room_seq());
+    		gmI.put("message_seq", guestUnreadMsg.get(i).getMessage_seq());
     		gmI.put("home_seq", guestUnreadMsg.get(i).getHome_seq());
     		gmI.put("message_time", guestUnreadMsg.get(i).getMessage_time());
     		gmI.put("message_content", guestUnreadMsg.get(i).getMessage_content());
@@ -683,6 +685,7 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
 		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		gmI.put("member_email",guestMemberInfo.get(i).getMember_email());
 		jArray2.add(gmI);
     }
     obj.put("guestMemberInfo", jArray2);
@@ -736,6 +739,7 @@ public void msgMainhostUnRead(HttpSession session,HttpServletResponse response) 
     	for(int i=0;i<hostUnreadMsg.size();i++) {
     		JSONObject gmI=new JSONObject();
     		gmI.put("message_room_seq", hostUnreadMsg.get(i).getMessage_room_seq());
+    		gmI.put("message_seq", hostUnreadMsg.get(i).getMessage_seq());
     		gmI.put("home_seq", hostUnreadMsg.get(i).getHome_seq());
     		gmI.put("message_time", hostUnreadMsg.get(i).getMessage_time());
     		gmI.put("message_content", hostUnreadMsg.get(i).getMessage_content());
@@ -762,6 +766,7 @@ public void msgMainhostUnRead(HttpSession session,HttpServletResponse response) 
     	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
 		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		gmI.put("member_email",guestMemberInfo.get(i).getMember_email());
 		jArray2.add(gmI);
     }
     obj.put("guestMemberInfo", jArray2);
@@ -819,6 +824,7 @@ public void msgMainHostAllRead(HttpSession session,HttpServletResponse response)
     	for(int i=0;i<hostMessage.size();i++) {
     		JSONObject gmI=new JSONObject();
     		gmI.put("message_room_seq", hostMessage.get(i).getMessage_room_seq());
+    		gmI.put("message_seq", hostMessage.get(i).getMessage_seq());
     		gmI.put("home_seq", hostMessage.get(i).getHome_seq());
     		gmI.put("message_time", hostMessage.get(i).getMessage_time());
     		gmI.put("message_content", hostMessage.get(i).getMessage_content());
@@ -845,6 +851,7 @@ public void msgMainHostAllRead(HttpSession session,HttpServletResponse response)
     	gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 		gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
 		gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
+		gmI.put("member_email",guestMemberInfo.get(i).getMember_email());
 		jArray2.add(gmI);
     }
     obj.put("guestAllMemberInfo", jArray2);

@@ -89,11 +89,32 @@ transition: transform .1s ease-in;
 .fa {
   color: #8E8E8E;
 }
+
+
+#loading {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
 </style>
 <script>
 
 	
  function ChangeGuestList() {
+	 
+          	 
 	    var guestList = document.getElementById("guestCheck");
 	 
 	    var selGuestList = guestList.options[guestList.selectedIndex].value;
@@ -125,11 +146,11 @@ transition: transform .1s ease-in;
 	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestUnreadMsg[i].message_time+"</h5>";
 	    				if(guestUnreadMsg[i].message_read==0){
 	    					output+="<div class=\"new-item-badge\">New</div>";
-		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+guestUnreadMsg[i].message_content+"</a><br>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+guestUnreadMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+guestUnreadMsg[i].message_content+"</a><br>";
 	    				}else{
-	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestUnreadMsg[i].message_content+"</a><br>";
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+guestUnreadMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestUnreadMsg[i].message_content+"</a><br>";
 	    				}
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+guestUnreadMsg[i].checkIn+" - "+guestUnreadMsg[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+guestUnreadMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+guestUnreadMsg[i].checkIn+" - "+guestUnreadMsg[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -143,7 +164,7 @@ transition: transform .1s ease-in;
 	    			}
 	    			  
 	    			$('.guestMsg').html(output);
-    				
+	    			
 	    		}
 	    		
 	    		
@@ -176,11 +197,11 @@ transition: transform .1s ease-in;
 	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+guestAllMsg[i].message_time+"</h5>";
 	    				if(guestAllMsg[i].message_read==0){
 	    					output+="<div class=\"new-item-badge\">New</div>";
-		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+guestAllMsg[i].message_content+"</a><br>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+guestAllMsg[i].message_content+"</a><br>";
 	    				}else{
-	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMsg[i].message_content+"</a><br>";
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMsg[i].message_content+"</a><br>";
 	    				}
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMemberInfo[i].member_location+" &nbsp;("+guestAllMsg[i].checkIn+" - "+guestAllMsg[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestAllMemberInfo[i].member_location+" &nbsp;("+guestAllMsg[i].checkIn+" - "+guestAllMsg[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -237,11 +258,11 @@ function ChangeHostList(){
 	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+hostUnreadMsg[i].message_time+"</h5>";
 	    				if(hostUnreadMsg[i].message_read==0){
 	    					output+="<div class=\"new-item-badge\">New</div>";
-		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+hostUnreadMsg[i].message_content+"</a><br>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+hostUnreadMsg[i].message_content+"</a><br>";
 	    				}else{
-	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+hostUnreadMsg[i].message_content+"</a><br>";
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+hostUnreadMsg[i].message_content+"</a><br>";
 	    				}
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostUnreadMsg[i].checkIn+" - "+hostUnreadMsg[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostUnreadMsg[i].checkIn+" - "+hostUnreadMsg[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -255,7 +276,11 @@ function ChangeHostList(){
 	    			}
 	    			
 	    			$('.hostMsg').html(output); 
-    				
+	    			
+	    		},beforeSend:function(){
+	    			$('.load').show();
+	    		},complete:function(){
+	    			$('.load').hide();
 	    		}
 	    		
 	    		
@@ -295,11 +320,11 @@ function ChangeHostList(){
 	    				output+="<h5 style=\"position:relative; left:6vw;top:-7vh;\">"+hostAllMessage[i].message_time+"</h5>";
 	    				if(hostAllMessage[i].message_read==0){
 	    					output+="<div class=\"new-item-badge\">New</div>";
-		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+hostAllMessage[i].message_content+"</a><br>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;\">"+hostAllMessage[i].message_content+"</a><br>";
 	    				}else{
-	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+hostAllMessage[i].message_content+"</a><br>";
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+hostAllMessage[i].message_content+"</a><br>";
 	    				}
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostAllMessage[i].checkIn+" - "+hostAllMessage[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostAllMessage[i].checkIn+" - "+hostAllMessage[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative; left:40vw;top:-15vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -340,7 +365,7 @@ function ChangeHostList(){
 
 
 		
-		
+		<div id="loading"></div>
 			<div class="tabbable-panel">
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
@@ -401,13 +426,13 @@ function ChangeHostList(){
 							<c:choose>
 							<c:when test="${message.message_read==0}">
 							 <div class="new-item-badge">New</div>
-							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;">${message.message_content}</a><br>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;">${message.message_content}</a><br>
 							</c:when>
 							<c:otherwise>
-							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;">${message.message_content}</a><br>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;">${message.message_content}</a><br>
 							</c:otherwise>
 							</c:choose>
-							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;">${member.member_location} &nbsp;(${message.checkIn} - ${message.checkOut})</a></c:if></c:forEach>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:17.5vw;top:-10.5vh;color:gray;text-decoration:none;">${member.member_location} &nbsp;(${message.checkIn} - ${message.checkOut})</a></c:if></c:forEach>
 							
 							<h5 style="position:relative; left:40vw;top:-20vh;color:#f9c945;font-weight:800;">문의</h5>
 							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;position:relative;top:-2vh;"></c:if>
@@ -450,13 +475,13 @@ function ChangeHostList(){
 							<c:choose>
 							<c:when test="${messageH.message_read==0}">
 							  <div class="new-item-badge">New</div>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;font-weight:800;">${messageH.message_content}</a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;font-weight:800;">${messageH.message_content}</a><br>
 							</c:when>
 							<c:otherwise>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;">${messageH.message_content}</a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;">${messageH.message_content}</a><br>
 							</c:otherwise>
 							</c:choose>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:17.5vw;top:-13.4vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
 							
 							<h5 style="position:relative; left:40vw;top:-18vh;color:#f9c945;font-weight:800;">문의</h5>
 							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if>

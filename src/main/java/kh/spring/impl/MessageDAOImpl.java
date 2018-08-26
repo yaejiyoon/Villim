@@ -132,6 +132,12 @@ public class MessageDAOImpl implements MessageDAO{
 		return template.selectOne("Message.hostMsgUnreadCount", userId);
 	}
 
+	@Override
+	public int ReadUpdate(int message_seq, String member_email, String userId) {
+		String sql="update message set message_read=1 where message_seq=? and fromID=? and toID=?";
+		return jdbcTemplate.update(sql, message_seq,member_email,userId);
+	}
+
 	
 
 
