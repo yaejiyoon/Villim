@@ -47,6 +47,8 @@ public interface MessageDAO {
 	
 	public ReservationDTO reservCheck(ReservationDTO dto2);
 	
+	public int ReadUpdate(int message_seq,String member_email,String userId);
+	
 	//Message Host Main
 	public List<GuestMsgDTO> hostMessageMain(String userId);
 	
@@ -60,6 +62,7 @@ public interface MessageDAO {
 	//Message Host Room
 	
 	public List<HomeDTO> getHomeNames(String userId);
+	
 	
 	
 }

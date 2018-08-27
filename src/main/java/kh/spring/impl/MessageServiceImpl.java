@@ -126,6 +126,11 @@ public class MessageServiceImpl implements MessageService{
 		return dao.hostMsgUnreadCount(userId);
 	}
 
+	@Override
+	public int ReadUpdate(int message_seq, String member_email, String userId) {
+		return dao.ReadUpdate(message_seq, member_email, userId);
+	}
+
 	
 	
 	

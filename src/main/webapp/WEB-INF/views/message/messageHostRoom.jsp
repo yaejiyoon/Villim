@@ -46,20 +46,6 @@
 	margin-bottom:10vh;
 }
 
- 
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
-  -webkit-box-sizing: border-box;
- 	-moz-box-sizing: border-box;
-}
-
-body{
-
-  font-family: "Roboto", "Tahoma", "Arial", sans-serif;,
-} */
 
 .text-right{ text-align: right; }
 
@@ -156,7 +142,7 @@ body{
 
 .comment-form,
 .comment{ 
-   margin-bottom: 0vh; */
+   margin-bottom: 0vh; 
   height:auto;
   position: relative;
   z-index: 0;
@@ -422,7 +408,10 @@ select::-ms-expand {
 /* calender */
 
 .my-class{
-background:gray;
+background:#ff5a5f;
+color:black;
+font-weight:800;
+
 }
 .my-class:hover{
 background-color: none;
@@ -565,17 +554,19 @@ $(document).ready(function(){
        
                     	 
                          var eventDates =[];
-                         for(var i=0 in $('#date').val().length){
-                        	 eventDates.push($('#date').val()[i]);
-                        	 alert(eventDates[i])
+                         <c:forEach var="item" items="${date}">
+                         eventDates.push("${item}");
+                         </c:forEach>
+                         for(var i=0 in eventDates.length){
+                        	 console.log(eventDates[i])
                          }
                     	  
-                    		  /* ['2018-09-30','2018-10-03']; */
                           
                     	  
                           $('.datepicker-here').datepicker({
                                
                                dateFormat : "yyyy-mm-dd",
+                               minDate:new Date(),
                                language: {
                                   days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
                                    daysShort: ['일', '월', '화', '수', '목', '금', '토'],
@@ -605,7 +596,9 @@ $(document).ready(function(){
                                               if(eventMonth == currentMonth){
                                                  if(eventDay == currentDate){
                                                     return {
-                                                         classes: 'my-class'
+                                                         classes: 'my-class',
+                                                         disabled: true
+                                                         
                                                       }
                                                  }
                                               }
