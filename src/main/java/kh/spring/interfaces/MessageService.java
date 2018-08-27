@@ -46,7 +46,7 @@ public interface MessageService {
 	
 	public List<HomeDTO> getHomeNames(String userId);
 	
-	public ReservationDTO reservCheck(ReservationDTO dto2);
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2);
 	
 	public int guestMsgUnreadCount(String userId);
 	

@@ -48,7 +48,7 @@ public interface MessageDAO {
 	
 	public int getMessageSeq();
 	
-	public ReservationDTO reservCheck(ReservationDTO dto2);
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2);
 	
 	public int ReadUpdate(int message_seq,String member_email,String userId);
 	

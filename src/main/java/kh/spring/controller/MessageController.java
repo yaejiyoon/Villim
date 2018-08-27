@@ -375,9 +375,12 @@ public class MessageController {
 		dto2.setMember_email(userId);
 		dto2.setHome_seq(home_seq);
 
-		ReservationDTO reservCheck=this.service.reservCheck(dto2);
-		if(reservCheck!=null) {
-			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
+		List<ReservationDTO> reservCheck=this.service.reservCheck(dto2);
+		if(!reservCheck.isEmpty()) {
+			for(ReservationDTO tmp:reservCheck) {
+				System.out.println("예약이미 신청 = "+tmp.getReserv_state());
+			}
+			
 			mav.addObject("reservCheck", reservCheck);
 		}else {
 			System.out.println("예약을 안함 아직");
@@ -593,10 +596,14 @@ public class MessageController {
 		dto2.setMember_email(member_email);
 		dto2.setHome_seq(home_seq);
         System.out.println("이메일 : "+dto2.getMember_email()+" / 홈시퀸스 : "+dto2.getHome_seq());
-		ReservationDTO reservCheck=this.service.reservCheck(dto2);
+		List<ReservationDTO> reservCheck=this.service.reservCheck(dto2);
 		
-		if(reservCheck!=null) {
-			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
+		if(!reservCheck.isEmpty()) {
+			
+			for(ReservationDTO tmp:reservCheck) {
+				System.out.println("예약이미 신청 = "+tmp.getReserv_state());
+			}
+			
 			mav.addObject("reservCheck", reservCheck);
 		}else {
 			

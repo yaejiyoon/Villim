@@ -103,7 +103,7 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
-	public ReservationDTO reservCheck(ReservationDTO dto2) {
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2) {
 		return dao.reservCheck(dto2);
 	}
 

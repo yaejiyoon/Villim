@@ -108,7 +108,7 @@ public class MessageDAOImpl implements MessageDAO{
 	}
 
 	@Override
-	public ReservationDTO reservCheck(ReservationDTO dto2) {
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2) {
 		return template.selectOne("Message.reservCheck", dto2);
 		
 	}
