@@ -269,7 +269,7 @@ public class MessageController {
         System.out.println("message_seq : "+message_seq);
         System.out.println("member_email : "+member_email);
 /*		session.setAttribute("userId", "jake@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		
 		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
 		
@@ -403,7 +403,7 @@ public class MessageController {
 		System.out.println("home_seq : "+home_seq);
 		System.out.println("message_seq"+message_seq);
 		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		
 		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
 		List<HomeDTO> getHomeNames=this.service.getHomeNames(userId);
