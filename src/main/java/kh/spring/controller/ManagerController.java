@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebEndpoint;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -147,5 +148,10 @@ public class ManagerController {
 //		System.out.println(jsonObject);
 	
 		
+	}
+	@RequestMapping("mainTest.admin")
+	public String mainTest() {
+		
+		return "jaehotest";
 	}
 }

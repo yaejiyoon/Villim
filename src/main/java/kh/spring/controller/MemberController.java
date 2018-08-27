@@ -45,8 +45,8 @@ public class MemberController {
 //	@Autowired
 //	MemberDTO dto;
 
-	@Autowired
-	MailSendDTO mailDto;
+//	@Autowired
+//	MailSendDTO mailDto;
 
 	@Autowired
 	MemberService service;
@@ -488,7 +488,7 @@ public class MemberController {
 	}
 	@RequestMapping("find.do")
 	public void find(HttpServletRequest request, HttpServletResponse response) {
-		
+		MailSendDTO mailDto = new MailSendDTO();
 		String mail = request.getParameter("mail");
 		String name = service.isMail(mail);
 		System.out.println(mail);
