@@ -631,7 +631,7 @@ position:relative;
         <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;left:0vw;top:2vw;" class="img-circle" alt="avatar">
       </div>
  
-      <div class="box1 sb6" style="width:80%;top:-8vh;left:2.5vw;margin-bottom:0;margin-top:0;">${message.message_content}
+      <div class="box1 sb6" style="width:80%;top:-2vh;left:2.5vw;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       
       </div>

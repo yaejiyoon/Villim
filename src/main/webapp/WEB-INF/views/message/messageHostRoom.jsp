@@ -368,7 +368,7 @@ select {
   border-radius: .25em;
   border:0px;
     left:3vw;
-  top:-7vh;
+  top:-5.5vh;
 }
 select {
   width: 100%;
@@ -506,29 +506,29 @@ $(document).ready(function(){
 			</div>
 			
 			</div>
-			<hr style="color:#666666;width:70%;position:relative;top:-0vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:1vh;font-weight:900;height:15px;">
 			
 			
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
-			<div style="width:75%;position:relative;top:0vh;left:3vw;">
+			<div style="width:75%;position:relative;top:1vh;left:3vw;">
 			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">예약 취소</h4>
-			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
+			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
 이 예약을 취소하면 페널티를 받게 됩니다. 페널티에는 1년간 슈퍼호스트 지위 박탈, 취소 기록을 보여주는 후기 공개, 취소 수수료가 포함되며, 취소한 예약에 해당하는 날짜가 달력에서 차단됩니다.</h5>
 			</div>
 			</div>
 			
-			<hr style="color:#666666;width:70%;position:relative;top:0.4vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:3vh;font-weight:900;height:15px;">
 	
 			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-3vh;width:100%;">
-			<div style="width:75%;position:relative;top:1.7vh;left:3vw;">
-			<h4 style="position:relative;top:1vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">언제나 빌림을 통해 대화하세요</h4>
-			<h5 style="position:relative;top:3vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
+			<div style="width:75%;position:relative;top:3vh;left:3vw;">
+			<h4 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">언제나 빌림을 통해 대화하세요</h4>
+			<h5 style="position:relative;top:4vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
 			</div>
 			</div>
 			
 			
-			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;border:1px solid green;">
-			<div style="position:relative;top:-1vh;">
+			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;">
+			<div style="position:relative;top:2vh;">
 			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;">게스트 소개 </h4>
 			<div style="width:4.2vw;height:7.7vh;position:relative;left:3vw;top:2.9vh;">
             <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
@@ -548,7 +548,7 @@ $(document).ready(function(){
      </div>
     <!-- 달력    -->
    
-    <div class="datepicker-here"></div>
+    <div class="datepicker-here" style="position:relative;width:90%;top:-2vh;left:0.4vw;border:0px;"></div>
    <script>
                       $(document).ready(function(){
        

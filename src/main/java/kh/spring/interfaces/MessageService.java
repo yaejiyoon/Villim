@@ -3,6 +3,7 @@ package kh.spring.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -22,6 +23,8 @@ public interface MessageService {
 	public int getRoomSeq();
 	
 	public int messageRoomInsert(MessageRoomDTO roomdto);
+	
+	public DetailDTO getMsgAfterSend(int message_seq);
 	
 	public List<GuestMsgDTO> guestMessageMain(String userId);
 	
