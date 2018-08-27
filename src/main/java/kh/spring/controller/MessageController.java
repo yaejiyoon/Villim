@@ -215,8 +215,7 @@ public class MessageController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageInsertDB");
 		System.out.println("내용 : " + dto.getMessage_content());
-		session.setAttribute("login_email", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		int home_seq = Integer.parseInt(seq);
 		HomeDTO getHomeInfo = this.service.getHomeInfo(home_seq);
