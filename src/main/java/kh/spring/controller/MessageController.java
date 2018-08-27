@@ -54,9 +54,6 @@ public class MessageController {
         String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		/*session.setAttribute("login_email", "jake@gmail.com");*/
-      session.setAttribute("login_email", "plmn855000@gmail.com");
-		/*session.setAttribute("login_email", "test@gmail.com");*/
 		String userId = (String) session.getAttribute("login_email");
         System.out.println("아이디 :"+userId );
 		// 여행
@@ -475,7 +472,6 @@ public class MessageController {
 		System.out.println("room_seq : "+message_room_seq);
 		System.out.println("home_seq : "+home_seq);
 		System.out.println("message_seq"+message_seq);
-		/*session.setAttribute("login_email", "plmn855000@gmail.com");*/
 		String userId = (String) session.getAttribute("login_email");
 		
 		/*int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);*/

@@ -544,7 +544,7 @@ position:relative;
 			
 		</div>
 		
-
+<c:forEach items="${reservCheck }" var="reservCheck">
 <c:choose>
 <c:when test="${reservCheck.reserv_state==0}">
 <div class="card3  animated slideInRight">
@@ -580,6 +580,7 @@ position:relative;
 </div>
 </c:otherwise>
 </c:choose>
+</c:forEach>
 <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-125vh;height:auto;">
 
  <input type="hidden" id="message_room_seq" value="${message_room_seq}">
