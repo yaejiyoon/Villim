@@ -144,20 +144,23 @@ public class HostController {
 		String[] safety = {};
 		String[] guest_access = {};
 
-		if (hdto.getHome_amenities() == null) {
-
-		}
-		if (hdto.getHome_safety() == null) {
-
-		}
-		if (hdto.getHome_guest_access() == null) {
+		if (hdto.getHome_amenities() != null) {
+			amenities = hdto.getHome_amenities().split(",");
+		}else {
 
 		}
 
-		amenities = hdto.getHome_amenities().split(",");
-		safety = hdto.getHome_safety().split(",");
-		guest_access = hdto.getHome_guest_access().split(",");
+		if (hdto.getHome_safety() != null) {
+			safety = hdto.getHome_safety().split(",");
+		}else {
 
+		}
+
+		if (hdto.getHome_guest_access() != null) {
+			guest_access = hdto.getHome_guest_access().split(",");
+		}else {
+
+		}
 		for (int i = 0; i < amenities.length; i++) {
 			list.add(amenities[i]);
 		}
@@ -187,9 +190,20 @@ public class HostController {
 
 		HomeDTO hdto = homeService.getHomeData(seq);
 
-		String[] rules = hdto.getHome_rules().split(",");
-		String[] details = hdto.getHome_details().split(",");
+		String[] rules = {};
+		String[] details = {};
 
+		if(hdto.getHome_rules() != null) {
+			rules = hdto.getHome_rules().split(",");
+		}else {
+
+		}
+
+		if(hdto.getHome_details() != null) {
+			details = hdto.getHome_details().split(",");
+		}else {
+
+		}
 		List<String> ruleList = new ArrayList<String>();
 		List<String> detailsList = new ArrayList<String>();
 
@@ -1231,9 +1245,49 @@ public class HostController {
 
 		hdto = homeService.getHomeData(hdto.getHome_seq());
 
+
+		String str = hdto.getHome_details();
+		System.out.println(str);
+		String arr[] = {};
+
+		String tmp1 = "";
+		String tmp2 = "";
+		String tmp3 = "";
+		String tmp4 = "";
+		String tmp5 = "";
+
+		if(str!=null) {
+			arr=str.split(",");
+
+			for (int i = 0; i < arr.length; i++) {
+				if (arr[i].contains("소음이 발생할")) {
+					tmp1 = arr[i].split(":")[1];
+				} else if (arr[i].contains("숙소에 반려동물 ")) {
+					tmp2 = arr[i].split(":")[1];
+				} else if (arr[i].contains("주차 불가")) {
+					tmp3 = arr[i].split(":")[1];
+				} else if (arr[i].contains("공용 공간")) {
+					tmp4 = arr[i].split(":")[1];
+				} else if (arr[i].contains("편의시설")) {
+					tmp5 = arr[i].split(":")[1];
+				}
+			}
+			System.out.println("tmp1:" + tmp1);
+			System.out.println("tmp2:" + tmp2);
+			System.out.println("tmp3:" + tmp3);
+			System.out.println("tmp4:" + tmp4);
+			System.out.println("tmp5:" + tmp5);
+		}
+
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("tmp1", tmp1);
+		mav.addObject("tmp2", tmp2);
+		mav.addObject("tmp3", tmp3);
+		mav.addObject("tmp4", tmp4);
+		mav.addObject("tmp5", tmp5);
 		mav.addObject("hdto", hdto);
 		mav.setViewName("/host/hostReserveModifyRule");
+
 		return mav;
 	}
 
