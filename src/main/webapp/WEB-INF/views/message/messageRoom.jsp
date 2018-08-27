@@ -544,7 +544,7 @@ position:relative;
 			
 		</div>
 		
-<c:forEach items="${reservCheck }" var="reservCheck">
+<c:forEach items="${reservCheck}" var="reservCheck">
 <c:choose>
 <c:when test="${reservCheck.reserv_state==0}">
 <div class="card3  animated slideInRight">
