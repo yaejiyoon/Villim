@@ -61,6 +61,13 @@
          <artifactId>mybatis-spring</artifactId>
          <version>1.2.2</version>
       </dependency>
+      
+      <!--  session이  동작함  -->
+		<dependency>
+	<groupId>javax</groupId>
+	<artifactId>javaee-api</artifactId>
+	<version>7.0</version>
+	</dependency>
       <!-- oracle related -->
 
       <dependency>

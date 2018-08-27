@@ -373,9 +373,10 @@
 															</label>
 														</div>
 														<div class="_az0uecb">
+														<form action="thirdMove.host" method="post" id="housetypes">
 															<div class="_y9ev9r">
 																<select id="property-type-group"
-																	name="property-type-group" class="_10p0m0gl"><option
+																	name="home_type" class="_10p0m0gl"><option
 																		selected="selected" value="0" disabled="disabled">하나를 선택해주세요.</option>
 																	<option value="apartments">아파트</option>
 																	<option value="houses">주택</option>
@@ -385,6 +386,7 @@
 																	<option value="boutique_hotels_and_more">부티크
 																		호텔</option></select>
 															</div>
+														</form>	
 															<span class="_1pzmvmb"><svg viewBox="0 0 18 18"
 																	role="presentation" aria-hidden="true"
 																	focusable="false"
@@ -474,7 +476,7 @@
 															class="main-panel__actions col-sm-12 no-margin-padding__sm">
 															<div class="_1dcqn1vg"
 																style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
-																<a href="/fisrt.host" class="_5rte3y6"
+																<a href="#" class="_5rte3y6"
 																	aria-busy="false"><span class="_cgr7tc7"><span>뒤로</span></span></a>
 																<div class="_107ja4p">
 																	<button type="button" id="nextpg" disabled="disabled"
@@ -502,12 +504,9 @@
 			</div>
 		</div>
 	</div>
-	
-	
+		
 	
 	<script type="text/javascript">
-
-
 	
 /*     $("#property-type-group").change(function() {
 		var gaybar = $("#property-type-group").val();
@@ -616,7 +615,8 @@
 	});
 	
 	$("#nextpg").click(function() {
-		$(location).attr("href","third.host");
+		//$(location).attr("href","third.host");
+		$( "#housetypes").submit();
 	});
 	  
 </script>

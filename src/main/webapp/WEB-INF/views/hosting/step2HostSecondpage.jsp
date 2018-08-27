@@ -72,6 +72,7 @@
 											<div class="_492uxj4">숙소 설명 수정하기</div>
 										</div>
 										<div>
+											<form action="gostep2third.host" method="post" id="contents">
 											<p class="text-muted">
 												<span>요약</span>
 											</p>
@@ -79,7 +80,7 @@
 												<fieldset class="lys-input__fieldset" id="field">
 													<textarea class="lys-summary__textarea hide-scroll"
 														placeholder="인테리어, 채광, 주변 정보 등을 설명하세요."
-														id="lys-summary-textarea" name="planhouse"
+														id="lys-summary-textarea" name="home_contents"
 														style="height: 123px; width: 484px; resize: none;"></textarea>
 													<strong><span
 														class="lys-input__remaining-char-count text-muted text-small"
@@ -94,6 +95,7 @@
 													<span>30%의 호스트만이 여기에 추가 정보를 입력합니다.</span>
 												</p>
 											</div>
+											</form>
 										</div>
 									</div>
 									<div class="main-panel__actions-wrapper">
@@ -107,7 +109,7 @@
 															class="main-panel__actions col-sm-12 no-margin-padding__sm">
 															<div class="_1dcqn1vg"
 																style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
-																<a href="step2fisrt.host"
+																<a href="step2first.host"
 																	class="_5rte3y6" aria-busy="false"><span
 																	class="_cgr7tc7"><span>뒤로</span></span></a>
 																<div class="_107ja4p">
@@ -174,12 +176,12 @@
 				.click(
 						function() {
 							$("#field")
-									.after("<div><div class=\"space-top-4\"><p class=\"text-muted\"><span>숙소 소개(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-space-textarea\"  style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div>"
-									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>게스트가 이용할 수 있는 공간(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-access-textarea\" style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div>"
-									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>게스트와의 교류(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-interaction-textarea\" style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div>"
-									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>기타 정보(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-notes-textarea\" style=\"height: 123px; width: 484px; resize: none;  \"></textarea></fieldset></div>"
-									+"<div class=\"space-top-7 space-4\"><strong><span>숙소가 위치한 지역</span></strong></div><div class=\"space-top-4\"><p class=\"text-muted\"><span>숙소가 위치한 지역 소개(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea class=\"lys-summary__textarea hide-scroll\" style=\"height: 123px; width: 484px; resize: none;  \"></textarea></fieldset></div>"
-									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>대중교통 이용방법(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea class=\"lys-summary__textarea hide-scroll\" style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div></div>");
+									.after("<div><div class=\"space-top-4\"><p class=\"text-muted\"><span>숙소 소개(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea name=\"home_desc_explain\" class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-space-textarea\"  style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div>"
+									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>게스트가 이용할 수 있는 공간(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea name=\"home_desc_space\" class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-access-textarea\" style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div>"
+									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>게스트와의 교류(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea name=\"home_desc_guest\" class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-interaction-textarea\" style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div>"
+									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>기타 정보(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea name=\"home_desc_etc\" class=\"lys-summary__textarea hide-scroll\" velouteid=\"lys-notes-textarea\" style=\"height: 123px; width: 484px; resize: none;  \"></textarea></fieldset></div>"
+									+"<div class=\"space-top-7 space-4\"><strong><span>숙소가 위치한 지역</span></strong></div><div class=\"space-top-4\"><p class=\"text-muted\"><span>숙소가 위치한 지역 소개(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea name=\"home_desc_region\" class=\"lys-summary__textarea hide-scroll\" style=\"height: 123px; width: 484px; resize: none;  \"></textarea></fieldset></div>"
+									+"<div class=\"space-top-4\"><p class=\"text-muted\"><span>대중교통 이용방법(선택사항)</span></p><fieldset class=\"lys-input__fieldset\"><textarea name=\"home_desc_traffic\" class=\"lys-summary__textarea hide-scroll\" style=\"height: 123px; width: 484px; resize: none; \"></textarea></fieldset></div></div>");
 									
 							$("#addtional").remove();
 						});
@@ -219,7 +221,8 @@
 		});
 		
 		$("#nextpg").click(function() {
-			$(location).attr("href","step2third.host");
+			//$(location).attr("href","step2third.host");
+			$("#contents").submit();
 		});
 	</script>
 </body>

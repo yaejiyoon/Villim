@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -215,5 +216,112 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public int updateBlockedDate(String blockedDate, int home_seq) {
 		return hdao.updateBlockedDate(blockedDate, home_seq);
+	}
+	
+//	----찬연 ----
+	@Override
+	@Transactional("txManager")
+	public int insertFirstHome(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.insertFirstHome(hdto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int modifyHomeType(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomeType(hdto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public HomeDTO getNewestHomeData() {
+		// TODO Auto-generated method stub
+		return hdao.getNewestHomeData();
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int modifyBathbed(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyBathbed(hdto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int modifyCommodity(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyCommodity(hdto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int modifyHomepicture(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomepicture(hdto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int insertHomeDescData(HomeDescDTO hddto) {
+		// TODO Auto-generated method stub
+		return hdao.insertHomeDescData(hddto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int modifyContents(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyContents(hdto);
+	}
+
+
+	@Override
+	@Transactional("txManager")
+	public int modifyHomename(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomename(hdto);
+	}
+
+
+	@Override
+	public int modifyHomerule(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomerule(hdto);
+	}
+
+
+	@Override
+	public int modifyHomecheck(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomecheck(hdto);
+	}
+
+
+	@Override
+	public int modifyHomestay(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomestay(hdto);
+	}
+
+
+	@Override
+	public int modifyHomeblock(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomeblock(hdto);
+	}
+
+
+	@Override
+	public int modifyHomeprice(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyHomeprice(hdto);
 	}
 }

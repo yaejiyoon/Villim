@@ -444,6 +444,7 @@
 						class="right-backdrop hide-sm bg-white right-backdrop--with-bg"></div>
 					<div class="list-your-space__content">
 						<div class="centered-content clearfix col-md-7">
+						<form id="bedbath" action="foreMove.host" method="post">
 							<div
 								class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix ">
 								<div
@@ -451,6 +452,7 @@
 									<div class="_1mbllh6j">
 										<div class="_492uxj4">숙소에 얼마나 많은 인원이 숙박할 수 있나요?</div>
 									</div>
+									
 									<div>
 										<div>
 											<div style="margin-bottom: 32px">
@@ -484,8 +486,8 @@
 																							<rect height="2" rx="1" width="12" x="6" y="11"></rect></svg></span>
 																					</button>
 																				</div>
-																				<div aria-hidden="true" class="_zac1rbz">
-																					<div class="_1n57hdr7" id=pcount>4</div>
+																				<div aria-hidden="false" class="_zac1rbz">
+																					<input class="_1n57hdr7" id=pcount name="home_people" value="4" readonly="readonly">
 																				</div>
 																				<div class="_1a72ixey">
 																					<button type="button" class="_qz4lhy5"
@@ -517,7 +519,7 @@
 																<label class="_1m8bb6v" for="bedroom-select">bedrooms</label>
 																<div class="_az0uecb">
 																	<div class="_y9ev9r">
-																		<select id="bedroom-select" name="bedrooms"
+																		<select id="bedroom-select" name="home_bedroom"
 																			class="_10p0m0gl">
 																			<option value="0" selected="">침실 0개</option>
 																			<option value="1">침실 1개</option>
@@ -588,8 +590,9 @@
 																							<rect height="2" rx="1" width="12" x="6" y="11"></rect></svg></span>
 																				</button>
 																			</div>
-																			<div aria-hidden="true" class="_zac1rbz">
-																				<div class="_1n57hdr7" id="bedcount">0</div>
+																			<div aria-hidden="false" class="_zac1rbz">
+																				
+																				<input class="_1n57hdr7" id=bedcount name="home_bed" value="0" readonly="readonly">
 																			</div>
 																			<div class="_1a72ixey">
 																				<button type="button" class="_qz4lhy5" id="addbed"
@@ -612,6 +615,7 @@
 											</div>
 										</div>
 									</div>
+								
 									<div>
 										<div class="panel-title">
 											<h3 class="no-margin-padding">
@@ -1038,6 +1042,7 @@
 																	</div>
 																	<div aria-hidden="true" class="_zac1rbz">
 																		<div class="_1n57hdr7" id="bathroomcount">1</div>
+																		
 																	</div>
 																	<div class="_1a72ixey">
 																		<button type="button" class="_qz4lhy5" id="bathroomup"
@@ -1062,6 +1067,7 @@
 									</div>
 								</div>
 							</div>
+							</form>
 							<div class="main-panel__actions-wrapper">
 								<div class="centered-content clearfix">
 									<div class="bg-white main-panel-outer-half clearfix shadowed">
@@ -1123,59 +1129,59 @@
 	<script type="text/javascript">
 	
 		$("#peopledis").click(function() {
-			var intmax = parseInt($("#pcount").text());
+			var intmax = parseInt($("#pcount").val());
 
 			if(intmax > 1){
 				intmax = intmax - 1; 
-				$("#pcount").text(intmax);
+				$("#pcount").val(intmax);
 				$("#peopleup").attr("disabled",false);
 			}else{
 				$("#peopledis").attr("disabled",true);
-				$("#pcount").text(0);
+				$("#pcount").val(0);
 			}
 			
 		});
 		
 		$("#peopleup").click(function() {
-			var intmax = parseInt($("#pcount").text());
+			var intmax = parseInt($("#pcount").val());
 
 			if(intmax < 15 ){
 				$("#peopledis").attr("disabled",false);
 				intmax = intmax + 1; 
-				$("#pcount").text(intmax)
+				$("#pcount").val(intmax)
 				
 			}else if(intmax = 15){
 				$("#peopleup").attr("disabled",true);
-				$("#pcount").text(intmax+1 + "+")
+				$("#pcount").val(intmax+1 + "+")
 			}
 		});
 		
 		
 		$("#minbed").click(function() {
-			var intmax = parseInt($("#bedcount").text());
+			var intmax = parseInt($("#bedcount").val());
 
 			if(intmax > 1){
 				intmax = intmax - 1; 
-				$("#bedcount").text(intmax);
+				$("#bedcount").val(intmax);
 				$("#addbed").attr("disabled",false);
 			}else{
 				$("#minbed").attr("disabled",true);
-				$("#bedcount").text(0);
+				$("#bedcount").val(0);
 			}
 			
 		});
 		
 		$("#addbed").click(function() {
-			var intmax = parseInt($("#bedcount").text());
+			var intmax = parseInt($("#bedcount").val());
 
 			if(intmax < 19 ){
 				$("#minbed").attr("disabled",false);
 				intmax = intmax + 1; 
-				$("#bedcount").text(intmax)
+				$("#bedcount").val(intmax)
 				
 			}else if(intmax = 19){
 				$("#addbed").attr("disabled",true);
-				$("#bedcount").text(intmax+1 + "+")
+				$("#bedcount").val(intmax+1 + "+")
 			}
 		});
 		
@@ -1373,7 +1379,8 @@
 		});
 		
 		$("#nextpg").click(function() {
-			$(location).attr("href","fore.host");
+			//$(location).attr("href","fore.host");
+			$("#bedbath").submit();
 		});
 		
 	</script>

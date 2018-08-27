@@ -97,15 +97,17 @@
 							<div class="centered-content clearfix">
 								<div
 									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix">
+									<form action="gostep3second.host" id="rule" method="post">
 									<div
 										class="main-panel main-panel-padding main-panel-progress main-panel-inner-half space-sm-8">
 										<div class="_1mbllh6j">
 											<div class="_492uxj4">게스트가 지켜야 할 숙소 이용규칙을 정하세요</div>
 										</div>
+										
 										<div>
 											<div style="margin-bottom: 12px">
 												<div class="_2h22gn">
-													<div class="_he7w4z5">
+													<div class="_he7w4z5" id="kid">
 														<div style="margin-top: 6px; margin-bottom: 12px">
 															어린이(2~12세) 숙박에 적합함
 															<div class="_1c2cbn7k">
@@ -129,7 +131,7 @@
 													<div class="_119ty9w5">
 														<div style="margin-bottom: 6px">
 															<div class=" pull-right">
-																<input type="check">
+																<input type="checkkid">
 															</div>
 														</div>
 													</div>
@@ -142,7 +144,7 @@
 											</div>
 											<div style="margin-bottom: 12px">
 												<div class="_2h22gn">
-													<div class="_he7w4z5">
+													<div class="_he7w4z5" id="baby">
 														<div style="margin-top: 6px; margin-bottom: 12px">
 															유아(2세 미만) 숙박에 적합함
 															<div class="_1c2cbn7k">
@@ -166,7 +168,7 @@
 													<div class="_119ty9w5">
 														<div style="margin-bottom: 6px">
 															<div class=" pull-right">
-																<input type="check">
+																<input type="checkbaby" >
 															</div>
 														</div>
 													</div>
@@ -179,7 +181,7 @@
 											</div>
 											<div style="margin-bottom: 12px">
 												<div class="_2h22gn">
-													<div class="_he7w4z5">
+													<div class="_he7w4z5" id="pet">
 														<div style="margin-top: 6px; margin-bottom: 12px">
 															반려동물 동반에 적합
 															<div class="_1c2cbn7k">
@@ -203,7 +205,7 @@
 													<div class="_119ty9w5">
 														<div style="margin-bottom: 6px">
 															<div class=" pull-right">
-															<input type="check">
+															<input type="checkpet">
 															</div>
 														</div>
 													</div>
@@ -216,14 +218,14 @@
 											</div>
 											<div style="margin-bottom: 12px">
 												<div class="_2h22gn">
-													<div class="_he7w4z5">
+													<div class="_he7w4z5" id="smoke">
 														<div style="margin-top: 6px; margin-bottom: 12px">흡연
 															가능</div>
 													</div>
 													<div class="_119ty9w5">
 														<div style="margin-bottom: 6px">
 															<div class=" pull-right">
-															<input type="check">
+															<input type="checksmoke">
 															</div>
 														</div>
 													</div>
@@ -236,14 +238,14 @@
 											</div>
 											<div style="margin-bottom: 12px">
 												<div class="_2h22gn">
-													<div class="_he7w4z5">
+													<div class="_he7w4z5" id="party">
 														<div style="margin-top: 6px; margin-bottom: 12px">행사나
 															파티 허용</div>
 													</div>
 													<div class="_119ty9w5">
 														<div style="margin-bottom: 6px">
 															<div class=" pull-right">
-																<input type="check">
+																<input type="checkparty">
 															</div>
 														</div>
 													</div>
@@ -268,7 +270,7 @@
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
 																class="checkmark" id="requires_stairs"
-																name="requires_stairs" value="requires_stairs" /></span>
+																name="home_rules" value="계단을 올라가야 함" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">계단을
@@ -282,7 +284,7 @@
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
 																class="checkmark" id="potential_noise"
-																name="potential_noise" value="potential_noise" /></span>
+																name="home_rules" value="소음이 발생할 수 있음" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">소음이
@@ -295,8 +297,8 @@
 														class="_gyif22">
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
-																class="checkmark" id="has_pets" name="has_pets"
-																value="has_pets" /></span>
+																class="checkmark" id="has_pets" name="home_rules"
+																value="숙소에 반려동물 있음" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">숙소에
@@ -310,7 +312,7 @@
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
 																class="checkmark" id="limited_parking"
-																name="limited_parking" value="limited_parking" /></span>
+																name="home_rules" value="건물 내 주차 불가" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">건물
@@ -323,8 +325,8 @@
 														class="_gyif22">
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
-																class="checkmark" id="shared_spaces" name="shared_spaces"
-																value="shared_spaces" /></span>
+																class="checkmark" id="shared_spaces" name="home_rules"
+																value="일부 공용 공간 있음" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">일부
@@ -338,7 +340,7 @@
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
 																class="checkmark" id="limited_amenities"
-																name="limited_amenities" value="limited_amenities" /></span>
+																name="home_rules" value="편의시설 제한" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">편의시설
@@ -351,8 +353,8 @@
 														class="_gyif22">
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
-																class="checkmark" id="surveillance" name="surveillance"
-																value="surveillance" /></span>
+																class="checkmark" id="surveillance" name="home_rules"
+																value="숙소에 감시 또는 녹화 장치 설치" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">숙소에
@@ -365,8 +367,8 @@
 														class="_gyif22">
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
-																class="checkmark" id="weapons" name="weapons"
-																value="weapons" /></span>
+																class="checkmark" id="weapons" name="home_rules"
+																value="숙소에 무기 있음" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">숙소에
@@ -379,8 +381,8 @@
 														class="_gyif22">
 														<div class="_73ihd0r">
 															<span class="_foa2bi"><input type="checkbox"
-																class="checkmark" id="animals" name="animals"
-																value="animals" /></span>
+																class="checkmark" id="animals" name="home_rules"
+																value="숙소에 위험한 동물 있음" /></span>
 														</div>
 														<div class="_zkrkb6">
 															<span class="_f7dcovm"><div class="_1n57hdr7">숙소에
@@ -390,6 +392,7 @@
 											</div>
 										</div>
 									</div>
+									</form>
 									<div class="main-panel__actions-wrapper">
 										<div class="centered-content clearfix">
 											<div class="bg-white main-panel-outer-half clearfix shadowed">
@@ -405,11 +408,10 @@
 																	class="_5rte3y6" aria-busy="false"><span
 																	class="_cgr7tc7"><span>뒤로</span></span></a>
 																<div class="_107ja4p">
-																	<a
-																		href="/become-a-host/27770089/review-how-guests-book"
-																		class="_5rte3y6" aria-busy="false"
-																		data-veloute="lys-next-button"><span
-																		class="_cgr7tc7"><span>다음</span></span></a>
+																	<button type="button" class="_5rte3y6" aria-busy="false" id="nextpg"
+																data-veloute="lys-next-button">
+																<span class="_cgr7tc7"><span>다음</span></span>
+																	</button>
 																</div>
 															</div>
 														</div>
@@ -460,11 +462,180 @@
 	</div>
 	<script type="text/javascript">
 
-		$('input[type="check"]').checkboxpicker({
+		$('input[type="checkkid"]').checkboxpicker({
+			defaultClass: 'btn-default',
+			offLabel: 'NO',
+			onLabel: 'YES',
+			
+			
+		});
+		
+		$('input[type="checkkid"]').on('change',function() {
+			
+			var status = $('input[type="checkkid"]').prop('checked');
+			
+			if(status==true){
+				$("#kid").after("<input type=\"hidden\" name=\"home_guest_access\" value=\"어린이(2~12세) 숙박에 적합함\">");
+				//'<input type="hidden" name="home_rules" value="어린이(2~12세) 숙박에 적합함">'
+			}else{
+				$("#kid").after("");
+			}
+			
+		});
+		
+		$('input[type="checkbaby"]').checkboxpicker({
 			defaultClass: 'btn-default',
 			offLabel: 'NO',
 			onLabel: 'YES',
 		});
+		
+		$('input[type="checkbaby"]').on('change',function() {
+			var status = $('input[type="checkbaby"]').prop('checked');
+			
+			if(status==true){
+				$("#baby").after("<input type=\"hidden\" name=\"home_guest_access\" value=\"유아(2세 미만) 숙박에 적합함\">");
+				//'<input type="hidden" name="home_rules" value="유아(2세 미만) 숙박에 적합함 ">'
+			}else{
+				$("#baby").after("");
+			}
+			
+		});
+		
+		
+		$('input[type="checksmoke"]').checkboxpicker({
+			defaultClass: 'btn-default',
+			offLabel: 'NO',
+			onLabel: 'YES',
+		});
+		
+		$('input[type="checksmoke"]').on('change',function() {
+			
+			var status = $('input[type="checksmoke"]').prop('checked');
+					
+			if(status==true){
+				$("#smoke").after("<input type=\"hidden\" name=\"home_guest_access\" value=\"흡연 가능\">");
+				//'<input type="hidden" name="home_rules" value="흡연 가능">'
+			}else{
+				$("#smoke").after("");
+			}
+		});
+		
+		$('input[type="checkparty"]').checkboxpicker({
+			defaultClass: 'btn-default',
+			offLabel: 'NO',
+			onLabel: 'YES',
+		});
+		
+		$('input[type="checkparty"]').on('change',function() {
+			
+			var status = $('input[type="checkparty"]').prop('checked');
+			
+			if(status==true){
+				$("#party").after("<input type=\"hidden\" name=\"home_guest_access\" value=\"행사나 파티 허용\">");
+				//'<input type="hidden" name="home_rules" value="행사나 파티 허용">'
+			}else{
+				$("#party").after("");
+			}
+		});
+		
+		$('input[type="checkpet"]').checkboxpicker({
+			defaultClass: 'btn-default',
+			offLabel: 'NO',
+			onLabel: 'YES',
+		});
+		
+		$('input[type="checkpet"]').on('change',function() {
+			
+			var status = $('input[type="checkpet"]').prop('checked');
+			
+			if(status==true){
+				$("#pet").after("<input type=\"hidden\" name=\"home_guest_access\" value=\"반려동물 동반에 적합\">");
+				//'<input type="hidden" name="home_rules" value="반려동물 동반에 적합">'
+			}else{
+				$("#pet").after("");
+			}
+		});
+		
+		$("#requires_stairs").click( function(){
+			   if( $("#requires_stairs").is(':checked') ){ 
+				$("#requires_stairs").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"staired\">");
+			   }else{
+				$("#staired").remove();	   
+			   }
+		});
+		
+		$("#potential_noise").click( function(){
+			   if( $("#potential_noise").is(':checked') ){ 
+				$("#potential_noise").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"noise\">");
+			   }else{
+				$("#noise").remove();	   
+			   }
+		});
+		
+		$("#has_pets").click( function(){
+			   if( $("#has_pets").is(':checked') ){ 
+				$("#has_pets").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"petsdo\">");
+			   }else{
+				$("#petsdo").remove();	   
+			   }
+		});
+		
+		$("#limited_parking").click( function(){
+			   if( $("#limited_parking").is(':checked') ){ 
+				$("#limited_parking").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"parking\">");
+			   }else{
+				$("#parking").remove();	   
+			   }
+		});
+		
+		$("#shared_spaces").click( function(){
+			   if( $("#shared_spaces").is(':checked') ){ 
+				$("#shared_spaces").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"spaces\">");
+			   }else{
+				$("#spaces").remove();	   
+			   }
+		});
+		
+		$("#limited_amenities").click( function(){
+			   if( $("#limited_amenities").is(':checked') ){ 
+				$("#limited_amenities").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"amenities\">");
+			   }else{
+				$("#amenities").remove();	   
+			   }
+		});
+		
+		$("#surveillance").click( function(){
+			   if( $("#surveillance").is(':checked') ){ 
+				$("#surveillance").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"camera\">");
+			   }else{
+				$("#camera").remove();	   
+			   }
+		});
+		
+		$("#weapons").click( function(){
+			   if( $("#weapons").is(':checked') ){ 
+				$("#weapons").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"killed\">");
+			   }else{
+				$("#killed").remove();	   
+			   }
+		});
+		
+		$("#animals").click( function(){
+			   if( $("#animals").is(':checked') ){ 
+				$("#animals").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"cation\">");
+			   }else{
+				$("#cation").remove();	   
+			   }
+		});
+		
+		
+		
+		
+		$("#nextpg").click(function() {
+			//$(location).attr("href","step2third.host");
+			$("#rule").submit();
+		});
+		
 	</script>
 </body>
 </html>
