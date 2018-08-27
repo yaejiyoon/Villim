@@ -135,8 +135,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<HomeDTO> searchHomeData(String homeType, int people, List dates, String dateIsChecked) {
-		return hdao.searchHomeData(homeType, people, dates, dateIsChecked);
+	public List<HomeDTO> searchHomeData(List homeTypeList ,String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
+		return hdao.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
 	}
 
 	@Override

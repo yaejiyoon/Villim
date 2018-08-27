@@ -163,9 +163,10 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public List<HomeDTO> searchHomeData(String homeType, int people, List dates, String dateIsChecked) {
+	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("homeType", homeType);
+		param.put("homeTypeList", homeTypeList);
+		param.put("homeTypeIsChecked", homeTypeIsChecked);
 		param.put("people", people);
 		param.put("dates", dates);
 		param.put("dateIsChecked", dateIsChecked);

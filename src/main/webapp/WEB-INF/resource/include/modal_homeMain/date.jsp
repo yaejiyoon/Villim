@@ -1,7 +1,5 @@
 <%@ page pageEncoding="utf8"%>
 
-
-
 <style>
 	.modal-dialog {
 		margin-left : 5vh;
@@ -17,18 +15,38 @@
 		height : auto;
 	}
 	
+	#datePicker {
+/* 		border : 1px solid white; */
+	}
+	
+	#dateSubmit {
+		background-color: white; 
+		color : #008489;
+		border : 1px solid #008489;
+		font-family: dx;
+	}
+	
+	#dateSubmit:hover, #dateDelete:hover {
+		background-color: #008489; 
+		color : white;
+		outline:0;
+	}
+	
+	#dateDelete {
+		float: left;
+		background-color: white; 
+		color : #008489;
+		border : 1px solid #008489;
+		
+	}
+	
 </style>
 <script>
 
-	$('.datepicker-here').datepicker({
-	    onClose:function(theDate) {
-	        alert('.datepicker-here');
-	    }
-	});
 
 	$(document).ready(function() {
-		$('.datepicker-here').datepicker({
-		    autoClose : "true",
+		$('#datePicker').datepicker({
+			autoClose : "true",
 		    dateFormat : "yyyy/mm/dd",
 		    minDate: new Date(),
 		    toggleSelected: false,
@@ -66,11 +84,14 @@
 	                checkinDate = formatDate(date[0]);
 	                checkoutDate = formatDate(date[1]);
 	                
-	                alert(checkinDate+" : " + checkoutDate);
 	                
 	             }
 	          }
 		})
+		
+		$("#dateDelete").click(function() {
+			$("#datePicker").val("");
+		});
 	});
 </script>
 
@@ -84,13 +105,15 @@
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">참가신청 완료하기</h4>
                </div>
                <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
-                  	<input id="datepicker" type="text" data-range="true"
-	                   data-multiple-dates-separator="  ~  "
-	                   todayButton="true" class="datepicker-here"
-	                     placeholder="  체크인       ㅡ       체크아웃" />
+              	<input id="datePicker" type="text" data-range="true"
+ 	                   data-multiple-dates-separator="  ~  "  
+                    todayButton="true" class="datepicker-here" 
+                     placeholder="  체크인       ㅡ       체크아웃" />  
+<!-- 	                     <div class="datepicker-here" data-range="true" id="datePicker"></div> -->
                </div>
                <div class="modal-footer">
-                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary submit" data-dismiss="modal">참석하기</a>
+                   <button class="btn btn-primary-outline" id="dateDelete" type="button">삭제</button> 
+                   <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
                </div>
             </div>
          </div>

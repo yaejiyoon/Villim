@@ -49,6 +49,9 @@ public class HomeMainController {
 		session.setAttribute("people", people);
 		session.setAttribute("minMoney", 0);
 		session.setAttribute("maxMoney", 1001000);
+		session.setAttribute("startDate", startDate);
+		session.setAttribute("endDate", endDate);
+		System.out.println("==============================================");
 		System.out.println("homeType : "+homeType);
 		System.out.println("people : "+people);
 		System.out.println("startDate : "+startDate);
@@ -60,6 +63,19 @@ public class HomeMainController {
 		mav.addObject("lat", lat);
 		mav.addObject("lng", lng);
 		
+		List homeTypeList = new ArrayList<>();
+		homeTypeList.add(homeType);
+		System.out.println(homeTypeList);
+		
+		String homeTypeIsChecked = "0";
+		session.setAttribute("homeTypeList", homeTypeList);
+		
+		if(!homeType.equals("0")) {
+//			집 유형을 선택했을 때
+			homeTypeIsChecked = "1";
+		}
+		
+		session.setAttribute("homeTypeIsChecked", homeTypeIsChecked);
 		
 		List dates = new ArrayList<>();
 		String dateIsChecked = "0";
@@ -95,9 +111,12 @@ public class HomeMainController {
 		
 		session.setAttribute("dateIsChecked", dateIsChecked);
 		
+		System.out.println("집 체크됐니? "+(String)session.getAttribute("homeTypeIsChecked"));
+		System.out.println("날짜 체크됐니? "+(String)session.getAttribute("dateIsChecked"));
+		System.out.println("startDate 세션값 들어감?? "+(String)session.getAttribute("startDate"));
 		
 		
-		List<HomeDTO> homeList = homeService.searchHomeData(homeType, people, dates, dateIsChecked);
+		List<HomeDTO> homeList = homeService.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
 		List<HomePicDTO> homePic = homeService.getHomePic();
 		
 		mav.addObject("homeList", homeList);
@@ -143,14 +162,55 @@ public class HomeMainController {
 		
 	}
 	
-	@RequestMapping("/modalHome.do")
-	public ModelAndView modalChange(HttpSession session, HttpServletRequest request, int modalPeople) {
+	@RequestMapping("/modalPeople.do")
+	public ModelAndView modalPeopleChange(HttpSession session, HttpServletRequest request, int modalPeople) {
 		
 		session.setAttribute("people", modalPeople);
 		List dates = (List) session.getAttribute("dates");
 		
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("homeType", (String) session.getAttribute("homeType"));
+		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
+		param.put("homeTypeIsChecked", (String) session.getAttribute("homeTypeIsChecked"));
+		param.put("people", session.getAttribute("people"));
+		param.put("dates", (List) session.getAttribute("dates"));
+		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		List<HomeDTO> homeList = homeService.modalHomeData(param);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("homeList", homeList);
+		mav.addObject("mapOn", "mapOn");
+		mav.setViewName("home_main");
+		return mav;
+		
+	}
+	
+	@RequestMapping("/modalHomeType.do")
+	public ModelAndView modalHomeTypeChange(HttpSession session, HttpServletRequest request, String homeType) {
+		
+		if(homeType==null) {
+			homeType="0";
+			session.setAttribute("homeTypeIsChecked", "0");
+		}
+		
+		session.setAttribute("homeTypeIsChecked", "1");
+		
+		List homeTypeList = new ArrayList<>();
+		
+		homeTypeList.add(homeType);
+		
+		session.setAttribute("homeTypeList", homeTypeList);
+		session.setAttribute("homeType", homeType);
+
+		System.out.println("modal로 homeType 바꾸고 나서 list : "+(List) session.getAttribute("homeTypeList"));
+		System.out.println("modal로 homeType 바꾸고 나서 checked : "+(String)session.getAttribute("homeTypeIsChecked"));
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
+		param.put("homeTypeIsChecked", (String) session.getAttribute("homeTypeIsChecked"));
 		param.put("people", session.getAttribute("people"));
 		param.put("dates", (List) session.getAttribute("dates"));
 		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));

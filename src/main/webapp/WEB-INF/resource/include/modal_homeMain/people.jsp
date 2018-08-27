@@ -102,7 +102,6 @@ $(document).ready(function() {
 			$("#pcount").text("0");
 		});
 		
-
 		$('#peopleSubmit').submit(function() {
 		    $('#modalPeople').modal('hide');
 		    return false;
@@ -111,7 +110,7 @@ $(document).ready(function() {
 		
 	});
 </script>
-<form action="modalHome.do" method="post">
+<form action="modalPeople.do" method="post">
       <div class="modal fade" id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="peopleDialog">
             <div class="modal-content">

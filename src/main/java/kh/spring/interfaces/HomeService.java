@@ -55,7 +55,7 @@ public interface HomeService {
 	
 	public List<HomePicDTO> getHomePic();
 	
-	public List<HomeDTO> searchHomeData(String homeType, int people, List dates, String dateIsChecked);
+	public List<HomeDTO> searchHomeData(List homeTypeList , String homeTypeIsChecked, int people, List dates, String dateIsChecked);
 	
 	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
