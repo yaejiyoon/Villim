@@ -541,21 +541,29 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<span>예약 취소</span>
                		<br>
                		<br>
-               		<div>
-               		<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		</div>
-               		<div>
-               		<span>일반 정책 - 체크인 5일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 5일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		</div>
-               		<div>
-               		<span>유연 정책 - 체크인 1일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 1일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		</div>
+               		<c:choose>
+               			<c:when test="${hdto.home_policy eq '엄격' }">
+               				<div>
+               					<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
+               					<br>
+               					체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               				</div>
+               			</c:when>
+               			<c:when test="${hdto.home_policy eq '일반' }">
+               				<div>
+               					<span>일반 정책 - 체크인 5일 전까지 예약 취소 시 취소 수수료 없음</span>
+               					<br>
+               					체크인 5일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               				</div>
+               			</c:when>
+               			<c:when test="${hdto.home_policy eq '엄격' }">
+               				<div>
+               					<span>유연 정책 - 체크인 1일 전까지 예약 취소 시 취소 수수료 없음</span>
+               					<br>
+               					체크인 1일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               				</div>
+               			</c:when>
+               		</c:choose>
                		<br>
                		<a href="https://www.airbnb.co.kr/home/updated_cancellation_policies?guest_fee_policy=full_refund" class="green">정책 자세히 읽기</a>
                		<br><br><br>
@@ -815,18 +823,15 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                				<div id="host-top-left">
                					
-               					<p>호스트: Kim님</p>
-               					Seogwipo-si, 한국 · 회원 가입: 2013년 10월
+               					<p>호스트: ${memberDTO.member_name }님</p>
+               					${memberDTO.member_location } · 회원 가입: ${memberDTO.member_date }
                				</div>
                				<div id="host-top-right">
                					<img src="<c:url value='../resources/img/1.jpg'/>">
                				</div>
                			</div>
                			<div id="host-contents">
-               				My name is Sarah and I live just a few minutes away from the sea. 
-               				I’m book translator and love to travel in search of new adventures, to meet new people, 
-               				to browse flea markets hunting for old items, to eat tasty food and drink fine wine, 
-               				to read and float in the sea, to ramble round old streets, and to blow in the wind.
+               				${memberDTO.member_introduction }
                			</div>
                			<div id="host-bottom">
                				<p>언어: </p><span>English, 한국어</span><br>

@@ -189,6 +189,9 @@ public class HomeInfoController {
 			}
 		}
 		
+		//멤버 정보
+		MemberDTO memberDTO = memberService.printProfile(hdto.getMember_email());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
@@ -196,6 +199,7 @@ public class HomeInfoController {
 		mav.addObject("hostReviewList", hostReviewList);
 		mav.addObject("page", page);
 		mav.addObject("hddto", hddto);
+		mav.addObject("memberDTO", memberDTO);
 		mav.addObject("amenitiesList", amenitiesList);
 		mav.addObject("accessList", accessList);
 		mav.addObject("safetyList", safetyList);
@@ -634,19 +638,6 @@ public class HomeInfoController {
 			System.out.println(checkInDate+ " : " +checkOutDate);
 		}
 
-		MessageRoomDTO roomdto = new MessageRoomDTO();
-		
-		roomdto.setMessage_room_seq(message_room_seq);
-		roomdto.setHome_seq(reservationDTO.getHome_seq());
-		roomdto.setHost_email(reservationDTO.getHost_email());
-		roomdto.setGuest_email(reservationDTO.getMember_email());
-		roomdto.setCheckIn(checkInDate);
-		roomdto.setCheckOut(checkOutDate);
-		roomdto.setTotalNumber(reservationDTO.getPopulation());
-		int messageInfoInsert = MessageService.messageRoomInsert(roomdto);
-		if (messageInfoInsert > 0) {
-			System.out.println("msgroom정보 입력에 성공!");
-		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
 
