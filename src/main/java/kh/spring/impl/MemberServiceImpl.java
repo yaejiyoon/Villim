@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String memberBlock(String arr) {
+	public int memberBlock(List<String> arr) {
 		
 		return dao.memberBlock(arr);
 	}

@@ -153,37 +153,34 @@ public class MemberDAOImpl implements MemberDAO {
 	
 
 	@Override
-	public String memberBlock(String arr) {
+	public int memberBlock(List<String> arr) {
 		String sql = "update member set member_block=? where member_seq=?";
 		System.out.println(arr + "daoImpl");
-		for(int i=0; i<arr.split(",").length; i++) {
-		System.out.println(arr.split(",").length);
-			for(int j=0; j<arr.split(",")[i].split("\"").length; j++) {
-				
-				System.out.println(arr.split(",")[i].split("\"").length);
-				System.out.println(arr.split(",")[i].split("\"")[1]);
-				System.out.println(arr.split(",")[i].split("\"")[j] + "여기");
-				for(int k=0; k<arr.split(",")[i].split("\"")[j].split(":").length; k++) {
-					System.out.println(arr.split(",")[i].split("\"")[j].split(":").length);
-					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[0]);
-					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[1]);
-					
-					
-				}
-			}
+		int result = 0 ;
+		int count = 0;
+		for(int i=0; i<arr.size(); i++) {
+		String seq = arr.get(i).split(":")[0];
+		String val = arr.get(i).split(":")[1];
 		
-//			for(int j=0; j<arr.split(",")[i].split("\"").length; j++) {
-//				
-//				for(int k=0; k<arr.split(",")[i].split("\"")[j].split(":").length; k++) {
-//					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[0]);
-//					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[1]);
-//				}
-//			}
+		result = jdbcTemplate.update(sql, val, seq);
 		
-		jdbcTemplate.update(sql, arr.split(",")[0]);
+		if(result>0) {
+			
+			System.out.println("성공");
+			count++;
+		}else {
+			System.out.println("실패");
+			
 		}
-		return null;
 	}
+		
+	if(count == arr.size()) {
+		return count;
+	}else {
+		System.out.println("도중에 실패한 수정이 있습니다.");
+		return 0;
+	}
+}
 
 
 

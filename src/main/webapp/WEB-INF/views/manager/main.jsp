@@ -161,12 +161,12 @@ $(document).ready(function(){
 						seq : currentid,
 						val : currentval
 					})
-				/* 	currentarray[j]=current; */
+			
 					alert("#"+currentid);
 					alert(current);
 					alert($(this).val());
 					alert(currentarray);				
-					j++;
+				
 				
 				})
 			}
@@ -189,6 +189,8 @@ $(document).ready(function(){
 			}, 
 			success : function(response) {
 				
+				alert(response);
+				currentarray.splice(0, currentarray.length);
 			}
 				
 	})

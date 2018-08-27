@@ -1,5 +1,6 @@
 package kh.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,16 +99,53 @@ public class ManagerController {
 	@RequestMapping("mainMemberBlock.admin")
 	public void mainMemberBlock(HttpServletRequest request,HttpServletResponse response) {
 		String arr = request.getParameter("currentarray");
-		
+		List<String> list = new ArrayList<>();
 		System.out.println(arr);
-		JSONArray jsonarray = new JSONArray();
-		JSONObject json =  new JSONObject();
+		JSONParser parser = new JSONParser();
+		try {
+		Object obj = parser.parse(arr);
+		JSONArray jsonArr = (JSONArray) obj;
+		for(int i=0; i<jsonArr.size(); i++) {
+			
+			System.out.println(jsonArr.get(i));
+			JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+			String seq = (String)jsonObj.get("seq");
+			String val = (String)jsonObj.get("val");
+			String sum = seq + ":" + val;
+			list.add(sum);
+			
+		}
 		
+		for(int j=0; j<list.size(); j++) {
+			System.out.println(list.get(j));
+		}
+//		String seq = (String)jsonArr.get(index);
+//		String val = (String)jsonArr.get("val");
+//		System.out.println(seq + ":" + val + "seq 와  val 값");
+//		System.out.println(jsonObj + "- jsonobject 값");
+		int result = service.memberBlock(list);
+		
+		if(result==list.size()) {
+			String msg = "성공";
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(msg, response.getWriter());
+		}else {
+			String msg = "실패";
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(msg, response.getWriter());
+		}
+//		JSONArray jsonarray = new JSONArray();
+//		JSONObject json =  new JSONObject();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	
 //		JSONObject jsonObject = JSONObject.fromObject(arr);
 //		System.out.println(jsonObject);
-		service.memberBlock(arr);
+	
 		
 	}
 }
