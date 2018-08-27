@@ -946,7 +946,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             		<div id="fixed-sub01">
             			<br>
             			<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
-            			<h3 style="display: inline; font-weight: 600;">132,766</h3>/박
+            			
+            			<h3 style="display: inline; font-weight: 600;">
+            				<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" />
+            			</h3>/박
             			<br>
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
@@ -1471,6 +1474,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<input type="hidden" name="serviceFee" id="serviceFee">
             			<input type="hidden" name="totalAmount" id="totalAmount">
             			<input type="hidden" name="blockedDate" id="blockedDate">
+            			<input type="hidden" name="host_email" value="${hdto.member_email }">
             			</form>
             		</div>
             		

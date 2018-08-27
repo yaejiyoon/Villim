@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href="<c:url value="../resources/css/home/reservationReq.css?var=2" />" rel="stylesheet" />
-<link href="<c:url value="../resources/css/home/payment.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/payment.css?var=3" />" rel="stylesheet" />
 
 <!-- 결제 -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
@@ -90,7 +92,6 @@
 					<br>
 					<br>
 					<p><a href="home_info.jsp?seq="+${reservationDTO.home_seq } class="greenA">숙소 이용규칙</a>, <a href="#" class="greenA">환불 정책</a>, 및 <a href="#" class="greenA">게스트 환불 정책</a>에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.</p>
-					
 					<br>
 					<br>
 					<button id="paymentBT" class="btn btn-secondary">확인 및 결제</button>
@@ -104,7 +105,7 @@
 					<div id="content01">
 						<div id="content01-homeName">
 							<p>${hdto.home_name }집집집집집집집집집</p>
-							<p>Jeju-si의 개인실</p>
+							<p>${hdto.home_addr1 }, ${hdto.home_addr2 }의 ${hdto.home_type }</p>
 							<p>★★★★★</p><p>후기 137개</p>
 							<p></p>
 						</div>
@@ -124,26 +125,33 @@
 					</div>
 					<div id="content03">
 						<div style="margin:5px 0px;">
-							<p style="display: inline; float:left;">₩85,000 x 2박</p>
-							<p style="display: inline; float:right;">₩170,000</p>
-						</div style="margin:5px 0px;">
+							<p style="display: inline; float:left;">
+							₩<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" /> x ${calDateDays }박
+							</p>
+							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.nightsAmount }" pattern="#,###" /></p>
+						</div>
 						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">청소비</p>
-							<p style="display: inline; float:right;">₩9,000</p>
+							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.cleaningFee }" pattern="#,###" /></p>
 						</div>
 						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">서비스 수수료</p>
-							<p style="display: inline; float:right;">₩24,730</p>
+							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.serviceFee }" pattern="#,###" /></p>
 						</div>
 					</div>
-					<div id="content04" >
-						<p style="display: inline; float:left;">총 합계 (KRW)</p>
-						<p style="display: inline; float:right; font-weight: 600;">₩203,730</p>
+					<div id="content04">
+						<div style="margin:5px 0px;">
+							<p style="display: inline; float:left;">총 합계 (KRW)</p>
+							<p style="display: inline; float:right; font-weight: 600; margin-bottom: 15px;">₩
+							<fmt:formatNumber value="${reservationDTO.totalAmount }" pattern="#,###" /></p>
+						</div>
 					</div>
 					<div id="content05">
-						<p class="title" style="float: left;">환불 정책: 유연 — 취소 무료</p>
-						<p style="float: left;">48시간 이내에 취소하면<br> 전액이 환불됩니다. <a class="greenA" href="#" style="font-weight: 400;">자세히 알아보기</a></p>
-						<img src="<c:url value='/resources/img/refund.jpg'/>" style="position:absolute; width:50px; right:15px;">
+						<div style="margin: 10px 0px;">
+							<p class="title" style="float: left;">환불 정책: 유연 — 취소 무료</p>
+							<p style="float: left; margin-bottom: 15px;">48시간 이내에 취소하면<br> 전액이 환불됩니다. <a class="greenA" href="#" style="font-weight: 400;">자세히 알아보기</a></p>
+							<img src="<c:url value='/resources/img/refund.jpg'/>" style="position:absolute; width:50px; right:15px;">
+						</div>
 					</div>
 				</div>
 			</div>

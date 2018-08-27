@@ -643,15 +643,13 @@ $(document).ready(function(){
     <br>
     <p style="color:gray;position:relative;top:-8.8vh;left:6vw;width:16vw;">게스트의 예약을 자꾸 거절하면 검색 결과에서 뒤로 밀려날 수 있습니다.</p>
     </div>
-    
-    <button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
+    <form action="acceptReserv.re" method="post">
+    	<input type="hidden" name="seq" value="${reservCheck.reservation_seq}">
+    	<input type="hidden" name="roomSeq" value="${message_room_seq}">
+    	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
+    </form>
     <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:2vh;left:1vw;">거절</button> 
     
-    <script>
-    $("#acceptBT").click(function(){
-		$(location).attr('href','acceptReserv.re?seq='+${reservCheck.reservation_seq});
-	});
-    </script>
   </div>
 </div>
 </c:if>

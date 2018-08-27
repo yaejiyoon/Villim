@@ -122,7 +122,7 @@ div {
 
 #paymentRight-content{
 	margin: 0 auto;
-	width:85%;
+	width:400px;
 	height:auto;
 	border: 1px solid #d6d6d6;
 }
@@ -184,7 +184,7 @@ div {
 	position: absolute;
     margin: auto;
     top: 100px;
-    left: 0;
+    left: 24px;
     bottom: 0;
 }
 
@@ -238,7 +238,7 @@ div {
 }
 
 #content04{
-	margin:10px 0px 10px 14px;
+	margin:0 auto;
 	width:90%;
 	height:14%;
 }

@@ -56,10 +56,7 @@ public class MessageController {
         String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		/*session.setAttribute("userId", "jake@gmail.com");*/
-       session.setAttribute("userId", "test@test.com");
-		 /*session.setAttribute("userId", "test@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
         System.out.println("아이디 :"+userId );
 		// 여행
 		List<GuestMsgDTO> guestMessage = this.service.guestMessageMain(userId);
@@ -182,8 +179,7 @@ public class MessageController {
 	@RequestMapping("/messageSend.msg")
 	public ModelAndView messageSend(HttpSession session) {
 		System.out.println("messageSend");
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		int home_seq = 1;
 		String host_name = "Sarah Son";
 		String host_picture = "지창욱.jpg";
@@ -218,8 +214,7 @@ public class MessageController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageInsertDB");
 		System.out.println("내용 : " + dto.getMessage_content());
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		int home_seq = Integer.parseInt(seq);
 		HomeDTO getHomeInfo = this.service.getHomeInfo(home_seq);
@@ -277,8 +272,7 @@ public class MessageController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageRoomEnter");
         System.out.println("room_seq : "+message_room_seq);
-/*		session.setAttribute("userId", "jake@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		MemberDTO guestInfo=this.m_service.getPhoto(userId);
 		mav.addObject("userId", userId);
 		mav.addObject("message_room_seq", message_room_seq);
@@ -407,8 +401,7 @@ public class MessageController {
 		System.out.println("messageHostRoomEnter");
 		System.out.println("room_seq : "+message_room_seq);
 		System.out.println("home_seq : "+home_seq);
-		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		List<HomeDTO> getHomeNames=this.service.getHomeNames(userId);
 	    
 		System.out.println("호스트 이메일 : "+userId+" / 게스트 이메일 : "+member_email);
@@ -553,7 +546,7 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
 	List<GuestMsgDTO> guestAllMessage = this.service.guestMessageMain(userId);
 	List<String> host_email = new ArrayList<>();
 	
@@ -625,7 +618,7 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
     
     List<GuestMsgDTO> guestUnreadMsg=this.service.guestUnreadMsg(userId);
     List<String> host_email = new ArrayList<>();
@@ -705,7 +698,7 @@ public void msgMainhostUnRead(HttpSession session,HttpServletResponse response) 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
     
     List<GuestMsgDTO> hostUnreadMsg=this.service.hostUnreadMsg(userId);
     List<String> guest_email = new ArrayList<>();
@@ -787,7 +780,7 @@ public void msgMainHostAllRead(HttpSession session,HttpServletResponse response)
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
     
     List<GuestMsgDTO> hostMessage = this.service.hostMessageMain(userId);
 	List<String> guest_email = new ArrayList<>();

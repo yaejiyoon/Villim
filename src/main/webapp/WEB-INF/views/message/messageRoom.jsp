@@ -383,7 +383,7 @@ body{
     border: 1px solid #c9cacc;
     transition: 0.3s;
     width: 25%;
-    height:15vh;
+    height:17vh;
     margin: 0 auto;
     position:relative;
     left:7.5vw;
@@ -475,6 +475,9 @@ position:relative;
   			})
   			
   			
+  			$("#paymentBT").click(function(){
+  				
+  			});
   			
   			
           });
@@ -559,6 +562,10 @@ position:relative;
    <button class="close-button" id="close-button-3">+</button>
     <h4><b>${host_name}님의 숙소에 예약하셨습니다.</b></h4> 
     <p>${host_name}님이 예약에 수락하셨습니다. 즐거운 여행 되세요</p>
+    <form action="paymentProc.re" method="post" >
+    <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq }">
+    <button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:1.5vh;" id="paymentBT">결제하기</button>
+  	</form>
   </div>
 </div>
 </c:when>
@@ -568,7 +575,7 @@ position:relative;
   <button class="close-button" id="close-button-1">+</button>
     <h4><b>${host_name}님에게 숙소 문의 메시지를 보냈습니다</b></h4> 
     <p >대부분의 호스트는 24시간 이내에 응답합니다. 이 숙소를 1순위로 고려하고 있다면, 결제 정보를 입력하여 정식으로 예약 요청을 하세요.</p>
-    <button class="btn btn-default" onclick="location.href='reservation.ho?'" id="reservRequestBt" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
+    <button class="btn btn-default" id="reservRequestBt" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
   </div>
 </div>
 </c:otherwise>

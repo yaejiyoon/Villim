@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="<c:url value="../resources/css/home/reservationReq.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/reservationReq.css?var=2" />" rel="stylesheet" />
 <script>
 	$(document).ready(function(){
 		$("#toindex").click(function(){
@@ -57,32 +58,22 @@
 					<br>
 					<p class="title">숙박에 대해 반드시 알아야 할 사항</p>
 					<ul>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>포함 편의시설: 건물 내 무료 주차, 아침식사 등</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>포함 편의시설: 건물 내 무료 주차, 아침식사 등</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>포함 편의시설: 건물 내 무료 주차, 아침식사 등</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
-						<li>숙소 편의시설: 개인실와(과) 주방</li>
+						<li>숙소 편의시설: ${amenities } 등</li>
+						<li>사용 가능 공간/시설: ${access } 등</li>
 					</ul>
 				</div>
 				<div id="paymentLeft-content02">
 					<p class="title">주의할 사항</p>
-					<div class="content02">어린이(0~12세), 파티 및 이벤트에 적합한 숙소입니다.</div>
-					<div class="content02">체크인 가능 시간: 16:00 이후와(과) 체크아웃: 11:00까지</div>
-					<div class="content02">흡연 금지와(과) 반려동물 동반 불가</div>
-					<div class="content02">키패드(으)로 셀프 체크인</div>
-					<p style="margin-top: 20px; font-size: 2vh;">알아두어야 할 사항</p>
-					계단을 올라가야 함
+					<c:forEach items="${rulesList }" var="rulesList">
+						<div class="content02">${rulesList }</div>
+					</c:forEach>
+					<p class="title" style="margin-top: 20px; font-size: 2vh; margin-bottom: 18px;">알아두어야 할 사항</p>
 					
-					<br>
-					<br>
-					<a href="">더 보기</a>
+					<c:forEach items="${rulesDetailsList }" var="rulesDetailsList">
+						<c:set var="rules" value="${rulesDetailsList}"></c:set>
+               				<p>${fn:split(rules,':')[0]}</p>
+               				<p>&nbsp; - ${fn:split(rules,':')[1]}</p>
+					</c:forEach>
 					<br>
 					<br>
 					<br>
@@ -117,12 +108,11 @@
 					</div>
 					<div id="content03">
 						<div style="margin:5px 0px;">
-						
 							<p style="display: inline; float:left;">
 							₩<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" /> x ${calDateDays }박
 							</p>
 							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.nightsAmount }" pattern="#,###" /></p>
-						</div style="margin:5px 0px;">
+						</div>
 						<div style="margin:5px 0px;">
 							<p style="display: inline; float:left;">청소비</p>
 							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.cleaningFee }" pattern="#,###" /></p>
@@ -132,9 +122,13 @@
 							<p style="display: inline; float:right;">₩<fmt:formatNumber value="${reservationDTO.serviceFee }" pattern="#,###" /></p>
 						</div>
 					</div>
-					<div id="content04" >
-						<p style="display: inline; float:left;">총 합계 (KRW)</p>
-						<p style="display: inline; float:right; font-weight: 600;">₩<fmt:formatNumber value="${reservationDTO.totalAmount }" pattern="#,###" /></p>
+					<div id="content04" style="margin-bottom: 5px;">
+						<div style="margin:5px 0px;">
+							<p style="display: inline; float:left;">총 합계 (KRW)</p>
+							<p style="display: inline; float:right; font-weight: 600;">₩
+							<fmt:formatNumber value="${reservationDTO.totalAmount }" pattern="#,###" /></p>
+						</div>
+						
 					</div>
 				</div>
 			</div>

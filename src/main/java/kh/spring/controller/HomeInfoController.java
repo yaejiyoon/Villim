@@ -29,10 +29,13 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.MessageDTO;
+import kh.spring.dto.MessageRoomDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.ReviewService;
 import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
+import kh.spring.interfaces.MessageService;
 import kh.spring.interfaces.ReservService;
 
 @Controller
@@ -49,6 +52,9 @@ public class HomeInfoController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MessageService MessageService;
 	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
@@ -405,6 +411,8 @@ public class HomeInfoController {
 //			System.out.println("???????");
 //		}
 		
+		System.out.println("아이디닌이이이이이"+reservationDTO.getMember_email());
+		
 		String amount = reservationDTO.getTotalAmount();
 		
 		reservationDTO.setGuset_review("N");
@@ -461,7 +469,32 @@ public class HomeInfoController {
 	        
 			System.out.println(checkInDate+ " : " +checkOutDate);
 		}
-        
+		
+		//편의시설
+		String amenities = hdto.getHome_amenities();
+		//사용 가능 공간
+		String access = hdto.getHome_guest_access();
+		//숙소 이용 규칙
+		String rules = hdto.getHome_rules();
+		List<String> rulesList = new ArrayList<>();
+		System.out.println(rules);
+
+		if(rules != null) {
+			for(int i=0;i<rules.split(",").length;i++) {
+				rulesList.add(rules.split(",")[i]);
+			}
+		}
+
+		//숙소 이용 규칙 더보기
+		String rulesDetails = hdto.getHome_details();
+		List<String> rulesDetailsList = new ArrayList<>();
+		System.out.println(rules);
+
+		if(rulesDetails != null) {
+			for(int i=0;i<rulesDetails.split(",").length;i++) {
+				rulesDetailsList.add(rulesDetails.split(",")[i]);
+			}
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservationDTO", reservationDTO);
@@ -469,24 +502,14 @@ public class HomeInfoController {
 		mav.addObject("checkInDate", checkInDate);
 		mav.addObject("checkOutDate", checkOutDate);
 		mav.addObject("calDateDays", calDateDays);
+		mav.addObject("amenities", amenities);
+		mav.addObject("access", access);
+		mav.addObject("rulesList", rulesList);
+		mav.addObject("rulesDetailsList", rulesDetailsList);
 		mav.setViewName("home/reservationReq");
 
 		return mav;
 		
-	}
-	
-	@RequestMapping("/acceptReserv.re")
-	public ModelAndView acceptReserv(HttpServletRequest req) {
-		int reservation_Seq = Integer.parseInt(req.getParameter("seq"));
-		System.out.println("reservation_seq : "+reservation_Seq);
-		
-		//예약상태 업데이트 (1:예약 완료)
-		int updateState = reservService.updateReservState(reservation_Seq, 1);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("index");
-
-		return mav;
 	}
 	
 	@RequestMapping("/reservReqToHost.re")
@@ -497,11 +520,208 @@ public class HomeInfoController {
 		
 		int insertReserve = reservService.insertData(reservDTO);
 		int home_seq = reservDTO.getHome_seq();
+		HomeDTO hdto = homeService.getHomeData(home_seq);
+		
+		
+		//메세지
+		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
+		MessageRoomDTO roomdto = new MessageRoomDTO();
+		roomdto.setHost_email(reservDTO.getHost_email());
+		roomdto.setGuest_email(reservDTO.getMember_email());
+		roomdto.setHome_seq(home_seq);
+		MessageRoomDTO messageRoomSeqExist = MessageService.messageRoomSeqExist(roomdto);
+		int message_room_seq = 0;
+		if (messageRoomSeqExist != null) {
+			message_room_seq = messageRoomSeqExist.getMessage_room_seq();
+			System.out.println("msgroom정보 이미 존재");
+		} else {
+			int messageRoomSeq = MessageService.getRoomSeq();
+			message_room_seq = messageRoomSeq;
+
+			//날짜형식 년월일로 변환
+			String checkIn = reservDTO.getReserv_checkin();
+			String checkOut = reservDTO.getReserv_checkout();
+			
+			System.out.println(checkIn+ " : " +checkOut);
+			
+			String checkInDate = null;
+			String checkOutDate = null;
+			
+			if(checkIn != null || checkOut != null) {
+				checkInDate = checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+		        checkOutDate = checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+		        
+				System.out.println(checkInDate+ " : " +checkOutDate);
+			}
+			
+			roomdto.setMessage_room_seq(message_room_seq);
+			roomdto.setHome_seq(home_seq);
+			roomdto.setHost_email(reservDTO.getHost_email());
+			roomdto.setGuest_email(reservDTO.getMember_email());
+			roomdto.setCheckIn(checkInDate);
+			roomdto.setCheckOut(checkOutDate);
+			roomdto.setTotalNumber(reservDTO.getPopulation());
+			int messageInfoInsert = MessageService.messageRoomInsert(roomdto);
+			if (messageInfoInsert > 0) {
+				System.out.println("msgroom정보 입력에 성공!");
+			}
+			;
+		}
+
+		System.out.println("message_room_seq= " + message_room_seq);
+		
+		//멤버 이름
+		MemberDTO memberDTO = memberService.printProfile(reservDTO.getMember_email());
+
+		MessageDTO messageDTO = new MessageDTO();
+		
+		messageDTO.setMessage_room_seq(message_room_seq);
+		messageDTO.setHome_seq(home_seq);
+		messageDTO.setFromID(reservDTO.getMember_email());
+		messageDTO.setToID(reservDTO.getHost_email());
+		messageDTO.setMessage_content(memberDTO.getMember_name()+"님의 예약 요청 입니다.");
+
+		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
+		int messageInsertResult = MessageService.messageInsert(messageDTO);
+		if (messageInsertResult > 0) {
+			System.out.println("메세지 전송 완료!");
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("insertReserve", insertReserve);
 		mav.addObject("home_seq", home_seq);
 		mav.setViewName("home/reservationProc");
+
+		return mav;
+		
+	}
+	
+	@RequestMapping("/acceptReserv.re")
+	public ModelAndView acceptReserv(HttpServletRequest req) {
+		int reservation_Seq = Integer.parseInt(req.getParameter("seq"));
+		int message_room_seq = Integer.parseInt(req.getParameter("roomSeq"));
+		System.out.println("reservation_seq : "+reservation_Seq);
+		
+		//예약상태 업데이트 (1:예약 완료)
+		int updateState = reservService.updateReservState(reservation_Seq, 1);
+		
+		//reservationDTO
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_Seq);
+		
+		//메세지
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+
+		MessageRoomDTO roomdto = new MessageRoomDTO();
+		
+		roomdto.setMessage_room_seq(message_room_seq);
+		roomdto.setHome_seq(reservationDTO.getHome_seq());
+		roomdto.setHost_email(reservationDTO.getHost_email());
+		roomdto.setGuest_email(reservationDTO.getMember_email());
+		roomdto.setCheckIn(checkInDate);
+		roomdto.setCheckOut(checkOutDate);
+		roomdto.setTotalNumber(reservationDTO.getPopulation());
+		int messageInfoInsert = MessageService.messageRoomInsert(roomdto);
+		if (messageInfoInsert > 0) {
+			System.out.println("msgroom정보 입력에 성공!");
+		}
+
+		System.out.println("message_room_seq= " + message_room_seq);
+
+		//멤버 이름
+		MemberDTO memberDTO = memberService.printProfile(reservationDTO.getHost_email());
+
+		MessageDTO messageDTO = new MessageDTO();
+
+		messageDTO.setMessage_room_seq(message_room_seq);
+		messageDTO.setHome_seq(reservationDTO.getHome_seq());
+		messageDTO.setFromID(reservationDTO.getMember_email());
+		messageDTO.setToID(reservationDTO.getHost_email());
+		messageDTO.setMessage_content(memberDTO.getMember_name()+"님이 예약 요청을 수락했습니다");
+
+		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
+		int messageInsertResult = MessageService.messageInsert(messageDTO);
+		if (messageInsertResult > 0) {
+			System.out.println("메세지 전송 완료!");
+		}
+
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+
+		return mav;
+	}
+	
+	@RequestMapping("/paymentProc.re")
+	public ModelAndView paymentProc(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		
+		System.out.println(reservation_seq);
+		
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+        Date FirstDate = null;
+        Date SecondDate = null;
+		try {
+			FirstDate = format.parse(reservationDTO.getReserv_checkin());
+			SecondDate = format.parse(reservationDTO.getReserv_checkout());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
+        // 연산결과 -950400000. long type 으로 return 된다.
+        long calDate = FirstDate.getTime() - SecondDate.getTime(); 
+        
+        // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다. 
+        // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+        long calDateDays = calDate / ( 24*60*60*1000); 
+ 
+        calDateDays = Math.abs(calDateDays);
+		
+        System.out.println("두 날짜의 날짜 차이: "+calDateDays);
+				
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("hdto", hdto);
+		mav.addObject("calDateDays", calDateDays);
+		mav.setViewName("home/payment");
 
 		return mav;
 		
