@@ -26,6 +26,13 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Baloo|Ubuntu" rel="stylesheet">
+
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=1" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
+
 <title>${guest_name}님과의 대화</title>
 <style>
 .card {
@@ -39,20 +46,6 @@
 	margin-bottom:10vh;
 }
 
- 
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
-  -webkit-box-sizing: border-box;
- 	-moz-box-sizing: border-box;
-}
-
-body{
-
-  font-family: "Roboto", "Tahoma", "Arial", sans-serif;,
-} */
 
 .text-right{ text-align: right; }
 
@@ -149,7 +142,7 @@ body{
 
 .comment-form,
 .comment{ 
-   margin-bottom: 0vh; */
+   margin-bottom: 0vh; 
   height:auto;
   position: relative;
   z-index: 0;
@@ -414,7 +407,15 @@ select::-ms-expand {
 
 /* calender */
 
+.my-class{
+background:#ff5a5f;
+color:black;
+font-weight:800;
 
+}
+.my-class:hover{
+background-color: none;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -466,7 +467,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<%@ include file="../../resource/include/header_profile.jsp" %>
+<%@ include file="../../resource/include/header_msg.jsp" %>
 
 
 
@@ -543,17 +544,74 @@ $(document).ready(function(){
  <option value="${homeList.home_name}">${homeList.home_name}</option>
 </c:forEach>
     </select>
+    
+     </div>
     <!-- 달력    -->
-    
-
-    
-    
-    
-    
-    
-    
-    
-  </div>
+   
+    <div class="datepicker-here"></div>
+   <script>
+                      $(document).ready(function(){
+       
+                    	 
+                         var eventDates =[];
+                         <c:forEach var="item" items="${date}">
+                         eventDates.push("${item}");
+                         </c:forEach>
+                         for(var i=0 in eventDates.length){
+                        	 console.log(eventDates[i])
+                         }
+                    	  
+                          
+                    	  
+                          $('.datepicker-here').datepicker({
+                               
+                               dateFormat : "yyyy-mm-dd",
+                               minDate:new Date(),
+                               language: {
+                                  days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                                   daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+                                   daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+                                   months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                                   monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                                   today: '오늘',
+                                   clear: '날짜 지우기',
+                                   dateFormat: "yyyy/mm/dd",
+                                   timeFormat: 'hh:ii aa'
+                                },
+                                 onRenderCell: function (date, cellType) {
+                               	  
+                               	  var currentDate = date.getDate();
+                                     var currentMonth = date.getMonth();
+                                     currentMonth = "0"+currentMonth;
+                                     
+                                     if (cellType == 'day') {
+                                        for(var i=0; i<eventDates.length;i++){
+                                           
+                                           var eventYear = eventDates[i].split('-')[0];
+                                              var eventMonth = eventDates[i].split('-')[1]-1;
+                                           eventMonth = "0"+eventMonth;
+                                              var eventDay = eventDates[i].split('-')[2];
+                                              
+                                              
+                                              if(eventMonth == currentMonth){
+                                                 if(eventDay == currentDate){
+                                                    return {
+                                                         classes: 'my-class',
+                                                         disabled: true
+                                                         
+                                                      }
+                                                 }
+                                              }
+                                              
+                                        }
+                                 }
+                                }
+                                    
+                            });
+                      })
+  					 
+                           </script>
+  
   </c:if>
 			</div>
               
@@ -563,7 +621,7 @@ $(document).ready(function(){
 			
 		</div>
 
-		
+<input type="hidden" value="${date}" id="date">		
 		<!--예약 확인 카드  -->
 <c:if test="${reservCheck.reserv_state==0}">
 <div class="card2 animated slideInRight">
@@ -688,7 +746,7 @@ $(document).ready(function(){
 
    <%@ include file="../../resource/include/footer.jsp" %>   
 
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>

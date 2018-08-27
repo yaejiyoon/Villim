@@ -112,6 +112,32 @@ public class MessageDAOImpl implements MessageDAO{
 		
 	}
 
+	@Override
+	public int guestMsgUnreadCount(String userId) {
+		return template.selectOne("Message.guestMsgUnreadCount",userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> guestUnreadMsg(String userId) {
+		return template.selectList("Message.guestUnreadMsg", userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> hostUnreadMsg(String userId) {
+		return template.selectList("Message.hostUnreadMsg", userId);
+	}
+
+	@Override
+	public int hostMsgUnreadCount(String userId) {
+		return template.selectOne("Message.hostMsgUnreadCount", userId);
+	}
+
+	@Override
+	public int ReadUpdate(int message_seq, String member_email, String userId) {
+		String sql="update message set message_read=1 where message_seq=? and fromID=? and toID=?";
+		return jdbcTemplate.update(sql, message_seq,member_email,userId);
+	}
+
 	
 
 

@@ -30,6 +30,10 @@ public interface MessageDAO {
 	
 	public int guestMsgAllCount(String userId);
 	
+	public int guestMsgUnreadCount(String userId);
+	
+	public List<GuestMsgDTO> guestUnreadMsg(String userId);
+	
 	//Message Guest Room
 	public List<MemberDTO> memberInfo(List<String> hostId);
 	
@@ -43,15 +47,22 @@ public interface MessageDAO {
 	
 	public ReservationDTO reservCheck(ReservationDTO dto2);
 	
+	public int ReadUpdate(int message_seq,String member_email,String userId);
+	
 	//Message Host Main
 	public List<GuestMsgDTO> hostMessageMain(String userId);
 	
 	public int hostMsgAllCount(String userId);
 	
+	public int hostMsgUnreadCount(String userId);
+	
+	public List<GuestMsgDTO> hostUnreadMsg(String userId);
+	
 	
 	//Message Host Room
 	
 	public List<HomeDTO> getHomeNames(String userId);
+	
 	
 	
 }
