@@ -20,6 +20,7 @@ public interface MemberDAO {
 	public String isMail(String mail);
 	public String getAllMemberCountData();
 	public List<MemberDTO> getAllMemberData();
+	public String memberBlock(String arr);
 	
 	//지은
 	public MemberDTO printProfile(String userId);

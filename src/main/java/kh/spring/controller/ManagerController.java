@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -38,6 +39,7 @@ public class ManagerController {
 		return "manager/main";	
 	}
 	@RequestMapping("mainMemberCountLoad.admin")
+	@ResponseBody
 	public void mainMemberLoad(HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -54,6 +56,7 @@ public class ManagerController {
 		}
 	}
 	@RequestMapping("mainMemberInfoLoad.admin")
+	@ResponseBody
 	public void mainMemberInfoLoad(HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -90,5 +93,20 @@ public class ManagerController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	@RequestMapping("mainMemberBlock.admin")
+	public void mainMemberBlock(HttpServletRequest request,HttpServletResponse response) {
+		String arr = request.getParameter("currentarray");
+		
+		System.out.println(arr);
+		JSONArray jsonarray = new JSONArray();
+		JSONObject json =  new JSONObject();
+		
+
+	
+//		JSONObject jsonObject = JSONObject.fromObject(arr);
+//		System.out.println(jsonObject);
+		service.memberBlock(arr);
+		
 	}
 }

@@ -58,6 +58,13 @@ public class MemberServiceImpl implements MemberService{
 
 		return dao.getAllMemberData();
 	}
+	
+	@Override
+	public String memberBlock(String arr) {
+		
+		return dao.memberBlock(arr);
+	}
+
 
 
 

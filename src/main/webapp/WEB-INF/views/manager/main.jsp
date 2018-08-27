@@ -86,6 +86,8 @@
 <script>
 /* $("#slide").animate({width:'toggle'},350); */
 $(document).ready(function(){
+	var j = 0;
+	var currentarray = [];
 	
 	 /* $("#collapseExample").animate({width:'toggle'},350); */
 	$("#btn").click(function(){
@@ -93,63 +95,107 @@ $(document).ready(function(){
 		  $("#btn").animate({width:'100px'},350); 
 	})
 	$("#memberCheck").click(function(){
-	
+		var	html = "";
 		$("#memberChkModal").modal('show');
 		$.ajax({
 			url:"mainMemberInfoLoad.admin",
 			type : "get",
 			
 			success : function(response) {
-				
-/* 				$(".table table-striped").append("<tr>");
-				$(".table table-striped").append("<td>회원번호");
-				$(".table table-striped").append("<td>이메일");
-				$(".table table-striped").append("<td>이름");
-				$(".table table-striped").append("<td>생년월일");
-				$(".table table-striped").append("<td>프로필");
-				$(".table table-striped").append("<td>차단여부");
-				$(".table table-striped").append("<td>가입 날짜");
-				$(".table table-striped").append("<td>주소");
-				$(".table table-striped").append("/<tr>"); */
-				for(var i=0; i<response.length; i++){
-					
-					$("#table").after("<tr>");
-					$("#table").after("<td>" + response[i].member_location);
-					$("#table").after("<td>" + response[i].member_date);
+				html += "<tr>"
+				html += "<td>회원번호";
+				html += "<td>이메일";
+				html += "<td>이름";
+				html += "<td>생년월일";
+				html += "<td>프로필";
+				html += "<td>차단여부";
+				html += "<td>가입 날짜";
+				html += "<td>주소";
+				html += "</tr>"
+				for(var i=0; i<response.length; i++){					
+				/* 	$("#table").after("<tr>"); */
+/* 					$("#table1").html("<td>" + response[i].member_location);
+					$("#table1").html("<td>" + response[i].member_date);
 					if(response[i].member_block == 'N'){
-					$("#table").after("<td><select id=selectbox"+i+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>");
+					$("#table1").html("<td><select id="+response[i].member_seq+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>");
 					
 					}else{
-					$("#table").after("<td><select id=selectbox"+i+"><option value='N'>N</option><option value='Y' selected='selected'>Y</option></select>");	
+					$("#table1").html("<td><select id="+response[i].member_seq+"><option value='N'>N</option><option value='Y' selected='selected'>Y</option></select>");	
 					
 					}
-					$("#table").after("<td>" + response[i].member_picture);
-					$("#table").after("<td>" + response[i].member_birth);
-					$("#table").after("<td>" + response[i].member_name);
-					$("#table").after("<td>" + response[i].member_email);
-					$("#table").after("<td>"+ response[i].member_seq);
-					$("#table").after("/<tr>");
+					$("#table1").html("<td>" + response[i].member_picture);
+					$("#table1").html("<td>" + response[i].member_birth);
+					$("#table1").html("<td>" + response[i].member_name);
+					$("#table1").html("<td>" + response[i].member_email);
+					$("#table1").html("<td>"+ response[i].member_seq); */
+				/* 	$("#table").after("/<tr>"); */
 					
-					$("#save").click(function(){
-						 alert($("#selectbox"+i+"" "option:selected").val());
-						
-					})
-					
-					
+						  html += "<tr>";
+						  html += "<td>"+ response[i].member_seq;
+						  html += "<td>" + response[i].member_email;
+						  html += "<td>" + response[i].member_name;
+						  html += "<td>" + response[i].member_birth;
+						  html += "<td>" + response[i].member_picture;
+						  if(response[i].member_block == 'N'){
+							    html += "<td><select id="+response[i].member_seq+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>";
+						  }else{
+							    html +=	"<td><select id="+response[i].member_seq+"><option value='N'>N</option><option value='Y' selected='selected'>Y</option></select>";
+						  }
+						  html += "<td>" + response[i].member_date;
+					      html += "<td>" + response[i].member_location;
+
+					   	  html += "</tr>";
+					    
+					    $("table").html(html);
+	
 				}
 				
-
+				$("select").change(function(){
+					/*  alert($("#selectbox"+i+"" "option:selected").val()); */
+					/* var currentid = []; */
+					var currentid = $(this).attr('id');
+					var currentval = $("#"+currentid+" option:selected").val();
+					var current = currentid + ":" + currentval;
+					
+					currentarray.push({
+						seq : currentid,
+						val : currentval
+					})
+				/* 	currentarray[j]=current; */
+					alert("#"+currentid);
+					alert(current);
+					alert($(this).val());
+					alert(currentarray);				
+					j++;
 				
-
-			
+				})
 			}
 
 		});
-	})
-
-
+	})			
 	
-		 
+	$("#save").click(function(){
+		alert(currentarray);
+		var jsonData = JSON.stringify(currentarray);
+		jQuery.ajaxSettings.traditional = true;
+		$.ajax({
+			url:"mainMemberBlock.admin",
+			dataType: 'json',
+			type : "post",
+			data : {						
+				
+				currentarray : jsonData
+				
+			}, 
+			success : function(response) {
+				
+			}
+				
+	})
+	})
+				
+
+	 
 })
 
 </script>
@@ -213,16 +259,6 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
  		<table class="table table-striped">
-			<tr id="table">
-				<td>회원번호
-				<td>이메일
-				<td>이름
-				<td>생년월일
-				<td>프로필
-				<td>차단여부
-				<td>가입 날짜
-				<td>주소
-			</tr>	
 		</table>
       </div>
       <div class="modal-footer">

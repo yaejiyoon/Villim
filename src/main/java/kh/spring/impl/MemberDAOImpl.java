@@ -149,6 +149,44 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return result;
 		}
+	
+	
+
+	@Override
+	public String memberBlock(String arr) {
+		String sql = "update member set member_block=? where member_seq=?";
+		System.out.println(arr + "daoImpl");
+		for(int i=0; i<arr.split(",").length; i++) {
+		System.out.println(arr.split(",").length);
+			for(int j=0; j<arr.split(",")[i].split("\"").length; j++) {
+				
+				System.out.println(arr.split(",")[i].split("\"").length);
+				System.out.println(arr.split(",")[i].split("\"")[1]);
+				System.out.println(arr.split(",")[i].split("\"")[j] + "여기");
+				for(int k=0; k<arr.split(",")[i].split("\"")[j].split(":").length; k++) {
+					System.out.println(arr.split(",")[i].split("\"")[j].split(":").length);
+					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[0]);
+					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[1]);
+					
+					
+				}
+			}
+		
+//			for(int j=0; j<arr.split(",")[i].split("\"").length; j++) {
+//				
+//				for(int k=0; k<arr.split(",")[i].split("\"")[j].split(":").length; k++) {
+//					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[0]);
+//					System.out.println(arr.split(",")[i].split("\"")[j].split(":")[1]);
+//				}
+//			}
+		
+		jdbcTemplate.update(sql, arr.split(",")[0]);
+		}
+		return null;
+	}
+
+
+
 		
 	//-- 여기까지 재호
 
@@ -236,8 +274,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public int insertHostReview(HostReviewDTO dto) {
 		return template.insert("Member.insertHostReview", dto);
 	}
-
-
 
 
 
