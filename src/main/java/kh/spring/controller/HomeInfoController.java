@@ -577,6 +577,10 @@ public class HomeInfoController {
 		
 		//멤버 이름
 		MemberDTO memberDTO = memberService.printProfile(reservDTO.getMember_email());
+		
+		System.out.println("이름??"+reservDTO.getMember_email());
+		
+		System.out.println(memberDTO.getMember_email());
 
 		MessageDTO messageDTO = new MessageDTO();
 		
