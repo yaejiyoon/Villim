@@ -245,7 +245,7 @@ public class MessageController {
 			if (messageInfoInsert > 0) {
 				System.out.println("msgroom정보 입력에 성공!");
 			}
-			;
+			
 		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
