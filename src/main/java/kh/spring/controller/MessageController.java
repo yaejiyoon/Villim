@@ -54,9 +54,7 @@ public class MessageController {
         String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		/*session.setAttribute("login_email", "jake@gmail.com");*/
-      session.setAttribute("login_email", "plmn855000@gmail.com");
-		/*session.setAttribute("login_email", "test@gmail.com");*/
+		session.setAttribute("login_email", "plmn855222@gmail.com");
 		String userId = (String) session.getAttribute("login_email");
         System.out.println("아이디 :"+userId );
 		// 여행
@@ -245,7 +243,7 @@ public class MessageController {
 			if (messageInfoInsert > 0) {
 				System.out.println("msgroom정보 입력에 성공!");
 			}
-			;
+			
 		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
@@ -475,7 +473,6 @@ public class MessageController {
 		System.out.println("room_seq : "+message_room_seq);
 		System.out.println("home_seq : "+home_seq);
 		System.out.println("message_seq"+message_seq);
-		/*session.setAttribute("login_email", "plmn855000@gmail.com");*/
 		String userId = (String) session.getAttribute("login_email");
 		
 		/*int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);*/
@@ -601,10 +598,11 @@ public class MessageController {
 		if(!reservCheck.isEmpty()) {
 			
 			for(ReservationDTO tmp:reservCheck) {
-				System.out.println("예약이미 신청 = "+tmp.getReserv_state());
+				System.out.println("예약이미 신청 = "+tmp.getReserv_state()+" 누가 예약했뉘 ? "+tmp.getMember_email()+" 예약 시퀸스 :"+tmp.getReservation_seq());
 			}
 			
 			mav.addObject("reservCheck", reservCheck);
+			mav.addObject("reservChecks", 0);
 		}else {
 			
 			System.out.println("예약을 안함 아직");
