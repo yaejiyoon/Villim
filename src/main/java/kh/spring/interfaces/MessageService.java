@@ -57,4 +57,6 @@ public interface MessageService {
 	public int hostMsgUnreadCount(String userId);
 	
 	public int ReadUpdate(int message_seq,String member_email,String userId);
+	
+	public MessageDTO getMessageOne(int message_room_seq);
 }

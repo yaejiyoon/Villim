@@ -144,6 +144,11 @@ public class MessageDAOImpl implements MessageDAO{
 		return template.selectOne("Message.getMessageAfterSend",message_seq);
 	}
 
+	@Override
+	public MessageDTO getMessageOne(int message_room_seq) {
+		return template.selectOne("Message.getMessageOne",message_room_seq);
+	}
+
 	
 
 
