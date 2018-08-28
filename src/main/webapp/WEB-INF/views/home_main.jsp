@@ -262,7 +262,7 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					alert("error");
+					alert("error 1");
 		       }
 		});
 
@@ -299,7 +299,7 @@ $(document).ready(function() {
 					off.style.display = 'block';    
 	    	   }
 	       },error:function(errordata){
-				alert("error");
+				alert("error 2");
 	       }
 	     });
 	   });  
@@ -313,24 +313,24 @@ $(document).ready(function() {
 		   off.style.display = 'none';
 		</c:if>
 
-	$('body').delegate('.submit','click',function(){
-        var chkval = 1;
-        $('#myonoffswitch').prop('checked', true);
-        var on = document.getElementById('mapOnDiv');
-        var off = document.getElementById('mapOffDiv');
-    $.ajax({
-       url: "homeMain.do",
-       type: "get",
-       data:{chkval:chkval},
+// 	$('body').delegate('.submit','click',function(){
+//         var chkval = 1;
+//         $('#myonoffswitch').prop('checked', true);
+//         var on = document.getElementById('mapOnDiv');
+//         var off = document.getElementById('mapOffDiv');
+//     $.ajax({
+//        url: "homeMain.do",
+//        type: "get",
+//        data:{chkval:chkval},
        
-       success:function(returndata){
-			on.style.display = 'block';    
-			off.style.display = 'none';
-	   },error:function(errordata){
-			alert("error");
-       }
-     });
-   });  
+//        success:function(returndata){
+// 			on.style.display = 'block';    
+// 			off.style.display = 'none';
+// 	   },error:function(errordata){
+// 			alert("error 3");
+//        }
+//      });
+//    });  
 	
 })
 

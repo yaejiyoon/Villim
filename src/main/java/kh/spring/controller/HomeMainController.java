@@ -189,24 +189,31 @@ public class HomeMainController {
 	}
 	
 	@RequestMapping("/modalHomeType.do")
-	public ModelAndView modalHomeTypeChange(HttpSession session, HttpServletRequest request, String homeType) {
+	public ModelAndView modalHomeTypeChange(HttpSession session, HttpServletRequest request, String whole, String one, String many) {
 		
-		if(homeType==null) {
-			homeType="0";
-			session.setAttribute("homeTypeIsChecked", "0");
+		session.setAttribute("homeTypeIsChecked", "0");
+		
+		if(whole!=null||one!=null||many!=null) {
+			session.setAttribute("homeTypeIsChecked", "1");
 		}
 		
-		session.setAttribute("homeTypeIsChecked", "1");
-		
 		List homeTypeList = new ArrayList<>();
-		
-		homeTypeList.add(homeType);
-		
-		session.setAttribute("homeTypeList", homeTypeList);
-		session.setAttribute("homeType", homeType);
 
-		System.out.println("modal로 homeType 바꾸고 나서 list : "+(List) session.getAttribute("homeTypeList"));
-		System.out.println("modal로 homeType 바꾸고 나서 checked : "+(String)session.getAttribute("homeTypeIsChecked"));
+		if(whole!=null) {
+			homeTypeList.add(whole);
+		} 
+		
+		if(one!=null) {
+			homeTypeList.add(one);
+		} 
+		
+		if(many!=null) {
+			homeTypeList.add(many);
+		} 
+		
+		
+		session.setAttribute("homeType", "숙소 유형 ·"+ homeTypeList.size());
+		session.setAttribute("homeTypeList", homeTypeList);
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
