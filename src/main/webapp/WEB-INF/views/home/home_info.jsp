@@ -332,7 +332,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                					
                					$(this)
                                 .parent()
-               					.find(".glyphicon").attr('style','right:-177px; ')
+               					.find(".glyphicon").attr('style','right:-177px;')
                					
                				});
                			</script>

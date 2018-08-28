@@ -623,7 +623,8 @@ $(document).ready(function(){
 
 <input type="hidden" value="${date}" id="date">		
 		<!--예약 확인 카드  -->
-<c:if test="${reservCheck.reserv_state==0}">
+<c:forEach var="re" items="${reservCheck}">
+<c:if test="${re.reserv_state==0}">
 <div class="card2 animated slideInRight">
  
   <div class="container"  style="width:100%;padding:1;">
@@ -637,7 +638,7 @@ $(document).ready(function(){
     <p style="color:gray;position:relative;top:-8.8vh;left:6vw;width:16vw;">게스트의 예약을 자꾸 거절하면 검색 결과에서 뒤로 밀려날 수 있습니다.</p>
     </div>
     <form action="acceptReserv.re" method="post">
-    	<input type="hidden" name="seq" value="${reservCheck.reservation_seq}">
+    	<input type="hidden" name="seq" value="${re.reservation_seq}">
     	<input type="hidden" name="roomSeq" value="${message_room_seq}">
     	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
     </form>
@@ -646,7 +647,7 @@ $(document).ready(function(){
   </div>
 </div>
 </c:if>
-
+</c:forEach>
 <!-- Modal -->
   <div class="modal fade" id="demo-1" tabindex="-1" style="margin-top:10vh;height:65vh;">
     <div class="modal-dialog">
