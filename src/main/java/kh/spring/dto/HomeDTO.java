@@ -36,11 +36,11 @@ public class HomeDTO {
 	private String home_rest_end;
 	private String home_reserve_possible;
 	private String home_policy;
+	private String home_public;
 
 	public HomeDTO() {
 		super();
 	}
-	
 
 	public HomeDTO(String member_email, int home_seq, String home_name, String home_contents, String home_type,
 			int home_people, String home_bedroom, String home_bed, String home_nation, String home_addr1,
@@ -49,7 +49,7 @@ public class HomeDTO {
 			String home_details, String home_checkin_start, String home_checkin_end, String home_checkout,
 			int home_min_stay, int home_max_stay, String home_blocked_date, int home_price, String home_currency,
 			String home_main_pic, int home_state, String home_rest_start, String home_rest_end,
-			String home_reserve_possible, String home_policy) {
+			String home_reserve_possible, String home_policy, String home_public) {
 		super();
 		this.member_email = member_email;
 		this.home_seq = home_seq;
@@ -86,6 +86,7 @@ public class HomeDTO {
 		this.home_rest_end = home_rest_end;
 		this.home_reserve_possible = home_reserve_possible;
 		this.home_policy = home_policy;
+		this.home_public = home_public;
 	}
 
 
@@ -370,5 +371,13 @@ public class HomeDTO {
 		this.home_policy = home_policy;
 	}
 
+	public String getHome_public() {
+		return home_public;
+	}
+
+	public void setHome_public(String home_public) {
+		this.home_public = home_public;
+	}
+	
 	
 }

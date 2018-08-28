@@ -24,10 +24,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.LikeyListDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
@@ -35,6 +37,7 @@ import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.ReviewService;
 import kh.spring.interfaces.HomeService;
+import kh.spring.interfaces.LikeyService;
 import kh.spring.interfaces.MemberService;
 import kh.spring.interfaces.MessageService;
 import kh.spring.interfaces.PaymentService;
@@ -61,9 +64,17 @@ public class HomeInfoController {
 	@Autowired
 	private PaymentService paymentService;
 	
+	@Autowired
+	private LikeyService likeyService;
+	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
 		
+		String member_email = null;
+		if(req.getSession().getAttribute("login_email") != null) {
+			member_email = req.getSession().getAttribute("login_email").toString();
+		}
+
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
 		
 		System.out.println("homeseq : " + home_seq);
@@ -192,6 +203,61 @@ public class HomeInfoController {
 		//멤버 정보
 		MemberDTO memberDTO = memberService.printProfile(hdto.getMember_email());
 		
+		//침대
+		BedDTO bedDTO = homeService.getBedData(home_seq);
+		int bedCount = 0;
+		int bedroom = 0;
+		List<BedDTO> bedList = new ArrayList<>();
+		if(bedDTO.getBed_single() != null) {
+			for(int i=0;i<bedDTO.getBed_single().split(",").length;i++) {
+				bedCount = bedCount + Integer.parseInt(bedDTO.getBed_single().split(",")[i])
+				+Integer.parseInt(bedDTO.getBed_double().split(",")[i])
+				+Integer.parseInt(bedDTO.getBed_queen().split(",")[i]);
+			}
+			//침실
+			bedroom = bedDTO.getBed_single().split(",").length;
+			
+			for(int j=0;j<bedroom;j++) {
+				BedDTO dto = new BedDTO();
+				dto.setBed_single(bedDTO.getBed_single().split(",")[j]);
+				dto.setBed_double(bedDTO.getBed_double().split(",")[j]);
+				dto.setBed_queen(bedDTO.getBed_queen().split(",")[j]);
+				
+				bedList.add(dto);
+			}
+		}
+		
+		
+		System.out.println("침대 갯수 : " + bedCount);
+		System.out.println(bedList.get(1).getBed_single());
+		System.out.println(bedList.get(1).getBed_double());
+		System.out.println(bedList.get(1).getBed_queen());
+		//욕실
+		int bathroom = 0;
+		//공용공간
+		boolean pub = false;
+		int sofa= 0;
+		int mattress = 0;
+		if(hdto.getHome_public() != null) {
+			bathroom = Integer.parseInt(hdto.getHome_public().split(",")[2]);
+			
+			sofa = Integer.parseInt(hdto.getHome_public().split(",")[0]);
+			mattress = Integer.parseInt(hdto.getHome_public().split(",")[1]);
+			if(sofa != 0 || mattress != 0) {
+				pub = true;
+			}
+		}
+		
+		
+		//좋아요 목록 리스트
+		List<LikeyListDTO> likeyList = null;
+		if(member_email != null) {
+			likeyList = likeyService.getAlldata(member_email);
+		}
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
@@ -206,6 +272,14 @@ public class HomeInfoController {
 		mav.addObject("amenitiesCount", amenitiesCount);
 		mav.addObject("rulesList", rulesList);
 		mav.addObject("rulesDetailsList", rulesDetailsList);
+		mav.addObject("bedroom", bedroom);
+		mav.addObject("bathroom", bathroom);
+		mav.addObject("bedCount", bedCount);
+		mav.addObject("pub", pub);
+		mav.addObject("sofa", sofa);
+		mav.addObject("mattress", mattress);
+		mav.addObject("bedList", bedList);
+		mav.addObject("likeyList", likeyList);
 		mav.setViewName("home/home_info");
 		return mav;
 	}
@@ -414,12 +488,6 @@ public class HomeInfoController {
 		String blockedDate = req.getParameter("blockedDate");
 		System.out.println(blockedDate);
 		
-		//int updateBlockDate = homeService.updateBlockedDate(blockedDate, dto.getHome_seq());
-		
-//		if(updateBlockDate>0) {
-//			System.out.println("???????");
-//		}
-		
 		System.out.println("아이디닌이이이이이"+reservationDTO.getMember_email());
 		
 		String amount = reservationDTO.getTotalAmount();
@@ -531,6 +599,61 @@ public class HomeInfoController {
 		int home_seq = reservDTO.getHome_seq();
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		
+		//블락데이트
+		String checkinDate = reservDTO.getReserv_checkin();
+		String checkoutDate = reservDTO.getReserv_checkout();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+        Date FirstDate = null;
+        Date SecondDate = null;
+		try {
+			FirstDate = format.parse(checkinDate);
+			SecondDate = format.parse(checkoutDate);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		System.out.println(checkinDate);
+		System.out.println(checkoutDate);
+		
+		//두 날짜 사이의 날짜 구하기
+		StringBuilder sb = new StringBuilder();
+
+		ArrayList<String> dates = new ArrayList<String>();
+		Date currentDate = FirstDate;
+		while (currentDate.compareTo(SecondDate) <= 0) {
+			dates.add(format.format(currentDate));
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			currentDate = c.getTime();
+		}
+		
+		if(hdto.getHome_blocked_date() != null) {
+			sb.append(",");
+		}
+		
+		for(int i=0;i<dates.size();i++) {
+			if(i == dates.size()-1) {
+				sb.append(dates.get(i));
+			}else {
+				sb.append(dates.get(i)+",");
+			}
+		}
+		        
+		System.out.println(dates);
+		
+		String blockedDate = sb.toString();
+		
+		System.out.println(blockedDate);
+		
+		int updateBlockDate = homeService.updateBlockedDate(blockedDate, home_seq);
+		
+		if(updateBlockDate>0) {
+			System.out.println("???????");
+		}
 		
 		//메세지
 		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
@@ -727,27 +850,6 @@ public class HomeInfoController {
 		
 	}
 	
-	@RequestMapping("/paymentReq.re")
-	public ModelAndView paymentReq(HttpServletRequest req) {
-//		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
-//		
-//		//예약 정보
-//		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
-//		
-//		System.out.println(reservation_seq);
-//		
-//		//예약자 정보
-//		MemberDTO memberDTO = memberService.printProfile(reservationDTO.getMember_email());
-//		
-		ModelAndView mav = new ModelAndView();
-//		mav.addObject("reservationDTO", reservationDTO);
-//		mav.addObject("memberDTO", memberDTO);
-//		mav.setViewName("home/payment");
-
-		return mav;
-		
-	}
-	
 	@RequestMapping("/payment.re")
 	public ModelAndView payment(HttpServletRequest req) {
 		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
@@ -775,6 +877,36 @@ public class HomeInfoController {
 
 		return mav;
 		
+	}
+	
+	@RequestMapping("/likeList.do")
+	public void makeLikeList(HttpServletRequest req, HttpServletResponse response) {
+		String member_email = req.getSession().getAttribute("login_email").toString();
+		String likeyListName = req.getParameter("likeyListName");
+		
+		LikeyListDTO likeyListDTO = new LikeyListDTO();
+		likeyListDTO.setLikeyList_name(likeyListName);
+		likeyListDTO.setMember_email(member_email);
+		
+		
+		int addLikeyListResult = likeyService.insertDate(likeyListDTO);
+		
+		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
+		
+		Map<String, Object> reviewmap = new HashMap<String, Object>();
+		
+		reviewmap.put("likeyList", likeyList);
+		
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			new Gson().toJson(reviewmap,response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 }

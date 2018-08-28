@@ -202,7 +202,10 @@
 		G_REVIEW_VALUE desc
 	</select>
 
-
+	<!-- 지혜 -->
+	<select id="getBedData" parameterType="int" resultType="Bed">
+		select * from bed where home_seq = #{home_seq}
+	</select>
 
 </mapper>
 <!-- <select id="getReviewCheckin" resultType="int"> -->
