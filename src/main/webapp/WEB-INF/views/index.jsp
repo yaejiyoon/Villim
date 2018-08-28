@@ -9,16 +9,54 @@
 <title>Villim</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
-<link href="<c:url value="/resources/css/main/main.css" />" rel="stylesheet" />
+<!-- main css -->
+<link href="<c:url value="/resources/css/main/main.css?ver=2" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
+
+<!-- google 검색 api -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxwlQzLFSDHDwe0Wf_J9bmYrGNxC-R-E&libraries=places"></script>
+
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=3" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
+
+
+
 <script>
+
+function typeFunction() {
+    document.getElementById("typeDropdownContent").classList.toggle("show");
+}
+
+function peopleFunction() {
+    document.getElementById("peopleDropdownContent").classList.toggle("show");
+    $('#peopleDropdownContent').bind('click', function (e) { e.stopPropagation() })
+}
+    
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+
 
 $(document).ready(function() {
 	$("#peopledis").click(function() {
@@ -48,6 +86,12 @@ $(document).ready(function() {
 	       $("#pcount").text(intmax+1 + "+")
 	    }
 	 });
+	 
+	 var pcount = $("#pcount").text();
+	  $("#hiddenPeople").val(pcount);
+	 
+	 
+	 
 });
 
    $(document).ready(function() {
@@ -61,6 +105,8 @@ $(document).ready(function() {
     	  typeTitle.style.color = '#848281';
     	  $("#typeDropBtn").text("");
     	  $("#typeDropBtn").text(type);
+    	  var typeDropBtn = $("#typeDropBtn").text();
+    	  $("#hiddenHomeType").val(typeDropBtn);
       })
       
       $("#peopleSubmit").click(function() {
@@ -69,6 +115,16 @@ $(document).ready(function() {
     	  $("#peopleDropBtn").text("");
     	  var pcount = $("#pcount").text();
     	  $("#peopleDropBtn").text(pcount+" 명");
+    	  $("#hiddenPeople").val(pcount);
+    	  
+    	  var dropdowns = document.getElementsByClassName("dropdown-content");
+    	    var i;
+    	    for (i = 0; i < dropdowns.length; i++) {
+    	      var openDropdown = dropdowns[i];
+    	      if (openDropdown.classList.contains('show')) {
+    	        openDropdown.classList.remove('show');
+    	      }
+    	    }
       })
    });
    
@@ -87,14 +143,12 @@ $(document).ready(function() {
    
 </style>
 <style>
-
-
 /* Style The Dropdown Button */
 .dropbtn {
 	font-family : font;
     background-color: white;
     color: #5c5d5e;
-    font-size: 2.5vh;
+    font-size: 2vh;
     border: none;
     cursor: pointer;
     width : 100%;
@@ -109,9 +163,11 @@ $(document).ready(function() {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+	margin-top : 40px;
+	left : -3vh;
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: white;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -128,11 +184,6 @@ $(document).ready(function() {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
@@ -163,8 +214,7 @@ $(document).ready(function() {
 #searchBt {
 	background-color: #ff5a5f;
 	color : white;
-	font-size : 3.5vh;
-	padding-top: 30px;
+	font-size : 2.5vh;
 }
 
 #searchBt:hover {
@@ -208,12 +258,131 @@ $(document).ready(function() {
 		margin-top : 3vh;
 	}
 	
+	#locationTextField {
+		font-family : font;
+		margin-top : 8%;
+		width : 80%;
+		height : 40%;
+		font-size : 2vh;
+		border : 1px solid white;
+		color: #5c5d5e;
+	}
 	
+	#mapGlyphicon , #calendarGlyphicon{
+		margin-top : 11%;
+		font-size: 2vh;
+		color: #5c5d5e;
+	}
+	
+	#datepicker {
+		border : 1px solid white;
+		font-family: font;
+		font-size : 1.8vh;
+	}
+
+	#searchicon {
+		color : white;
+		font-size : 5vh;
+	}
 </style>
+<script>
+	
+	window.onload = function() { 
+		if (navigator.geolocation) { 
+			navigator.geolocation.getCurrentPosition(MyPosition); 
+		} 
+	} 
+	
+	function MyPosition(position) { 
+		var lat = position.coords.latitude; 
+		var lng = position.coords.longitude; 
+		
+		$("#hiddenLocationLat").val(lat);
+		$("#hiddenLocationLng").val(lng);
+	}
+
+	$(document).ready(function init() {
+			
+		var input = document.getElementById('locationTextField');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		
+		
+		$("#searchBt").click(function() {
+			var place = autocomplete.getPlace();
+
+			var lat = place.geometry.location.lat();
+			var lng = place.geometry.location.lng();
+			
+			$("#hiddenLocationLat").val(lat);
+			$("#hiddenLocationLng").val(lng);
+		})
+
+		
+	});
+	
+	$('.datepicker-here').datepicker({
+	    onClose:function(theDate) {
+	        alert('.datepicker-here');
+	    }
+	});
+	
+	google.maps.event.addDomListener(window, 'load');
+// 	google.maps.event.addDomListener(window, 'load', init);
+</script>
+<script>
+$(document).ready(function() {
+	$('.datepicker-here').datepicker({
+	    autoClose : "true",
+	    dateFormat : "yyyy/mm/dd",
+	    minDate: new Date(),
+	    toggleSelected: false,
+	    language: {
+	       days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	        daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+	        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+	        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+	        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+	        dateFormat: "yyyy/mm/dd",
+	        timeFormat: 'hh:ii aa'
+	     },
+	     onSelect: function(formattedDate, date, inst){
+             
+             function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+
+                     return [year, month, day].join('-');
+                }
+             
+             var checkin = formatDate(date);
+             
+               var inYear = checkin.split('-')[0];
+               var inMonth = checkin.split('-')[1];
+               var inDay = checkin.split('-')[2];
+             
+             if(date.length == 2){
+                
+                checkinDate = formatDate(date[0]);
+                checkoutDate = formatDate(date[1]);
+                
+                $("#hiddenStartDate").val(checkinDate);
+    			$("#hiddenEndDate").val(checkoutDate);
+                
+             }
+          }
+	})
+});
+</script>
 
 <!-- 재호 -->
 </head>
 <body>
+	
    <%@ include file="../resource/include/header.jsp"%>
    <ul class="cb-slideshow">
       <li><span>Image 01</span></li>
@@ -230,41 +399,59 @@ $(document).ready(function() {
          <p>빌림과 함께 여행을 떠나볼까요?</p>
       </div>
       <Br>
+      <form action="search.do" method="post">
       <div id="searchBar">
          <div id="type">
-         	<div class="dropdown">
+         	<input type="hidden" name="homeType" id="hiddenHomeType" value="0">
+         	<div class="dropdown" >
          	  <p id="typeTitle">숙소유형</p>
-			  <button class="dropbtn" id="typeDropBtn">
+			  <button onclick="typeFunction()" class="dropbtn" id="typeDropBtn" type="button" >
 			  	<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&ensp;숙소유형
 			  </button>
-			  <div class="dropdown-content" id="typeDropdownContent">
-			    <a class="typeName" href="#">집 전체</a>
+			  <div class="dropdown-content" id="typeDropdownContent" >
+			    <a class="typeName" href="#">집전체</a>
 			    <a class="typeName" href="#">다인실</a>
 			    <a class="typeName" href="#">개인실</a>
 			  </div>
 			</div>
          </div>
          <div id="people">
+         	<input type="hidden" name="people" id="hiddenPeople">
          	<div class="dropdown">
          		<p id="peopleTitle">인원수</p>
-			  <button class="dropbtn" id="peopleDropBtn">
+			  <button onclick="peopleFunction()" class="dropbtn" id="peopleDropBtn" type="button" >
 			  	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&ensp;인원 수
 			   </button>
 			  <div class="dropdown-content" id="peopleDropdownContent">
 			  		<div id="peopleDropdownContentInner">
 				   		<span>인원</span>&emsp;
-	               		<button id="peopleup" class="btn btn-primary-outline">+</button>
+	               		<button id="peopleup" class="btn btn-primary-outline" type="button">+</button>
 	               		&ensp;<span id="pcount">0</span>&ensp;
-	               		<button id="peopledis" class="btn btn-primary-outline">-</button>
+	               		<button id="peopledis" class="btn btn-primary-outline" type="button">-</button>
 	               		<br>
-	               		<button class="btn btn-primary-outline" id="peopleSubmit">적용하기</button> 
+	               		<button class="btn btn-primary-outline" id="peopleSubmit" type="button">적용하기</button> 
 			  		</div>
 			  </div>
          	</div>
          </div>
-         <div id="calendar">날짜</div>
-         <div id="searchBt">search !</div>
+         <div id="location">
+         	<input type="hidden" name="lat" id="hiddenLocationLat" value="0">
+         	<input type="hidden" name="lng" id="hiddenLocationLng" value="0">
+         	<i class="glyphicon glyphicon-map-marker" id="mapGlyphicon"></i>
+         	<input id="locationTextField" type="text" placeholder="위치를 입력해주세요"></input>
+         </div>
+         <div id="calendar">
+         	<input type="hidden" name="startDate" id="hiddenStartDate" value="0">
+         	<input type="hidden" name="endDate" id="hiddenEndDate" value="0">
+         	<i class="glyphicon glyphicon-calendar" id="calendarGlyphicon"></i>
+	         	<input id="datepicker" type="text" data-range="true"
+	                   data-multiple-dates-separator="  ~  "
+	                   todayButton="true" class="datepicker-here"
+	                     placeholder="  체크인       ㅡ       체크아웃" />
+         	</div>
+         <button id="searchBt"><span class="glyphicon glyphicon-search" aria-hidden="true" id="searchicon"></span></button>
       </div>
+      </form>
    </div>
    
    
@@ -405,6 +592,8 @@ $(document).ready(function() {
       </div>
    </div>
  </div>
+ 
+ 					
    <%@ include file="../resource/include/footer.jsp"%>
 </body>
 </html>

@@ -50,7 +50,7 @@
 	
 	/* When the checkbox is checked, add a blue background */
 	.Container input:checked ~ .checkmark {
-	  background-color: #2196F3;
+	  background-color: #008489;
 	}
 	
 	/* Create the checkmark/indicator (hidden when not checked) */
@@ -80,41 +80,87 @@
 	
 	#homeTypeSubmit {
 		background-color: white; 
-		color : #2196F3;
-		border : 1px solid #2196F3;
+		color : #008489;
+		border : 1px solid #008489;
 		font-family: dx;
 	}
 	
-	#homeTypeSubmit:hover {
-		background-color: #2196F3; 
+	#homeTypeSubmit:hover, #homeTypeDelete:hover {
+		background-color: #008489; 
 		color : white;
 		outline:0;
 	}
+	
+	
+	#homeTypeDelete {
+		float: left;
+		background-color: white; 
+		color : #008489;
+		border : 1px solid #008489;
+		
+	}
+	
 </style>
 
 <script>
 	$(document).ready(function() {
 		$("#homeTypeSubmit").click(function() {
-// 			var checkedValue = null;
-// 			var inputElements = document.getElementsByClassName('homeTypeCheckbox');
-// 			for (var i = 0; inputElements[i]; ++i) {
-// 				if(inputElements[i].checked) {
-// 					checkedValue = inputElements[i].value;
-// 					alert(checkedValue);
+// 			var values = document.getElementsByName("whole");
+// 			alert(values);
+// 			var count = 0;
+// 			for (var i = 0; i < values.length; i++) {
+// 				if(values[i].checked) {
+// 					count++;
 // 				}
 // 			}
-
-			var values = document.getElementsByName("homeType");
-			alert(values.length);
-			for (var i = 0; i < values.length; i++) {
-				if(values[i].checked) {
-					alert(values[i].value);
-				}
+			
+			var selected = [];
+			$('input:checked').each(function() {
+			    selected.push($(this).attr('value'));
+			});
+			
+			$('#modalHomeType').val(selected);
+			alert(selected.length-1);
+			
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			var count = selected.length-1;
+			if(count!=0) {
+				homeTypeBt.innerHTML = "숙소종류 · "+count;
+				homeTypeBt.style.backgroundColor = '#008489';
+				homeTypeBt.style.color = "white";
+				homeTypeBt.style.borderRadius = "10px";
 			}
 		});
+		
+		$("#homeTypeDelete").click(function() {
+			$('input:checkbox').removeAttr('checked');
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			homeTypeBt.innerHTML = "숙소 종류";
+			homeTypeBt.style.backgroundColor = 'white';
+			homeTypeBt.style.color = "black";
+			homeTypeBt.style.borderRadius = "0px";
+		});
+		
+		<%if(session.getAttribute("homeType").equals("집전체")) {%>
+			$('#whole').attr("checked", true);
+		<%}%>
+		
+		<%if(session.getAttribute("homeType").equals("개인실")) {%>
+			$('#one').attr("checked", true);
+		<%}%>
+	
+		<%if(session.getAttribute("homeType").equals("다인실")) {%>
+			$('#many').attr("checked", true);
+		<%}%>
+		
+		$('#homeTypeSubmit').submit(function() {
+		    $('#modalHomeType').modal('hide');
+		    return false;
+		});
+		
 	});
 </script>
-<form action="homeType_modal.do" method="post">
+<form action="modalHomeType.do" method="post">
       <div class="modal fade" id="homeType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="homeTypeDialog">
             <div class="modal-content">
@@ -124,30 +170,30 @@
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">숙소 종류</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	<label class="Container"><b>집 전체</b><br>
                   		집 전체를 단독으로 사용합니다
-					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="집전체">
+					  <input class="homeTypeCheckbox" id="whole" type="checkbox" name="whole" value="집전체" >
 					  <span class="checkmark"></span>
 					</label>
 						
 						
 					<label class="Container"><b>개인실</b><br>
 						침실은 단독으로 쓰고, 이외의 공간은 호스트나 다른 게스트와 함께 이용할 수도 있습니다. 
-					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="개인실">
+					  <input class="homeTypeCheckbox" id="one" type="checkbox" name="one" value="개인실">
 					  <span class="checkmark"></span>
 					</label>
 					
 					<label class="Container"><b>다인실</b><br>
 						사적공간없이, 침실이나 욕실 등을 호스트나 다른 게스트와 함께 사용합니다.
-					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="다인실">
+					  <input class="homeTypeCheckbox" id="many" type="checkbox" name="many" value="다인실">
 					  <span class="checkmark"></span>
 					</label>
 					
-                  	
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="homeTypeSubmit">적용하기</button> 
+               	   <button class="btn btn-primary-outline" id="homeTypeDelete" data-dismiss="modal" type="button">삭제</button> 
+                   <button class="btn btn-primary-outline submit" id="homeTypeSubmit" >적용하기</button> 
                </div>
             </div>
          </div>

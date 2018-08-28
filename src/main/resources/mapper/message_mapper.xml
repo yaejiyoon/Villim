@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Message">
+	<select id="countReview" resultType="int">
+		select
+		count(g_review_public) from GUEST_REVIEW where home_seq=#{home_seq}
+	</select>
+
+	<insert id="messageInsert">
+
+
+		insert into message  
+		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,
+		'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"'),0)
+<selectKey keyProperty="message_seq" resultType="int" order="AFTER">
+    select message_seq.currval FROM dual
+  </selectKey>
+	</insert>
+
+	<select id="getHomeInfo" resultType="Home">
+		select * from home where
+		home_seq=#{home_seq}
+	</select>
+
+	<select id="messageRoomSeqExist" resultType="MessageRoom">
+		select message_room_seq from message_room where host_email=#{host_email} and
+		guest_email=#{guest_email} and home_seq=#{home_seq}
+	</select>
+
+
+	<select id="getRoomSeq" resultType="int">
+		select message_room_seq.nextval from dual
+	</select>
+
+	<insert id="messageRoomInsert">
+		insert into message_room
+		values(#{message_room_seq},#{home_seq},#{host_email},#{guest_email},#{checkIn},#{checkOut},#{totalNumber})
+	</insert>
+
+	<select id="guestMessageMain" parameterType="string" resultType="GuestMsg">
+select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
+in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} order by message.MESSAGE_TIME desc
+	</select>
+
+	<select id="guestMsgAllCount" resultType="int">
+		select count(message_room_seq) from message_room where guest_email=#{userId}
+	</select>
+
+	<select id="memberInfo" resultType="Member">
+		select * from member where member_email in
+		<foreach collection="list" item="item" index="index"
+			separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		order by member_email
+	</select>
+
+	<select id="msgRoomInfo" resultType="MessageRoom">
+		select * from message_room where message_room_seq=#{message_room_seq}
+	</select>
+
+	<select id="getMessage" resultType="Message">
+		select * from message where message_room_seq=#{message_room_seq} order by
+		message_time desc
+	</select>
+
+	<select id="getOneMessage" resultType="Message">
+		select * from message where message_seq=#{message_seq}
+	</select>
+	
+	<select id="getMessageSeq" resultType="int">
+	select message_seq.nextval from dual
+	</select>
+	
+		<select id="hostMessageMain" parameterType="string" resultType="GuestMsg">
+select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
+in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} order by message.MESSAGE_TIME desc
+	</select>
+	
+	<select id="hostMsgAllCount" resultType="int">
+		select count(message_room_seq) from message_room where host_email=#{userId}
+	</select>
+	
+	<select id="getHomeNames" resultType="Home">
+	select * from home where member_email=#{userId}
+	</select>
+
+	<select id="reservCheck" resultType="Reservation">
+	select * from reservation where member_email=#{member_email} and home_seq=#{home_seq}
+	</select>
+</mapper>
