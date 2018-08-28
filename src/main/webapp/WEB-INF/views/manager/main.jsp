@@ -195,6 +195,19 @@ $(document).ready(function(){
 				
 	})
 	})
+	
+	(function poll() {
+	    $.ajax({
+	        url: 'mainTest.admin',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function(response) {
+	           
+	        },
+	        timeout: 3000,
+	        complete: setTimeout(function() { poll(); }, 6000)
+	    })
+	})();
 				
 
 	 
