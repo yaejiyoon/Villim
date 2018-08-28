@@ -31,11 +31,13 @@ import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.ReviewService;
 import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
 import kh.spring.interfaces.MessageService;
+import kh.spring.interfaces.PaymentService;
 import kh.spring.interfaces.ReservService;
 
 @Controller
@@ -55,6 +57,9 @@ public class HomeInfoController {
 	
 	@Autowired
 	private MessageService MessageService;
+	
+	@Autowired
+	private PaymentService paymentService;
 	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
@@ -572,6 +577,10 @@ public class HomeInfoController {
 		
 		//멤버 이름
 		MemberDTO memberDTO = memberService.printProfile(reservDTO.getMember_email());
+		
+		System.out.println("이름??"+reservDTO.getMember_email());
+		
+		System.out.println(memberDTO.getMember_email());
 
 		MessageDTO messageDTO = new MessageDTO();
 		
@@ -743,6 +752,35 @@ public class HomeInfoController {
 //		mav.addObject("reservationDTO", reservationDTO);
 //		mav.addObject("memberDTO", memberDTO);
 //		mav.setViewName("home/payment");
+
+		return mav;
+		
+	}
+	
+	@RequestMapping("/payment.re")
+	public ModelAndView payment(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
+		
+		System.out.println("결제완료 seq"+reservation_seq);
+		
+		//예약 정보
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		
+		
+		PaymentDTO paymentDTO = new PaymentDTO();
+		paymentDTO.setHome_seq(reservationDTO.getHome_seq());
+		paymentDTO.setMember_email(reservationDTO.getMember_email());
+		paymentDTO.setReservation_seq(reservation_seq);
+		paymentDTO.setCheckIn(reservationDTO.getReserv_checkin());
+		paymentDTO.setCheckOut(reservationDTO.getReserv_checkout());
+		paymentDTO.setPayment_amount(reservationDTO.getTotalAmount());
+		
+		//결제 테이블
+		int paymentResult = paymentService.insertDate(paymentDTO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("paymentResult", paymentResult);
+		mav.setViewName("home/paymentProc");
 
 		return mav;
 		
