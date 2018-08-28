@@ -27,6 +27,11 @@
 	</select>
 
 
+<select id="getMessageOne" resultType="Message">
+select * from message where message_room_seq=#{message_room_seq}
+
+</select>
+
 	<select id="getHomeInfo" resultType="Home">
 		select * from home where
 		home_seq=#{home_seq}

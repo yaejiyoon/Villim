@@ -602,19 +602,13 @@ public class HomeInfoController {
 		int messageInsertResult = this.MessageService.messageInsert(messageDTO);
 		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
-			 System.out.println("message_seq : "+messageInsertResult);
-			 
-			 List<MessageDTO> getMsg=this.MessageService.getMessage(message_room_seq);
-				int message_seq=0;
-				for(MessageDTO tmp:getMsg) {
-					message_seq=tmp.getMessage_seq();
-				}
+			 System.out.println("message_seq : "+messageDTO.getMessage_seq());
 			 
 			//실제 메세지 보내기
 			  MemberDTO mGuest=memberService.printProfile(reservDTO.getMember_email());
 			  MemberDTO mHost=memberService.printProfile(reservDTO.getHost_email());
              
-			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(message_seq);
+			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
 			  System.out.println("진짜 문자 보낼 내용 : "+getMessageAfterSend.getMessage_content());
 		      String to = "82" +mHost.getMember_phone();
 		      String from = "33644643087";
@@ -703,16 +697,12 @@ public class HomeInfoController {
 		int messageInsertResult = this.MessageService.messageInsert(messageDTO);
 		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
-			List<MessageDTO> getMsg=this.MessageService.getMessage(message_room_seq);
-			int message_seq=0;
-			for(MessageDTO tmp:getMsg) {
-				message_seq=tmp.getMessage_seq();
-			}
+			
 			//실제 메세지 보내기
 			  MemberDTO mGuest=memberService.printProfile(reservationDTO.getMember_email());
 			  
-              System.out.println("msg_seq : "+message_seq);
-			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(message_seq);
+              System.out.println("msg_seq : "+messageInsertResult);
+			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
 			  
 		      String to = "82" +mGuest.getMember_phone();
 		      String from = "33644643087";
