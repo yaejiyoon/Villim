@@ -33,15 +33,16 @@ div {
 }
 
 .wrapper-sub {
-	width: 70%;
+	width: 65%;
 }
 
 .home-details {
 	margin-top: 60px;
-	width: 70%;
+	width: 60%;
 	display: inline-block;
 	float: left;
 	padding: 0;
+	margin-bottom: -30px;
 }
 
 .home-details div {
@@ -51,18 +52,18 @@ div {
 }
 
 .nav-btn {
-	background-color: white; 
-	text-align:center;
+	background-color: white;
+	text-align: center;
 	border: none;
 	text-decoration: none;
 	width: 100%;
 	height: 70px;
 	padding: 0;
-	font-size: 17px;
+	font-size: 15px;
 }
 
 .nav-btn:hover {
-	border-bottom: 2px solid blue;
+	border-bottom: 2px solid #008489;
 }
 
 .nav-btn:active {
@@ -79,6 +80,12 @@ div {
 
 .nav-btn:checked {
 	text-decoration: none;
+}
+
+.btn {
+	background-color: white;
+	color: #008489;
+	border: 1px solid #008489;
 }
 
 .home-details-line {
@@ -112,21 +119,21 @@ div {
 	margin-top: 30px;
 	float: left;
 	border: 4px dotted #D8D8D8;
-	max-width: 100%; 
+	max-width: 100%;
 	display: block;
 }
 
 .dd-pic-wrap {
 	margin: 0 auto;
-	width: 30%;
-	height: 30%;
+	width: 60%;
+	height: 60%;
 	margin-top: 30px;
 }
 
 .dd-pic {
-	width: 100%; 
-	max-height:100%; 
-	display:inline-block;
+	width: 100%;
+	max-height: 100%;
+	display: inline-block;
 }
 
 .title-expl-wrap {
@@ -245,14 +252,20 @@ div {
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<h2>${hdto.home_name }</h2>
+			<div style="display: inline-block; width:79%; border: 1px dotted black;">
+				<h2>${hdto.home_name }</h2>
+			</div>
+			<div style="display: inline-block; width:20%; border: 1px dotted black; text-align: right;">
+				<button type="button" class="btn"
+					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'"><b>달력보기</b></button>
+			</div>
 		</div>
 
 		<div class="home-details" class="row">
 			<div class="col-md-2">
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">숙소
-					세부정보</button>
+				<button class="nav-btn" type="button" style="color: #008489;"
+					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'"><b>숙소
+					세부정보</b></button>
 			</div>
 			<div class="col-md-2">
 				<button class="nav-btn" type="button"
@@ -286,8 +299,8 @@ div {
 					</h4>
 				</div>
 				<div class="home-pic-mod">
-					<button type="button" class="btn btn-info"
-						onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
 				</div>
 				<c:if test="${hdto.home_main_pic ne null }">
 					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
@@ -302,7 +315,7 @@ div {
 						<div class="home-pic">
 							<div class="dd-pic-wrap">
 								<img class="dd-pic img-responsive img-rounded"
-									src="<c:url value='/resources/img/imgadd.png'/>">
+									src="<c:url value='/resources/img/photo.png'/>">
 							</div>
 						</div>
 					</a>
@@ -318,8 +331,8 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info"
-						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
 				</div>
 				<div class="title-expl-loc">
 					<b>${hdto.home_name }</b>
@@ -360,7 +373,7 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info">수정</button>
+					<button type="button" class="btn"><b>수정</b></button>
 				</div>
 				<table class="accomo-table">
 					<c:if test="${hdto.home_people ne null }">
@@ -388,8 +401,8 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info"
-						onclick="location.href='hostHomeModifyFacilityTab.do?seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostHomeModifyFacilityTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
 				</div>
 				<table class="facility-table" style="margin-bottom: 20px;">
 					<c:set var="i" value="0" />
@@ -447,8 +460,8 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info"
-						onclick="location.href='hostHomeModifyLocationTab.do?seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostHomeModifyLocationTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
 				</div>
 				<div class="loc-contents">${hdto.home_addr1 },
 					${hdto.home_addr2 }, ${hdto.home_zipcode }, ${hdto.home_nation }</div>
@@ -463,17 +476,17 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn btn-info"
-						onclick="location.href='hostHomeModifyStateTab.do?seq=${hdto.home_seq}'">수정</button>
+					<button type="button" class="btn"
+						onclick="location.href='hostHomeModifyStateTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
 				</div>
 				<div class="state-chan">
-				<c:if test="${hdto.home_state == 0 }">				
+					<c:if test="${hdto.home_state == 0 }">				
 					운영 중
 				</c:if>
-				<c:if test="${hdto.home_state == 1 }">				
+					<c:if test="${hdto.home_state == 1 }">				
 					휴식 모드
 				</c:if>
-				<c:if test="${hdto.home_state == 2 }">				
+					<c:if test="${hdto.home_state == 2 }">				
 					운영 중지
 				</c:if>
 				</div>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
@@ -24,8 +25,8 @@ public class HomeDAOImpl implements HomeDAO {
 	private SqlSessionTemplate ssTemplate;
 
 	@Override
-	public List<HomeDTO> getAllHomeData() {
-		return ssTemplate.selectList("Home.getAllHomeData");
+	public List<HomeDTO> getAllHomeData(String member_email) {
+		return ssTemplate.selectList("Home.getAllHomeData", member_email);
 	}
 	
 	@Override
@@ -142,7 +143,90 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public int modifyHomeRulesDetails(HomeDTO hdto) {
 		String sql = "update home set home_rules=?, home_details = ? where home_seq = ?";
-		return jdbcTemplate.update(sql,hdto.getHome_rules(), hdto.getHome_details(), hdto.getHome_seq());
+		return jdbcTemplate.update(sql, hdto.getHome_rules(), hdto.getHome_details(), hdto.getHome_seq());
+	}
+
+	@Override
+	public List<ReservationDTO> getAllReservation(String member_email) {
+		return ssTemplate.selectList("Home.getAllReservation", member_email);
+	}
+
+	@Override
+	public List<GuestReviewDTO> getAllGuestReview(String host_email) {
+		return ssTemplate.selectList("Home.getGuestReview", host_email);
+	}
+
+	@Override
+	public List<HostReviewDTO> getAllHostReview(int home_seq) {
+		return ssTemplate.selectList("Home.getAllHostReview", home_seq);
+	}
+
+	@Override
+	public int guestReviewCount(String member_email) {
+		String sql = "select count(*) as count from guest_review where home_seq IN"+ 
+				" (select home_seq from home where member_email=?)";
+		return jdbcTemplate.queryForObject(sql, Integer.class, member_email);
+	}
+
+	@Override
+	public int hostReivewCount(int home_seq) {
+		String sql = "select count(*) from host_review where home_seq=?";
+		return jdbcTemplate.queryForObject(sql, Integer.class, home_seq);
+	}
+
+	@Override
+	public List<GuestReviewDTO> getSatisfaction() {
+		return ssTemplate.selectList("Home.getSatisfaction");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getAccuracy() {
+		return ssTemplate.selectList("Home.getAccuracy");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getCleanLiness() {
+		return ssTemplate.selectList("Home.getCleanLiness");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getCheckin() {
+		return ssTemplate.selectList("Home.getCheckin");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getAmenities() {
+		return ssTemplate.selectList("Home.getAmenities");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getCommunication() {
+		return ssTemplate.selectList("Home.getCommunication");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getLocation() {
+		return ssTemplate.selectList("Home.getLocation");
+	}
+
+	@Override
+	public List<GuestReviewDTO> getValue() {
+		return ssTemplate.selectList("Home.getValue");
+	}
+
+	@Override
+	public List<MessageDTO> getAllMessage(int home_seq) {
+		return ssTemplate.selectList("Home.getAllMessage");
+	}
+	
+	
+
+	
+	//----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
+		return jdbcTemplate.update(sql,blockedDate,home_seq);
 	}
 
 //	예지

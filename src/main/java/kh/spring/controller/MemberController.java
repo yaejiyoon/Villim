@@ -523,10 +523,8 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-		 /*session.setAttribute("userId", "jake@gmail.com");*/
-		session.setAttribute("userId", "plmn855000@gmail.com");
-		/*session.setAttribute("userId", "test@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+
+		String userId = (String) session.getAttribute("login_email");
 		System.out.println("들어온 사람 : " + userId);
 		MemberDTO result = this.service.printProfile(userId);
 		MemberDTO getPhoto = this.service.getPhoto(userId);
@@ -572,7 +570,7 @@ public class MemberController {
 	public void editPhoto(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
 		System.out.println("/editPhoto.mo");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		String realPath = request.getSession().getServletContext().getRealPath("/files/");
 		System.out.println(realPath);
 
@@ -624,9 +622,7 @@ public class MemberController {
 		List<Integer> hostHome_seq = new ArrayList<Integer>();
 
 		List<Integer> g_review_seq = new ArrayList<Integer>();
-		session.setAttribute("userId", "jake@gmail.com"); 
-		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		System.out.println("아이디:" + userId);
 
 		// 나에 대한 지난 후기
@@ -755,8 +751,8 @@ public class MemberController {
 	@RequestMapping("/guestReview.mo")
 	public String guestReviewInput(HttpSession session, GuestReviewDTO dto) {
 		System.out.println("guestReview.mo");
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+
+		String userId = (String) session.getAttribute("login_email");
 		dto.setMember_email(userId);
 		System.out.println("seq : " + dto.getHome_seq() + "만족도 : " + dto.getG_review_satisfaction() + "accuracy : "
 				+ dto.getG_review_accuracy() + "청결도 : " + dto.getG_review_cleanliness() + " 체크인 : "
@@ -779,9 +775,7 @@ public class MemberController {
 	@RequestMapping("/hostReview.mo")
 	public String hostReviewInput(HttpSession session, HostReviewDTO dto) {
 		System.out.println("hostReview.mo");
-
-		session.setAttribute("userId", "plmn855000@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		// 리뷰 넣기
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -102,8 +103,43 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
-	public ReservationDTO reservCheck(ReservationDTO dto2) {
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2) {
 		return dao.reservCheck(dto2);
+	}
+
+	@Override
+	public int guestMsgUnreadCount(String userId) {
+		return dao.guestMsgUnreadCount(userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> guestUnreadMsg(String userId) {
+		return dao.guestUnreadMsg(userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> hostUnreadMsg(String userId) {
+		return dao.hostUnreadMsg(userId);
+	}
+
+	@Override
+	public int hostMsgUnreadCount(String userId) {
+		return dao.hostMsgUnreadCount(userId);
+	}
+
+	@Override
+	public int ReadUpdate(int message_seq, String member_email, String userId) {
+		return dao.ReadUpdate(message_seq, member_email, userId);
+	}
+
+	@Override
+	public DetailDTO getMsgAfterSend(int message_seq) {
+		return dao.getMsgAfterSend(message_seq);
+	}
+
+	@Override
+	public MessageDTO getMessageOne(int message_room_seq) {
+		return dao.getMessageOne(message_room_seq);
 	}
 
 	

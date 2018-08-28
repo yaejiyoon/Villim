@@ -407,7 +407,7 @@ a:hover {
 	padding: 18px;
 	right: 0;
 	left: 0;
-	overflow-y: scroll;
+	/* overflow-y: scroll; */
 	-webkit-overflow-scrolling: touch
 }
 

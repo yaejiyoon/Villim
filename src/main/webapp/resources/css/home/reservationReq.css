@@ -4,7 +4,7 @@
 
 div {
 	box-sizing: border-box;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 #paymemntWrapper{
@@ -19,13 +19,20 @@ div {
 #paymentContent{
 	margin: 0 auto;
 	width:65vw;
-	height:100vh;
+	height:atuo;
+}
+
+#paymentContent:after{
+	content: "";
+   	display: block;
+   	clear: both;
 }
 
 #paymentfooter{
 	margin: 0 auto;
 	width:65vw;
 	height:10vh;
+	border-top: 1px solid #d6d6d6;
 }
 
 #toindex {
@@ -51,8 +58,12 @@ div {
 
 #paymentLeft{
 	float:left;
-	width:60%;
-	height:100%;
+	width:55%;
+	height:auto%;
+}
+
+#paymentLeft-content01{
+	border-bottom: 1px solid #d6d6d6;
 }
 
 #paymentLeft-content01 p:nth-child(1){
@@ -70,34 +81,70 @@ div {
 }
 
 #paymentLeft-content01 li{
-	margin-bottom: 7px;
+	margin-bottom: 15px;
+}
+
+#paymentLeft-content01 li:last-child{
+	padding-bottom: 15px;
+}
+
+#paymentLeft-content02{
+	margin-top: 30px;
+}
+
+.content02{
+	padding:20px;
+	border-bottom: 1px solid #d6d6d6;
+}
+
+#paymentLeft-content02 a{
+	color: #008489;
+	font-size: 2vh;
+}
+
+#requestBT{
+	background-color: #ff5a5f;
+	color: white;
+	font-size: 2vh;
+	font-weight: 600;
+	width: 210px;
+	height: 45px;
 }
 
 /* ---------------- 오른쪽 ----------------*/
+
+
 #paymentRight{
 	float:left;
-	width:40%;
-	height:100%;
+	width:45%;
+	height:auto;
 }
 
 #paymentRight-content{
 	margin: 0 auto;
-	width:80%;
-	height:420px;
+	width:400px;
+	height:auto;
 	border: 1px solid #d6d6d6;
 }
 
 #content01{
 	margin:0 auto;
-	width:90%;
-	height:33%;
+	width:95%;
+	height:auto;
 	border-bottom: 1px solid #d6d6d6;
+	position:static;
+}
+
+#content01:after{
+	content: "";
+   	display: block;
+   	clear: both;
 }
 
 #content01-homeName{
 	float:left;
-	width:70%;
-	height:100%;
+	width:65%;
+	height:auto;
 	
 }
 
@@ -124,8 +171,8 @@ div {
 
 #content01-homepic{
 	float:left;
-	width:30%;
-	height:100%;
+	width:35%;
+	height:auto;
 	position:relative;
 	text-align:center; 
 }
@@ -136,16 +183,15 @@ div {
 	height:80px;
 	position: absolute;
     margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 100px;
+    left: 24px;
     bottom: 0;
 }
 
 #content02{
 	margin:0 auto;
 	width:90%;
-	height:24%;
+	height:auto;
 	border-bottom: 1px solid #d6d6d6;
 }
 
@@ -156,11 +202,13 @@ div {
 
 #group{
 	margin-top: 5px;
+	margin-right: 5px;
 	width:35px;
 }
 
 #calen{
 	margin-top: 5px;
+	margin-right: 5px;
 	width:35px;
 }
 
@@ -172,9 +220,16 @@ div {
 	border-bottom: 1px solid #d6d6d6;
 }
 
+
 #content03 div{
 	width:100%;
 	height:33%;
+}
+
+#content03 div:after{
+	content: "";
+   	display: block;
+   	clear: both;
 }
 
 #content03 p{
@@ -188,8 +243,28 @@ div {
 	height:14%;
 }
 
+#content04:after{
+	content: "";
+   	display: block;
+   	clear: both;
+}
 
 #content04 p{
 	margin-top: 10px;
 	font-size: 1.95vh;
 }
+
+/* ---------------- 푸터 ----------------*/
+
+#paymentfooter img{
+		width:80px;
+		padding-top: 10px;
+	}
+	
+#paymentfooter p{
+		display: inline;
+		font-family: font;
+		padding-top:20px;
+		font-size: 0.8vw;
+	}
+

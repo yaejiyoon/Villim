@@ -31,11 +31,10 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
-	width: 70%;
-	overflow: hidden;
+	margin-bottom: 100px;
 	height: auto;
+	width: 70%;
 }
 
 #wrapper-sub {
@@ -82,12 +81,22 @@ div {
 }
 
 .btn-group {
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 20px;
 }
 
 .btn-group button:first-child {
 	margin-right: 30px;
+}
+
+.save {
+	background-color: #008489;
+	color: white;
+}
+
+.cancel {
+	background-color: white;
+	color: #008489;
+	border: 2px solid #008489;
 }
 
 .date-wrap{
@@ -197,11 +206,16 @@ margin-top:50px;
 			<input type=hidden id=end_date name=home_rest_end value="">
 			<input type=hidden name=seq value="${hdto.home_seq }">
 			
-			<div class="btn-group">
-				<button class="btn btn-info btn-lg">저장</button>
-				<button type="button" class="btn btn-info btn-lg"
-					onclick="history.back()">취소</button>
+			<nav class="navbar navbar-default navbar-fixed-bottom"
+			style="width: 70%; height: 12%; margin: 0 auto;">
+			<div class="container">
+				<div class="btn-group">
+					<button class="btn btn-lg save">저장</button>
+					<button type="button" class="btn btn-lg cancel"
+						onclick="history.back()">취소</button>
+				</div>
 			</div>
+		</nav>
 
 
 			
@@ -283,12 +297,11 @@ margin-top:50px;
 									return date;
 								}
 							});
-						})
+						});
 			</script>
 
 	
 		</div>
 	</div>
-	<%@ include file="../../resource/include/footer.jsp"%>
 </body>
 </html>

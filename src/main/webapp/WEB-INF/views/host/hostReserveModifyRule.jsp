@@ -94,12 +94,10 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
-	margin-bottom:100px;
-	width: 70%;
-	overflow: hidden;
+	margin-bottom: 100px;
 	height: auto;
+	width: 70%;
 }
 
 #wrapper-sub {
@@ -211,13 +209,6 @@ label {
 }
 </style>
 
-
-<script>
-	$(document).ready(function() {
-	});
-</script>
-
-
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
@@ -248,8 +239,9 @@ label {
 
 					<div class=sub-r>
 						<input style="margin-left: 0; margin-right: 5px;" type="radio"
-							name=rules1 class="option-input radio" value="예"> <input
-							type="radio" name=rules1 class="option-input radio" value="아니오">
+							name=rules1 class="option-input radio" value="예" id="rules1-y">
+						<input type="radio" name=rules1 class="option-input radio"
+							value="아니오" id="rules1-n">
 					</div>
 				</div>
 
@@ -259,8 +251,8 @@ label {
 					<div class=sub-t>유아(만 2세 미만)에게 적합함</div>
 					<div class=sub-r>
 						<input type="radio" name=rules2 class="option-input radio"
-							value="예"><input type="radio" name=rules2
-							class="option-input radio" value="아니오">
+							value="예" id="rules2-y"><input type="radio" name=rules2
+							class="option-input radio" value="아니오" id="rules2-n">
 					</div>
 				</div>
 
@@ -270,8 +262,8 @@ label {
 					<div class=sub-t>반려동물 입실 가능</div>
 					<div class=sub-r>
 						<input type="radio" name=rules3 class="option-input radio"
-							value="예"><input type="radio" name=rules3
-							class="option-input radio" value="아니오">
+							value="예" id="rules3-y"><input type="radio" name=rules3
+							class="option-input radio" value="아니오" id="rules3-n">
 					</div>
 				</div>
 
@@ -281,8 +273,8 @@ label {
 					<div class=sub-t>흡연 가능</div>
 					<div class=sub-r>
 						<input type="radio" name=rules4 class="option-input radio"
-							value="예"><input type="radio" name=rules4
-							class="option-input radio" value="아니오">
+							value="예" id="rules4-y"><input type="radio" name=rules4
+							class="option-input radio" value="아니오" id="rules4-n">
 					</div>
 				</div>
 
@@ -292,8 +284,8 @@ label {
 					<div class=sub-t>파티나 이벤트 가능</div>
 					<div class=sub-r>
 						<input type="radio" name=rules5 class="option-input radio"
-							value="예"><input type="radio" name=rules5
-							class="option-input radio" value="아니오">
+							value="예" id="rules5-y"><input type="radio" name=rules5
+							class="option-input radio" value="아니오" id="rules5-n">
 					</div>
 				</div>
 
@@ -385,40 +377,114 @@ label {
 
 	</form>
 	<script>
-		$('#check2').change(function() {
-			if ($('#check2').is(":checked")) {
-				$('#collapseExample2').show();
-			} else {
-				$('#collapseExample2').hide();
+		$(document).ready(function() {
+			// home_rules 체크 설정
+			var r_arr = [];
+			var rule = "${hdto.home_rules}";
+			var rules = new Array();
+			rules = rule.split(",");
+
+			console.log("rules::" + rules);
+				
+			$("#rules1-n").prop("checked",true);
+			$("#rules2-n").prop("checked",true);
+			$("#rules3-n").prop("checked",true);
+			$("#rules4-n").prop("checked",true);
+			$("#rules5-n").prop("checked",true);
+			
+			for (var i = 0; i < rules.length; i++) {
+				if (rules[i] == "어린이(만 2~12세)에게 적합함") {
+					$("#rules1-y").prop("checked",true);
+				} else if (rules[i] == "유아(만 2세 미만)에게 적합함") {
+					$("#rules2-y").prop("checked",true);
+				} else if (rules[i] == "반려동물 입실 가능") {
+					$("#rules3-y").prop("checked",true);
+				} else if (rules[i] == "흡연 가능") {
+					$("#rules4-y").prop("checked",true);
+				} else if (rules[i] == "파티나 이벤트 가능") {
+					$("#rules5-y").prop("checked",true);
+				}
 			}
-		})
-		$('#check3').change(function() {
-			if ($('#check3').is(":checked")) {
-				$('#collapseExample3').show();
-			} else {
-				$('#collapseExample3').hide();
+
+			// home_details 체크하기
+			var detail = "${hdto.home_details}";
+			var str;
+			var d_arr = [];
+			var details = new Array();
+			details = detail.split(",");
+
+			for(var i=0; i<details.length; i++){
+				if(details[i].includes("소음이")){
+					$("#check2").prop("checked",true)
+				}else if(details[i].includes("숙소에")){
+					$("#check3").prop("checked",true)
+				}else if(details[i].includes("주차 불가")){
+					$("#check4").prop("checked",true)
+				}else if(details[i].includes("공용 공간")){
+					$("#check5").prop("checked",true)
+				}else if(details[i].includes("편의시설")){
+					$("#check6").prop("checked",true)
+				}
 			}
-		})
-		$('#check4').change(function() {
-			if ($('#check4').is(":checked")) {
-				$('#collapseExample4').show();
-			} else {
-				$('#collapseExample4').hide();
-			}
-		})
-		$('#check5').change(function() {
-			if ($('#check5').is(":checked")) {
-				$('#collapseExample5').show();
-			} else {
-				$('#collapseExample5').hide();
-			}
-		})
-		$('#check6').change(function() {
-			if ($('#check6').is(":checked")) {
-				$('#collapseExample6').show();
-			} else {
-				$('#collapseExample6').hide();
-			}
+			
+			// home_details 텍스트창 show/hide
+			$('#check2').change(function() {
+				if ($('#check2').is(":checked")) {
+					$('#collapseExample2').show();
+				} else {
+					$('#collapseExample2').hide();
+				}
+			})
+			$('#check3').change(function() {
+				if ($('#check3').is(":checked")) {
+					$('#collapseExample3').show();
+				} else {
+					$('#collapseExample3').hide();
+				}
+			})
+			$('#check4').change(function() {
+				if ($('#check4').is(":checked")) {
+					$('#collapseExample4').show();
+				} else {
+					$('#collapseExample4').hide();
+				}
+			})
+			$('#check5').change(function() {
+				if ($('#check5').is(":checked")) {
+					$('#collapseExample5').show();
+				} else {
+					$('#collapseExample5').hide();
+				}
+			})
+			$('#check6').change(function() {
+				if ($('#check6').is(":checked")) {
+					$('#collapseExample6').show();
+				} else {
+					$('#collapseExample6').hide();
+				}
+			})
+			
+			if($("#check2").is(":checked")){
+	            $('#collapseExample2').addClass("collapse in");
+	            $("#check2-text").val('${tmp1}');
+	         }
+	         if($("#check3").is(":checked")){
+	            $('#collapseExample3').addClass("collapse in");
+	            $("#check3-text").val('${tmp2}');
+	         }
+	         if($("#check4").is(":checked")){
+	            $('#collapseExample4').addClass("collapse in");
+	            $("#check4-text").val('${tmp3}');
+	         }
+	         if($("#check5").is(":checked")){
+	            $('#collapseExample5').addClass("collapse in");
+	            $("#check5-text").val('${tmp4}');
+	         }
+	         if($("#check6").is(":checked")){
+	            $('#collapseExample6').addClass("collapse in");
+	            $("#check6-text").val('${tmp5}');
+	         }
+			
 		})
 	</script>
 </body>
