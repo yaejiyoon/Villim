@@ -54,7 +54,7 @@ public class MessageController {
         String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		session.setAttribute("login_email", "plmn855222@gmail.com");
+		session.setAttribute("login_email", "plmn855000@gmail.com");
 		String userId = (String) session.getAttribute("login_email");
         System.out.println("아이디 :"+userId );
 		// 여행
