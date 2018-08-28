@@ -195,6 +195,7 @@ public class HomeInfoController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
+		
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
 		mav.addObject("guestReviewList", guestReviewList);
