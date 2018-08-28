@@ -399,7 +399,7 @@ function ChangeHostList(){
 					</ul>
 					<div class="tab-content" id="dd" style="height:auto;">
 		
-		<div class="tab-pane active" id="tab_default_1" style="height:auto;border:1px solid red;">
+		<div class="tab-pane active" id="tab_default_1" style="height:auto;">
 		<select class="Guest" name="guestSelect" id="guestCheck" onchange="ChangeGuestList();" style="position:relative;left:33.8vw;top:-7vh;width:15vw;height:4.5vh;padding:0" required>
         <option id="allGuestMsg" value="allGuestMsg">모든 여행 메세지 ( ${guestMsgAllCount}개 ) </option>
         <option id="noGuestRead" value="noGuestRead">읽지 않음 ( ${guestMsgUnreadCount}개)</option>
@@ -442,7 +442,7 @@ function ChangeHostList(){
 							<div style="position:relative;height:10vh;top:-0.8vh;" >
 						<h3 style="color:black;margin:0;padding:0;">아직 메세지가 없습니다</h3>
 					<h5 style="color:gray;text-align:center;">여행을 준비하며 호스트에게 받는 메세지가 여기에 표시됩니다.</h5>
-					<button class="btn btn-default" style="position:relative;left:21vw;text-align:center;margin-top:1vh;background:#ff5a5f;border:#ff5a5f;color:white;font-weight:800">숙소 둘러보기</button>
+					<button class="btn btn-default" style="position:relative;left:20vw;text-align:center;margin-top:1vh;background:#ff5a5f;border:#ff5a5f;color:white;font-weight:800">숙소 둘러보기</button>
 					</div>
 					</c:otherwise>
 							

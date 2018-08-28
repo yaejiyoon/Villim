@@ -640,9 +640,12 @@ $(document).ready(function(){
     <form action="acceptReserv.re" method="post">
     	<input type="hidden" name="seq" value="${re.reservation_seq}">
     	<input type="hidden" name="roomSeq" value="${message_room_seq}">
+    	<input type="hidden" name="guest_email" value="${guest_email}">
+    	<input type="hidden" name="host_email" value="${userId}">
+    	<input type="hidden" id="home_seq" value="${home_seq}">
     	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
     </form>
-    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:2vh;left:1vw;">거절</button> 
+    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:-1.6vh;left:9.1vw;">거절</button> 
     
   </div>
 </div>
