@@ -41,13 +41,13 @@ public class HostingController {
 	@RequestMapping("/first.host")
 	public String toFirst() {
 		//string <- 스프링이 해석함 
-		return "hostFirstpage";
+		return "/hosting/hostFirstpage";
 	}
 
 	@RequestMapping("/second.host")
 	public String toSecond() {
 
-		return "hostSecondpage";
+		return "/hosting/hostSecondpage";
 	}
 
 
@@ -69,7 +69,7 @@ public class HostingController {
 		req.getSession().setAttribute("email", email);
 		req.getSession().setAttribute("hostingseq", seq);
 		mav.addObject("result",result);
-		mav.setViewName("second.host");
+		mav.setViewName("hosting/hostSecondpage");
 		return mav;
 	}
 
@@ -87,13 +87,13 @@ public class HostingController {
 		homedto.setHome_type(home_type);
 		int result = service.modifyHomeType(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("third.host");
+		mav.setViewName("hosting/hostThirdpage");
 		return mav;
 	}
 
 	@RequestMapping("/third.host")
 	public String toThird() {
-		return "hostThirdpage";
+		return "/hosting/hostThirdpage";
 	}
 
 
@@ -116,13 +116,13 @@ public class HostingController {
 		homedto.setHome_people(peoplecount);
 		int result = service.modifyBathbed(homedto);
 		//mav.addObject("result",result);
-		mav.setViewName("fore.host");
+		mav.setViewName("hosting/hostForthpage");
 		return mav;
 	}
 
 	@RequestMapping("/fore.host")
 	public String toForth() {
-		return "hostForthpage";
+		return "/hosting/hostForthpage";
 	}
 
 	@RequestMapping("/pagegofive.host")
@@ -150,13 +150,13 @@ public class HostingController {
 		homedto.setHome_lng(lng);
 		int result = service.modifyHomeLocData(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("five.host");
+		mav.setViewName("hosting/hostFivepage");
 		return mav;
 	}
 
 	@RequestMapping("/five.host")
 	public String toFive() {
-		return "hostFivepage";
+		return "/hosting/hostFivepage";
 	}
 
 	//steponeover.host
@@ -206,13 +206,13 @@ public class HostingController {
 
 		int result = service.modifyCommodity(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("step2first.host");
+		mav.setViewName("hosting/step2HostFirstpage");
 		return mav;
 	}
 
 	@RequestMapping("/step2first.host")
 	public String Step2First() {
-		return "step2HostFirstpage";
+		return "/hosting/step2HostFirstpage";
 	}
 
 	@RequestMapping("/gostep2second.host")
@@ -238,7 +238,7 @@ public class HostingController {
 		homedto.setHome_main_pic(mainpicList);
 		int result = service.modifyHomepicture(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("step2second.host");
+		mav.setViewName("hosting/step2HostSecondpage");
 		return mav;
 	}
 
@@ -246,7 +246,7 @@ public class HostingController {
 	@RequestMapping("/step2second.host")
 	public String Step2Second() {
 		//string <- 스프링이 해석함 
-		return "step2HostSecondpage";
+		return "/hosting/step2HostSecondpage";
 	}
 
 	@RequestMapping("/gostep2third.host")
@@ -297,7 +297,7 @@ public class HostingController {
 		}
 		mav.addObject("result",result);
 		//mav.addObject("result2",result2);
-		mav.setViewName("step2third.host");
+		mav.setViewName("hosting/step2HostThirdpage");
 		return mav;
 	}
 
@@ -305,7 +305,7 @@ public class HostingController {
 	@RequestMapping("/step2third.host")
 	public String Step2Third() {
 		//string <- 스프링이 해석함 
-		return "step2HostThirdpage";
+		return "/hosting/step2HostThirdpage";
 	}
 
 	@RequestMapping("/step2over.host")
@@ -321,7 +321,7 @@ public class HostingController {
 		homedto.setHome_name(homename);
 		int result = service.modifyHomename(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("step3first.host");
+		mav.setViewName("hosting/step3HostFirstpage");
 		return mav;
 	}
 
@@ -329,7 +329,7 @@ public class HostingController {
 	@RequestMapping("/step3first.host")
 	public String Step3First() {
 		//string <- 스프링이 해석함 
-		return "step3HostFirstpage";
+		return "/hosting/step3HostFirstpage";
 	}
 
 	@RequestMapping("/gostep3second.host")
@@ -374,7 +374,7 @@ public class HostingController {
 		System.out.println(guestaccessList+":"+rulesList);
 		//int result = service.modifyHomename(homedto);
 		//mav.addObject("result",result);
-		mav.setViewName("step3second.host");
+		mav.setViewName("hosting/step3HostSecondpage");
 		return mav;
 	}
 
@@ -382,7 +382,7 @@ public class HostingController {
 	@RequestMapping("/step3second.host")
 	public String Step3Second() {
 		//string <- 스프링이 해석함 
-		return "step3HostSecondpage";
+		return "/hosting/step3HostSecondpage";
 	}
 
 	@RequestMapping("/gostep3third.host")
@@ -398,14 +398,14 @@ public class HostingController {
 		homedto.setHome_checkin_end(checkinend);
 		int result = service.modifyHomecheck(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("step3third.host");
+		mav.setViewName("hosting/step3HostThirdpage");
 		return mav;
 	}
 
 	@RequestMapping("/step3third.host")
 	public String Step3Third() {
 		//string <- 스프링이 해석함 
-		return "step3HostThirdpage";
+		return "/hosting/step3HostThirdpage";
 	}
 
 	@RequestMapping("/gostep3fore.host")
@@ -422,14 +422,14 @@ public class HostingController {
 		homedto.setHome_max_stay(home_max_stay);
 		int result = service.modifyHomestay(homedto);
 		mav.addObject("result",result);
-		mav.setViewName("step3fore.host");
+		mav.setViewName("hosting/step3HostFour");
 		return mav;
 	}
 
 	@RequestMapping("/step3fore.host")
 	public String Step3Forth() {
 		//string <- 스프링이 해석함 
-		return "step3HostFour";
+		return "/hosting/step3HostFour";
 	}
 
 	@RequestMapping("/gostep3five.host")
@@ -458,14 +458,14 @@ public class HostingController {
 
 		//int result = service.modifyHomeblock(homedto);
 		//mav.addObject("result",result);
-		mav.setViewName("step3five.host");
+		mav.setViewName("hosting/step3HostFivepage");
 		return mav;
 	}
 
 	@RequestMapping("/step3five.host")
 	public String Step3Five() {
 		//string <- 스프링이 해석함 
-		return "step3HostFivepage";
+		return "/hosting/step3HostFivepage";
 	}
 
 	@RequestMapping("/step3final.host")
@@ -495,7 +495,7 @@ public class HostingController {
 		System.out.println(test1 + ":" + test2);
 		ModelAndView mav = new ModelAndView();
 		//mav.addObject("result",result);
-		mav.setViewName("five.host");
+		mav.setViewName("hosting/five.host");
 		return mav;
 	}
 

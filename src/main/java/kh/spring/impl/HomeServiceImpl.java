@@ -220,7 +220,7 @@ public class HomeServiceImpl implements HomeService {
 	
 //	----찬연 ----
 	@Override
-	@Transactional("txManager")
+
 	public int insertFirstHome(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.insertFirstHome(hdto);
@@ -228,7 +228,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int modifyHomeType(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomeType(hdto);
@@ -236,7 +236,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public HomeDTO getNewestHomeData() {
 		// TODO Auto-generated method stub
 		return hdao.getNewestHomeData();
@@ -244,7 +244,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int modifyBathbed(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyBathbed(hdto);
@@ -252,7 +252,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int modifyCommodity(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyCommodity(hdto);
@@ -260,7 +260,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int modifyHomepicture(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomepicture(hdto);
@@ -268,7 +268,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int insertHomeDescData(HomeDescDTO hddto) {
 		// TODO Auto-generated method stub
 		return hdao.insertHomeDescData(hddto);
@@ -276,7 +276,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int modifyContents(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyContents(hdto);
@@ -284,7 +284,7 @@ public class HomeServiceImpl implements HomeService {
 
 
 	@Override
-	@Transactional("txManager")
+
 	public int modifyHomename(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomename(hdto);
