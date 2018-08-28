@@ -41,6 +41,7 @@
 	margin: auto;
 	min-width: 50%;
 	min-height: 50%;
+/* 	opacity: 0.8; */
 }
 
 	#wrapper{
@@ -55,13 +56,24 @@
 		
 	}
 	div{
-		border:1px solid white;
+		
 		color:blue;
 	}
 	#navi{
 		display:inline-block;
+		width:15%;
+		background-color : #1b1d21;
+		height:100%;
+		opacity: 0.8;
 		
-		
+	}
+	#navi a{
+	 color:white;
+	 margin-left:2%;
+	}
+	#naviLogo{
+		text-align:center;
+		padding-top: 2%;
 	}
 	#content{
 	display:inline-block;
@@ -70,8 +82,28 @@
 	height:100%;
 	
 	}
+	#contentHeader{
+	margin-left:0.5%;
+	background-color : #1b1d21;
+	opacity: 0.8;
+	height:5%;
+	padding-top: 0.5%;
+	
+	
+	}
+
+	#titleDiv{
+		margin-left:1%;
+		height:95%;
+	}
+	#checkDiv{
+		height:160px;
+	}
 	#btn{
 		width:100px;
+		margin-right:60%;
+		margin-top:5%;
+		
 	}
 	#title{
 		color:white;
@@ -91,8 +123,8 @@ $(document).ready(function(){
 	
 	 /* $("#collapseExample").animate({width:'toggle'},350); */
 	$("#btn").click(function(){
-		 $("#collapseExample").animate({width:'toggle'},350);
-		  $("#btn").animate({width:'100px'},350); 
+		 $("#navi").animate({width:'toggle'},350);
+		  /* $("#btn").animate({width:'100px'},350);  */
 	})
 	$("#memberCheck").click(function(){
 		var	html = "";
@@ -224,7 +256,7 @@ $(document).ready(function(){
 		type : "get",
 		success : function(response) {
 			
-			$("#memberCount").html(response);
+			$("#memberCount").html("<strong>"+response+"</strong>");
 		}
 			
 	})
@@ -238,28 +270,28 @@ $(document).ready(function(){
 
 <div id="navi">
 <ul class="nav nav-pills nav-stacked" id="collapseExample">
-<li role="presentation"><img src="../resources/img/logo2.png"></li>
-<li role="presentation"><a href="#">admin 계정 정보</a></li>
- <li role="presentation"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-  <li role="presentation"><a href="#">Messages</a></li>
+<li role="presentation" id="naviLogo"><img src="../resources/img/logo2.png" style="height:30%;"></li>
+<li role="presentation"><a href="#"><h4><strong>admin 계정 정보</strong></h4></a></li>
+ <li role="presentation"><a href="#"><h4><strong>Home</strong></h4></a></li>
+  <li role="presentation"><a href="#"><h4><strong>Profile</strong></h4></a></li>
+  <li role="presentation"><a href="#"><h4><strong>Messages</strong></h4></a></li>
 </ul>
 </div>
 
 <div id="content">
 	<div id="contentHeader">
-		<button id="btn">버튼</button>
+		<a id="btn"><i class="fas fa-align-justify fa-2x"></i></a>
 		<a href="#">
  		 <i class="fas fa-envelope fa-2x"></i> <span class="badge" style="wi">4</span>
 		</a>		
 	</div>
-	<div><h2 id="title">Dashboard</h2>
+	<div id="titleDiv"><h2 id="title">Dashboard</h2>
 	
-	<div style="background-color:purple; width:15%;">
-		<h3 id="memberCount"></h3>
-		<p style="display:inline">전체 회원수</p>
-		<i class="fas fa-users fa-2x"></i>
-		<a href="#" style="display:block" id="memberCheck">조회</a>
+	<div style="background-color:#47639b; width:15%;" id="checkDiv">
+		<h1 id="memberCount" style="color:white; margin-left:3%; margin-top:0px; margin-bottom:0px; padding-top:5%;"></h1>
+		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">전체 회원수</p>
+		<i class="fas fa-users fa-5x" style="color:white; z-index: 20;"></i>
+		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="memberCheck">More Info</a>
 	</div>
 </div>
 </div>
