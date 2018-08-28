@@ -13,6 +13,9 @@ import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.MessageDTO;
+import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeDAO;
 
 @Component
@@ -27,6 +30,11 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<HomeDTO> getAllHomeData(String member_email) {
 		return ssTemplate.selectList("Home.getAllHomeData", member_email);
+	}
+	
+	@Override
+	public List<HomeDTO> getAllHomeData() {
+		return ssTemplate.selectList("Home.getAllHomeData");
 	}
 	
 	@Override
@@ -229,7 +237,7 @@ public class HomeDAOImpl implements HomeDAO {
 		return jdbcTemplate.update(sql,blockedDate,home_seq);
 	}
 
-//	예지
+//------------------------- 예지
 	
 	@Override
 	public List<HomeDTO> getAllHomeDataMain() {
@@ -261,4 +269,6 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return ssTemplate.selectList("Home.modalHomeData", param);
 	}
+
+	
 }

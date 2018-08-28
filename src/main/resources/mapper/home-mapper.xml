@@ -105,82 +105,7 @@
 		G_REVIEW_ACCURACY desc
 	</select>
 
-   <select id="getValue" resultType="GuestReview">
-      select
-      G_REVIEW_VALUE,
-      count(G_REVIEW_VALUE) as count from
-      guest_review
-      group by
-      G_REVIEW_VALUE having
-      G_REVIEW_VALUE
-      in(5,4,3,2,1)
-      order by
-      G_REVIEW_VALUE desc
-   </select>
    
-   <!--  예지 -->
-	<select id="getAllHomeDataMain" resultType="Home">
-      select * from home
-   </select>
-	
-   <select id="getHomeOnMap" resultType="Home" parameterType="map" >
-      select * from home 
-      where home_lat between #{swLat} and #{neLat} 
-      	and home_lng between #{swLng} and #{neLng} 
-      	and home_people >= #{people}
-      	and home_price between #{minMoney} and #{maxMoney}
-   		<if test="!homeType.equalsIgnoreCase('0')">
-            and home_type = #{homeType}
-         </if>
-         <if test="dateIsChecked.equalsIgnoreCase('1')">
-         	and home_blocked_date is null or
-         	<trim suffixOverrides="and">
-            <foreach collection="dates" item="type">
-            	home_blocked_date not like '%${type}%' and
-        	</foreach>
-        	</trim>
-         </if>
-   </select>
-   
-   	<select id="searchHomeData" resultType="Home" parameterType="map" >
-      select * from home where home_people >= #{people}
-         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
-         	and 
-	         <trim suffixOverrides="or">
-	         <foreach collection="homeTypeList" item="type">
-	            home_type = #{type} or
-	        </foreach>
-	        </trim>
-        </if>
-         <if test="dateIsChecked.equalsIgnoreCase('1')">
-         	and home_blocked_date is null or
-         	<trim suffixOverrides="and">
-            <foreach collection="dates" item="type">
-            	home_blocked_date not like '%${type}%' and
-        	</foreach>
-        	</trim>
-         </if>
-   </select>
-   
-   <select id="modalHomeData" resultType="Home" parameterType="map" >
-      select * from home where home_people >= #{people} and home_price between #{minMoney} and #{maxMoney}
-         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
-         	and 
-            <trim suffixOverrides="or">
-		    <foreach collection="homeTypeList" item="type">
-		       home_type = '${type}' or
-		    </foreach>
-		    </trim>
-        </if>
-         <if test="dateIsChecked.equalsIgnoreCase('1')">
-         	and home_blocked_date is null or
-         	<trim suffixOverrides="and">
-            <foreach collection="dates" item="type">
-            	home_blocked_date not like '%${type}%' and
-        	</foreach>
-        	</trim>
-         </if>
-   </select>
    
 	<select id="getCleanLiness" resultType="GuestReview">
 		select
@@ -244,18 +169,83 @@
 	</select>
 
 	<select id="getValue" resultType="GuestReview">
-		select
-		G_REVIEW_VALUE,
-		count(G_REVIEW_VALUE) as count from
-		guest_review
-		group by
-		G_REVIEW_VALUE
-		having
-		G_REVIEW_VALUE
-		in(5,4,3,2,1)
-		order by
-		G_REVIEW_VALUE desc
-	</select>
+      select
+      G_REVIEW_VALUE,
+      count(G_REVIEW_VALUE) as count from
+      guest_review
+      group by
+      G_REVIEW_VALUE
+      having
+      G_REVIEW_VALUE
+      in(5,4,3,2,1)
+      order by
+      G_REVIEW_VALUE desc
+   </select>
+
+	
+	   <!--  예지 -->
+	<select id="getAllHomeDataMain" resultType="Home">
+      select * from home
+   </select>
+	
+   <select id="getHomeOnMap" resultType="Home" parameterType="map" >
+      select * from home 
+      where home_lat between #{swLat} and #{neLat} 
+      	and home_lng between #{swLng} and #{neLng} 
+      	and home_people >= #{people}
+      	and home_price between #{minMoney} and #{maxMoney}
+   		<if test="!homeType.equalsIgnoreCase('0')">
+            and home_type = #{homeType}
+         </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+   
+   	<select id="searchHomeData" resultType="Home" parameterType="map" >
+      select * from home where home_people >= #{people}
+         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+         	and 
+	         <trim suffixOverrides="or">
+	         <foreach collection="homeTypeList" item="type">
+	            home_type = #{type} or
+	        </foreach>
+	        </trim>
+        </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+   
+   <select id="modalHomeData" resultType="Home" parameterType="map" >
+      select * from home where home_people >= #{people} and home_price between #{minMoney} and #{maxMoney}
+         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+         	and 
+            <trim suffixOverrides="or">
+		    <foreach collection="homeTypeList" item="type">
+		       home_type = '${type}' or
+		    </foreach>
+		    </trim>
+        </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
 
 
 

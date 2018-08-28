@@ -10,7 +10,6 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
-import kh.spring.dto.MapDTO;
 
 public interface HomeDAO {
 	public List<HomeDTO> getAllHomeData(String member_email);

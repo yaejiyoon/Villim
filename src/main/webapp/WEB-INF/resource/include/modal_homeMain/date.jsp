@@ -1,13 +1,13 @@
 <%@ page pageEncoding="utf8"%>
 
 <style>
-	.modal-dialog {
+	.modal-dialog{
 		margin-left : 5vh;
 		margin-top : 20vh;
 		width : 20vw;
 	}
 	
-	.modal-backdrop {
+	.modal-backdrop{
    		background-color: #f9f2ef;
 	}
 	
@@ -95,7 +95,7 @@
 	});
 </script>
 
-      <div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade modal-date" id="date" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header" >

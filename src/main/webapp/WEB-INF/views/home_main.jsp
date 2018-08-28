@@ -411,7 +411,7 @@ $(document).ready(function() {
 		font-weight : 200;
   		font-size: 0.8vw;
 		width : 100%;
-		height : 7vh;
+		height : 8vh;
 		border-top : 1px solid #e0dee0;
 		border-bottom : 1px solid #e0dee0;
 		background-color: white;
