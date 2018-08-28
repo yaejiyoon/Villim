@@ -3,6 +3,7 @@ package kh.spring.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -22,6 +23,8 @@ public interface MessageService {
 	public int getRoomSeq();
 	
 	public int messageRoomInsert(MessageRoomDTO roomdto);
+	
+	public DetailDTO getMsgAfterSend(int message_seq);
 	
 	public List<GuestMsgDTO> guestMessageMain(String userId);
 	
@@ -43,7 +46,7 @@ public interface MessageService {
 	
 	public List<HomeDTO> getHomeNames(String userId);
 	
-	public ReservationDTO reservCheck(ReservationDTO dto2);
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2);
 	
 	public int guestMsgUnreadCount(String userId);
 	
@@ -54,4 +57,6 @@ public interface MessageService {
 	public int hostMsgUnreadCount(String userId);
 	
 	public int ReadUpdate(int message_seq,String member_email,String userId);
+	
+	public MessageDTO getMessageOne(int message_room_seq);
 }

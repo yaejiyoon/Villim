@@ -10,15 +10,27 @@
 	</select>
 
 	<insert id="messageInsert">
-
-
-		insert into message  
+		insert into message
 		values(message_seq.nextval,#{message_room_seq},#{home_seq},#{fromID},#{toID},#{message_content},to_char(SYSDATE,
 		'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"'),0)
-<selectKey keyProperty="message_seq" resultType="int" order="AFTER">
-    select message_seq.currval FROM dual
-  </selectKey>
+		<selectKey keyProperty="message_seq" resultType="int" order="AFTER">
+			select message_seq.currval FROM dual
+		</selectKey>
 	</insert>
+	
+	
+	<select id="getMessageAfterSend" resultType="Detail">
+		select message_room.checkIn,message_room.checkOut,message.message_content
+		from message,message_room where
+		message_room.message_room_seq=message.message_room_seq and
+		message_seq=#{message_seq}
+	</select>
+
+
+<select id="getMessageOne" resultType="Message">
+select * from message where message_room_seq=#{message_room_seq}
+
+</select>
 
 	<select id="getHomeInfo" resultType="Home">
 		select * from home where
@@ -26,13 +38,14 @@
 	</select>
 
 	<select id="messageRoomSeqExist" resultType="MessageRoom">
-		select message_room_seq from message_room where host_email=#{host_email} and
+		select
+		message_room_seq from message_room where host_email=#{host_email} and
 		guest_email=#{guest_email} and home_seq=#{home_seq}
 	</select>
 
-
 	<select id="getRoomSeq" resultType="int">
-		select message_room_seq.nextval from dual
+		select
+		message_room_seq.nextval from dual
 	</select>
 
 	<insert id="messageRoomInsert">
@@ -41,12 +54,17 @@
 	</insert>
 
 	<select id="guestMessageMain" parameterType="string" resultType="GuestMsg">
-select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
-in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} order by message.MESSAGE_TIME desc
+		select message_room.message_room_seq,
+		message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read,message.fromID,message.toID
+		from message,message_room where message_time
+		in (select max(message_time) from message group by message_room_seq) and
+		message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and
+		guest_email=#{userId} order by message.MESSAGE_TIME desc
 	</select>
 
 	<select id="guestMsgAllCount" resultType="int">
-		select count(message_room_seq) from message_room where guest_email=#{userId}
+		select
+		count(message_room_seq) from message_room where guest_email=#{userId}
 	</select>
 
 	<select id="memberInfo" resultType="Member">
@@ -59,58 +77,85 @@ in (select max(message_time) from message group by message_room_seq) and message
 	</select>
 
 	<select id="msgRoomInfo" resultType="MessageRoom">
-		select * from message_room where message_room_seq=#{message_room_seq}
+		select * from message_room
+		where message_room_seq=#{message_room_seq}
 	</select>
 
 	<select id="getMessage" resultType="Message">
-		select * from message where message_room_seq=#{message_room_seq} order by
+		select * from message where
+		message_room_seq=#{message_room_seq} order by
 		message_time desc
 	</select>
 
 	<select id="getOneMessage" resultType="Message">
-		select * from message where message_seq=#{message_seq}
+		select * from message
+		where message_seq=#{message_seq}
 	</select>
-	
+
 	<select id="getMessageSeq" resultType="int">
-	select message_seq.nextval from dual
+		select message_seq.nextval from dual
 	</select>
-	
-		<select id="hostMessageMain" parameterType="string" resultType="GuestMsg">
-select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
-in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} order by message.MESSAGE_TIME desc
+
+	<select id="hostMessageMain" parameterType="string" resultType="GuestMsg">
+		select message_room.message_room_seq,
+		message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read,message.fromID,message.toID
+		from message,message_room where message_time
+		in (select max(message_time) from message group by message_room_seq) and
+		message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and
+		host_email=#{userId} order by message.MESSAGE_TIME desc
 	</select>
-	
+
 	<select id="hostMsgAllCount" resultType="int">
-		select count(message_room_seq) from message_room where host_email=#{userId}
+		select
+		count(message_room_seq) from message_room where host_email=#{userId}
 	</select>
-	
+
 	<select id="getHomeNames" resultType="Home">
-	select * from home where member_email=#{userId}
+		select * from home where member_email=#{userId}
 	</select>
 
 	<select id="reservCheck" resultType="Reservation">
-	select * from reservation where member_email=#{member_email} and home_seq=#{home_seq}
+		select * from reservation where member_email=#{member_email} and
+		home_seq=#{home_seq}
 	</select>
-	
-	
+
+
 	<select id="guestMsgUnreadCount" resultType="int">
-	select count(message.MESSAGE_CONTENT)  from message,message_room where message_time in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
+		select count(*) from message,message_room where message_time
+		in (select max(message_time) from message group by message_room_seq) and
+		message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and
+		message.toID=#{userId} and message_room.guest_email=#{userId} and
+		message_read=0 order by message.MESSAGE_TIME desc
 	</select>
-	
+
 
 	<select id="guestUnreadMsg" resultType="GuestMsg">
-	select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
-in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and guest_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
+		select message_room.message_room_seq,
+		message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read
+		from message,message_room where message_time
+		in (select max(message_time) from message group by message_room_seq) and
+		message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and
+		guest_email=#{userId} and message_read=0 order by message.MESSAGE_TIME
+		desc
 	</select>
-	
-		<select id="hostMsgUnreadCount" resultType="int">
-	select count(message.MESSAGE_CONTENT)  from message,message_room where message_time in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
+
+	<select id="hostMsgUnreadCount" resultType="int">
+		select count(*) from message,message_room where message_time
+		in (select max(message_time) from message group by message_room_seq) and
+		message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and
+		message.toID=#{userId} and message_room.host_email=#{userId} and
+		message_read=0 order by message.MESSAGE_TIME desc
 	</select>
-	
-	
+
+
 	<select id="hostUnreadMsg" resultType="GuestMsg">
-	select message_room.message_room_seq, message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read  from message,message_room where message_time
-in (select max(message_time) from message group by message_room_seq) and message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and host_email=#{userId} and message_read=0 order by message.MESSAGE_TIME desc
+		select message_room.message_room_seq,
+		message.message_seq,message_room.home_seq,message_room.guest_email,message_room.host_email,message_room.checkIn,message_room.checkOut,message_room.totalNumber,message.message_content,message.message_time,message.message_read
+		from message,message_room where message_time
+		in (select max(message_time) from message group by message_room_seq) and
+		message_room.MESSAGE_ROOM_SEQ = message.MESSAGE_ROOM_SEQ and
+		host_email=#{userId} and message_read=0 order by message.MESSAGE_TIME
+		desc
 	</select>
-	
+
 </mapper>

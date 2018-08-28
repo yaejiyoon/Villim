@@ -239,10 +239,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				${hdto.getHome_name() }
 							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
                				</h2>
-               				<span>Seongsan-eup, Seogwipo-si</span>
+               				<span> ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</span>
                				<br>
                				<br>
-               				<img src="<c:url value='../resources/img/people.png'/>">인원 5명
+               				<img src="<c:url value='../resources/img/people.png'/>">인원 ${hdto.home_people }명
                				<img src="<c:url value='../resources/img/door.png'/>">침실 3개
                				<img src="<c:url value='../resources/img/bed.png'/>">침대 1개
                				<img src="<c:url value='../resources/img/bath.png'/>">욕실 2개
@@ -258,34 +258,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<div id="info-details">
                			<br>
                			<br>
-               			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
-               			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
-               			약 2천 권의 책이 비치되어 있습니다. 독서, 일행과의 대화를 위해 TV는 일부러 두지 않았습니다.
-               			<br>
-               			<br>
-               			방문으로 구분된 방이 2개, 문이 없는 서재공간 겸 방이 1개입니다. 방 하나에는 더블침대, 다른 방에는 침구(요)를 준비해드립니다.
-               			작은 욕실 2개, 간단한 취사가 가능한 주방이 있습니다.
-               			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
-               			<br>
-               			<br>
-               			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
-               			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
-               			약 2천 권의 책이 비치되어 있습니다. 독서, 일행과의 대화를 위해 TV는 일부러 두지 않았습니다.
-               			<br>
-               			<br>
-               			방문으로 구분된 방이 2개, 문이 없는 서재공간 겸 방이 1개입니다. 방 하나에는 더블침대, 다른 방에는 침구(요)를 준비해드립니다.
-               			작은 욕실 2개, 간단한 취사가 가능한 주방이 있습니다.
-               			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
-               			<br>
-               			<br>
-               			100년 된 제주 돌집을 손보았습니다. 고급스럽고 넓지는 않으나, 
-               			시골집의 불편함은 최소화하고 아늑함을 주려 노력했습니다. 책과 함께 휴가를 보낼 수 있는 '북스테이' 공간으로, 
-               			약 2천 권의 책이 비치되어 있습니다. 독서, 일행과의 대화를 위해 TV는 일부러 두지 않았습니다.
-               			<br>
-               			<br>
-               			방문으로 구분된 방이 2개, 문이 없는 서재공간 겸 방이 1개입니다. 방 하나에는 더블침대, 다른 방에는 침구(요)를 준비해드립니다.
-               			작은 욕실 2개, 간단한 취사가 가능한 주방이 있습니다.
-               			욕실에 욕조는 없으나 아기가 있을 경우 요청하시면 아기욕조를 넣어드립니다.
+               			${hdto.home_contents }
                			<br>
                			<br>
                			<div id="details-collapse" class="collapse">
@@ -319,7 +292,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			</div>
                			
                			<a id="detailsA" class="green" data-toggle="collapse" href="#details-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-               			<div id="a-content">이 공간 자세히 알아보기</div>
+               			<div id="a-content" style="display: inline;" >이 공간 자세히 알아보기</div>
                				<div style="position: static;">
                					<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="detailsDown"></span>
                				</div>
@@ -359,7 +332,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                					
                					$(this)
                                 .parent()
-               					.find(".glyphicon").attr('style','right:-177px; ')
+               					.find(".glyphicon").attr('style','right:-177px;')
                					
                				});
                			</script>
@@ -371,46 +344,70 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		</div>
                </div>
                <div id="info-main02">
-               		<div id="info-main02-left">
-               			<br>
-               			<span>편의 시설</span>
-               			<br>
-               			<br>
-               			<img src="<c:url value='../resources/img/kitchen.png'/>" class="amenities">
-               			주방
-               			<br>
-               			<br>
-               			<img src="<c:url value='../resources/img/wifi.png'/>" class="amenities">
-               			무선 인터넷
-               			<br>
-               			<br>
-               			<img src="<c:url value='../resources/img/parking.png'/>" class="amenities">
-               			건물 내 무료 주차
-               			<br>
-               			<br>
-               			<a href="#amenitiesModal" class="green" data-toggle="modal" id="amenitiesLink" >30개 편의시설 모두 보기 </a>
-               			<br>
-               			<br>
-               			<br>
+               		<br>
+                    <span>편의 시설</span>
+                 	<br>
+                 	<p>&nbsp;</p>
+               		<div class="col">
+               			<c:forEach items="${amenitiesList }" var="amenitiesList">
+               				<c:choose>
+               					<c:when test="${amenitiesList eq '주방'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/kitchen.png'/>" class="amenities">
+               							주방
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq '무선인터넷'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/wifi.png'/>" class="amenities">
+               							무선 인터넷
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq '옷걸이'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/hanger.png'/>" class="amenities">
+               							옷걸이
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq '작업공간'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/laptop.png'/>" class="amenities">
+               							노트북 작업 공간
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq '다리미'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/iron.png'/>" class="amenities">
+               							다리미
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq '세탁기'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/iron.png'/>" class="amenities">
+               							세탁기
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq '헤어드라이어'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/hairdryer.png'/>" class="amenities">
+               							헤어드라이어
+               						</div>
+               					</c:when>
+               					<c:when test="${amenitiesList eq 'TV'}">
+               						<div class="col-md-6">
+               							<img src="<c:url value='../resources/img/television.png'/>" class="amenities">
+               							TV
+               						</div>
+               					</c:when>
+               				</c:choose>
+               			</c:forEach>
                		</div>
-               		<div id="info-main02-right">
-               			<br>
-               			<span></span>
-               			<br>
-               			<br>
-               			<img src="<c:url value='../resources/img/morning.png'/>" class="amenities">
-               			아침 식사
-               			<br>
-               			<br>
-               			<img src="<c:url value='../resources/img/laptop.png'/>" class="amenities">
-               			노트북 작업 공간
-               			<br>
-               			<br>
-               			<img src="<c:url value='../resources/img/iron.png'/>" class="amenities">
-               			다리미
-               			
+               		<div>
+               		<p>&nbsp;</p>
+               		<a href="#amenitiesModal" class="green" data-toggle="modal" id="amenitiesLink" >${amenitiesCount }개 편의시설 모두 보기 </a>
                		</div>
-               		
+               		<br>
+               		<br>
                </div>
                <div id="info-main03">
                		<div id="info-main03-top">
@@ -420,33 +417,46 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                		</div>
                		<div id="info-main03-bottom">
-               			<div class="bed-div">
-               				<div>
-               					<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
-               					<br>
-               					<span class="bedroom">1번 침실</span>
-               					<br>
-               					<span class="bedtype">퀸사이즈 침대 1개</span>
+               			<div class="col">
+               				<div class="col-md-4 bed-div">
+               					<div>
+               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
+               						<br>
+               						<span class="bedroom">2번 침실</span>
+               						<br>
+               						<span class="bedtype">매트리스(요와 이불) 2개</span>
+               					</div>
+               				</div>
+               				<div class="col-md-4 bed-div">
+               					<div>
+               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
+               						<br>
+               						<span class="bedroom">2번 침실</span>
+               						<br>
+               						<span class="bedtype">매트리스(요와 이불) 2개</span>
+               					</div>
+               				</div>
+               				<div class="col-md-4 bed-div">
+               					<div>
+               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
+               						<br>
+               						<span class="bedroom">2번 침실</span>
+               						<br>
+               						<span class="bedtype">매트리스(요와 이불) 2개</span>
+               					</div>
+               				</div>
+               				<div class="col-md-4 bed-div">
+               					<div>
+               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
+               						<br>
+               						<span class="bedroom">2번 침실</span>
+               						<br>
+               						<span class="bedtype">매트리스(요와 이불) 2개</span>
+               					</div>
                				</div>
                			</div>
-               			<div class="bed-div">
-               				<div>
-               					<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
-               					<br>
-               					<span class="bedroom">2번 침실</span>
-               					<br>
-               					<span class="bedtype">매트리스(요와 이불) 2개</span>
-               				</div>
-               			</div>
-               			<div class="bed-div">
-               				<div>
-               					<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
-               					<br>
-               					<span class="bedroom">공용 공간</span>
-               					<br>
-               					<span class="bedtype">소파 베드 1개</span>
-               				</div>
-               			</div>
+               			
+               			
                		</div>
                </div>
                <div id="info-main07">
@@ -454,27 +464,100 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<span>숙소 이용규칙</span>
                		<br>
                		<br>
-               		<h5>어린이(만 0-12세)에게 안전하거나 적합하지 않음</h5>
-               		<h5>흡연 금지</h5>
-               		<h5>반려동물 동반에 적합하지 않음</h5>
-               		<h5>파티나 이벤트 금지</h5>
-               		<h5>체크인 가능 시간: 14:00 - 22:00</h5>
-               		<h5>체크아웃: 11:00까</h5>
+               		<c:forEach items="${rulesList }" var="rulesList">
+               			<h5>${rulesList }</h5>
+               		</c:forEach>
+					<div id="hrDIV" style="display:none;"></div>
 					<br>
-					<a href="" class="green">숙소 이용규칙 모두 보기</a>
-					<br><br><br>
+					<div id="rules-collapse" class="collapse">
+						
+						<c:forEach items="${rulesDetailsList }" var="rulesDetailsList">
+						<c:set var="rules" value="${rulesDetailsList}"></c:set>
+							<div class="card card-body">
+               				<h5>${fn:split(rules,':')[0]}</h5>
+               				<h5>&nbsp; - ${fn:split(rules,':')[1]}</h5>
+               			</div>
+						</c:forEach>
+               		</div>
+               			
+               		<a id="rulesA" class="green" data-toggle="collapse" href="#rules-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+               		<div id="a-content" style="display: inline;" >숙소 이용규칙 모두 보기</div>
+               			<div style="position: static;">
+               				<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="detailsDown"></span>
+               			</div>
+               		</a>
+               			
+               			<script>
+               				$('#rules-collapse').on('shown.bs.collapse', function () {
+               				 $(this)
+                             .parent()
+                             .find(".glyphicon-menu-down")
+                             .removeClass("glyphicon-menu-down")
+                             .addClass("glyphicon-menu-up");
+               				 
+               				$(this)
+                            .parent()
+                            .find("#a-content").html("숨기기");
+               				
+               				$(this)
+                            .parent()
+                            .find(".glyphicon").attr('style','right:-55px; top:-15px;');
+               				
+               				$(this)
+                            .parent()
+                            .find("#hrDIV").attr('style','display:block; width:60px; height:auto; border-bottom: 1px solid #e8e8e8;');
+               				 
+               				});
+	
+               				//The reverse of the above on hidden event:
+
+               				$('#rules-collapse').on('hidden.bs.collapse', function () {
+               					$(this)
+                                .parent()
+                                .find(".glyphicon-menu-up")
+                                .removeClass("glyphicon-menu-up")
+                                .addClass("glyphicon-menu-down");
+               					
+               					$(this)
+                              	.parent()
+                              	.find("#a-content").html("이 공간 자세히 알아보기");
+               					
+               					$(this)
+                                .parent()
+               					.find(".glyphicon").attr('style','right:-177px; ');
+               					
+               					$(this)
+                                .parent()
+                                .find("#hrDIV").attr('style','display:none;');
+                   				 
+               					
+               				});
+               			</script>
+               			<br>
+               			
                </div>
                <div id="info-main08">
                		<br>
                		<span>예약 취소</span>
                		<br>
                		<br>
+               		<div>
                		<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
                		<br>
                		체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               		</div>
+               		<div>
+               		<span>일반 정책 - 체크인 5일 전까지 예약 취소 시 취소 수수료 없음</span>
                		<br>
+               		체크인 5일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               		</div>
+               		<div>
+               		<span>유연 정책 - 체크인 1일 전까지 예약 취소 시 취소 수수료 없음</span>
                		<br>
-               		<a href="" class="green">정책 자세히 읽기</a>
+               		체크인 1일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               		</div>
+               		<br>
+               		<a href="https://www.airbnb.co.kr/home/updated_cancellation_policies?guest_fee_policy=full_refund" class="green">정책 자세히 읽기</a>
                		<br><br><br>
                </div>
                <div id="info-main04">
@@ -771,7 +854,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			</div>
                			
                			<a id="mapAtag" class="green" data-toggle="collapse" href="#map-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-               				<div id="mapA-content">이 지역 자세히 알아보기</div>
+               				<div id="mapA-content" style="display: inline;" >이 지역 자세히 알아보기</div>
                				<div style="position: static;">
                					<span class="glyphicon glyphicon-menu-down" aria-hidden="true" id="mapDown"></span>
                				</div>
@@ -824,7 +907,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                		</div>
 
-						<script>
+						<!-- <script>
         					var map;
 							function initMap() {
 								map = new google.maps.Map(document
@@ -853,7 +936,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							}
 							
 							
-						</script>
+						</script> -->
 
 					</div>
                
@@ -863,7 +946,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             		<div id="fixed-sub01">
             			<br>
             			<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
-            			<h3 style="display: inline; font-weight: 600;">132,766</h3>/박
+            			
+            			<h3 style="display: inline; font-weight: 600;">
+            				<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" />
+            			</h3>/박
             			<br>
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
             			<img src="<c:url value='../resources/img/star.png'/>" class="star">
@@ -873,7 +959,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<h6 style="display: inline;">342</h6>
             		</div>
             		<div id="fixed-sub02">
-            		 	<form action="reservation.re" method="post">
+            		 	<form action="reservReq.re" method="post">
             		 	
             			<br>
             			날짜
@@ -921,7 +1007,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     			
                     			var checkinDate;
                     			var checkoutDate;
-                    			
                     			
             					
             					$('.datepicker-here').datepicker({
@@ -1071,7 +1156,25 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     				},
                     				
                     			     onRenderCell: function (date, cellType) {
+
+                             			var eventDates = ['2018-09-30','2018-10-01'];
+                    			    	 
+                    			    	 var currentDate = date.getDate();
+                    			    	 var currentMonth = date.getMonth();
+                    			    	 currentMonth = "0"+currentMonth;
+                    			    	 
+                    			         /* // Add extra element, if `eventDates` contains `currentDate`
+                    			         if (cellType == 'day' && eventDates.indexOf(currentDate) != -1) {
+                    			             return {
+                    			            	 classes: 'my-class'
+                    			             }
+                    			         }
+                    			    	  */
+                    			    	  
+                    			    	  
+                    			    	 
                     			        if (cellType == 'day') {
+                    			        	
                     			        	
                     			        	/* console.log("fff");
                     			        	console.log(blockDate);
@@ -1360,7 +1463,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             			
             			<!-- 게스트 이메일로 바꾸기 -->
-            			<input type="hidden" name="member_email" value="${hdto.getMember_email() }">
+            			<input type="hidden" name="member_email" value="${sessionScope.login_email}">
             		 	<input type="hidden" name="reserv_checkin" id="reserv_checkin" value="">
             		 	<input type="hidden" name="reserv_checkout" id="reserv_checkout" value="">
             			<input type="hidden" name="population" id="population" value="1">
@@ -1371,6 +1474,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<input type="hidden" name="serviceFee" id="serviceFee">
             			<input type="hidden" name="totalAmount" id="totalAmount">
             			<input type="hidden" name="blockedDate" id="blockedDate">
+            			<input type="hidden" name="host_email" value="${hdto.member_email }">
             			</form>
             		</div>
             		
@@ -1383,8 +1487,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <%@ include file="../../resource/include/footer.jsp" %>
    <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
    <!-- 지도 -->
-	<script 
+	<!-- <script 
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>
-	</script>
+	</script> -->
 </body>
 </html>

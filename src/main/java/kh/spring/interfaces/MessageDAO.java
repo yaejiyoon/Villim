@@ -3,6 +3,7 @@ package kh.spring.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -25,6 +26,8 @@ public interface MessageDAO {
 
 	public int messageRoomInsert(MessageRoomDTO roomdto);
 	
+	public DetailDTO getMsgAfterSend(int message_seq);
+	
 	//Message Guest Main 
 	public List<GuestMsgDTO> guestMessageMain(String userId);
 	
@@ -45,7 +48,7 @@ public interface MessageDAO {
 	
 	public int getMessageSeq();
 	
-	public ReservationDTO reservCheck(ReservationDTO dto2);
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2);
 	
 	public int ReadUpdate(int message_seq,String member_email,String userId);
 	
@@ -64,5 +67,7 @@ public interface MessageDAO {
 	public List<HomeDTO> getHomeNames(String userId);
 	
 	
+	//호스트가 수락하고 난 뒤에
+	public MessageDTO getMessageOne(int message_room_seq);
 	
 }

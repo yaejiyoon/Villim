@@ -1,5 +1,8 @@
 package kh.spring.controller;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -50,10 +54,8 @@ public class MessageController {
         String today= "2018년 08월 21일";/*sdf.format(new Date());*/
         System.out.println("오늘 날짜: "+today);
 		System.out.println("messageMain");
-		/*session.setAttribute("userId", "jake@gmail.com");*/
-       session.setAttribute("userId", "plmn855000@gmail.com");
-		 /*session.setAttribute("userId", "test@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		/*session.setAttribute("login_email", "plmn855000@gmail.com");*/
+		String userId = (String) session.getAttribute("login_email");
         System.out.println("아이디 :"+userId );
 		// 여행
 		List<GuestMsgDTO> guestMessage = this.service.guestMessageMain(userId);
@@ -62,7 +64,7 @@ public class MessageController {
 		if (!guestMessage.isEmpty()) {
 			for (GuestMsgDTO tmp : guestMessage) {
 				System.out.println("메세지방번호 :  " + tmp.getMessage_room_seq() + "메세지 시퀸스 : " + tmp.getMessage_seq()
-						+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time());
+						+ "메세지 내용 : " + tmp.getMessage_content()+"메일 : "+tmp.getHost_email()+"날짜 :"+tmp.getMessage_time()+" fromID : "+tmp.getFromID()+"toID : "+tmp.getToID());
 				
 				if(today.equals(tmp.getMessage_time().substring(0,13))) {
 					System.out.println("근꼐 오늘 같다는겨?");
@@ -176,8 +178,7 @@ public class MessageController {
 	@RequestMapping("/messageSend.msg")
 	public ModelAndView messageSend(HttpSession session) {
 		System.out.println("messageSend");
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		int home_seq = 1;
 		String host_name = "Sarah Son";
 		String host_picture = "지창욱.jpg";
@@ -207,13 +208,12 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageInsertDB.msg")
-	public ModelAndView messageInsertDB(HttpSession session, String host_name, MessageDTO dto, MessageRoomDTO roomdto,
-			String seq, String checkIn, String checkOut, String number) {
+	public ModelAndView messageInsertDB(HttpSession session,HttpServletResponse response, String host_name, MessageDTO dto, MessageRoomDTO roomdto,
+			String seq, String checkIn, String checkOut, String number) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageInsertDB");
 		System.out.println("내용 : " + dto.getMessage_content());
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		int home_seq = Integer.parseInt(seq);
 		HomeDTO getHomeInfo = this.service.getHomeInfo(home_seq);
@@ -243,7 +243,7 @@ public class MessageController {
 			if (messageInfoInsert > 0) {
 				System.out.println("msgroom정보 입력에 성공!");
 			}
-			;
+			
 		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
@@ -255,8 +255,41 @@ public class MessageController {
 
 		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
 		int messageInsertResult = this.service.messageInsert(dto);
+		
 		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
+			
+			
+			//실제 메세지 보내기
+			  MemberDTO mGuest=this.m_service.printProfile(userId);
+			  MemberDTO mHost=this.m_service.printProfile(host_email);
+
+			  DetailDTO getMessageAfterSend=this.service.getMsgAfterSend(messageInsertResult);
+			  
+		      String to = "82" +mHost.getMember_phone();
+		      String from = "33644643087";
+		      String message =  URLEncoder.encode("[Villim] : "+mGuest.getMember_name()+", "+getMessageAfterSend.getCheckIn()+" - "+getMessageAfterSend.getCheckOut()+", '"+getMessageAfterSend.getMessage_content()+"'","UTF-8");
+		      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+		    
+		      StringBuilder sb = new StringBuilder();
+		      sb.append(sendUrl);
+		      sb.append("&to=" + to);
+		      sb.append("&from=" + from);
+		      sb.append("&text=" + message);
+
+		      System.out.println(sb.toString());
+
+		      try {
+		         URL url = new URL(sb.toString());
+		         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		         int result = con.getResponseCode();
+		         System.out.println(result);
+		         con.disconnect();
+		      }catch(Exception e) {
+		    	  e.printStackTrace();
+		      }
+		         //
+			
 			mav.addObject("host_name", host_name);
 			mav.setViewName("/message/messageInsertConfirm");
 		} else {
@@ -273,12 +306,12 @@ public class MessageController {
         System.out.println("room_seq : "+message_room_seq);
         System.out.println("message_seq : "+message_seq);
         System.out.println("member_email : "+member_email);
-/*		session.setAttribute("userId", "jake@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		
-		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
+		/*int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);*/
 		
 		MemberDTO guestInfo=this.m_service.getPhoto(userId);
+		MemberDTO hostInfo=this.m_service.getPhoto(member_email);
 		mav.addObject("userId", userId);
 		mav.addObject("message_room_seq", message_room_seq);
 		mav.addObject("home_seq", home_seq);
@@ -289,7 +322,7 @@ public class MessageController {
         mav.addObject("home_location", hdto.getHome_nation()+" "+hdto.getHome_addr1()+" "+hdto.getHome_addr3());
         mav.addObject("home_price", hdto.getHome_price());
 
-        mav.addObject("host_email", hdto.getMember_email());
+        mav.addObject("host_email", member_email);
         MessageRoomDTO dto=this.service.msgRoomInfo(message_room_seq);
         String cI= "20180"+dto.getCheckIn().split("월")[0]+dto.getCheckIn().split("일")[0].split("월")[1]; String cO="20180"+dto.getCheckOut().split("월")[0]+dto.getCheckOut().split("일")[0].split("월")[1];
         String transCI="2018-"+dto.getCheckIn().split("월")[0]+"-"+dto.getCheckIn().split("일")[0].split("월")[1]; String transCO="2018-"+dto.getCheckOut().split("월")[0]+"-"+dto.getCheckOut().split("일")[0].split("월")[1];
@@ -340,9 +373,12 @@ public class MessageController {
 		dto2.setMember_email(userId);
 		dto2.setHome_seq(home_seq);
 
-		ReservationDTO reservCheck=this.service.reservCheck(dto2);
-		if(reservCheck!=null) {
-			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
+		List<ReservationDTO> reservCheck=this.service.reservCheck(dto2);
+		if(!reservCheck.isEmpty()) {
+			for(ReservationDTO tmp:reservCheck) {
+				System.out.println("예약이미 신청 = "+tmp.getReserv_state());
+			}
+			
 			mav.addObject("reservCheck", reservCheck);
 		}else {
 			System.out.println("예약을 안함 아직");
@@ -363,6 +399,7 @@ public class MessageController {
 	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response) throws Exception {
 		System.out.println("messageSendInRoom");
 		System.out.println("메세지내용 : "+dto.getMessage_content());
+
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String today= sdf.format(new Date());
@@ -393,6 +430,35 @@ public class MessageController {
 		
             System.out.println(" m : "+m);
 			String result=builder.toString();*/
+			
+			//실제 메세지 보내기
+			  MemberDTO mGuest=this.m_service.printProfile(dto.getFromID());
+			  MemberDTO mHost=this.m_service.printProfile(dto.getToID());
+			  
+		      String to = "82" +mHost.getMember_phone();
+		      String from = "33644643087";
+		      String messages =  URLEncoder.encode("[Villim]: "+mGuest.getMember_name()+", '"+dto.getMessage_content()+"'","UTF-8");
+		      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+
+		      StringBuilder sb = new StringBuilder();
+		      sb.append(sendUrl);
+		      sb.append("&to=" + to);
+		      sb.append("&from=" + from);
+		      sb.append("&text=" + messages);
+
+		      System.out.println(sb.toString());
+
+		      try {
+		         URL url = new URL(sb.toString());
+		         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		         int result = con.getResponseCode();
+		         System.out.println(result);
+		         con.disconnect();
+		      }catch(Exception e) {
+		    	  e.printStackTrace();
+		      }
+		         //
+			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 
@@ -407,10 +473,9 @@ public class MessageController {
 		System.out.println("room_seq : "+message_room_seq);
 		System.out.println("home_seq : "+home_seq);
 		System.out.println("message_seq"+message_seq);
-		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		
-		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
+		/*int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);*/
 		List<HomeDTO> getHomeNames=this.service.getHomeNames(userId);
 	    
 		System.out.println("호스트 이메일 : "+userId+" / 게스트 이메일 : "+member_email);
@@ -528,11 +593,16 @@ public class MessageController {
 		dto2.setMember_email(member_email);
 		dto2.setHome_seq(home_seq);
         System.out.println("이메일 : "+dto2.getMember_email()+" / 홈시퀸스 : "+dto2.getHome_seq());
-		ReservationDTO reservCheck=this.service.reservCheck(dto2);
+		List<ReservationDTO> reservCheck=this.service.reservCheck(dto2);
 		
-		if(reservCheck!=null) {
-			System.out.println("예약이미 신청 = "+reservCheck.getReserv_state());
+		if(!reservCheck.isEmpty()) {
+			
+			for(ReservationDTO tmp:reservCheck) {
+				System.out.println("예약이미 신청 = "+tmp.getReserv_state()+" 누가 예약했뉘 ? "+tmp.getMember_email()+" 예약 시퀸스 :"+tmp.getReservation_seq());
+			}
+			
 			mav.addObject("reservCheck", reservCheck);
+			mav.addObject("reservChecks", 0);
 		}else {
 			
 			System.out.println("예약을 안함 아직");
@@ -552,7 +622,7 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
 	List<GuestMsgDTO> guestAllMessage = this.service.guestMessageMain(userId);
 	List<String> host_email = new ArrayList<>();
 	
@@ -585,6 +655,8 @@ public void msgMainGuestAllRead(HttpSession session,HttpServletResponse response
     		gmI.put("checkOut", guestAllMessage.get(i).getCheckOut());
     		gmI.put("message_read", guestAllMessage.get(i).getMessage_read());
     		gmI.put("host_email", guestAllMessage.get(i).getHost_email());
+    		gmI.put("fromID", guestAllMessage.get(i).getFromID());
+    		gmI.put("toID", guestAllMessage.get(i).getToID());
     		jArray.add(gmI);
     	}
     	obj.put("guestAllMsg", jArray);
@@ -626,7 +698,7 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
     
     List<GuestMsgDTO> guestUnreadMsg=this.service.guestUnreadMsg(userId);
     List<String> host_email = new ArrayList<>();
@@ -666,6 +738,8 @@ public void msgMainGuestUnRead(HttpSession session,HttpServletResponse response)
     		gmI.put("checkOut", guestUnreadMsg.get(i).getCheckOut());
     		gmI.put("message_read", guestUnreadMsg.get(i).getMessage_read());
     		gmI.put("host_email", guestUnreadMsg.get(i).getHost_email());
+    		gmI.put("fromID", guestUnreadMsg.get(i).getFromID());
+    		gmI.put("toID", guestUnreadMsg.get(i).getToID());
     		jArray.add(gmI);
     	}
     	obj.put("guestUnreadMsg", jArray);
@@ -708,7 +782,7 @@ public void msgMainhostUnRead(HttpSession session,HttpServletResponse response) 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
     
     List<GuestMsgDTO> hostUnreadMsg=this.service.hostUnreadMsg(userId);
     List<String> guest_email = new ArrayList<>();
@@ -747,6 +821,8 @@ public void msgMainhostUnRead(HttpSession session,HttpServletResponse response) 
     		gmI.put("checkOut", hostUnreadMsg.get(i).getCheckOut());
     		gmI.put("message_read", hostUnreadMsg.get(i).getMessage_read());
     		gmI.put("host_email", hostUnreadMsg.get(i).getHost_email());
+    		gmI.put("fromID", hostUnreadMsg.get(i).getFromID());
+    		gmI.put("toID", hostUnreadMsg.get(i).getToID());
     		jArray.add(gmI);
     	}
     	obj.put("hostUnreadMsg", jArray);
@@ -792,7 +868,7 @@ public void msgMainHostAllRead(HttpSession session,HttpServletResponse response)
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     String today= sdf.format(new Date());
     System.out.println("오늘 날짜: "+today);
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String) session.getAttribute("login_email");
     
     List<GuestMsgDTO> hostMessage = this.service.hostMessageMain(userId);
 	List<String> guest_email = new ArrayList<>();
@@ -832,6 +908,8 @@ public void msgMainHostAllRead(HttpSession session,HttpServletResponse response)
     		gmI.put("checkOut", hostMessage.get(i).getCheckOut());
     		gmI.put("message_read", hostMessage.get(i).getMessage_read());
     		gmI.put("host_email", hostMessage.get(i).getHost_email());
+    		gmI.put("fromID", hostMessage.get(i).getFromID());
+    		gmI.put("toID", hostMessage.get(i).getToID());
     		jArray.add(gmI);
     	}
     	obj.put("hostAllMessage", jArray);
