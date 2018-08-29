@@ -444,11 +444,10 @@ $(document).ready(function() {
          	<input type="hidden" name="startDate" id="hiddenStartDate" value="0">
          	<input type="hidden" name="endDate" id="hiddenEndDate" value="0">
          	<i class="glyphicon glyphicon-calendar" id="calendarGlyphicon"></i>
-<!-- 	         	<input id="datepicker" type="text" data-range="true" -->
-<!-- 	                   data-multiple-dates-separator="  ~  " -->
-<!-- 	                   todayButton="true" class="datepicker-here" -->
-<!-- 	                     placeholder="  체크인       ㅡ       체크아웃" /> -->
-	         	<input id="datepicker" type="text" data-range="true" />
+	         	<input id="datepicker" type="text" data-range="true"
+	                   data-multiple-dates-separator="  ~  "
+	                   todayButton="true" class="datepicker-here"
+	                     placeholder="  체크인       ㅡ       체크아웃" />
          	</div>
          <button id="searchBt"><span class="glyphicon glyphicon-search" aria-hidden="true" id="searchicon"></span></button>
       </div>

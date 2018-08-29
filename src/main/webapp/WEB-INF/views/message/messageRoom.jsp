@@ -569,7 +569,10 @@ position:relative;
   </div>
 </div>
 </c:when>
-<c:otherwise>
+<c:when test="">
+
+</c:when>
+<%-- <c:otherwise>
 <div class="card2 animated slideInRight">
   <div id="reservBefore" class="container" style="width:100%;padding:1;">
   <button class="close-button" id="close-button-1">+</button>
@@ -578,7 +581,7 @@ position:relative;
     <button class="btn btn-default" id="reservRequestBt" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
   </div>
 </div>
-</c:otherwise>
+</c:otherwise> --%>
 </c:choose>
 </c:forEach>
 <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-125vh;height:auto;">
