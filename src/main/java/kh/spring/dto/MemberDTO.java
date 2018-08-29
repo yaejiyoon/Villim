@@ -14,6 +14,21 @@ public class MemberDTO {
 	private String member_location;
 	private String member_gender;
 	private String member_introduction;
+	private String member_type;
+	
+/*	public String toString() {
+		
+		return this.member_seq + ":" + this.member_email + ":" + this.member_name + ":" + this.member_birth + ":" + this.member_picture
+				+ ":" + this.member_block + ":" + this.member_date + ":" + this.member_location ;
+	}*/
+	
+	public String getMember_type() {
+		return member_type;
+	}
+
+	public void setMember_type(String member_type) {
+		this.member_type = member_type;
+	}
 
 	public MemberDTO() {
 
@@ -21,7 +36,7 @@ public class MemberDTO {
 
 	public MemberDTO(int member_seq, String member_email, String member_name, String member_pw, String member_birth,
 			String member_picture, String member_phone, String member_block, String member_date, String member_location,
-			String member_gender, String member_introduction) {
+			String member_gender, String member_introduction, String member_type) {
 		super();
 		this.member_seq = member_seq;
 		this.member_email = member_email;
@@ -35,6 +50,7 @@ public class MemberDTO {
 		this.member_location = member_location;
 		this.member_gender = member_gender;
 		this.member_introduction = member_introduction;
+		this.member_type = member_type;
 	}
 
 	public int getMember_seq() {

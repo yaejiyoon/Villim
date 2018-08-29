@@ -35,6 +35,7 @@ public class HomeDAOImpl implements HomeDAO {
 	
 	@Override
 	public List<HomeDTO> getAllHomeData() {
+		
 		return ssTemplate.selectList("Home.getAllHomeData");
 	}
 	
