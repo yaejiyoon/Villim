@@ -122,15 +122,8 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeRulesDetails(hdto);
 	}
 	
-//	예지
-	@Override
-	public List<HomeDTO> getAllHomeDataMain() {
-		return hdao.getAllHomeDataMain();
-	}
 
-	@Override
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-		return hdao.getHomeOnMap(param);
+	
 	public List<ReservationDTO> getAllReservation(String member_email) {
 		return hdao.getAllReservation(member_email);
 	}
@@ -200,10 +193,15 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getAllMessage(home_seq);
 	}
 
+//	예지
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return hdao.getAllHomeDataMain();
+	}
 
 	@Override
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
-		return hdao.getHomeOnMap(mdto);
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return hdao.getHomeOnMap(param);
 	}
 
 	@Override

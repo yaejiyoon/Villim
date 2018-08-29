@@ -33,6 +33,11 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 	
 	@Override
+	public List<HomeDTO> getAllHomeData() {
+		return ssTemplate.selectList("Home.getAllHomeData");
+	}
+	
+	@Override
 	public HomeDTO getOldestHomeData() {
 		return ssTemplate.selectOne("Home.getOldestHomeData");
 	}
@@ -264,4 +269,6 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return ssTemplate.selectList("Home.modalHomeData", param);
 	}
+
+	
 }

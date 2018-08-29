@@ -105,20 +105,83 @@
 		G_REVIEW_ACCURACY desc
 	</select>
 
-   <select id="getValue" resultType="GuestReview">
+	<select id="getCleanLiness" resultType="GuestReview">
+		select
+		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
+		guest_review
+		group by G_REVIEW_CLEANLINESS having
+		G_REVIEW_CLEANLINESS
+		in(5,4,3,2,1)
+		order by G_REVIEW_CLEANLINESS desc
+	</select>
+
+	<select id="getCheckin" resultType="GuestReview">
+		select
+		G_REVIEW_CHECKIN ,
+		count(G_REVIEW_CHECKIN) as count from
+		guest_review
+		group by
+		G_REVIEW_CHECKIN having
+		G_REVIEW_CHECKIN
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_CHECKIN desc
+	</select>
+
+	<select id="getAmenities" resultType="GuestReview">
+		select
+		G_REVIEW_AMENITIES,
+		count(G_REVIEW_AMENITIES) as count from
+		guest_review
+		group by
+		G_REVIEW_AMENITIES having
+		G_REVIEW_AMENITIES
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_AMENITIES desc
+	</select>
+
+	<select id="getCommunication" resultType="GuestReview">
+		select
+		G_REVIEW_COMMUNICATION , count(G_REVIEW_COMMUNICATION) as count from
+		guest_review
+		group by G_REVIEW_COMMUNICATION having
+		G_REVIEW_COMMUNICATION
+		in(5,4,3,2,1)
+		order by G_REVIEW_COMMUNICATION
+		desc
+	</select>
+
+	<select id="getLocation" resultType="GuestReview">
+		select
+		G_REVIEW_LOCATION
+		,
+		count(G_REVIEW_LOCATION) as count from
+		guest_review
+		group by
+		G_REVIEW_LOCATION having
+		G_REVIEW_LOCATION
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_LOCATION desc
+	</select>
+	
+	   <select id="getValue" resultType="GuestReview">
       select
       G_REVIEW_VALUE,
       count(G_REVIEW_VALUE) as count from
       guest_review
       group by
-      G_REVIEW_VALUE having
+      G_REVIEW_VALUE
+      having
       G_REVIEW_VALUE
       in(5,4,3,2,1)
       order by
       G_REVIEW_VALUE desc
    </select>
-   
-   <!--  예지 -->
+
+	
+	   <!--  예지 -->
 	<select id="getAllHomeDataMain" resultType="Home">
       select * from home
    </select>
@@ -181,81 +244,6 @@
         	</trim>
          </if>
    </select>
-   
-	<select id="getCleanLiness" resultType="GuestReview">
-		select
-		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
-		guest_review
-		group by G_REVIEW_CLEANLINESS having
-		G_REVIEW_CLEANLINESS
-		in(5,4,3,2,1)
-		order by G_REVIEW_CLEANLINESS desc
-	</select>
-
-	<select id="getCheckin" resultType="GuestReview">
-		select
-		G_REVIEW_CHECKIN ,
-		count(G_REVIEW_CHECKIN) as count from
-		guest_review
-		group by
-		G_REVIEW_CHECKIN having
-		G_REVIEW_CHECKIN
-		in(5,4,3,2,1)
-		order by
-		G_REVIEW_CHECKIN desc
-	</select>
-
-	<select id="getAmenities" resultType="GuestReview">
-		select
-		G_REVIEW_AMENITIES,
-		count(G_REVIEW_AMENITIES) as count from
-		guest_review
-		group by
-		G_REVIEW_AMENITIES having
-		G_REVIEW_AMENITIES
-		in(5,4,3,2,1)
-		order by
-		G_REVIEW_AMENITIES desc
-	</select>
-
-	<select id="getCommunication" resultType="GuestReview">
-		select
-		G_REVIEW_COMMUNICATION , count(G_REVIEW_COMMUNICATION) as count from
-		guest_review
-		group by G_REVIEW_COMMUNICATION having
-		G_REVIEW_COMMUNICATION
-		in(5,4,3,2,1)
-		order by G_REVIEW_COMMUNICATION
-		desc
-	</select>
-
-	<select id="getLocation" resultType="GuestReview">
-		select
-		G_REVIEW_LOCATION
-		,
-		count(G_REVIEW_LOCATION) as count from
-		guest_review
-		group by
-		G_REVIEW_LOCATION having
-		G_REVIEW_LOCATION
-		in(5,4,3,2,1)
-		order by
-		G_REVIEW_LOCATION desc
-	</select>
-
-	<select id="getValue" resultType="GuestReview">
-		select
-		G_REVIEW_VALUE,
-		count(G_REVIEW_VALUE) as count from
-		guest_review
-		group by
-		G_REVIEW_VALUE
-		having
-		G_REVIEW_VALUE
-		in(5,4,3,2,1)
-		order by
-		G_REVIEW_VALUE desc
-	</select>
 
 
 
