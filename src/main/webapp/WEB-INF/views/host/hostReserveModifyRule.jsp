@@ -465,6 +465,7 @@ label {
 			})
 			
 			if($("#check2").is(":checked")){
+<<<<<<< HEAD
 				$('#collapseExample2').addClass("collapse in");
 				$("#check2-text").val('${tmp1}');
 			}
@@ -485,6 +486,28 @@ label {
 				$("#check6-text").val('${tmp5}');
 			}
 
+=======
+	            $('#collapseExample2').addClass("collapse in");
+	            $("#check2-text").val('${tmp1}');
+	         }
+	         if($("#check3").is(":checked")){
+	            $('#collapseExample3').addClass("collapse in");
+	            $("#check3-text").val('${tmp2}');
+	         }
+	         if($("#check4").is(":checked")){
+	            $('#collapseExample4').addClass("collapse in");
+	            $("#check4-text").val('${tmp3}');
+	         }
+	         if($("#check5").is(":checked")){
+	            $('#collapseExample5').addClass("collapse in");
+	            $("#check5-text").val('${tmp4}');
+	         }
+	         if($("#check6").is(":checked")){
+	            $('#collapseExample6').addClass("collapse in");
+	            $("#check6-text").val('${tmp5}');
+	         }
+			
+>>>>>>> master
 		})
 	</script>
 </body>

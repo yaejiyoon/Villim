@@ -11,7 +11,7 @@
 	rel="stylesheet" />
 
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 
 
 

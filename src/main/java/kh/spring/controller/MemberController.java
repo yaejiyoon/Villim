@@ -7,7 +7,6 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -31,8 +28,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
-import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.MailSendDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
@@ -41,9 +38,15 @@ import kh.spring.interfaces.MemberService;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired
-	MemberDTO dto;
+	private JavaMailSender mailSender;
+	
+//	@Autowired
+//	MemberDTO dto;
+
+//	@Autowired
+//	MailSendDTO mailDto;
 
 	@Autowired
 	MemberService service;
@@ -117,7 +120,8 @@ public class MemberController {
 	@RequestMapping("info.do")
 	public ModelAndView info(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-
+		MemberDTO dto = new MemberDTO(); // 새로 추가됨
+		
 		String secondName = request.getParameter("secondName");
 		String firstName = request.getParameter("firstName");
 		String accountEmail = request.getParameter("accountEmail");
@@ -413,9 +417,7 @@ public class MemberController {
 		dto.setMember_email(session.getAttribute("login_email").toString());
 		
 		String picture = service.isSnsMember(dto);
-		System.out.println(dto.getMember_email());
-		System.out.println(dto.getMember_picture());
-		System.out.println(picture);
+
 		
 //		if(!(picture.equals(""))) {
 //			System.out.println("이미 가입 되어있는 아이디 입니다.");
@@ -438,7 +440,7 @@ public class MemberController {
 	
 	// 로그인 체크
 	@RequestMapping("login.do")
-	public ModelAndView login(MemberDTO dto, HttpSession session) {
+	public ModelAndView login(MemberDTO dto, HttpSession session, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		
@@ -446,8 +448,6 @@ public class MemberController {
 		
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
-			System.out.println(dto.getMember_email());
-			System.out.println(picture);
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			
@@ -465,13 +465,10 @@ public class MemberController {
 		
 		System.out.println("sns 로그인 부분입니다.");
 		ModelAndView mav = new ModelAndView();
-		System.out.println(dto.getMember_email());
-		System.out.println(dto.getMember_pw());
-		String picture = service.isMember(dto);
-		System.out.println(picture);
+		String picture = service.isSnsMember(dto);
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
-			System.out.println(dto.getMember_email());
+			
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			mav.setViewName("index");
@@ -486,8 +483,46 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 		
+	}
+	@RequestMapping("find.do")
+	public void find(HttpServletRequest request, HttpServletResponse response) {
+		MailSendDTO mailDto = new MailSendDTO();
+		String mail = request.getParameter("mail");
+		String name = service.isMail(mail);
+		System.out.println(mail);
+		System.out.println(name);
+		String url = "<img src='<c:url value='/resources/img/logo2.png'/>'"
+				+ "<br>" + name + "<h4>님, 안녕하세요.</h4><br>"
+				+ "<h4>비밀번호 재설정을 요청하셨습니다.</h4><br>"
+				+ "<h4>회원님이 요청하지 않은 경우 아무런 조치를 취하실 필요가 없습니다.</h4><br>"
+				+ "<h4>요청하셨다면 다음 링크를 이용해 비밀번호를 재설정하세요.</h4><br>"
+				+ "<a class='btn btn-danger'>비밀번호 재설정 하기</a>"
+				+ "<h4>감사합니다. </h4><br>"
+				+ "<h4>Villim 팀 드림 </h4><br>";
+		
+		String url1 ="<a style='display:inline-block; text-align:center; vertical-align:middle; text-decoration:none; font-size:12px; color:#fff;background-color:#d9534f;border-color:#d43f3a width:118px; height:38px; line-height:38px;'" + "href='#'>비밀번호 재설정 하기</a>"
+		+"<h4>감사합니다. </h4>"+"<h4>Villim 팀 드림 </h4><br>";
+		
+		try {
+		
+		mailDto.setSubject("Villim 입니다.");
+		mailDto.setText(new StringBuffer().append(url1).toString());
+		/*mailDto.addInline(contentId, dataSource);*/
+		mailDto.setFrom("villim", "Villim");
+		mailDto.setTo(mail);
+		mailDto.send();
+		System.out.println("메일보내기 성공");
+		String msg = "성공";
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		new Gson().toJson(msg, response.getWriter());
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -523,10 +558,8 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-		 /*session.setAttribute("userId", "jake@gmail.com");*/
-		session.setAttribute("userId", "plmn855000@gmail.com");
-		/*session.setAttribute("userId", "test@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+
+		String userId = (String) session.getAttribute("login_email");
 		System.out.println("들어온 사람 : " + userId);
 		MemberDTO result = this.service.printProfile(userId);
 		MemberDTO getPhoto = this.service.getPhoto(userId);
@@ -572,7 +605,7 @@ public class MemberController {
 	public void editPhoto(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
 		System.out.println("/editPhoto.mo");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		String realPath = request.getSession().getServletContext().getRealPath("/files/");
 		System.out.println(realPath);
 
@@ -624,9 +657,7 @@ public class MemberController {
 		List<Integer> hostHome_seq = new ArrayList<Integer>();
 
 		List<Integer> g_review_seq = new ArrayList<Integer>();
-		session.setAttribute("userId", "jake@gmail.com"); 
-		/*session.setAttribute("userId", "plmn855000@gmail.com");*/
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 		System.out.println("아이디:" + userId);
 
 		// 나에 대한 지난 후기
@@ -755,8 +786,8 @@ public class MemberController {
 	@RequestMapping("/guestReview.mo")
 	public String guestReviewInput(HttpSession session, GuestReviewDTO dto) {
 		System.out.println("guestReview.mo");
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+
+		String userId = (String) session.getAttribute("login_email");
 		dto.setMember_email(userId);
 		System.out.println("seq : " + dto.getHome_seq() + "만족도 : " + dto.getG_review_satisfaction() + "accuracy : "
 				+ dto.getG_review_accuracy() + "청결도 : " + dto.getG_review_cleanliness() + " 체크인 : "
@@ -779,9 +810,7 @@ public class MemberController {
 	@RequestMapping("/hostReview.mo")
 	public String hostReviewInput(HttpSession session, HostReviewDTO dto) {
 		System.out.println("hostReview.mo");
-
-		session.setAttribute("userId", "plmn855000@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		// 리뷰 넣기
 
