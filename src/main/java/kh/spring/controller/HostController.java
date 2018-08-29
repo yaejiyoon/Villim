@@ -49,32 +49,31 @@ public class HostController {
 		} else {
 			seq = Integer.parseInt(request.getParameter("seq"));
 		}
-		System.out.println("seq::::::::"+seq);
+		System.out.println("seq::::::::" + seq);
 		String member_email = "sksksrff@gmail.com";
 		List<HomeDTO> homeList = homeService.getAllHomeData(member_email);
 		HomeDTO hdto = new HomeDTO();
 		List<HomePicDTO> hplist = new ArrayList<>();
 		List<ReservationDTO> rlist = homeService.getAllReservation(member_email);
-	
-	
-		if(seq == 0) {
+
+		if (seq == 0) {
 			hdto = homeService.getOldestHomeData(member_email);
 			hplist = homeService.getHomePicData(homeList.get(0).getHome_seq());
-//			rlist2 = homeService.getReservation(homeList.get(0).getHome_seq());
-		}else {
+			// rlist2 = homeService.getReservation(homeList.get(0).getHome_seq());
+		} else {
 			hdto = homeService.getHomeData(seq);
 			hplist = homeService.getHomePicData(seq);
-//			rlist2 = homeService.getReservation(seq);
+			// rlist2 = homeService.getReservation(seq);
 		}
-		
+
 		int hpsize = hplist.size();
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("member_email", member_email);
 		map.put("home_seq", 0);
-//		map.put("startNum", 1);
-//		map.put("endNum",10);
-//		List<GuestReviewDTO> listGR = homeService.getAllGuestReview(map);
+		// map.put("startNum", 1);
+		// map.put("endNum",10);
+		// List<GuestReviewDTO> listGR = homeService.getAllGuestReview(map);
 		int cnt = homeService.guestReviewAllCount(member_email);
 
 		List<MessageDTO> mlist = homeService.getAllMessage(member_email);
@@ -96,7 +95,7 @@ public class HostController {
 		map2.put("member_email", member_email);
 		map2.put("reserv_state", 1);
 		List<ReservationDTO> rlist2 = homeService.getApprovalReserve(map2);
-	
+
 		System.out.println("rlist2.size::" + rlist2.size());
 
 		ModelAndView mav = new ModelAndView();
@@ -105,7 +104,7 @@ public class HostController {
 		mav.addObject("rlist2", rlist2);
 		mav.addObject("homeList", homeList);
 		mav.addObject("hdto", hdto);
-//		mav.addObject("listGR", listGR);
+		// mav.addObject("listGR", listGR);
 		mav.addObject("cnt", cnt);
 		mav.addObject("hplist", hplist);
 		mav.addObject("hpsize", hpsize);
@@ -122,7 +121,7 @@ public class HostController {
 		System.out.println(seq);
 		List<HomePicDTO> hplist = homeService.getHomePicData(seq);
 		int hpsize = hplist.size();
-		
+
 		JSONObject json = new JSONObject();
 
 		response.setContentType("application/json");
@@ -146,22 +145,22 @@ public class HostController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("hdto", hdto);
 		map.put("hpsize", hpsize);
-//		json.put("seq", hdto.getHome_seq());
-//		json.put("name", hdto.getHome_name());
-//		json.put("pic", hdto.getHome_main_pic());
-//		json.put("addr1", hdto.getHome_addr1());
-//		json.put("addr2", hdto.getHome_addr2());
-//		json.put("addr3", hdto.getHome_addr3());
-//		json.put("addr4", hdto.getHome_addr4());
-//		json.put("state", hdto.getHome_state());
-//		json.put("price", hdto.getHome_price());
-//		json.put("hpsize", hpsize);
+		// json.put("seq", hdto.getHome_seq());
+		// json.put("name", hdto.getHome_name());
+		// json.put("pic", hdto.getHome_main_pic());
+		// json.put("addr1", hdto.getHome_addr1());
+		// json.put("addr2", hdto.getHome_addr2());
+		// json.put("addr3", hdto.getHome_addr3());
+		// json.put("addr4", hdto.getHome_addr4());
+		// json.put("state", hdto.getHome_state());
+		// json.put("price", hdto.getHome_price());
+		// json.put("hpsize", hpsize);
 		Gson gson = new Gson();
 		gson.toJson(map, response.getWriter());
 
-//		response.getWriter().print(json);
-//		response.getWriter().flush();
-//		response.getWriter().close();
+		// response.getWriter().print(json);
+		// response.getWriter().flush();
+		// response.getWriter().close();
 
 	}
 
@@ -180,14 +179,15 @@ public class HostController {
 
 		if (hdto.getHome_amenities() != null) {
 			amenities = hdto.getHome_amenities().split(",");
-		}else {
+		} else {
 
 		}
 
 		if (hdto.getHome_safety() != null) {
 			safety = hdto.getHome_safety().split(",");
-		}else {
-
+		} else {
+			
+		}
 		if (hdto.getHome_guest_access() != null) {
 			guest_access = hdto.getHome_guest_access().split(",");
 		} else {
@@ -196,9 +196,10 @@ public class HostController {
 
 		if (hdto.getHome_guest_access() != null) {
 			guest_access = hdto.getHome_guest_access().split(",");
-		}else {
+		} else {
 
 		}
+
 		for (int i = 0; i < amenities.length; i++) {
 			list.add(amenities[i]);
 		}
@@ -220,7 +221,6 @@ public class HostController {
 		mav.setViewName("/host/hostHomeTab");
 
 		return mav;
-
 	}
 
 	@RequestMapping("/hostReserveTab.do")
@@ -232,15 +232,15 @@ public class HostController {
 		String[] rules = {};
 		String[] details = {};
 
-		if(hdto.getHome_rules() != null) {
+		if (hdto.getHome_rules() != null) {
 			rules = hdto.getHome_rules().split(",");
-		}else {
+		} else {
 
 		}
 
-		if(hdto.getHome_details() != null) {
+		if (hdto.getHome_details() != null) {
 			details = hdto.getHome_details().split(",");
-		}else {
+		} else {
 
 		}
 		List<String> ruleList = new ArrayList<String>();
@@ -1121,46 +1121,45 @@ public class HostController {
 
 		String date = homeService.getBlockedDate(seq);
 		System.out.println("eventsAjax::date::" + date);
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("home_seq", seq);
 		map.put("reserv_state", 1);
-		
+
 		List<ReservationDTO> rlist = homeService.getCalReservation(map);
-		
-//		String[] str_arr = {};
-//		String[] sarr = {};
-//		str_arr = date.split(",");
-//		
-//		Date d = new Date();
-//		SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/DD");
-//		sdf.format(d);
-//		System.out.println("d::::"+d);
-//		
-//		
-//		for(int i=0; i<str_arr.length; i++) {
-//			Date tmp = new Date(str_arr[i]);
-//			sarr[i] = tmp.toString();
-//			System.out.println(sarr[i]);
-//		}
-		
-				
+
+		// String[] str_arr = {};
+		// String[] sarr = {};
+		// str_arr = date.split(",");
+		//
+		// Date d = new Date();
+		// SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/DD");
+		// sdf.format(d);
+		// System.out.println("d::::"+d);
+		//
+		//
+		// for(int i=0; i<str_arr.length; i++) {
+		// Date tmp = new Date(str_arr[i]);
+		// sarr[i] = tmp.toString();
+		// System.out.println(sarr[i]);
+		// }
+
 		jarr.add(date);
-		for(int i=0; i<rlist.size(); i++) {
+		for (int i = 0; i < rlist.size(); i++) {
 			JSONObject tmp = new JSONObject();
-			tmp.put("member_email",rlist.get(i).getMember_email());
-			tmp.put("reserv_checkin",rlist.get(i).getReserv_checkin());
-			tmp.put("reserv_checkout",rlist.get(i).getReserv_checkout());
-			tmp.put("member_name",rlist.get(i).getMember_name());
-			tmp.put("totalamount",rlist.get(i).getTotalAmount());
-			tmp.put("population",rlist.get(i).getPopulation());
+			tmp.put("member_email", rlist.get(i).getMember_email());
+			tmp.put("reserv_checkin", rlist.get(i).getReserv_checkin());
+			tmp.put("reserv_checkout", rlist.get(i).getReserv_checkout());
+			tmp.put("member_name", rlist.get(i).getMember_name());
+			tmp.put("totalamount", rlist.get(i).getTotalAmount());
+			tmp.put("population", rlist.get(i).getPopulation());
 			jarr.add(tmp);
 		}
 
 		json.put("jarr", jarr);
-		
-//		json.put("date", date);
-		System.out.println("파싱::"+json.toJSONString());
+
+		// json.put("date", date);
+		System.out.println("파싱::" + json.toJSONString());
 
 		response.getWriter().print(json);
 		response.getWriter().flush();
@@ -1516,7 +1515,6 @@ public class HostController {
 
 		hdto = homeService.getHomeData(hdto.getHome_seq());
 
-
 		String str = hdto.getHome_details();
 		System.out.println(str);
 		String arr[] = {};
@@ -1527,8 +1525,8 @@ public class HostController {
 		String tmp4 = "";
 		String tmp5 = "";
 
-		if(str!=null) {
-			arr=str.split(",");
+		if (str != null) {
+			arr = str.split(",");
 
 			for (int i = 0; i < arr.length; i++) {
 				if (arr[i].contains("소음이 발생할")) {

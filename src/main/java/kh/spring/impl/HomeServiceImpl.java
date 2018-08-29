@@ -296,12 +296,9 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyCountdown(getTime, reservation_seq);
 	}
 
-
-
-
-
 	@Override
 	public BedDTO getBedData(int home_seq) {
 		return hdao.getBedData(home_seq);
 	}
+
 }
