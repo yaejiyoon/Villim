@@ -944,6 +944,8 @@ public class HomeInfoController {
 		
 		//결제 테이블
 		int paymentResult = paymentService.insertDate(paymentDTO);
+		//예약 상태 (4:결제완료)
+		int updateState = reservService.updateReservState(reservationDTO.getReservation_seq(), 4);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("paymentResult", paymentResult);
