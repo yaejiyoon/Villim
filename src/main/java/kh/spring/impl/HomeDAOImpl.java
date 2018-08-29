@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -235,6 +236,11 @@ public class HomeDAOImpl implements HomeDAO {
 	public int updateBlockedDate(String blockedDate, int home_seq) {
 		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
 		return jdbcTemplate.update(sql,blockedDate,home_seq);
+	}
+	
+	@Override
+	public BedDTO getBedData(int home_seq) {
+		return ssTemplate.selectOne("Home.getBedData",home_seq);
 	}
 
 //	예지

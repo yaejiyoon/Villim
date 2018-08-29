@@ -74,6 +74,11 @@ $(document).ready(function() {
 		
 	}
 	
+	#people{
+		z-index: 10000;
+		width:200px;
+		height:auto;
+	}
 	
 </style>
 
