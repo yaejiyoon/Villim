@@ -12,7 +12,6 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
-import kh.spring.dto.MapDTO;
 
 public interface HomeService {
 	public List<HomeDTO> getAllHomeData(String member_email);
@@ -54,6 +53,23 @@ public interface HomeService {
 	public List<String> getCalendarDate(Map<String, String> map);
 
 	public String getBlockedDate(int home_seq);
+	
+	//----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate,int home_seq);
+	
+	public BedDTO getBedData(int home_seq);
+	
+	
+//	예지
+	public List<HomeDTO> getAllHomeDataMain();
+	
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
+	
+	public List<HomePicDTO> getHomePic();
+	
+	public List<HomeDTO> searchHomeData(List homeTypeList , String homeTypeIsChecked, int people, List dates, String dateIsChecked);
+	
+	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 	public int modifyPolicy(HomeDTO hdto);
 

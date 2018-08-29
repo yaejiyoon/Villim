@@ -180,15 +180,13 @@ public class HostController {
 
 		if (hdto.getHome_amenities() != null) {
 			amenities = hdto.getHome_amenities().split(",");
-		} else {
+		}else {
 
 		}
 
 		if (hdto.getHome_safety() != null) {
 			safety = hdto.getHome_safety().split(",");
-		} else {
-
-		}
+		}else {
 
 		if (hdto.getHome_guest_access() != null) {
 			guest_access = hdto.getHome_guest_access().split(",");
@@ -196,6 +194,11 @@ public class HostController {
 
 		}
 
+		if (hdto.getHome_guest_access() != null) {
+			guest_access = hdto.getHome_guest_access().split(",");
+		}else {
+
+		}
 		for (int i = 0; i < amenities.length; i++) {
 			list.add(amenities[i]);
 		}
@@ -229,18 +232,17 @@ public class HostController {
 		String[] rules = {};
 		String[] details = {};
 
-		if (hdto.getHome_rules() != null) {
+		if(hdto.getHome_rules() != null) {
 			rules = hdto.getHome_rules().split(",");
-		} else {
+		}else {
 
 		}
 
-		if (hdto.getHome_details() != null) {
+		if(hdto.getHome_details() != null) {
 			details = hdto.getHome_details().split(",");
-		} else {
+		}else {
 
 		}
-
 		List<String> ruleList = new ArrayList<String>();
 		List<String> detailsList = new ArrayList<String>();
 
@@ -1514,6 +1516,7 @@ public class HostController {
 
 		hdto = homeService.getHomeData(hdto.getHome_seq());
 
+
 		String str = hdto.getHome_details();
 		System.out.println(str);
 		String arr[] = {};
@@ -1524,8 +1527,8 @@ public class HostController {
 		String tmp4 = "";
 		String tmp5 = "";
 
-		if (str != null) {
-			arr = str.split(",");
+		if(str!=null) {
+			arr=str.split(",");
 
 			for (int i = 0; i < arr.length; i++) {
 				if (arr[i].contains("소음이 발생할")) {
@@ -1540,12 +1543,12 @@ public class HostController {
 					tmp5 = arr[i].split(":")[1];
 				}
 			}
+			System.out.println("tmp1:" + tmp1);
+			System.out.println("tmp2:" + tmp2);
+			System.out.println("tmp3:" + tmp3);
+			System.out.println("tmp4:" + tmp4);
+			System.out.println("tmp5:" + tmp5);
 		}
-		System.out.println("tmp1:" + tmp1);
-		System.out.println("tmp2:" + tmp2);
-		System.out.println("tmp3:" + tmp3);
-		System.out.println("tmp4:" + tmp4);
-		System.out.println("tmp5:" + tmp5);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("tmp1", tmp1);
