@@ -18,6 +18,7 @@
 		<typeAlias type="kh.spring.dto.GuestMsgDTO" alias="GuestMsg"/>
 		<typeAlias type="kh.spring.dto.MapDTO" alias="MapLatLng"/>
 		<typeAlias type="kh.spring.dto.DetailDTO" alias="Detail"/>
-		
+		<typeAlias type="kh.spring.dto.BedDTO" alias="Bed"/>
+		<typeAlias type="kh.spring.dto.LikeyListDTO" alias="LikeyList"/>
 	</typeAliases>
 </configuration>

@@ -25,6 +25,9 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
 <title>메세지 보내기</title>
 <style>
 .card {
@@ -132,8 +135,18 @@ $(document).ready(function() {
 				</div>
 			
 			<div class="row" style="font-weight:700;width:100%;height:17vh;position:relative;left:0.8vw;">
-				<div style="position:relative;  top:4vh;left:5vw;font-weight:700;"><h6 style="display: inline !important;position:relative;margin:1vw;font-weight:700;">체크인</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">체크 아웃</h6><h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트</h6></div>
-				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6 style="display: inline !important;position:relative; left:-1vw;margin:1vw;font-weight:700;">0월0일</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">0월0일</h6><h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트1명</h6></div>
+				<div style="position:relative;  top:4vh;left:5vw;font-weight:700;">
+					<h6 style="display: inline !important;position:relative;margin:1vw;font-weight:700;">체크인</h6>
+					<h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">체크 아웃</h6>
+					<h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트</h6>
+				</div>
+				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;">
+					<h6 style="display: inline !important;position:relative; left:-1vw;margin:1vw;font-weight:700;">0월0일</h6>
+					<h6 style="display: inline !important; margin:1vw;position:relative; left:-1vw;font-weight:700;">0월0일</h6>
+					<h6 style="display: inline !important;position:relative; left:-1vw; margin:1vw;font-weight:700;">게스트1명</h6>
+					
+				</div>
+				
 				<hr style="color:gray;width:18.5vw;position:relative;top:10vh;">
 			</div>
 			
@@ -144,7 +157,8 @@ $(document).ready(function() {
 			<img src="/resources/img/달력.png" style="position:relative;left:16.5vw;top:-4vh;width:3vw;height:7vh;">
 			</div>
 			
-			
+			<div>
+			</div>
 		</div>
 		
 		
