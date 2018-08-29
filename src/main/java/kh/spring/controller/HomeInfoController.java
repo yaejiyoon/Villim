@@ -947,6 +947,10 @@ public class HomeInfoController {
 		//예약 상태 (4:결제완료)
 		int updateState = reservService.updateReservState(reservationDTO.getReservation_seq(), 4);
 		
+		if(updateState>0) {
+			System.out.println("4로 성공!!!!");
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("paymentResult", paymentResult);
 		mav.setViewName("home/paymentProc");
