@@ -452,8 +452,9 @@ $(function() {
 	});
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 <form method=post action="" id="formid">
       <div class="modal fade" id="price" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -465,7 +466,7 @@ $(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">가격대 지정하기</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	가능한 요금의 범위 : <div class="range range-value" id="moneyTop"></div>
 					<p>평균 1박 요금은 <b>₩88,001</b>입니다 </p>
 					<br>

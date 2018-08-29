@@ -36,6 +36,7 @@ $(document).ready(function() {
 </script>
 
 <style>
+
 	#peopleDialog {
 		margin-left : 13vh;
 		margin-top : 20vh;
@@ -78,28 +79,38 @@ $(document).ready(function() {
 
 <script>
 	$(document).ready(function() {
+		$("#pcount").text(<%=session.getAttribute("people")%>);
+		
 		$("#peopleSubmit").click(function() {
 			var pcount = $("#pcount").text().toString();
 			var peopleBt = document.getElementById('peopleBt');
-			peopleBt.innerHTML = "게스트 "+pcount+"명";
+			peopleBt.innerHTML = "인원 "+pcount+"명";
 			peopleBt.style.backgroundColor = '#008489';
 			peopleBt.style.color = "white";
 			peopleBt.style.borderRadius = "10px";
+			var pcountInt = parseInt(pcount);
+			$('#modalPeople').val(pcountInt);
 		});
 		
 		$("#peopleDelete").click(function() {
-			var pcount = document.getElementById('peopleBt');
-			var peopleBt = document.getElementById('peopleBt');
-			peopleBt.innerHTML = "인원";
-			peopleBt.style.backgroundColor = 'white';
-			peopleBt.style.color = "black";
-			peopleBt.style.borderRadius = "0px";
+// 			var pcount = document.getElementById('peopleBt');
+// 			var peopleBt = document.getElementById('peopleBt');
+// 			peopleBt.innerHTML = "인원";
+// 			peopleBt.style.backgroundColor = 'white';
+// 			peopleBt.style.color = "black";
+// 			peopleBt.style.borderRadius = "0px";
+			$("#pcount").text("0");
+		});
+		
+		$('#peopleSubmit').submit(function() {
+		    $('#modalPeople').modal('hide');
+		    return false;
 		});
 		
 		
 	});
 </script>
-
+<form action="modalPeople.do" method="post">
       <div class="modal fade" id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="peopleDialog">
             <div class="modal-content">
@@ -109,16 +120,18 @@ $(document).ready(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">인원 수 선택하기</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                		<span>인원</span>&emsp;
-               		<button id="peopleup" class="btn btn-primary-outline">+</button>
-               		&emsp;<span id="pcount">0</span>&emsp;
-               		<button id="peopledis" class="btn btn-primary-outline">-</button>
+               		<button id="peopleup" class="btn btn-primary-outline" type="button">+</button>
+               		&emsp;<span id="pcount"></span>&emsp;
+               		<input type="hidden" name="modalPeople" id="modalPeople">
+               		<button id="peopledis" class="btn btn-primary-outline" type="button">-</button>
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="peopleDelete" data-dismiss="modal">삭제</button> 
-                   <button class="btn btn-primary-outline submit" id="peopleSubmit" data-dismiss="modal">적용하기</button> 
+                   <button class="btn btn-primary-outline" id="peopleDelete" type="button">삭제</button> 
+                   <button class="btn btn-primary-outline submit" id="peopleSubmit">적용하기</button> 
                </div>
             </div>
          </div>
       </div>
+</form>

@@ -6,7 +6,6 @@ import java.util.Map;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
-import kh.spring.dto.MapDTO;
 
 public interface HomeService {
 	public List<HomeDTO> getAllHomeData();
@@ -52,10 +51,12 @@ public interface HomeService {
 //	예지
 	public List<HomeDTO> getAllHomeDataMain();
 	
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto);
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
 	
 	public List<HomePicDTO> getHomePic();
 	
-	public List<HomeDTO> searchHomeData(String homeType, int people);
+	public List<HomeDTO> searchHomeData(List homeTypeList , String homeTypeIsChecked, int people, List dates, String dateIsChecked);
+	
+	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 }
