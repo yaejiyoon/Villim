@@ -1,22 +1,22 @@
 package kh.spring.dto;
 
 public class ReservationDTO {
-	int reservation_seq;
-	String member_email;
-	String reserv_checkin;
-	String reserv_checkout;
-	int population;
-	String nightsAmount;
-	String cleaningFee;
-	String serviceFee;
-	String totalAmount;
-	int home_seq;
-	String home_name;
-	String guset_review;
-	int reserv_state;
-	String host_email;
-	String reserv_date;
-	String member_picture;
+	private int reservation_seq;
+	private String member_email;
+	private String reserv_checkin;
+	private String reserv_checkout;
+	private int population;
+	private String nightsAmount;
+	private String cleaningFee;
+	private String serviceFee;
+	private String totalAmount;
+	private int home_seq;
+	private String home_name;
+	private String guset_review;
+	private int reserv_state;
+	private String host_email;
+	private String reserv_date;
+	private String member_picture;
 	private String home_addr1;
 	private String home_addr2;
 	private String home_addr3;

@@ -10,6 +10,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
+
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
 $(function () {
@@ -109,14 +115,6 @@ function initMap() {
 		
 		google.maps.event.addListenerOnce(map, 'idle', function(){
 
-//	 		// 남서쪽의 좌표
-	 		var swLatLng = map.getBounds().getSouthWest();
-	 		// 북동쪽의 좌표
-	 		var neLatLng = map.getBounds().getNorthEast(); 
-			
-// 	 		alert("지도의 남서쪽의 좌표는 "+swLatLng.lat() + ", "+ swLatLng.lng() + " 이고 "+
-// 	 				"북동쪽 좌표는 " + neLatLng.lat() + ", " + neLatLng.lng() + " 입니당");
-
 		  });
 		
 		</c:if>
@@ -155,8 +153,8 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
-// 	$("#map").mouseup(function() {
-	$("#map").mousemove(function() {
+	$("#map").mouseup(function() {
+// 	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
 		var swLatLng = map.getBounds().getSouthWest();
 		// 북동쪽의 좌표
@@ -179,7 +177,7 @@ $(document).ready(function() {
 		       success:function(resp){
 		    	   $('.col-md-4').remove();
 		    	   for(var i = 0; i < resp.home.length ; i++) {
-		    		   $('.row').append(
+		    		   $('.col').append(
 		    			$('<div>').attr('class','col-md-4').append(
 		    			 $('<div>').attr('id','carouselDiv '+i).append(
 		    			  $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
@@ -221,11 +219,11 @@ $(document).ready(function() {
 		    	    		if(resp.home[i].home_seq == resp.pic[j].home_seq) {
 		    	    			if(count==0) {
 									$('#inner'+resp.home[i].home_seq).append($('<div>').attr('class','item active').append(
-											$('<img>').attr('src',"<c:url value='files/"+resp.pic[j].home_pic_name+"'/>")
+											$('<img>').attr('src',"<c:url value='files/"+resp.pic[j].home_pic_name+"'/>").attr('class','homePic')
 									));
 			    			    } else {
 			    			    	$('#inner'+resp.home[i].home_seq).append($('<div>').attr('class','item').append(
-											$('<img>').attr('src',"<c:url value='files/"+resp.pic[j].home_pic_name+"'/>")
+											$('<img>').attr('src',"<c:url value='files/"+resp.pic[j].home_pic_name+"'/>").attr('class','homePic')
 									));
 			    			    }
 								count++;
@@ -264,7 +262,7 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					alert("에러에러");
+					alert("error");
 		       }
 		});
 
@@ -301,19 +299,19 @@ $(document).ready(function() {
 					off.style.display = 'block';    
 	    	   }
 	       },error:function(errordata){
-				alert("에러에러");
+				alert("error");
 	       }
 	     });
 	   });  
 	
 	
-	<c:if test="${mapOn!=null}">
-	   $('#myonoffswitch').prop('checked', true);
-	   var on = document.getElementById('mapOnDiv');
-	   var off = document.getElementById('mapOffDiv');
-	   on.style.display = 'block';
-	   off.style.display = 'none';
-	</c:if>
+		<c:if test="${mapOn!=null}">
+		   $('#myonoffswitch').prop('checked', true);
+		   var on = document.getElementById('mapOnDiv');
+		   var off = document.getElementById('mapOffDiv');
+		   on.style.display = 'block';
+		   off.style.display = 'none';
+		</c:if>
 
 	$('body').delegate('.submit','click',function(){
         var chkval = 1;
@@ -324,20 +322,64 @@ $(document).ready(function() {
        url: "homeMain.do",
        type: "get",
        data:{chkval:chkval},
-
        
        success:function(returndata){
 			on.style.display = 'block';    
 			off.style.display = 'none';
 	   },error:function(errordata){
-			alert("에러에러");
+			alert("error");
        }
      });
    });  
+	
 })
 
 
 </script>
+<script>
+
+
+
+	<%
+	String homeType = (String)session.getAttribute("homeType");
+	if(!homeType.equals("0")) {%>
+		$(document).ready(function() {
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
+			homeTypeBt.style.backgroundColor = '#008489';
+			homeTypeBt.style.color = "white";
+			homeTypeBt.style.borderRadius = "10px";
+		})
+	<%}%>
+	
+	<%
+	int people = (int) session.getAttribute("people"); 
+	if(people!=0) {%>
+		$(document).ready(function() {
+			var homeTypeBt = document.getElementById('peopleBt');
+			homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
+			homeTypeBt.style.backgroundColor = '#008489';
+			homeTypeBt.style.color = "white";
+			homeTypeBt.style.borderRadius = "10px";
+		})
+	<%}%>
+	
+	<% String startDate = (String) session.getAttribute("startDate"); 
+	if(!startDate.equals("0")) {%>
+	$(document).ready(function() {
+		var dateBt = document.getElementById('dateBt');
+		dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
+		dateBt.style.backgroundColor = '#008489';
+		dateBt.style.color = "white";
+		dateBt.style.borderRadius = "10px";
+	})
+	<%}%>
+	
+	
+	
+	
+</script>
+
 
 <style>
 	@font-face {
@@ -367,9 +409,9 @@ $(document).ready(function() {
 		font-family: Interpark;
 		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
 		font-weight : 200;
-  		font-size: 0.9vw;
+  		font-size: 0.8vw;
 		width : 100%;
-		height : 8vh;
+		height : 7vh;
 		border-top : 1px solid #e0dee0;
 		border-bottom : 1px solid #e0dee0;
 		background-color: white;
@@ -395,7 +437,7 @@ $(document).ready(function() {
 	    display: block;
 	    color: black;
 	    text-align: center;
-	    padding: 14px 16px;
+	    padding: 10px 16px 10px;
 	    text-decoration: none;
 	}
 	
@@ -537,10 +579,7 @@ $(document).ready(function() {
 	   	display: inline-block;
 	}
 			     
-	.item img {
-	  	width : 100vw;
-		height : 100vw;
-	}
+ 	
 			     
 	.carousel-inner {
 		width : 100%;
@@ -562,7 +601,19 @@ $(document).ready(function() {
  	}
  	
  	.homeType {
- 		margin-top: 10px;
+ 		margin-top: 1vh;
+ 		padding : 0px;
+ 		margin-bottom : 0.5vh;
+ 	}
+ 	
+ 	.homeName {
+ 		margin-bottom : 0.5vh;
+ 		padding : 0px;
+ 	}
+ 	
+ 	.homePrice{
+ 		margin-bottom : 0.5vh;
+ 		padding : 0px;
  	}
  	
  	.introSentence {
@@ -609,12 +660,21 @@ $(document).ready(function() {
 		margin : auto;
 	}
 	
+	.col {
+		margin : auto;
+		height : 33vh;
+	}
+	
 	#onCardsWrapper .row{
 		height : 50%;
 	}
+	
+	.carousel-inner>.item>.homePic {
+		width : 100vh;
+		height : 20vh;
+	}
  	
 </style>
-
 </head>
     
 <body>
@@ -641,53 +701,48 @@ $(document).ready(function() {
 	<div id="contentsWrapper">
 		<div id="mapOnDiv">
 			<div id="onCardsWrapper">
-				<div class="row">
+				<div class="col">
 				<%int cnt=0;%>
 					<c:forEach var="homeList" items="${homeList}" varStatus="status">
 						<div class="col-md-4">
-				  	<div id="carouselDiv">
-						<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
-						  		<!-- Indicators -->
-						  <ol class="carousel-indicators">
-						    <li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
-						    <li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
-						    <li data-target="#${homeList.home_seq}" data-slide-to="2"></li>
-						  </ol>
-				  		
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					
-					    <div class="item">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					
-					    <div class="item">
-					      <img class="img" src="<c:url value='files/${homeList.home_main_pic}'/>">
-					    </div>
-					  </div>
-					
-					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
-					    <span class="glyphicon glyphicon-chevron-left"></span>
-					    <span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
-					    <span class="glyphicon glyphicon-chevron-right"></span>
-					    <span class="sr-only">Next</span>
-					  </a>
+					  		<div id="carouselDiv">
+								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
+								  		<!-- Indicators -->
+								  <ol class="carousel-indicators">
+									<li data-target="#${homeList.home_seq}" data-slide-to="0" class="active"></li>
+									<li data-target="#${homeList.home_seq}" data-slide-to="1"></li>
+								  </ol>
+							 		 <!-- Wrapper for slides -->
+								  <div class="carousel-inner">
+								    <div class="item active">
+								      <img class="homePic" src="<c:url value='files/${homeList.home_main_pic}'/>">
+								    </div>
+								
+								    <div class="item">
+								      <img class="homePic" src="<c:url value='files/${homeList.home_main_pic}'/>">
+								    </div>
+								
+								  </div>
+							
+							  		<!-- Left and right controls -->
+								  <a class="left carousel-control" href="#${homeList.home_seq}" data-slide="prev">
+								    <span class="glyphicon glyphicon-chevron-left"></span>
+								    <span class="sr-only">Previous</span>
+								  </a>
+								  <a class="right carousel-control" href="#${homeList.home_seq}" data-slide="next">
+								    <span class="glyphicon glyphicon-chevron-right"></span>
+								    <span class="sr-only">Next</span>
+								  </a>
+								</div>
+							<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
+		                  	<p class="homeName" id="homeName<%=cnt%>">
+		                    <B>${homeList.home_name}</B>
+		                  </p>
+		                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
+		                  <p class="reviewStar">★★★★★</p>
+		                  <p class="reviewCount">247</p>
+		                  <p class="hostTitle">슈퍼호스트</p>
 						</div>
-						<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
-	                  <p class="homeName" id="homeName<%=cnt%>">
-	                     <B>${homeList.home_name}</B>
-	                  </p>
-	                  <p class="homePrice" id="homePrice<%=cnt%>">₩ ${homeList.home_price} /박</p>
-	                  <p class="reviewStar">★★★★★</p>
-	                  <p class="reviewCount">247</p>
-	                  <p class="hostTitle">슈퍼호스트</p>
-					</div>
 				  </div>
 					<%cnt++; %>
 					</c:forEach>

@@ -54,10 +54,10 @@
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+               		<a href="#" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
-        					<li><a href="home_info.do?seq=5">Item</a></li>
+        					<li><a href="home_info.do?seq=1">Item</a></li>
         					<li><a href="#" >Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
@@ -132,7 +132,7 @@
              	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        					<li><a href="#">프로필 수정하기</a></li>
+        					<li><a href="profileEditView.mo">프로필 수정하기</a></li>
         					<li><a href="#">친구 초대하기</a></li>
         					<li><a href="#">호스트 추천하기</a></li>
         					<li><a href="#">계정관리</a></li>
