@@ -166,6 +166,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 	
 	
 </script>
+
+
 </head>
 <body  data-spy="scroll" data-target="#navbar-example2" data-offset="100">
    <%@ include file="../../resource/include/header.jsp" %>
@@ -265,7 +267,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<div id="info-title-left">
                				<span>집 전체</span>
                				<h2 style="color:black; margin-top:2px;">
-               				${hdto.getHome_name() }
+               				${hdto.home_name}
 							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
                				</h2>
                				<span> ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</span>
