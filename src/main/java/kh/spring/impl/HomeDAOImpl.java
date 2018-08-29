@@ -1,5 +1,6 @@
 package kh.spring.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -15,7 +17,6 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
-import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeDAO;
 
 @Component
@@ -30,6 +31,12 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<HomeDTO> getAllHomeData(String member_email) {
 		return ssTemplate.selectList("Home.getAllHomeData", member_email);
+	}
+	
+	@Override
+	public List<HomeDTO> getAllHomeData() {
+		
+		return ssTemplate.selectList("Home.getAllHomeData");
 	}
 	
 	@Override
@@ -231,6 +238,11 @@ public class HomeDAOImpl implements HomeDAO {
 		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
 		return jdbcTemplate.update(sql,blockedDate,home_seq);
 	}
+	
+	@Override
+	public BedDTO getBedData(int home_seq) {
+		return ssTemplate.selectOne("Home.getBedData",home_seq);
+	}
 
 //	예지
 	
@@ -240,8 +252,8 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 	
 	@Override
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
-		return ssTemplate.selectList("Home.getHomeOnMap", mdto);
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return ssTemplate.selectList("Home.getHomeOnMap", param);
 	}
 	
 	@Override
@@ -250,8 +262,20 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public List<HomeDTO> getAllHomeData() {
-		return ssTemplate.selectList("Home.getAllHomeDataMain");
+	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeTypeList", homeTypeList);
+		param.put("homeTypeIsChecked", homeTypeIsChecked);
+		param.put("people", people);
+		param.put("dates", dates);
+		param.put("dateIsChecked", dateIsChecked);
+		return ssTemplate.selectList("Home.searchHomeData", param);
 	}
 
+	@Override
+	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
+		return ssTemplate.selectList("Home.modalHomeData", param);
+	}
+
+	
 }

@@ -95,7 +95,7 @@
 					<br>
 					<br>
 					<br>
-					<p><a href="home_info.jsp?seq="+${reservationDTO.home_seq } class="greenA">숙소 이용규칙</a>, <a href="#" class="greenA">환불 정책</a>, 및 <a href="#" class="greenA">게스트 환불 정책</a>에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.</p>
+					<p><a href="home_info.do?seq="+${reservationDTO.home_seq } class="greenA">숙소 이용규칙</a>, <a href="#" class="greenA">환불 정책</a>, 및 <a href="#" class="greenA">게스트 환불 정책</a>에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.</p>
 					<br>
 					<br>
 					<button id="paymentBT" class="btn btn-secondary">확인 및 결제</button>
@@ -120,7 +120,7 @@
 					<div id="content02">
 						<div style="margin:5px 0px;">
 							<img src="<c:url value='/resources/img/group.png'/>" id="group">
-							<p style="display: inline;">게스트 ${hdto.home_people }명</p>
+							<p style="display: inline;">게스트 ${reservationDTO.population }명</p>
 						</div>
 						<div style="margin:5px 0px 7px 0px;">
 							<img src="<c:url value='/resources/img/calendar.png'/>" id="calen">

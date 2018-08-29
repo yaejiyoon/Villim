@@ -7,17 +7,17 @@
 		height:auto;
 	}
 	
-	.modal-dialog{
+	.modal-dialog.amenities-dialog{
 		width:550px;
 		height: 100%;
 	}
 	
-	.modal-content{
+	.modal-content.amenities-content{
 		height: auto;
 		min-height: 100%;
 	}
 	
-	.modal-header{
+	.modal-header.amenities-header{
 		border-bottom: 0px !important;
 	}
 	
@@ -27,7 +27,7 @@
 		
 	}
 	
-	.modal-body{
+	.modal-body.amenities-body{
 		padding:0 30px;
 		height: auto;
 	}
@@ -37,14 +37,14 @@
       <div class="modal fade" id="amenitiesModal" tabindex="-1" role="dialog"
       aria-labelledby="myModalLabel" aria-hidden="true"
       style="z-index:1000000000">
-         <div class="modal-dialog">
-            <div class="modal-content">
-               <div class="modal-header">
+         <div class="modal-dialog amenities-dialog">
+            <div class="modal-content amenities-content">
+               <div class="modal-header amenities-header">
                   <button type="button" class="close" data-dismiss="modal">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>
                </div>
-               <div class="modal-body">
+               <div class="modal-body amenities-body">
                		<h3 style="font-weight: 600;">편의시설</h3>
                		<br>
                		<h4 style="font-weight: 600;">기본 편의시설</h4>
