@@ -46,8 +46,9 @@ public class HomeInfoController {
 	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
-		
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
+		
+		int result = homeService.modifyHomeView(home_seq);
 		
 		System.out.println("homeseq : " + home_seq);
 		

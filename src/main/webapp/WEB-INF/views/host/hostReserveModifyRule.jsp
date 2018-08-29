@@ -303,20 +303,20 @@ label {
 						<div>
 							<b>소음의 정도 및 발생할 수 있는 시간대에 관해 설명하세요 </b>
 						</div>
-						<input type="text" id=check2-text name=check2-text
+						<input type="text" id=check2-text name=check2-text value=""
 							placeholder="추가 설명을 입력하세요" class="form-control input-lg">
 					</div>
 				</div>
 
 				<div class=sub1>
-					<input type="checkbox" id="check3" class="option-input checkbox"
+					<input type="checkbox" id="check3" class="option-input checkbox" 
 						name=check3 value="숙소에 반려동물 있음"> <label for="check3">숙소에
 						반려동물 있음</label>
 					<div class="collapse" id="collapseExample3">
 						<div>
 							<b>반려동물에 관해 설명하세요 </b>
 						</div>
-						<input type="text" id=check3-text name=check3-text
+						<input type="text" id="check3-text" name=check3-text value=""
 							placeholder="추가 설명을 입력하세요" class="form-control input-lg">
 					</div>
 				</div>
@@ -329,7 +329,7 @@ label {
 						<div>
 							<b>숙소 주변 주차 상황에 관해 설명하세요</b>
 						</div>
-						<input type="text" id=check4-text name=check4-text
+						<input type="text" id=check4-text name=check4-text value=""
 							placeholder="추가 설명을 입력하세요" class="form-control input-lg">
 					</div>
 				</div>
@@ -342,7 +342,7 @@ label {
 						<div>
 							<b>게스트가 공유할 공간에 관해 설명하세요</b>
 						</div>
-						<input type="text" id=check5-text name=check5-text
+						<input type="text" id=check5-text name=check5-text value=""
 							placeholder="추가 설명을 입력하세요" class="form-control input-lg">
 					</div>
 				</div>
@@ -355,7 +355,7 @@ label {
 						<div>
 							<b>불안정한 무선인터넷, 온수 제한 등 편의시설이나 서비스 제한에 대해 설명하세요</b></b>
 						</div>
-						<input type="text" id=check6-text name=check6-text
+						<input type="text" id=check6-text name=check6-text value=""
 							placeholder="추가 설명을 입력하세요" class="form-control input-lg">
 					</div>
 				</div>
@@ -383,7 +383,7 @@ label {
 			var rule = "${hdto.home_rules}";
 			var rules = new Array();
 			rules = rule.split(",");
-
+			
 			console.log("rules::" + rules);
 				
 			$("#rules1-n").prop("checked",true);
@@ -463,6 +463,28 @@ label {
 					$('#collapseExample6').hide();
 				}
 			})
+			
+			if($("#check2").is(":checked")){
+				$('#collapseExample2').addClass("collapse in");
+				$("#check2-text").val('${tmp1}');
+			}
+			if($("#check3").is(":checked")){
+				$('#collapseExample3').addClass("collapse in");
+				$("#check3-text").val('${tmp2}');
+			}
+			if($("#check4").is(":checked")){
+				$('#collapseExample4').addClass("collapse in");
+				$("#check4-text").val('${tmp3}');
+			}
+			if($("#check5").is(":checked")){
+				$('#collapseExample5').addClass("collapse in");
+				$("#check5-text").val('${tmp4}');
+			}
+			if($("#check6").is(":checked")){
+				$('#collapseExample6').addClass("collapse in");
+				$("#check6-text").val('${tmp5}');
+			}
+
 		})
 	</script>
 </body>
