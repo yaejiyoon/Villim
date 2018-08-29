@@ -740,16 +740,16 @@ public class HomeInfoController {
 		      String message =  URLEncoder.encode("[Villim] : "+mGuest.getMember_name()+", "+getMessageAfterSend.getCheckIn()+" - "+getMessageAfterSend.getCheckOut()+", '"+getMessageAfterSend.getMessage_content()+"'","UTF-8");
 		      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
 		    
-		      StringBuilder sb = new StringBuilder();
-		      sb.append(sendUrl);
-		      sb.append("&to=" + to);
-		      sb.append("&from=" + from);
-		      sb.append("&text=" + message);
+		      StringBuilder sb2 = new StringBuilder();
+		      sb2.append(sendUrl);
+		      sb2.append("&to=" + to);
+		      sb2.append("&from=" + from);
+		      sb2.append("&text=" + message);
 
-		      System.out.println(sb.toString());
+		      System.out.println(sb2.toString());
 
 		      try {
-		         URL url = new URL(sb.toString());
+		         URL url = new URL(sb2.toString());
 		         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		         int result = con.getResponseCode();
 		         System.out.println(result);

@@ -1719,9 +1719,17 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				<span style="float: right;" id="total" >₩21,913</span>
             			</div>
             			<br>
-            			<button id="reservationBT" class="btn btn-secondary" type="button">
-            			예약 하기
-            			</button>
+            			<c:if test="${sessionScope.login_email eq null}">
+            				<button id="reservationBT" class="btn btn-secondary" type="button" data-toggle="modal" href="#myModal1">
+            					예약 하기
+            				</button>
+            			</c:if>
+            			<c:if test="${sessionScope.login_email ne null}">
+            				<button id="reservationBT" class="btn btn-secondary" type="submit">
+            					예약 하기
+            				</button>
+            			</c:if>
+            			
             			<br>
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             			
@@ -1740,15 +1748,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<input type="hidden" name="host_email" value="${hdto.member_email }">
             			</form>
             		</div>
-            		<script>
-            			$("#reservationBT").click(function(){
-            				if('${sessionScope.login_email}' === ''){
-            					alert("로그인이 필요합니다!");
-            				}else{
-            					reservationForm.submit();
-            				}
-            			})
-            		</script>
             		
             	</div>
             </div>
