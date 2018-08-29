@@ -17,7 +17,8 @@
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@192.168.20.21:1521:xe" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="villim" />
 		<property name="password" value="villim" />
 	</bean>
@@ -65,9 +66,27 @@
 		<property name="redirectUri"
 			value="http://localhost:8080/oauth2callback" />
 	</bean>
-	
 
 	<bean id="MemberDTO" class="kh.spring.dto.MemberDTO" />
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="" />
+      <property name="password" value="" />
+ 
+
+   <!-- jaeho -->
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+    </bean>
+	
 	
 
 	<aop:aspectj-autoproxy />

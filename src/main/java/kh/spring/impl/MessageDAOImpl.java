@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
@@ -107,9 +108,45 @@ public class MessageDAOImpl implements MessageDAO{
 	}
 
 	@Override
-	public ReservationDTO reservCheck(ReservationDTO dto2) {
-		return template.selectOne("Message.reservCheck", dto2);
+	public List<ReservationDTO> reservCheck(ReservationDTO dto2) {
+		return template.selectList("Message.reservCheck", dto2);
 		
+	}
+
+	@Override
+	public int guestMsgUnreadCount(String userId) {
+		return template.selectOne("Message.guestMsgUnreadCount",userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> guestUnreadMsg(String userId) {
+		return template.selectList("Message.guestUnreadMsg", userId);
+	}
+
+	@Override
+	public List<GuestMsgDTO> hostUnreadMsg(String userId) {
+		return template.selectList("Message.hostUnreadMsg", userId);
+	}
+
+	@Override
+	public int hostMsgUnreadCount(String userId) {
+		return template.selectOne("Message.hostMsgUnreadCount", userId);
+	}
+
+	@Override
+	public int ReadUpdate(int message_seq, String member_email, String userId) {
+		String sql="update message set message_read=1 where message_seq=? and fromID=? and toID=?";
+		return jdbcTemplate.update(sql, message_seq,member_email,userId);
+	}
+
+	@Override
+	public DetailDTO getMsgAfterSend(int message_seq) {
+		return template.selectOne("Message.getMessageAfterSend",message_seq);
+	}
+
+	@Override
+	public MessageDTO getMessageOne(int message_room_seq) {
+		return template.selectOne("Message.getMessageOne",message_room_seq);
 	}
 
 	

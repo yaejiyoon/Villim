@@ -6,12 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 <link href="<c:url value="/resources/css/host/fullcalendar.css"/>"
@@ -29,7 +31,6 @@
 
 <title>달력보기</title>
 
-
 <style>
 body {
 	margin: 40px 10px;
@@ -43,23 +44,88 @@ div {
 }
 
 #wrapper {
+	border: 1px black solid;
+	display: inline-block;
 	width: 100%;
-	height: auto;
-	border: 1px solid black;
+	float: left;
 }
 
-#calendar {
-	width: 75%;
+#content {
+	width: 74%;
+	border: 1px dotted red;
+	display: inline-block;
+	float: left;
+	margin-bottom: 50px;
+}
+
+/* 드롭다운 css */
+.dropdown:hover .dropdown-menu {
+	display: block;
+	margin-top: 0;
+}
+
+.dropdown-header {
+	font-size: 17px;
+	color: black;
+}
+
+.dd-wrap {
+	border: 1px solid black;
+	width: 100%;
+	height: 70px;
+}
+
+.dd-sub-pic {
+	border: 1px dotted black;
+	width: 35%;
+	display: inline-block;
+	float: left;
+	height: 100%;
+}
+
+.dd-pic {
+	width: 60%;
+	height: 60%;
+	position: relative;
+	top: 10px;
+	left: 17px;
+}
+
+.dd-main-pic {
+	width: 100%;
+	height: 100%;
+}
+
+.dd-sub-content {
+	border: 1px dotted black;
+	width: 65%;
+	display: inline-block;
+	float: left;
+	height: 100%;
+}
+
+.dropdown-menu {
+	width: 50vh;
+	height: auto;
+	overflow: scroll;
+}
+
+#dropdownMenu1:hover {
+	text-decoration: none;
+}
+/* 드롭다운 css */
+.full-calendar {
+	width: 100%;
 	display: inline-block;
 	float: left;
 }
 
 #sidebar {
-	width: 25%;
+	width: 24%;
 	height: auto;
 	display: inline-block;
-	float: left;
-	position: fixed;
+	float: right;
+	border: 1px solid black;
 }
 
 .btn-group {
@@ -69,6 +135,10 @@ div {
 
 .btn-group button:first-child {
 	margin-right: 30px;
+}
+.btn {
+	background-color: #008489;
+	color: white;
 }
 
 .line {
@@ -104,20 +174,237 @@ div {
 	float: right;
 	display: inline-block;
 }
-
 </style>
 </head>
 <body>
-	<div id="calendar" class="full-calendar"></div>
+	<%
+		int cnt = 0;
+		int calcnt = 0;
+	%>
+	<%@ include file="../../resource/include/hostHeader.jsp"%>
+	<div id=content>
+		<div class="home-summary-title dropdown" style="width: 30%;">
+			<h2>
+				<a id="dropname" class="dropdown-toggle" id="dropdownMenu1"
+					data-toggle="dropdown" style="font-size: 25px;"
+					aria-expanded="true"> ${hdto.home_name}<span class="caret"></span>
+				</a>
+			</h2>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				<c:if test="${list ne null }">
+					<li role="presentation" class="dropdown-header">숙소를 선택하세요</li>
+					<c:forEach var="result" items="${list }">
+						<%
+							cnt++;
+						%>
+						<li role="presentation">
+							<div class="dd-wrap">
+								<a id="cal<%=cnt%>" style="font-size: 17px;" role="menuitem"
+									tabindex="-1" id="summ-link<%=cnt%>" href="javascript:void(0);">
+									<div class="dd-sub-pic">
+										<c:if test="${result.home_main_pic ne null }">
+											<img class="dd-main-pic img-rounded"
+												src="<c:url value='files/${result.home_main_pic }'/>">
+										</c:if>
+										<c:if test="${result.home_main_pic eq null }">
+											<img class="dd-pic img-rounded"
+												src="<c:url value='/resources/img/imgadd.png'/>">
+										</c:if>
+									</div>
+									<div class="dd-sub-content">${result.home_name }</div> <input
+									type="hidden" id="dseq<%=cnt %>" name="dseq"
+									value="${result.home_seq }">
+								</a>
+							</div>
+						</li>
+
+						<script>
+						$("#cal<%=cnt%>").click(function(){
+							$('.full-calendar').not('#calendar<%=cnt%>').hide();
+							$('#calendar<%=cnt%>').show();
+							$('#dropname').text('${result.home_name}');
+							
+							var dseq = $("#dseq<%=cnt%>").val();
+							$("#hidden_seq").val(dseq);
+						})
+						
+						$(document).ready(function(){
+							
+							var s_date;
+							var e_date;
+							var seq = ${result.home_seq};
+							
+							$('#calendar<%=cnt%>').fullCalendar(
+									{
+										handleWindowResize:true,
+										aspectRatio:1.5,
+										contentHeight: 600,
+										header : {
+											left : 'prev,next today',
+											center : 'title',
+											right : 'month,agendaWeek,agendaDay'
+										},
+										lang : 'ko',
+										defaultDate : new Date(), 
+// 										validRange:function(nowDate){
+// 												return{
+// 													start:nowDate-1 
+// 												};
+// 										},
+										navLinks : true, // can click day/week names to navigate views
+										showNonCurrentDates:false,
+										dragScroll : false,
+										selectable : true,
+										selectHelper : true,
+										unselectAuto:false,
+										select : function(start, end, jsEvent, view) {
+											console.log("seqqqqqqqqq::"+seq);
+											s_date = start.format("YYYY/MM/DD");
+											e_date = moment(end).subtract('days', 1).format(
+													"YYYY/MM/DD");
+					
+											var m = moment();
+					
+											console.log("시작날짜" + s_date);
+											console.log("종료날짜:" + e_date);
+					
+											$('#start_date').val(s_date);
+											$('#end_date').val(e_date);
+										
+											
+											/* 예약 가능, 불가 체크하기 */
+											$.ajax({
+												url : 'calendarAjax.do',
+												type : 'post',
+												data : {
+													seq : seq,
+													start : s_date,
+													end : e_date
+												},
+												success : function(resp) {
+													console.log("resp:" + resp);
+													console.log("성공" + resp.start);
+													console.log("성공" + resp.end);
+													console.log("성공" + resp.possible);
+													if (resp.possible == "예약 불가") {
+														console.log("예약 불가");
+														$("#resim").prop("checked", true);
+													} else {
+														console.log("예약 가능");
+														$("#resp").prop("checked", true);
+													}
+												
+												},
+												error : function(resp) {
+													console.log("실패" + resp.status);
+												}
+											});
+					// 							$('#calendar').fullCalendar('unselect');
+										},
+										eventDragStart : false,
+										eventDragStop : false,
+										eventDrop : false,
+										eventMouseover : false,
+										eventMouseout :false,	
+										editable : false,
+										eventOverlap:false,
+										eventLimit : true, // allow "more" link when too many events
+										events : function(start, end, timezone, callback) {
+											console.log("seq::::::::::::::"+seq);
+											console.log("start.format()"+start.format());
+											console.log("end.format()"+end.format());
+											$.ajax({
+												url : 'eventsAjax.do',
+												type : 'post',
+												data : {
+													seq : seq
+												},
+												success : function(resp) {
+													console.log("썽공: "+resp);
+													console.log("썽공: "+resp.date);
+																					
+													var arr = new Array();
+													arr = resp.date.split(",");
+													console.log("asdasd::"+arr);
+													
+													console.log("length:" + arr.length);
+													for(var i=0; i<arr.length; i++){
+														console.log("arr::"+arr[i]);
+													}
+													
+													arr.sort();
+													
+													var s_str = arr[0];
+													var e_str = arr[arr.length-1];
+													var tit = '예약 불가';
+													var eventData=[];
+													console.log("s_str::"+s_str);
+													console.log("e_str::"+e_str);
+					
+													var events = [];
+													$(resp).each(function() {
+														for(var i = 0; i<arr.length; i++){
+															events.push({
+																color:'#D8D8D8',
+																start: arr[i],
+																end:arr[i],
+																title: tit,
+																rendering:'background'
+															});
+														}
+														for(var i = 0; i<arr.length; i++){
+															events.push({
+																start: arr[i],
+																end:arr[i],
+																title: tit,
+																backgroundColor:'#008489'
+															});
+														}
+													});
+													events.push({
+														start: '2017-01-01',
+														end: '2018-08-23',
+														color:'#848484',
+														rendering:'background'
+													})
+													
+													$('#calendar').fullCalendar('renderEvent', events, true);
+													callback(events);
+												},
+												error : function(resp) {
+													console.log("실패 : ");
+												}
+												
+											});
+					
+										}
+					
+					
+									});
+							var $first = $('.full-calendar').first();
+							$('.full-calendar').not($first).hide();
+						})
+					</script>
+						<input type=hidden name=seq value="${result.home_seq}">
+					</c:forEach>
+				</c:if>
+			</ul>
+		</div>
+		<c:forEach begin="1" end="${list.size() }">
+			<%
+				calcnt += 1;
+			%>
+			<div id="calendar<%=calcnt%>" class="full-calendar" style="width:100%;"></div>
+		</c:forEach>
+	</div>
 	<div id=sidebar>
 		<div>
-			<div style="margin-bottom: 20px;">
+			<div style="margin-bottom: 10px;">
 				<span><b>선택 날짜</b></span>
 			</div>
 		</div>
 
 		<form action="modifyCalendar.do" method=post>
-
 			<div>
 				<input type="text" id=start_date name=start
 					class="form-control input-lg"> <input type="text"
@@ -147,173 +434,29 @@ div {
 				</div>
 			</div>
 			<div class=line></div>
-			<div>
-				<div style="margin-bottom: 20px;">
-					<span><b>1박 요금</b></span>
-				</div>
-				<div>
-					<input type="text" name=home_price class="form-control input-lg">
-				</div>
-				<div class=line></div>
-				<div>
-					<textarea rows="5" cols="50" class="form-control input-lg"></textarea>
-				</div>
-			</div>
+			<!-- 			<div> -->
+			<!-- 				<div style="margin-bottom: 20px;"> -->
+			<!-- 					<span><b>1박 요금</b></span> -->
+			<!-- 				</div> -->
+			<!-- 				<div> -->
+			<!-- 					<input type="text" name=home_price class="form-control input-lg"> -->
+			<!-- 				</div> -->
+			<!-- 				<div class=line></div> -->
+			<!-- 				<div> -->
+			<!-- 					<textarea rows="5" cols="50" class="form-control input-lg"></textarea> -->
+			<!-- 				</div> -->
+			<!-- 			</div> -->
 			<div class=line></div>
 			<div class="btn-group">
-				<button class="btn btn-info btn-lg">저장</button>
-				<button type="button" class="btn btn-info btn-lg"p
-					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">취소</button>
-				<input type=hidden name=seq value=${hdto.home_seq }>
+				<button class="btn btn-lg">저장</button>
+				<button type="button" class="btn btn-lg"
+					onclick="history.go(-1)">취소</button>
+
+				<input id="hidden_seq" type="hidden" name="seq"
+					value="${hdto.home_seq }">
 			</div>
 		</form>
 
 	</div>
-	<script>
-		var s_date;
-		var e_date;
-		var seq = ${hdto.home_seq};
-		
-	$(document).ready(function(){
-	
-		$('#calendar').fullCalendar(
-				{
-					header : {
-						left : 'prev,next today',
-						center : 'title',
-						right : 'month,agendaWeek,agendaDay'
-					},
-					lang : 'ko',
-					defaultDate : new Date(),
-					validRange:function(nowDate){
-							return{
-								start:nowDate-1 
-							};
-					},
-					navLinks : true, // can click day/week names to navigate views
-					showNonCurrentDates:false,
-					dragScroll : false,
-					selectable : true,
-					selectHelper : true,
-					unselectAuto:false,
-					select : function(start, end, jsEvent, view) {
-						s_date = start.format("YYYY/MM/DD");
-						e_date = moment(end).subtract('days', 1).format(
-								"YYYY/MM/DD");
-
-						var m = moment();
-
-						console.log("시작날짜" + s_date);
-						console.log("종료날짜:" + e_date);
-
-						$('#start_date').val(s_date);
-						$('#end_date').val(e_date);
-
-						$.ajax({
-							url : 'calendarAjax.do',
-							type : 'post',
-							data : {
-								seq : seq,
-								start : s_date,
-								end : e_date
-							},
-							success : function(resp) {
-								console.log("resp:" + resp);
-								console.log("성공" + resp.start);
-								console.log("성공" + resp.end);
-								console.log("성공" + resp.possible);
-								if (resp.possible == "예약 불가") {
-									console.log("예약 불가");
-									$("#resim").prop("checked", true);
-								} else {
-									console.log("예약 가능");
-									$("#resp").prop("checked", true);
-								}
-							
-							},
-							error : function(resp) {
-								console.log("실패" + resp.status);
-							}
-						});
-
-// 							$('#calendar').fullCalendar('unselect');
-					},
-					eventDragStart : false,
-					eventDragStop : false,
-					eventDrop : false,
-					eventMouseover : function(event, jsEvent, view) {
-// 						$(this).css("background-color", "red");
-					},
-					eventMouseout : function(event, jsEvent, view) {
-// 						$(this).css("background-color", "#F5A9F2");
-					},					
-					editable : true,
-					eventLimit : true, // allow "more" link when too many events
-					events : function(start, end, timezone, callback) {
-						console.log("start.format()"+start.format());
-						console.log("end.format()"+end.format());
-						$.ajax({
-							url : 'eventsAjax.do',
-							type : 'post',
-							data : {
-								seq : seq
-							},
-							success : function(resp) {
-								console.log("썽공: "+resp);
-								console.log("썽공: "+resp.date);
-																
-								var arr = new Array();
-								arr = resp.date.split(",");
-								console.log("asdasd::"+arr);
-								
-								console.log("length:" + arr.length);
-								for(var i=0; i<arr.length; i++){
-									console.log("arr::"+arr[i]);
-								}
-								
-								arr.sort();
-								
-								var s_str = arr[0];
-								var e_str = arr[arr.length-1];
-								var tit = '예약 불가';
-								var eventData=[];
-								console.log("s_str::"+s_str);
-								console.log("e_str::"+e_str);
-
-								var events = [];
-								$(resp).each(function() {
-									for(var i = 0; i<arr.length; i++){
-										events.push({
-											color:'#D8D8D8',
-											start: arr[i],
-											end:arr[i],
-											title: tit,
-											rendering:'background',
-										});
-									}
-									for(var i = 0; i<arr.length; i++){
-										events.push({
-											start: arr[i],
-											end:arr[i],
-											title: tit,
-											backgroundColor:'#8181F7'
-										});
-									}
-								});
-								$('#calendar').fullCalendar('renderEvent', events, true);
-								callback(events);
-							},
-							error : function(resp) {
-								console.log("실패 : ");
-							}
-							
-						});
-
-					}
-
-
-				});
-	})
-	</script>
 </body>
 </html>
