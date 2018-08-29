@@ -37,6 +37,10 @@ public class HomeMainController {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
 		List<HomePicDTO> homePic = homeService.getHomePic();
+	
+			System.out.println(homeList.size());
+		
+	
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");
