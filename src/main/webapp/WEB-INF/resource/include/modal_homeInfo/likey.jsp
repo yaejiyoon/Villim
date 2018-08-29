@@ -118,9 +118,6 @@
 <script>
 	$(document).ready(function(){
 		var likeState = 0;
-        $("div[id^='likeyList-content']").click(function(){
-        	alert("되니?");
-        });
 		$(".likeyButton").click(function(){
 			alert("버튼!");
 			if(likeState == 0){
@@ -187,11 +184,14 @@
                			});
                			
                			$("#makeListBT").click(function(){
-               				var text = $("#makeName").val();
-               				if(text == ''){
+               				var name = $("#makeName").val();
+               				
+               				
+               				if(name == ''){
                					alert("저장 목록 이름을 입력하세요");
                				}else{
                					var likeyListName = $("#makeName").val();
+               					$('#makeName').val("");
                					
                					$.ajax({
                						url:"likeList.do",
@@ -210,8 +210,8 @@
                							
                							for(var i=0; i<resp.likeyList.length;i++){
                								$("#likeyListPtag"+resp.likeyList[i].likeyList_seq).after(
-               									$('<button>').attr('class','btn btn-secondary likeyButton').attr('id','likeyButtonID'+resp.likeyList[i].likeyList_seq).append(
-               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT').attr('onClick','clickclick()')
+               									$('<button>').attr('class','btn btn-secondary likeyButton').attr('id','likeyButtonID'+resp.likeyList[i].likeyList_seq).attr('onClick',"clickclick('likeyButtonID"+resp.likeyList[i].likeyList_seq+"','likeyListPtag"+resp.likeyList[i].likeyList_seq+"','"+resp.likeyList[i].likeyList_seq+"')").append(
+               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT')
                									)
        										)
                							}
@@ -257,8 +257,36 @@
             </div>
          </div>
          <script>
-         function clickclick() {
- 			alert("클릭!!");
+         var likeState1 = 0;
+         function clickclick(BTid,Pid,seq) {
+        	 
+        	 var home_seq = ${hdto.home_seq }
+     		
+     		if(likeState1 == 0){
+     			var listName = $("#"+Pid).html();
+				alert(listName);
+     			alert(seq);
+     			alert(home_seq);
+     				
+     				
+     			$("#"+BTid)
+                 .find("img")
+                 .attr("src","<c:url value='../resources/img/like2.png'/>");
+     				
+     			$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
+     			likeState1 = 1;
+     				
+     		}else{
+     				
+     			$("#"+BTid)
+                 .find("img")
+                 .attr("src","<c:url value='../resources/img/like.png'/>");
+     				
+     			$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
+     			likeState1 = 0;
+     			
+     		}
+     		
  		}
          </script>
       </div>
