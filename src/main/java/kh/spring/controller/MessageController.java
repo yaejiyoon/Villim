@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -176,22 +177,22 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageSend.msg")
-	public ModelAndView messageSend(HttpSession session) {
+	public ModelAndView messageSend(HttpSession session,HttpServletRequest req) {
 		System.out.println("messageSend");
 		String userId = (String) session.getAttribute("login_email");
-		int home_seq = 1;
-		String host_name = "Sarah Son";
-		String host_picture = "지창욱.jpg";
-		int home_price = 50000;
-		String home_type = "아파트";
-		String home_main_pic = "plmn집사진.jpg";
-
+		int home_seq =Integer.parseInt(req.getParameter("home_seq"));
+		String host_name = req.getParameter("host_name");
+		String host_picture = req.getParameter("host_picture");
+		int home_price =Integer.parseInt(req.getParameter("home_price"));
+		String home_type = req.getParameter("home_type");
+		String home_main_pic = req.getParameter("home_main_pic");
+          System.out.println("home_seq : "+home_seq+" /host_name : "+host_name+" /host_picture :"+host_picture+" /home_price : "+home_price+" / home_type : "+home_type + " /home_main_pic : "+home_main_pic);
 		// review 갯수
 		int reviewCount = this.service.countReview(home_seq);
 
-		String Q1 = "건물 내 무료 주차";
-		String Q2 = "체크인 가능 시간: 19:00 - 00:00";
-		String Q3 = "체크인 5일 전까지 취소할 경우 서비스 수수료를 제외한 요금 전액이 환불됩니다.";
+		String Q1 = req.getParameter("home_guest_access");
+		String Q2 = req.getParameter("home_details")+req.getParameter("home_rules");
+		String Q3 = req.getParameter("home_policy");
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("host_name", host_name);
@@ -209,17 +210,18 @@ public class MessageController {
 
 	@RequestMapping("/messageInsertDB.msg")
 	public ModelAndView messageInsertDB(HttpSession session, HttpServletResponse response, String host_name,
-			MessageDTO dto, MessageRoomDTO roomdto, String seq, String checkIn, String checkOut, String number)
+			MessageDTO dto, MessageRoomDTO roomdto, String seq, String time, String number)
 			throws Exception {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageInsertDB");
 		System.out.println("내용 : " + dto.getMessage_content());
 		String userId = (String) session.getAttribute("login_email");
-
+        System.out.println("날짜 : "+time);
+        System.out.println("인원수" +number);
 		int home_seq = Integer.parseInt(seq);
 		HomeDTO getHomeInfo = this.service.getHomeInfo(home_seq);
 		String host_email = getHomeInfo.getMember_email();
-
+     
 		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
 		roomdto.setHost_email(host_email);
 		roomdto.setGuest_email(userId);
@@ -237,7 +239,19 @@ public class MessageController {
 			roomdto.setHome_seq(home_seq);
 			roomdto.setHost_email(host_email);
 			roomdto.setGuest_email(userId);
-			roomdto.setCheckIn(checkIn);
+			
+			
+			System.out.println("checkin1 : "+time.split(" ~ ")[0]);
+			System.out.println("checkout1 : "+time.split(" ~ ")[1]);
+			String in=time.split(" ~ ")[0];
+			String out=time.split(" ~ ")[1];
+			mav.addObject("checkin1", time.split(" ~ ")[0]);
+			mav.addObject("checkout1", time.split(" ~ ")[1]);
+			String checkin=in.split("-")[1]+"월"+" "+in.split("-")[2]+"일";
+			String checkOut=out.split("-")[1]+"월"+" "+out.split("-")[2]+"일";
+			System.out.println("checkin2 : "+checkin);
+			System.out.println("checkout2 : "+checkOut);
+			roomdto.setCheckIn(checkin);
 			roomdto.setCheckOut(checkOut);
 			roomdto.setTotalNumber(Integer.parseInt(number));
 			int messageInfoInsert = this.service.messageRoomInsert(roomdto);
@@ -248,7 +262,7 @@ public class MessageController {
 		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
-
+        
 		dto.setMessage_room_seq(message_room_seq);
 		dto.setHome_seq(home_seq);
 		dto.setFromID(userId);
@@ -264,8 +278,8 @@ public class MessageController {
 			MemberDTO mGuest = this.m_service.printProfile(userId);
 			MemberDTO mHost = this.m_service.printProfile(host_email);
 
-			DetailDTO getMessageAfterSend = this.service.getMsgAfterSend(messageInsertResult);
-
+			DetailDTO getMessageAfterSend = this.service.getMsgAfterSend(dto.getMessage_seq());
+             System.out.println("message_seq : "+dto.getMessage_seq());
 			String to = "82" + mHost.getMember_phone();
 			String from = "33644643087";
 			String message = URLEncoder.encode("[Villim] : " + mGuest.getMember_name() + ", "

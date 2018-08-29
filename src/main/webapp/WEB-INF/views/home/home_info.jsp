@@ -372,7 +372,32 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				});
                			</script>
                			<br>
-               			<a href="messageSend.msg" class="green">호스트에게 연락하기 </a>
+               			<input type="hidden" id="login_id" value="${sessionScope.login_email}">
+               			<form action="messageSend.msg" method="post" id="formId1">
+               		<input type="hidden" name="home_seq" value="${home_seq}">
+               			<input type="hidden" name="host_name" id="host_name" value="${memberDTO.member_name }">
+               			<input type="hidden" name="host_picture" value="${memberDTO.member_picture}">
+               			<input type="hidden" name="home_price" value="${hdto.home_price}">
+               			<input type="hidden" name="home_type" value="${hdto.home_type}">
+               			<input type="hidden" name="home_main_pic" value="${hdto.home_main_pic}">
+               			<input type="hidden" name="home_guest_access" value="${hdto.home_guest_access}">
+               			<input type="hidden" name="home_details" value="${hdto.home_details}">
+               			<input type="hidden" name="home_rules" value="${hdto.home_rules}">
+               			<input type="hidden" name="home_policy" value="${hdto.home_policy}">
+               			<a type="button" id="toHostMsg" class="green">호스트에게 연락하기 </a>
+               			</form> 
+               			 <script>
+               			 $('#toHostMsg').click(function(){
+               				
+               				if($('#login_id').val()===""){
+               					 $("#myModal1").modal('show');
+               					 return false;
+               				}else{
+               					
+               					$("#formId1").submit();
+               				}
+               			 })
+               			 </script>
                			<br>
                			<br>
                			<br>
@@ -1093,10 +1118,31 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							<p>응답률: </p><span>100%</span><br>
 							<P>응답 시간: </P><span>1시간 이내</span>
                			</div>
-               			<form action="messageSend.msg">
-               			<input type="hidden" name="home_seq" value="${hdto.home_seq}">
-               			</form>
-               			<button id="toHost" class="btn btn-secondary">호스트에게 연락하기</button>
+               		<form action="messageSend.msg" method="post" id="formId">
+               		<input type="hidden" name="home_seq" value="${home_seq}">
+               			<input type="hidden" name="host_name" id="host_name" value="${memberDTO.member_name }">
+               			<input type="hidden" name="host_picture" value="${memberDTO.member_picture}">
+               			<input type="hidden" name="home_price" value="${hdto.home_price}">
+               			<input type="hidden" name="home_type" value="${hdto.home_type}">
+               			<input type="hidden" name="home_main_pic" value="${hdto.home_main_pic}">
+               			<input type="hidden" name="home_guest_access" value="${hdto.home_guest_access}">
+               			<input type="hidden" name="home_details" value="${hdto.home_details}">
+               			<input type="hidden" name="home_rules" value="${hdto.home_rules}">
+               			<input type="hidden" name="home_policy" value="${hdto.home_policy}">
+               			<button id="toHost" type="button" class="btn btn-secondary">호스트에게 연락하기</button>
+               			</form> 
+               			 
+               			 <script>
+               			 $('#toHost').click(function(){
+               				if($('#login_id').val()===""){
+              					 $("#myModal1").modal('show');
+              					 return false;
+              				}else{
+              					 formId.submit();
+              				}
+               			 })
+               			
+               			 </script>
                			<br><br><br>
                		</div>
                </div>

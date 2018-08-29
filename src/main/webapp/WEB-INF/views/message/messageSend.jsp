@@ -155,6 +155,28 @@ $(document).ready(function() {
         	return false;
         }
         
+        if(!$("#date").val()){
+        	$('#message').after(" <div class=\"alert alert-danger\" style=\"position:relative;top:4.8vh;background-color:white;\"><span class=\"glyphicon glyphicon-alert\"></span><strong  style=\"border:white;background:white;\">날짜를 입력해주세요</strong></div>");
+        	
+        	window.setTimeout(function() {
+        	    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        	        $(this).remove(); 
+        	    });
+        	}, 3000);
+        	
+        	return false;
+        }
+        
+        
+        /* var checkIn=$('#checkInOut').val().split(" ~ ")[0].split("-")[1]+"월"+checkInOut.split(" ~ ")[2]+"일";
+        var checkOut=$('#checkInOut').val().split(" ~ ")[1]+"월"+checkInOut.split("-")[2]+"일";
+        alert(checkIn);
+        alert(checkOut); */
+        $('#checkInOut').val($('#date').val())
+     
+     
+       $('#totalNumber').val($('#peopleDrop').val().split("게스트 ")[1].split("명")[0]);
+       
         $("#formId").submit();
     	
     })
@@ -201,7 +223,7 @@ $(document).ready(function() {
 				<!-- <h5 style="font-weight:800;position:relative;top:0vh;left:4vw;width:10vw;height:3vh;border:1px solid red;">날짜</h5> -->
 				
 <div style="position:relative;left:1vw;"><h5 style="font-weight:800;position:relative;left:0vw;top:1vh;">날짜</h5>
-				<input type='text' class='datepicker-here form-control' data-multiple-dates-separator=" ~ " data-range="true"  data-position='left center' style="position:relative;top:1.3vh;left:0vw;width:15vw;z-index:100;text-align:center;" /></div><div class="dropdown fixed" style="position:relative;top:10vh;left:-11.5vw;">
+				<input type='text' id="date" class='datepicker-here form-control' data-multiple-dates-separator=" ~ " data-range="true"  data-position='left center' style="position:relative;top:1.3vh;left:0vw;width:15vw;z-index:100;text-align:center;" /></div><div class="dropdown fixed" style="position:relative;top:10vh;left:-11.5vw;">
             			
             				<input type="text" class="search-query3 form-control"
             				style="position: relative; width:5vw;left:-1vw; border:none;"
@@ -240,7 +262,7 @@ $(document).ready(function() {
             					    console.log(population.split("게스트 ")[1].split("명")[0]);
             					    
             					    $("#population").val(population.split("게스트 ")[1].split("명")[0]);
-            					    
+            					    $("#totalNumber").val(population.split("게스트 ")[1].split("명")[0]);
             					    for (i = 0; i < dropdowns.length; i++) {
             					      var openDropdown = dropdowns[i];
             					      if (openDropdown.classList.contains('show')) {
@@ -294,9 +316,10 @@ $(document).ready(function() {
             					    
             					    var population = $("#peopleDrop").val();
             					    console.log(population.split("게스트 ")[1].split("명")[0]);
-            					    
+            					   
             					    $("#population").val(population.split("게스트 ")[1].split("명")[0]);
-            					    
+            					    $("#totalNumber").val( $("#peopleDrop").val().split("게스트 ")[1].split("명")[0]);
+            					   
             					    for (i = 0; i < dropdowns.length; i++) {
             					      var openDropdown = dropdowns[i];
             					      if (openDropdown.classList.contains('show')) {
@@ -356,9 +379,22 @@ $(document).ready(function() {
                 <div id="detail-1">
                     <div class="container">
                         <div class="fluid-row">
-                            <div class="col-xs-5" style="margin-top:1.5vh;">
+                        
+                        
+                        <c:choose>
+                       <c:when test="${not empty Q1}">
+                            <div class="col-xs-8" style="margin-top:1.5vh;">
                             ●${Q1}
                             </div>
+                            </c:when>
+                             <c:otherwise>
+                             <div class="col-xs-8"  style="margin-top:1.5vh;">
+                                ●메세지로  찾아가는 방법을 물어보세요!
+                            </div>
+                            </c:otherwise>
+                            
+                            </c:choose>
+                            
                         </div>
                     </div>
                 </div>
@@ -373,9 +409,19 @@ $(document).ready(function() {
                 <div id="detail-2">
                     <div class="container">
                         <div class="fluid-row">
-                            <div class="col-xs-5"  style="margin-top:1.5vh;">
+                       <c:choose>
+                       <c:when test="${not empty Q2}">
+                            <div class="col-xs-8"  style="margin-top:1.5vh;">
                                 ●${Q2}
                             </div>
+                            </c:when>
+                             <c:otherwise>
+                             <div class="col-xs-8"  style="margin-top:1.5vh;">
+                                ●메세지로 숙소 세부 정보 및 이용 규칙을 물어보세요!
+                            </div>
+                            </c:otherwise>
+                            
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -390,9 +436,22 @@ $(document).ready(function() {
                 <div id="detail-3">
                     <div class="container">
                         <div class="fluid-row">
-                            <div class="col-xs-5"  style="margin-top:1.5vh;">
+                        
+                        <c:choose>
+                       <c:when test="${not empty Q3}">
+                            <div class="col-xs-8"  style="margin-top:1.5vh;">
                                ●${Q3}
                             </div>
+                            </c:when>
+                             <c:otherwise>
+                             <div class="col-xs-8"  style="margin-top:1.5vh;">
+                                ●메세지로 요금 설정 및 예약 가능 여부를 물어보세요!
+                            </div>
+                            </c:otherwise>
+                            
+                            </c:choose>
+                        
+                            
 
                         </div>
                     </div>
@@ -407,9 +466,9 @@ $(document).ready(function() {
 		<textarea class="form-control" style="resize:vertical;position:relative;top:6vh;" name="message_content" id="message" placeholder="여기에 메세지를 입력하세요" maxlength="500" rows="7" required autofocus></textarea>
 		<input type="hidden" name="host_name" id="host_name" value="${host_name}">
 		<input type="hidden" name="seq" value="1">
-        <input type="hidden" id="checkIn" name="checkIn" value="8월 18일">
-        <input type="hidden" id="checkOut" name="checkOut" value="8월 20일">
-        <input type="hidden" id="totalNumber" name="number" value="2">
+        <input type="hidden" id="checkInOut" name="time">
+     <!--    <input type="hidden" id="checkOut" name="checkOut" value="8월 20일"> -->
+        <input type="hidden" id="totalNumber" name="number" >
 		<div class="container-fluid margin" style="position:relative;top:8vh;left:-1vw;">
 	<a  id="submitBt" type="button" target="_blank" class="themeBtn3" style="font-weight:bold;text-decoration:none;">메세지 전송하기</a>
     </div>
