@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- header css -->
+
 <link href="<c:url value="/resources/css/main/header.css?var=2" />"
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/main/demo.css?var=3" />"
@@ -122,13 +123,13 @@
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${sessionScope.login_picture}"/>
                	 <c:if test="${fn:startsWith (test, 'http')}">
-             	  <img src="${sessionScope.login_picture}">
+             	  <img src="${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%">
              	  </c:if>
              	  <c:if test="${fn:endsWith (test, 'jpg')}">
-             	  <img src=" files/${sessionScope.login_picture}"> 
+             	  <img src="files/${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%"> 
              	</c:if>
              	  <c:if test="${fn:endsWith (test, 'png')}">
-             	  <img src=" files/${sessionScope.login_picture}"> 
+             	  <img src="files/${sessionScope.login_picture}" style="width:50px; height:50px; margin-top:1%; margin-left:3%"> 
              	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -209,6 +210,7 @@
                			<span data-hover="여행" style="color:black;">여행</span>
                		</a>
                </div>
+        
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지" style="color:black;">메세지</span>
