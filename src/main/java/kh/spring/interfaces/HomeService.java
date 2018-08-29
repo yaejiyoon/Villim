@@ -11,7 +11,6 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
-import kh.spring.dto.MapDTO;
 
 public interface HomeService {
 	public List<HomeDTO> getAllHomeData(String member_email);
@@ -63,9 +62,13 @@ public interface HomeService {
 //	예지
 	public List<HomeDTO> getAllHomeDataMain();
 	
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto);
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
 	
 	public List<HomePicDTO> getHomePic();
+	
+	public List<HomeDTO> searchHomeData(List homeTypeList , String homeTypeIsChecked, int people, List dates, String dateIsChecked);
+	
+	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 	public List<ReservationDTO> getAllReservation(String member_email);
 
