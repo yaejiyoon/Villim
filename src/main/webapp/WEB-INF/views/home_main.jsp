@@ -407,6 +407,7 @@ $(document).ready(function() {
 		width : 100%;
 		z-index : 100;
 		
+		
 	}
 	
 	#searchBar {
