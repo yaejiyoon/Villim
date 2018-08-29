@@ -119,8 +119,33 @@ public class HomeMainController {
 		System.out.println("startDate 세션값 들어감?? "+(String)session.getAttribute("startDate"));
 		
 		
-		List<HomeDTO> homeList = homeService.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
+//		List<HomeDTO> homeList = homeService.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
 		List<HomePicDTO> homePic = homeService.getHomePic();
+		
+		//////////////////////////////////////////////////////
+		Double currentLat = Double.parseDouble(lat);
+		Double currentLng = Double.parseDouble(lng);
+		Double swLat = currentLat-0.024;
+		Double neLat = currentLat+0.024;
+		Double swLng = currentLng-0.27396753;
+		Double neLng = currentLng+0.27396753;
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", (String) session.getAttribute("homeType"));
+		param.put("people", session.getAttribute("people"));
+		param.put("dates", (List) session.getAttribute("dates"));
+		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		param.put("swLat", swLat);
+		param.put("neLat", neLat);
+		param.put("swLng", swLng);
+		param.put("neLng", neLng);
+		
+		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
+		
+		//////////////////////////////////////////////////
 		
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
@@ -149,6 +174,9 @@ public class HomeMainController {
 		param.put("neLat", neLat);
 		param.put("swLng", swLng);
 		param.put("neLng", neLng);
+		
+		System.out.println("위도 차 : "+(neLat-swLat));
+		System.out.println("경도 차: "+(neLng-swLng));
 		
 		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
 		List<HomePicDTO> homePic = homeService.getHomePic();
@@ -239,9 +267,14 @@ public class HomeMainController {
 			startDate="0";
 			endDate ="0";
 			dateIsChecked = "0";
+			session.setAttribute("startDate", startDate);
+			session.setAttribute("endDate", endDate);
 		}
 		
 		List dates = new ArrayList<>();
+		session.setAttribute("startDate", startDate);
+		session.setAttribute("endDate", endDate);
+		
 		
 		if(!startDate.equals("0")&&!endDate.equals("0")) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

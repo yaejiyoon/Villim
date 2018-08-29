@@ -82,6 +82,8 @@ public class HomeInfoController {
 
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
 		
+		int result = homeService.modifyHomeView(home_seq);
+		
 		System.out.println("homeseq : " + home_seq);
 		
 		HomeDTO hdto = homeService.getHomeData(home_seq);

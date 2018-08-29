@@ -38,8 +38,7 @@
 	#myModal1{
  	right:10px;
 	text-align:center;
-	z-index: 12000;
-	
+	z-index: 12000 !important;
 	}
 	#facebook{
 		width:90%;
@@ -217,7 +216,7 @@
 	#findMFooter{
 		border-top-width:0px;
 	}
-
+	
 
 </style>
 
@@ -670,7 +669,6 @@ function loginWithEmail(){
 	
 
 </script>
-
 	<!-- 재호 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none; margin:0px auto;">
   <div class="modal-dialog">
@@ -735,7 +733,7 @@ function loginWithEmail(){
   </div>
 </div>
 
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" id="mheader1">
