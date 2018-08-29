@@ -675,7 +675,6 @@ $(document).ready(function() {
 	}
  	
 </style>
-
 </head>
     
 <body>
