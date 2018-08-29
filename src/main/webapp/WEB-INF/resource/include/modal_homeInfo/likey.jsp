@@ -14,7 +14,7 @@
 	}
 	
 	.modal-content.likey-content{
-		height: 500px;
+		height: auto;
 	}
 	
 	.modal-header.likey-header{
@@ -68,14 +68,90 @@
 		float: right;
 	}
 	
+	.btn.btn-secondary.likeyButton{
+		float: right;
+		background-color: white;
+	}
+	
+	.likeyBT:hover{
+		cursor: pointer;
+	}
+	
 	.likeyList-content{
 		width:100%;
 		height: 60px;
 		border-top: 1px solid #d6d6d6;
-		padding: 20px;
+		padding: 15px;
 		margin-top: 10px;
 	}
+	
+	#likey-homeInfo{
+		padding: 10px 20px;
+		height:auto;
+	}
+	
+	#likey-homeInfo:after{
+		content: "";
+   		display: block;
+   		clear: both;
+	}
+	
+	#likey-homeInfo-img{
+		float: left;
+		width:20%;
+		height: 80px;
+	}
+	
+	#likey-homeInfo-content{
+		float: left;
+		width:80%;
+		height: 100%;
+		padding-top: 7px;
+		padding-left: 15px;
+	}
+	
+	.likey-footer{
+		border-top: 1px solid #d6d6d6;
+	}
 </style>
+
+<script>
+	$(document).ready(function(){
+		var likeState = 0;
+        $("div[id^='likeyList-content']").click(function(){
+        	alert("되니?");
+        });
+		$(".likeyButton").click(function(){
+			alert("버튼!");
+			if(likeState == 0){
+				
+				var listName = $(this).parent().find('p').html();
+				alert(listName);
+				
+				
+				$(this)
+            .find(".likeyBT")
+            .attr("src","<c:url value='../resources/img/like2.png'/>");
+				
+				$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
+				likeState = 1;
+				
+				
+				
+			}else{
+				$(this)
+            .find(".likeyBT")
+            .attr("src","<c:url value='../resources/img/like.png'/>");
+				
+				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
+				likeState = 0;
+			}
+		})
+		
+		
+	})
+                
+</script>
 
 <!-- 모달 팝업 -->
       <div class="modal fade" id="likeyModal" tabindex="-1" role="dialog"
@@ -127,14 +203,16 @@
                							for(var i=0; i<resp.likeyList.length;i++){
                								$("#afterLineDiv").after(
                									$('<div>').attr('class','likeyList-content').attr('id','likeyList-content'+resp.likeyList[i].likeyList_seq).append(
-               										$('<p>').attr('style','display: inline; float:left;').attr('id','likeyListPtag'+resp.likeyList[i].likeyList_seq).html(resp.likeyList[i].likeyList_name)
+               										$('<p>').attr('style','display: inline; float:left; margin-top: 10px;').attr('id','likeyListPtag'+resp.likeyList[i].likeyList_seq).attr('class','likeyList_name').html(resp.likeyList[i].likeyList_name)
                									)	
                								)
                							}
                							
                							for(var i=0; i<resp.likeyList.length;i++){
                								$("#likeyListPtag"+resp.likeyList[i].likeyList_seq).after(
-           											$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT')
+               									$('<button>').attr('class','btn btn-secondary likeyButton').attr('id','likeyButtonID'+resp.likeyList[i].likeyList_seq).append(
+               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT').attr('onClick','clickclick()')
+               									)
        										)
                							}
                							
@@ -151,12 +229,36 @@
                		<c:if test="${likeyList ne null}">
                			<c:forEach items="${likeyList }" var="likeyList">
                				<div class="likeyList-content">
-               					<p style="display: inline; float:left;">${likeyList.likeyList_name }</p>
-               					<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT">
+               					<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyList.likeyList_name }</p>
+               					<button class="btn btn-secondary likeyButton">
+         							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT">
+         						</button>
+               					<%-- <img src="<c:url value='../resources/img/like.png'/>" class="likeyBT"> --%>
                				</div>
                			</c:forEach>
                		</c:if>
                </div>
+               
+               
+               
+               <p>&nbsp;</p>
+               <div class="likey-footer">
+                	<div id="likey-homeInfo">
+                   		<div id="likey-homeInfo-img">
+                   			<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
+                   		</div>
+                   		<div id="likey-homeInfo-content">
+                   			<p style="display: inline; font-weight: 600; font-size: 15px;">${hdto.home_name}</p><br>
+                   			<p style="margin-top: 7px; margin-bottom: 0px;">${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</p>
+                   			<p style="display: inline; color: #008489;">★★★★★</p><p style="display: inline; font-size: 13px;">후기 137개</p>
+                   		</div>
+					</div>
+               </div>
             </div>
          </div>
+         <script>
+         function clickclick() {
+ 			alert("클릭!!");
+ 		}
+         </script>
       </div>
