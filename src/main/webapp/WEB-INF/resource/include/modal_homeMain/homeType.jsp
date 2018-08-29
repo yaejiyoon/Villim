@@ -119,7 +119,14 @@
 				homeTypeBt.style.color = "white";
 				homeTypeBt.style.borderRadius = "10px";
 			}
-			//alert(values[i].value);
+			
+			var selected = [];
+			$('input:checked').each(function() {
+			    selected.push($(this).attr('value'));
+			});
+			
+			$('#modalHomeType').val(selected);
+			alert(selected);
 		});
 		
 		$("#homeTypeDelete").click(function() {
@@ -130,8 +137,27 @@
 			homeTypeBt.style.color = "black";
 			homeTypeBt.style.borderRadius = "0px";
 		});
+		
+		<%if(session.getAttribute("homeType").equals("집전체")) {%>
+			$('#whole').attr("checked", true);
+		<%}%>
+		
+		<%if(session.getAttribute("homeType").equals("개인실")) {%>
+			$('#one').attr("checked", true);
+		<%}%>
+	
+		<%if(session.getAttribute("homeType").equals("다인실")) {%>
+			$('#many').attr("checked", true);
+		<%}%>
+		
+		$('#homeTypeSubmit').submit(function() {
+		    $('#modalHomeType').modal('hide');
+		    return false;
+		});
+		
 	});
 </script>
+<form action="modalHomeType.do" method="post">
       <div class="modal fade" id="homeType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog" id="homeTypeDialog">
             <div class="modal-content">
@@ -141,32 +167,32 @@
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">숙소 종류</h4>
                </div>
-               <div class="modal-body" style="background-color:white; color:#6e7776; text-align : center;">
+               <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	<label class="Container"><b>집 전체</b><br>
                   		집 전체를 단독으로 사용합니다
-					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="집전체">
+					  <input class="homeTypeCheckbox" id="whole" type="checkbox" name="homeType" value="집전체" >
 					  <span class="checkmark"></span>
 					</label>
 						
 						
 					<label class="Container"><b>개인실</b><br>
 						침실은 단독으로 쓰고, 이외의 공간은 호스트나 다른 게스트와 함께 이용할 수도 있습니다. 
-					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="개인실">
+					  <input class="homeTypeCheckbox" id="one" type="checkbox" name="homeType" value="개인실">
 					  <span class="checkmark"></span>
 					</label>
 					
 					<label class="Container"><b>다인실</b><br>
 						사적공간없이, 침실이나 욕실 등을 호스트나 다른 게스트와 함께 사용합니다.
-					  <input class="homeTypeCheckbox" type="checkbox" name="homeType" value="다인실">
+					  <input class="homeTypeCheckbox" id="many" type="checkbox" name="homeType" value="다인실">
 					  <span class="checkmark"></span>
 					</label>
 					
-                  	
                </div>
                <div class="modal-footer">
-               	   <button class="btn btn-primary-outline" id="homeTypeDelete" data-dismiss="modal">삭제</button> 
-                   <button class="btn btn-primary-outline submit" id="homeTypeSubmit" data-dismiss="modal">적용하기</button> 
+               	   <button class="btn btn-primary-outline" id="homeTypeDelete" data-dismiss="modal" type="button">삭제</button> 
+                   <button class="btn btn-primary-outline submit" id="homeTypeSubmit" >적용하기</button> 
                </div>
             </div>
          </div>
       </div>
+</form>

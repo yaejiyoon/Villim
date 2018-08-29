@@ -15,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -56,6 +56,13 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 	.pagination>li>a, .pagination>li>span {
 		border-radius: 50% !important;
 		margin: 0 5px;
+	}
+	
+	.myCalclass{
+		background-image: url("<c:url value='../resources/img/pattern2.png'/>");
+		background-position: center; /* Center the image */
+  		background-repeat: no-repeat; /* Do not repeat the image */
+  		background-size: cover;
 	}
 	
 }
@@ -221,13 +228,35 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 			<script src="<c:url value="../../resources/css/home/lib/jquery.mousewheel.min.js" />"></script>
          	
          	<button id="shareBT" class="btn btn-secondary">
-         		<img src="<c:url value='../resources/img/share.png'/>">
+         		<img src="<c:url value='../resources/img/share.png'/>" >
          		공유하기
          	</button>
-         	<button id="likeBT" class="btn btn-secondary">
-         		<img src="<c:url value='../resources/img/like.png'/>">
-         		저장
-         	</button>
+         	<c:if test="${sessionScope.login_email eq null}">
+         		<button id="likeBT" class="btn btn-secondary" data-toggle="modal" href="#myModal1">
+         			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg">
+         			저장
+         		</button>
+         	</c:if>
+         	<c:if test="${sessionScope.login_email ne null}">
+         		<button id="likeBT2" class="btn btn-secondary" data-toggle="modal" href="#likeyModal">
+         			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg">
+         			저장
+         		</button>
+         	</c:if>
+         	
+         	<script>
+         		 /* var likeState = 0;
+         		$("#likeBT2").click(function(){
+    				if(likeState == 0){
+    					$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
+    					likeState = 1;
+    				}else{
+    					$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
+    					likeState = 0;
+    				}
+         		}) */
+         		
+         	</script>
          </div>
          <div id="info-contents-main">
             <div id="info-main-left">
@@ -243,15 +272,21 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				<br>
                				<br>
                				<img src="<c:url value='../resources/img/people.png'/>">인원 ${hdto.home_people }명
-               				<img src="<c:url value='../resources/img/door.png'/>">침실 3개
-               				<img src="<c:url value='../resources/img/bed.png'/>">침대 1개
-               				<img src="<c:url value='../resources/img/bath.png'/>">욕실 2개
+               				<c:if test="${bedroom ne '0'}">
+               				<img src="<c:url value='../resources/img/door.png'/>">침실 ${bedroom }개
+               				</c:if>
+               				<c:if test="${bedCount ne '0'}">
+               					<img src="<c:url value='../resources/img/bed.png'/>">침대 ${bedCount }개
+               				</c:if>
+               				<c:if test="${bathroom ne '0'}">
+               				<img src="<c:url value='../resources/img/bath.png'/>">욕실 ${bathroom }개
+               				</c:if>
                			</div>
                			<div id="info-title-right">
                				<img src="<c:url value='../resources/img/1.jpg'/>">
                				<br>
                				<div style="width:80px;">
-               				<h5 style="padding-left: 25px;">kimㅇㅁㄴㄹㄴㅇㄴㅇ</h5>
+               				<h5 style="padding-left: 25px;">${memberDTO.member_name }</h5>
                				</div>
                			</div>
                		</div>
@@ -337,7 +372,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				});
                			</script>
                			<br>
-               			<a href="" class="green">호스트에게 연락하기 </a>
+               			<a href="messageSend.msg" class="green">호스트에게 연락하기 </a>
                			<br>
                			<br>
                			<br>
@@ -418,42 +453,50 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		</div>
                		<div id="info-main03-bottom">
                			<div class="col">
+               				<c:forEach items="${bedList }" var="bedList" varStatus="status">
                				<div class="col-md-4 bed-div">
                					<div>
                						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
                						<br>
-               						<span class="bedroom">2번 침실</span>
+               						<span class="bedroom">${status.count}번 침실</span>
                						<br>
-               						<span class="bedtype">매트리스(요와 이불) 2개</span>
+               						<c:if test="${bedList.bed_single ne '0' && bedList.bed_double eq '0' && bedList.bed_queen eq '0'}">
+               							<span class="bedtype">싱글사이즈 침대 ${bedList.bed_single }개</span>
+               						</c:if>
+               						<c:if test="${bedList.bed_single ne '0' && (bedList.bed_double ne '0' || bedList.bed_queen ne '0')}">
+               							<span class="bedtype">싱글사이즈 침대 ${bedList.bed_single }개,</span>
+               						</c:if>
+               						<c:if test="${bedList.bed_double ne '0' && bedList.bed_queen ne '0'}">
+               							<span class="bedtype">더블사이즈 침대 ${bedList.bed_double }개,</span>
+               						</c:if>
+               						<c:if test="${bedList.bed_double ne '0' && bedList.bed_queen eq '0'}">
+               							<span class="bedtype">더블사이즈 침대 ${bedList.bed_double }개</span>
+               						</c:if>
+               						<c:if test="${bedList.bed_queen ne '0' }">
+               							<span class="bedtype">퀸사이즈 침대 ${bedList.bed_queen }개</span>
+               						</c:if>
                					</div>
                				</div>
+               				</c:forEach>
+               				<c:if test="${pub eq true }">
                				<div class="col-md-4 bed-div">
                					<div>
-               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
+               						<img src="<c:url value='../resources/img/sofa.png'/>" class="bed">
                						<br>
-               						<span class="bedroom">2번 침실</span>
+               						<span class="bedroom">공용 공간</span>
                						<br>
-               						<span class="bedtype">매트리스(요와 이불) 2개</span>
+               						<c:if test="${mattress ne '0' && sofa ne '0'}">
+               							<span class="bedtype">매트리스(요와 이불) ${mattress }개,</span>
+               						</c:if>
+               						<c:if test="${mattress ne '0' && sofa eq '0'}">
+               							<span class="bedtype">매트리스(요와 이불) ${mattress }개</span>
+               						</c:if>
+               						<c:if test="${sofa ne '0'}">
+               							<span class="bedtype">소파 ${sofa }개</span>
+               						</c:if>
                					</div>
                				</div>
-               				<div class="col-md-4 bed-div">
-               					<div>
-               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
-               						<br>
-               						<span class="bedroom">2번 침실</span>
-               						<br>
-               						<span class="bedtype">매트리스(요와 이불) 2개</span>
-               					</div>
-               				</div>
-               				<div class="col-md-4 bed-div">
-               					<div>
-               						<img src="<c:url value='../resources/img/bed2.png'/>" class="bed">
-               						<br>
-               						<span class="bedroom">2번 침실</span>
-               						<br>
-               						<span class="bedtype">매트리스(요와 이불) 2개</span>
-               					</div>
-               				</div>
+               				</c:if>
                			</div>
                			
                			
@@ -541,21 +584,29 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<span>예약 취소</span>
                		<br>
                		<br>
-               		<div>
-               		<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		</div>
-               		<div>
-               		<span>일반 정책 - 체크인 5일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 5일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		</div>
-               		<div>
-               		<span>유연 정책 - 체크인 1일 전까지 예약 취소 시 취소 수수료 없음</span>
-               		<br>
-               		체크인 1일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
-               		</div>
+               		<c:choose>
+               			<c:when test="${hdto.home_policy eq '엄격' }">
+               				<div>
+               					<span>엄격 정책 - 체크인 30일 전까지 예약 취소 시 취소 수수료 없음</span>
+               					<br>
+               					체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               				</div>
+               			</c:when>
+               			<c:when test="${hdto.home_policy eq '일반' }">
+               				<div>
+               					<span>일반 정책 - 체크인 5일 전까지 예약 취소 시 취소 수수료 없음</span>
+               					<br>
+               					체크인 5일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               				</div>
+               			</c:when>
+               			<c:when test="${hdto.home_policy eq '엄격' }">
+               				<div>
+               					<span>유연 정책 - 체크인 1일 전까지 예약 취소 시 취소 수수료 없음</span>
+               					<br>
+               					체크인 1일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
+               				</div>
+               			</c:when>
+               		</c:choose>
                		<br>
                		<a href="https://www.airbnb.co.kr/home/updated_cancellation_policies?guest_fee_policy=full_refund" class="green">정책 자세히 읽기</a>
                		<br><br><br>
@@ -563,8 +614,220 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                <div id="info-main04">
                		<br>
                		<span>예약 가능 여부</span>
-               		<br><br><br>
-               		<!-- <div  id="inlineCal" class="datepicker-here" data-language='en' data-range="true"></div> -->
+               		<br><br>
+               		<div id="calcal" style="width: 200px; height:350px;">
+               			<div id="contentInlineCal" class="datepicker-here" data-range="true"></div>
+               		</div>
+               		
+               		<script>
+            			var blockedDates = '${getBlockedDate}';
+            			var disabledDays = new Array; 
+            					
+            			for(var i=0;i<blockedDates.split(",").length;i++){
+            				disabledDays.push(blockedDates.split(",")[i]);
+            			}
+            			console.log(disabledDays);
+            					
+                    	var isDisabled;
+                    	var today = new Date();
+                    	var d;
+                    	var blockDate;
+                    	var ttt;
+                    	var vvv;
+                    	var reserveDate;
+                    			
+                    	var checkinDate;
+                    	var checkoutDate;
+                    			
+            					
+            			$('#contentInlineCal').datepicker({
+                    				
+                    		todayButton: new Date(),
+                    		clearButton : true,
+                    		autoClose : "true",
+                    		dateFormat : "yyyy-mm-dd",
+                    		minDate: new Date(),
+                    		toggleSelected: false,
+                    		language: {
+                    			days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                    				  daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+                    				  daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+                    				  months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                    				  monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                    				  today: '오늘',
+                    				  clear: '날짜 지우기',
+                    				  dateFormat: "yyyy/mm/dd",
+                    				  timeFormat: 'hh:ii aa'
+                    			    },
+                    				
+                    		onSelect: function(formattedDate, date, inst){
+                    			function formatDate(date) {
+                    		              var d = new Date(date),
+                    		              month = '' + (d.getMonth() + 1),
+                    		              day = '' + d.getDate(),
+                    		              year = d.getFullYear();
+
+                    		              if (month.length < 2) month = '0' + month;
+                    		              if (day.length < 2) day = '0' + day;
+
+                    		               return [year, month, day].join('-');
+                    		          }
+                    					
+                    			var checkin = formatDate(date);
+                    					
+                    			var inYear = checkin.split('-')[0];
+                    			var inMonth = checkin.split('-')[1];
+                    			var inDay = checkin.split('-')[2];
+                    					
+                    			console.log("select");
+                    			console.log(date);
+                    					
+                    					
+                    			if(date.length == 1){
+                    				checkinDate = formatDate(date[0]);
+                    						
+                    				/* inpunt value */
+            						$("#calendarDrop").val(checkinDate + "              →         체크아웃");
+                    			}
+                    					
+                    			if(date.length == 2){
+                    						
+                    				checkinDate = formatDate(date[0]);
+                    				checkoutDate = formatDate(date[1]);
+                    					
+                        			console.log("-----");
+                        			console.log(checkinDate);
+                        			console.log(checkoutDate);
+                    						
+                    				/* inpunt value */
+            						$("#calendarDrop").val(checkinDate + "              →           "+checkoutDate);
+                    						
+                    				/* 날짜 선택시 달력 없애기 */
+									$( "#myDropdown2" ).removeClass( "show" );
+                    						
+                    				$.ajax({
+                    					url:"clickDate.re",
+                    					type:"get",
+                    					data:{
+                    						checkinDate:checkinDate,
+                    						checkoutDate:checkoutDate
+                    						},
+                    					success:function(resp){
+                    						var priceLeft = resp.priceLeft;
+                    						var priceRight = resp.priceRight;
+                    						var cleaningfee = resp.cleaningfee;
+                    						var servicefee = resp.servicefee;
+                    						var total = resp.total;
+                    						var blockedDate = resp.blockedDate;
+                    								
+                    						/* alert(priceLeft+" : "+priceRight); */
+                    								
+                    						$("#priceLeft").text(priceLeft);
+                    						$("#priceRight").text(priceRight);
+                    						$("#cleaningfee").text(cleaningfee);
+                    						$("#servicefee").text(servicefee);
+                    						$("#total").text(total);
+                    								
+                    								
+                    						$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
+                    						$(".fixedprice").css({"display":"block"});
+                    								
+                    						$("#reserv_checkin").val(checkinDate);
+                    						$("#reserv_checkout").val(checkoutDate);
+                    						$("#nightsAmount").val(priceRight);
+                    						$("#cleaningFee").val(cleaningfee);
+                    						$("#serviceFee").val(servicefee);
+                    						$("#totalAmount").val(total);
+                    								
+                    						$("#blockedDate").val(blockedDate);
+                    								
+                    								
+                    					},
+                    					error : function(request,status,error) {
+                    						console.log(request.status + " : " + status + " : " + error);
+                    					}
+                    				})
+                    						
+                    			}
+                    					
+                    			for(var j=0; j<disabledDays.length;j++){
+                    						
+                    				var reservYear = disabledDays[j].split('-')[0];
+                    		      	var reservMonth = disabledDays[j].split('-')[1];
+                    		      	var reservDay = disabledDays[j].split('-')[2];
+                    		      		  	
+                    		      	reserveDate = new Date(reservYear,reservMonth,reservDay);
+                    		      		  	
+                    		      	console.log(reserveDate.getDate()-1);
+                    		      	console.log(reserveDate.getMonth());
+                    		       	console.log(inMonth);
+                    						
+                    		      	if(inMonth == reserveDate.getMonth()){
+                    		      		if(date[0].getDate() == reserveDate.getDate()-1){
+                    		      				   
+                    		      			blockDate = new Date(2018,date[0].getMonth(),reserveDate.getDate()-2);
+                    		      			console.log(blockDate);
+                    		      				  
+                    		      			d = new Date(2018,date[0].getMonth(),reserveDate.getDate()-1);
+                    		      				  
+                    		      			ttt = new Date(2018,date[0].getMonth(),reserveDate.getDate());
+                    		      			vvv = new Date(2018,date[0].getMonth(),reserveDate.getDate()+1);
+                    		      				  
+                    		      		}else{
+                    		      			return;
+                    		      		}
+                    		      	}
+                    			} 
+                    		},
+                    		onRenderCell: function (date, cellType) {
+
+                             	
+                    			var currentDate = date.getDate();
+                    			var currentMonth = date.getMonth();
+                    			 currentMonth = "0"+currentMonth;
+                    			 
+                    			 if (cellType == 'day') {
+                    			        	
+                    			 function formatDate(date) {
+                    			       var d = new Date(date),
+                    			       month = '' + (d.getMonth() + 1),
+                    			       day = '' + d.getDate(),
+                    			       year = d.getFullYear();  
+
+                    			       if (month.length < 2) month = '0' + month;
+                    			       if (day.length < 2) day = '0' + day;
+
+                    			       return [year, month, day].join('-');
+                    			  }
+                    			            
+                    			        	 
+                    			 for(var i=0; i<disabledDays.length;i++){
+                    			        		
+                    			     var reservYear = disabledDays[i].split('-')[0];
+                    			     var reservMonth = disabledDays[i].split('-')[1];
+                    			     var reservDay = disabledDays[i].split('-')[2];
+                    				           
+                    				 var checkin = formatDate(date);
+                    				 var inYear = checkin.split('-')[0];
+                    				 var inMonth = checkin.split('-')[1];
+                    				 var inDay = checkin.split('-')[2];
+                    				           
+                    				 if(reservMonth == inMonth){
+                    				      if(reservDay === inDay){
+                    				       		return {
+                    				       			classes: 'myCalclass',
+                    				        		disabled : true
+                    				        	}
+                    				       };
+                    				 }
+                    			        	
+                    			  }
+                    			        	
+                    			}      
+                    		}  
+                    	});
+            					</script>
+            					
                		
                </div>
                <div id="info-main05">
@@ -815,24 +1078,24 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                				<div id="host-top-left">
                					
-               					<p>호스트: Kim님</p>
-               					Seogwipo-si, 한국 · 회원 가입: 2013년 10월
+               					<p>호스트: ${memberDTO.member_name }님</p>
+               					${memberDTO.member_location } · 회원 가입: ${memberDTO.member_date }
                				</div>
                				<div id="host-top-right">
                					<img src="<c:url value='../resources/img/1.jpg'/>">
                				</div>
                			</div>
                			<div id="host-contents">
-               				My name is Sarah and I live just a few minutes away from the sea. 
-               				I’m book translator and love to travel in search of new adventures, to meet new people, 
-               				to browse flea markets hunting for old items, to eat tasty food and drink fine wine, 
-               				to read and float in the sea, to ramble round old streets, and to blow in the wind.
+               				${memberDTO.member_introduction }
                			</div>
                			<div id="host-bottom">
                				<p>언어: </p><span>English, 한국어</span><br>
 							<p>응답률: </p><span>100%</span><br>
 							<P>응답 시간: </P><span>1시간 이내</span>
                			</div>
+               			<form action="messageSend.msg">
+               			<input type="hidden" name="home_seq" value="${hdto.home_seq}">
+               			</form>
                			<button id="toHost" class="btn btn-secondary">호스트에게 연락하기</button>
                			<br><br><br>
                		</div>
@@ -959,7 +1222,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             			<h6 style="display: inline;">342</h6>
             		</div>
             		<div id="fixed-sub02">
-            		 	<form action="reservReq.re" method="post">
+            		 	<form action="reservReq.re" method="post" id="">
             		 	
             			<br>
             			날짜
@@ -1009,7 +1272,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     			var checkoutDate;
                     			
             					
-            					$('.datepicker-here').datepicker({
+            					$('#inlineCal').datepicker({
                     				
                     				todayButton: new Date(),
                     				clearButton : true,
@@ -1456,9 +1719,17 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				<span style="float: right;" id="total" >₩21,913</span>
             			</div>
             			<br>
-            			<button id="reservationBT" class="btn btn-secondary" type="submit">
-            			예약 하기
-            			</button>
+            			<c:if test="${sessionScope.login_email eq null}">
+            				<button id="reservationBT" class="btn btn-secondary" type="button" data-toggle="modal" href="#myModal1">
+            					예약 하기
+            				</button>
+            			</c:if>
+            			<c:if test="${sessionScope.login_email ne null}">
+            				<button id="reservationBT" class="btn btn-secondary" type="submit">
+            					예약 하기
+            				</button>
+            			</c:if>
+            			
             			<br>
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             			
@@ -1486,6 +1757,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    
    <%@ include file="../../resource/include/footer.jsp" %>
    <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
+   <%@ include file="../../resource/include/modal_homeInfo/likey.jsp"%>
    <!-- 지도 -->
 	<!-- <script 
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>

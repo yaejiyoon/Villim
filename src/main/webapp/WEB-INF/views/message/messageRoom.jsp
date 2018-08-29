@@ -497,7 +497,7 @@ position:relative;
 			<div style="position:relative;top:-1vh;">
  <img src="files/${host_picture}" style="width:47%;height:15vh;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
 			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:6.9vw;font-weight:700;">${host_name}</h4>
-			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4.6vw;">${home_location}</h5>
+			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4vw;width:12vw;">${home_location}</h5>
             <a style="color:#337a46;position:relative;left:7.5vw;top:6.5vh;">신고하기</a>
 			</div>
 
@@ -508,7 +508,7 @@ position:relative;
 					<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">여행 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
 				<div style="position:relative;  top:4vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">체크인</h6><h6 style="display: inline !important;top:-2.8vh; margin:1vw;position:relative; left:1vw;font-weight:700;color:#9e9e9e;">체크 아웃</h6></div>
-				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.4vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:1vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
+				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.8vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:0vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
 				<div style="position:relative;  top:7vh;left:5.5vw;font-weight:700;"><h6 id="dayCI" style="display: inline !important;position:relative; top:-4.5vh;left:-1.7vw;margin:1vw;font-weight:700;">$요일</h6><h6 id="dayCO" style="display: inline !important; margin:1vw;position:relative; left:1.2vw;top:-4.5vh;font-weight:700;">$요일</h6></div>
 				<input id="checkIn" type="hidden" value="${splitCheckIn}">
 				<input id="checkOut"  type="hidden" value="${splitCheckOut}">
