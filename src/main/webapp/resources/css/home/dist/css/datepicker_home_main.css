@@ -166,17 +166,14 @@
    
 .datepickers-container {
   position : absolute;
-  left: 11vh;
-  top: 2px; 
-/*   left: 0; */
-/*   top: 0;  */
+  left: 0;
+  top: 0; 
 }
   @media print {
     .datepickers-container {
       display: none; } }
 
 .datepicker {
-	
   background: #fff;
   border: 1px solid #dbdbdb;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -187,13 +184,14 @@
   color: #4a4a4a;
   width: 17vw;
   position: absolute; 
-  /* left: -100000px; */
-  left : 0px !important;
+  left: -100000px;
+/*   left : 0px ; */
   opacity: 0;
   transition: opacity 0.3s ease, left 0s 0.3s, -webkit-transform 0.3s ease;
   transition: opacity 0.3s ease, transform 0.3s ease, left 0s 0.3s;
   transition: opacity 0.3s ease, transform 0.3s ease, left 0s 0.3s, -webkit-transform 0.3s ease;
-  z-index: 10000; }
+  z-index : 10000;
+   }
   .datepicker.-from-top- {
     -webkit-transform: translateY(-8px);
             transform: translateY(-8px); }

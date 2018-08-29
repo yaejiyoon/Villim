@@ -60,9 +60,6 @@ public class MainController {
 		session.setAttribute("googleUrl", url);
 		mav.addObject("result","result");
 		mav.setViewName("index");
-		System.out.println("ffff");
-
-
 		return mav;
 	}
 

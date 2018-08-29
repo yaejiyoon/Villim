@@ -18,7 +18,9 @@
 	}
 	
 	#datePicker {
-		width : 23vh;
+		width : 35vh;
+		font-size : 2.1vh;
+		border : 1px solid white;
 	}
 	
 	#dateSubmit {
@@ -37,7 +39,6 @@
 	
 </style>
 <script>
-
 
 	$(document).ready(function() {
 		$('#datePicker').datepicker({
@@ -83,36 +84,40 @@
 	                checkinDate = formatDate(date[0]);
 	                checkoutDate = formatDate(date[1]);
 	                
-	                
+	                $("#hiddenMainStartDate").val(checkinDate);
+	    			$("#hiddenMainEndDate").val(checkoutDate);
 	             }
 	          }
 		})
 		
-		$('#dateSubmit').click(function() {
+		$('#dateSubmit').submit(function() {
 		    $('#date').modal('hide');
 		    return false;
 		});
 	});
 </script>
-
+<form action="modalDate.do" method="post">
       <div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header" >
-                  <button type="button" class="close" data-dismiss="modal">
+                  <button type="button" class="close" data-dismiss="modal" type="button">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">날짜 지정하기 </h4>
                </div>
                <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
               	<input id="datePicker" type="text" data-range="true"
- 	                   data-multiple-dates-separator="  ~  "  
+ 	                   data-multiple-dates-separator="     ~     "  
                     todayButton="true" class="datepicker-here" 
-                     placeholder="  체크인       ㅡ       체크아웃" />  
-                     <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
+                     placeholder="   체크인       ㅡ       체크아웃 " />  
                </div>
                <div class="modal-footer">
+               		<input type="hidden" name="startDate" id="hiddenMainStartDate" value="0">
+         			<input type="hidden" name="endDate" id="hiddenMainEndDate" value="0">
+               		 <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
                </div>
             </div>
          </div>
       </div>
+</form>
