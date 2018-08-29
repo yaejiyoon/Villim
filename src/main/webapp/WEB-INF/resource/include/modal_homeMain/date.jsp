@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf8"%>
 
 <style>
+	
+
 	.modal-dialog {
 		margin-left : 5vh;
 		margin-top : 20vh;
@@ -9,6 +11,7 @@
 	
 	.modal-backdrop {
    		background-color: #f9f2ef;
+   		z-index : 0;
 	}
 	
 	.mainModal{
@@ -16,7 +19,9 @@
 	}
 	
 	#datePicker {
-/* 		border : 1px solid white; */
+		width : 35vh;
+		font-size : 2.1vh;
+		border : 1px solid white;
 	}
 	
 	#dateSubmit {
@@ -24,28 +29,22 @@
 		color : #008489;
 		border : 1px solid #008489;
 		font-family: dx;
+		float : right;
 	}
 	
-	#dateSubmit:hover, #dateDelete:hover {
+	#dateSubmit:hover{
 		background-color: #008489; 
 		color : white;
 		outline:0;
 	}
 	
-	#dateDelete {
-		float: left;
-		background-color: white; 
-		color : #008489;
-		border : 1px solid #008489;
-		
-	}
-	
 </style>
 <script>
 
-
 	$(document).ready(function() {
 		$('#datePicker').datepicker({
+			todayButton: new Date(),
+            clearButton : true,
 			autoClose : "true",
 		    dateFormat : "yyyy/mm/dd",
 		    minDate: new Date(),
@@ -56,6 +55,8 @@
 		        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
 		        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
 		        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+		        today: '오늘',
+                clear: '날짜 지우기',
 		        dateFormat: "yyyy/mm/dd",
 		        timeFormat: 'hh:ii aa'
 		     },
@@ -84,37 +85,40 @@
 	                checkinDate = formatDate(date[0]);
 	                checkoutDate = formatDate(date[1]);
 	                
-	                
+	                $("#hiddenMainStartDate").val(checkinDate);
+	    			$("#hiddenMainEndDate").val(checkoutDate);
 	             }
 	          }
 		})
 		
-		$("#dateDelete").click(function() {
-			$("#datePicker").val("");
+		$('#dateSubmit').submit(function() {
+		    $('#date').modal('hide');
+		    return false;
 		});
 	});
 </script>
-
+<form action="modalDate.do" method="post">
       <div class="modal fade" id="date" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header" >
-                  <button type="button" class="close" data-dismiss="modal">
+                  <button type="button" class="close" data-dismiss="modal" type="button">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>
-                  <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">참가신청 완료하기</h4>
+                  <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">날짜 지정하기 </h4>
                </div>
                <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
               	<input id="datePicker" type="text" data-range="true"
- 	                   data-multiple-dates-separator="  ~  "  
+ 	                   data-multiple-dates-separator="     ~     "  
                     todayButton="true" class="datepicker-here" 
-                     placeholder="  체크인       ㅡ       체크아웃" />  
-<!-- 	                     <div class="datepicker-here" data-range="true" id="datePicker"></div> -->
+                     placeholder="   체크인       ㅡ       체크아웃 " />  
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="dateDelete" type="button">삭제</button> 
-                   <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
+               		<input type="hidden" name="startDate" id="hiddenMainStartDate" value="0">
+         			<input type="hidden" name="endDate" id="hiddenMainEndDate" value="0">
+               		 <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
                </div>
             </div>
          </div>
       </div>
+</form>

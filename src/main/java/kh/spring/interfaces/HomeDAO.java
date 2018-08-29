@@ -3,6 +3,7 @@ package kh.spring.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -85,6 +86,8 @@ public interface HomeDAO {
 	
 	//----------------지혜-----------------
 	public int updateBlockedDate(String blockedDate,int home_seq);
+	
+	public BedDTO getBedData(int home_seq);
 	
 	
 //	예지
