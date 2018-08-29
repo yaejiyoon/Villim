@@ -16,8 +16,6 @@ import kh.spring.dto.ReservationDTO;
 public interface HomeDAO {
 	public List<HomeDTO> getAllHomeData(String member_email);
 
-	public List<HomeDTO> getAllHomeData();
-
 	public HomeDTO getOldestHomeData(String member_email);
 
 	public HomeDTO getHomeData(int home_seq);
