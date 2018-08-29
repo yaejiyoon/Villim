@@ -86,7 +86,7 @@
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="likeyPage.do">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
@@ -195,7 +195,7 @@
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="likeyPage.do">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>

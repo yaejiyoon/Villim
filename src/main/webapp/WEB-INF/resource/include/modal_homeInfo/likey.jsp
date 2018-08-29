@@ -117,32 +117,38 @@
 
 <script>
 	$(document).ready(function(){
-		var likeState = 0;
 		$(".likeyButton").click(function(){
 			alert("버튼!");
-			if(likeState == 0){
-				
-				var listName = $(this).parent().find('p').html();
-				alert(listName);
-				
-				
-				$(this)
-            .find(".likeyBT")
-            .attr("src","<c:url value='../resources/img/like2.png'/>");
-				
+			
+			var srcBT = $(this).parent().find('img').attr('src');
+			
+			if(srcBT == '../resources/img/like.png'){
+				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like2.png'/>");
 				$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
-				likeState = 1;
 				
+				var likeylist_Seq = $(this).parent().find('input').val();
+				var home_seq = ${hdto.home_seq}
 				
+				$.ajax({
+					url:"likey.do",
+					type:"get",
+					data:{
+						likeylist_Seq:likeylist_Seq,
+						home_seq:home_seq
+						},
+				success:function(){
+					console.log("전달 성공!")
+					},
+				error : function(request,status,error) {
+					console.log(request.status + " : " + status + " : " + error);
+					}
+				})
 				
 			}else{
-				$(this)
-            .find(".likeyBT")
-            .attr("src","<c:url value='../resources/img/like.png'/>");
-				
+				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
 				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
-				likeState = 0;
 			}
+			
 		})
 		
 		
@@ -198,6 +204,10 @@
                						type:"get",
                						data:{likeyListName:likeyListName},
                						success:function(resp){
+               							
+               							/* $("#likeyListDiv").css({"display":"none"});
+                           				$("#makeList").css({"display":"block"}); */
+               							
                							$('.likeyList-content').remove();
                							
                							for(var i=0; i<resp.likeyList.length;i++){
@@ -229,6 +239,7 @@
                			<c:forEach items="${likeyList }" var="likeyList">
                				<div class="likeyList-content">
                					<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyList.likeyList_name }</p>
+               					<input type="hidden" class="hiddenSeq" value="${likeyList.likeyList_seq }">
                					<button class="btn btn-secondary likeyButton">
          							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT">
          						</button>
@@ -261,42 +272,29 @@
         	 
         	 var home_seq = ${hdto.home_seq }
      		
-     		if(likeState1 == 0){
-     			var listName = $("#"+Pid).html();
-				alert(listName);
-     			alert(seq);
-     			alert(home_seq);
-     				
-     				
+     		
+     		var listName = $("#"+Pid).html();
+			alert(listName);
+     		alert(seq);
+     		alert(home_seq);
+     			
+     		var src = $("#"+BTid).find("img").attr("src");
+     			
+     		if(src == '../resources/img/like.png'){
      			$("#"+BTid)
                  .find("img")
                  .attr("src","<c:url value='../resources/img/like2.png'/>");
      				
      			$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
-     			likeState1 = 1;
-     			
-     			$.ajax({
-    				url:"ajax01.do",
-    				type:"get",
-    				data:{name:name, email:email},
-    				success:function(){
-    					console.log("전달 성공!")
-    				},
-    				error : function(request,status,error) {
-    					console.log(request.status + " : " + status + " : " + error);
-    				}
-    			})
-     				
      		}else{
-     				
      			$("#"+BTid)
                  .find("img")
                  .attr("src","<c:url value='../resources/img/like.png'/>");
      				
-     			$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
-     			likeState1 = 0;
-     			
+     			("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
      		}
+     				
+     			
      		
  		}
          </script>

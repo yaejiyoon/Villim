@@ -34,6 +34,7 @@ import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.LikeyDTO;
 import kh.spring.dto.LikeyListDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
@@ -969,20 +970,20 @@ public class HomeInfoController {
 		likeyListDTO.setMember_email(member_email);
 		
 		
-		int addLikeyListResult = likeyService.insertDate(likeyListDTO);
+		int addLikeyListResult = likeyService.insertData(likeyListDTO);
 		
 		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
 		
-		Map<String, Object> reviewmap = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		reviewmap.put("likeyList", likeyList);
+		map.put("likeyList", likeyList);
 		
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
 		
 		try {
-			new Gson().toJson(reviewmap,response.getWriter());
+			new Gson().toJson(map,response.getWriter());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -990,8 +991,50 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/likey.do")
-	public void addLikey(HttpServletRequest req) {
+	public void addLikey(HttpServletRequest req, HttpServletResponse response) {
+		int likeyList_seq = Integer.parseInt(req.getParameter("likeylist_Seq"));
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		String member_email = req.getSession().getAttribute("login_email").toString();
 		
+		System.out.println("dtodto");
+		System.out.println(likeyList_seq);
+		System.out.println(home_seq);
+		System.out.println(member_email);
+		
+		LikeyDTO likeyDTO = new LikeyDTO();
+		likeyDTO.setLikeyList_seq(likeyList_seq);
+		likeyDTO.setHome_seq(home_seq);
+		likeyDTO.setMember_email(member_email);
+		
+		int likeyResult = likeyService.insertLikeyData(likeyDTO);
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("likeyResult", likeyResult);
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			response.getWriter().print(json);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping("/likeyPage.do")
+	public ModelAndView likeyPage(HttpServletRequest req) {
+		
+		
+		ModelAndView mav = new ModelAndView();
+		/*mav.addObject("paymentResult", paymentResult);*/
+		mav.setViewName("home/likeyList");
+
+		return mav;
 	}
 	
 }

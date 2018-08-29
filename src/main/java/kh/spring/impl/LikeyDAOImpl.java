@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.LikeyDTO;
 import kh.spring.dto.LikeyListDTO;
 import kh.spring.interfaces.LikeyDAO;
 
@@ -20,7 +21,7 @@ public class LikeyDAOImpl implements LikeyDAO{
 	private SqlSessionTemplate ssTemplate;
 
 	@Override
-	public int insertDate(LikeyListDTO dto) {
+	public int insertData(LikeyListDTO dto) {
 		String sql = "insert into likeylist values(likeylist_seq.nextval,?,?)";
 		return jdbcTemplate.update(sql,dto.getLikeyList_name(),dto.getMember_email());
 	}
@@ -28,6 +29,12 @@ public class LikeyDAOImpl implements LikeyDAO{
 	@Override
 	public List<LikeyListDTO> getAlldata(String member_email) {
 		return ssTemplate.selectList("Likey.getAlldata",member_email);
+	}
+
+	@Override
+	public int insertLikeyData(LikeyDTO dto) {
+		String sql = "insert into likey values(likey_seq.nextval,?,?,?)";
+		return jdbcTemplate.update(sql,dto.getLikeyList_seq(),dto.getHome_seq(),dto.getMember_email());
 	}
 
 }
