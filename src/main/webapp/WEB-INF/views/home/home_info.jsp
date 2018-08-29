@@ -372,7 +372,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				});
                			</script>
                			<br>
-               			<a href="" class="green">호스트에게 연락하기 </a>
+               			<a href="messageSend.msg" class="green">호스트에게 연락하기 </a>
                			<br>
                			<br>
                			<br>
@@ -1093,6 +1093,9 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							<p>응답률: </p><span>100%</span><br>
 							<P>응답 시간: </P><span>1시간 이내</span>
                			</div>
+               			<form action="messageSend.msg">
+               			<input type="hidden" name="home_seq" value="${hdto.home_seq}">
+               			</form>
                			<button id="toHost" class="btn btn-secondary">호스트에게 연락하기</button>
                			<br><br><br>
                		</div>

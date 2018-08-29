@@ -1,6 +1,10 @@
 package kh.spring.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
+import kh.spring.dto.DetailDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -256,6 +261,7 @@ public class HomeInfoController {
 		
 		
 		ModelAndView mav = new ModelAndView();
+		
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
 		mav.addObject("guestReviewList", guestReviewList);
@@ -587,7 +593,7 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/reservReqToHost.re")
-	public ModelAndView reservReqToHost(HttpServletRequest req) {
+	public ModelAndView reservReqToHost(HttpServletRequest req) throws Exception {
 		ReservationDTO reservDTO = (ReservationDTO) req.getSession().getAttribute("ReserveDTO");
 		
 		System.out.println(reservDTO.getTotalAmount());
@@ -658,6 +664,7 @@ public class HomeInfoController {
 		roomdto.setHost_email(reservDTO.getHost_email());
 		roomdto.setGuest_email(reservDTO.getMember_email());
 		roomdto.setHome_seq(home_seq);
+		System.out.println("message_room_seq : "+roomdto.getMessage_room_seq());
 		MessageRoomDTO messageRoomSeqExist = MessageService.messageRoomSeqExist(roomdto);
 		int message_room_seq = 0;
 		if (messageRoomSeqExist != null) {
@@ -694,7 +701,9 @@ public class HomeInfoController {
 			if (messageInfoInsert > 0) {
 				System.out.println("msgroom정보 입력에 성공!");
 			}
-			;
+			
+			
+			
 		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
@@ -713,11 +722,44 @@ public class HomeInfoController {
 		messageDTO.setFromID(reservDTO.getMember_email());
 		messageDTO.setToID(reservDTO.getHost_email());
 		messageDTO.setMessage_content(memberDTO.getMember_name()+"님의 예약 요청 입니다.");
-
+		
 		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
-		int messageInsertResult = MessageService.messageInsert(messageDTO);
+		int messageInsertResult = this.MessageService.messageInsert(messageDTO);
 		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
+			 System.out.println("message_seq : "+messageDTO.getMessage_seq());
+			 
+			//실제 메세지 보내기
+			  MemberDTO mGuest=memberService.printProfile(reservDTO.getMember_email());
+			  MemberDTO mHost=memberService.printProfile(reservDTO.getHost_email());
+             
+			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
+			  System.out.println("진짜 문자 보낼 내용 : "+getMessageAfterSend.getMessage_content());
+		      String to = "82" +mHost.getMember_phone();
+		      String from = "33644643087";
+		      String message =  URLEncoder.encode("[Villim] : "+mGuest.getMember_name()+", "+getMessageAfterSend.getCheckIn()+" - "+getMessageAfterSend.getCheckOut()+", '"+getMessageAfterSend.getMessage_content()+"'","UTF-8");
+		      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+		    
+		      StringBuilder sb = new StringBuilder();
+		      sb.append(sendUrl);
+		      sb.append("&to=" + to);
+		      sb.append("&from=" + from);
+		      sb.append("&text=" + message);
+
+		      System.out.println(sb.toString());
+
+		      try {
+		         URL url = new URL(sb.toString());
+		         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		         int result = con.getResponseCode();
+		         System.out.println(result);
+		         con.disconnect();
+		      }catch(Exception e) {
+		    	  e.printStackTrace();
+		      }
+		         //
+			
+			
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -730,11 +772,13 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/acceptReserv.re")
-	public ModelAndView acceptReserv(HttpServletRequest req) {
+	public ModelAndView acceptReserv(HttpServletRequest req) throws Exception {
 		int reservation_Seq = Integer.parseInt(req.getParameter("seq"));
 		int message_room_seq = Integer.parseInt(req.getParameter("roomSeq"));
+
+		System.out.println("acceptReserv지혜언니가 수락했을때~!!!");
 		System.out.println("reservation_seq : "+reservation_Seq);
-		
+		System.out.println("message_room_seq : "+message_room_seq);
 		//예약상태 업데이트 (1:예약 완료)
 		int updateState = reservService.updateReservState(reservation_Seq, 1);
 		
@@ -758,8 +802,10 @@ public class HomeInfoController {
 			System.out.println(checkInDate+ " : " +checkOutDate);
 		}
 
-
-		System.out.println("message_room_seq= " + message_room_seq);
+		//message_room 존재여부 확인
+		if(message_room_seq >0) {
+			System.out.println("msgroom정보 이미 존재");
+		}
 
 		//멤버 이름
 		MemberDTO memberDTO = memberService.printProfile(reservationDTO.getHost_email());
@@ -768,14 +814,45 @@ public class HomeInfoController {
 
 		messageDTO.setMessage_room_seq(message_room_seq);
 		messageDTO.setHome_seq(reservationDTO.getHome_seq());
-		messageDTO.setFromID(reservationDTO.getMember_email());
-		messageDTO.setToID(reservationDTO.getHost_email());
+		messageDTO.setFromID(reservationDTO.getHost_email());
+		messageDTO.setToID(reservationDTO.getMember_email());
 		messageDTO.setMessage_content(memberDTO.getMember_name()+"님이 예약 요청을 수락했습니다");
 
 		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
-		int messageInsertResult = MessageService.messageInsert(messageDTO);
+		int messageInsertResult = this.MessageService.messageInsert(messageDTO);
 		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
+			
+			//실제 메세지 보내기
+			  MemberDTO mGuest=memberService.printProfile(reservationDTO.getMember_email());
+			  
+              System.out.println("msg_seq : "+messageInsertResult);
+			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
+			  
+		      String to = "82" +mGuest.getMember_phone();
+		      String from = "33644643087";
+		      String message =  URLEncoder.encode("[Villim] : "+mGuest.getMember_name()+", "+getMessageAfterSend.getCheckIn()+" - "+getMessageAfterSend.getCheckOut()+", '"+getMessageAfterSend.getMessage_content()+"'","UTF-8");
+		      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+		    
+		      StringBuilder sb = new StringBuilder();
+		      sb.append(sendUrl);
+		      sb.append("&to=" + to);
+		      sb.append("&from=" + from);
+		      sb.append("&text=" + message);
+
+		      System.out.println(sb.toString());
+
+		      try {
+		         URL url = new URL(sb.toString());
+		         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		         int result = con.getResponseCode();
+		         System.out.println(result);
+		         con.disconnect();
+		      }catch(Exception e) {
+		    	  e.printStackTrace();
+		      }
+		         //
+			
 		}
 
 		

@@ -67,5 +67,7 @@ public interface MessageDAO {
 	public List<HomeDTO> getHomeNames(String userId);
 	
 	
+	//호스트가 수락하고 난 뒤에
+	public MessageDTO getMessageOne(int message_room_seq);
 	
 }

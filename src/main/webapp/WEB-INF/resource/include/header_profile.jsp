@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
 <link href="<c:url value="/resources/css/main/header.css?var=2" />"
@@ -14,6 +15,11 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <style>
+@font-face {
+        font-family: font;
+        src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
+   }
+   
 .circle-badge {
   height: 10px;
   width: 10px;
@@ -48,7 +54,7 @@
 </script>
 
 
-    <div id="header">
+    <div id="header" style="font-family: font;">
       <div id="header-logo">
          <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
@@ -56,7 +62,7 @@
          <img src="<c:url value='/resources/img/search.png'/>">
          <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
       </div>
-      <div id="header-menu" class="headerContainer" >
+      <div id="header-menu" class="headerContainer">
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
@@ -131,8 +137,35 @@
             </nav>
          </section>
       </div>
-      <div id="header-pic">
+      <%-- <div id="header-pic">
          <img src="<c:url value='/resources/img/1.jpg'/>">
-      </div>
+      </div> --%>
+      
+       <div id="header-pic" style="position:relative;left:-10vw;">
+              <div class="dropdown">
+              <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+               <c:set var="test" value="${sessionScope.login_picture}"/>
+               	 <c:if test="${fn:startsWith (test, 'http')}">
+             	  <img src="${sessionScope.login_picture}">
+             	  </c:if>
+             	  <c:if test="${fn:endsWith (test, 'jpg')}">
+             	  <img src=" files/${sessionScope.login_picture}"> 
+             	</c:if>
+             	  <c:if test="${fn:endsWith (test, 'png')}">
+             	  <img src=" files/${sessionScope.login_picture}"> 
+             	</c:if>
+             	</a>
+             	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        					<li><a href="profileEditView.mo">프로필 수정하기</a></li>
+        					<li><a href="#">친구 초대하기</a></li>
+        					<li><a href="#">호스트 추천하기</a></li>
+        					<li><a href="#">계정관리</a></li>
+        					<li><a href="#">나의 가이드북</a></li>
+        					<li><a href="logout.do">로그아웃</a></li>
+      			</ul>
+              </div>  
+              
+
+     	       </div>
    </div>
 

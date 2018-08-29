@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,10 @@
 
 <title>${guest_name}님과의 대화</title>
 <style>
+@font-face {
+        font-family: font;
+        src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
+   }
 .card {
 	transition: 0.3s;
 	width: 18vw;
@@ -476,7 +481,7 @@ $(document).ready(function(){
 <div class="card">
 						<div class="row" style="font-weight:700;width:100%;height:30vh;position:relative;left:0.8vw;">
 			<div style="position:relative;top:2vh;">
-					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">예약 세부정보</h4>
+					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">예약 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
 				<div style="position:relative;  top:4vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">체크인</h6><h6 style="display: inline !important;top:-2.8vh; margin:1vw;position:relative; left:1vw;font-weight:700;color:#9e9e9e;">체크 아웃</h6></div>
 				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.4vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:1vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
@@ -495,7 +500,7 @@ $(document).ready(function(){
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:0vh;width:100%;">
 			
 			<div style="position:relative;top:1vh;">
-			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">호스팅 대금</h4>
+			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">호스팅 대금</h4>
 			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:5.8vw;">￦${stayPrice}</h5></div>
             <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦${home_servicefee}</h5></div>
             <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.2vw;">￦${home_cleaningfee}</h5></div>
@@ -511,7 +516,7 @@ $(document).ready(function(){
 			
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
 			<div style="width:75%;position:relative;top:1vh;left:3vw;">
-			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">예약 취소</h4>
+			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">예약 취소</h4>
 			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
 이 예약을 취소하면 페널티를 받게 됩니다. 페널티에는 1년간 슈퍼호스트 지위 박탈, 취소 기록을 보여주는 후기 공개, 취소 수수료가 포함되며, 취소한 예약에 해당하는 날짜가 달력에서 차단됩니다.</h5>
 			</div>
@@ -521,7 +526,7 @@ $(document).ready(function(){
 	
 			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-3vh;width:100%;">
 			<div style="width:75%;position:relative;top:3vh;left:3vw;">
-			<h4 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">언제나 빌림을 통해 대화하세요</h4>
+			<h4 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">언제나 빌림을 통해 대화하세요</h4>
 			<h5 style="position:relative;top:4vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
 			</div>
 			</div>
@@ -529,7 +534,7 @@ $(document).ready(function(){
 			
 			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;">
 			<div style="position:relative;top:2vh;">
-			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;">게스트 소개 </h4>
+			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;font-family: font;">게스트 소개 </h4>
 			<div style="width:4.2vw;height:7.7vh;position:relative;left:3vw;top:2.9vh;">
             <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
 			</div>
@@ -640,9 +645,12 @@ $(document).ready(function(){
     <form action="acceptReserv.re" method="post">
     	<input type="hidden" name="seq" value="${re.reservation_seq}">
     	<input type="hidden" name="roomSeq" value="${message_room_seq}">
+    	<input type="hidden" name="guest_email" value="${guest_email}">
+    	<input type="hidden" name="host_email" value="${userId}">
+    	<input type="hidden" id="home_seq" value="${home_seq}">
     	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
     </form>
-    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:2vh;left:1vw;">거절</button> 
+    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:-1.6vh;left:9.1vw;">거절</button> 
     
   </div>
 </div>
