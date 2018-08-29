@@ -1,11 +1,13 @@
 package kh.spring.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -22,15 +24,15 @@ public class HomeServiceImpl implements HomeService {
 
 	@Autowired
 	private HomeDAO hdao;
-	
+
 	@Override
 	public List<HomeDTO> getAllHomeData(String member_email) {
 		return hdao.getAllHomeData(member_email);
 	}
 
 	@Override
-	public HomeDTO getOldestHomeData() {
-		return hdao.getOldestHomeData();
+	public HomeDTO getOldestHomeData(String member_email) {
+		return hdao.getOldestHomeData(member_email);
 	}
 
 	@Override
@@ -122,8 +124,8 @@ public class HomeServiceImpl implements HomeService {
 	public int modifyHomeRulesDetails(HomeDTO hdto) {
 		return hdao.modifyHomeRulesDetails(hdto);
 	}
-	
-//	예지
+
+	// 예지
 	@Override
 	public List<HomeDTO> getAllHomeDataMain() {
 		return hdao.getAllHomeDataMain();
@@ -135,8 +137,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<GuestReviewDTO> getAllGuestReview(String member_email) {
-		return hdao.getAllGuestReview(member_email);
+	public List<GuestReviewDTO> getAllGuestReview(HashMap<String, Object> map) {
+		return hdao.getAllGuestReview(map);
 	}
 
 	@Override
@@ -145,8 +147,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public int guestReviewCount(String member_email) {
-		return hdao.guestReviewCount(member_email);
+	public int guestReviewAllCount(String member_email) {
+		return hdao.guestReviewAllCount(member_email);
 	}
 
 	@Override
@@ -155,50 +157,49 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public List<GuestReviewDTO> getSatisfaction() {
-		return hdao.getSatisfaction();
+	public List<GuestReviewDTO> getSatisfaction(int home_seq) {
+		return hdao.getSatisfaction(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getAccuracy() {
-		return hdao.getAccuracy();
+	public List<GuestReviewDTO> getAccuracy(int home_seq) {
+		return hdao.getAccuracy(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getCleanLiness() {
-		return hdao.getCleanLiness();
+	public List<GuestReviewDTO> getCleanLiness(int home_seq) {
+		return hdao.getCleanLiness(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getCheckin() {
-		return hdao.getCheckin();
+	public List<GuestReviewDTO> getCheckin(int home_seq) {
+		return hdao.getCheckin(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getAmenities() {
-		return hdao.getAmenities();
+	public List<GuestReviewDTO> getAmenities(int home_seq) {
+		return hdao.getAmenities(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getCommunication() {
-		return hdao.getCommunication();
+	public List<GuestReviewDTO> getCommunication(int home_seq) {
+		return hdao.getCommunication(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getLocation() {
-		return hdao.getLocation();
+	public List<GuestReviewDTO> getLocation(int home_seq) {
+		return hdao.getLocation(home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getValue() {
-		return hdao.getValue();
+	public List<GuestReviewDTO> getValue(int home_seq) {
+		return hdao.getValue(home_seq);
 	}
 
 	@Override
-	public List<MessageDTO> getAllMessage(int home_seq) {
-		return hdao.getAllMessage(home_seq);
+	public List<MessageDTO> getAllMessage(String member_email) {
+		return hdao.getAllMessage(member_email);
 	}
-
 
 	@Override
 	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
@@ -210,10 +211,82 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getHomePic();
 	}
 
+	@Override
+	public int modifyPolicy(HomeDTO hdto) {
+		return hdao.modifyPolicy(hdto);
+	}
+
+	@Override
+	public int modifybed(BedDTO bdto) {
+		return hdao.modifybed(bdto);
+	}
+
+	@Override
+	public int modifyHomeType(HomeDTO hdto) {
+		return hdao.modifyHomeType(hdto);
+	}
+
+	@Override
+	public int getGuestReviewPaging(HashMap<String, Object> map) {
+		return hdao.getGuestReviewPaging(map);
+	}
+
+	@Override
+	public String getReviewPageNavi(int currentPageNo, int home_seq, Map<String, Object> map) {
+		return hdao.getReviewPageNavi(currentPageNo, home_seq, map);
+	}
+
+	@Override
+	public List<HomeDTO> getSimilarHome(HomeDTO hdto) {
+		return hdao.getSimilarHome(hdto);
+	}
+
+	@Override
+	public List<ReservationDTO> getWaitReserve(Map<String, Object> map) {
+		return hdao.getWaitReserve(map);
+	}
+
+	@Override
+	public List<ReservationDTO> getReservation(int home_seq) {
+		return hdao.getReservation(home_seq);
+	}
+
+	@Override
+	public int modifyReservState(int reservation_seq) {
+		return hdao.modifyReservState(reservation_seq);
+	}
+
+	@Override
+	public List<ReservationDTO> getApprovalReserve(Map<String, Object> map) {
+		return hdao.getApprovalReserve(map);
+	}
+
+	@Override
+	public int modifyHomeView(int home_seq) {
+		return hdao.modifyHomeView(home_seq);
+	}
+	@Override
+	public List<ReservationDTO> getCalReservation(Map<String, Object> map) {
+		return hdao.getCalReservation(map);
+	}
 	
-	//----------------지혜-----------------
+	// ----------------지혜-----------------
 	@Override
 	public int updateBlockedDate(String blockedDate, int home_seq) {
 		return hdao.updateBlockedDate(blockedDate, home_seq);
 	}
+
+	@Override
+	public int guestReviewCount(HashMap<String, Object> map) {
+		return hdao.guestReviewCount(map);
+	}
+
+	@Override
+	public int modifyCountdown(long getTime, int reservation_seq) {
+		return hdao.modifyCountdown(getTime, reservation_seq);
+	}
+
+
+
+
 }

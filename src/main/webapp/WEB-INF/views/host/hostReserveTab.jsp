@@ -41,7 +41,6 @@ div {
 	float: left;
 	padding: 0;
 	margin-bottom: -30px;
-	border: 1px solid black;
 }
 
 .home-reserve div {
@@ -174,11 +173,11 @@ div {
 	<div id="wrapper">
 		<div class="home-title">
 			<div
-				style="display: inline-block; width: 79%; border: 1px dotted black;">
+				style="display: inline-block; width: 79%;">
 				<h2>${hdto.home_name }</h2>
 			</div>
 			<div
-				style="display: inline-block; width: 20%; border: 1px dotted black; text-align: right;">
+				style="display: inline-block; width: 20%;text-align: right;">
 				<button type="button" class="btn"
 					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
 					<b>달력보기</b>
@@ -226,19 +225,15 @@ div {
 					</h4>
 				</div>
 				<div class="guest-rule-mod">
-					<button type="button" class="btn">
+					<button type="button" class="btn"
+					onclick="location.href='hostHomePolicyModifyTab.do?seq=${hdto.home_seq}'">
 						<b>수정</b>
 					</button>
 				</div>
 				<div class="policy">
-					<div class="policy-sub1">
-						<div>체크인 시간</div>
-						<div class></div>
-					</div>
-					<div class="home-reserve-line"></div>
 					<div class="policy-sub2">
-						<div>체크아웃 시간</div>
-						<div>설정되지 않음</div>
+						<div>환불 정책</div>
+						<div style="text-align: right;">${hdto.home_policy }</div>
 					</div>
 				</div>
 			</div>
