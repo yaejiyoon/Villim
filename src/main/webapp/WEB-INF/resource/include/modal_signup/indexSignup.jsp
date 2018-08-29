@@ -236,20 +236,25 @@
 			
 			/* facebook */
 			 function statusChangeCallback(response) {
+				alert("statusChangeCallback");
 			  console.log('statusChangeCallback');
 			  console.log(response);
 
 			  if (response.status === 'connected') {
 			    // Logged into your app and Facebook.
+			    alert("statusChangeCallback 내부");
 			    testAPI();
 			  } else {
+				  alert("statusChangeCallback 내부2");
 			    // The person is not logged into your app or we are unable to tell.
 			    document.getElementById('status').innerHTML = 'Please log ' +
 			      'into this app.';
+			    testAPI();
 			  }
 			} 
 
 			 function checkLoginState() {
+				 alert("checkLoginState");
 			  FB.getLoginStatus(function(response) {
 			    statusChangeCallback(response);
 			  });
@@ -267,6 +272,9 @@
 
 
 			  FB.getLoginStatus(function(response) {
+				  alert("getLoginStatus");
+				  alert(response);
+				  alert(response.status);
 			     statusChangeCallback(response); 
 			     if (response.status === 'connected') {
 			            //user is authorized
@@ -360,6 +368,7 @@
 			    // The person is not logged into your app or we are unable to tell.
 			    document.getElementById('status').innerHTML = 'Please log ' +
 			      'into this app.';
+			    testAPI();
 			  }
 			} 
 
@@ -671,7 +680,7 @@ function loginWithEmail(){
       </div>
       
       <div class="modal-body">
-      <button type="button" class="btn btn-primary" id="facebook">
+      <button type="button" class="btn btn-primary" id="facebook"> 
       	<i class="fab fa-facebook-f fa-2x" style="color:white"></i>  
       	<font> 페이스북 계정으로 회원가입</font>
       </button><br>
