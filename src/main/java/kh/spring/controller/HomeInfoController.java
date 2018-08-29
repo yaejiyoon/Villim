@@ -208,7 +208,7 @@ public class HomeInfoController {
 		int bedCount = 0;
 		int bedroom = 0;
 		List<BedDTO> bedList = new ArrayList<>();
-		if(bedDTO.getBed_single() != null) {
+		if(bedDTO != null) {
 			for(int i=0;i<bedDTO.getBed_single().split(",").length;i++) {
 				bedCount = bedCount + Integer.parseInt(bedDTO.getBed_single().split(",")[i])
 				+Integer.parseInt(bedDTO.getBed_double().split(",")[i])
@@ -229,9 +229,6 @@ public class HomeInfoController {
 		
 		
 		System.out.println("침대 갯수 : " + bedCount);
-		System.out.println(bedList.get(1).getBed_single());
-		System.out.println(bedList.get(1).getBed_double());
-		System.out.println(bedList.get(1).getBed_queen());
 		//욕실
 		int bathroom = 0;
 		//공용공간
