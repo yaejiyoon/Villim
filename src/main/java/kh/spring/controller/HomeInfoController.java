@@ -944,6 +944,12 @@ public class HomeInfoController {
 		
 		//결제 테이블
 		int paymentResult = paymentService.insertDate(paymentDTO);
+		//예약 상태 (4:결제완료)
+		int updateState = reservService.updateReservState(reservationDTO.getReservation_seq(), 4);
+		
+		if(updateState>0) {
+			System.out.println("4로 성공!!!!");
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("paymentResult", paymentResult);
@@ -981,6 +987,11 @@ public class HomeInfoController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@RequestMapping("/likey.do")
+	public void addLikey(HttpServletRequest req) {
+		
 	}
 	
 }
