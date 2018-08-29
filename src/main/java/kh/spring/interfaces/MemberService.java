@@ -17,6 +17,10 @@ public interface MemberService {
 	public int signup(MemberDTO dto);
 	public String isMember(MemberDTO dto);
 	public String isSnsMember(MemberDTO dto);
+	public String isMail(String mail);
+	public String getAllMemberCountData();
+	public List<MemberDTO> getAllMemberData();
+	public int memberBlock(List<String> arr);
 	
 	
 	//지은

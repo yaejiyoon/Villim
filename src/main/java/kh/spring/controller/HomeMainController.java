@@ -33,10 +33,13 @@ public class HomeMainController {
 	private HomeService homeService;
 	
 	@RequestMapping("/homeMain.do")
-	public ModelAndView homeMain() {
+	public ModelAndView homeMain(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
 		List<HomePicDTO> homePic = homeService.getHomePic();
+		session.setAttribute("homeType", "0");
+		session.setAttribute("people", 0);
+		session.setAttribute("startDate", "0");
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");
@@ -207,6 +210,72 @@ public class HomeMainController {
 
 		System.out.println("modal로 homeType 바꾸고 나서 list : "+(List) session.getAttribute("homeTypeList"));
 		System.out.println("modal로 homeType 바꾸고 나서 checked : "+(String)session.getAttribute("homeTypeIsChecked"));
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
+		param.put("homeTypeIsChecked", (String) session.getAttribute("homeTypeIsChecked"));
+		param.put("people", session.getAttribute("people"));
+		param.put("dates", (List) session.getAttribute("dates"));
+		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		List<HomeDTO> homeList = homeService.modalHomeData(param);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("homeList", homeList);
+		mav.addObject("mapOn", "mapOn");
+		mav.setViewName("home_main");
+		return mav;
+		
+	}
+	
+	@RequestMapping("/modalDate.do")
+	public ModelAndView modalDateChange(HttpSession session, HttpServletRequest request, String startDate, String endDate) {
+		String dateIsChecked = "0";
+		
+		if(startDate==null || endDate==null) {
+			startDate="0";
+			endDate ="0";
+			dateIsChecked = "0";
+		}
+		
+		List dates = new ArrayList<>();
+		
+		if(!startDate.equals("0")&&!endDate.equals("0")) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+	        Date FirstDate = null;
+	        Date SecondDate = null;
+		      try {
+		         FirstDate = format.parse(startDate);
+		         SecondDate = format.parse(endDate);
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      }
+		      
+		    //두 날짜 사이의 날짜 구하기
+		      StringBuilder sb = new StringBuilder();
+
+		      Date currentDate = FirstDate;
+		      while (currentDate.compareTo(SecondDate) <= 0) {
+		         dates.add(format.format(currentDate));
+		         Calendar c = Calendar.getInstance();
+		         c.setTime(currentDate);
+		         c.add(Calendar.DAY_OF_MONTH, 1);
+		         currentDate = c.getTime();
+		      }
+			
+		    System.out.println(dates);
+		    session.setAttribute("dates", dates);
+		    dateIsChecked = "1";
+		}
+		
+		System.out.println("===============================================");
+		System.out.println("날짜바꿔보았스 : "+(List) session.getAttribute("dates"));
+		
+		
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
