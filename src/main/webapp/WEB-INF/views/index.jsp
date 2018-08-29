@@ -278,12 +278,18 @@ $(document).ready(function() {
 		border : 1px solid white;
 		font-family: font;
 		font-size : 1.8vh;
+		
 	}
 
 	#searchicon {
 		color : white;
 		font-size : 5vh;
 	}
+	
+	#datepickers-container {
+		left : 120vh;
+	}
+	
 </style>
 <script>
 	
