@@ -33,10 +33,13 @@ public class HomeMainController {
 	private HomeService homeService;
 	
 	@RequestMapping("/homeMain.do")
-	public ModelAndView homeMain() {
+	public ModelAndView homeMain(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
 		List<HomePicDTO> homePic = homeService.getHomePic();
+		session.setAttribute("homeType", "0");
+		session.setAttribute("people", 0);
+		session.setAttribute("startDate", "0");
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");

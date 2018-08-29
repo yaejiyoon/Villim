@@ -1,6 +1,8 @@
 <%@ page pageEncoding="utf8"%>
 
 <style>
+	
+
 	.modal-dialog {
 		margin-left : 5vh;
 		margin-top : 20vh;
@@ -16,7 +18,7 @@
 	}
 	
 	#datePicker {
-/* 		border : 1px solid white; */
+		width : 23vh;
 	}
 	
 	#dateSubmit {
@@ -24,20 +26,13 @@
 		color : #008489;
 		border : 1px solid #008489;
 		font-family: dx;
+		float : right;
 	}
 	
-	#dateSubmit:hover, #dateDelete:hover {
+	#dateSubmit:hover{
 		background-color: #008489; 
 		color : white;
 		outline:0;
-	}
-	
-	#dateDelete {
-		float: left;
-		background-color: white; 
-		color : #008489;
-		border : 1px solid #008489;
-		
 	}
 	
 </style>
@@ -46,6 +41,8 @@
 
 	$(document).ready(function() {
 		$('#datePicker').datepicker({
+			todayButton: new Date(),
+            clearButton : true,
 			autoClose : "true",
 		    dateFormat : "yyyy/mm/dd",
 		    minDate: new Date(),
@@ -56,6 +53,8 @@
 		        daysMin: ['일', '월', '화', '수', '목', '금', '토'],
 		        months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
 		        monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+		        today: '오늘',
+                clear: '날짜 지우기',
 		        dateFormat: "yyyy/mm/dd",
 		        timeFormat: 'hh:ii aa'
 		     },
@@ -89,8 +88,9 @@
 	          }
 		})
 		
-		$("#dateDelete").click(function() {
-			$("#datePicker").val("");
+		$('#dateSubmit').click(function() {
+		    $('#date').modal('hide');
+		    return false;
 		});
 	});
 </script>
@@ -102,18 +102,16 @@
                   <button type="button" class="close" data-dismiss="modal">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>
-                  <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">참가신청 완료하기</h4>
+                  <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">날짜 지정하기 </h4>
                </div>
                <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
               	<input id="datePicker" type="text" data-range="true"
  	                   data-multiple-dates-separator="  ~  "  
                     todayButton="true" class="datepicker-here" 
                      placeholder="  체크인       ㅡ       체크아웃" />  
-<!-- 	                     <div class="datepicker-here" data-range="true" id="datePicker"></div> -->
+                     <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
                </div>
                <div class="modal-footer">
-                   <button class="btn btn-primary-outline" id="dateDelete" type="button">삭제</button> 
-                   <button class="btn btn-primary-outline submit" id="dateSubmit">적용하기</button> 
                </div>
             </div>
          </div>

@@ -10,8 +10,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <!-- <link rel="stylesheet" -->
@@ -20,7 +20,7 @@
 <!-- 달력 -->
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
-<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker?ver.css" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker_home_main.css?ver=1" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
