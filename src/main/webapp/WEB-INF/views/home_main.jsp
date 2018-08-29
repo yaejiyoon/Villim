@@ -403,9 +403,10 @@ $(document).ready(function() {
 	}
 	
 	#fixedHeader {
-		position: fixed;
+		/* position:fixed; */
 		width : 100%;
 		z-index : 100;
+		
 	}
 	
 	#searchBar {
@@ -681,8 +682,9 @@ $(document).ready(function() {
 </head>
     
 <body>
+
 	<div id=fixedHeader>
-		<%@ include file="../resource/include/header.jsp"%>
+<%@ include file="../resource/include/header.jsp"%>	
 		<div id="searchBar">
 			<ul>
 			  <li><a href="" data-toggle="modal" data-target="#date" id="dateBt">날짜</a></li>
@@ -1191,7 +1193,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	
+
 
 <%@ include file="../resource/include/modal_homeMain/date.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/people.jsp"%>

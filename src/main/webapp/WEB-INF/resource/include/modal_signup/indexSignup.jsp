@@ -13,6 +13,7 @@
 	height:100vh;
 	box-sizing: border-box;
 	
+
 	}
 	#mheader{
 		border-bottom-width:0px;
@@ -671,7 +672,7 @@ function loginWithEmail(){
 </script>
 
 	<!-- 재호 -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none; margin:0px auto;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" id="mheader">
