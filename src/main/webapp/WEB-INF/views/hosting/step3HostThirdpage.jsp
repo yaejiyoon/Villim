@@ -230,6 +230,7 @@
 </style>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="0d09f05f-633c-43b7-b450-fd45d7a5267f">
 		<div dir="ltr" data-reactroot="">

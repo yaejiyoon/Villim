@@ -134,8 +134,11 @@ public class HostingController {
 		String addr2 = req.getParameter("home_addr2");
 		String addr3 = req.getParameter("home_addr3");
 		String addr4 = req.getParameter("home_addr4");
-		double lat = Double.parseDouble(req.getParameter("home_lat").toString());
-		double lng = Double.parseDouble(req.getParameter("home_lng").toString());
+		String latString = req.getParameter("home_lat");
+		String lngString = req.getParameter("home_lng");
+		System.out.println(latString+"::"+lngString);
+		double lat = Double.parseDouble(latString);
+		double lng = Double.parseDouble(lngString);
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
 
@@ -183,7 +186,7 @@ public class HostingController {
 			}
 
 		} catch (Exception e) {
-			amenitiesList = null;
+			amenitiesList = "null";
 		}
 
 		try {
@@ -195,7 +198,7 @@ public class HostingController {
 				}
 			}	
 		} catch (Exception e) {
-			safetyList = null;
+			safetyList = "null";
 		}
 
 		System.out.println(amenitiesList + ":" +safetyList );

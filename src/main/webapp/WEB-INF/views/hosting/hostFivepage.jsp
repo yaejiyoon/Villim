@@ -65,6 +65,7 @@
 </style>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="c1201b86-d2dd-47f6-9677-9271877497f0">
 		<div data-reactroot="">

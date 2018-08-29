@@ -49,6 +49,7 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 <title>Insert title here</title>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="c0c21335-cc24-414e-a2eb-10aa2ce89777">
 		<div dir="ltr" data-reactroot="">

@@ -171,6 +171,7 @@ html, body {
 <title>Insert title here</title>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div id="lys-redesign-div">
 		<div data-hypernova-key="list_your_spacebundlejs"
 			data-hypernova-id="5a448c3f-0c91-45dc-8ea2-aeed82b9889b">
@@ -399,25 +400,26 @@ html, body {
 		</div>
 	</div>
 
-<form action="secondnext.host" method="post" id="email">
+<form action="secondnext.host" method="post" id="emailseq">
 	<input type="hidden" id="member_email" value="${member_email}" name="member_email">
 </form>
 
 
 	<script>
+
 		function initAutocomplete() {
 
 			// Create the search box and link it to the UI element.
 			var input = document.getElementById('pac-input');
 			var searchBox = new google.maps.places.SearchBox(input);
 			
-		}
+		};
 		
 		$("#tovalue").click(function() {
 			//$(location).attr("href","secondnext.host");
-			$("#email").submit();
-		})
-		
+			$("#emailseq").submit();
+		});
+
 	</script>
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1WAKG2uQ4Lijb8nGc1Is-BIvCkQ1Ao9Y&libraries=places&callback=initAutocomplete"

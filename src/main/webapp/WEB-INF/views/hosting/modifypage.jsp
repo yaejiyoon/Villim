@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
 .div {
 	box-sizing: border-box;
 }
@@ -33,46 +34,42 @@
 .divlevel{
 	margin: 20px;
 }
-.grid-item :FOCUS{
 
-}
 </style>
 </head>
 <body>
-
+  <%@ include file="../../resource/include/header.jsp" %>
 <div class="row">
 	<div class="container">
 		<div class="grid-container">
-				<a href="/second.host"><div class="grid-item">빌딩과 숙소 종류</div></a>
-				<a href="/third.host"><div class="grid-item">침대 인구수</div></a>
-				<a href="/fore.host"><div class="grid-item">지도</div></a>
-				<a href="/five.host"><div class="grid-item">편의시설</div></a>
+			<a href="/second.host"><div class="grid-item">빌딩과 숙소 종류</div></a>
+			<a href="/third.host"><div class="grid-item">침대 인구수</div></a>
+			<a href="/fore.host"><div class="grid-item">지도</div></a>
+			<a href="/five.host"><div class="grid-item">편의시설</div></a>
 		</div>
 	</div>
 	<div class="divlevel"></div>
 	<div class="container">
 		<div class="grid-container">
-				<a href="/step2first.host"><div class="grid-item">사진</div></a>
-				<a href="/step2seond.host"><div class="grid-item">숙소설명</div></a>
-				<a href="/step2third.host"><div class="grid-item">숙소제목</div></a>
+			<a href="/step2first.host"><div class="grid-item">사진</div></a>
+			<a href="/step2seond.host"><div class="grid-item">숙소설명</div></a>
+			<a href="/step2third.host"><div class="grid-item">숙소제목</div></a>
 		</div>
 	</div>
 	<div class="divlevel"></div>
 	<div class="container">
 		<div class="grid-container">
-				<a href="/step3first.host"><div class="grid-item">규칙</div></a>
-				<a href="/step3second.host"><div class="grid-item">예약리미트</div></a>
-				<a href="/step3third.host"><div class="grid-item">최대최소</div></a>
-				<a href="/step3four.host"><div class="grid-item">예약블락</div></a>
-				<a href="/step3five.host"><div class="grid-item">가격</div></a>
+			<a href="/step3first.host"><div class="grid-item">규칙</div></a>
+			<a href="/step3second.host"><div class="grid-item">예약리미트</div></a>
+			<a href="/step3third.host"><div class="grid-item">최대최소</div></a>
+			<a href="/step3four.host"><div class="grid-item">예약블락</div></a>
+			<a href="/step3five.host"><div class="grid-item">가격</div></a>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	$("#build").click(function() {
-		alert("ajax");
-	})
+
 </script>
 </body>
 </html>

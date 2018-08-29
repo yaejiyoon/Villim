@@ -154,6 +154,7 @@ html, body {
 </style>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 <form action="pagegofive.host" id="modifymap" method="post">
 	<div id="lys-redesign-div col-md-7 ">
 		<div data-hypernova-key="list_your_spacebundlejs"
@@ -180,9 +181,9 @@ html, body {
 					type="text" id="address2" placeholder="ex) 19층 102호"
 					name="home_addr4"> <br> <label>위도</label> <input
 					type="text" id="lat" placeholder="위도" name="home_lat"
-					disabled="disabled"> <br> <label>경도</label> <input
+					readonly="readonly"> <br> <label>경도</label> <input
 					type="text" id="lng" placeholder="경도" name="home_lng"
-					disabled="disabled"> <br>
+					readonly="readonly"> <br>
 
 				<div class="pac-card" id="pac-card">
 					<div>
@@ -226,13 +227,13 @@ html, body {
 	</div>
 
 
+</form>
 	<div id="map"></div>
 	<div id="infowindow-content">
 		<img src="" width="16" height="16" id="place-icon"> <span
 			id="place-name" class="title"></span><br> <span
 			id="place-address"></span>
 	</div>
-</form>
 	<script type="text/javascript">
 		function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'), {

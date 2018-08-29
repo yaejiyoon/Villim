@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="6e3c0f05-ee35-4ade-b1de-4f50ef2259da">
 		<div dir="ltr" data-reactroot="">
