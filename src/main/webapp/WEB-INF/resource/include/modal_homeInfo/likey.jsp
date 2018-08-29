@@ -9,13 +9,12 @@
 	}
 	
 	.modal-dialog.likey-dialog{
-		width:550px;
+		width: 550px;
 		height: 100%;
 	}
 	
 	.modal-content.likey-content{
-		height: auto;
-		min-height: 100%;
+		height: 500px;
 	}
 	
 	.modal-header.likey-header{
