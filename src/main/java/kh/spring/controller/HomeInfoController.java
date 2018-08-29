@@ -263,7 +263,7 @@ public class HomeInfoController {
 		
 		
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("home_seq",home_seq);
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
 		mav.addObject("guestReviewList", guestReviewList);
@@ -579,6 +579,7 @@ public class HomeInfoController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
+	
 		mav.addObject("reservationDTO", reservationDTO);
 		mav.addObject("hdto", hdto);
 		mav.addObject("checkInDate", checkInDate);
