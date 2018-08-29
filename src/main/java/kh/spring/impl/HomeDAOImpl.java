@@ -239,6 +239,7 @@ public class HomeDAOImpl implements HomeDAO {
 		return jdbcTemplate.update(sql,blockedDate,home_seq);
 	}
 	
+	
 	@Override
 	public BedDTO getBedData(int home_seq) {
 		return ssTemplate.selectOne("Home.getBedData",home_seq);

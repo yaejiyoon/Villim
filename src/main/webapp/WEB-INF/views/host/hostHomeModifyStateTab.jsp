@@ -22,6 +22,12 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=1" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
+
 
 <title>편의시설 수정 탭</title>
 
@@ -184,13 +190,14 @@ margin-top:50px;
 								합니다.</div>
 							<div class="date-wrap">
 								<div class="date-wrap-sub">
-									<input type="text" id="from" name="home_rest_start" value=""
-										class="form-control input lg" placeholder="시작일">
+								<input type='text' class='datepicker-here' data-language='en' />
+									<!-- <input type="text" id="from" name="home_rest_start" value=""
+										class="form-control input lg" placeholder="시작일"> -->
 								</div>
-								<div class="date-wrap-sub">
+								<!-- <div class="date-wrap-sub">
 									<input type="text" id="to" name="home_rest_end" value=""
 										class="form-control input lg" placeholder="종료일">
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="modal-footer">

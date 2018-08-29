@@ -215,7 +215,6 @@
                									)
        										)
                							}
-               							
                						},
                						error : function(request,status,error) {
                							console.log(request.status + " : " + status + " : " + error);
@@ -275,6 +274,18 @@
      				
      			$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
      			likeState1 = 1;
+     			
+     			$.ajax({
+    				url:"ajax01.do",
+    				type:"get",
+    				data:{name:name, email:email},
+    				success:function(){
+    					console.log("전달 성공!")
+    				},
+    				error : function(request,status,error) {
+    					console.log(request.status + " : " + status + " : " + error);
+    				}
+    			})
      				
      		}else{
      				
