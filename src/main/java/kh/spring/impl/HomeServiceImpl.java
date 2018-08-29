@@ -14,7 +14,6 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
-import kh.spring.dto.MapDTO;
 import kh.spring.interfaces.HomeDAO;
 import kh.spring.interfaces.HomeService;
 
@@ -124,13 +123,8 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeRulesDetails(hdto);
 	}
 	
-//	예지
-	@Override
-	public List<HomeDTO> getAllHomeDataMain() {
-		return hdao.getAllHomeDataMain();
-	}
 
-	@Override
+	
 	public List<ReservationDTO> getAllReservation(String member_email) {
 		return hdao.getAllReservation(member_email);
 	}
@@ -200,15 +194,30 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getAllMessage(home_seq);
 	}
 
+//	예지
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return hdao.getAllHomeDataMain();
+	}
 
 	@Override
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
-		return hdao.getHomeOnMap(mdto);
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return hdao.getHomeOnMap(param);
 	}
 
 	@Override
 	public List<HomePicDTO> getHomePic() {
 		return hdao.getHomePic();
+	}
+
+	@Override
+	public List<HomeDTO> searchHomeData(List homeTypeList ,String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
+		return hdao.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
+	}
+
+	@Override
+	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
+	return hdao.modalHomeData(param);
 	}
 
 	

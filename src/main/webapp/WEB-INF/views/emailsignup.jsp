@@ -244,6 +244,150 @@ left:30%;
 color:white;
 }
 
+/* 사진업로드 모달 */
+
+#mheader2{
+	border-bottom-width: 0px;
+
+}
+#modal2h21{
+	margin-left:33%;
+}
+#modal2h41{
+margin-left:28%;
+}
+#modal2h42{
+margin-left:26%;
+}
+#modal2h43{
+margin-left:35%;
+margin-bottom:5%;
+}
+#imageLoad{
+	margin-left:30%;
+	margin-bottom:3%;
+	width:30%;
+
+}
+#facebook{
+	width:80%;
+	margin-left:11%;
+	margin-top:5%;
+	margin-bottom: 3%;
+}
+#uploadFake{
+	
+	width:80%;
+	margin-left:11%;
+
+}
+#mfooter2{
+	border-top-width: 0px;
+	padding-right: 72%;
+
+	padding-bottom:0px;
+}
+#mfooter2 button{
+	margin-left:120%;
+	padding-left:50%;
+	padding-right:50%;
+	margin-bottom:3%;
+}
+
+/* 모달 3  */
+
+#mheader3{
+border-bottom-width: 0px;
+	
+}
+#modal3h21{
+margin-left:30%;
+}
+#modal3h41{
+margin-left:22%;
+}
+#modal3h42{
+margin-left:28%;
+margin-bottom:5%;
+}
+#myModal3 .modal-body img{
+	margin-left:40%;
+	width:20%;
+	height:20%;
+	margin-bottom:7%;
+}
+#chooseNation{
+	width:60%;
+	margin-left:20%;
+}
+#phoneCheck{
+	width:60%;
+margin-left:20%;
+margin-bottom:5%;
+}
+#nationList{
+	position:absolute;
+	left:77.5%;
+	top:60.3%;
+}
+#nation{
+	margin-left:47%;
+}
+#phonenum{
+margin-left:45%;
+
+}
+#authBtn1{
+	width:30%;
+	padding-top:2%;
+	padding-bottom:2%;
+	margin-left:35%;
+}
+#mfooter3{
+border-top-width: 0px;
+}
+
+/* 모달 4  */
+#mheader4{
+border-bottom-width: 0px;	
+}
+#myModal4 .modal-body img{
+	width:20%;
+	height:20%;
+	margin-bottom:5%;
+	margin-left:39%;
+}
+#modal4h21{
+	margin-left:26%;
+}
+#modal4h41{
+margin-left:31%;
+margin-bottom:5%;
+}
+#inputAuthNum{
+	width:60%;
+	margin-left:20%;
+}
+#mfooter4{
+border-top-width: 0px;
+}
+#authBtn2{
+	width:40%;
+	margin-bottom:3%;
+	padding-top:3%;
+	padding-bottom:3%;
+	margin-left:30%;
+}
+#reSend{
+width:40%;
+padding-top:3%;
+	padding-bottom:3%;
+	margin-left:30%;
+}
+#timer{
+	margin-left:21%;
+}
+
 </style>
 
 <script>
@@ -369,7 +513,7 @@ color:white;
 															alert(response);
 															html += "<img src=files/";
 						html+= response;
-						html+= " alt=이미지 로드 실패   class='img-circle' id='profilePicture' style='width:100px'>";
+						html+= " alt=이미지 로드 실패   class='img-circle' id='profilePicture' style='width:265px; height:265px;'>";
 
 															/* $("#profilePicture").attr("src","files/"+response);  */
 															$("#imageLoad")
@@ -400,7 +544,9 @@ color:white;
 							if(time>0){
 								
 								time--;
-								$("#timer").html(time);
+								var converttime = toHourMinSec(time);
+								
+								$("#timer").html(converttime);
 							}else{
 								clearInterval(timerID);
 								alert("인증번호 유효시간이 지났습니다");
@@ -408,19 +554,19 @@ color:white;
 							}
 						}
 						function toHourMinSec(t){
-							var hour;
+							var hour; 
 							var min;
 							var sec;
-							alert("toHourMinSec");
-							hour = Math.floor(t/3600);
+							
+							hour = Math.floor(t/3600); 
 							min = Math.floor( (t-(hour*3600)) / 60 );
 							sec = t - (hour*3600) - (min*60);
 							
-							if(hour < 10) hour = "0" + hour;
+							/* if(hour < 10) hour = "0" + hour; */
 							if(min < 10) min = "0" + min;
 							if(sec < 10) sec = "0" + sec;
 							
-							return (hour + ":" + min + ":" +sec);
+							return ("남은시간 : " + min + "분" +sec + "초");
 
 						}
 						
@@ -509,11 +655,11 @@ color:white;
 		</div>
 		<!-- <form action="info.do" method="post"> -->
 		<div id="middle">
-		<div>
+		
 		 <input type="text" name="secondName" class="form-control"
 					placeholder="이름을 입력하세요" aria-describedby="basic-addon2"
 					value=""  id="secondNm"><i class="far fa-user fa-2x" id="secondIcon"></i>
-		</div>		
+			
 			
 			
 		 <input type="text" name="firstName" class="form-control"
@@ -593,11 +739,7 @@ color:white;
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" id="mheader">
-<!-- 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button> -->
-					
+	
 				</div>
 				<div class="modal-body">
 					<div id="agreeWapper">
@@ -680,11 +822,7 @@ color:white;
 		
 			<div class="modal-content">
 				<div class="modal-header" id="mheader1">
-<!-- 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4> -->
+ 				
 				</div>
 				<div class="modal-body">
 						<img src="resources/images/1.jpg" alt="" style="width: 100%; height:100%;">
@@ -712,16 +850,16 @@ color:white;
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-				</div>
+				<div class="modal-header" id="mheader2"></div>
 				<div class="modal-body">
+					<div>
+						<h2 id=modal2h21>프로필 사진 추가</h2>
+						<h4 id=modal2h41>사진을 올려주세요. 추후 호스트 및</h5>
+						<h4 id=modal2h42>게스트에게 표시될 수 있도록 회원님의</h5>
+						<h4 id=modal2h43>프로필에 추가하겠습니다.</h5>
+					</div>
 					<div id="imageLoad">
-						<img src="${picture}" alt="이미지 로드 실패" class="img-circle"
+						<img src="./resources/img/signup/default.png" alt="이미지 로드 실패" class="img-circle"
 							id="profilePicture">
 					</div>
 					<div>
@@ -741,9 +879,9 @@ color:white;
 
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button id="imgLoadBtn" type="button" class="btn btn-default" data-dismiss="modal"
-						data-toggle="modal" data-target="#myModal3">다음으로</button>
+				<div class="modal-footer" id="mfooter2">
+					<button id="imgLoadBtn" type="button" class="btn btn-danger" data-dismiss="modal"
+						data-toggle="modal" data-target="#myModal3">다음단계로</button>
 
 				</div>
 			</div>
@@ -754,52 +892,36 @@ color:white;
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-				</div>
+				<div class="modal-header" id="mheader3"></div>
 				<div class="modal-body">
 					<div>
-						<font>전화번호 인증하기</font>
-					</div>
-					<div>
-						<font>호스트와 게스트가 여행 중 회원님께 연락할</font>
-					</div>
-					<div>
-						<font>수 있도록 하기 위한 절차입니다.</font>
-					</div>
-
-					<div>이미지</div>
+						<h2 id="modal3h21">전화번호 인증하기</h2>
+						<h4 id="modal3h41">호스트와 게스트가 여행 중 회원님께 연락할</h4>
+						<h4 id="modal3h42">수 있도록 하기 위한 절차입니다.</h4>
+						<img src="./resources/img/signup/phone.jpg" alt="사진 로드할 수 없습니다.">
+					</div>	
 
 					<div class="dropdown">
-						<button id="dLabel" type="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-							Dropdown trigger <span class="caret"></span>
-						</button>
+						<h5 id="nation">국가</h5>
+						<input type="text" class="form-control" placeholder="한국(+82)" id="chooseNation">
+						<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							style="cursor: pointer;"> <span class="caret" id="nationList"></span>
+						</a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 							<li>한국
 						</ul>
 					</div>
 					
 					<div>
-					<!-- <form method="post" action="phoneCheck.do"> -->
-						<input type="text" placeholder="+82"  name="phone" id="phoneCheck"><br>
-						<button class="btn btn-danger" id="authBtn1"
-						>
-				<!-- 		data-dismiss="modal" data-toggle="modal" data-target="#myModal4" -->
-						
+					<h5 id="phonenum">전화번호</h5>
+						<input type="text" placeholder="+82"  name="phone" id="phoneCheck" class="form-control"><br>
+						<button class="btn btn-danger" id="authBtn1">
 						전화번호 인증
 						</button>
-					<!-- </form> -->
+			
 					</div>
-					
-					<input type="text" id="test10">
-					<input type="text" id="test11">
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" id="mfooter3">
 					
 
 				</div>
@@ -811,44 +933,29 @@ color:white;
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-				</div>
+				<div class="modal-header" id="mheader4"></div>
 				<div class="modal-body">
 					<div>
-						<font>인증번호를 입력하세요</font>
+						<h2 id="modal4h21">인증번호를 입력하세요</h2>
+						<h4 id="modal4h41">3분안에 입력해야합니다.</h4>	
+						<img src="./resources/img/signup/auth.png" alt="이미지 로드 실패">
 					</div>
-					<div>
-						<font>3분안에 입력해야합니다.</font>
-						<div id="timer"></div>
-					</div>
-
-					<div id="time5"></div>
-
+					
 					<div>
 						
-						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"><br>
+						<input type="text" placeholder="인증번호를 입력하세요"  name="authNum" id="inputAuthNum"class="form-control"><div id="timer"></div><br>
 						<input type="hidden" id="memberEmail" name="member_email">
 						<input type="hidden" id="memberPw" name="member_pw">
 						<input type="hidden" id="memberNm" name="member_name">
 						<input type="hidden" id="memberBirth" name="member_birth">
 						<input type="hidden" id="memberPicture" name="member_picture">
 						<input type="hidden" id="memberPhone" name="member_phone">
-						<button class="btn btn-danger" id="authBtn2">입력</button>
+						<button class="btn btn-danger" id="authBtn2">입력</button><br>
 						<button class="btn btn-success" type=button id="reSend">재발급</button>
 						
 					</div>
-					
-					
-					<input type="text" id="time1">
-					<input type="text" id="time2">
-					
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" id="mfooter4">
 					
 
 				</div>
