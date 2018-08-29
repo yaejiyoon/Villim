@@ -985,4 +985,9 @@ public class HomeInfoController {
 
 	}
 	
+	@RequestMapping("/likey.do")
+	public void addLikey(HttpServletRequest req) {
+		
+	}
+	
 }
