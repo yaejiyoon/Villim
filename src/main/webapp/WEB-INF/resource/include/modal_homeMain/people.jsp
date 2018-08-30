@@ -38,9 +38,8 @@ $(document).ready(function() {
 <style>
 
 	#peopleDialog {
-		margin-left : 13vh; 
-		margin-top : 20vh; 
-		width : 15vw; 
+		margin-left : 13vh;
+		margin-top : 20vh;
 	}
 	
 	
@@ -71,9 +70,11 @@ $(document).ready(function() {
 		background-color: white; 
 		color : #008489;
 		border : 1px solid #008489;
-		
 	}
 	
+	#people{
+		height:auto;
+	}
 	
 </style>
 

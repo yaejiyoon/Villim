@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -208,7 +209,7 @@ public class HomeServiceImpl implements HomeService {
 	public List<HomePicDTO> getHomePic() {
 		return hdao.getHomePic();
 	}
-	
+
 	@Override
 	public List<HomeDTO> searchHomeData(List homeTypeList ,String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
 		return hdao.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
@@ -225,6 +226,9 @@ public class HomeServiceImpl implements HomeService {
 	public int updateBlockedDate(String blockedDate, int home_seq) {
 		return hdao.updateBlockedDate(blockedDate, home_seq);
 	}
-	
 
+	@Override
+	public BedDTO getBedData(int home_seq) {
+		return hdao.getBedData(home_seq);
+	}
 }
