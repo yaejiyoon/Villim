@@ -10,12 +10,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +28,7 @@ import com.google.gson.Gson;
 import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
 import kh.spring.dto.HomeDTO;
+import kh.spring.dto.MailSendDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
@@ -176,22 +180,22 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageSend.msg")
-	public ModelAndView messageSend(HttpSession session) {
+	public ModelAndView messageSend(HttpSession session,HttpServletRequest req) {
 		System.out.println("messageSend");
 		String userId = (String) session.getAttribute("login_email");
-		int home_seq = 1;
-		String host_name = "Sarah Son";
-		String host_picture = "지창욱.jpg";
-		int home_price = 50000;
-		String home_type = "아파트";
-		String home_main_pic = "plmn집사진.jpg";
-
+		int home_seq =Integer.parseInt(req.getParameter("home_seq"));
+		String host_name = req.getParameter("host_name");
+		String host_picture = req.getParameter("host_picture");
+		int home_price =Integer.parseInt(req.getParameter("home_price"));
+		String home_type = req.getParameter("home_type");
+		String home_main_pic = req.getParameter("home_main_pic");
+          System.out.println("home_seq : "+home_seq+" /host_name : "+host_name+" /host_picture :"+host_picture+" /home_price : "+home_price+" / home_type : "+home_type + " /home_main_pic : "+home_main_pic);
 		// review 갯수
 		int reviewCount = this.service.countReview(home_seq);
 
-		String Q1 = "건물 내 무료 주차";
-		String Q2 = "체크인 가능 시간: 19:00 - 00:00";
-		String Q3 = "체크인 5일 전까지 취소할 경우 서비스 수수료를 제외한 요금 전액이 환불됩니다.";
+		String Q1 = req.getParameter("home_guest_access");
+		String Q2 = req.getParameter("home_details")+req.getParameter("home_rules");
+		String Q3 = req.getParameter("home_policy");
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("host_name", host_name);
@@ -209,17 +213,18 @@ public class MessageController {
 
 	@RequestMapping("/messageInsertDB.msg")
 	public ModelAndView messageInsertDB(HttpSession session, HttpServletResponse response, String host_name,
-			MessageDTO dto, MessageRoomDTO roomdto, String seq, String checkIn, String checkOut, String number)
+			MessageDTO dto, MessageRoomDTO roomdto, String seq, String time, String number)
 			throws Exception {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageInsertDB");
 		System.out.println("내용 : " + dto.getMessage_content());
 		String userId = (String) session.getAttribute("login_email");
-
+        System.out.println("날짜 : "+time);
+        System.out.println("인원수" +number);
 		int home_seq = Integer.parseInt(seq);
 		HomeDTO getHomeInfo = this.service.getHomeInfo(home_seq);
 		String host_email = getHomeInfo.getMember_email();
-
+     
 		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
 		roomdto.setHost_email(host_email);
 		roomdto.setGuest_email(userId);
@@ -237,7 +242,19 @@ public class MessageController {
 			roomdto.setHome_seq(home_seq);
 			roomdto.setHost_email(host_email);
 			roomdto.setGuest_email(userId);
-			roomdto.setCheckIn(checkIn);
+			
+			
+			System.out.println("checkin1 : "+time.split(" ~ ")[0]);
+			System.out.println("checkout1 : "+time.split(" ~ ")[1]);
+			String in=time.split(" ~ ")[0];
+			String out=time.split(" ~ ")[1];
+			mav.addObject("checkin1", time.split(" ~ ")[0]);
+			mav.addObject("checkout1", time.split(" ~ ")[1]);
+			String checkin=in.split("-")[1]+"월"+" "+in.split("-")[2]+"일";
+			String checkOut=out.split("-")[1]+"월"+" "+out.split("-")[2]+"일";
+			System.out.println("checkin2 : "+checkin);
+			System.out.println("checkout2 : "+checkOut);
+			roomdto.setCheckIn(checkin);
 			roomdto.setCheckOut(checkOut);
 			roomdto.setTotalNumber(Integer.parseInt(number));
 			int messageInfoInsert = this.service.messageRoomInsert(roomdto);
@@ -248,7 +265,7 @@ public class MessageController {
 		}
 
 		System.out.println("message_room_seq= " + message_room_seq);
-
+        
 		dto.setMessage_room_seq(message_room_seq);
 		dto.setHome_seq(home_seq);
 		dto.setFromID(userId);
@@ -264,8 +281,8 @@ public class MessageController {
 			MemberDTO mGuest = this.m_service.printProfile(userId);
 			MemberDTO mHost = this.m_service.printProfile(host_email);
 
-			DetailDTO getMessageAfterSend = this.service.getMsgAfterSend(messageInsertResult);
-
+			DetailDTO getMessageAfterSend = this.service.getMsgAfterSend(dto.getMessage_seq());
+             System.out.println("message_seq : "+dto.getMessage_seq());
 			String to = "82" + mHost.getMember_phone();
 			String from = "33644643087";
 			String message = URLEncoder.encode("[Villim] : " + mGuest.getMember_name() + ", "
@@ -397,7 +414,7 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageSendInRoom.msg")
-	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response) throws Exception {
+	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response,HttpServletRequest req) throws Exception {
 		System.out.println("messageSendInRoom");
 		System.out.println("메세지내용 : " + dto.getMessage_content());
 
@@ -422,22 +439,86 @@ public class MessageController {
 
 		System.out.println(message.getMessage_content() + " / " + message.getMessage_time());
 
-		/*
-		 * String m=message.getMessage_content()+":"+message.getMessage_time()+" ";
-		 * 
-		 * builder.append(m);
-		 * 
-		 * System.out.println(" m : "+m); String result=builder.toString();
-		 */
-
-		// 실제 메세지 보내기
+        
+		// 실제 메세지,메일 보내기
 		MemberDTO mGuest = this.m_service.printProfile(dto.getFromID());
 		MemberDTO mHost = this.m_service.printProfile(dto.getToID());
 
-		String to = "82" + mHost.getMember_phone();
+		MailSendDTO mailDto = new MailSendDTO();
+		String mail = "plmn855000@gmail.com";/*mHost.getMember_email();*/
+		System.out.println(mail);
+
+		String urls = "<div style=\"position:relative;left:25vw;width:50vw;height:45vw;\">\r\n" + 
+				"<img src=\"//placehold.it/194x54\" style=\"position:relative;left:6vw;top:4vh;\">\r\n" + 
+				"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">\r\n" + 
+				"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의 문의에 답하세요</h3>\r\n" + 
+				"<img style=\"position:relative;left:-17vw;top:1vh;width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">\r\n" + 
+				"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>\r\n" + 
+				"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>\r\n" + 
+				"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">\r\n" + 
+				"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+dto.getMessage_content()+"</h4>\r\n" + 
+				"</div>\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"<button style=\"position:relative;width:75%;top:-10vh;left:5vw;height:7vh;box-sizing: border-box;\r\n" + 
+				"  appearance: none;\r\n" + 
+				"  background-color: transparent;\r\n" + 
+				"  border: 2px solid #ff5a5f;\r\n" + 
+				"  border-radius: 0.6em;\r\n" + 
+				"  color: #ff5a5f;\r\n" + 
+				"  cursor: pointer;\r\n" + 
+				"  display: flex;\r\n" + 
+				"  align-self: center;\r\n" + 
+				"  font-size: 1rem;\r\n" + 
+				"  font-weight: 400;\r\n" + 
+				"  line-height: 1;\r\n" + 
+				"  margin: 20px;\r\n" + 
+				"  padding: 1.2em 2.8em;\r\n" + 
+				"  text-decoration: none;\r\n" + 
+				"  text-align: center;\r\n" + 
+				"  text-transform: uppercase;\r\n" + 
+				"  font-weight: 700;\"><span style=\"position:relative;left:13vw;top:-0.5vh;\">답장 보내기</span></button>\r\n" + 
+				"\r\n" + 
+				"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>\r\n" + 
+				"<hr style=\"margin-top:0;padding:0;width:73%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">\r\n" + 
+				"\r\n" + 
+				"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">\r\n" + 
+				"빌림 드림 ♥<br>\r\n" + 
+				"\r\n" + 
+				"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>\r\n" + 
+				"</div>\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"</div>";
+		
+/*		String url1 ="<div style=\"width:50vw;height:50vw;\">"
+				    +"<img src='<c:url value='/resources/img/logo2.png'/>'"
+				    +mGuest.getMember_name()+"님의 문의에 답하세요"
+				    +"<img style=\"position:relative;left:1vw;top:1vh;width:7vh;height:7vh;\" src=\"files/"+mGuest.getMember_picture()+"\" class=\"img-circle\">"
+		            +"<h4>감사합니다. </h4>"+"<h4>Villim 팀 드림 </h4><br>"
+		            +"</div>";*/
+		
+		try {
+		
+		mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 메세지 문의입니다.");
+		mailDto.setText(urls);
+		mailDto.setFrom("villim", "Villim");
+		mailDto.setTo(mail);
+		mailDto.send();
+		System.out.println("메일보내기 성공");
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	    String to = "82" + mHost.getMember_phone();
 		String from = "33644643087";
-		String messages = URLEncoder
-				.encode("[Villim]: " + mGuest.getMember_name() + ", '" + dto.getMessage_content() + "'", "UTF-8");
+		String messages = URLEncoder.encode("[Villim]: " + mGuest.getMember_name() + ", '" + dto.getMessage_content() + "'", "UTF-8");
 		String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
 
 		StringBuilder sb = new StringBuilder();
@@ -466,6 +547,10 @@ public class MessageController {
 
 	}
 
+	@RequestMapping("/message.msg")
+	public String message() {
+		return "/message/NewFile";
+	}
 	@RequestMapping("/messageHostRoomEnter.msg")
 	public ModelAndView messageHostRoomEnter(HttpSession session, int message_room_seq, int home_seq,
 			String member_picture, String member_name, String member_email, int message_seq) {
