@@ -17,10 +17,17 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- 결제 -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
 
 <style>
 	#bg {
@@ -360,11 +367,13 @@ $(document).ready(function(){
 			}
 		
 		})
+		
+
 	})
 	
 
 	
-	(function poll() {
+/* 	(function poll() {
 	    $.ajax({
 	        url: 'mainTest.admin',
 	        type: 'GET',
@@ -375,7 +384,7 @@ $(document).ready(function(){
 	        timeout: 3000,
 	        complete: setTimeout(function() { poll(); }, 6000)
 	    })
-	})();
+	})(); */
 				
 
 	 
@@ -438,8 +447,101 @@ $(document).ready(function(){
 		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="payCheck">More Info</a>
 	</div>
 </div>
+
+
+<script>
+
+$(function() {
+	
+	Highcharts.chart('container', {
+		  chart: {
+		    type: 'column'
+		  },
+		  title: {
+		    text: 'Worlds largest cities per 2017'
+		  },
+		  subtitle: {
+		    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+		  },
+		  xAxis: {
+		    type: 'category',
+		    labels: {
+		      rotation: -45,
+		      style: {
+		        fontSize: '13px',
+		        fontFamily: 'Verdana, sans-serif'
+		      }
+		    }
+		  },
+		  yAxis: {
+		    min: 0,
+		    title: {
+		      text: 'Population (millions)'
+		    }
+		  },
+		  legend: {
+		    enabled: false
+		  },
+		  tooltip: {
+		    pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
+		  },
+		  series: [{
+		    name: 'Population',
+		    data: [
+		      ['Shanghai', 24.2],
+		      ['Beijing', 20.8],
+		      ['Karachi', 14.9],
+		      ['Shenzhen', 13.7],
+		      ['Guangzhou', 13.1],
+		      ['Istanbul', 12.7],
+		      ['Mumbai', 12.4],
+		      ['Moscow', 12.2],
+		      ['São Paulo', 12.0],
+		      ['Delhi', 11.7],
+		      ['Kinshasa', 11.5],
+		      ['Tianjin', 11.2],
+		      ['Lahore', 11.1],
+		      ['Jakarta', 10.6],
+		      ['Dongguan', 10.6],
+		      ['Lagos', 10.6],
+		      ['Bengaluru', 10.3],
+		      ['Seoul', 9.8],
+		      ['Foshan', 9.3],
+		      ['Tokyo', 9.3]
+		    ],
+		    dataLabels: {
+		      enabled: true,
+		      rotation: -90,
+		      color: '#FFFFFF',
+		      align: 'right',
+		      format: '{point.y:.1f}', // one decimal
+		      y: 10, // 10 pixels down from the top
+		      style: {
+		        fontSize: '13px',
+		        fontFamily: 'Verdana, sans-serif'
+		      }
+		    }
+		  }]
+		});
+  
+ });
+
+</script>
+
 </div>
 
+
+
+</div>
+
+
+
+
+</div>
+
+
+<div>
+<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto; position:absolute; z-index: 100"></div>
 </div>
 
 <div class="modal fade" id="memberChkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
