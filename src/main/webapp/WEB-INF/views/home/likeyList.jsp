@@ -83,6 +83,18 @@
 		width:100%;
 		height:100%;
 	}
+	
+	.thumbnailName{
+		position: absolute;
+		color: white;
+		font-weight: 600;
+		top: 200px;
+		left: 20px;
+	}
+	
+	.thumbnail{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -100,28 +112,24 @@
 				</div>
 				<div id="likeyList-contents-sub02-bottom">
 					<div class="row" style="margin: 0px;">
+					<c:forEach items="${likeyList }" var="likeyList">
 						<div class="col-md-4" style="height:250px; padding: 0px;">
-							<div class="thumbnail" style="width:100%; height:100%; box-shadow:none; border:0px; padding:0px 10px 10px 0px; ">
+							<div class="thumbnail" style="width:100%; height:100%; box-shadow:none; border:0px; padding:0px 10px 10px 0px; "
+								onclick="likeyClickFn('${likeyList.likeyList_seq }');">
        							<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
+       							<p class="thumbnailName">${likeyList.likeyList_name }</p>
      						</div>
 						</div>
-						<div class="col-md-4" style="height:250px; padding: 0px;">
-							<div class="thumbnail" style="width:100%; height:100%; box-shadow:none; border:0px; padding:0px 10px 10px 0px;">
-       							<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
-     						</div>
-						</div>
-						<div class="col-md-4" style="height:250px; padding: 0px;">
-							<div class="thumbnail" style="width:100%; height:100%; box-shadow:none; border:0px; padding:0px 10px 10px 0px;">
-       							<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
-     						</div>
-						</div>
-						<div class="col-md-4" style="height:250px; padding: 0px;">
-							<div class="thumbnail" style="width:100%; height:100%; box-shadow:none; border:0px; padding:0px 10px 10px 0px;">
-       							<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
-     						</div>
-						</div>
+					</c:forEach>
 					</div>
 				</div>
+				<script>
+				function likeyClickFn(likeyList_seq) {
+					alert(likeyList_seq);
+					
+					$(location).attr('href','wishList.do?likeyList_seq='+likeyList_seq);
+				}
+				</script>
 			</div>
 			<div id="likeyList-contents-sub02"></div>
 		</div>

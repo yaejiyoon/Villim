@@ -112,6 +112,7 @@
 	
 	.likey-footer{
 		border-top: 1px solid #d6d6d6;
+		
 	}
 </style>
 
@@ -151,6 +152,13 @@
 			
 		})
 		
+		<c:forEach items="${likeyList }" var="likeyList">
+			<c:forEach items="${likeyHeart }" var="likeyHeart">
+				<c:if test="${likeyList.likeyList_seq eq likeyHeart.likeyList_seq }">
+		 			$("#likeyBTID${likeyList.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
+				</c:if>
+		 	</c:forEach>	
+		</c:forEach>
 		
 	})
                 
@@ -198,15 +206,19 @@
                				}else{
                					var likeyListName = $("#makeName").val();
                					$('#makeName').val("");
+               					var home_seq = ${hdto.home_seq};
                					
                					$.ajax({
                						url:"likeList.do",
                						type:"get",
-               						data:{likeyListName:likeyListName},
+               						data:{
+               							likeyListName:likeyListName,
+               							home_seq:home_seq
+               							},
                						success:function(resp){
                							
-               							/* $("#likeyListDiv").css({"display":"none"});
-                           				$("#makeList").css({"display":"block"}); */
+               							$("#likeyListDiv").css({"display":"none"});
+                           				$("#makeList").css({"display":"block"});
                							
                							$('.likeyList-content').remove();
                							
@@ -221,10 +233,19 @@
                							for(var i=0; i<resp.likeyList.length;i++){
                								$("#likeyListPtag"+resp.likeyList[i].likeyList_seq).after(
                									$('<button>').attr('class','btn btn-secondary likeyButton').attr('id','likeyButtonID'+resp.likeyList[i].likeyList_seq).attr('onClick',"clickclick('likeyButtonID"+resp.likeyList[i].likeyList_seq+"','likeyListPtag"+resp.likeyList[i].likeyList_seq+"','"+resp.likeyList[i].likeyList_seq+"')").append(
-               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT')
+               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT').attr('id','llImgId'+resp.likeyList[i].likeyList_seq)
                									)
        										)
                							}
+               							
+               							for(var i=0; i<resp.likeyList.length;i++){
+               								for(var j=0; j<resp.likeyLikey.length;j++){
+               									if(resp.likeyList[i].likeyList_seq === resp.likeyLikey[j].likeyList_seq){
+               										$("#llImgId"+resp.likeyList[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
+               									}
+               								}
+               							}
+               							
                						},
                						error : function(request,status,error) {
                							console.log(request.status + " : " + status + " : " + error);
@@ -237,14 +258,13 @@
                		
                		<c:if test="${likeyList ne null}">
                			<c:forEach items="${likeyList }" var="likeyList">
-               				<div class="likeyList-content">
-               					<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyList.likeyList_name }</p>
-               					<input type="hidden" class="hiddenSeq" value="${likeyList.likeyList_seq }">
-               					<button class="btn btn-secondary likeyButton">
-         							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT">
-         						</button>
-               					<%-- <img src="<c:url value='../resources/img/like.png'/>" class="likeyBT"> --%>
-               				</div>
+               					<div class="likeyList-content">
+               						<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyList.likeyList_name }</p>
+               						<input type="hidden" class="hiddenSeq" value="${likeyList.likeyList_seq }">
+               						<button class="btn btn-secondary likeyButton">
+               							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT" id="likeyBTID${likeyList.likeyList_seq }">
+         							</button>
+               					</div>
                			</c:forEach>
                		</c:if>
                </div>
@@ -293,8 +313,6 @@
      				
      			("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
      		}
-     				
-     			
      		
  		}
          </script>

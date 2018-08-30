@@ -37,6 +37,7 @@ public class HomeDTO {
 	private String home_reserve_possible;
 	private String home_policy;
 	private String home_public;
+	private int likey_seq;
 
 	public HomeDTO() {
 		super();
@@ -49,7 +50,7 @@ public class HomeDTO {
 			String home_details, String home_checkin_start, String home_checkin_end, String home_checkout,
 			int home_min_stay, int home_max_stay, String home_blocked_date, int home_price, String home_currency,
 			String home_main_pic, int home_state, String home_rest_start, String home_rest_end,
-			String home_reserve_possible, String home_policy, String home_public) {
+			String home_reserve_possible, String home_policy, String home_public, int likey_seq) {
 		super();
 		this.member_email = member_email;
 		this.home_seq = home_seq;
@@ -87,6 +88,7 @@ public class HomeDTO {
 		this.home_reserve_possible = home_reserve_possible;
 		this.home_policy = home_policy;
 		this.home_public = home_public;
+		this.likey_seq = likey_seq;
 	}
 
 
@@ -377,6 +379,14 @@ public class HomeDTO {
 
 	public void setHome_public(String home_public) {
 		this.home_public = home_public;
+	}
+
+	public int getLikey_seq() {
+		return likey_seq;
+	}
+
+	public void setLikey_seq(int likey_seq) {
+		this.likey_seq = likey_seq;
 	}
 	
 	

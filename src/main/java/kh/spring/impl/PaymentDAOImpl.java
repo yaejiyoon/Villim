@@ -19,7 +19,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 
 	@Override
 	public int insertDate(PaymentDTO dto) {
-		String sql = "insert into payment values(payment_seq.nextval,?,?,?,?,?,?,0)";
+		String sql = "insert into payment values(payment_seq.nextval,?,?,?,?,?,?,0,sysdate)";
 		return jdbcTemplate.update(sql,dto.getHome_seq(),dto.getMember_email(),dto.getReservation_seq(),
 				dto.getCheckIn(),dto.getCheckOut(),dto.getPayment_amount());
 	}

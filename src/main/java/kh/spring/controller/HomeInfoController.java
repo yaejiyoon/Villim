@@ -258,8 +258,17 @@ public class HomeInfoController {
 			likeyList = likeyService.getAlldata(member_email);
 		}
 		
+		//likey 테이블
+		List<LikeyDTO> likey = null;
+		if(member_email != null) {
+			likey = likeyService.getLikeyData(member_email);
+		}
 		
-		
+		//모달 하트
+		List<LikeyDTO> likeyHeart = null;
+		if(member_email != null) {
+			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -284,6 +293,8 @@ public class HomeInfoController {
 		mav.addObject("mattress", mattress);
 		mav.addObject("bedList", bedList);
 		mav.addObject("likeyList", likeyList);
+		mav.addObject("likey", likey);
+		mav.addObject("likeyHeart", likeyHeart);
 		mav.setViewName("home/home_info");
 		return mav;
 	}
@@ -964,19 +975,23 @@ public class HomeInfoController {
 	public void makeLikeList(HttpServletRequest req, HttpServletResponse response) {
 		String member_email = req.getSession().getAttribute("login_email").toString();
 		String likeyListName = req.getParameter("likeyListName");
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
 		
 		LikeyListDTO likeyListDTO = new LikeyListDTO();
 		likeyListDTO.setLikeyList_name(likeyListName);
 		likeyListDTO.setMember_email(member_email);
+		likeyListDTO.setHome_seq(home_seq);
 		
 		
 		int addLikeyListResult = likeyService.insertData(likeyListDTO);
 		
 		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
+		List<LikeyDTO> likeyLikey = likeyService.getLikeyHeart(home_seq, member_email);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("likeyList", likeyList);
+		map.put("likeyLikey", likeyLikey);
 		
 		
 		response.setCharacterEncoding("utf8");
@@ -1028,11 +1043,30 @@ public class HomeInfoController {
 	
 	@RequestMapping("/likeyPage.do")
 	public ModelAndView likeyPage(HttpServletRequest req) {
+		String member_email = req.getSession().getAttribute("login_email").toString();
+		
+		//likeyList 불러오기
+		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
 		
 		
 		ModelAndView mav = new ModelAndView();
-		/*mav.addObject("paymentResult", paymentResult);*/
+		mav.addObject("likeyList", likeyList);
 		mav.setViewName("home/likeyList");
+
+		return mav;
+	}
+	
+	@RequestMapping("/wishList.do")
+	public ModelAndView wishList(HttpServletRequest req) {
+		int likeyList_seq = Integer.parseInt(req.getParameter("likeyList_seq"));
+		
+		List<HomeDTO> likeyHomeList = likeyService.getHomeInfoLikey(likeyList_seq);
+		
+		System.out.println("adfsdfasd"+likeyHomeList.get(0).getLikey_seq());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("likeyHomeList", likeyHomeList);
+		mav.setViewName("home/wishList");
 
 		return mav;
 	}
