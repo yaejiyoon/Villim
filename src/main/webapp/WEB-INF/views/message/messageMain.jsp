@@ -25,6 +25,7 @@
 <!-- animated -->
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>메세지</title>
 
 <link rel= "stylesheet" type="text/css" href="/resources/css/message/messageMain.css">
@@ -484,26 +485,27 @@ function ChangeHostList(){
 							<c:forEach items="${hostMessage}" var="messageH" varStatus="i">
 						
 					
-						<div id="host" class="hostList" style="position:relative;height:10vh;top:-2vh;" >
+						<div id="host" class="hostList" style="position:relative;height:10vh;top:-2vh;overflow-style: marquee-block;" >
 							<c:forEach items="${guestMemberInfo}"  var="memberH">
 							 <c:if test="${memberH.member_email eq messageH.guest_email}">
 							<img style="position:relative;left:1vw;top:1vh;width:7vh;height:7vh;" src="files/${memberH.member_picture}" class="img-circle">
 							<h5 style="position:relative; left:6vw;top:-5.7vh;">${memberH.member_name}</h5>
 							<h5 style="position:relative; left:6vw;top:-5.7vh;">${messageH.message_time}</h5>
-							
+						  
 							<c:choose>
 							<c:when test="${messageH.message_read==0&&messageH.toID==userId}">
 							  <div class="new-item-badge">New</div>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:20vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;">${messageH.message_content}</a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:20vw;top:-10.5vh;color:gray;text-decoration:none;font-weight:800;text-overflow: ellipsis;">${messageH.message_content}</a><br>
 							</c:when>
 							<c:otherwise>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:20vw;top:-10.5vh;color:gray;text-decoration:none;">${messageH.message_content}</a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:20vw;top:-10.5vh;color:gray;text-decoration:none;text-overflow: ellipsis;">${messageH.message_content}</a><br>
 							</c:otherwise>
 							</c:choose>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:20vw;top:-10.5vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
+							
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:20vw;top:-10.5vh;color:gray;text-decoration:none;text-overflow: ellipsis;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
 							
 							<h5 style="position:relative;  left:41vw;top:-15vh;color:#f9c945;font-weight:800;">문의</h5>
-							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;"></c:if>
+							</div>  <c:if test="${not i.last}"><hr style="width:88%; color:gray;position:relative;top:-2vh;"></c:if>
 							</c:forEach></c:when>
 					   <c:otherwise>
 					 <div style="position:relative;height:10vh;top:-0.8vh;" > 

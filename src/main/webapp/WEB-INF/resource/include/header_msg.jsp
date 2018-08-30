@@ -9,7 +9,6 @@
 	rel="stylesheet" />
 <link href="<c:url value="/resources/css/main/component.css?var=1" />"
 	rel="stylesheet" />
-
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
 
 <style>
@@ -124,7 +123,7 @@
          <img src="<c:url value='/resources/img/1.jpg'/>">
       </div> --%>
       
-         <div id="header-pic" style="position:relative;left:-10vw;">
+         <div id="header-pic" style="position:relative;left:80vw;top:-8.6vh;">
               <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${sessionScope.login_picture}"/>

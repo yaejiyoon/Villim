@@ -33,7 +33,7 @@
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
-
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>${guest_name}님과의 대화</title>
 <style>
 @font-face {
@@ -252,10 +252,6 @@
 }
 
 
-/* * {
-  margin: 0px;
-  padding: 0px;
-} */
 
 .box1 {
   width: 300px;
@@ -337,7 +333,7 @@
     border: 1.3px solid #e8e8e8;
     transition: 0.3s;
     width: 30%;
-    height:26vh;
+    height:35vh;
     margin: 0 auto;
     position:relative;
     left:10vw;
@@ -413,13 +409,13 @@ select::-ms-expand {
 /* calender */
 
 .my-class{
-background:#ff5a5f;
-color:black;
+background:#bcbcbc;
+color:#848484;
 font-weight:800;
 
 }
-.my-class:hover{
-background-color: none;
+.datepicker-here{
+  /* pointer-events: none; */
 }
 </style>
 <script>
@@ -479,7 +475,7 @@ $(document).ready(function(){
 		
 
 <div class="card">
-						<div class="row" style="font-weight:700;width:100%;height:30vh;position:relative;left:0.8vw;">
+						<div class="row" style="font-weight:700;width:100%;top:-8vh;height:30vh;position:relative;left:0.8vw;">
 			<div style="position:relative;top:2vh;">
 					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">예약 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
@@ -497,7 +493,7 @@ $(document).ready(function(){
 			</div>
 			
 			
-			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:0vh;width:100%;">
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-8vh;width:100%;">
 			
 			<div style="position:relative;top:1vh;">
 			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">호스팅 대금</h4>
@@ -511,10 +507,10 @@ $(document).ready(function(){
 			</div>
 			
 			</div>
-			<hr style="color:#666666;width:70%;position:relative;top:1vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:-6vh;font-weight:900;height:15px;">
 			
 			
-			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-9vh;width:100%;">
 			<div style="width:75%;position:relative;top:1vh;left:3vw;">
 			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">예약 취소</h4>
 			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
@@ -522,9 +518,9 @@ $(document).ready(function(){
 			</div>
 			</div>
 			
-			<hr style="color:#666666;width:70%;position:relative;top:3vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:-10vh;font-weight:900;height:15px;">
 	
-			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-3vh;width:100%;">
+			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-15vh;width:100%;">
 			<div style="width:75%;position:relative;top:3vh;left:3vw;">
 			<h4 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">언제나 빌림을 통해 대화하세요</h4>
 			<h5 style="position:relative;top:4vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
@@ -532,7 +528,7 @@ $(document).ready(function(){
 			</div>
 			
 			
-			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;">
+			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-15vh;height:60.5vh;">
 			<div style="position:relative;top:2vh;">
 			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;font-family: font;">게스트 소개 </h4>
 			<div style="width:4.2vw;height:7.7vh;position:relative;left:3vw;top:2.9vh;">
@@ -569,7 +565,7 @@ $(document).ready(function(){
                           
                     	  
                           $('.datepicker-here').datepicker({
-                               
+                        	
                                dateFormat : "yyyy-mm-dd",
                                minDate:new Date(),
                                language: {
@@ -603,7 +599,7 @@ $(document).ready(function(){
                                                     return {
                                                          classes: 'my-class',
                                                          disabled: true
-                                                         
+                                                        
                                                       }
                                                  }
                                               }
@@ -632,10 +628,11 @@ $(document).ready(function(){
 <c:if test="${re.reserv_state==0}">
 <div class="card2 animated slideInRight">
  
-  <div class="container"  style="width:100%;padding:1;">
-    <h4><b>${guest_name}님이 숙소 예약을 요청합니다.</b></h4> 
-    
-    <p style="color:gray;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp;응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
+  <div class="container"  style=" width:100%;padding:1;">
+    <h4><b>${guest_name}님이 숙소 예약을 요청합니다. </b></h4> 
+    <p style="padding-top:2vh;">숙박 기간  ${re.reserv_checkin} ~ ${re.reserv_checkout}</p>
+     <p style="paddgin-top:-3vh;">인원수  ${re.population}명</p>
+    <p style="color:gray;padding-top:-1vh;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp;응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
     <div style="border:1.3px solid #e8e8e8;width:98%;height:10vh;">
     <img src="<c:url value='/resources/img/barchart.png'/>" style="width:3.5vw;height:6vh;position:relative;top:1.5vh;left:1vw;">
     <h5 style="font-weight:1000;position:relative;left:6vw;top:-6.5vh;">품격 있는 시작</h5>
@@ -653,7 +650,7 @@ $(document).ready(function(){
     <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:-1.6vh;left:9.1vw;">거절</button> 
     
   </div>
-</div>
+</div><br>
 </c:if>
 </c:forEach>
 <!-- Modal -->

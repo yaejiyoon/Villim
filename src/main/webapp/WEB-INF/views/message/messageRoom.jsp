@@ -25,6 +25,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>${host_name}님과의 대화</title>
 
 <style>
@@ -39,19 +40,6 @@
 	margin-bottom:10vh;
 }
 
-
-
-/*  */
-
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
-  -webkit-box-sizing: border-box;
- 	-moz-box-sizing: border-box;
-}
- */
 body{
 
   font-family: "Roboto", "Tahoma", "Arial", sans-serif;,
@@ -149,11 +137,8 @@ body{
 }
 
 
-.comments{  }
-
 .comment-form,
 .comment{
- /*  margin-bottom: 0vh; */
  height:auto;
   position: relative;
   z-index: 0;
@@ -174,7 +159,6 @@ body{
 
 .comment-form .comment-avatar img,
 .comment .comment-avatar img{
-  /* display: block; */
   height: auto;
   width: 100%;
 }
@@ -256,11 +240,6 @@ body{
   width: 15%;
 }
 
-/* 
-* {
-  margin: 0px;
-  padding: 0px;
-} */
 
 .box1 {
   width: 300px;
@@ -352,7 +331,7 @@ body{
 #close-button-1,#close-button-2,#close-button-3{ 
   position: absolute;
   right:1vw;
-  top:-3vh;
+  top:-1.5vh;
   font-family:sans-serif;
   font-size:28px;
   transform: rotate(45deg);
@@ -493,12 +472,12 @@ position:relative;
 	<div class="card">
 			
 			
-			<div class="row" style="position:relative;width:100%;left:0.8vw;height:33vh;">
+			<div class="row" style="position:relative;width:100%;left:0.8vw;height:33vh;top:-5vh;">
 			<div style="position:relative;top:-1vh;">
  <img src="files/${host_picture}" style="width:47%;height:15vh;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
-			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:6.9vw;font-weight:700;">${host_name}</h4>
-			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4vw;width:12vw;">${home_location}</h5>
-            <a style="color:#337a46;position:relative;left:7.5vw;top:6.5vh;">신고하기</a>
+			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:4vw;font-weight:700;width:10vw;text-align:center;">${host_name}</h4>
+			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4vw;width:10vw;text-align:center;overflow: hidden;">${home_location}</h5>
+            <a style="color:#337a46;position:relative;left:7.7vw;top:6.5vh;">신고하기</a>
 			</div>
 
 				</div>
@@ -508,7 +487,7 @@ position:relative;
 					<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">여행 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
 				<div style="position:relative;  top:4vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">체크인</h6><h6 style="display: inline !important;top:-2.8vh; margin:1vw;position:relative; left:1vw;font-weight:700;color:#9e9e9e;">체크 아웃</h6></div>
-				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.8vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:0vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
+				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.3vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:1vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
 				<div style="position:relative;  top:7vh;left:5.5vw;font-weight:700;"><h6 id="dayCI" style="display: inline !important;position:relative; top:-4.5vh;left:-1.7vw;margin:1vw;font-weight:700;">$요일</h6><h6 id="dayCO" style="display: inline !important; margin:1vw;position:relative; left:1.2vw;top:-4.5vh;font-weight:700;">$요일</h6></div>
 				<input id="checkIn" type="hidden" value="${splitCheckIn}">
 				<input id="checkOut"  type="hidden" value="${splitCheckOut}">
@@ -548,18 +527,21 @@ position:relative;
 <c:choose>
 <c:when test="${reservCheck.reserv_state==0}">
 <div class="card3  animated slideInRight">
-  <div id="reservAfter" class="container" style="width:100%;padding:1;">
+  <div id="reservAfter" class="container" style="position:relative;top:1vh;width:100%;padding:1;">
    <button class="close-button" id="close-button-2">+</button>
     <h4><b>${host_name}님의 숙소에 예약 요청을 보내셨습니다</b></h4>
-    <br> 
+        <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
+    
     <p>예약이 확정된 것은 아닙니다.</p> <p>${host_name}님이 빠른 시간안에 예약 요청에 응답할 것입니다.</p>
   </div>
 </div>
+<br>
 </c:when>
 <c:when test="${reservCheck.reserv_state==1}">
 <div class="card4  animated slideInRight">
   <div id="reservConfirm" class="container" style="width:100%;padding:1;">
-   <button class="close-button" id="close-button-3">+</button>
+   <!-- <button class="close-button" id="close-button-3">+</button> -->
     <h4><b>${host_name}님의 숙소에 예약하셨습니다.</b></h4> 
     <p>${host_name}님이 예약에 수락하셨습니다. 즐거운 여행 되세요</p>
     <form action="paymentProc.re" method="post" >
@@ -572,7 +554,7 @@ position:relative;
 <c:when test="">
 
 </c:when>
-<%-- <c:otherwise>
+<c:when test="${empty reservCheck}">
 <div class="card2 animated slideInRight">
   <div id="reservBefore" class="container" style="width:100%;padding:1;">
   <button class="close-button" id="close-button-1">+</button>
@@ -581,7 +563,7 @@ position:relative;
     <button class="btn btn-default" id="reservRequestBt" style="border: 1px solid #c9cacc;font-weight:800;">예약 요청</button> 
   </div>
 </div>
-</c:otherwise> --%>
+</c:when> 
 </c:choose>
 </c:forEach>
 <div class="comments-app" ng-app="commentsApp" ng-controller="CommentsController as cmntCtrl" style="position:relative; left:10vw;top:-125vh;height:auto;">

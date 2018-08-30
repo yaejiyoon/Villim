@@ -25,6 +25,7 @@
 <!-- animated -->
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>마이페이지</title>
 <style>
 
@@ -146,9 +147,9 @@ left:100%;
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a style="font-size: 19px; position: relative; top: -24px; left: -2vw; color:gray;text-decoration: none;font-weight:bold;">프로필
 			수정</a> <a href="profileReview.mo"
-			style="font-size: 18px; position: relative; top: 23px; left: -6vw; color:gray;text-decoration: none;">후기</a>
+			style="font-size: 18px; position: relative;z-index:500; top: 23px; left: -6vw; color:gray;text-decoration: none;">후기</a>
 		<button id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
+			style="position: relative; left: -150px;z-index:500; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
 <script>
 
 $(document).ready(function(){
