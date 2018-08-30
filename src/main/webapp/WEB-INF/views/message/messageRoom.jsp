@@ -385,6 +385,81 @@ position:relative;
 .invisible {
   display:none;
 }
+
+ul li {
+  color: #918f8f;
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 100px;
+}
+ul li input[type="radio"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+ul li label {
+  display: block;
+  position: relative;
+  font-weight: 400;
+  font-size: 1.5em;
+  padding: 25px 25px 25px 80px;
+  margin: 10px auto;
+  height: 30px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+ul li:hover label {
+  color: #918f8f;
+}
+
+ul li .radiobutton {
+  display: block;
+  position: absolute;
+  border: 4px solid #918f8f;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  top: 30px;
+  left: 20px;
+  transition: border 0.25s linear;
+  -webkit-transition: border 0.25s linear; 
+}
+
+ ul li:hover .radiobutton {
+  border: 4px solid #918f8f;
+}
+
+ul li .radiobutton::before {
+  display: block;
+  position: absolute;
+  content: "";
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  top: 5px;
+  left: 5px;
+  margin: auto;
+  transition: background 0.25s linear;
+  -webkit-transition: background 0.25s linear;
+}
+input[type="radio"]:checked ~ .radiobutton::before {
+  background: #333333;
+  margin: auto;
+  transition: background 0.25s linear;
+  -webkit-transition: background 0.25s linear;
+}
+input[type="radio"]:checked ~ .radiobutton {
+  border: 4px solid #333333;
+}
+
+input[type="radio"]:checked ~ label {
+  color: #333333;
+}
+ 
 </style>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
@@ -477,9 +552,44 @@ position:relative;
  <img src="files/${host_picture}" style="width:47%;height:15vh;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
 			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:4vw;font-weight:700;width:10vw;text-align:center;">${host_name}</h4>
 			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4vw;width:10vw;text-align:center;overflow: hidden;">${home_location}</h5>
-            <a style="color:#337a46;position:relative;left:7.7vw;top:6.5vh;">신고하기</a>
+            <a href="#" data-toggle="modal" data-target="#demo-1" style="color:#337a46;position:relative;left:7.7vw;top:6.5vh;text-decoration:none !important">신고하기</a>
 			</div>
-
+<!-- Modal -->
+  <div class="modal fade" id="demo-1" tabindex="-1" style="margin-top:10vh;height:65vh;">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
+      <div class="modal-header" style="border:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;"><strong>어떤 문제가 있나요?</strong></h4>
+      </div>
+      <div class="modal-body">
+<ul>
+    <li>
+      <input type="radio" id="fast" name="selector">
+      <label for="fast">사기 또는 스팸 메세지를 보내는 것 같아요</label>
+      <div class="radiobutton"></div>
+    </li>
+    <li>
+      <input type="radio" id="medium" name="selector">
+      <label for="medium">불쾌해요</label>
+      <div class="radiobutton"></div>
+    </li>
+    <li>
+      <input type="radio" id="slow" name="selector">
+      <label for="slow">기타</label>
+      <div class="radiobutton"></div>
+    </li>
+  </ul>
+      </div>
+       <div class="modal-footer" style="border:none;">
+       <button type="button" class="btn btn-default" style="position:relative;left:-2.5vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
+       
+        </div>
+     </div>
+    </div>
+  </div>
+<!-- Modal -->
 				</div>
 			
 			<div class="row" style="font-weight:700;width:100%;height:29vh;position:relative;left:0.8vw;">
