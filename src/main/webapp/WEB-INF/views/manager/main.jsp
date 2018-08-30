@@ -19,6 +19,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 결제 -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 
 <style>
 	#bg {
@@ -119,6 +121,12 @@
 		width:100%;
 		
 	}
+	#payChkModal{
+		width:100%;
+	}
+	#payChkModal .modal-dialog{
+		width:80%;
+	}
 
 </style>	
 <script>
@@ -126,6 +134,7 @@
 $(document).ready(function(){
 	var j = 0;
 	var currentarray = [];
+	var sendarray = [];
 	
 	 /* $("#collapseExample").animate({width:'toggle'},350); */
 	$("#btn").click(function(){
@@ -145,7 +154,7 @@ $(document).ready(function(){
 				html += "<td>이메일";
 				html += "<td>이름";
 				html += "<td>생년월일";
-				html += "<td>프로필";
+				/* html += "<td>프로필"; */
 				html += "<td>차단여부";
 				html += "<td>가입 날짜";
 				html += "<td>주소";
@@ -173,7 +182,7 @@ $(document).ready(function(){
 						  html += "<td>" + response[i].member_email;
 						  html += "<td>" + response[i].member_name;
 						  html += "<td>" + response[i].member_birth;
-						  html += "<td>" + response[i].member_picture;
+						  /* html += "<td>" + response[i].member_picture; */
 						  if(response[i].member_block == 'N'){
 							    html += "<td><select id="+response[i].member_seq+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>";
 						  }else{
@@ -184,7 +193,7 @@ $(document).ready(function(){
 
 					   	  html += "</tr>";
 					    
-					    $("table").html(html);
+					    $("#memberTable").html(html);
 	
 				}
 				
@@ -233,6 +242,127 @@ $(document).ready(function(){
 				
 	})
 	})
+	
+	$("#payCheck").click(function(){
+		var	html = "";
+		$("#payChkModal").modal('show');
+		alert("asdasd");
+		$.ajax({
+			
+			url:"mainPayCheck.admin",
+			type : "post",
+			
+			success : function(response) {
+				alert(response);
+					html += "<tr>"
+					html += "<td>예약번호";
+					html += "<td>예약자이메일";
+					html += "<td>예약자명";
+					html += "<td>호스트이메일";
+					html += "<td>호스트명";
+					html += "<td>체크인";
+					html += "<td>체크아웃";
+					html += "<td>결제금액";
+					html += "<td>결제날짜";
+					html += "<td>이체상태";
+					html += "</tr>"
+					for(var i=0; i<response.length; i++){
+						
+						  html += "<tr>";
+						  html += "<td>"+ response[i].reservation_seq;
+						  html += "<td>" + response[i].r_member_email;
+						  html += "<td>" + response[i].r_member_name;
+						  html += "<td>" + response[i].h_member_email;
+						  html += "<td>" + response[i].h_member_name;
+						  html += "<td>" + response[i].check_in;
+						  html += "<td>" + response[i].check_out;
+						  html += "<td>" + response[i].payment_amount;
+						  html += "<td>" + response[i].payment_date;
+						  
+						  if(response[i].home_state == '0'){
+							    html += "<td id='sendtd'><button id=sendMoney"+response[i].reservation_seq+">이체하기</button>";
+						  }else{
+							    html +=	"<td>이체완료";
+						  }
+					   	  html += "</tr>";
+					    
+					   	 $("#sendMoney"+response[i].reservation_seq+"").html(html);
+						
+					}
+					
+					$("#sendMoney"+response[i].reservation_seq+"").click(function(){
+						alert("asads");
+						var IMP = window.IMP; // 생략가능
+						IMP.init('imp31935218');
+						alert("asads1");
+						IMP.request_pay({
+						    pg : 'inicis', // version 1.1.0부터 지원.
+						    pay_method : 'card',
+						    merchant_uid : 'merchant_' + new Date().getTime(),
+						    name : 'villim',
+						    amount : 1000,
+						    /* amount : ${reservationDTO.totalAmount}, */
+						    buyer_email : '${memberDTO.member_email}',
+						    buyer_name : '${memberDTO.member_name}',
+						    buyer_tel : '${memberDTO.member_phone}',
+						    buyer_addr : '${memberDTO.member_location}',
+						}, function(rsp) {
+						    if ( rsp.success ) {
+						        var msg = '결제가 완료되었습니다.';
+						        msg += '고유ID : ' + rsp.imp_uid;
+						        msg += '상점 거래ID : ' + rsp.merchant_uid;
+						        msg += '결제 금액 : ' + rsp.paid_amount;
+						        msg += '카드 승인번호 : ' + rsp.apply_num;
+						        
+						        /* $(location).attr('href','payment.re?seq='+${reservationDTO.reservation_seq}); */
+						        $("#sendtd").html("이체완료");
+						        
+						        var sendid = $(this).attr('id');
+						        
+								var sendval = $("#sendtd").html();
+								var send = sendid + ":" + sendval;
+								alert(send);
+								
+								sendarray.push({
+									rseq : sendid,
+									sendvalval : sendval
+								})
+								
+						var jsonData1 = JSON.stringify(sendarray);
+						jQuery.ajaxSettings.traditional = true;
+						$.ajax({
+							url:"mainSendUpdate.admin",
+							dataType: 'json',
+							type : "post",
+							data : {						
+				
+								sendarray : jsonData1
+					
+							}, 
+							success : function(response) {
+				
+							alert(response);
+							currentarray.splice(0, currentarray.length);
+							}
+				
+						})
+								
+								
+						    } else {
+						        var msg = '결제에 실패하였습니다.';
+						        msg += '에러내용 : ' + rsp.error_msg;
+						    }
+						    alert(msg);
+						});
+						
+						
+					})
+			}
+		
+		})
+	})
+	
+
 	
 	(function poll() {
 	    $.ajax({
@@ -303,9 +433,9 @@ $(document).ready(function(){
 	
 	<div style="background-color:#47639b; width:15%;" id="checkDiv1">
 		<h1 id="memberCount1" style="color:white; margin-left:3%; margin-top:0px; margin-bottom:0px; padding-top:5%;"></h1>
-		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">전체 회원수</p>
+		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">당일 결제건</p>
 		<i class="fas fa-users fa-5x" style="color:white; z-index: 20;"></i>
-		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="memberCheck">More Info</a>
+		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="payCheck">More Info</a>
 	</div>
 </div>
 </div>
@@ -319,12 +449,30 @@ $(document).ready(function(){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
- 		<table class="table table-striped">
+ 		<table class="table table-striped" id="memberTable">
 		</table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="payChkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+ 		<table class="table table-striped" id="payTable">
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save1">Save changes</button>
       </div>
     </div>
   </div>

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebEndpoint;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import kh.spring.dto.AdminDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.interfaces.AdminService;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -26,6 +27,9 @@ public class ManagerController {
 	
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	AdminService adminService;
 	
 /*	@Autowired
 	MemberDTO dto;
@@ -149,9 +153,93 @@ public class ManagerController {
 	
 		
 	}
-	@RequestMapping("mainTest.admin")
-	public String mainTest() {
+	@RequestMapping("mainPayCheck.admin")
+	@ResponseBody
+	public void mainTest(HttpServletRequest request,HttpServletResponse response) {
 		
-		return "jaehotest";
+		ModelAndView mav =  new ModelAndView();
+		List<AdminDTO> result = adminService.getAllPaymentData();
+		
+		JSONArray array = new JSONArray();
+		JSONObject json = null;
+		
+
+		for(AdminDTO tmp:result) {
+			
+			json = new JSONObject();
+			json.put("reservation_seq", tmp.getReservation_seq());
+			json.put("r_member_email", tmp.getR_member_email());
+			json.put("r_member_name", tmp.getR_member_name());
+			json.put("h_member_email", tmp.getH_member_email());
+			json.put("h_member_name", tmp.getH_member_name());
+			json.put("check_in", tmp.getCheck_in());
+			json.put("check_out", tmp.getCheck_out());
+			json.put("payment_amount", tmp.getPayment_amount());
+			json.put("payment_date", tmp.getPayment_date());
+			json.put("home_state", tmp.getHome_state());
+			array.add(json);
+			
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		System.out.println(array.size());
+		for(int i=0; i<array.size(); i++) {
+		System.out.println(array.get(i) + "");
+		}
+		try {
+		System.out.println("response 까지는 나온다");
+		new Gson().toJson(array, response.getWriter());
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
+	@RequestMapping("mainSendUpdate.admin")
+	@ResponseBody
+	public int mainSendUpdate(HttpServletRequest request,HttpServletResponse response) {
+		String arr = request.getParameter("sendarray");
+		
+		List<String> list = new ArrayList<>();
+		System.out.println(arr);
+		JSONParser parser = new JSONParser();
+		try {
+		Object obj = parser.parse(arr);
+		JSONArray jsonArr = (JSONArray) obj;
+		for(int i=0; i<jsonArr.size(); i++) {
+			
+			System.out.println(jsonArr.get(i));
+			JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+			String reservation_seq = (String)jsonObj.get("rseq");
+			String send_val = (String)jsonObj.get("sendvalval");
+			String sum1 = reservation_seq + ":" + send_val;
+			list.add(sum1);
+			
+		}
+		
+		for(int j=0; j<list.size(); j++) {
+			System.out.println(list.get(j));
+		}
+
+		int result = adminService.updateHomeStateHome(list);
+		
+		if(result==list.size()) {
+			String msg = "성공";
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(msg, response.getWriter());
+		}else {
+			String msg = "실패";
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(msg, response.getWriter());
+		}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+	}
+	
 }
