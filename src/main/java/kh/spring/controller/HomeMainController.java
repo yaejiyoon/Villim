@@ -42,6 +42,9 @@ public class HomeMainController {
 		session.setAttribute("startDate", "0");
 		session.setAttribute("minMoney", 0);
 		session.setAttribute("maxMoney", 1001000);
+		session.setAttribute("whole", "");
+		session.setAttribute("one",  "");
+		session.setAttribute("many",  "");
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");
@@ -56,6 +59,9 @@ public class HomeMainController {
 		session.setAttribute("maxMoney", 1001000);
 		session.setAttribute("startDate", startDate);
 		session.setAttribute("endDate", endDate);
+		session.setAttribute("whole", "");
+		session.setAttribute("one",  "");
+		session.setAttribute("many",  "");
 		System.out.println("==============================================");
 		System.out.println("homeType : "+homeType);
 		System.out.println("people : "+people);
@@ -234,15 +240,28 @@ public class HomeMainController {
 
 		if(whole!=null) {
 			homeTypeList.add(whole);
-		} 
+			session.setAttribute("whole", whole);
+		} else {
+			session.setAttribute("whole", "");
+		}
 		
 		if(one!=null) {
 			homeTypeList.add(one);
-		} 
+			session.setAttribute("one", one);
+		} else {
+			session.setAttribute("one", "");
+		}
 		
 		if(many!=null) {
 			homeTypeList.add(many);
-		} 
+			session.setAttribute("many", many);
+		} else {
+			session.setAttribute("many", "");
+		}
+		
+		System.out.println("whole "+whole);
+		System.out.println("one "+one);
+		System.out.println("many "+many);
 		
 		
 		session.setAttribute("homeType", "숙소 유형 ·"+ homeTypeList.size());

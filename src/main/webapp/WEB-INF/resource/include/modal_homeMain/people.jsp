@@ -112,7 +112,7 @@ $(document).ready(function() {
 	});
 </script>
 <form action="modalPeople.do" method="post">
-      <div class="modal2 fade " id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade " id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog " id="peopleDialog">
             <div class="modal-content ">
                <div class="modal-header " >

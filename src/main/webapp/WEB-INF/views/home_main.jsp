@@ -12,10 +12,6 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> -->
 
 <!-- 달력 -->
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
@@ -319,25 +315,6 @@ $(document).ready(function() {
 		   off.style.display = 'none';
 		</c:if>
 
-// 	$('body').delegate('.submit','click',function(){
-//         var chkval = 1;
-//         $('#myonoffswitch').prop('checked', true);
-//         var on = document.getElementById('mapOnDiv');
-//         var off = document.getElementById('mapOffDiv');
-//     $.ajax({
-//        url: "homeMain.do",
-//        type: "get",
-//        data:{chkval:chkval},
-       
-//        success:function(returndata){
-// 			on.style.display = 'block';    
-// 			off.style.display = 'none';
-// 	   },error:function(errordata){
-// 			alert("error 3");
-//        }
-//      });
-//    });  
-	
 })
 
 
