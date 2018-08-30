@@ -103,7 +103,6 @@ public interface HomeService {
 
 	public List<MessageDTO> getAllMessage(String member_email);
 
-	public int modifyHomeType(HomeDTO hdto);
 
 	public int modifybed(BedDTO bdto);
 

@@ -289,12 +289,6 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectList("Home.searchHomeData", param);
 	}
 
-	@Override
-	public int modifyHomeType(HomeDTO hdto) {
-		String sql = "update home set home_buildingtype=?, home_type=?, home_public=?, home_people=? where home_seq = ?";
-		return jdbcTemplate.update(sql, hdto.getHome_buildingType(), hdto.getHome_type(), hdto.getHome_public(),
-				hdto.getHome_people(), hdto.getHome_seq());
-	}
 
 	@Override
 	public int modifybed(BedDTO bdto) {

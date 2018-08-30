@@ -223,11 +223,6 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public int modifyHomeType(HomeDTO hdto) {
-		return hdao.modifyHomeType(hdto);
-	}
-
-	@Override
 	public int getGuestReviewPaging(HashMap<String, Object> map) {
 		return hdao.getGuestReviewPaging(map);
 	}

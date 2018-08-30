@@ -86,8 +86,6 @@ public interface HomeDAO {
 
 	public int modifyPolicy(HomeDTO hdto);
 
-	public int modifyHomeType(HomeDTO hdto);
-
 	public int modifybed(BedDTO bdto);
 
 	public int getGuestReviewPaging(HashMap<String, Object> map);
