@@ -17,8 +17,36 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> 
 
+
 <script>
+function enterkey() {
+    if (window.event.keyCode == 13) {
+    	var input = document.getElementById('headerSearchInput');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+    	
+    	var place = autocomplete.getPlace();
+		var lat = place.geometry.location.lat();
+		var lng = place.geometry.location.lng();
+		$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+    }
+}
+
+	$(document).ready(function init() {
+		
+		var input = document.getElementById('headerSearchInput');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		
+		$('#headerSearch').click(function(){
+			var place = autocomplete.getPlace();
+			var lat = place.geometry.location.lat();
+			var lng = place.geometry.location.lng();
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+		
+	});
+
 	$(document).ready(function(){
+		
 		$(document).click(function(event) {
 			  if(
 			    $('.toggle > input').is(':checked') &&
@@ -31,9 +59,10 @@
 		$("#toindex").click(function(){
 			$(location).attr("href","/");
 		});
-		
-		
 	})
+		
+
+	
 </script>
 
 <!-- 	<script>
@@ -48,8 +77,8 @@
          <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
       <div id="header-search" class="form-search form-inline">
-         <img src="<c:url value='/resources/img/search.png'/>">
-         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
+	         <img src="<c:url value='/resources/img/search.png'/>" id="headerSearch" style="cursor:pointer" >
+	         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" id="headerSearchInput" onkeypress="enterkey();" />
       </div>
       <div id="header-menu" class="headerContainer" >
          <section class="color-5">
@@ -154,11 +183,11 @@
 	<c:otherwise>
 		<div id="header">
       <div id="header-logo">
-         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex" >
       </div>
       <div id="header-search" class="form-search form-inline">
-         <img src="<c:url value='/resources/img/search.png'/>">
-         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
+         <img src="<c:url value='/resources/img/search.png'/>" id="headerSearch" style="cursor:pointer">
+         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" id="headerSearchInput" onkeyup="enterkey();" /> 
       </div>
       <div id="header-menu" class="headerContainer" >
          <section class="color-5">

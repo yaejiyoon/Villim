@@ -475,7 +475,7 @@ $(document).ready(function() {
          </div>
          <div id="homeTitlePic">
             <button class="btn btn-secondary" id="homeButton">숙소 둘러보기</button>
-            <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>">
+            <img src="<c:url value='/resources/img/index/homeTitle7.jpg'/>">
          </div>
       </div>
 
