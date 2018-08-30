@@ -93,11 +93,13 @@
 	}
 
 	#titleDiv{
+		
 		margin-left:1%;
 		height:95%;
 	}
 	#checkDiv{
 		height:160px;
+		display:inline-block;
 	}
 	#btn{
 		width:100px;
@@ -107,6 +109,10 @@
 	}
 	#title{
 		color:white;
+	}
+	#checkDiv1{
+	height:160px;
+	display:inline-block;
 	}
 	
 	#memberChkModal{
@@ -257,6 +263,7 @@ $(document).ready(function(){
 		success : function(response) {
 			
 			$("#memberCount").html("<strong>"+response+"</strong>");
+			$("#memberCount1").html("<strong>"+response+"</strong>");
 		}
 			
 	})
@@ -289,6 +296,13 @@ $(document).ready(function(){
 	
 	<div style="background-color:#47639b; width:15%;" id="checkDiv">
 		<h1 id="memberCount" style="color:white; margin-left:3%; margin-top:0px; margin-bottom:0px; padding-top:5%;"></h1>
+		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">전체 회원수</p>
+		<i class="fas fa-users fa-5x" style="color:white; z-index: 20;"></i>
+		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="memberCheck">More Info</a>
+	</div>
+	
+	<div style="background-color:#47639b; width:15%;" id="checkDiv1">
+		<h1 id="memberCount1" style="color:white; margin-left:3%; margin-top:0px; margin-bottom:0px; padding-top:5%;"></h1>
 		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">전체 회원수</p>
 		<i class="fas fa-users fa-5x" style="color:white; z-index: 20;"></i>
 		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="memberCheck">More Info</a>
