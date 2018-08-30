@@ -53,22 +53,6 @@ public interface HomeService {
 
 	public String getBlockedDate(int home_seq);
 	
-	//----------------지혜-----------------
-	public int updateBlockedDate(String blockedDate,int home_seq);
-	
-	public BedDTO getBedData(int home_seq);
-	
-	
-//	예지
-	public List<HomeDTO> getAllHomeDataMain();
-	
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
-	
-	public List<HomePicDTO> getHomePic();
-	
-	public List<HomeDTO> searchHomeData(List homeTypeList , String homeTypeIsChecked, int people, List dates, String dateIsChecked);
-	
-	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 	public List<ReservationDTO> getAllReservation(String member_email);
 
@@ -97,5 +81,26 @@ public interface HomeService {
 	public List<GuestReviewDTO> getValue();
 	
 	public List<MessageDTO> getAllMessage(int home_seq);
+	
+	
+	
+	
+	
+	
+	
+	//----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate,int home_seq);
+	
+	public BedDTO getBedData(int home_seq);
+	
+	
+//	예지
+	public List<HomeDTO> getAllHomeDataMain();
+	
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
+	
+	public List<HomePicDTO> getHomePic();
+	
+	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 }

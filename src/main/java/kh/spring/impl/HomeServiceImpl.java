@@ -210,10 +210,6 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getHomePic();
 	}
 
-	@Override
-	public List<HomeDTO> searchHomeData(List homeTypeList ,String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
-		return hdao.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
-	}
 
 	@Override
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {

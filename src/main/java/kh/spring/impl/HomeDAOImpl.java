@@ -261,17 +261,6 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("homeTypeList", homeTypeList);
-		param.put("homeTypeIsChecked", homeTypeIsChecked);
-		param.put("people", people);
-		param.put("dates", dates);
-		param.put("dateIsChecked", dateIsChecked);
-		return ssTemplate.selectList("Home.searchHomeData", param);
-	}
-
-	@Override
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return ssTemplate.selectList("Home.modalHomeData", param);
 	}

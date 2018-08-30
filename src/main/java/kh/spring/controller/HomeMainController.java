@@ -40,6 +40,8 @@ public class HomeMainController {
 		session.setAttribute("homeType", "0");
 		session.setAttribute("people", 0);
 		session.setAttribute("startDate", "0");
+		session.setAttribute("minMoney", 0);
+		session.setAttribute("maxMoney", 1001000);
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");

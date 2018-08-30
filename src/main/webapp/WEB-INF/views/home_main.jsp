@@ -296,7 +296,6 @@ $(document).ready(function() {
 	       type: "get",
 	       data:{chkval:chkval},
 	
-	       
 	       success:function(returndata){
 	    	   if(chkval==1) {
 					on.style.display = 'block';    
