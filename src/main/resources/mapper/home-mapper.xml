@@ -373,7 +373,7 @@
 	<!-- 찬연 -->
 	
 	<insert id="firststepbyone" parameterType="Home">
-		insert into home value (home_seq,member_email,home_step) values (homeseq.nextval,#{member_email},'1')
+		insert into home value (home_seq,member_email,home_step) values (home_seq.nextval,#{member_email},'1')
 	</insert>
 	
 	<select id="getNesestHomeData" resultType="Home">
@@ -433,7 +433,7 @@
 	</update>
 	
 	<update id="thirdstepbyfive" parameterType="Home">
-		update home set home_price = #{home_price}  where home_seq = #{home_seq}  
+		update home set home_price = #{home_price}, home_step = '4'  where home_seq = #{home_seq}  
 	</update>
 
 	<select id="getSimilarHome" resultType="Home">

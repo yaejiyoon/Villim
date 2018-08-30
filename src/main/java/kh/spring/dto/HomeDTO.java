@@ -36,7 +36,8 @@ public class HomeDTO {
 	private String home_reserve_possible;
 	private String home_policy;
 	private String home_public;
-
+	private String home_step;
+	
 	public HomeDTO() {
 		super();
 	}
@@ -321,4 +322,13 @@ public class HomeDTO {
 		this.home_buildingType = home_buildingType;
 	}
 
+	public String getHome_step() {
+		return home_step;
+	}
+
+	public void setHome_step(String home_step) {
+		this.home_step = home_step;
+	}
+	
+	
 }

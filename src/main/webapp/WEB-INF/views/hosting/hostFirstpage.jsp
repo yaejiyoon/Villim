@@ -171,6 +171,17 @@ html, body {
 <title>Insert title here</title>
 </head>
 <body>
+
+<c:if test="${sessionScope.login_email == null}">
+      <script type="text/javascript">	
+         alert("로그인 먼저 하시길 바랍니다.");
+      	location.href= "/homeMain.do";
+      </script>
+</c:if>
+
+<c:if test="${sessionScope.login_email != null}">
+
+
   <%@ include file="../../resource/include/header.jsp" %>
 	<div id="lys-redesign-div">
 		<div data-hypernova-key="list_your_spacebundlejs"
@@ -404,6 +415,7 @@ html, body {
 	<input type="hidden" id="member_email" value="${member_email}" name="member_email">
 </form>
 
+</c:if>
 
 	<script>
 

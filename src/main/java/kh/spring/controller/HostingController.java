@@ -39,17 +39,33 @@ public class HostingController {
 	private HomeService service;
 
 	@RequestMapping("/first.host")
-	public String toFirst() {
-		//string <- 스프링이 해석함 
-		return "/hosting/hostFirstpage";
+	public ModelAndView toFirst(HttpSession session,HttpServletRequest req,HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView();
+		//String haslogin = req.getSession().getAttribute("login_email").toString();
+		//mav.addObject("emaillogin",haslogin);
+		mav.setViewName("hosting/hostFirstpage");
+		return mav;
 	}
 
 	@RequestMapping("/second.host")
 	public String toSecond() {
-
 		return "/hosting/hostSecondpage";
 	}
-
+	
+	@RequestMapping("/choicemodify.host")
+	public ModelAndView choicemodify(HttpSession session,HttpServletRequest req ,HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView();
+		HomeDTO homedto = service.getNewestHomeData();
+		String homestep = homedto.getHome_step();
+		if(homestep.equals("1")||homestep.equals("2")||homestep.equals("3")){
+			req.getSession().setAttribute("homestep", homestep);
+			mav.setViewName("hosting/modifypage");
+		}else if(homestep.equals("4")||homestep.equals(null)){
+			req.getSession().setAttribute("homestep", homestep);
+			mav.setViewName("hosting/hostFirstpage");
+		}
+		return mav;
+	}
 
 	@RequestMapping("/secondnext.host")
 	public ModelAndView createAndnext(HomeDTO hdto,HttpSession session,HttpServletRequest req ,HttpServletResponse res) {
@@ -59,8 +75,10 @@ public class HostingController {
 		HomeDTO homedto = service.getNewestHomeData();
 		int seq= homedto.getHome_seq();
 		String email = homedto.getMember_email();
+		String homestep = homedto.getHome_step();
 		System.out.println(seq);
 		System.out.println(email);
+		System.out.println(homestep);
 		//		if(email==req.getSession().getAttribute("email").toString()){
 		//			
 		//		}else{
@@ -68,6 +86,7 @@ public class HostingController {
 		//		}
 		req.getSession().setAttribute("email", email);
 		req.getSession().setAttribute("hostingseq", seq);
+		req.getSession().setAttribute("homestep", homestep);
 		mav.addObject("result",result);
 		mav.setViewName("hosting/hostSecondpage");
 		return mav;
@@ -141,7 +160,7 @@ public class HostingController {
 		double lng = Double.parseDouble(lngString);
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
-
+		
 		HomeDTO homedto = new HomeDTO();
 		homedto.setHome_seq(seq);
 		homedto.setHome_nation(nation);
@@ -206,8 +225,13 @@ public class HostingController {
 		homedto.setHome_seq(seq);
 		homedto.setHome_amenities(amenitiesList);
 		homedto.setHome_safety(safetyList);	
-
 		int result = service.modifyCommodity(homedto);
+		//-- 이후
+		System.out.println("1단계 업데이트");
+		HomeDTO callhomedto = service.getNewestHomeData();
+		String homestep = callhomedto.getHome_step();
+		System.out.println("!!! -> 단계:" + homestep);
+		req.getSession().setAttribute("homestep", homestep);
 		mav.addObject("result",result);
 		mav.setViewName("hosting/step2HostFirstpage");
 		return mav;
@@ -281,6 +305,7 @@ public class HostingController {
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
 		System.out.println(contents + explain + space + guest + etc + region + traffic);
+
 		HomeDTO homedto = new HomeDTO();
 		homedto.setHome_seq(seq);
 		homedto.setHome_contents(contents);
@@ -323,6 +348,12 @@ public class HostingController {
 		homedto.setHome_seq(seq);
 		homedto.setHome_name(homename);
 		int result = service.modifyHomename(homedto);
+		// 실행 이후
+		System.out.println("2단계 업데이트");
+		HomeDTO callhomedto = service.getNewestHomeData();
+		String homestep = callhomedto.getHome_step();
+		System.out.println("!!! -> 단계:" + homestep);
+		req.getSession().setAttribute("homestep", homestep);
 		mav.addObject("result",result);
 		mav.setViewName("hosting/step3HostFirstpage");
 		return mav;
@@ -479,13 +510,16 @@ public class HostingController {
 		System.out.println(homeprice);
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
+		
+		req.getSession().setAttribute("homestep", null);
+		
 		HomeDTO homedto = new HomeDTO();
 		homedto.setHome_seq(seq);
 		homedto.setHome_price(homeprice);
 		int result = service.modifyHomeprice(homedto);
 		mav.addObject("result",result);
-		System.out.println("도르마무도르마무");
-		mav.setViewName("home_info.do");
+		System.out.println("호스팅 끝 ");
+		mav.setViewName("home_main");
 		return mav;
 	}
 

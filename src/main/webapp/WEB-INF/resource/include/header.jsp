@@ -55,7 +55,9 @@
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+
+               		<a href="choicemodify.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+               		
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
         					<li><a href="home_info.do?seq=1">Item</a></li>
@@ -164,7 +166,9 @@
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+            	
+               		<a href="choicemodify.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
 <<<<<<< HEAD
