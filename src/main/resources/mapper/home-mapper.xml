@@ -3,42 +3,23 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
-<!--    예지 -->
-	<select id="getAllHomeDataMain" resultType="Home">
-      select * from home
-   </select>
-	
-<!-- 	<select id="searchHomeData" resultType="Home"> -->
-<!--       select * from home -->
-<!--       	<trim prefix="where" prefixOverrides="and"> -->
-<!--          <if test="homeType!=0"> -->
-<!--             home_type = #{homeType} -->
-<!--          </if> -->
-<!--          <if test="people!=null"> -->
-<!--             and home_people >= #{homeType} -->
-<!--          </if> -->
-<!--        </trim> -->
-<!--    </select> -->
-   
-   
-   <select id="getHomeOnMap" resultType="Home" parameterType="Double">
-      select * from home where home_lat between #{swLat} and #{neLat} and home_lng between #{swLng} and #{neLng}
-   </select>
-	
+
 	<select id="getAllHomeData" parameterType="String"
 		resultType="Home">
 		select * from Home where member_email= #{member_email}
 	</select>
 
-   <select id="getOldestHomeData" resultType="Home">
-      select * from (select
-      * from home order by home_seq) where rownum = 1
-   </select>
+	<select id="getOldestHomeData" resultType="Home">
+		select * from (select
+		* from home
+		where member_email = #{member_email} order by home_seq)
+		where rownum = 1
+	</select>
 
-   <select id="getHomeData" parameterType="int" resultType="Home">
-      select *
-      from home where home_seq = #{home_seq}
-   </select>
+	<select id="getHomeData" parameterType="int" resultType="Home">
+		select *
+		from home where home_seq = #{home_seq}
+	</select>
 
 	<select id="getHomePicData" parameterType="int"
 		resultType="HomePic">
@@ -73,21 +54,105 @@
 		r.host_email = #{host_email} order by reserv_date desc
 	</select>
 
+	<select id="getReservation" resultType="Reservation">
+		select * from member m,
+		reservation r, home h
+		where
+		m.member_email = r.member_email and
+		h.home_seq = r.home_seq and
+		r.home_seq = #{home_seq} order by
+		reserv_date desc
+	</select>
+
+	<select id="getWaitReservation" resultType="Reservation"
+		parameterType="map">
+		select * from member m, reservation r, home h
+		where
+		m.member_email = r.member_email and h.home_seq = r.home_seq and
+		r.host_email = #{member_email} and r.reserv_state = ${reserv_state}
+		order by
+		reserv_date desc
+	</select>
+
+	<select id="getApprovalReservation" resultType="Reservation"
+		parameterType="map">
+		select * from member m, reservation r, home h
+		where
+		m.member_email = r.member_email and h.home_seq = r.home_seq and
+		r.host_email = #{member_email} and r.reserv_state = ${reserv_state}
+		order by
+		reserv_date desc
+	</select>
+
+	<select id="getCalReservation" parameterType="map"
+		resultType="Reservation">
+		select * from reservation r, member m
+		where r.member_email = m.member_email and
+		r.home_seq = #{home_seq} and r.reserv_state = #{reserv_state}
+	</select>
+
 	<select id="getAllMessage" resultType="Message">
 		select * from message mg,
 		member m, home h
 		where mg.fromid = m.member_email and
-		mg.home_seq = h.home_seq
+		mg.home_seq =
+		h.home_seq and
+		h.member_email = #{member_email}
 	</select>
 
 
-	<select id="getGuestReview" parameterType="String"
-		resultType="GuestReview">
-		select * from guest_review g, host_review h where
-		g.g_review_seq = h.g_review_seq and h.home_seq IN
+	<select id="getAllGuestReview" resultType="GuestReview"
+		parameterType="map">
+		<!-- select * from guest_review g, host_review h where -->
+		<!-- g.g_review_seq = -->
+		<!-- h.g_review_seq and h.home_seq IN -->
+		<!-- (select -->
+		<!-- home_seq from -->
+		<!-- home where -->
+		<!-- member_email = #{member_email} -->
+		<!-- <if test="home_seq gt 0"> -->
+		<!-- and home_seq = #{home_seq} -->
+		<!-- </if> -->
+		<!-- ) -->
+		select g.*, m.member_name, m.MEMBER_PICTURE from
 		(select
-		home_seq from
-		home where member_email = #{member_email})
+		h1.h_review_public, g1.*, row_number()
+		over(order by g1.G_REVIEW_DATE)
+		as num from guest_review g1, host_review h1
+		where
+		g1.g_review_seq=h1.g_review_seq(+) and g1.home_seq
+		<if test="home_seq == 0">
+			in(select
+			home_seq from
+			home where
+			member_email =
+			#{member_email} ))g, member m
+			where num between #{startNum} and
+			#{endNum} and m.member_email = g.member_email
+		</if>
+		<if test="home_seq gt 0">
+			= #{home_seq})g, member m
+			where num between #{startNum} and
+			#{endNum}
+			and
+			m.member_email = g.member_email
+		</if>
+	</select>
+
+	<select id="getGuestReviewPaging" parameterType="map"
+		resultType="int">
+		select count(*) as totalCount from guest_review
+		where home_seq
+		<if test="home_seq == 0">
+			in (select
+			home_seq from
+			home where
+			member_email =
+			#{member_email})
+		</if>
+		<if test="home_seq gt 0">
+			= #{home_seq}
+		</if>
 	</select>
 
 	<select id="getAllHostReview" parameterType="int"
@@ -95,22 +160,36 @@
 		select * from host_review where host_seq = #{host_seq}
 	</select>
 
-
-
+	<select id="guestReviewCount" parameterType="map"
+		resultType="int">
+		select count(*) as count from guest_review where home_seq IN
+		(select
+		home_seq from home where member_email=#{member_email}
+		<if test="home_seq gt 0">
+			and home_seq = #{home_seq}
+		</if>
+		)
+	</select>
 	<select id="getGuestHostJoin" resultType="GuestReview">
 		select * from
 		guest_review g, host_review h
-		where g.g_review_seq = h.g_review_seq;
+		where g.g_review_seq = h.g_review_seq
 	</select>
 
-	<select id="getSatisfaction" resultType="GuestReview">
+	<select id="getSatisfaction" resultType="GuestReview"
+		parameterType="int">
 		select
-		G_REVIEW_SATISFACTION , count(G_REVIEW_SATISFACTION) as count from
+		G_REVIEW_SATISFACTION, count(G_REVIEW_SATISFACTION) as count
+		from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by G_REVIEW_SATISFACTION having
 		G_REVIEW_SATISFACTION
 		in(5,4,3,2,1)
 		order by G_REVIEW_SATISFACTION desc
+
 	</select>
 
 	<select id="getAccuracy" resultType="GuestReview">
@@ -119,6 +198,9 @@
 		,
 		count(G_REVIEW_ACCURACY) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by
 		G_REVIEW_ACCURACY having
 		G_REVIEW_ACCURACY
@@ -131,6 +213,9 @@
 		select
 		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by G_REVIEW_CLEANLINESS having
 		G_REVIEW_CLEANLINESS
 		in(5,4,3,2,1)
@@ -142,6 +227,9 @@
 		G_REVIEW_CHECKIN ,
 		count(G_REVIEW_CHECKIN) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by
 		G_REVIEW_CHECKIN having
 		G_REVIEW_CHECKIN
@@ -155,18 +243,26 @@
 		G_REVIEW_AMENITIES,
 		count(G_REVIEW_AMENITIES) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by
 		G_REVIEW_AMENITIES having
 		G_REVIEW_AMENITIES
 		in(5,4,3,2,1)
-		order by
+		order
+		by
 		G_REVIEW_AMENITIES desc
 	</select>
 
 	<select id="getCommunication" resultType="GuestReview">
 		select
-		G_REVIEW_COMMUNICATION , count(G_REVIEW_COMMUNICATION) as count from
+		G_REVIEW_COMMUNICATION , count(G_REVIEW_COMMUNICATION) as count
+		from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by G_REVIEW_COMMUNICATION having
 		G_REVIEW_COMMUNICATION
 		in(5,4,3,2,1)
@@ -180,6 +276,9 @@
 		,
 		count(G_REVIEW_LOCATION) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by
 		G_REVIEW_LOCATION having
 		G_REVIEW_LOCATION
@@ -187,19 +286,88 @@
 		order by
 		G_REVIEW_LOCATION desc
 	</select>
+	
+	   <select id="getValue" resultType="GuestReview">
+      select
+      G_REVIEW_VALUE,
+      count(G_REVIEW_VALUE) as count from
+      guest_review
+      group by
+      G_REVIEW_VALUE
+      having
+      G_REVIEW_VALUE
+      in(5,4,3,2,1)
+      order by
+      G_REVIEW_VALUE desc
+   </select>
 
-	<select id="getValue" resultType="GuestReview">
-		select
-		G_REVIEW_VALUE,
-		count(G_REVIEW_VALUE) as count from
-		guest_review
-		group by
-		G_REVIEW_VALUE
-		having
-		G_REVIEW_VALUE
-		in(5,4,3,2,1)
-		order by
-		G_REVIEW_VALUE desc
+	   <!--  예지 -->
+	<select id="getAllHomeDataMain" resultType="Home">
+      select * from home
+   </select>
+	
+   <select id="getHomeOnMap" resultType="Home" parameterType="map" >
+      select * from home 
+      where home_lat between #{swLat} and #{neLat} 
+      	and home_lng between #{swLng} and #{neLng} 
+      	and home_people >= #{people}
+      	and home_price between #{minMoney} and #{maxMoney}
+   		<if test="!homeType.equalsIgnoreCase('0')">
+            and home_type = #{homeType}
+         </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+   
+   	<select id="searchHomeData" resultType="Home" parameterType="map" >
+      select * from home where home_people >= #{people}
+         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+         	and 
+	         <trim suffixOverrides="or">
+	         <foreach collection="homeTypeList" item="type">
+	            home_type = #{type} or
+	        </foreach>
+	        </trim>
+        </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+   
+   <select id="modalHomeData" resultType="Home" parameterType="map" >
+      select * from home where home_people >= #{people} and home_price between #{minMoney} and #{maxMoney}
+         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+         	and 
+	         <trim suffixOverrides="or">
+	         <foreach collection="homeTypeList" item="type">
+	            home_type = #{type} or
+	        </foreach>
+	        </trim>
+        </if>
+         <if test="dateIsChecked.equalsIgnoreCase('1')">
+         	and home_blocked_date is null or
+         	<trim suffixOverrides="and">
+            <foreach collection="dates" item="type">
+            	home_blocked_date not like '%${type}%' and
+        	</foreach>
+        	</trim>
+         </if>
+   </select>
+
+	<!-- 지혜 -->
+	<select id="getBedData" parameterType="int" resultType="Bed">
+		select * from bed where home_seq = #{home_seq}
 	</select>
 	
 	<!-- 찬연 -->
@@ -267,23 +435,13 @@
 		update home set home_price = #{home_price} where home_seq = #{home_seq}  
 	</update>
 
+	<select id="getSimilarHome" resultType="Home">
+		select * from home where
+		home_buildingtype = #{home_buildingType}
+		and home_type=#{home_type} and
+		home_addr1=#{home_addr1}
+		and home_addr2 like '%'||#{home_addr2}||'%'
+		and member_email != #{member_email}
+	</select>
+
 </mapper>
-<!-- <select id="getReviewCheckin" resultType="int"> -->
-<!-- select G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) from guest_review -->
-<!-- group by G_REVIEW_CLEANLINESS having G_REVIEW_CLEANLINESS -->
-<!-- in(5,4,3,2,1) -->
-<!-- order by G_REVIEW_CLEANLINESS -->
-<!-- </select> -->
-
-<!-- <insert id="addHomePicData" parameterType="HomePic"> -->
-<!-- insert into home_pic values(home_pic_seq.nextval, #{home_seq}, #{home_pic_name}) -->
-<!-- </insert> -->
-
-<!-- <insert id="insert" parameterType="Messages"> -->
-<!-- insert into messages -->
-<!-- values(messages_seq.nextval, #{writer}, #{contents}) -->
-<!-- </insert> -->
-
-<!-- <select id="getData" parameterType="int" resultType="Messages"> -->
-<!-- select * from messages where seq = #{seq} -->
-<!-- </select> -->

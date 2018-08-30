@@ -2,6 +2,7 @@ package kh.spring.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
-import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
@@ -22,19 +22,21 @@ import kh.spring.interfaces.MemberDAO;
 
 @Component
 public class MemberDAOImpl implements MemberDAO {
+	
 
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private SqlSession template;
-
+	
 	@Override
 	public int signup(MemberDTO dto) {
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,'N',sysdate,'null',?)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,'N',sysdate,'null',?,?)";
 		return jdbcTemplate.update(sql, dto.getMember_email(), dto.getMember_name(), dto.getMember_pw(),
-				dto.getMember_birth(), dto.getMember_picture(), dto.getMember_phone());
+				dto.getMember_birth(), dto.getMember_picture(), dto.getMember_phone(),dto.getMember_type());
 	}
 
 	@Override
@@ -42,20 +44,20 @@ public class MemberDAOImpl implements MemberDAO {
 		String sql = "select member_picture from member where member_email=? and member_pw=?";
 		System.out.println(dto.getMember_email() + ":" + dto.getMember_pw()); 
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper() {
-						@Override
-						public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-							dto.setMember_picture(rs.getString("member_picture"));
-							
-							return dto;
-				}
-		
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				dto.setMember_picture(rs.getString("member_picture"));
+
+				return dto;
+			}
+
 		},dto.getMember_email(), dto.getMember_pw());
 		if(result.size() == 0) {
-		
-		return "";
+
+			return "";
 		}else {
-		
-		return result.get(0).getMember_picture();
+
+			return result.get(0).getMember_picture();
 		}
 	}
 	@Override
@@ -63,22 +65,129 @@ public class MemberDAOImpl implements MemberDAO {
 		String sql = "select member_picture from member where member_email=?";
 		System.out.println(dto.getMember_email() + ":" + dto.getMember_pw()); 
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper() {
-						@Override
-						public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-							dto.setMember_picture(rs.getString("member_picture"));
-							
-							return dto;
-				}
-		
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				dto.setMember_picture(rs.getString("member_picture"));
+
+				return dto;
+			}
+
 		},dto.getMember_email());
 		if(result.size() == 0) {
-		
-		return "";
+
+			return "";
 		}else {
-		
-		return result.get(0).getMember_picture();
+
+			return result.get(0).getMember_picture();
 		}
 	}
+	@Override
+	public String isMail(String mail) {
+		String sql = "select member_name from member where member_email = ?";
+		
+		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String name = rs.getString("member_name");
+
+				return name;
+			}
+
+		},mail);
+		if(result.size() == 0) {
+
+			return "";
+		}else {
+
+			return result.get(0);
+		}
+	}
+	
+	@Override
+	public String getAllMemberCountData() {
+		String sql = "select count(*) as count from member";
+		
+		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String count = rs.getString("count");
+
+				return count;
+			}
+
+		});
+		return result.get(0);
+	}
+	
+	@Override
+	public List<MemberDTO> getAllMemberData() {
+	String sql = "select member_seq, member_email, member_name, member_birth, member_picture, member_block,"
+			+ "to_char(to_date(member_signup_date),'YYYY-MM-DD') as member_signup_date, member_location from member";
+		
+
+		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper <MemberDTO>() {
+			@Override
+			public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				MemberDTO adminDto = new MemberDTO();
+				adminDto.setMember_seq(rs.getInt("member_seq"));
+				adminDto.setMember_email(rs.getString("member_email"));
+				adminDto.setMember_name(rs.getString("member_name"));
+				adminDto.setMember_birth(rs.getString("member_birth"));
+				adminDto.setMember_picture(rs.getString("member_picture"));
+				adminDto.setMember_block(rs.getString("member_block"));
+				adminDto.setMember_date(rs.getString("member_signup_date"));
+				adminDto.setMember_location(rs.getString("member_location"));
+				
+				return adminDto;
+			}
+		
+		});
+		for(int j=0; j<result.size(); j++) {
+			System.out.println(result.get(j).getMember_seq() + "result");
+		}
+		
+		return result;
+		}
+	
+	
+
+	@Override
+	public int memberBlock(List<String> arr) {
+		String sql = "update member set member_block=? where member_seq=?";
+		System.out.println(arr + "daoImpl");
+		int result = 0 ;
+		int count = 0;
+		for(int i=0; i<arr.size(); i++) {
+		String seq = arr.get(i).split(":")[0];
+		String val = arr.get(i).split(":")[1];
+		
+		result = jdbcTemplate.update(sql, val, seq);
+		
+		if(result>0) {
+			
+			System.out.println("성공");
+			count++;
+		}else {
+			System.out.println("실패");
+			
+		}
+	}
+		
+	if(count == arr.size()) {
+		return count;
+	}else {
+		System.out.println("도중에 실패한 수정이 있습니다.");
+		return 0;
+	}
+}
+
+
+
+		
+	//-- 여기까지 재호
+
+
 
 	@Override
 	public MemberDTO printProfile(String userId) {
@@ -162,6 +271,7 @@ public class MemberDAOImpl implements MemberDAO {
 	public int insertHostReview(HostReviewDTO dto) {
 		return template.insert("Member.insertHostReview", dto);
 	}
+
 
 
 

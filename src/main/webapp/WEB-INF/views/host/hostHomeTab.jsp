@@ -26,7 +26,6 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
 	height: auto;
@@ -114,25 +113,17 @@ div {
 }
 
 .home-pic {
-	width: 40%;
-	height: 180px;
+	width: 30%;
+	height: 140px;
 	margin-top: 30px;
+	margin-right:20px;
 	float: left;
-	border: 4px dotted #D8D8D8;
-	max-width: 100%;
-	display: block;
-}
-
-.dd-pic-wrap {
-	margin: 0 auto;
-	width: 60%;
-	height: 60%;
-	margin-top: 30px;
+	display: inline-block;
 }
 
 .dd-pic {
 	width: 100%;
-	max-height: 100%;
+	height: 100%;
 	display: inline-block;
 }
 
@@ -252,10 +243,10 @@ div {
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<div style="display: inline-block; width:79%; border: 1px dotted black;">
+			<div style="display: inline-block; width:79%;">
 				<h2>${hdto.home_name }</h2>
 			</div>
-			<div style="display: inline-block; width:20%; border: 1px dotted black; text-align: right;">
+			<div style="display: inline-block; width:20%;text-align: right;">
 				<button type="button" class="btn"
 					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'"><b>달력보기</b></button>
 			</div>
@@ -302,21 +293,32 @@ div {
 					<button type="button" class="btn"
 						onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
 				</div>
+				
 				<c:if test="${hdto.home_main_pic ne null }">
 					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
 						<div class="home-pic">
-							<img class="dd-pic img-responsive"
+							<img class="dd-pic img-responsive img-rounded"
 								src="<c:url value='files/${hdto.home_main_pic }'/>">
 						</div>
 					</a>
 				</c:if>
+				
+				<c:if test="${hplist.size() ne 0 }">
+					<c:forEach var="hplist" items="${hplist }" begin="1" end="2">  
+					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
+						<div class="home-pic">
+							<img class="dd-pic img-responsive img-rounded"
+								src="<c:url value='files/${hplist.home_pic_name }'/>">
+						</div>
+					</a>				
+					</c:forEach>
+				</c:if>
+				
 				<c:if test="${hdto.home_main_pic eq null }">
 					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
 						<div class="home-pic">
-							<div class="dd-pic-wrap">
 								<img class="dd-pic img-responsive img-rounded"
 									src="<c:url value='/resources/img/photo.png'/>">
-							</div>
 						</div>
 					</a>
 				</c:if>
@@ -373,22 +375,31 @@ div {
 					</h4>
 				</div>
 				<div class="title-expl-mod">
-					<button type="button" class="btn"><b>수정</b></button>
+					<button type="button" class="btn"
+						onclick="location.href='hostHomeRoomModifyTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 				<table class="accomo-table">
 					<c:if test="${hdto.home_people ne null }">
 						<tr class="row" style="margin: auto;">
-							<td class="col-md-6"><div>숙박 가능인원 : ${hdto.home_people }
-									명</div></td>
-							<td class="col-md-6"><div>건물 유형 : ${hdto.home_type }</div></td>
+							<td class="col-md-6"><div>건물 유형 :
+									${hdto.home_buildingType }</div></td>
+							<td class="col-md-6"><div></div>숙소 유형: ${hdto.home_type }</td>
+						</tr>
+						<tr class="row" style="margin: auto;">
+							<td class="col-md-6"><div>숙박 가능인원 : ${hdto.home_people }명</div></td>
+							<td class="col-md-6"><div>
+									공용 공간:
+									<c:if test="${hdto.home_public ne null}">있음</c:if>
+									<c:if test="${hdto.home_public eq null}">없음</c:if>
+								</div></td>
 						</tr>
 					</c:if>
-					<c:if test="${hdto.home_bedroom ne null }">
-						<tr class="row">
-							<td class="col-md-6"><div>침실 : ${hdto.home_bedroom }</div></td>
-							<td class="col-md-6"><div>침대 : ${hdto.home_bed }</div></td>
-						</tr>
-					</c:if>
+					<tr class="row" style="margin: auto;">
+						<td class="col-md-6"><div>침실 :</div></td>
+						<td class="col-md-6"><div>침대 :</div></td>
+					</tr>
 				</table>
 			</div>
 
@@ -402,7 +413,9 @@ div {
 				</div>
 				<div class="title-expl-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostHomeModifyFacilityTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
+						onclick="location.href='hostHomeModifyFacilityTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 				<table class="facility-table" style="margin-bottom: 20px;">
 					<c:set var="i" value="0" />
@@ -413,10 +426,10 @@ div {
 								style="text-align: left; border: 1px dotted white;">
 						</c:if>
 
-						<td class="col-md-6" style="border: 1px dotted white;"><div>${list }</div></td>
+						<td class="col-md-6" style="padding-left: 0"><div>${list }</div></td>
 
 						<c:if test="${i%j == j-1 }">
-							</tr>
+						</tr>
 						</c:if>
 
 						<c:set var="i" value="${i+1 }" />
@@ -424,8 +437,9 @@ div {
 
 				</table>
 
-				<div style="font-size: 15px;">
-					<a class="col-md-12" data-toggle="collapse" href="#collapseExample"
+				<div>
+					<a style="font-size: 15px; padding-left: 0;" class="col-md-12"
+						data-toggle="collapse" href="#collapseExample"
 						aria-expanded="false" aria-controls="collapseExample">더 보기 </a>
 				</div>
 
@@ -439,7 +453,7 @@ div {
 									style="text-align: left; border: 1px dotted white;">
 							</c:if>
 
-							<td class="col-md-6" style="border: 1px dotted white;"><div>${list }</div></td>
+							<td class="col-md-6" style="padding-left: 0"><div>${list }</div></td>
 
 							<c:if test="${i%j == j-1 }">
 								</tr>
