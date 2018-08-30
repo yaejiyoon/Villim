@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -122,11 +123,6 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeRulesDetails(hdto);
 	}
 	
-//	예지
-	@Override
-	public List<HomeDTO> getAllHomeDataMain() {
-		return hdao.getAllHomeDataMain();
-	}
 
 	@Override
 	public List<ReservationDTO> getAllReservation(String member_email) {
@@ -198,10 +194,13 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getAllMessage(home_seq);
 	}
 
+//	예지
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return hdao.getAllHomeDataMain();
+	}
 
 	@Override
-	public List<HomeDTO> getHomeOnMap(MapDTO mdto) {
-		return hdao.getHomeOnMap(mdto);
 	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
 		return hdao.getHomeOnMap(param);
 	}
@@ -211,20 +210,21 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getHomePic();
 	}
 
-	
-	//----------------지혜-----------------
-	@Override
-	public int updateBlockedDate(String blockedDate, int home_seq) {
-		return hdao.updateBlockedDate(blockedDate, home_seq);
-	}
-	@Override
-	public List<HomeDTO> searchHomeData(List homeTypeList ,String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
-		return hdao.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
-	}
 
 	@Override
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 	return hdao.modalHomeData(param);
 	}
 
+	
+	//----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		return hdao.updateBlockedDate(blockedDate, home_seq);
+	}
+
+	@Override
+	public BedDTO getBedData(int home_seq) {
+		return hdao.getBedData(home_seq);
+	}
 }

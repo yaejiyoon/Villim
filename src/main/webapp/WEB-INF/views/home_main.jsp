@@ -10,10 +10,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> -->
+
 <!-- 달력 -->
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
-<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker_home_main.css?ver=3" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
@@ -289,7 +296,6 @@ $(document).ready(function() {
 	       type: "get",
 	       data:{chkval:chkval},
 	
-	       
 	       success:function(returndata){
 	    	   if(chkval==1) {
 					on.style.display = 'block';    
@@ -336,49 +342,45 @@ $(document).ready(function() {
 
 
 </script>
+
 <script>
 
+<%
+String homeType = (String)session.getAttribute("homeType");
+if(!homeType.equals("0")) {%>
+   $(document).ready(function() {
+      var homeTypeBt = document.getElementById('homeTypeBt');
+      homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
+      homeTypeBt.style.backgroundColor = '#008489';
+      homeTypeBt.style.color = "white";
+      homeTypeBt.style.borderRadius = "10px";
+   })
+<%}%>
 
+<%
+int people = (int) session.getAttribute("people"); 
+if(people!=0) {%>
+   $(document).ready(function() {
+      var homeTypeBt = document.getElementById('peopleBt');
+      homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
+      homeTypeBt.style.backgroundColor = '#008489';
+      homeTypeBt.style.color = "white";
+      homeTypeBt.style.borderRadius = "10px";
+   })
+<%}%>
 
-	<%
-	String homeType = (String)session.getAttribute("homeType");
-	if(!homeType.equals("0")) {%>
-		$(document).ready(function() {
-			var homeTypeBt = document.getElementById('homeTypeBt');
-			homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
-			homeTypeBt.style.backgroundColor = '#008489';
-			homeTypeBt.style.color = "white";
-			homeTypeBt.style.borderRadius = "10px";
-		})
-	<%}%>
-	
-	<%
-	int people = (int) session.getAttribute("people"); 
-	if(people!=0) {%>
-		$(document).ready(function() {
-			var homeTypeBt = document.getElementById('peopleBt');
-			homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
-			homeTypeBt.style.backgroundColor = '#008489';
-			homeTypeBt.style.color = "white";
-			homeTypeBt.style.borderRadius = "10px";
-		})
-	<%}%>
-	
-	<% String startDate = (String) session.getAttribute("startDate"); 
-	if(!startDate.equals("0")) {%>
-	$(document).ready(function() {
-		var dateBt = document.getElementById('dateBt');
-		dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
-		dateBt.style.backgroundColor = '#008489';
-		dateBt.style.color = "white";
-		dateBt.style.borderRadius = "10px";
-	})
-	<%}%>
-	
-	
-	
-	
+<% String startDate = (String) session.getAttribute("startDate"); 
+if(!startDate.equals("0")) {%>
+$(document).ready(function() {
+   var dateBt = document.getElementById('dateBt');
+   dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
+   dateBt.style.backgroundColor = '#008489';
+   dateBt.style.color = "white";
+   dateBt.style.borderRadius = "10px";
+})
+<%}%>
 </script>
+
 
 
 <style>
@@ -411,7 +413,7 @@ $(document).ready(function() {
 		font-weight : 200;
   		font-size: 0.8vw;
 		width : 100%;
-		height : 7vh;
+		height : 8vh;
 		border-top : 1px solid #e0dee0;
 		border-bottom : 1px solid #e0dee0;
 		background-color: white;
@@ -675,7 +677,6 @@ $(document).ready(function() {
 	}
  	
 </style>
-
 </head>
     
 <body>

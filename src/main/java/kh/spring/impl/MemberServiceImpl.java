@@ -22,6 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	MemberDAO dao;
 
+	
 	@Override
 	public int signup(MemberDTO dto) {
 		
@@ -41,6 +42,34 @@ public class MemberServiceImpl implements MemberService{
 	public String isSnsMember(MemberDTO dto) {
 		return dao.isSnsMember(dto);
 	}
+	
+	@Override
+	public String isMail(String mail) {
+		return dao.isMail(mail);
+	}
+	
+	@Override
+	public String getAllMemberCountData() {
+		return dao.getAllMemberCountData();
+	}
+	
+	@Override
+	public List<MemberDTO> getAllMemberData() {
+
+		return dao.getAllMemberData();
+	}
+	
+	@Override
+	public int memberBlock(List<String> arr) {
+		
+		return dao.memberBlock(arr);
+	}
+
+
+
+
+
+   //--- 여기까지 재호
 
 	
 	@Override
@@ -131,6 +160,7 @@ public class MemberServiceImpl implements MemberService{
 	public int insertHostReview(HostReviewDTO dto) {
 		return dao.insertHostReview(dto);
 	}
+
 
 	
 }

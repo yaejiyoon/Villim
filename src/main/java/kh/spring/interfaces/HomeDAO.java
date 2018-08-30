@@ -3,6 +3,7 @@ package kh.spring.interfaces;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
@@ -10,7 +11,6 @@ import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.ReservationDTO;
-import kh.spring.dto.MapDTO;
 
 public interface HomeDAO {
 	public List<HomeDTO> getAllHomeData(String member_email);
@@ -87,6 +87,8 @@ public interface HomeDAO {
 	//----------------지혜-----------------
 	public int updateBlockedDate(String blockedDate,int home_seq);
 	
+	public BedDTO getBedData(int home_seq);
+	
 	
 //	예지
 	public List<HomeDTO> getAllHomeDataMain();
@@ -94,8 +96,6 @@ public interface HomeDAO {
 	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
 	
 	public List<HomePicDTO> getHomePic();
-	
-	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates, String dateIsChecked);
 	
 	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 }
