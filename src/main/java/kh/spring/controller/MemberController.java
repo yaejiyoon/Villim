@@ -42,6 +42,7 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	
 //	@Autowired
 //	MemberDTO dto;
 
@@ -488,7 +489,8 @@ public class MemberController {
 	}
 	@RequestMapping("find.do")
 	public void find(HttpServletRequest request, HttpServletResponse response) {
-		MailSendDTO mailDto = new MailSendDTO();
+	   try {
+		MailSendDTO mailDto = new MailSendDTO(mailSender);
 		String mail = request.getParameter("mail");
 		String name = service.isMail(mail);
 		System.out.println(mail);
@@ -505,13 +507,14 @@ public class MemberController {
 		String url1 ="<a style='display:inline-block; text-align:center; vertical-align:middle; text-decoration:none; font-size:12px; color:#fff;background-color:#d9534f;border-color:#d43f3a width:118px; height:38px; line-height:38px;'" + "href='#'>비밀번호 재설정 하기</a>"
 		+"<h4>감사합니다. </h4>"+"<h4>Villim 팀 드림 </h4><br>";
 		
-		try {
 		
-		mailDto.setSubject("Villim 입니다.");
+		
+		
 		mailDto.setText(new StringBuffer().append(url1).toString());
 		/*mailDto.addInline(contentId, dataSource);*/
 		mailDto.setFrom("villim", "Villim");
 		mailDto.setTo(mail);
+		mailDto.setSubject("Villim 입니다.");
 		mailDto.send();
 		System.out.println("메일보내기 성공");
 		String msg = "성공";
