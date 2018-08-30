@@ -96,7 +96,7 @@ public class HostingController {
 	public ModelAndView toMoveThird(HomeDTO hdto,HttpSession session,HttpServletRequest req,HttpServletResponse res) {
 		System.out.println("home_type수정 과 세번째 페이지 이동");
 		ModelAndView mav = new ModelAndView();
-		String home_type = req.getParameter("home_type");
+		String home_type = req.getParameter("room_type");
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
 		System.out.println(home_type);
