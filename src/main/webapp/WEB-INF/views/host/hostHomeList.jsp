@@ -126,10 +126,10 @@
 }
   
 .pic-add {
-	margin: 40px auto;
-	margin-left: 75px;
-	height: 50%;
-	width: 50%;
+	margin: 22px auto;
+	margin-left: 45px;
+	height: 70%;
+	width: 70%;
 }
 </style>
 <title>숙소</title>
@@ -171,7 +171,7 @@
 									<c:if test="${list.home_main_pic eq null}">
 										<div id=pic-add-wrap>
 											<img class="pic-add"
-												src="<c:url value='/resources/img/imgadd.png'/>">
+												src="<c:url value='/resources/img/photo.png'/>">
 										</div>
 									</c:if>
 								</div>
@@ -189,6 +189,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<%@ include file="../../resource/include/footer.jsp"%>
 </body>
 </html>

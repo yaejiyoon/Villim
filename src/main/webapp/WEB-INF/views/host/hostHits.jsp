@@ -8,6 +8,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<script type="text/javascript"
+	src="<c:url value="/resources/fusioncharts-js/fusioncharts.js"/>"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/fusioncharts-js/themes/fusioncharts.theme.fint.js"/>"></script>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -32,22 +37,20 @@ div {
 
 #wrapper-sub1 {
 	width: 70%;
+	display: inline-block;
 }
 
 #wrapper-sub2 {
 	margin-top: 50px;
 	border: 1px solid black;
-	width: 70%;
+	width: 90%;
 	display: inline-block;
-	float: left;
 }
 
 #wrapper-sub3 {
+	margin-top: 50px;
 	border: 1px solid black;
-	margin-top: 70px;
-	margin-bottom: 50px;
-	border: 1px solid black;
-	width: 60%;
+	width: 90%;
 	display: inline-block;
 }
 
@@ -57,7 +60,6 @@ div {
 	width: 50%;
 	padding: 0;
 	display: inline-block;
-	float: left;
 }
 
 .home-details div {
@@ -74,10 +76,6 @@ div {
 	padding: 0;
 	font-size: 17px;
 	text-align: left;
-}
-
-.nav-btn:hover {
-	
 }
 
 .nav-btn:active {
@@ -98,15 +96,6 @@ div {
 	width: 100%;
 	margin-top: 20px;
 	margin-bottom: 20px;
-}
-
-.well {
-	font-size: 20px;
-}
-
-#gpa-title {
-	margin-top: 50px;
-	font-size: 25px;
 }
 
 .gpa-con {
@@ -141,79 +130,30 @@ a:focus {
 	text-decoration: none;
 }
 
-.star-wrap {
-	width: 4%;
-	height: 100%;
-	display: inline-block;
-	float: right;
+#si-title {
+	font-size: 30px;
 }
 
-.star-img {
-	max-width: 100%;
-	max-height: 100%;
-}
-
-.num {
-	font-size: 18px;
-	display: inline-block;
-	float: left;
-	width: 4%;
-	text-align: center;
-	margin-top: 5px;
-}
-
-.per {
-	margin-top: 5px;
-	margin-left: 5px;
-	font-size: 18px;
-	width: 4%;
-	display: inline-block;
-	float: left;
-	font-size: 18px;
-}
-
-.star-list-wrap {
-	width: 4%;
-	height: 4%;
-	display: inline-block;
-	float: left;
-	padding: 0;
-	margin-right: 5px;
-}
-
-.progress {
-	margin-top: 5px;
-	height: 30px;
-	display: inline-block;
-	float: left;
-	width: 87%;
-}
-
-.star-list {
-	max-width: 100%;
-	max-height: 100%;
-	padding: 0;
-	margin: 0;
-}
-
-.well {
-	width: 75%;
-	padding: 0px;
-	height: auto;
-	display: inline-block;
-	float: left;
-	border: none;
-}
-
-.well-sub {
+#si-content {
 	width: 100%;
-	display: inline-block;
-	float: left;
-	background-color: white;
+	margin-left: 0;
 }
 
-#review-title {
-	font-size: 25px;
+#img-wrap {
+	width: 33.3%;
+	display: inline-block;
+}
+
+#siimg {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#siimg-add {
+	position:relative;
+	left:20%;
+	max-width: 60%;
+	max-height: 60%;
 }
 </style>
 <title>Insert title here</title>
@@ -225,9 +165,7 @@ a:focus {
 			<div class="home-details" class="row">
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
-						onclick="location.href='hostHomeAchievement.do'">
-						<b>평점</b>
-					</button>
+						onclick="location.href='hostHomeAchievement.do'">평점</button>
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
@@ -235,7 +173,9 @@ a:focus {
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
-						onclick="location.href='hostPriceTab.do'">조회수</button>
+						onclick="location.href='hostHits.do'">
+						<b>조회수</b>
+					</button>
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
@@ -243,11 +183,186 @@ a:focus {
 				</div>
 			</div>
 		</div>
+		<div class="line"></div>
 
 		<div id=wrapper-sub2>
+			<div>
+				<b>숙소 선택</b>
+			</div>
+			<select class="form-control input-lg"
+				onchange="if(this.value) location.href=(this.value);"
+				style="width: 70%; display: inline-block; margin-top: 20px;">
+				<c:forEach var="hlist" items="${hlist}">
+					<option ${param.seq eq hlist.home_seq ? "selected" : "" }
+						value="hostHits.do?seq=${hlist.home_seq}">${hlist.home_name }</option>
+				</c:forEach>
+			</select>
+
+			<div id=gpa>
+				<div style="width: 50%; margin-top: 40px;">
+					<div style="display: inline-block; font-size: 35px; width: 30%;">
+						<div>
+							<div style="width: 70%; display: inline-block;">
+								<b>100</b>
+							</div>
+						</div>
+						<div style="font-size: 17px;">9월 조회수</div>
+					</div>
+					<div
+						style="margin-left: 30px; display: inline-block; font-size: 35px; width: 25%;">
+						<b>0%</b><br>
+						<div style="font-size: 17px;">예약률</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div id="chart-container" style="margin-top: 100px;">방문자를 해보자</div>
+			</div>
+		</div>
+
+		<div id=wrapper-sub3>
+			<div id="si-title">
+				<b>회원님 숙소와 비슷한 숙소</b>
+			</div>
+			<div class="line"></div>
+
+			<div id="si-content" class="row">
+				<c:forEach var="list" items="${siList }">
+					<div id="img-wrap" class="col-md-4">
+						<a href="#"> <c:if test="${list.home_main_pic eq null}">
+								<img id="siimg-add" class="img-rounded"
+									src="<c:url value="/resources/img/photo.png"/>">
+							</c:if> <c:if test="${list.home_main_pic ne null}">
+								<img id="siimg" class="img-rounded"
+									src="<c:url value="files/${list.home_main_pic }"/>">
+							</c:if>
+							<div style="text-align: center;">
+								<span><b> <c:if test="${list.home_currency == 'KRW'}">￦</c:if>${list.home_price }</b></span>
+								<span>${list.home_name }</span>
+							</div>
+							<div style="text-align: center;">후기 2 개</div>
+						</a>
+					</div>
+				</c:forEach>
+			</div>
 
 		</div>
+
+
+		<div class="line"></div>
 	</div>
+
+	<script>
+		FusionCharts.ready(function() {
+			var visitChart = new FusionCharts({
+				type : 'spline',
+				renderAt : 'chart-container',
+				width : '100%',
+				height : '400',
+				dataFormat : 'json',
+				dataSource : {
+					// 	      "chart": {
+					// 	        "theme": "fusion",
+					// 	        "caption": "Visitors to website",
+					// 	        "subCaption": "Last week",
+					// 	        "xAxisName": "Day",
+					// 	        "yAxisName": "Visits",
+					// 	        "showValues": "0",
+					// 	        "bgColor": "#ffffff",
+					// 	        "borderAlpha": "20",
+					// 	        "canvasBorderAlpha": "0",
+					// 	        "usePlotGradientColor": "0",
+					// 	        "plotBorderAlpha": "10",
+					// 	        "placevaluesInside": "1",
+					// 	        "rotatevalues": "1",
+					// 	        "valueFontColor": "#ffffff",
+					// 	        "showXAxisLine": "1",
+					// 	        "xAxisLineColor": "#999999",
+					// 	        "divlineColor": "#999999",
+					// 	        "divLineIsDashed": "1",
+					// 	        "showAlternateHGridColor": "0",
+					// 	      },
+					"chart" : {
+						"xAxisName" : "2018년 8월",
+						"yaxisname" : "Views",
+						"anchorradius" : "5",
+						"showhovereffect" : "1",
+						"showvalues" : "0",
+						"numbersuffix" : "",
+						"theme" : "fusion",
+						"anchorbgcolor" : "#008489",
+						"palettecolors" : "#008489",
+						"bgColor" : "#ffffff",
+						"borderAlpha" : "20",
+						"canvasBorderAlpha" : "0",
+						"usePlotGradientColor" : "0",
+						"plotBorderAlpha" : "10",
+						"placevaluesInside" : "1",
+						"rotatevalues" : "1",
+						"showXAxisLine" : "1",
+						"divLineIsDashed" : "1",
+						"showAlternateHGridColor" : "0",
+						"yAxisMinValue" : "0",
+						"yAxisMaxValue" : "300"
+					},
+					"data" : [ {
+						"label" : "2",
+						"value" : "1"
+					}, {
+						"label" : "4",
+						"value" : "5"
+					}, {
+						"label" : "6",
+						"value" : "10"
+					}, {
+						"label" : "8",
+						"value" : "12"
+					}, {
+						"label" : "10",
+						"value" : "14"
+					}, {
+						"label" : "12",
+						"value" : "16"
+					}, {
+						"label" : "14",
+						"value" : "20"
+					}, {
+						"label" : "16",
+						"value" : "18"
+					}, {
+						"label" : "18",
+						"value" : "20"
+					}, {
+						"label" : "20",
+						"value" : "16"
+					}, {
+						"label" : "22",
+						"value" : "7"
+					}, {
+						"label" : "24",
+						"value" : "0"
+					}, {
+						"label" : "26",
+						"value" : "0"
+					}, {
+						"label" : "28",
+						"value" : "0"
+					}, {
+						"label" : "30",
+						"value" : "0"
+					}, {
+						"label" : "31",
+						"value" : "0"
+					}
+
+					]
+				}
+			});
+
+			visitChart.render();
+		});
+	</script>
 	<%@ include file="../../resource/include/footer.jsp"%>
 </body>
 </html>

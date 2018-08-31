@@ -5,21 +5,91 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <title>편의시설 수정 탭</title>
 
 <style>
+
+/* 라디오버튼 시작 */
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+.option-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	position: relative;
+	right: 0;
+	bottom: 0;
+	height: 20px;
+	width: 20px;
+	transition: all 0.15s ease-out 0s;
+	background: #cbd1d8;
+	border: none;
+	color: #fff;
+	cursor: pointer;  
+	display: inline-block;
+	margin-right: 0.5rem;
+	outline: none;
+	position: relative;
+	z-index: 1000;
+}
+
+.option-input:hover {
+	background: #9faab7;
+}
+
+.option-input:checked {
+	background: #008489;
+}
+
+.option-input:checked::before {
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	content: '✔';
+	display: inline-block;
+	font-size: 18px;
+	text-align: center; 
+	line-height: 20px;
+}
+
+.option-input:checked::after {
+	-webkit-animation: click-wave 0.65s;
+	-moz-animation: click-wave 0.65s;
+	animation: click-wave 0.65s;
+	background: #40e0d0;
+	content: '';
+	display: block;
+	position: relative;
+	bottom: 5px;
+	z-index: 100;
+}
+
+.option-input.radio {
+	border-radius: 50%;
+	margin-left: 18px;
+	margin-right: 10px;
+}
+
+.option-input.radio::after {
+	border-radius: 50%;
+}
+/* 라디오버튼 끝 */
 div {
 	box-sizing: border-box;
 }
@@ -192,25 +262,25 @@ input[type=checkbox] {
 			<form method="post" action="hostHomeModifyFacilityProc.do">
 				<div class="fac-wrap row">
 					<div class="fac-left col-md-6">
-						<input type="checkbox" name='fac' value="필수품목">필수품목<br>
+						<input type="checkbox" name='fac' value="필수품목" class="option-input checkbox">필수품목<br>
 						<span>&nbsp;&nbsp;수건, 침대, 시트, 비누, 화장지, 베개</span><br> <input
-							type="checkbox" name='fac' value="주방">주방<br>
+							type="checkbox" name='fac' value="주방" class="option-input checkbox">주방<br>
 						<div style="margin-left: 10px;">게스트가 요리를 할 수 있는 공간</div>
-						<br> <input type="checkbox" name='fac' value="에어컨">에어컨<br>
-						<input type="checkbox" name='fac' value="난방">난방<br> <input
-							type="checkbox" name='fac' value="헤어드라이어">헤어드라이어<br>
-						<input type="checkbox" name='fac' value="옷걸이">옷걸이<br>
-						<input type="checkbox" name='fac' value="다리미">다리미<br>
+						<br> <input type="checkbox" name='fac' value="에어컨" class="option-input checkbox">에어컨<br>
+						<input type="checkbox" name='fac' value="난방" class="option-input checkbox">난방<br> <input
+							type="checkbox" name='fac' value="헤어드라이어" class="option-input checkbox">헤어드라이어<br>
+						<input type="checkbox" name='fac' value="옷걸이" class="option-input checkbox">옷걸이<br>
+						<input type="checkbox" name='fac' value="다리미" class="option-input checkbox">다리미<br>
 					</div>
 					<div class="fac-right col-md-6">
-						<input type="checkbox" name='fac' value="세탁기">세탁기<br>
-						<input type="checkbox" name='fac' value="건조기">건조기<br>
-						<input type="checkbox" name='fac' value="TV">TV<br> <input
-							type="checkbox" name='fac' value="샴푸">샴푸<br> <input
-							type="checkbox" name='fac' value="침구">침구<br> <input
-							type="checkbox" name='fac' value="무선인터넷">무선인터넷<br>
+						<input type="checkbox" name='fac' value="세탁기" class="option-input checkbox">세탁기<br>
+						<input type="checkbox" name='fac' value="건조기" class="option-input checkbox">건조기<br>
+						<input type="checkbox" name='fac' value="TV" class="option-input checkbox">TV<br> <input
+							type="checkbox" name='fac' value="샴푸" class="option-input checkbox">샴푸<br> <input
+							type="checkbox" name='fac' value="침구" class="option-input checkbox">침구<br> <input
+							type="checkbox" name='fac' value="무선인터넷" class="option-input checkbox">무선인터넷<br>
 						<div style="margin-left: 10px;">숙소 내에서 끊김없이 연결</div>
-						<br> <input type="checkbox" name='fac' value="작업공간">작업공간<br>
+						<br> <input type="checkbox" name='fac' value="작업공간" class="option-input checkbox">작업공간<br>
 						<div style="margin-left: 10px;">노트북을 놓을 수 있는 책상이나 테이블과 앉아 일할
 							수 있는 의자</div>
 						<br>
@@ -227,19 +297,19 @@ input[type=checkbox] {
 						<b>주방 및 시설</b>
 					</div>
 					<div class="fac-add-left col-md-6">
-						<input type="checkbox" name='acc' value="건물 내 주차">건물 내 주차<br>
-						<input type="checkbox" name='acc' value="외부주차">외부 주차<br>
-						<input type="checkbox" name='acc' value="헬스장">헬스장<br>
-						<input type="checkbox" name='acc' value="수영장">수영장<br>
-						<input type="checkbox" name='acc' value="농구경기장">농구경기장<br>
+						<input type="checkbox" name='acc' value="건물 내 주차" class="option-input checkbox">건물 내 주차<br>
+						<input type="checkbox" name='acc' value="외부주차" class="option-input checkbox">외부 주차<br>
+						<input type="checkbox" name='acc' value="헬스장" class="option-input checkbox">헬스장<br>
+						<input type="checkbox" name='acc' value="수영장" class="option-input checkbox">수영장<br>
+						<input type="checkbox" name='acc' value="농구경기장" class="option-input checkbox">농구경기장<br>
 					</div>
 					<div class="fac-add-right col-md-6">
-						<input type="checkbox" name='acc' value="식기류">식기류<br>
-						<input type="checkbox" name='acc' value="커피메이커">커피메이커<br>
-						<input type="checkbox" name='acc' value="냉장고">냉장고<br>
-						<input type="checkbox" name='acc' value="전자레인지">전자레인지<br>
-						<input type="checkbox" name='acc' value="가스레인지">가스레인지<br>
-						<input type="checkbox" name='acc' value="기본 조리도구">기본 조리도구<br>
+						<input type="checkbox" name='acc' value="식기류" class="option-input checkbox">식기류<br>
+						<input type="checkbox" name='acc' value="커피메이커" class="option-input checkbox">커피메이커<br>
+						<input type="checkbox" name='acc' value="냉장고" class="option-input checkbox">냉장고<br>
+						<input type="checkbox" name='acc' value="전자레인지" class="option-input checkbox">전자레인지<br>
+						<input type="checkbox" name='acc' value="가스레인지" class="option-input checkbox">가스레인지<br>
+						<input type="checkbox" name='acc' value="기본 조리도구" class="option-input checkbox">기본 조리도구<br>
 						<div style="margin-left: 10px;">냄비, 후라이팬, 기름, 소금, 후추</div>
 					</div>
 				</div>
@@ -249,12 +319,12 @@ input[type=checkbox] {
 						<b>안전시설</b>
 					</div>
 					<div class="secure-left col-md-6">
-						<input type="checkbox" name='secure' value="소화기">소화기<br>
-						<input type="checkbox" name='secure' value="화재감지기">화재감지기<br>
+						<input type="checkbox" name='secure' value="소화기" class="option-input checkbox">소화기<br>
+						<input type="checkbox" name='secure' value="화재감지기" class="option-input checkbox">화재감지기<br>
 					</div>
 					<div class="secure-right col-md-6">
-						<input type="checkbox" name='secure' value="일산화탄소 감지기">일산화탄소
-						감지기<br> <input type="checkbox" name='secure' value="구급상자">구급상자<br>
+						<input type="checkbox" name='secure' value="일산화탄소 감지기" 	class="option-input checkbox">일산화탄소
+						감지기<br> <input type="checkbox" name='secure' value="구급상자" class="option-input checkbox">구급상자<br>
 					</div>
 				</div>
 
@@ -315,8 +385,7 @@ input[type=checkbox] {
 						var str = accarr[i];
 						console.log("str:::"+str)  
 						$("input[value="+str+"]").prop("checked", true);
-						console.log("이게 뭐시여");
-					}
+s					}
 				}
 			}
 			for (var i = 0; i < amenarr.length; i++) {

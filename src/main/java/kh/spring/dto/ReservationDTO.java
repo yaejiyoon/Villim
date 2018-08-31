@@ -25,6 +25,8 @@ public class ReservationDTO {
 	private String member_name;
 	private int home_people;
 	private String host_name;
+	private long reserv_countdown;
+	private String reserv_waitdate;
 
 	public ReservationDTO() {
 		super();
@@ -239,6 +241,22 @@ public class ReservationDTO {
 
 	public void setHost_name(String host_name) {
 		this.host_name = host_name;
+	}
+
+	public long getReserv_countdown() {
+		return reserv_countdown;
+	}
+
+	public void setReserv_countdown(long reserv_countdown) {
+		this.reserv_countdown = reserv_countdown;
+	}
+
+	public String getReserv_waitdate() {
+		return reserv_waitdate;
+	}
+
+	public void setReserv_waitdate(String reserv_waitdate) {
+		this.reserv_waitdate = reserv_waitdate;
 	}
 
 }
