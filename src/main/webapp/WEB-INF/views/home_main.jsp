@@ -843,7 +843,7 @@ $(document).ready(function() {
 								    <span class="sr-only">Next</span>
 								  </a>
 								</div>
-							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" id="likeyBTId${homeList.home_seq }"  onClick="mainOnclick('')">
+							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" id="likeyBTId${homeList.home_seq }" >
 							<p class="homeType" id="homeType${homeList.home_seq}">${homeList.home_type}</p>
 		                  	<p class="homeName" id="homeName${homeList.home_seq}">
 		                    <B>${homeList.home_name}</B>
@@ -861,10 +861,6 @@ $(document).ready(function() {
 <!-- 				row -->
 				
 			</div>
-			
-			<scipt>
-				
-			</scipt>
 			
 			
 			

@@ -1,7 +1,7 @@
 <%@ page pageEncoding="utf8"%>
 
 <style>
-	#likeyMainModal{
+	#likeyModal{
 		margin-top: 50px;
 		margin: 0 auto;
 		height:auto;
@@ -171,20 +171,20 @@
 			
 		})
 		
-		<c:forEach items="${likeyList }" var="likeyList">
+/* 		<c:forEach items="${likeyList }" var="likeyList">
 			<c:forEach items="${likeyHeart }" var="likeyHeart">
 				<c:if test="${likeyList.likeyList_seq eq likeyHeart.likeyList_seq }">
 		 			$("#likeyBTID${likeyList.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
 				</c:if>
 		 	</c:forEach>	
-		</c:forEach>
+		</c:forEach> */
 		
 	})
                 
 </script>
 
 <!-- 모달 팝업 -->
-      <div class="modal fade" id="likeyMainModal" tabindex="-1" role="dialog"
+      <div class="modal fade" id="likeyModal" tabindex="-1" role="dialog"
       aria-labelledby="myModalLabel" aria-hidden="true"
       style="z-index:1000000000">
          <div class="modal-dialog likey-dialog">
@@ -275,13 +275,13 @@
                		</script>
                		
                		
-               		<c:if test="${likeyList ne null}">
-               			<c:forEach items="${likeyList }" var="likeyList">
+               		<c:if test="${likeyListLikey ne null}">
+               			<c:forEach items="${likeyListLikey }" var="likeyListLikey">
                					<div class="likeyList-content">
-               						<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyList.likeyList_name }</p>
-               						<input type="hidden" class="hiddenSeq" value="${likeyList.likeyList_seq }">
+               						<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyListLikey.likeyList_name }</p>
+               						<input type="hidden" class="hiddenSeq" value="${likeyListLikey.likeyList_seq }">
                						<button class="btn btn-secondary likeyButton">
-               							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT" id="likeyBTID${likeyList.likeyList_seq }">
+               							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT" id="likeyBTID${likeyListLikey.likeyList_seq }">
          							</button>
                					</div>
                			</c:forEach>
