@@ -18,4 +18,6 @@ public interface LikeyService {
 	public List<LikeyDTO> getLikeyData(String member_email);
 	
 	public List<LikeyDTO> getLikeyHeart(int home_seq, String member_email);
+	
+	public LikeyListDTO getLikeyListDTO(int likeyList_seq);
 }

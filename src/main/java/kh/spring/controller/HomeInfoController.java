@@ -1060,11 +1060,16 @@ public class HomeInfoController {
 	public ModelAndView wishList(HttpServletRequest req) {
 		int likeyList_seq = Integer.parseInt(req.getParameter("likeyList_seq"));
 		
+		//클릭한 LikeyList안에 들어있는 homeList
 		List<HomeDTO> likeyHomeList = likeyService.getHomeInfoLikey(likeyList_seq);
+		
+		//클릭한 likeyList 정보
+		LikeyListDTO likeyListDTO = likeyService.getLikeyListDTO(likeyList_seq);
 		
 		System.out.println("adfsdfasd"+likeyHomeList.get(0).getLikey_seq());
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("likeyListDTO", likeyListDTO);
 		mav.addObject("likeyHomeList", likeyHomeList);
 		mav.setViewName("home/wishList");
 

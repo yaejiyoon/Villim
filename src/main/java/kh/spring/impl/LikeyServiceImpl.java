@@ -47,4 +47,9 @@ public class LikeyServiceImpl implements LikeyService{
 		return likeyDAO.getLikeyHeart(home_seq, member_email);
 	}
 
+	@Override
+	public LikeyListDTO getLikeyListDTO(int likeyList_seq) {
+		return likeyDAO.getLikeyListDTO(likeyList_seq);
+	}
+
 }

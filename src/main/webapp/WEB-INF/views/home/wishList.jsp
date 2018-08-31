@@ -112,8 +112,8 @@
 	<div id="wishList-wrapper">
 		<div id="wishList-homeList">
 			<div id="wishList-homeList-top">
-				<a href="#" id="goAllList">전체 목록</a>
-				<h2 style="font-weight: 800;">목록 이름</h2>
+				<a href="likeyPage.do" id="goAllList">전체 목록</a>
+				<h2 style="font-weight: 800;">${likeyListDTO.likeyList_name }</h2>
 			</div>
 			<div id="wishList-homeList-bottom">
 				<c:forEach items="${likeyHomeList }" var="likeyHomeList" varStatus="status">

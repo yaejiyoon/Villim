@@ -21,4 +21,8 @@
 	<select  id="getLikeyHeart" resultType="Likey" parameterType="map" >
 		select * from likey where home_seq=#{home_seq} and member_email = #{member_email}
 	</select>
+	
+	<select id="getLikeyListDTO" resultType="LikeyList" parameterType="int">
+		select * from likeyList where likeylist_seq= #{likeyList_seq}
+	</select>
 </mapper>

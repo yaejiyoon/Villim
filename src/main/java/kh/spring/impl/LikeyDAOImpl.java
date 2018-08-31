@@ -57,6 +57,11 @@ public class LikeyDAOImpl implements LikeyDAO{
 		param.put("member_email", member_email);
 		return ssTemplate.selectList("Likey.getLikeyHeart", param);
 	}
+
+	@Override
+	public LikeyListDTO getLikeyListDTO(int likeyList_seq) {
+		return ssTemplate.selectOne("Likey.getLikeyListDTO",likeyList_seq);
+	}
 	
 	
 
