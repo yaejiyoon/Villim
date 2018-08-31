@@ -10,6 +10,7 @@ public class PaymentDTO {
 	private String payment_amount;
 	private String payment_state;
 	private String payment_date;
+	private String host_email;
 	
 	
 	public PaymentDTO() {
@@ -17,7 +18,7 @@ public class PaymentDTO {
 	}
 
 	public PaymentDTO(int payment_seq, int home_seq, String member_email, int reservation_seq, String checkIn,
-			String checkOut, String payment_amount, String payment_state, String payment_date) {
+			String checkOut, String payment_amount, String payment_state, String payment_date, String host_email) {
 		super();
 		this.payment_seq = payment_seq;
 		this.home_seq = home_seq;
@@ -28,7 +29,9 @@ public class PaymentDTO {
 		this.payment_amount = payment_amount;
 		this.payment_state = payment_state;
 		this.payment_date = payment_date;
+		this.host_email = host_email;
 	}
+
 
 	public int getPayment_seq() {
 		return payment_seq;
@@ -118,6 +121,16 @@ public class PaymentDTO {
 	public void setPayment_date(String payment_date) {
 		this.payment_date = payment_date;
 	}
-	
+
+
+	public String getHost_email() {
+		return host_email;
+	}
+
+
+	public void setHost_email(String host_email) {
+		this.host_email = host_email;
+	}
+
 	
 }

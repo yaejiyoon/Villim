@@ -52,4 +52,9 @@ public class LikeyServiceImpl implements LikeyService{
 		return likeyDAO.getLikeyListDTO(likeyList_seq);
 	}
 
+	@Override
+	public int removeLikey(int likeyList_seq, int home_seq) {
+		return likeyDAO.removeLikey(likeyList_seq, home_seq);
+	}
+
 }

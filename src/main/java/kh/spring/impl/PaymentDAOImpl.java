@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.HomeDTO;
 import kh.spring.dto.PaymentDTO;
 import kh.spring.interfaces.PaymentDAO;
 
@@ -19,9 +20,9 @@ public class PaymentDAOImpl implements PaymentDAO{
 
 	@Override
 	public int insertDate(PaymentDTO dto) {
-		String sql = "insert into payment values(payment_seq.nextval,?,?,?,?,?,?,0,sysdate)";
+		String sql = "insert into payment values(payment_seq.nextval,?,?,?,?,?,?,0,sysdate,?)";
 		return jdbcTemplate.update(sql,dto.getHome_seq(),dto.getMember_email(),dto.getReservation_seq(),
-				dto.getCheckIn(),dto.getCheckOut(),dto.getPayment_amount());
+				dto.getCheckIn(),dto.getCheckOut(),dto.getPayment_amount(),dto.getHost_email());
 	}
 
 }

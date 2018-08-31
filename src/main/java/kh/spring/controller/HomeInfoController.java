@@ -1028,12 +1028,16 @@ public class HomeInfoController {
 	@RequestMapping("/payment.re")
 	public ModelAndView payment(HttpServletRequest req) {
 		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
 		
 		System.out.println("결제완료 seq"+reservation_seq);
 		
 		//예약 정보
 		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
 		
+		//호스트 이메일
+		HomeDTO hdto = homeService.getHomeData(home_seq);
+		String host_email = hdto.getMember_email();
 		
 		PaymentDTO paymentDTO = new PaymentDTO();
 		paymentDTO.setHome_seq(reservationDTO.getHome_seq());
@@ -1042,6 +1046,7 @@ public class HomeInfoController {
 		paymentDTO.setCheckIn(reservationDTO.getReserv_checkin());
 		paymentDTO.setCheckOut(reservationDTO.getReserv_checkout());
 		paymentDTO.setPayment_amount(reservationDTO.getTotalAmount());
+		paymentDTO.setHost_email(host_email);
 		
 		//결제 테이블
 		int paymentResult = paymentService.insertDate(paymentDTO);
@@ -1137,7 +1142,6 @@ public class HomeInfoController {
 		//likeyList 불러오기
 		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
 		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("likeyList", likeyList);
 		mav.setViewName("home/likeyList");
@@ -1165,4 +1169,32 @@ public class HomeInfoController {
 		return mav;
 	}
 	
+	@RequestMapping("/removeLikey.do")
+	public void removeLikey(HttpServletRequest req, HttpServletResponse response) {
+		int likeyList_seq = Integer.parseInt(req.getParameter("likeylist_Seq"));
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		
+		int removeResult = likeyService.removeLikey(likeyList_seq, home_seq);
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("removeResult", removeResult);
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			response.getWriter().print(json);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/test.do")
+	public void test(HttpServletRequest req, HttpServletResponse response) {
+		
+	}
 }
