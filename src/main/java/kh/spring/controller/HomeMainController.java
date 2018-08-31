@@ -41,6 +41,7 @@ public class HomeMainController {
 	public ModelAndView homeMain(HttpServletRequest req,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
+		List<HomeDTO> getParis = homeService.getParis();
 		List<HomePicDTO> homePic = homeService.getHomePic();
 		
 		//하트 버튼
@@ -70,6 +71,7 @@ public class HomeMainController {
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
 		mav.addObject("likeyList", likeyList);
+		mav.addObject("getParis", getParis);
 		mav.setViewName("home_main");
 		return mav;
 	}
