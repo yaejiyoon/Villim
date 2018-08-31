@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.interfaces.AdminService;
@@ -240,6 +241,43 @@ public class ManagerController {
 		}
 
 		return 1;
+	}
+	
+	@RequestMapping("mainReservationCount.admin")
+	@ResponseBody
+	public void mainReservationCount(HttpServletRequest request,HttpServletResponse response) {
+		AdminChartDTO chartDto = new AdminChartDTO();
+		ModelAndView mav =  new ModelAndView();
+		JSONArray array = new JSONArray();
+		JSONObject json = null;
+		chartDto.setPayment_year("2018");
+		List<AdminChartDTO> result = adminService.getPaymentChart(chartDto);
+		
+		for(AdminChartDTO tmp:result) {
+			
+			json = new JSONObject();
+			json.put("reservation_count", tmp.getReservation_count());
+			json.put("payment_month", tmp.getPayment_month());
+			json.put("payment_sum", tmp.getPayment_sum());
+			
+			array.add(json);
+			
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		System.out.println(array.size());
+		for(int i=0; i<array.size(); i++) {
+		System.out.println(array.get(i) + "");
+		}
+		try {
+			
+		new Gson().toJson(array, response.getWriter());
+//		return "";
+		}catch(Exception e) {
+			e.printStackTrace();
+//			return "";
+		}
+		
 	}
 	
 }

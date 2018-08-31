@@ -34,6 +34,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
 import kh.spring.dto.Review_H_DTO;
+import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -42,7 +43,8 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	
+	@Autowired
+	HomeService hService;
 //	@Autowired
 //	MemberDTO dto;
 
@@ -394,6 +396,7 @@ public class MemberController {
 		String picture = service.isSnsMember(dto);
 		System.out.println(dto.getMember_email());
 		
+		
 		if(!(picture.equals(""))) {
 			System.out.println("이미 가입 되어있는 아이디 입니다.");
 			System.out.println(dto.getMember_email());
@@ -415,6 +418,8 @@ public class MemberController {
 	public ModelAndView fbInfo2(HttpServletRequest request, MemberDTO dto,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("facebookInfo2 접속");
+		List<HomeDTO> homeList = hService.getAllHomeDataMain();
+		mav.addObject("homeList", homeList);
 		dto.setMember_email(session.getAttribute("login_email").toString());
 		
 		String picture = service.isSnsMember(dto);
@@ -424,8 +429,7 @@ public class MemberController {
 //			System.out.println("이미 가입 되어있는 아이디 입니다.");
 			System.out.println(dto.getMember_email());
 			session.setAttribute("login_email", dto.getMember_email());
-			session.setAttribute("login_picture", dto.getMember_picture());
-			
+			session.setAttribute("login_picture", dto.getMember_picture());			
 			mav.setViewName("index");
 			return mav; 
 //		}else {
@@ -442,7 +446,8 @@ public class MemberController {
 	// 로그인 체크
 	@RequestMapping("login.do")
 	public ModelAndView login(MemberDTO dto, HttpSession session, HttpServletRequest request) {
-
+		List<HomeDTO> homeList = hService.getAllHomeDataMain();
+		
 		ModelAndView mav = new ModelAndView();
 		
 		String picture = service.isMember(dto);
@@ -451,11 +456,12 @@ public class MemberController {
 			System.out.println("로그인성공");
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
-			
+			mav.addObject("homeList", homeList);
 			mav.setViewName("index");
 			return mav;
 		} else {
 			System.out.println("로그인 실패");
+			mav.addObject("homeList", homeList);
 			return mav;
 		}
 
@@ -463,7 +469,7 @@ public class MemberController {
 	
 	@RequestMapping("snslogin.do")
 	public ModelAndView snslogin(MemberDTO dto, HttpSession session) {
-		
+		List<HomeDTO> homeList = hService.getAllHomeDataMain();
 		System.out.println("sns 로그인 부분입니다.");
 		ModelAndView mav = new ModelAndView();
 		String picture = service.isSnsMember(dto);
@@ -472,10 +478,12 @@ public class MemberController {
 			
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
+			mav.addObject("homeList", homeList);
 			mav.setViewName("index");
 			return mav;
 		}else {
 			System.out.println("로그인 실패");
+			mav.addObject("homeList", homeList);
 			return mav;
 		}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
 import kh.spring.interfaces.AdminDAO;
 import kh.spring.interfaces.AdminService;
@@ -32,6 +33,12 @@ public class AdminServiceImpl implements AdminService{
 	public int updateHomeStatePayment(List<String> arr) {
 		
 		return dao.updateHomeStatePayment(arr);
+	}
+
+	@Override
+	public List<AdminChartDTO> getPaymentChart(AdminChartDTO chartDto) {
+		
+		return dao.getPaymentChart(chartDto);
 	}
 
 }

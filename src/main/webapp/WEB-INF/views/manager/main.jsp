@@ -23,13 +23,57 @@
 <!-- 결제 -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+<script src="https://code.highcharts.com/js/highcharts.js"></script>
+<script src="https://code.highcharts.com/js/modules/exporting.js"></script>
 
 
 
 
 <style>
+
+@import 'https://code.highcharts.com/css/highcharts.css';
+
+#container {
+  height: 50%;
+  /* max-width: 800px; */
+  width:70%;
+  /* margin: 0 auto; */
+  position: absolute;
+  z-index: 10;
+  margin-left: 25%;
+  margin-top:25%;
+  
+}
+
+/* Link the series colors to axis colors */
+.highcharts-color-0 {
+  fill: #7cb5ec;
+  stroke: #7cb5ec;
+}
+.highcharts-axis.highcharts-color-0 .highcharts-axis-line {
+  stroke: #7cb5ec;
+}
+.highcharts-axis.highcharts-color-0 text {
+  fill: #7cb5ec;
+}
+.highcharts-color-1 {
+  fill: #90ed7d;
+  stroke: #90ed7d;
+}
+.highcharts-axis.highcharts-color-1 .highcharts-axis-line {
+  stroke: #90ed7d;
+}
+.highcharts-axis.highcharts-color-1 text {
+  fill: #90ed7d;
+}
+
+
+.highcharts-yaxis .highcharts-axis-line {
+  stroke-width: 2px;
+}
+
 	#bg {
 	position: fixed;
 	top: -50%;
@@ -287,17 +331,18 @@ $(document).ready(function(){
 						  html += "<td>" + response[i].payment_date;
 						  
 						  if(response[i].home_state == '0'){
-							    html += "<td id='sendtd'><button id=sendMoney"+response[i].reservation_seq+">이체하기</button>";
+							    html += "<td id='sendtd'><button id="+response[i].reservation_seq+">이체하기</button>";
 						  }else{
 							    html +=	"<td>이체완료";
 						  }
 					   	  html += "</tr>";
-					    
-					   	 $("#sendMoney"+response[i].reservation_seq+"").html(html);
+				
+					   	 $("#payTable").html(html);
 						
 					}
 					
-					$("#sendMoney"+response[i].reservation_seq+"").click(function(){
+					$("button").click(function(){
+						alert($(this).attr('id'));
 						alert("asads");
 						var IMP = window.IMP; // 생략가능
 						IMP.init('imp31935218');
@@ -405,7 +450,84 @@ $(document).ready(function(){
 			$("#memberCount1").html("<strong>"+response+"</strong>");
 		}
 			
-	})
+	});
+</script>
+<script>	
+var data = [100, 200100, 300000];
+var data1 = [];	
+		
+		
+	$.ajax({
+		
+		url:"mainReservationCount.admin",
+		type : "post",
+		success : function(resp) {
+			/* $(function() { */
+				var valCategory = [];
+				var valData5 = [];
+				var valData6 = [];
+				var valData3 = [200,300];
+				var valData4 = [400,500];
+			for(var c=0; c<resp.length; c++){
+				valCategory[c] = resp[c].payment_month+'월' 
+				valData5[c] = resp[c].reservation_count
+				valData6[c] = resp[c].payment_sum
+				data1[c] = 50000;
+				}
+				alert(valData5);
+				alert(valData6);
+				alert(data);
+				Highcharts.chart('container', {
+					
+					  chart: {
+					    type: 'column'
+					  },
+
+					  title: {
+					    text: 'Styling axes and columns'
+					  },
+					  xAxis:[{
+						
+						  categories: valCategory
+					  }], 
+
+					  yAxis: [{
+					    className: 'highcharts-color-0',
+					    title: {
+					      text: 'Primary axis'
+					    }
+					  }, {
+					    className: 'highcharts-color-1',
+					    opposite: true,
+					    title: {
+					      text: 'Secondary axis'
+					    }
+					  }],
+
+					  plotOptions: {
+					    column: {
+					      borderRadius: 5
+					    }
+					  },
+
+					  series: [{
+					    data: valData5,
+					  	name:'asd'
+					    
+					  }, {
+					    data: valData6,
+					    name:'asd22',
+					    
+					    yAxis: 1
+					  }]
+
+					});
+		
+	
+  
+ 		/* }); */
+	}
+	});
 </script>	
 
 <div id="bg">
@@ -447,102 +569,21 @@ $(document).ready(function(){
 		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="payCheck">More Info</a>
 	</div>
 </div>
-
-
-<script>
-
-$(function() {
-	
-	Highcharts.chart('container', {
-		  chart: {
-		    type: 'column'
-		  },
-		  title: {
-		    text: 'Worlds largest cities per 2017'
-		  },
-		  subtitle: {
-		    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-		  },
-		  xAxis: {
-		    type: 'category',
-		    labels: {
-		      rotation: -45,
-		      style: {
-		        fontSize: '13px',
-		        fontFamily: 'Verdana, sans-serif'
-		      }
-		    }
-		  },
-		  yAxis: {
-		    min: 0,
-		    title: {
-		      text: 'Population (millions)'
-		    }
-		  },
-		  legend: {
-		    enabled: false
-		  },
-		  tooltip: {
-		    pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
-		  },
-		  series: [{
-		    name: 'Population',
-		    data: [
-		      ['Shanghai', 24.2],
-		      ['Beijing', 20.8],
-		      ['Karachi', 14.9],
-		      ['Shenzhen', 13.7],
-		      ['Guangzhou', 13.1],
-		      ['Istanbul', 12.7],
-		      ['Mumbai', 12.4],
-		      ['Moscow', 12.2],
-		      ['São Paulo', 12.0],
-		      ['Delhi', 11.7],
-		      ['Kinshasa', 11.5],
-		      ['Tianjin', 11.2],
-		      ['Lahore', 11.1],
-		      ['Jakarta', 10.6],
-		      ['Dongguan', 10.6],
-		      ['Lagos', 10.6],
-		      ['Bengaluru', 10.3],
-		      ['Seoul', 9.8],
-		      ['Foshan', 9.3],
-		      ['Tokyo', 9.3]
-		    ],
-		    dataLabels: {
-		      enabled: true,
-		      rotation: -90,
-		      color: '#FFFFFF',
-		      align: 'right',
-		      format: '{point.y:.1f}', // one decimal
-		      y: 10, // 10 pixels down from the top
-		      style: {
-		        fontSize: '13px',
-		        fontFamily: 'Verdana, sans-serif'
-		      }
-		    }
-		  }]
-		});
-  
- });
-
-</script>
-
 </div>
 
-
-
 </div>
-
-
-
-
-</div>
-
 
 <div>
-<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto; position:absolute; z-index: 100"></div>
+<div id="container"></div>
 </div>
+
+
+
+
+
+
+
+
 
 <div class="modal fade" id="memberChkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

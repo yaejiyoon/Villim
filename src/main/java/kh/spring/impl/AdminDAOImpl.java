@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.interfaces.AdminDAO;
@@ -87,6 +88,32 @@ public class AdminDAOImpl implements AdminDAO{
 	public int updateHomeStatePayment(List<String> arr) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<AdminChartDTO> getPaymentChart(AdminChartDTO chartDto) {
+		String sql = "select count(*) reservation_count, "
+				+ "sum(PAYMENT_AMOUNT) payment_sum, "
+				+ "extract(month from to_date(payment_date)) payment_month "
+				+ "from payment "
+				+ "where extract(year from to_date(payment_date)) = ? group by extract(month from to_date(payment_date))";
+		List<AdminChartDTO> result = jdbcTemplate.query(sql, new RowMapper <AdminChartDTO>() {
+			@Override
+			public AdminChartDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				AdminChartDTO adminChartDto = new AdminChartDTO();
+				adminChartDto.setReservation_count(rs.getString("reservation_count"));
+				adminChartDto.setPayment_month(rs.getString("payment_month"));
+				adminChartDto.setPayment_sum(rs.getString("payment_sum"));
+				return adminChartDto;
+			}
+		
+		}, chartDto.getPayment_year());
+		
+		for(int i=0; i<result.size(); i++) {
+			System.out.println(result.get(i).getPayment_month());
+		}
+		return result;
 	}
 
 }
