@@ -24,354 +24,307 @@
 
 <title>알림판 - Airbnb</title>
 <style>
-div {
-	box-sizing: border-box;
-}
+	div {
+		box-sizing: border-box;
+	}
+	#wrapper {
+		margin: 30px auto;
+		width: 70%;
+		height: auto;
+	}
+	.alimpan {
+		width: 100%;
+	}
+	.alimpan-title {
+		width: 50%;
+		text-align: left;
+		display: inline-block;
+	}
+	.add-homelink {
+		font-size: 20px;
+		text-align: right;
+		width: 49%;
+		display: inline-block;
+	}
+	.add-homelink-link:hover {
+		text-decoration: none;
+	}
+	.home-summary {
+		margin-top: 60px;
+	}
+	.home-summary-title h2 {
+		margin-bottom: 10px;
+	}
+	.home-summary-title-wrap {
+		margin-bottom: 20px;
+	}
+	.home-summary-title {
+		width: 150px;
+	}
+	.home-summary-span {
+		font-size: 17px;
+	}
+	.home-summary-contents {
+		display: inline-block;
+		width: 80%;
+		height: 200px;
+		margin-left: 2px;
+	}
+	.home-pic {
+		width: 100%;
+		height: 100%;
+	}
+	.home-pic-add {
+		width: 50%;
+		height: 50%;
+		position: relative;
+		top: 48px;
+		left: 46px;
+	}
+	.home-summary-contents-pic {
+		display: inline-block;
+		float: left;
+		width: 35%;
+		height: 100%;
+	}
+	.home-summary-contents-addr {
+		display: inline-block;
+		float: left;
+		width: 65%;
+		height: 100%;
+	}
+	.home-summary-contents-addr p, span {
+		margin-bottom: 0;
+		font-size: 15px;
+	}
+	.home-summary-contents-price {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.home-summary-contents-price2 {
+		margin-bottom: 20px;
+	}
+	.home-summary-card {
+		border: 1px solid black;
+		width: 100%;
+		height: 390px;
+		margin-top: 50px;
+	}
+	.home-summary-card-sub1 {
+		border: 1px dotted black;
+		display: inline-block;
+		width: 32%;
+		height: 100%;
+		float: left;
+	}
+	.home-summary-card-sub2 {
+		border: 1px dotted black;
+		display: inline-block;
+		width: 32%;
+		height: 100%;
+		float: left;
+		margin-left: 17px;
+		margin-right: 17px;
+	}
+	.home-summary-card-sub3 {
+		border: 1px dotted black;
+		display: inline-block;
+		width: 32%;
+		height: 100%;
+		float: left;
+	}
+	.home-summary-card-sub1-contents, .home-summary-card-sub2-contents,
+		.home-summary-card-sub3-contents {
+		width: 85%;
+		height: 85%;
+		margin: 0 auto;
+		margin-top: 30px;
+		font-size: 16px;
+	}
+	.noti-reser-host-resr-wrap {
+		width: 100%;
+		display: inline-block;
+		margin-top: 80px;
+	}
+	.notice-reserve {
+		display: inline-block;
+		float: left;
+		width: 60%;
+		margin-top: 70px;
+	}
+	.host-notice {
+		width: 200px;
+	}
+	.host-notice a:hover {
+		background-color: gray;
+		text-decoration: none;
+	}
+	.host-notice a:link {
+		text-decoration: none;
+	}
+	.host-notice a:visited {
+		text-decoration: none;
+	}
+	.host-notice-wrap {
+		display: inline-block;
+		width: 90%;
+		height: 120px;
+		margin: 0;
+	}
+	.host-notice-wrap:hover {
+		background-color: #F2F2F2;
+	}
+	.host-notice-wrap-sub {
+		width: 85%;
+		margin: 0 auto;
+		margin-top: 20px;
+	}
+	.host-notice-icon {
+		width: 50px;
+		display: inline-block;
+		float: left;
+	}
+	.host-notice-content {
+		width: 400px;
+		display: inline-block;
+		float: left;
+	}
+	.host-notice-contents {
+		width: 400px;
+		display: inline-block;
+	}
+	.host-notice-date {
+		width: 100px;
+		display: inline-block;
+	}
+	.reserve-wrap {
+		margin: 0;
+		margin-top: 30px;
+		display: inline-block;
+		width: 90%;
+		height: auto;
+	}
+	.reserve-contents {
+		width: 100%;
+		height: 120px;
+	}
+	.hosting-result-wrap {
+		display: inline-block;
+		width: 37%;
+		height: 500px;
+		margin-left: 20px;
+		margin-top: 70px;
+	}
+	.hosting-result-table {
+		margin-top: 20px;
+		width: 100%;
+	}
+	.hosting-result-table tr, td {
+		width: 50%;
+		font-size: 18px;
+	}
+	.right {
+		text-align: right;
+	}
+	.hosting-result-line {
+		display: inline-block;
+		width: 100%;
+		border: 0.5px solid #E6E6E6;
+		margin-top: 20px;
+		margin-bottom: 40px;
+	}
+	.dropdown:hover .dropdown-menu {
+		display: block;
+		margin-top: 0;
+	}
+	.dropdown-header {
+		font-size: 17px;
+		color: black;
+	}
+	.dd-wrap {
+		width: 100%;
+		height: 100px;
+	}
+	.dd-sub-pic {
+		width: 35%;
+		display: inline-block;
+		float: left;
+		height: 100%;
+	}
+	.dd-pic {
+		width: 80%;
+		position: relative;
+		top: 3px;
+		left: 11px;
+	}
+	.dd-main-pic {
+		width: 100%;
+		height: 100%;
+	}
+	.dd-sub-content {
+		width: 65%;
+		display: inline-block;
+		float: left;
+		height: 100%;
+		padding-left: 15px;
+		padding-top: 15px;
+	}
+	.dropdown-menu {
+		width: 350px;
+		height: 300px;
+	}
+	#dropdownMenu1:hover {
+		text-decoration: none;
+	}
+	.btn {
+		background-color: #008489;
+		color: white;
+	}
+	#bottom-wrap {
+		display: inline-block;
+		width: 100%;
+		border: 1px solid black;
+		margin-bottom: 30px;
+		margin-top: 40px;
+		margin-bottom: 30px;
+	}
+	.alim-link:hover {
+		background-color: #E6E6E6;
+	}
+	#cover-add-wrap {
+		margin: 0 auto;
+		width: 50%;
+	}
+	#cover-add {
+		width: 100%;
+	}
+	.left {
+		width: 35%;
+		display: inline-block;
+		float: left;
+	}
+	.right {
+		width: 64%;
+		height: 13px;
+		float: right;
+		display: inline-block;
+	}
+	.lrwrap {
+		width: 100%;
+		border: 1px dotted orange;
+		display: inline-block;
+	}
 
-#wrapper {
-	margin: 30px auto;
-	width: 70%;
-	height: auto;
-}
-
-.alimpan {
-	width: 100%;
-}
-
-.alimpan-title {
-	width: 84%;
-	text-align: left;
-	display: inline-block;
-}
-
-.add-homelink {
-	font-size: 20px;
-	text-align: right;
-	width: 15%;
-	display: inline-block;
-}
-
-.add-homelink-link:hover {
-	text-decoration: none;
-}
-
-.home-summary {
-	margin-top: 60px;
-}
-
-.home-summary-title h2 {
-	margin-bottom: 10px;
-}
-
-.home-summary-title-wrap {
-	margin-bottom: 20px;
-}
-
-.home-summary-title {
-	width: 150px;
-}
-
-.home-summary-span {
-	font-size: 17px;
-}
-
-.home-summary-contents {
-	display: inline-block;
-	width: 80%;
-	height: 200px;
-	margin-left: 2px;
-}
-
-.home-pic {
-	width: 100%;
-	height: 100%;
-}
-
-.home-pic-add {
-	width: 50%;
-	height: 50%;
-	position: relative;
-	top: 48px;
-	left: 46px;
-}
-
-.home-summary-contents-pic {
-	display: inline-block;
-	float: left;
-	width: 35%;
-	height: 100%;
-}
-
-.home-summary-contents-addr {
-	display: inline-block;
-	float: left;
-	width: 65%;
-	height: 100%;
-}
-
-.home-summary-contents-addr p, span {
-	margin-bottom: 0;
-	font-size: 15px;
-}
-
-.home-summary-contents-price {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.home-summary-contents-price2 {
-	margin-bottom: 20px;
-}
-
-.home-summary-card {
-	border: 1px solid black;
-	width: 100%;
-	height: 390px;
-	margin-top: 50px;
-}
-
-.home-summary-card-sub1 {
-	border: 1px dotted black;
-	display: inline-block;
-	width: 32%;
-	height: 100%;
-	float: left;
-}
-
-.home-summary-card-sub2 {
-	border: 1px dotted black;
-	display: inline-block;
-	width: 32%;
-	height: 100%;
-	float: left;
-	margin-left: 17px;
-	margin-right: 17px;
-}
-
-.home-summary-card-sub3 {
-	border: 1px dotted black;
-	display: inline-block;
-	width: 32%;
-	height: 100%;
-	float: left;
-}
-
-.home-summary-card-sub1-contents, .home-summary-card-sub2-contents,
-	.home-summary-card-sub3-contents {
-	width: 85%;
-	height: 85%;
-	margin: 0 auto;
-	margin-top: 30px;
-	font-size: 16px;
-}
-
-.noti-reser-host-resr-wrap {
-	width: 100%;
-	display: inline-block;
-	margin-top: 80px;
-}
-
-.notice-reserve {
-	display: inline-block;
-	float: left;
-	width: 60%;
-	margin-top: 70px;
-}
-
-.host-notice {
-	width: 200px;
-}
-
-.host-notice a:hover {
-	background-color: gray;
-	text-decoration: none;
-}
-
-.host-notice a:link {
-	text-decoration: none;
-}
-
-.host-notice a:visited {
-	text-decoration: none;
-}
-
-.host-notice-wrap {
-	display: inline-block;
-	width: 100%;
-	height: 120px;
-}
-
-.host-notice-wrap:hover {
-	background-color: #F2F2F2;
-}
-
-.host-notice-wrap-sub {
-	width: 85%;
-	margin: 0 auto;
-	margin-top: 20px;
-}
-
-.host-notice-icon {
-	width: 50px;
-	display: inline-block;
-	float: left;
-}
-
-.host-notice-content {
-	width: 400px;
-	display: inline-block;
-	float: left;
-}
-
-.host-notice-contents {
-	width: 400px;
-	display: inline-block;
-}
-
-.host-notice-date {
-	width: 100px;
-	display: inline-block;
-}
-
-.reserve-wrap {
-	margin-top: 30px;
-	display: inline-block;
-	width: 100%;
-	height: auto;
-}
-
-.reserve-contents {
-	width: 100%;
-	height: 120px;
-}
-
-.hosting-result-wrap {
-	display: inline-block;
-	width: 37%;
-	height: 500px;
-	margin-left: 20px;
-	margin-top: 70px;
-}
-
-.hosting-result-table {
-	margin-top: 20px;
-	width: 100%;
-}
-
-.hosting-result-table tr, td {
-	width: 50%;
-	font-size: 18px;
-}
-
-.right {
-	text-align: right;
-}
-
-.hosting-result-line {
-	display: inline-block;
-	width: 100%;
-	border: 0.5px solid #E6E6E6;
-	margin-top: 20px;
-	margin-bottom: 40px;
-}
-
-.dropdown:hover .dropdown-menu {
-	display: block;
-	margin-top: 0;
-}
-
-.dropdown-header {
-	font-size: 17px;
-	color: black;
-}
-
-.dd-wrap {
-	width: 100%;
-	height: 100px;
-}
-
-.dd-sub-pic {
-	width: 35%;
-	display: inline-block;
-	float: left;
-	height: 100%;
-}
-
-.dd-pic {
-	width: 80%;
-	position: relative;
-	top: 3px;
-	left: 11px;
-}
-
-.dd-main-pic {
-	width: 100%;
-	height: 100%;
-}
-
-.dd-sub-content {
-	width: 65%;
-	display: inline-block;
-	float: left;
-	height: 100%;
-	padding-left: 15px;
-	padding-top: 15px;
-}
-
-.dropdown-menu {
-	width: 350px;
-	height: 300px;
-}
-
-#dropdownMenu1:hover {
-	text-decoration: none;
-}
-
-.btn {
-	background-color: #008489;
-	color: white;
-}
-
-#bottom-wrap {
-	display: inline-block;
-	width: 100%;
-	border: 1px solid black;
-	margin-bottom: 30px;
-	margin-top: 40px;
-	margin-bottom: 30px;
-}
-
-.alim-link:hover {
-	background-color: #E6E6E6;
-}
-
-#cover-add-wrap {
-	margin: 0 auto;
-	width: 50%;
-}
-
-#cover-add {
-	width: 100%;
-}
-
-.left {
-	width: 35%;
-	display: inline-block;
-	float: left;
-}
-
-.right {
-	width: 64%;
-	height: 13px; 
-	float: right;
-	display: inline-block;
-}
-
-.lrwrap{
-width:100%;
-border: 1px dotted orange;
-	display: inline-block;
-}
+/* @media (max-width:1260px){ */
+/* 	.home-summary-card-sub3, #card4{ */
+/* 		display: none; */
+/* 	}	 */
+/* } */
+/* @media (max-width:1000px){ */
+/* 	.alim-left, .rlist-left{ */
+/* 		display: none; */
+/* 	} */
+/* } */
 </style>
 
 </head>
@@ -540,7 +493,10 @@ border: 1px dotted orange;
 											가능</span>
 									</div></li>
 								<li><div class="lrwrap">
-										<div class="left"><b>가격</b></div><div class="right">
+										<div class="left">
+											<b>가격</b>
+										</div>
+										<div class="right">
 											<div class="progress">
 												<div class="progress-bar" role="progressbar"
 													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
@@ -548,7 +504,7 @@ border: 1px dotted orange;
 													<span class="sr-only">60% Complete</span>
 												</div>
 											</div>
-									</div></li>
+										</div></li>
 								<li><div class="lrwrap">
 										<div class="left">
 											<b>사진</b>
@@ -585,8 +541,8 @@ border: 1px dotted orange;
 				</div>
 			</div>
 
-			<div class="home-summary-card">
-				<div class="home-summary-card-sub1">
+			<div class="home-summary-card row">
+				<div class="home-summary-card-sub1 col-md-4">
 					<div class="home-summary-card-sub1-contents">
 						<div>
 							<h4>친구와 함께 호스팅하기</h4>
@@ -599,13 +555,18 @@ border: 1px dotted orange;
 							<img alt="Friend" max-width="100%;"
 								src="https://a0.muscache.com/airbnb/static/cohosting/friend-8bb3af2d3a16ce627db9f5e48e982ed6.svg">
 						</div>
-						<button style="position: relative; top: 20px;"
+						<button id="invite-btn" style="position: relative; top: 20px;"
 							class="home-summary-card-sub1-contents-btn btn btn-lg"
 							type="button">친구 초대하기</button>
+						<script>
+								$("#invite-btn").click(function(){
+									alert("준비중인 서비스에용! 다음에 봐용!");
+								})
+							</script>
 					</div>
 				</div>
 
-				<div class="home-summary-card-sub2">
+				<div class="home-summary-card-sub2 col-md-4">
 					<div class="home-summary-card-sub2-contents">
 						<div>
 							<h4>커버 사진 품질 향상</h4>
@@ -632,7 +593,7 @@ border: 1px dotted orange;
 					</div>
 				</div>
 
-				<div class="home-summary-card-sub3">
+				<div class="home-summary-card-sub3 col-md-4">
 					<div class="home-summary-card-sub3-contents">
 						<div>
 							<h4>상세한 설명 추가</h4>
@@ -647,7 +608,7 @@ border: 1px dotted orange;
 					</div>
 				</div>
 
-				<a data-toggle="collapse" href="#collapseExample1"
+				<a id="card4" data-toggle="collapse" href="#collapseExample1"
 					aria-expanded="false" aria-controls="collapseExample"
 					style="font-size: 18px;">더 보기</a>
 				<div class=collapse id="collapseExample1">
@@ -655,7 +616,7 @@ border: 1px dotted orange;
 						style="display: inline-block; float: left; width: 100%; height: 390px; padding: 0; border: none;">
 
 						<div style="background-color: white; width: 100%; height: 390px;">
-							<div class="home-summary-card-sub3">
+							<div class="home-summary-card-sub3 col-md-4">
 								<div class="home-summary-card-sub3-contents">
 									<div>
 										<h4>사진 추가</h4>
@@ -666,10 +627,12 @@ border: 1px dotted orange;
 										style="border: 1px dotted black; width: 100%; height: 150px; text-align: center; padding-top: 35px; margin-top: 38px; font-size: 40px;">
 										<c:if test="${hdto.home_main_pic ne null}">
 											${hpsize+1} / 19
+									
 									</div>
 									</c:if>
 									<c:if test="${hdto.home_main_pic eq null}">
 											${hpsize} / 19
+								
 								</div>
 								</c:if>
 								<button type="button" class="btn btn-lg"
@@ -729,19 +692,20 @@ border: 1px dotted orange;
 					<%
 						ncnt++;
 					%>
-					<div id="coll<%=ncnt%>" class="host-notice-wrap"
+					<div id="coll<%=ncnt%>" class="host-notice-wrap row"
 						style="border: 1px solid #E6E6E6; height: auto;">
 						<a class="alim-link" data-toggle=collapse
 							href="#collapseExample<%=ncnt%>"
 							style="width: 100%; height: 100%; display: inline-block;"
 							aria-expanded="false" aria-controls="collapseExample">
-							<div style="width: 80%; float: left; padding: 20px;">
+							<div class="alim-left col-md-9"
+								style="width: 80%; float: left; padding: 20px;">
 								<div style="font-size: 17px; color: #FF8000;">
 									<b>문의 · ${mlist.member_name }</b>
 								</div>
 								<div style="font-size: 15px; color: black;">${mlist.home_name }</div>
 							</div>
-							<div style="width: 20%; float: right;">
+							<div class="col-md-3" style="width: 20%; float: right;">
 								<img style="width: 8vh; margin-top: 15px; margin-left: 15px;"
 									class="img-circle"
 									src="<c:url value='/resources/img/${mlist.member_picture }'/>">
@@ -769,7 +733,7 @@ border: 1px dotted orange;
 					</div>
 					<script>
 							$("#collapseExample<%=ncnt%>").click(function() {
-								$(this).css('background-color', 'white');
+							$(this).css('background-color', 'white');
 						})
 					</script>
 				</c:forEach>
@@ -856,12 +820,13 @@ border: 1px dotted orange;
 
 			<div class="reserve-wrap">
 				<h2>예약</h2>
-				<div class="reserve-contents">
+				<div class="reserve-contents row">
 					<c:if test="${rlist2.size() != 0 }">
 						<c:forEach var="rlist2" items="${rlist2 }" begin="0" end="2">
 							<a href="#"
 								style="display: inline-block; width: 100%; height: 100%; border: 1px solid #E6E6E6;">
-								<div style="width: 80%; float: left; padding: 20px;">
+								<div class='rlist-left col-md-9'
+									style="width: 80%; float: left; padding: 20px;">
 									<div style="font-size: 17px; color: #FF8000;">
 										<b>요청 · ${rlist2.member_name }</b>
 									</div>
@@ -870,7 +835,7 @@ border: 1px dotted orange;
 										${rlist2.reserv_checkout }</div>
 									<div style="font-size: 15px; color: black;">${rlist2.home_name }</div>
 								</div>
-								<div style="width: 20%; float: right;">
+								<div class="col-md-3" style="width: 20%; float: right;">
 									<img style="width: 9vh; margin-top: 15px; margin-left: 15px;"
 										class="img-circle"
 										src="<c:url value='/resources/img/${rlist2.member_picture }'/>">

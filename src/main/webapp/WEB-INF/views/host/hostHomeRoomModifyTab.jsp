@@ -33,7 +33,6 @@ div {
 
 #wrapper-sub {
 	width: 60%;
-	border: 1px solid black;
 }
 
 .wrapper-sub-back {
@@ -96,7 +95,7 @@ div {
 .clickbtn {
 	background-color: white;
 	color: #008489;
-	border-color: #008489; outline : 0;
+	border-color: #008489; 
 	display: inline;
 	border-radius: 50%;
 	font-size: 300;
@@ -121,10 +120,9 @@ div {
 
 .room-coll-sub2 {
 	width: 39%;
-	display: inline-block; position : relative;
+	display: inline-block;
 	top: -10px;
 	position: relative;
-	/* 	border: 1px dotted black; */
 }
 
 .title {
@@ -293,6 +291,32 @@ input {
 	
 				<script>
 					$(document).ready(function(){
+						var fcnt = 0;
+						var bed_s = '${bdto.bed_single}';
+						var bed_d = '${bdto.bed_double}';
+						var bed_q = '${bdto.bed_queen}';
+						var arr_s = bed_s.split(",");
+						var arr_d = bed_d.split(",");
+						var arr_q = bed_q.split(",");
+						
+						console.log("arr_s 크기::"+ arr_s.length);
+						
+						for(var i=0; i<arr_s.length; i++){
+							console.log("arrrrr::"+arr_s[i]);
+							$('#roomup').click();
+							$("#single-count"+(i+1)+"").val(arr_s[i]);
+						}
+						
+						for(var i=0; i<arr_d.length; i++){
+							console.log("arrrrr::"+arr_d[i]);
+							$("#double-count"+(i+1)+"").val(arr_d[i]);
+						}
+						
+						for(var i=0; i<arr_q.length; i++){
+							console.log("arrrrr::"+arr_q[i]);
+							$("#queen-count"+(i+1)+"").val(arr_q[i]);
+						}
+						
 // 						var type1 = [];
 // 						var type2 = [];
 // 						$('#home_type1').each(function(){
