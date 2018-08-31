@@ -242,6 +242,8 @@ a:hover {
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="hostHomePayment.do">계정관리</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="/">게스트 모드로 전환</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="#">로그아웃</a></li>
 		</ul>
 	</div>

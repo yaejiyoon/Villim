@@ -61,7 +61,7 @@ public interface HomeService {
 	public List<String> getCalendarDate(Map<String, String> map);
 
 	public String getBlockedDate(int home_seq);
-	
+
 	public int modifyPolicy(HomeDTO hdto);
 
 	public List<ReservationDTO> getAllReservation(String member_email);
@@ -91,7 +91,7 @@ public interface HomeService {
 	public List<GuestReviewDTO> getLocation(int home_seq);
 
 	public List<GuestReviewDTO> getValue(int home_seq);
-	
+
 	public List<MessageDTO> getAllMessage(String member_email);
 
 	public int modifyHomeType(HomeDTO hdto);
@@ -117,28 +117,21 @@ public interface HomeService {
 	public int modifyHomeView(int home_seq);
 
 	public List<ReservationDTO> getCalReservation(Map<String, Object> map);
-	
-	
-	
-	
-	
-	
-	
-	//----------------지혜-----------------
-	public int updateBlockedDate(String blockedDate,int home_seq);
-	
+
+	// ----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate, int home_seq);
+
 	public BedDTO getBedData(int home_seq);
-	
-	
-//	예지
+
+	// 예지
 	public List<HomeDTO> getAllHomeDataMain();
-	
+
 	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
-	
+
 	public List<HomePicDTO> getHomePic();
-	
+
 	public List<HomeDTO> modalHomeData(Map<String, Object> param);
-	
+
 	public List<HomeDTO> getParis();
 
 }
