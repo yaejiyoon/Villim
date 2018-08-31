@@ -82,11 +82,8 @@
 				    "pay_method": "card"
 				},
 				success:function(resp){
-					
 					console.log(resp);
-				}	
-
-					
+				}
 			})
 		
 		})

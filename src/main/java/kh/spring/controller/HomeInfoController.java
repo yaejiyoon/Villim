@@ -478,7 +478,7 @@ public class HomeInfoController {
 		int intservicefee = (int) (priceWithNights * 0.05);
 		String servicefee = String.format("%,d", intservicefee);
 		
-		//총 금액
+		//총 금액 
 		int intTotal = priceWithNights + intCleaningfee + intservicefee;
 		String total = String.format("%,d", intTotal);
 		
