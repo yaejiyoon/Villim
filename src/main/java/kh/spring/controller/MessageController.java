@@ -469,7 +469,7 @@ public class MessageController {
 		List<ReservationDTO> reservCheck = this.service.reservCheck(dto2);
 		if (!reservCheck.isEmpty()) {
 			for (ReservationDTO tmp : reservCheck) {
-				System.out.println("예약이미 신청 = " + tmp.getReserv_state());
+				System.out.println("예약이미 신청 = " + tmp.getReserv_state()+"total Amount : "+tmp.getTotalAmount());
 			}
 
 			mav.addObject("reservCheck", reservCheck);
