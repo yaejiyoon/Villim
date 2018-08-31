@@ -185,7 +185,7 @@
 	
 	   <!--  예지 -->
 	<select id="getAllHomeDataMain" resultType="Home">
-      select * from home
+      select * from home order by home_seq
    </select>
 	
    <select id="getHomeOnMap" resultType="Home" parameterType="map" >

@@ -178,11 +178,13 @@ $(document).ready(function() {
 		    	   $('.col-md-4').remove();
 		    	   for(var i = 0; i < resp.home.length ; i++) {
 		    		   $('.col').append(
-		    			$('<div>').attr('class','col-md-4').append(
-		    			 $('<div>').attr('id','carouselDiv '+i).append(
-		    			  $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
-		    			  	$('<ol>').attr('class','carousel-indicators').attr('id','ol'+resp.home[i].home_seq).append(
-		    			  	)
+		    			$('<a>').attr('href','home_info.do?seq='+resp.home[i].home_seq).append(
+		    			 $('<div>').attr('class','col-md-4').append(
+		    			  $('<div>').attr('id','carouselDiv '+i).append(
+		    			   $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
+		    			  	 $('<ol>').attr('class','carousel-indicators').attr('id','ol'+resp.home[i].home_seq).append(
+		    			  	 )
+		    			   )
 		    			  )
 		    			 )
 		    			)
@@ -312,7 +314,45 @@ $(document).ready(function() {
 		   off.style.display = 'none';
 		</c:if>
 
-})
+			
+		$('#goParis').click(function(){
+			var lat = "48.85661400000001";
+			var lng = "2.3522219000000177";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+		
+		$('#goNewyork').click(function(){
+			var lat = "40.7127753";
+			var lng = "-74.0059728";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		$('#goNewyork').click(function(){
+			var lat = "41.90278349999999";
+			var lng = "-12.496365500000024";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+		
+		$('#goLondon').click(function(){
+			var lat = "51.5073509";
+			var lng = "-0.12775829999998223";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		$('#goPraha').click(function(){
+			var lat = "50.0755381";
+			var lng = "-14.43780049999998";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		$('#goMadrid').click(function(){
+			var lat = "40.4167754";
+			var lng = "-3.7037901999999576";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		
+});
 
 
 </script>
@@ -741,38 +781,38 @@ $(document).ready(function() {
 			<div id="offTitlePic"><img src="<c:url value='/resources/img/home_main/villimPic6.jpg'/>"></div>
 			<div id="offContentsTitle">
 				<div class="row recommend">
-				  <div class="col-md-2" id="col-md-2">
+				  <div class="col-md-2" id="goParis">
 				  	<div id="paris" class="countryCard" onclick="location.href='/';">
 				  		<img src="<c:url value='/resources/img/home_main/paris.jpg'/>">
 				  		<p class="countryName">PARIS</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goNewyork">
 				  	<div id="newyork" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/newyork.jpg'/>">
 				  		<p class="countryName">NEWYORK</p>
 				  	</div>
 				  </div>
 				  
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goRome">
 				  	<div id="rome" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/rome.jpg'/>">
 				  		<p class="countryName">ROME</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goLondon">
 				  	<div id="london" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/london.jpg'/>">
 				  		<p class="countryName">LONDON</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goPraha">
 				  	<div id="praha" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/praha.jpg'/>">
 				  		<p class="countryName">PRAHA</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goMadrid">
 				  	<div id="madrid" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/madrid.jpg'/>">
 				  		<p class="countryName">MADRID</p>
