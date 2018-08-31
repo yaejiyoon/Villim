@@ -494,5 +494,10 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectList("Home.modalHomeData", param);
 	}
 
+	@Override
+	public List<HomeDTO> getParis() {
+		return ssTemplate.selectList("Home.getParis");
+	}
+
 	
 }

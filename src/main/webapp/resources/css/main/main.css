@@ -182,7 +182,8 @@
 	.col {
 		box-sizing : border-box;
 		margin : auto;
-		height : auto;	
+		height : auto;
+		height : 30vh;	
 	} 
 	
 	.col-md-3 {

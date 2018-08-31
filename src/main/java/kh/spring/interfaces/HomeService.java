@@ -130,5 +130,7 @@ public interface HomeService {
 	public List<HomePicDTO> getHomePic();
 	
 	public List<HomeDTO> modalHomeData(Map<String, Object> param);
+	
+	public List<HomeDTO> getParis();
 
 }
