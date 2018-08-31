@@ -288,7 +288,11 @@ public class HomeServiceImpl implements HomeService {
 		public List<HomePicDTO> getHomePic() {
 			return hdao.getHomePic();
 		}
-
+		
+		@Override
+		public List<HomeDTO> getParis() {
+			return hdao.getParis();
+		}
 		
 		// ----------------지혜-----------------
 		@Override
@@ -300,6 +304,7 @@ public class HomeServiceImpl implements HomeService {
 		public int guestReviewCount(HashMap<String, Object> map) {
 			return hdao.guestReviewCount(map);
 		}
+
 
 		
 

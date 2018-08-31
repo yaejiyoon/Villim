@@ -290,6 +290,19 @@ $(document).ready(function() {
 		margin-top : 30px;
 	}
 	
+	.homeName {
+		color : black;
+	}
+	
+	.homeName:hover {
+		color : #546072;
+	}
+	
+	.homeNameA:hover {
+		color : white;
+	}
+	
+	
 </style>
 <script>
 	
@@ -481,12 +494,14 @@ $(document).ready(function() {
          	<c:forEach var="homeList" items="${homeList}" varStatus="status" begin="0" end="11">
 			<div class="col-md-3">
                <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='files/${homeList.home_main_pic}'/>"></a>
+               		<a href="home_info.do?seq=${homeList.home_seq}">
+                  <img src="<c:url value='files/${homeList.home_main_pic}'/>"></a>
                   <p class="homeType">${homeList.home_type}</p>
-                  <p class="homeName">
-                     <B>${homeList.home_name}</B>
-                  </p>
+                  <a class="homeNameA" href="home_info.do?seq=${homeList.home_seq}">
+	                  <p class="homeName">
+	                     <B>${homeList.home_name}</B>
+	                  </p>
+	              </a>
                   <p class="homePrice">₩ ${homeList.home_price} /박</p>
                   <p class="reviewStar">★★★★★</p>
                   <p class="reviewCount">247</p>
@@ -498,7 +513,6 @@ $(document).ready(function() {
          </div>
       </div>
    </div>
- </div>
  
  					
    <%@ include file="../resource/include/footer.jsp"%>
