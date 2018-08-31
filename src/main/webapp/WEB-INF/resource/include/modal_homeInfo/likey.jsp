@@ -148,6 +148,25 @@
 			}else{
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
 				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
+				
+				var likeylist_Seq = $(this).parent().find('input').val();
+				var home_seq = ${hdto.home_seq}
+				
+				$.ajax({
+					url:"removeLikey.do",
+					type:"get",
+					data:{
+						likeylist_Seq:likeylist_Seq,
+						home_seq:home_seq
+						},
+				success:function(){
+					console.log("전달 성공!")
+					},
+				error : function(request,status,error) {
+					console.log(request.status + " : " + status + " : " + error);
+					}
+				})
+				
 			}
 			
 		})

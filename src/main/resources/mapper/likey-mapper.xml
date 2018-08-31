@@ -25,4 +25,5 @@
 	<select id="getLikeyListDTO" resultType="LikeyList" parameterType="int">
 		select * from likeyList where likeylist_seq= #{likeyList_seq}
 	</select>
+	
 </mapper>
