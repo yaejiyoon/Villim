@@ -97,7 +97,7 @@
 						<div class="list-your-space__content">
 							<div class="centered-content clearfix">
 								<div
-									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix">
+									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix col-md-4 col-md-offset-2">
 									<form action="gostep3second.host" id="rule" method="post">
 									<div
 										class="main-panel main-panel-padding main-panel-progress main-panel-inner-half space-sm-8">
