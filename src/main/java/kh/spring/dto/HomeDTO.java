@@ -321,5 +321,13 @@ public class HomeDTO {
 	public void setHome_buildingType(String home_buildingType) {
 		this.home_buildingType = home_buildingType;
 	}
+	
+	public int getLikey_seq() {
+		return likey_seq;
+	}
+
+	public void setLikey_seq(int likey_seq) {
+		this.likey_seq = likey_seq;
+	}
 
 }
