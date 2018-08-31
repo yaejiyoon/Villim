@@ -22,9 +22,71 @@
 
 <script>
 	$(document).ready(function(){
+		
+		var token ='';
+		
 		$("#toindex").click(function(){
 			$(location).attr("href","/");
 		});
+		
+		
+		$("#ddBT").click(function(){
+			
+			$.ajax({
+				url:"https://api.iamport.kr/users/getToken",
+				data:{
+					imp_key : "3566446879345688",
+					imp_secret : "198z86RsCz453GUMFifbU54gd0CLdJAfSJP1QHusgyxkes7UKm5FraVFbyqph1EaKubAbG3seAMt3ToN"
+				},
+				type:"post",
+				success:function(resp){
+					token = resp.response.access_token;
+					console.log(token);
+					
+					/* $.ajax({
+						
+						url:"https://api.iamport.kr/payments/cancel",
+						type:"post",
+						processData : false,
+						contentType : false,
+						beforeSend: function(xhr) { 
+						      xhr.setRequestHeader('X-ImpTokenHeader', token); 
+			
+						},
+							
+						
+						success:function(resp){
+							
+							console.log(resp);
+						}	
+
+							
+					}) */
+				
+
+					}
+				})
+				
+				
+
+		})
+		
+		$("#aaBT").click(function(){
+
+			$.ajax({
+				url:"https://api.iamport.kr/payments/cancel?_token="+token,
+				type:"post",
+				data:{
+				    "merchant_uid": "merchant_1535703408487",
+				    "cancel_reason": "사유",
+				    "pay_method": "card"
+				},
+				success:function(resp){
+					console.log(resp);
+				}
+			})
+		
+		})
 		
 		$("#paymentBT").click(function(){
 			var IMP = window.IMP; // 생략가능
@@ -49,7 +111,7 @@
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
 			        
-			        $(location).attr('href','payment.re?seq='+${reservationDTO.reservation_seq});
+			        $(location).attr('href','payment.re?seq='+${reservationDTO.reservation_seq}+'&home_seq='+${hdto.home_seq});
 			        
 			    } else {
 			        var msg = '결제에 실패하였습니다.';
@@ -69,7 +131,9 @@
 @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
+        
    }
+   
 </style>
 </head>
 <body>
@@ -99,6 +163,8 @@
 					<br>
 					<br>
 					<button id="paymentBT" class="btn btn-secondary">확인 및 결제</button>
+					<button id="ddBT" class="btn btn-secondary">dd</button>
+					<button id="aaBT" class="btn btn-secondary">aa</button>
 					<br>
 					<br>
 					<br>
@@ -165,6 +231,7 @@
 			<img src="<c:url value='/resources/img/copyright.png'/>" style="width:15px;">
 			<p>villim, Inc.</p>
 		</div>
+	
 	</div>
 </body>
 </html>

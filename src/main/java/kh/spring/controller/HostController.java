@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -25,12 +26,14 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeService;
 
@@ -173,6 +176,31 @@ public class HostController {
 		List<String> list = new ArrayList<String>();
 		List<HomePicDTO> hplist = homeService.getHomePicData(seq);
 
+		BedDTO bdto = homeService.getBedData(seq);
+		String bstr = bdto.getBed_single() + "," + bdto.getBed_double() + "," + bdto.getBed_queen();
+
+		if (!bstr.equals(null) && !bstr.equals("")) {
+
+			if (bstr.startsWith(",")) {
+				bstr.substring(1);
+			}
+			if (bstr.endsWith(",")) {
+				bstr.substring(0, bstr.length() - 1);
+			}
+		}
+
+		System.out.println("bstr::" + bstr);
+		String[] barr = bstr.split(",");
+		int bedCnt = 0;
+
+		for (int i = 0; i < barr.length; i++) {
+			bedCnt += Integer.parseInt(barr[i]);
+		}
+
+		String[] rarr = bdto.getBed_single().split(",");
+		int roomCnt = rarr.length;
+		System.out.println("bedCnt::" + bedCnt);
+
 		String[] amenities = {};
 		String[] safety = {};
 		String[] guest_access = {};
@@ -186,7 +214,7 @@ public class HostController {
 		if (hdto.getHome_safety() != null) {
 			safety = hdto.getHome_safety().split(",");
 		} else {
-			
+
 		}
 		if (hdto.getHome_guest_access() != null) {
 			guest_access = hdto.getHome_guest_access().split(",");
@@ -215,6 +243,8 @@ public class HostController {
 		}
 
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("bedCnt", bedCnt);
+		mav.addObject("roomCnt", roomCnt);
 		mav.addObject("hdto", hdto);
 		mav.addObject("list", list);
 		mav.addObject("hplist", hplist);
@@ -231,18 +261,21 @@ public class HostController {
 
 		String[] rules = {};
 		String[] details = {};
-
+		String tmp = "";
 		if (hdto.getHome_rules() != null) {
 			rules = hdto.getHome_rules().split(",");
 		} else {
-
 		}
 
 		if (hdto.getHome_details() != null) {
 			details = hdto.getHome_details().split(",");
+			for (int i = 0; i < details.length; i++) {
+				tmp += details[i].split(":")[0];
+			}
 		} else {
-
 		}
+
+		System.out.println("tmp::" + tmp);
 		List<String> ruleList = new ArrayList<String>();
 		List<String> detailsList = new ArrayList<String>();
 
@@ -717,8 +750,10 @@ public class HostController {
 		System.out.println("hostHomeRoomModifyTab:" + seq);
 
 		HomeDTO hdto = homeService.getHomeData(seq);
+		BedDTO bdto = homeService.getBedData(seq);
 
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("bdto", bdto);
 		mav.addObject("hdto", hdto);
 		mav.setViewName("/host/hostHomeRoomModifyTab");
 		return mav;
@@ -826,10 +861,19 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostReserveModifyNightProc.do")
-	public ModelAndView toHostReserveModifyNightProc(int seq, HomeDTO hdto) throws Exception {
+	public ModelAndView toHostReserveModifyNightProc(int seq, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		System.out.println("hostReserveModifyNightProc: " + seq);
 
+		HomeDTO hdto = new HomeDTO();
 		hdto.setHome_seq(seq);
+
+		if (request.getParameter("home_min_stay") == null) {
+			hdto.setHome_min_stay(0);
+		}
+		if (request.getParameter("home_max_stay") == null) {
+			hdto.setHome_max_stay(0);
+		}
 
 		int result = homeService.modifyReserveNightData(hdto);
 
@@ -1462,7 +1506,12 @@ public class HostController {
 	public ModelAndView toHosHomePayment() throws Exception {
 		System.out.println("hostHomeManage: ");
 
+		String member_email = "sksksrff@gmail.com";
+
+		List<AccountDTO> alist = homeService.getAllAccount(member_email);
+
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("alist", alist);
 		mav.setViewName("/host/hostHomePayment");
 		return mav;
 	}
@@ -1498,10 +1547,43 @@ public class HostController {
 			seq = Integer.parseInt(request.getParameter("seq"));
 		}
 
+		Map<String, Object> map = new HashMap<>();
+		map.put("member_email", member_email);
+		map.put("home_seq", seq);
+		List<PaymentDTO> plist = homeService.getAllPayment(map);
 		List<HomeDTO> hlist = homeService.getAllHomeData(member_email);
 		HomeDTO hdto = homeService.getHomeData(seq);
+		int price = 0;
 
+		SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+		Calendar cal = Calendar.getInstance();
+
+		for (PaymentDTO p : plist) {
+			Date to1 = fm1.parse(p.getCheckOut());
+			cal.setTime(to1);
+			cal.add(Calendar.DATE, 1);
+
+			String str1 = fm2.format(cal.getTime());
+			p.setReceiveDate(str1);
+
+			Date to2 = fm1.parse(p.getCheckIn());
+			String str2 = fm2.format(to2);
+			p.setCheckIn(str2);
+
+			Date to3 = fm1.parse(p.getCheckOut());
+			String str3 = fm2.format(to3);
+			p.setCheckOut(str3);
+
+			System.out.println("앙배불띠띠::" + p.getCheckOut());
+			
+			price += Integer.parseInt(p.getPayment_amount());
+		}
+		String amount = String.valueOf(price);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("amount",amount);
+		mav.addObject("plist", plist);
 		mav.addObject("hlist", hlist);
 		mav.addObject("hdto", hdto);
 		mav.setViewName("/host/hostHomePaymentBreakdown");
@@ -1509,11 +1591,11 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostReserveModifyRule.do")
-	public ModelAndView toHostReserveModifyRule(HomeDTO hdto, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		System.out.println("hostReserveModifyRule: " + hdto.getHome_seq());
+	public ModelAndView toHostReserveModifyRule(int seq, HomeDTO hdto, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		System.out.println("hostReserveModifyRule: " + seq);
 
-		hdto = homeService.getHomeData(hdto.getHome_seq());
+		hdto = homeService.getHomeData(seq);
 
 		String str = hdto.getHome_details();
 		System.out.println(str);
@@ -1566,11 +1648,37 @@ public class HostController {
 		System.out.println("hostReserveModifyRuleProc: " + hdto.getHome_seq());
 
 		// 라디오
-		String rules1 = request.getParameter("rules1");
-		String rules2 = request.getParameter("rules2");
-		String rules3 = request.getParameter("rules3");
-		String rules4 = request.getParameter("rules4");
-		String rules5 = request.getParameter("rules5");
+		String rules1 = "";
+		String rules2 = "";
+		String rules3 = "";
+		String rules4 = "";
+		String rules5 = "";
+
+		if (request.getParameter("rules1") == null) {
+
+		} else {
+			rules1 = request.getParameter("rules1");
+		}
+		if (request.getParameter("rules2") == null) {
+
+		} else {
+			rules2 = request.getParameter("rules2");
+		}
+		if (request.getParameter("rules3") == null) {
+
+		} else {
+			rules3 = request.getParameter("rules3");
+		}
+		if (request.getParameter("rules4") == null) {
+
+		} else {
+			rules4 = request.getParameter("rules4");
+		}
+		if (request.getParameter("rules5") == null) {
+
+		} else {
+			rules5 = request.getParameter("rules5");
+		}
 
 		System.out.println("rules::" + rules1);
 		System.out.println("rules::" + rules2);
@@ -1636,17 +1744,65 @@ public class HostController {
 		System.out.println("setReules::" + setRules);
 
 		// 체크텍스트
-		String check2_text = request.getParameter("check2-text");
-		String check3_text = request.getParameter("check3-text");
-		String check4_text = request.getParameter("check4-text");
-		String check5_text = request.getParameter("check5-text");
-		String check6_text = request.getParameter("check6-text");
+		String check2 = "";
+		String check3 = "";
+		String check4 = "";
+		String check5 = "";
+		String check6 = "";
 
-		String check2 = request.getParameter("check2");
-		String check3 = request.getParameter("check3");
-		String check4 = request.getParameter("check4");
-		String check5 = request.getParameter("check5");
-		String check6 = request.getParameter("check6");
+		String check2_text = "";
+		String check3_text = "";
+		String check4_text = "";
+		String check5_text = "";
+		String check6_text = "";
+
+		if (request.getParameter("check2") == null) {
+		} else {
+			check2 = request.getParameter("check2");
+		}
+
+		if (request.getParameter("check3") == null) {
+		} else {
+			check3 = request.getParameter("check3");
+		}
+
+		if (request.getParameter("check4") == null) {
+		} else {
+			check4 = request.getParameter("check4");
+		}
+
+		if (request.getParameter("check5") == null) {
+		} else {
+			check5 = request.getParameter("check5");
+		}
+
+		if (request.getParameter("check6") == null) {
+		} else {
+			check6 = request.getParameter("check6");
+		}
+
+		if (request.getParameter("check2-text") == null) {
+		} else {
+			check2_text = request.getParameter("check2-text");
+		}
+		if (request.getParameter("check3-text") == null) {
+		} else {
+			check3_text = request.getParameter("check3-text");
+		}
+
+		if (request.getParameter("check4-text") == null) {
+		} else {
+			check4_text = request.getParameter("check4-text");
+		}
+
+		if (request.getParameter("check5-text") == null) {
+		} else {
+			check5_text = request.getParameter("check5-text");
+		}
+		if (request.getParameter("check6-text") == null) {
+		} else {
+			check6_text = request.getParameter("check6-text");
+		}
 
 		System.out.println("check-text2::" + check2 + "::" + check2_text);
 		System.out.println("check-text3::" + check3 + "::" + check3_text);
@@ -1656,48 +1812,48 @@ public class HostController {
 
 		ArrayList<String> list2 = new ArrayList<>();
 
-		if (check2 == null) {
+		if (check2 == "") {
 			check2 = "";
-		} else if (check2 != null && check2_text != null) {
+		} else if (check2 != "" && check2_text != "") {
 			check2 = check2 + ":" + check2_text;
 			list2.add(check2);
-		} else if (check2 != null && check2_text == null) {
+		} else if (check2 != "" && check2_text == "") {
 			list2.add(check2);
 		}
 
-		if (check3 == null) {
+		if (check3 == "") {
 			check3 = "";
-		} else if (check3 != null && check3_text != null) {
+		} else if (check3 != "" && check3_text != "") {
 			check3 = check3 + ":" + check3_text;
 			list2.add(check3);
-		} else if (check3 != null && check3_text == null) {
+		} else if (check3 != "" && check3_text == "") {
 			list2.add(check3);
 		}
 
-		if (check4 == null) {
+		if (check4 == "") {
 			check4 = "";
-		} else if (check4 != null && check4_text != null) {
+		} else if (check4 != "" && check4_text != "") {
 			check4 = check4 + ":" + check4_text;
 			list2.add(check4);
-		} else if (check4 != null && check4_text == null) {
+		} else if (check4 != "" && check4_text == "") {
 			list2.add(check4);
 		}
 
-		if (check5 == null) {
+		if (check5 == "") {
 			check5 = "";
-		} else if (check5 != null && check5_text != null) {
+		} else if (check5 != "" && check5_text != "") {
 			check5 = check5 + ":" + check5_text;
 			list2.add(check5);
-		} else if (check5 != null && check5_text == null) {
+		} else if (check5 != "" && check5_text == "") {
 			list2.add(check5);
 		}
 
-		if (check6 == null) {
+		if (check6 == "") {
 			check6 = "";
-		} else if (check6 != null && check6_text != null) {
+		} else if (check6 != "" && check6_text != "") {
 			check6 = check6 + ":" + check6_text;
 			list2.add(check6);
-		} else if (check6 != null && check6_text == null) {
+		} else if (check6 != "" && check6_text == "") {
 			list2.add(check6);
 		}
 

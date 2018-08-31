@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -14,6 +15,7 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeDAO;
 import kh.spring.interfaces.HomeService;
@@ -124,13 +126,7 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeRulesDetails(hdto);
 	}
 
-	// 예지
 	@Override
-	public List<HomeDTO> getAllHomeDataMain() {
-		return hdao.getAllHomeDataMain();
-	}
-
-	
 	public List<ReservationDTO> getAllReservation(String member_email) {
 		return hdao.getAllReservation(member_email);
 	}
@@ -200,17 +196,6 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getAllMessage(member_email);
 	}
 
-
-	@Override
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-		return hdao.getHomeOnMap(param);
-	}
-
-	@Override
-	public List<HomePicDTO> getHomePic() {
-		return hdao.getHomePic();
-	}
-
 	@Override
 	public int modifyPolicy(HomeDTO hdto) {
 		return hdao.modifyPolicy(hdto);
@@ -265,31 +250,12 @@ public class HomeServiceImpl implements HomeService {
 	public int modifyHomeView(int home_seq) {
 		return hdao.modifyHomeView(home_seq);
 	}
+	
 	@Override
 	public List<ReservationDTO> getCalReservation(Map<String, Object> map) {
 		return hdao.getCalReservation(map);
 	}
-	@Override
-	public List<HomeDTO> searchHomeData(List homeTypeList ,String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
-		return hdao.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
-	}
-
-	@Override
-	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
-	return hdao.modalHomeData(param);
-	}
-
 	
-	// ----------------지혜-----------------
-	@Override
-	public int updateBlockedDate(String blockedDate, int home_seq) {
-		return hdao.updateBlockedDate(blockedDate, home_seq);
-	}
-
-	@Override
-	public int guestReviewCount(HashMap<String, Object> map) {
-		return hdao.guestReviewCount(map);
-	}
 
 	@Override
 	public int modifyCountdown(long getTime, int reservation_seq) {
@@ -299,6 +265,64 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public BedDTO getBedData(int home_seq) {
 		return hdao.getBedData(home_seq);
+	}
+	
+	
+	
+	
+	// 예지
+		@Override
+		public List<HomeDTO> getAllHomeDataMain() {
+			return hdao.getAllHomeDataMain();
+		}
+
+		@Override
+		public List<HomeDTO> modalHomeData(Map<String, Object> param) {
+		return hdao.modalHomeData(param);
+		}
+		
+		@Override
+		public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+			return hdao.getHomeOnMap(param);
+		}
+
+		@Override
+		public List<HomePicDTO> getHomePic() {
+			return hdao.getHomePic();
+		}
+		
+		@Override
+		public List<HomeDTO> getParis() {
+			return hdao.getParis();
+		}
+		
+		// ----------------지혜-----------------
+		@Override
+		public int updateBlockedDate(String blockedDate, int home_seq) {
+			return hdao.updateBlockedDate(blockedDate, home_seq);
+		}
+
+		@Override
+		public int guestReviewCount(HashMap<String, Object> map) {
+			return hdao.guestReviewCount(map);
+		}
+
+
+		
+
+	@Override
+	public List<AccountDTO> getAllAccount(String member_email) {
+		return hdao.getAllAccount(member_email);
+	}
+
+	@Override
+	public int insertAccount(AccountDTO adto) {
+		return hdao.insertAccount(adto);
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
+		return hdao.getAllPayment(map);
 	}
 
 }

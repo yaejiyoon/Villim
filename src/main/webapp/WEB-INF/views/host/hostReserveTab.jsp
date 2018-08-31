@@ -28,6 +28,7 @@ div {
 	margin: 30px auto;
 	height: auto;
 	width: 70%;
+	margin-bottom: 100px;
 }
 
 .wrapper-sub {
@@ -66,6 +67,13 @@ div {
 	display: inline-block;
 	width: 100%;
 	margin-top: 40px;
+}
+
+.line {
+	border: 0.5px solid #E6E6E6;
+	display: inline-block;
+	width: 100%;
+	margin-top: 20px;
 }
 
 .guest-rule-wrap {
@@ -127,6 +135,7 @@ div {
 	margin-top: 40px;
 	margin-bottom: 15px;
 	font-size: 17px;
+	display: inline-block;
 }
 
 .nav-btn {
@@ -181,6 +190,9 @@ div {
 				<button type="button" class="btn"
 					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
 					<b>달력보기</b>
+				</button>
+				<button type="button" class="btn">
+					<b>숙소 미리보기</b>  
 				</button>
 			</div>
 		</div>
@@ -248,22 +260,26 @@ div {
 				</div>
 				<div class="guest-rule-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostReserveModifyRule.do?home_seq=${hdto.home_seq}'">
+						onclick="location.href='hostReserveModifyRule.do?seq=${hdto.home_seq}'">
 						<b>수정</b>
 					</button>
 				</div>
 				<!-- for문으로 체크된것 출력하기 -->
 				<c:forEach var="list" items="${ruleList }">
 					<div class="rule">${list}</div>
-					<div class="home-reserve-line"></div>
+					<div class="line"></div>
 				</c:forEach>
 
+			<c:if test="${detailsList.size() != 0 }">   
 				<div class="details">게스트가 숙소에 대해 알아두어야 할 세부 사항</div>
 				<c:forEach var="list" items="${detailsList }">
-					<div class="details-contents">${list }</div>
-				</c:forEach>
-			</div>
-			<div class="home-reserve-line"></div>
+					<div class="details-contents" style="font-size: 15px;">
+					${list }
+					</div>
+				</c:forEach>   
+			</c:if>
+				</div>
+			<div class="line"></div>
 
 		</div>
 	</div>

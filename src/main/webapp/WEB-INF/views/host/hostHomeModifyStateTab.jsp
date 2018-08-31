@@ -184,13 +184,14 @@ margin-top:50px;
 								합니다.</div>
 							<div class="date-wrap">
 								<div class="date-wrap-sub">
-									<input type="text" id="from" name="home_rest_start" value=""
-										class="form-control input lg" placeholder="시작일">
+								<input type='text' class='datepicker-here' data-language='en' />
+									<!-- <input type="text" id="from" name="home_rest_start" value=""
+										class="form-control input lg" placeholder="시작일"> -->
 								</div>
-								<div class="date-wrap-sub">
+								<!-- <div class="date-wrap-sub">
 									<input type="text" id="to" name="home_rest_end" value=""
 										class="form-control input lg" placeholder="종료일">
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="modal-footer">

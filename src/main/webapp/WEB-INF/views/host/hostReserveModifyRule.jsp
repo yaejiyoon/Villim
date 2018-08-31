@@ -309,7 +309,7 @@ label {
 				</div>
 
 				<div class=sub1>
-					<input type="checkbox" id="check3" class="option-input checkbox" 
+					<input type="checkbox" id="check3" class="option-input checkbox"
 						name=check3 value="숙소에 반려동물 있음"> <label for="check3">숙소에
 						반려동물 있음</label>
 					<div class="collapse" id="collapseExample3">
@@ -383,26 +383,26 @@ label {
 			var rule = "${hdto.home_rules}";
 			var rules = new Array();
 			rules = rule.split(",");
-			
+
 			console.log("rules::" + rules);
-				
-			$("#rules1-n").prop("checked",true);
-			$("#rules2-n").prop("checked",true);
-			$("#rules3-n").prop("checked",true);
-			$("#rules4-n").prop("checked",true);
-			$("#rules5-n").prop("checked",true);
-			
+
+			$("#rules1-n").prop("checked", true);
+			$("#rules2-n").prop("checked", true);
+			$("#rules3-n").prop("checked", true);
+			$("#rules4-n").prop("checked", true);
+			$("#rules5-n").prop("checked", true);
+
 			for (var i = 0; i < rules.length; i++) {
 				if (rules[i] == "어린이(만 2~12세)에게 적합함") {
-					$("#rules1-y").prop("checked",true);
+					$("#rules1-y").prop("checked", true);
 				} else if (rules[i] == "유아(만 2세 미만)에게 적합함") {
-					$("#rules2-y").prop("checked",true);
+					$("#rules2-y").prop("checked", true);
 				} else if (rules[i] == "반려동물 입실 가능") {
-					$("#rules3-y").prop("checked",true);
+					$("#rules3-y").prop("checked", true);
 				} else if (rules[i] == "흡연 가능") {
-					$("#rules4-y").prop("checked",true);
+					$("#rules4-y").prop("checked", true);
 				} else if (rules[i] == "파티나 이벤트 가능") {
-					$("#rules5-y").prop("checked",true);
+					$("#rules5-y").prop("checked", true);
 				}
 			}
 
@@ -413,20 +413,20 @@ label {
 			var details = new Array();
 			details = detail.split(",");
 
-			for(var i=0; i<details.length; i++){
-				if(details[i].includes("소음이")){
-					$("#check2").prop("checked",true)
-				}else if(details[i].includes("숙소에")){
-					$("#check3").prop("checked",true)
-				}else if(details[i].includes("주차 불가")){
-					$("#check4").prop("checked",true)
-				}else if(details[i].includes("공용 공간")){
-					$("#check5").prop("checked",true)
-				}else if(details[i].includes("편의시설")){
-					$("#check6").prop("checked",true)
+			for (var i = 0; i < details.length; i++) {
+				if (details[i].includes("소음이")) {
+					$("#check2").prop("checked", true)
+				} else if (details[i].includes("숙소에")) {
+					$("#check3").prop("checked", true)
+				} else if (details[i].includes("주차 불가")) {
+					$("#check4").prop("checked", true)
+				} else if (details[i].includes("공용 공간")) {
+					$("#check5").prop("checked", true)
+				} else if (details[i].includes("편의시설")) {
+					$("#check6").prop("checked", true)
 				}
 			}
-			
+
 			// home_details 텍스트창 show/hide
 			$('#check2').change(function() {
 				if ($('#check2').is(":checked")) {
@@ -463,51 +463,29 @@ label {
 					$('#collapseExample6').hide();
 				}
 			})
-			
-			if($("#check2").is(":checked")){
-<<<<<<< HEAD
+
+			if ($("#check2").is(":checked")) {
 				$('#collapseExample2').addClass("collapse in");
 				$("#check2-text").val('${tmp1}');
 			}
-			if($("#check3").is(":checked")){
+			if ($("#check3").is(":checked")) {
 				$('#collapseExample3').addClass("collapse in");
 				$("#check3-text").val('${tmp2}');
 			}
-			if($("#check4").is(":checked")){
+			if ($("#check4").is(":checked")) {
 				$('#collapseExample4').addClass("collapse in");
 				$("#check4-text").val('${tmp3}');
 			}
-			if($("#check5").is(":checked")){
+			if ($("#check5").is(":checked")) {
 				$('#collapseExample5').addClass("collapse in");
 				$("#check5-text").val('${tmp4}');
 			}
-			if($("#check6").is(":checked")){
+			if ($("#check6").is(":checked")) {
 				$('#collapseExample6').addClass("collapse in");
 				$("#check6-text").val('${tmp5}');
 			}
 
-=======
-	            $('#collapseExample2').addClass("collapse in");
-	            $("#check2-text").val('${tmp1}');
-	         }
-	         if($("#check3").is(":checked")){
-	            $('#collapseExample3').addClass("collapse in");
-	            $("#check3-text").val('${tmp2}');
-	         }
-	         if($("#check4").is(":checked")){
-	            $('#collapseExample4').addClass("collapse in");
-	            $("#check4-text").val('${tmp3}');
-	         }
-	         if($("#check5").is(":checked")){
-	            $('#collapseExample5').addClass("collapse in");
-	            $("#check5-text").val('${tmp4}');
-	         }
-	         if($("#check6").is(":checked")){
-	            $('#collapseExample6').addClass("collapse in");
-	            $("#check6-text").val('${tmp5}');
-	         }
-			
->>>>>>> master
+
 		})
 	</script>
 </body>

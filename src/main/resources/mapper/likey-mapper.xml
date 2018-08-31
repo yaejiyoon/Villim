@@ -4,6 +4,26 @@
 
 <mapper namespace="Likey">
 	<select id="getAlldata" resultType="LikeyList">
-		select * from likeylist where member_email = #{member_email}
+		select * from likeylist where member_email = #{member_email} order by LIKEYLIST_seq asc
 	</select>
+	
+	<select id="getHomeInfoLikey" parameterType="int" resultType="Home">
+		select h.*, l.likey_seq from likeylist ll, likey l, home h 
+		where ll.LIKEYLIST_SEQ = l.LIKEYLIST_SEQ 
+		and h.home_seq=l.HOME_SEQ 
+		and ll.LIKEYLIST_SEQ=#{likeyList_seq}
+	</select>
+	
+	<select id="getLikeyData" resultType="Likey">
+		select * from likey where member_email = #{member_email}
+	</select>
+	
+	<select  id="getLikeyHeart" resultType="Likey" parameterType="map" >
+		select * from likey where home_seq=#{home_seq} and member_email = #{member_email}
+	</select>
+	
+	<select id="getLikeyListDTO" resultType="LikeyList" parameterType="int">
+		select * from likeyList where likeylist_seq= #{likeyList_seq}
+	</select>
+	
 </mapper>

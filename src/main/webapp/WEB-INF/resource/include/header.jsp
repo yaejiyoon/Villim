@@ -13,12 +13,43 @@
 
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
 
+<!-- google 검색 api -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxwlQzLFSDHDwe0Wf_J9bmYrGNxC-R-E&libraries=places"></script>
+
 <!-- 재호  -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> 
 
+
 <script>
+function enterkey() {
+    if (window.event.keyCode == 13) {
+    	var input = document.getElementById('headerSearchInput');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+    	
+    	var place = autocomplete.getPlace();
+		var lat = place.geometry.location.lat();
+		var lng = place.geometry.location.lng();
+		$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+    }
+}
+
+	$(document).ready(function init() {
+		
+		var input = document.getElementById('headerSearchInput');
+		var autocomplete = new google.maps.places.Autocomplete(input);
+		
+		$('#headerSearch').click(function(){
+			var place = autocomplete.getPlace();
+			var lat = place.geometry.location.lat();
+			var lng = place.geometry.location.lng();
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+		
+	});
+
 	$(document).ready(function(){
+		
 		$(document).click(function(event) {
 			  if(
 			    $('.toggle > input').is(':checked') &&
@@ -31,9 +62,10 @@
 		$("#toindex").click(function(){
 			$(location).attr("href","/");
 		});
-		
-		
 	})
+		
+
+	
 </script>
 
 <!-- 	<script>
@@ -48,8 +80,8 @@
          <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
       <div id="header-search" class="form-search form-inline">
-         <img src="<c:url value='/resources/img/search.png'/>">
-         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
+	         <img src="<c:url value='/resources/img/search.png'/>" id="headerSearch" style="cursor:pointer" >
+	         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" id="headerSearchInput" onkeypress="enterkey();" />
       </div>
       <div id="header-menu" class="headerContainer" >
          <section class="color-5">
@@ -86,7 +118,7 @@
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="likeyPage.do">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
@@ -105,14 +137,14 @@
                		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지" style="color:black;">메세지</span>
              			<ul>
-        					<li><a href="messageRoomEnter.msg">Item</a></li>
+        					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
       					</ul>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="messageSend.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="message.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="도움말" style="color:black;">도움말</span>
                			
                		</a>
@@ -154,11 +186,11 @@
 	<c:otherwise>
 		<div id="header">
       <div id="header-logo">
-         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex" >
       </div>
       <div id="header-search" class="form-search form-inline">
-         <img src="<c:url value='/resources/img/search.png'/>">
-         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
+         <img src="<c:url value='/resources/img/search.png'/>" id="headerSearch" style="cursor:pointer">
+         <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" id="headerSearchInput" onkeyup="enterkey();" /> 
       </div>
       <div id="header-menu" class="headerContainer" >
          <section class="color-5">
@@ -195,7 +227,7 @@
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="likeyPage.do">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
@@ -222,7 +254,7 @@
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="messageSend.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="도움말" style="color:black;">도움말</span>
                			
                		</a>

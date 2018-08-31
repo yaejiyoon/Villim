@@ -3,6 +3,33 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
+	<select id="getAllPayment" parameterType="map"
+		resultType="Payment">
+		select * from account a,member m,
+		payment p
+		where a.host_email =
+		p.host_email and m.member_email = p.member_email
+		<if test="home_seq == 0">
+			and a.host_email = #{member_email}
+		</if>
+		<if test="home_seq gt 0">
+			and p.home_seq in
+			(select home_seq from home
+			where
+			member_email
+			=
+			#{member_email} )
+		</if>
+		order by p.payment_seq
+	</select>
+
+	<select id="getAllAccount" resultType="Account">
+		select * from account a,
+		member m
+		where m.member_email = a.host_email
+		and
+		m.member_email=#{member_email}
+	</select>
 
 	<select id="getAllHomeData" parameterType="String"
 		resultType="Home">
@@ -87,8 +114,10 @@
 	<select id="getCalReservation" parameterType="map"
 		resultType="Reservation">
 		select * from reservation r, member m
-		where r.member_email = m.member_email and
-		r.home_seq = #{home_seq} and r.reserv_state = #{reserv_state}
+		where r.member_email =
+		m.member_email and
+		r.home_seq = #{home_seq} and r.reserv_state =
+		#{reserv_state}
 	</select>
 
 	<select id="getAllMessage" resultType="Message">
@@ -209,6 +238,8 @@
 		G_REVIEW_ACCURACY desc
 	</select>
 
+   
+   
 	<select id="getCleanLiness" resultType="GuestReview">
 		select
 		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
@@ -286,24 +317,24 @@
 		order by
 		G_REVIEW_LOCATION desc
 	</select>
-	
-	   <select id="getValue" resultType="GuestReview">
-      select
-      G_REVIEW_VALUE,
-      count(G_REVIEW_VALUE) as count from
-      guest_review
-      group by
-      G_REVIEW_VALUE
-      having
-      G_REVIEW_VALUE
-      in(5,4,3,2,1)
-      order by
-      G_REVIEW_VALUE desc
-   </select>
 
-	   <!--  예지 -->
+	<select id="getValue" resultType="GuestReview">
+		select
+		G_REVIEW_VALUE,
+		count(G_REVIEW_VALUE) as count from
+		guest_review
+		group by
+		G_REVIEW_VALUE
+		having
+		G_REVIEW_VALUE
+		in(5,4,3,2,1)
+		order by
+		G_REVIEW_VALUE desc
+	</select>
+
+	<!-- 예지 -->
 	<select id="getAllHomeDataMain" resultType="Home">
-      select * from home
+      select * from home order by home_seq
    </select>
 	
    <select id="getHomeOnMap" resultType="Home" parameterType="map" >
@@ -315,26 +346,6 @@
    		<if test="!homeType.equalsIgnoreCase('0')">
             and home_type = #{homeType}
          </if>
-         <if test="dateIsChecked.equalsIgnoreCase('1')">
-         	and home_blocked_date is null or
-         	<trim suffixOverrides="and">
-            <foreach collection="dates" item="type">
-            	home_blocked_date not like '%${type}%' and
-        	</foreach>
-        	</trim>
-         </if>
-   </select>
-   
-   	<select id="searchHomeData" resultType="Home" parameterType="map" >
-      select * from home where home_people >= #{people}
-         <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
-         	and 
-	         <trim suffixOverrides="or">
-	         <foreach collection="homeTypeList" item="type">
-	            home_type = #{type} or
-	        </foreach>
-	        </trim>
-        </if>
          <if test="dateIsChecked.equalsIgnoreCase('1')">
          	and home_blocked_date is null or
          	<trim suffixOverrides="and">
@@ -364,10 +375,83 @@
         	</trim>
          </if>
    </select>
+   
+   <select id="getParis" resultType="Home">
+		select * from Home where home_nation = '프랑스'
+	</select>
+
+	<select id="getHomeOnMap" resultType="Home" parameterType="map">
+		select * from home
+		where home_lat between #{swLat} and #{neLat}
+		and
+		home_lng between #{swLng} and #{neLng}
+		and home_people >= #{people}
+		and
+		home_price between #{minMoney} and #{maxMoney}
+		<if test="!homeType.equalsIgnoreCase('0')">
+			and home_type = #{homeType}
+		</if>
+		<if test="dateIsChecked.equalsIgnoreCase('1')">
+			and home_blocked_date is null or
+			<trim suffixOverrides="and">
+				<foreach collection="dates" item="type">
+					home_blocked_date not like
+					'%${type}%' and
+				</foreach>
+			</trim>
+		</if>
+	</select>
+
+	<select id="searchHomeData" resultType="Home"
+		parameterType="map">
+		select * from home where home_people >= #{people}
+		<if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+			and
+			<trim suffixOverrides="or">
+				<foreach collection="homeTypeList" item="type">
+					home_type = #{type}
+					or
+				</foreach>
+			</trim>
+		</if>
+		<if test="dateIsChecked.equalsIgnoreCase('1')">
+			and home_blocked_date is null or
+			<trim suffixOverrides="and">
+				<foreach collection="dates" item="type">
+					home_blocked_date not like
+					'%${type}%' and
+				</foreach>
+			</trim>
+		</if>
+	</select>
+
+	<select id="modalHomeData" resultType="Home" parameterType="map">
+		select * from home where home_people >= #{people} and home_price
+		between #{minMoney} and #{maxMoney}
+		<if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+			and
+			<trim suffixOverrides="or">
+				<foreach collection="homeTypeList" item="type">
+					home_type = #{type}
+					or
+				</foreach>
+			</trim>
+		</if>
+		<if test="dateIsChecked.equalsIgnoreCase('1')">
+			and home_blocked_date is null or
+			<trim suffixOverrides="and">
+				<foreach collection="dates" item="type">
+					home_blocked_date not like
+					'%${type}%' and
+				</foreach>
+			</trim>
+		</if>
+	</select>
 
 	<!-- 지혜 -->
 	<select id="getBedData" parameterType="int" resultType="Bed">
-		select * from bed where home_seq = #{home_seq}
+		select *
+		from bed where home_seq = #{home_seq}
 	</select>
 
 	<select id="getSimilarHome" resultType="Home">

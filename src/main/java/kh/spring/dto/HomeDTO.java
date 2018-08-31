@@ -36,6 +36,7 @@ public class HomeDTO {
 	private String home_reserve_possible;
 	private String home_policy;
 	private String home_public;
+	private int likey_seq;
 
 	public HomeDTO() {
 		super();
@@ -319,6 +320,14 @@ public class HomeDTO {
 
 	public void setHome_buildingType(String home_buildingType) {
 		this.home_buildingType = home_buildingType;
+	}
+	
+	public int getLikey_seq() {
+		return likey_seq;
+	}
+
+	public void setLikey_seq(int likey_seq) {
+		this.likey_seq = likey_seq;
 	}
 
 }

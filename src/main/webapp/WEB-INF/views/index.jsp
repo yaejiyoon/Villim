@@ -13,13 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- main css -->
-<link href="<c:url value="/resources/css/main/main.css?ver=2" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/main.css?ver=1" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
-
-<!-- google 검색 api -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxwlQzLFSDHDwe0Wf_J9bmYrGNxC-R-E&libraries=places"></script>
 
 <!-- 달력 -->
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
@@ -290,6 +286,23 @@ $(document).ready(function() {
 		left : 120vh;
 	}
 	
+	.homeType {
+		margin-top : 30px;
+	}
+	
+	.homeName {
+		color : black;
+	}
+	
+	.homeName:hover {
+		color : #546072;
+	}
+	
+	.homeNameA:hover {
+		color : white;
+	}
+	
+	
 </style>
 <script>
 	
@@ -472,132 +485,34 @@ $(document).ready(function() {
          </div>
          <div id="homeTitlePic">
             <button class="btn btn-secondary" id="homeButton">숙소 둘러보기</button>
-            <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>">
+            <img src="<c:url value='/resources/img/index/homeTitle7.jpg'/>">
          </div>
       </div>
 
       <div id="homeContents">
-         <div class="row">
-            <div class="col-md-3">
+         <div class="col">
+         	<c:forEach var="homeList" items="${homeList}" varStatus="status" begin="0" end="11">
+			<div class="col-md-3">
                <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
+               		<a href="home_info.do?seq=${homeList.home_seq}">
+                  <img src="<c:url value='files/${homeList.home_main_pic}'/>"></a>
+                  <p class="homeType">${homeList.home_type}</p>
+                  <a class="homeNameA" href="home_info.do?seq=${homeList.home_seq}">
+	                  <p class="homeName">
+	                     <B>${homeList.home_name}</B>
+	                  </p>
+	              </a>
+                  <p class="homePrice">₩ ${homeList.home_price} /박</p>
                   <p class="reviewStar">★★★★★</p>
                   <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
                </div>
-            </div>
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle2.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle3.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle4.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
-
-
-         </div>
-         <div class="row">
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle5.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle6.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
-            <div class="col-md-3">
-               <div id="homePic">
-                  <a href=""><img
-                     src="<c:url value='/resources/img/index/homeTitle2.jpg'/>"></a>
-                  <p class="homeType">집 전체·레체</p>
-                  <p class="homeName">
-                     <B>In the historical center of Leccee</B>
-                  </p>
-                  <p class="homePrice">\88,732 /박</p>
-                  <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
-                  <p class="hostTitle">슈퍼호스트</p>
-               </div>
-            </div>
+            </div>    
+            </c:forEach>        
+            
          </div>
       </div>
    </div>
- </div>
  
  					
    <%@ include file="../resource/include/footer.jsp"%>

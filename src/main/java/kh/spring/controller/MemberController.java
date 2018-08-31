@@ -34,6 +34,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.dto.ReviewDTO;
 import kh.spring.dto.Review_H_DTO;
+import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -50,7 +51,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService service;
-
+	
+	@Autowired
+	HomeService hService;
 	// 년도 ajax
 	@RequestMapping("year.do")
 	@ResponseBody
@@ -413,6 +416,8 @@ public class MemberController {
 	@RequestMapping("fbInfo2.do")
 	public ModelAndView fbInfo2(HttpServletRequest request, MemberDTO dto,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		List<HomeDTO> homeList = hService.getAllHomeDataMain();
+		
 		System.out.println("facebookInfo2 접속");
 		dto.setMember_email(session.getAttribute("login_email").toString());
 		
@@ -424,7 +429,7 @@ public class MemberController {
 			System.out.println(dto.getMember_email());
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
-			
+			mav.addObject("homeList", homeList);
 			mav.setViewName("index");
 			return mav; 
 //		}else {
@@ -443,6 +448,7 @@ public class MemberController {
 	public ModelAndView login(MemberDTO dto, HttpSession session, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
+		List<HomeDTO> homeList = hService.getAllHomeDataMain();
 		
 		String picture = service.isMember(dto);
 		
@@ -450,7 +456,7 @@ public class MemberController {
 			System.out.println("로그인성공");
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
-			
+			mav.addObject("homeList", homeList);
 			mav.setViewName("index");
 			return mav;
 		} else {
@@ -462,13 +468,14 @@ public class MemberController {
 	
 	@RequestMapping("snslogin.do")
 	public ModelAndView snslogin(MemberDTO dto, HttpSession session) {
+		List<HomeDTO> homeList = hService.getAllHomeDataMain();
 		
 		System.out.println("sns 로그인 부분입니다.");
 		ModelAndView mav = new ModelAndView();
 		String picture = service.isSnsMember(dto);
 		if(!(picture.equals(""))) {
 			System.out.println("로그인성공");
-			
+			mav.addObject("homeList", homeList);
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			mav.setViewName("index");
@@ -529,15 +536,13 @@ public class MemberController {
 	//---- 지은 파트 시작
 	@RequestMapping("/printProfile.mo")
 	public ModelAndView printProfile(HttpSession session) {
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		System.out.println("printProfile 들어온 사람 : " + userId);
 
 		MemberDTO result = this.service.printProfile(userId);
 		int houseCount = this.service.countHouse(userId);
 		List<HomeDTO> houseResult = this.service.getHouse(userId);
-		System.out.println("여기도 들어오니?" + houseResult);
 
 		for (HomeDTO tmp : houseResult) {
 
@@ -558,9 +563,8 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-
 		String userId = (String) session.getAttribute("login_email");
-		System.out.println("들어온 사람 : " + userId);
+
 		MemberDTO result = this.service.printProfile(userId);
 		MemberDTO getPhoto = this.service.getPhoto(userId);
 		ModelAndView mav = new ModelAndView();
@@ -573,12 +577,10 @@ public class MemberController {
 			mav.addObject("photo", getPhoto.getMember_picture());
 			mav.setViewName("/profile/profileEdit");
 			session.removeAttribute("updateSuccess");
-			System.out.println("null일때 :" + success + "수정 성공후 수정페이지 입문");
 
 		} else {
 			mav.addObject("result", result);
 			mav.addObject("photo", getPhoto.getMember_picture());
-			System.out.println("null이 아닐때 : 여기로 잘들어옴 그냥 수정페이지 입문");
 			mav.setViewName("/profile/profileEdit");
 		}
 
@@ -630,7 +632,6 @@ public class MemberController {
 			System.out.println("systemName :  " + systemName);
 
 			editPhotoResult = this.service.editPhoto(systemName, userId);
-			System.out.println(" editPhotoResult  : " + editPhotoResult);
 
 			// 사진 다시 가져오기
 
@@ -658,7 +659,6 @@ public class MemberController {
 
 		List<Integer> g_review_seq = new ArrayList<Integer>();
 		String userId = (String) session.getAttribute("login_email");
-		System.out.println("아이디:" + userId);
 
 		// 나에 대한 지난 후기
 		List<Integer> getSeq = this.service.getSeq(userId);
