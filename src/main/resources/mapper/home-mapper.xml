@@ -408,6 +408,74 @@
 		select *
 		from bed where home_seq = #{home_seq}
 	</select>
+	
+	<!-- 찬연 -->
+	
+	<insert id="firststepbyone" parameterType="Home">
+		insert into home value (home_seq,member_email,home_step) values (home_seq.nextval,#{member_email},'1')
+	</insert>
+	
+	<select id="getNesestHomeData" resultType="Home" parameterType="String">
+		 select * from (select
+    	* from home where member_email = #{member_email} order by home_seq desc) where rownum = 1
+	</select>
+	
+	
+	<!-- #{member_email} -->
+	<!-- all modify  -->
+	<update id="firststepbytwo" parameterType="Home">
+		update home set home_type =#{home_type} where home_seq =#{home_seq}
+	</update>
+	
+	<update id="firststepbythree" parameterType="Home">
+		update home set home_people = #{home_people} 
+		  where home_seq = #{home_seq} 
+	</update>
+	
+	<update id="firststepbyfore" parameterType="Home">
+		update home set home_nation = #{home_nation} , home_addr1 = #{home_addr1} , home_addr2 = #{home_addr2}, home_addr3 = #{home_addr3},
+		 home_addr4 = #{home_addr4} , home_lat = #{home_lat} , home_lng=#{home_lng}   where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="firststepbyfinal" parameterType="Home">
+		update home set  home_amenities = #{home_amenities} , home_safety = #{home_safety},
+		 home_step = '2'  where home_seq = #{home_seq} 
+	</update>
+	
+	<update id="secondstepbyone" parameterType="Home">
+		update home set home_main_pic = #{home_main_pic}  where home_seq = #{home_seq} 
+	</update>
+	
+	
+	<update id="secondstepbytwo" parameterType="Home">
+		update home set home_contents = #{home_contents}  where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="secondstepbyfinal" parameterType="Home">
+		update home set home_name = #{home_name} , home_step = '3'   where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbyone" parameterType="Home">
+		update home set home_guest_access = #{home_guest_access} ,home_rules = #{home_rules} 
+		 where home_seq = #{home_seq} 
+	</update>
+	
+	<update id="thirdstepbytwo" parameterType="Home">
+		update home set home_checkin_end = #{home_checkin_end} where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbythird" parameterType="Home">
+		update home set home_min_stay = #{home_min_stay},home_max_stay = #{home_min_stay}
+		 where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbyfore" parameterType="Home">
+		update home set home_blocked_date = #{home_blocked_date} where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbyfive" parameterType="Home">
+		update home set home_price = #{home_price}, home_step = '4'  where home_seq = #{home_seq}  
+	</update>
 
 	<select id="getSimilarHome" resultType="Home">
 		select * from home where

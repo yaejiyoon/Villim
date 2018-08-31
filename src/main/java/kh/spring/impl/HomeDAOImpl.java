@@ -253,12 +253,6 @@ public class HomeDAOImpl implements HomeDAO {
 
 	
 
-	@Override
-	public int modifyHomeType(HomeDTO hdto) {
-		String sql = "update home set home_buildingtype=?, home_type=?, home_public=?, home_people=? where home_seq = ?";
-		return jdbcTemplate.update(sql, hdto.getHome_buildingType(), hdto.getHome_type(), hdto.getHome_public(),
-				hdto.getHome_people(), hdto.getHome_seq());
-	}
 
 	@Override
 	public int modifybed(BedDTO bdto) {
@@ -517,4 +511,91 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectList("Home.getAllPayment", map);
 	}
 	
+	//---찬연
+
+	@Override
+	public int insertFirstHome(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.insert("Home.firststepbyone",hdto);
+	}
+
+	@Override
+	public int modifyHomeType(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.firststepbytwo", hdto);
+	}
+
+	@Override
+	public HomeDTO getNewestHomeData(String email) {
+		// TODO Auto-generated method stub
+		return ssTemplate.selectOne("Home.getNesestHomeData",email);
+	}
+
+	@Override
+	public int modifyBathbed(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.firststepbythree", hdto);
+	}
+
+	@Override
+	public int modifyCommodity(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.firststepbyfinal", hdto);
+	}
+
+	@Override
+	public int modifyHomepicture(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.secondstepbyone", hdto);
+	}
+
+	@Override
+	public int insertHomeDescData(HomeDescDTO hddto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.insert("HomeDesc.secondstepbytwosub", hddto);
+	}
+
+	@Override
+	public int modifyContents(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.secondstepbytwo", hdto);
+	}
+
+	@Override
+	public int modifyHomename(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.secondstepbyfinal", hdto);
+	}
+
+	@Override
+	public int modifyHomerule(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbyone",hdto);
+	}
+
+	@Override
+	public int modifyHomecheck(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbytwo", hdto);
+	}
+
+	@Override
+	public int modifyHomestay(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbythird", hdto);
+	}
+
+	@Override
+	public int modifyHomeblock(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbyfore", hdto);
+	}
+
+	@Override
+	public int modifyHomeprice(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbyfive", hdto);
+	}
+
+
 }
