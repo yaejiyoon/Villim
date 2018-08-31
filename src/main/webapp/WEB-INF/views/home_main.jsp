@@ -9,13 +9,8 @@
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> -->
 
 <!-- 달력 -->
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js" />"></script>
@@ -120,10 +115,6 @@ function initMap() {
 		});
 		infoWindow = new google.maps.InfoWindow;
 		
-		google.maps.event.addListenerOnce(map, 'idle', function(){
-
-		  });
-		
 		</c:if>
 		
 		var locations = [];
@@ -137,8 +128,10 @@ function initMap() {
 		for (var i = 0; i < locations.length; i++) {
 		 marker = new google.maps.Marker({
 		     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-		     map: map
+		     map: map,
+		     animation : google.maps.Animation.DROP
 		 });
+		 
 		google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
 		    return function() {
 		      infoWindow.setContent(locations[i][0]+" 원");
@@ -185,11 +178,13 @@ $(document).ready(function() {
 		    	   $('.col-md-4').remove();
 		    	   for(var i = 0; i < resp.home.length ; i++) {
 		    		   $('.col').append(
-		    			$('<div>').attr('class','col-md-4').append(
-		    			 $('<div>').attr('id','carouselDiv '+i).append(
-		    			  $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
-		    			  	$('<ol>').attr('class','carousel-indicators').attr('id','ol'+resp.home[i].home_seq).append(
-		    			  	)
+		    			$('<a>').attr('href','home_info.do?seq='+resp.home[i].home_seq).append(
+		    			 $('<div>').attr('class','col-md-4').append(
+		    			  $('<div>').attr('id','carouselDiv '+i).append(
+		    			   $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
+		    			  	 $('<ol>').attr('class','carousel-indicators').attr('id','ol'+resp.home[i].home_seq).append(
+		    			  	 )
+		    			   )
 		    			  )
 		    			 )
 		    			)
@@ -269,7 +264,7 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					alert("error");
+					alert("error 1");
 		       }
 		});
 
@@ -296,7 +291,6 @@ $(document).ready(function() {
 	       type: "get",
 	       data:{chkval:chkval},
 	
-	       
 	       success:function(returndata){
 	    	   if(chkval==1) {
 					on.style.display = 'block';    
@@ -306,7 +300,7 @@ $(document).ready(function() {
 					off.style.display = 'block';    
 	    	   }
 	       },error:function(errordata){
-				alert("error");
+				alert("error 2");
 	       }
 	     });
 	   });  
@@ -320,34 +314,52 @@ $(document).ready(function() {
 		   off.style.display = 'none';
 		</c:if>
 
-	$('body').delegate('.submit','click',function(){
-        var chkval = 1;
-        $('#myonoffswitch').prop('checked', true);
-        var on = document.getElementById('mapOnDiv');
-        var off = document.getElementById('mapOffDiv');
-    $.ajax({
-       url: "homeMain.do",
-       type: "get",
-       data:{chkval:chkval},
-       
-       success:function(returndata){
-			on.style.display = 'block';    
-			off.style.display = 'none';
-	   },error:function(errordata){
-			alert("error");
-       }
-     });
-   });  
-	
-})
+			
+		$('#goParis').click(function(){
+			var lat = "48.85661400000001";
+			var lng = "2.3522219000000177";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+		
+		$('#goNewyork').click(function(){
+			var lat = "40.7127753";
+			var lng = "-74.0059728";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		$('#goNewyork').click(function(){
+			var lat = "41.90278349999999";
+			var lng = "-12.496365500000024";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+		
+		$('#goLondon').click(function(){
+			var lat = "51.5073509";
+			var lng = "-0.12775829999998223";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		$('#goPraha').click(function(){
+			var lat = "50.0755381";
+			var lng = "-14.43780049999998";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		$('#goMadrid').click(function(){
+			var lat = "40.4167754";
+			var lng = "-3.7037901999999576";
+			$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
+		});
+			
+		
+});
 
 
 </script>
 
 <script>
 
-<%
-String homeType = (String)session.getAttribute("homeType");
+<% String homeType = (String)session.getAttribute("homeType");
 if(!homeType.equals("0")) {%>
    $(document).ready(function() {
       var homeTypeBt = document.getElementById('homeTypeBt');
@@ -414,7 +426,7 @@ $(document).ready(function() {
 		font-weight : 200;
   		font-size: 0.8vw;
 		width : 100%;
-		height : 7vh;
+		height : 8vh;
 		border-top : 1px solid #e0dee0;
 		border-bottom : 1px solid #e0dee0;
 		background-color: white;
@@ -707,6 +719,7 @@ $(document).ready(function() {
 				<div class="col">
 				<%int cnt=0;%>
 					<c:forEach var="homeList" items="${homeList}" varStatus="status">
+						<a href="home_info.do?seq=${homeList.home_seq}">
 						<div class="col-md-4">
 					  		<div id="carouselDiv">
 								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
@@ -747,6 +760,7 @@ $(document).ready(function() {
 		                  <p class="hostTitle">슈퍼호스트</p>
 						</div>
 				  </div>
+				  </a>
 					<%cnt++; %>
 					</c:forEach>
 				  
@@ -767,38 +781,38 @@ $(document).ready(function() {
 			<div id="offTitlePic"><img src="<c:url value='/resources/img/home_main/villimPic6.jpg'/>"></div>
 			<div id="offContentsTitle">
 				<div class="row recommend">
-				  <div class="col-md-2" id="col-md-2">
+				  <div class="col-md-2" id="goParis">
 				  	<div id="paris" class="countryCard" onclick="location.href='/';">
 				  		<img src="<c:url value='/resources/img/home_main/paris.jpg'/>">
 				  		<p class="countryName">PARIS</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goNewyork">
 				  	<div id="newyork" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/newyork.jpg'/>">
 				  		<p class="countryName">NEWYORK</p>
 				  	</div>
 				  </div>
 				  
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goRome">
 				  	<div id="rome" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/rome.jpg'/>">
 				  		<p class="countryName">ROME</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goLondon">
 				  	<div id="london" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/london.jpg'/>">
 				  		<p class="countryName">LONDON</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goPraha">
 				  	<div id="praha" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/praha.jpg'/>">
 				  		<p class="countryName">PRAHA</p>
 				  	</div>
 				  </div>
-				  <div class="col-md-2"  id="col-md-2">
+				  <div class="col-md-2"  id="goMadrid">
 				  	<div id="madrid" class="countryCard">
 				  		<img src="<c:url value='/resources/img/home_main/madrid.jpg'/>">
 				  		<p class="countryName">MADRID</p>

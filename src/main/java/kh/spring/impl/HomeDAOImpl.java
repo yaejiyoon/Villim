@@ -35,7 +35,6 @@ public class HomeDAOImpl implements HomeDAO {
 	
 	@Override
 	public List<HomeDTO> getAllHomeData() {
-		
 		return ssTemplate.selectList("Home.getAllHomeData");
 	}
 	
@@ -244,7 +243,7 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectOne("Home.getBedData",home_seq);
 	}
 
-//	예지
+//------------------------- 예지
 	
 	@Override
 	public List<HomeDTO> getAllHomeDataMain() {
@@ -259,17 +258,6 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<HomePicDTO> getHomePic() {
 		return ssTemplate.selectList("HomePic.getHomePic");
-	}
-
-	@Override
-	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("homeTypeList", homeTypeList);
-		param.put("homeTypeIsChecked", homeTypeIsChecked);
-		param.put("people", people);
-		param.put("dates", dates);
-		param.put("dateIsChecked", dateIsChecked);
-		return ssTemplate.selectList("Home.searchHomeData", param);
 	}
 
 	@Override
