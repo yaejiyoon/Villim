@@ -141,7 +141,7 @@
          <img src="<c:url value='/resources/img/1.jpg'/>">
       </div> --%>
       
-       <div id="header-pic" style="position:relative;left:-10vw;">
+       <div id="header-pic" style="position:relative;left:83vw;top:-7.6vh;">
               <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${sessionScope.login_picture}"/>

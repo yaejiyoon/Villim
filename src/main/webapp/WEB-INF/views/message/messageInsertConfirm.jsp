@@ -76,7 +76,19 @@ top:5vh;
  
  
  <h4 style="line-height:1.5;">이 숙소를 예약하기 위해 ${host_name}님에게 메세지를 보낼 필요가 없습니다. 지금 바로 여행 날짜에 대한 예약을 확정할 수 있습니다.</h4>
-	<a href="예약하는 화면으로" target="_blank" id="reservationBt" class="themeBtn3">지금 예약하기</a>
+	 
+	 <!-- <form action="reservReq.re">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <input type="hidden" value="">
+	 <a href="#" target="_blank" id="reservationBt" class="themeBtn3">지금 예약하기</a>
+   </form> -->
+   
     <a href="javascript:history.go(-2)" target="_blank" id="confirmBt" class="themeBtn3">확인</a>  
  </div>
 

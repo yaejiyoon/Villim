@@ -32,15 +32,10 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> getAllHomeData(String member_email) {
 		return ssTemplate.selectList("Home.getAllHomeData", member_email);
 	}
-	
+
 	@Override
-	public List<HomeDTO> getAllHomeData() {
-		return ssTemplate.selectList("Home.getAllHomeData");
-	}
-	
-	@Override
-	public HomeDTO getOldestHomeData() {
-		return ssTemplate.selectOne("Home.getOldestHomeData");
+	public HomeDTO getOldestHomeData(String member_email) {
+		return ssTemplate.selectOne("Home.getOldestHomeData", member_email);
 	}
 
 	@Override
@@ -161,8 +156,23 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public List<GuestReviewDTO> getAllGuestReview(String host_email) {
-		return ssTemplate.selectList("Home.getGuestReview", host_email);
+	public List<ReservationDTO> getReservation(int home_seq) {
+		return ssTemplate.selectList("Home.getReservation", home_seq);
+	}
+
+	@Override
+	public List<ReservationDTO> getWaitReserve(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getWaitReservation", map);
+	}
+
+	@Override
+	public List<ReservationDTO> getApprovalReserve(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getApprovalReservation", map);
+	}
+
+	@Override
+	public List<GuestReviewDTO> getAllGuestReview(HashMap<String, Object> map) {
+		return ssTemplate.selectList("Home.getAllGuestReview", map);
 	}
 
 	@Override
@@ -171,10 +181,15 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public int guestReviewCount(String member_email) {
-		String sql = "select count(*) as count from guest_review where home_seq IN"+ 
-				" (select home_seq from home where member_email=?)";
+	public int guestReviewAllCount(String member_email) {
+		String sql = "select count(*) as count from guest_review where home_seq IN"
+				+ " (select home_seq from home where member_email=?)";
 		return jdbcTemplate.queryForObject(sql, Integer.class, member_email);
+	}
+
+	@Override
+	public int guestReviewCount(HashMap<String, Object> map) {
+		return ssTemplate.selectOne("Home.guestReviewCount", map);
 	}
 
 	@Override
@@ -184,82 +199,296 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public List<GuestReviewDTO> getSatisfaction() {
-		return ssTemplate.selectList("Home.getSatisfaction");
+	public List<GuestReviewDTO> getSatisfaction(int home_seq) {
+		return ssTemplate.selectList("Home.getSatisfaction", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getAccuracy() {
-		return ssTemplate.selectList("Home.getAccuracy");
+	public List<GuestReviewDTO> getAccuracy(int home_seq) {
+		return ssTemplate.selectList("Home.getAccuracy", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getCleanLiness() {
-		return ssTemplate.selectList("Home.getCleanLiness");
+	public List<GuestReviewDTO> getCleanLiness(int home_seq) {
+		return ssTemplate.selectList("Home.getCleanLiness", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getCheckin() {
-		return ssTemplate.selectList("Home.getCheckin");
+	public List<GuestReviewDTO> getCheckin(int home_seq) {
+		return ssTemplate.selectList("Home.getCheckin", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getAmenities() {
-		return ssTemplate.selectList("Home.getAmenities");
+	public List<GuestReviewDTO> getAmenities(int home_seq) {
+		return ssTemplate.selectList("Home.getAmenities", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getCommunication() {
-		return ssTemplate.selectList("Home.getCommunication");
+	public List<GuestReviewDTO> getCommunication(int home_seq) {
+		return ssTemplate.selectList("Home.getCommunication", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getLocation() {
-		return ssTemplate.selectList("Home.getLocation");
+	public List<GuestReviewDTO> getLocation(int home_seq) {
+		return ssTemplate.selectList("Home.getLocation", home_seq);
 	}
 
 	@Override
-	public List<GuestReviewDTO> getValue() {
-		return ssTemplate.selectList("Home.getValue");
+	public List<GuestReviewDTO> getValue(int home_seq) {
+		return ssTemplate.selectList("Home.getValue", home_seq);
 	}
 
 	@Override
-	public List<MessageDTO> getAllMessage(int home_seq) {
-		return ssTemplate.selectList("Home.getAllMessage");
+	public List<MessageDTO> getAllMessage(String member_email) {
+		return ssTemplate.selectList("Home.getAllMessage", member_email);
+	}
+
+	@Override
+	public int modifyPolicy(HomeDTO hdto) {
+		String sql = "update home set home_policy=? where home_seq = ?";
+		return jdbcTemplate.update(sql, hdto.getHome_policy(), hdto.getHome_seq());
+	}
+
+	
+
+	@Override
+	public int modifyHomeType(HomeDTO hdto) {
+		String sql = "update home set home_buildingtype=?, home_type=?, home_public=?, home_people=? where home_seq = ?";
+		return jdbcTemplate.update(sql, hdto.getHome_buildingType(), hdto.getHome_type(), hdto.getHome_public(),
+				hdto.getHome_people(), hdto.getHome_seq());
+	}
+
+	@Override
+	public int modifybed(BedDTO bdto) {
+		String sql = "update bed set bed_single=?, bed_double=?, bed_queen=? where home_seq = ?";
+		return jdbcTemplate.update(sql, bdto.getBed_single(), bdto.getBed_double(), bdto.getBed_queen(),
+				bdto.getHome_seq());
+	}
+
+	@Override
+	public int getGuestReviewPaging(HashMap<String, Object> map) {
+		return ssTemplate.selectOne("Home.getGuestReviewPaging", map);
+	}
+
+	@Override
+	public List<HomeDTO> getSimilarHome(HomeDTO hdto) {
+		return ssTemplate.selectList("Home.getSimilarHome", hdto);
+	}
+
+	@Override
+	public int modifyCountdown(long getTime, int reservation_seq) {
+		String sql = "update reservation set reserv_countdown=? where reservation_seq=?";
+		return jdbcTemplate.update(sql, getTime, reservation_seq);
+	}
+
+	@Override
+	public int modifyReservState(int reservation_seq) {
+		String sql = "update reservation set reserv_state = 3 where reservation_seq=?";
+		return jdbcTemplate.update(sql, reservation_seq);
+	}
+
+	@Override
+	public int modifyHomeView(int home_seq) {
+		String sql = "update home set home_view = home_view + 1 where home_seq=?";
+		return jdbcTemplate.update(sql, home_seq);
+	}
+
+	@Override
+	public List<ReservationDTO> getCalReservation(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getCalReservation", map);
 	}
 	
-	
+	@Override
+	public String getReviewPageNavi(int currentPageNo, int home_seq, Map<String, Object> map) {
+		int count = ssTemplate.selectOne("Home.getGuestReviewPaging", map);
+		System.out.println("navi: " + count);
+		System.out.println("seq:" + home_seq);
 
-	
-	//----------------지혜-----------------
-	@Override
-	public int updateBlockedDate(String blockedDate, int home_seq) {
-		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
-		return jdbcTemplate.update(sql,blockedDate,home_seq);
-	}
-	
-	@Override
-	public BedDTO getBedData(int home_seq) {
-		return ssTemplate.selectOne("Home.getBedData",home_seq);
+		int recordTotalCount = count;
+
+		int recordCountPerPage = 5;
+		int naviCountPerPage = 3;
+		int pageTotalCount = 0;
+
+		if (recordTotalCount % recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		int currentPage = currentPageNo;
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		// 네비게이터 스타트번호와 끝번호 나타내기
+		int startNavi = (currentPage - 1) / naviCountPerPage * naviCountPerPage + 1;
+		// 네비게이터가 시작 값; 딱 떨어지는 값의 시작페이지가 이상하기 때문에 1을 빼줘야한다.
+		// currentPage / naviCountPerPage * naviCountPerPage + 1;
+		int endNavi = startNavi + (naviCountPerPage - 1); // 네비게이터 끝 값
+
+		System.out.println("startNavi:" + startNavi);
+		System.out.println("endNavi:" + endNavi);
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (home_seq == 0) {
+			// if (needPrev) {
+			// sb.append("<li><a href='hostHomeAchievement.do?currentPage=" + (startNavi -
+			// 1)
+			// + "'aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
+			// }
+
+			if (currentPage == 1) {
+				sb.append("<li class='disabled'><a href='javascript:void(0);' id='naviPrev'> < </a></li>");
+			} else {
+				sb.append("<li><a href='hostHomeAchievement.do?currentPage=" + (startNavi - 1)
+						+ "' id='naviPrev'> < </a></li>");
+			}
+
+			for (int i = startNavi; i <= endNavi; i++) {
+				if (currentPage == i) {
+					sb.append("<li><a href='hostHomeAchievement.do?currentPage=" + i + "'> <b>" + i + "</b></a></li>");
+				} else {
+					sb.append("<li><a href='hostHomeAchievement.do?currentPage=" + i + "'>" + i + "</a></li>");
+
+				}
+
+			}
+
+			if (currentPage == pageTotalCount) {
+				sb.append("<li class='disabled'><a href='javascript:void(0);'id='naviNext'> > </a></li>");
+			} else {
+				sb.append("<li ><a href='hostHomeAchievement.do?seq=" + home_seq + "&currentPage=" + (endNavi + 1)
+						+ "' id='naviNext' > > </a></li>");
+
+			}
+			// if (needNext) {
+			// sb.append("<a href='hostHomeAchievement.do?currentPage=" + (endNavi + 1)
+			// + "'aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>");
+			// }
+		} else {
+			// if (needPrev) {
+			// sb.append("<li><a href='hostHomeAchievement.do?seq=" + home_seq +
+			// "&currentPage=" + (startNavi - 1)
+			// + "'aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
+			// }
+			if (currentPage == 1) {
+				sb.append("<li class='disabled'><a href='javascript:void(0);' id='naviPrev'> < </a></li>");
+			} else {
+				sb.append("<li><a href='hostHomeAchievement.do?currentPage=" + (startNavi - 1)
+						+ "' id='naviPrev'> < </a></li>");
+			}
+
+			for (int i = startNavi; i <= endNavi; i++) {
+				if (currentPage == i) {
+					sb.append("<li><a href='hostHomeAchievement.do?seq=" + home_seq + "&currentPage=" + i + "'> <b>" + i
+							+ "</b></a></li>");
+				} else {
+					sb.append("<li><a href='hostHomeAchievement.do?seq=" + home_seq + "&currentPage=" + i + "'>" + i
+							+ "</a></li>");
+
+				}
+			}
+			if (currentPage == pageTotalCount) {
+				sb.append("<li class='disabled'><a href='javascript:void(0);'id='naviNext'> > </a></li>");
+			} else {
+				sb.append("<li ><a href='hostHomeAchievement.do?seq=" + home_seq + "&currentPage=" + (endNavi + 1)
+						+ "' id='naviNext' > > </a></li>");
+
+			}
+			// if (needNext) {
+			// sb.append("<a href='hostHomeAchievement.do?seq=" + home_seq + "&currentPage="
+			// + (endNavi + 1)
+			// + "'aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>");
+			// }
+		}
+
+		// if (currentPage == 1) {
+		// sb.append("<li class='disabled'><a href='javascript:void(0);' id='naviPrev'>
+		// < </a></li>");
+		// }else {
+		// sb.append("<li><a href='javascript:void(0);'
+		// onclick='pageFunction("+(currentPage - 1)+","+home_seq+");' id='naviPrev'> <
+		// </a></li>");
+		// }
+		//
+		// for (int i = startNavi; i <= endNavi; i++) {
+		// if (currentPage == i) {
+		// sb.append("<li class='active'><a href='javascript:void(0);'
+		// class='naviCurrentPage' onclick='pageFunction("+i+","+home_seq+");'> <b>" + i
+		// + "</b></a></li>");
+		// } else {
+		// sb.append("<li><a href='javascript:void(0);' class='naviPage'
+		// onclick='pageFunction("+i+","+home_seq+");'>" + i + "</a></li>");
+		// }
+		// }
+
+		// if(endNavi == pageTotalCount) {
+		// }
+
+		// if(currentPage == pageTotalCount){
+		// sb.append("<li class='disabled'><a href='javascript:void(0);'id='naviNext'> >
+		// </a></li>");
+		// }else {
+		// sb.append("<li ><a href='javascript:void(0);'id='naviNext'
+		// onclick='pageFunction("+(currentPage + 1)+","+home_seq+");'> > </a></li>");
+		//
+		// }
+		//
+		// if (needNext) {
+		// }
+
+		return sb.toString();
 	}
 
-//------------------------- 예지
-	
-	@Override
-	public List<HomeDTO> getAllHomeDataMain() {
-		return ssTemplate.selectList("Home.getAllHomeDataMain");
-	}
-	
-	@Override
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-		return ssTemplate.selectList("Home.getHomeOnMap", param);
-	}
-	
-	@Override
-	public List<HomePicDTO> getHomePic() {
-		return ssTemplate.selectList("HomePic.getHomePic");
-	}
+	// ----------------지혜-----------------
+		@Override
+		public int updateBlockedDate(String blockedDate, int home_seq) {
+			String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
+			return jdbcTemplate.update(sql, blockedDate, home_seq);
+		}
+		
+		@Override
+		public BedDTO getBedData(int home_seq) {
+			return ssTemplate.selectOne("Home.getBedData",home_seq);
+		}
 
+		// 예지
+
+		@Override
+		public List<HomeDTO> getAllHomeDataMain() {
+			return ssTemplate.selectList("Home.getAllHomeDataMain");
+		}
+
+		@Override
+		public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+			return ssTemplate.selectList("Home.getHomeOnMap", param);
+		}
+
+		@Override
+		public List<HomePicDTO> getHomePic() {
+			return ssTemplate.selectList("HomePic.getHomePic");
+		}
+	
 	@Override
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return ssTemplate.selectList("Home.modalHomeData", param);
