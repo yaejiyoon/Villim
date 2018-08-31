@@ -23,7 +23,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>후기</title>
 <style>
 
@@ -486,18 +486,18 @@ $(document).ready(function(){
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"
-			style="font-size: 18px; position: relative; top: -24px; left: 0px; color: gray; text-decoration: none;">프로필
-			수정</a> <a
-			style="font-size: 19px; position: relative; top: 23px; left: -100px; color: gray; font-weight: bold;text-decoration:none;">후기</a>
+			style="font-size: 18px; position: relative;  top: -24px; left: -2vw;  color: gray; text-decoration: none;">프로필
+			수정</a> 
+			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -6vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
 		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none; font-weight: bold;"
+			style="position: relative; left: -150px; top: 80px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
 
 
 	</div>
 
 	<div class="container"
-		style="position: relative; left: 130px; top: -20px; width: 60%; height: 1000px;">
+		style="position: relative; left: 130px; top: -20px; width: 50%; height: 1000px;">
 		<div class="row">
 			<div class="col-md-12">
 

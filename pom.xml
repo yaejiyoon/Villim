@@ -41,6 +41,7 @@
          <artifactId>spring-webmvc</artifactId>
          <version>${org.springframework-version}</version>
       </dependency>
+      
 
       <!-- AspectJ -->
       <dependency>
@@ -237,6 +238,12 @@
          <artifactId>jstl</artifactId>
          <version>1.2</version>
       </dependency>
+      
+      <dependency>
+	    <groupId>jstl</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
       
       <dependency>
          <groupId>taglibs</groupId>

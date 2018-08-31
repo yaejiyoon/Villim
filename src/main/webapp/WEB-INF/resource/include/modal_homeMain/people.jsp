@@ -112,10 +112,10 @@ $(document).ready(function() {
 	});
 </script>
 <form action="modalPeople.do" method="post">
-      <div class="modal fade" id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog" id="peopleDialog">
-            <div class="modal-content">
-               <div class="modal-header" >
+      <div class="modal fade " id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog " id="peopleDialog">
+            <div class="modal-content ">
+               <div class="modal-header " >
                   <button type="button" class="close" data-dismiss="modal">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>

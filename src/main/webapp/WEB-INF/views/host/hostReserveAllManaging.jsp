@@ -84,6 +84,9 @@
 <title>숙소</title>
 </head>
 <body>
+	<%
+		int cnt = 0;
+	%>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id=wrapper>
 		<div id=wrapper-sub class=container>
@@ -126,7 +129,63 @@
 														style="background-color: #ff5a5f; color: white;">지금
 														답장하기</button>
 												</div>
+												<div>
+													<span id="time-hour<%=cnt%>"></span><span>시</span> <span
+														id="time-min<%=cnt%>"></span><span>분</span> <span
+														id="time-sec<%=cnt%>"></span><span>초</span>
+												</div>
 											</td>
+											
+												<script>
+										
+										window.onbeforeunload = function() {
+											$.ajax({
+												url:"savetime.do",
+												type:'post',
+												data:{
+													seq:${rlist.reservation_seq}
+												},
+												success:function(resp){
+													console.log("성공::"+resp);
+												}
+											});
+										};
+										
+										var date<%=cnt%> = new Date('${rlist.reserv_waitdate}');
+										var time<%=cnt%> = date<%=cnt%>.getTime();
+										function remain<%=cnt%>(){
+										        var now = new Date();
+
+										        var gap = Math.round((time<%=cnt%> - now.getTime() ) / 1000);
+										        var D = Math.floor(gap / 86400);
+										        var H = Math.floor((gap- D * 86400) / 3600 % 3600);
+										        var M = Math.floor((gap - H * 3600) / 60 % 60);
+										        var S = Math.floor((gap- M * 60) % 60);
+										        
+										        if(gap <= 0){
+										        	$.ajax({
+										        		url:"modifyReservState.do",
+										        		type:"post",
+										        		data:{
+										        			seq:${rlist.reservation_seq}
+										        		},success:function(resp){
+										        			console.log("성공::"+resp);
+										        			location.reload();
+										        		}
+										        		
+										        	});
+										        }
+										 		
+										        $('#time-day<%=cnt%>').text(D);
+										    	$('#time-hour<%=cnt%>').text(H);
+												$('#time-min<%=cnt%>').text(M);
+												$('#time-sec<%=cnt%>').text(S);
+										        
+										}
+										remain<%=cnt%>();
+										setInterval(remain<%=cnt%>,1000);
+											
+										</script>
 										</c:if>
 										<c:if test="${rlist.reserv_state == 1 }">
 											<td>예약 완료</td>
@@ -135,7 +194,7 @@
 											<td>예약 취소(게스트가 취소)</td>
 										</c:if>
 										<c:if test="${rlist.reserv_state == 3 }">
-											<td>예약 요청 거절됨(호스트가 취소)</td>
+											<td>예약 요청 거절(호스트가 거절)</td>
 										</c:if>
 										<td>
 											<div>${rlist.reserv_checkin }-${rlist.reserv_checkout }</div>
@@ -158,6 +217,7 @@
 											</div>
 										</td>
 									</tr>
+								
 								</c:forEach>
 							</c:if>
 						</table>

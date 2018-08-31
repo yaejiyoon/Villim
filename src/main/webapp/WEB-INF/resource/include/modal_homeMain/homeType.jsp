@@ -105,20 +105,6 @@
 <script>
 	$(document).ready(function() {
 		$("#homeTypeSubmit").click(function() {
-			var values = document.getElementsByName("homeType");
-			var count = 0;
-			for (var i = 0; i < values.length; i++) {
-				if(values[i].checked) {
-					count++;
-				}
-			}
-			var homeTypeBt = document.getElementById('homeTypeBt');
-			if(count!=0) {
-				homeTypeBt.innerHTML = "숙소종류 · "+count;
-				homeTypeBt.style.backgroundColor = '#008489';
-				homeTypeBt.style.color = "white";
-				homeTypeBt.style.borderRadius = "10px";
-			}
 			
 			var selected = [];
 			$('input:checked').each(function() {
@@ -126,7 +112,15 @@
 			});
 			
 			$('#modalHomeType').val(selected);
-			alert(selected);
+			
+			var homeTypeBt = document.getElementById('homeTypeBt');
+			var count = selected.length-1;
+			if(count!=0) {
+				homeTypeBt.innerHTML = "숙소종류 · "+count;
+				homeTypeBt.style.backgroundColor = '#008489';
+				homeTypeBt.style.color = "white";
+				homeTypeBt.style.borderRadius = "10px";
+			}
 		});
 		
 		$("#homeTypeDelete").click(function() {
@@ -138,15 +132,15 @@
 			homeTypeBt.style.borderRadius = "0px";
 		});
 		
-		<%if(session.getAttribute("homeType").equals("집전체")) {%>
-			$('#whole').attr("checked", true);
+		<%if(session.getAttribute("homeType").equals("집전체")|| session.getAttribute("whole").equals("집전체")) {%>
+		$('#whole').attr("checked", true);
 		<%}%>
 		
-		<%if(session.getAttribute("homeType").equals("개인실")) {%>
+		<%if(session.getAttribute("homeType").equals("개인실")|| session.getAttribute("one").equals("개인실")) {%>
 			$('#one').attr("checked", true);
 		<%}%>
 	
-		<%if(session.getAttribute("homeType").equals("다인실")) {%>
+		<%if(session.getAttribute("homeType").equals("다인실")|| session.getAttribute("many").equals("다인실")) {%>
 			$('#many').attr("checked", true);
 		<%}%>
 		
@@ -170,20 +164,20 @@
                <div class="modal-body mainModal" style="background-color:white; color:#6e7776; text-align : center;">
                   	<label class="Container"><b>집 전체</b><br>
                   		집 전체를 단독으로 사용합니다
-					  <input class="homeTypeCheckbox" id="whole" type="checkbox" name="homeType" value="집전체" >
+					  <input class="homeTypeCheckbox" id="whole" type="checkbox" name="whole" value="집전체" >
 					  <span class="checkmark"></span>
 					</label>
 						
 						
 					<label class="Container"><b>개인실</b><br>
 						침실은 단독으로 쓰고, 이외의 공간은 호스트나 다른 게스트와 함께 이용할 수도 있습니다. 
-					  <input class="homeTypeCheckbox" id="one" type="checkbox" name="homeType" value="개인실">
+					  <input class="homeTypeCheckbox" id="one" type="checkbox" name="one" value="개인실">
 					  <span class="checkmark"></span>
 					</label>
 					
 					<label class="Container"><b>다인실</b><br>
 						사적공간없이, 침실이나 욕실 등을 호스트나 다른 게스트와 함께 사용합니다.
-					  <input class="homeTypeCheckbox" id="many" type="checkbox" name="homeType" value="다인실">
+					  <input class="homeTypeCheckbox" id="many" type="checkbox" name="many" value="다인실">
 					  <span class="checkmark"></span>
 					</label>
 					

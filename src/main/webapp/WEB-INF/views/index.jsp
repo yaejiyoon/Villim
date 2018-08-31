@@ -13,7 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- main css -->
-<link href="<c:url value="/resources/css/main/main.css?ver=2" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/main.css?ver=1" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 
@@ -278,11 +278,20 @@ $(document).ready(function() {
 		border : 1px solid white;
 		font-family: font;
 		font-size : 1.8vh;
+		
 	}
 
 	#searchicon {
 		color : white;
 		font-size : 5vh;
+	}
+	
+	#datepickers-container {
+		left : 120vh;
+	}
+	
+	.homeType {
+		margin-top : 30px;
 	}
 </style>
 <script>
@@ -466,12 +475,12 @@ $(document).ready(function() {
          </div>
          <div id="homeTitlePic">
             <button class="btn btn-secondary" id="homeButton">숙소 둘러보기</button>
-            <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>">
+            <img src="<c:url value='/resources/img/index/homeTitle7.jpg'/>">
          </div>
       </div>
 
       <div id="homeContents">
-         <div class="row">
+         <div class="col">
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
@@ -529,9 +538,6 @@ $(document).ready(function() {
                </div>
             </div>
 
-
-         </div>
-         <div class="row">
             <div class="col-md-3">
                <div id="homePic">
                   <a href=""><img
@@ -588,6 +594,64 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
                </div>
             </div>
+            <div class="col-md-3">
+               <div id="homePic">
+                  <a href=""><img
+                     src="<c:url value='/resources/img/index/homeTitle5.jpg'/>"></a>
+                  <p class="homeType">집 전체·레체</p>
+                  <p class="homeName">
+                     <B>In the historical center of Leccee</B>
+                  </p>
+                  <p class="homePrice">\88,732 /박</p>
+                  <p class="reviewStar">★★★★★</p>
+                  <p class="reviewCount">247</p>
+                  <p class="hostTitle">슈퍼호스트</p>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <div id="homePic">
+                  <a href=""><img
+                     src="<c:url value='/resources/img/index/homeTitle6.jpg'/>"></a>
+                  <p class="homeType">집 전체·레체</p>
+                  <p class="homeName">
+                     <B>In the historical center of Leccee</B>
+                  </p>
+                  <p class="homePrice">\88,732 /박</p>
+                  <p class="reviewStar">★★★★★</p>
+                  <p class="reviewCount">247</p>
+                  <p class="hostTitle">슈퍼호스트</p>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <div id="homePic">
+                  <a href=""><img
+                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
+                  <p class="homeType">집 전체·레체</p>
+                  <p class="homeName">
+                     <B>In the historical center of Leccee</B>
+                  </p>
+                  <p class="homePrice">\88,732 /박</p>
+                  <p class="reviewStar">★★★★★</p>
+                  <p class="reviewCount">247</p>
+                  <p class="hostTitle">슈퍼호스트</p>
+               </div>
+            </div> 
+            <div class="col-md-3">
+               <div id="homePic">
+                  <a href=""><img
+                     src="<c:url value='/resources/img/index/homeTitle.jpg'/>"></a>
+                  <p class="homeType">집 전체·레체</p>
+                  <p class="homeName">
+                     <B>In the historical center of Leccee</B>
+                  </p>
+                  <p class="homePrice">\88,732 /박</p>
+                  <p class="reviewStar">★★★★★</p>
+                  <p class="reviewCount">247</p>
+                  <p class="hostTitle">슈퍼호스트</p>
+               </div>
+            </div>
+            
+            
          </div>
       </div>
    </div>

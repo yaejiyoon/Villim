@@ -23,21 +23,11 @@
 
 
 <style>
-
-@import
-	url(https://fonts.googleapis.com/css?family=Raleway|Varela+Round|Coda);
-
-@import url(http://weloveiconfonts.com/api/?family=entypo);
-
-[class*="entypo-"]:before {
-	font-family: 'entypo', sans-serif;
-}
-
 .avatar{
-padding: .7em;
-	position: relative;
-	left: 230px;
-	top: 10px; 
+
+	position:relative;
+	left:1vw;
+	top: 5vh; 
 	height : 20.23em;
 	width: 20.23em;
 	border-radius: 18em;
@@ -53,10 +43,11 @@ padding: .7em;
 }
 
 #profile {
+
 	position: relative;
 	top: 0px;
-	left: 450px; width : 700px;
-	height: 550px;
+	left: 35vw; width : 100vw;
+	height: 51vh;
 	background: #fff;
 	width: 700px; height : 500px; background : #fff;
 	border-radius: 5px;
@@ -65,8 +56,8 @@ padding: .7em;
 
 .user-profile  .username {
 	position: relative;
-	left: 390px;
-	top: -290px; color : #658585;
+	left: 20vw;
+	top: -14vw; color : #658585;
 	font-size: 3.53em;
 	font-family: "Coda", sans-serif;
 	font-weight: bold;
@@ -81,8 +72,8 @@ padding: .7em;
 	font-size: 1.0em;
 	font-family: "varela round", sans-serif;
 	position: relative;
-	left: 290px;
-	top: -270px;
+	left: 13vw;
+	top: -13.5vw;
 }
 
 .user-profile>.description {
@@ -95,14 +86,15 @@ padding: .7em;
 	font-size: 1.8em;
 	font-family: "varela round", sans-serif;
 	position: relative;
-	left: 15px;
-	top: -200px;
+	left: 1vw;
+	top: -20vh;
+	text-align:center;
+
 }
 
 .user-profile>img.avatar {
 	padding: .7em;
-	position: relative;
-	left: 92px;
+	position:relative;left:-5vw;
 	top: 10px; height : 20.23em;
 	width: 20.23em;
 	border-radius: 18em;
@@ -159,40 +151,41 @@ padding: .7em;
 
 
 #showHouseContainer{
-width:500px;
-height:600px;
+width:27vw;
+height:auto;
 position:relative;
-top:-205px;
-left:10px;
+top:-20vh;
+left:0.3vw;
 
 }
 #textOverImage{
-margin:auto;
+margin:0;
+margin-bottom:0;
 text-align:center;
-padding:5px;
+padding:2px;
 max-width:400px;
 }
 </style>
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>Profile</title>
 </head>
 <body>
 <%@ include file="../../resource/include/header_profile.jsp" %>
 
 <div class=container style="width:100%;height:1150px;">
-	<!-- <h1 class="title-pen">User Profile</h1> -->
-	<div class="" style="position: relative; left: 250px; top: 56px;">
-		<a href="profileEditView.mo" style="font-size: 19px; position: relative; top: -24px; left: 5px; color:gray;text-decoration: none;">프로필
+	
+	<div style="position: relative; left: 250px; top: 56px;">
+		<a href="profileEditView.mo" style="z-index:500;font-size: 19px; position: relative; top: -24px; left: -2vw; color:gray;text-decoration: none;">프로필
 			수정</a> <a href="profileReview.mo"
-			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
-		<!-- <button id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button> -->
+			style="font-size: 18px; z-index:500;position: relative; top: 23px; left: -6vw; color:gray;text-decoration: none;">후기</a>
+	
 
 
 	</div>
-  <!--  <a style="position:relative;left:1000px;top:-10px;color:#aaa8e0" href="profileEditView.mo" >프로필 수정</a>	 -->
+ 
 	<div class="user-profile" id="profile">
 		<img class="avatar img-responsive"  id="photo"
-			src="files/${result.member_picture}"  />
+			src="files/${result.member_picture}" />
       
 		<div class="username">${result.member_name} <span>님!</span></div>
 		<div class="bio">지역 : ${result.member_location}</div>
@@ -212,7 +205,7 @@ max-width:400px;
 		<c:when test="${count>0}">
 		<div id="showHouseContainer" class=container>
 		<c:forEach  var="house" items="${houseResult}">
-	<div class="gallery_product col-lg-6 col-md-8 col-sm-8 col-xs-8 filter hdpe" style="margin-top:12px;">
+	<div class="gallery_product col-lg-6 filter hdpe" style="margin-top:12px;">
                 <img src="files/${house.home_main_pic}" class="img-responsive" style="object-fit: contain;">
                 
                 <div class="carousel-caption" id="textOverImage">
@@ -224,8 +217,21 @@ max-width:400px;
 		</div>
 </c:when>
 <c:otherwise>
-<div id="showHouseContainer" class="bio" style="position:relative;left:90px;top:-180px;font-weight:bold;">
-숙소를 추가하세요!<button class="btn btn-default" style="position:relative;left:15px;">숙소 추가하기</button>
+<div id="showHouseContainer" class="bio" style="position:relative;left:-2vw;top:-22vh;font-weight:bold;height:11vh;">
+<h4 style="position:relative;left:8.5vw;top:0vh;font-weight:800;">숙소를 추가하세요!</h4><button class="btn btn-default" id="homeAddBt" style="font-weight:800;position:relative;left:9.5vw;top:2vh;">숙소 추가하기</button>
+<script>
+
+$(document).ready(function(){
+	
+	$('#homeAddBt').click(function(){
+		$(location).attr('href','first.host');
+	})
+
+})
+
+</script>
+
+
 </div>
 </c:otherwise>
 	</c:choose>	
