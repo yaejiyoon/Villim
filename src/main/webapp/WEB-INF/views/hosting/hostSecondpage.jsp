@@ -329,6 +329,7 @@
 			data-hypernova-id="78a4e44d-c6d0-4fc1-bf49-a6e3d7abc784">
 			<div data-reactroot="">
 				<div>
+				
 					<div class="list-your-space__progress">
 						<div class="list-your-space__header">
 							<div class="airbnb-header new">
@@ -362,6 +363,7 @@
 							<div class="centered-content clearfix">
 								<div
 									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix col-md-6 landing__left-col">
+									<form action="thirdMove.host" method="post" id="housetypes">
 									<div
 										class="main-panel main-panel-padding main-panel-progress  main-panel-inner-half space-sm-8">
 										<div class="_1mbllh6j">
@@ -382,7 +384,6 @@
 															</label>
 														</div>
 														<div class="_az0uecb">
-														<form action="thirdMove.host" method="post" id="housetypes">
 															<div class="_y9ev9r">
 																<select id="property-type-group"
 																	name="home_type" class="_10p0m0gl"><option
@@ -395,7 +396,7 @@
 																	<option value="boutique_hotels_and_more">부티크
 																		호텔</option></select>
 															</div>
-														</form>	
+															
 															<span class="_1pzmvmb"><svg viewBox="0 0 18 18"
 																	role="presentation" aria-hidden="true"
 																	focusable="false"
@@ -473,7 +474,7 @@
 											</div>
 										</div>
 									</div>
-									
+									</form>
 									<div class="main-panel__actions-wrapper">
 										<div class="centered-content clearfix">
 											<div class="bg-white main-panel-outer-half clearfix shadowed">

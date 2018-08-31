@@ -516,7 +516,7 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public HomeDTO getNewestHomeData(String email) {
 		// TODO Auto-generated method stub
-		return ssTemplate.selectOne("Home.getNesestHomeData");
+		return ssTemplate.selectOne("Home.getNesestHomeData",email);
 	}
 
 	@Override

@@ -58,13 +58,19 @@ public class HostingController {
 		ModelAndView mav = new ModelAndView();
 		String email = "";
 		try {
-			email = req.getSession().getAttribute("member_email").toString();
+			email = req.getSession().getAttribute("login_email").toString();
+			System.out.println(email);
+			System.out.println("1!!!!!!");
 			HomeDTO homedto = service.getNewestHomeData(email);
+			int seq= homedto.getHome_seq();
 			String homestep = homedto.getHome_step();
 			if(homestep.equals("1")||homestep.equals("2")||homestep.equals("3")){
+				System.out.println("2!!!!!!!!");
+				req.getSession().setAttribute("hostingseq", seq);
 				req.getSession().setAttribute("homestep", homestep);
 				mav.setViewName("hosting/modifypage");
 			}else if(homestep.equals("4")||homestep.equals(null)){
+				System.out.println("3!!!!!!!!");
 				req.getSession().setAttribute("homestep", homestep);
 				mav.setViewName("hosting/hostFirstpage");
 			}
@@ -80,8 +86,11 @@ public class HostingController {
 	public ModelAndView createAndnext(HomeDTO hdto,HttpSession session,HttpServletRequest req ,HttpServletResponse res) {
 		System.out.println("생성");
 		ModelAndView mav = new ModelAndView();
-		String	isemail = req.getSession().getAttribute("member_email").toString();
-		int result = service.insertFirstHome(hdto);
+		String	isemail = req.getSession().getAttribute("login_email").toString();
+		System.out.println(isemail);
+		HomeDTO inserthomedto = new HomeDTO();
+		inserthomedto.setMember_email(isemail);
+		int result = service.insertFirstHome(inserthomedto);
 		HomeDTO homedto = service.getNewestHomeData(isemail);
 		int seq= homedto.getHome_seq();
 		String email = homedto.getMember_email();
@@ -97,7 +106,7 @@ public class HostingController {
 		req.getSession().setAttribute("email", email);
 		req.getSession().setAttribute("hostingseq", seq);
 		req.getSession().setAttribute("homestep", homestep);
-		mav.addObject("result",result);
+		//mav.addObject("result",result);
 		mav.setViewName("hosting/hostSecondpage");
 		return mav;
 	}
@@ -106,14 +115,14 @@ public class HostingController {
 	public ModelAndView toMoveThird(HomeDTO hdto,HttpSession session,HttpServletRequest req,HttpServletResponse res) {
 		System.out.println("home_type수정 과 세번째 페이지 이동");
 		ModelAndView mav = new ModelAndView();
-		String home_type = req.getParameter("room_type");
+		String room_type = req.getParameter("room_type");
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
-		System.out.println(home_type);
+		System.out.println(room_type);
 		//		int result = service.insertMessages(new MessagesDTO(0, writer, contents));
 		HomeDTO homedto = new HomeDTO();
 		homedto.setHome_seq(seq);
-		homedto.setHome_type(home_type);
+		homedto.setHome_type(room_type);
 		int result = service.modifyHomeType(homedto);
 		mav.addObject("result",result);
 		mav.setViewName("hosting/hostThirdpage");
@@ -236,7 +245,7 @@ public class HostingController {
 		homedto.setHome_amenities(amenitiesList);
 		homedto.setHome_safety(safetyList);	
 		int result = service.modifyCommodity(homedto);
-		String	isemail = req.getSession().getAttribute("member_email").toString();
+		String	isemail = req.getSession().getAttribute("login_email").toString();
 		//-- 이후
 		System.out.println("1단계 업데이트");
 		HomeDTO callhomedto = service.getNewestHomeData(isemail);
@@ -390,7 +399,7 @@ public class HostingController {
 		int result = service.modifyHomename(homedto);
 		// 실행 이후
 		System.out.println("2단계 업데이트");
-		String	isemail = req.getSession().getAttribute("member_email").toString();
+		String	isemail = req.getSession().getAttribute("login_email").toString();
 		HomeDTO callhomedto = service.getNewestHomeData(isemail);
 		String homestep = callhomedto.getHome_step();
 		System.out.println("!!! -> 단계:" + homestep);
@@ -562,7 +571,7 @@ public class HostingController {
 		int result = service.modifyHomeprice(homedto);
 		mav.addObject("result",result);
 		System.out.println("호스팅 끝 ");
-		mav.setViewName("home_main");
+		mav.setViewName("redirect:/homeMain.do");
 		return mav;
 	}
 

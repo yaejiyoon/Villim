@@ -376,9 +376,9 @@
 		insert into home value (home_seq,member_email,home_step) values (home_seq.nextval,#{member_email},'1')
 	</insert>
 	
-	<select id="getNesestHomeData" resultType="Home">
-		select * from (select
-		* from home where member_email = #{member_email} order by home_seq desc) where rownum = 1
+	<select id="getNesestHomeData" resultType="Home" parameterType="String">
+		 select * from (select
+    	* from home where member_email = #{member_email} order by home_seq desc) where rownum = 1
 	</select>
 	
 	

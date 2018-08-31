@@ -791,9 +791,9 @@ jQuery(document).ready(function($) {
   var listpicture = $("#output").val();
   
   if(listpicture == 0){
-	  console.log("읎어요");
+	  console.log("");
   }else{
-	  console.log("씨부럴");
+	  console.log("");
   }
   
 }
