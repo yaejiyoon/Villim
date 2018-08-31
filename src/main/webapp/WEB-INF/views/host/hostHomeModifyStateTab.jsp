@@ -5,29 +5,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <!-- 달력 -->
 <link rel="stylesheet" href="<c:url value='/resources/css/host/datepickerui.css'/>" />
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<!-- 달력 -->
-<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=1" />"></script>
-<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
-<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
-<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
-
+ 
 
 <title>편의시설 수정 탭</title>
 
@@ -78,7 +72,7 @@ div {
 	margin-bottom: 30px;
 }
 
-.home-details-line {
+.line {
 	border: 0.5px solid #E6E6E6;
 	display: inline-block;
 	width: 100%;
@@ -155,7 +149,7 @@ margin-top:50px;
 					<option value=2>운영중지</option>
 				</select>
 			</div>
-			<div class=home-details-line></div>
+			<div class=line></div>
 			<div style="font-size: 17px; margin-bottom: 20px;">
 				<b>숙소를 조회하고 예약할 수 있는 게스트</b>
 			</div>
@@ -167,7 +161,7 @@ margin-top:50px;
 				<div>계정 보유 여부와 관계없이 에어비앤비에 접속한 누구에게나 숙소가 표시됩니다.</div>
 			</div>
 
-			<div class=home-details-line></div>
+			<div class=line></div>
 				
 			<!-- 모달모달 시작 -->
 			
@@ -212,20 +206,20 @@ margin-top:50px;
 			<input type=hidden id=start_date name=home_rest_start value="">
 			<input type=hidden id=end_date name=home_rest_end value="">
 			<input type=hidden name=seq value="${hdto.home_seq }">
-			
-			<nav class="navbar navbar-default navbar-fixed-bottom"
-			style="width: 70%; height: 12%; margin: 0 auto;">
-			<div class="container">
-				<div class="btn-group">
-					<button class="btn btn-lg save">저장</button>
-					<button type="button" class="btn btn-lg cancel"
-						onclick="history.back()">취소</button>
-				</div>
-			</div>
-		</nav>
+
+				<nav class="navbar navbar-default navbar-fixed-bottom"
+					style="width: 70%; height: 12%; margin: 0 auto;">
+					<div class="container">
+						<div class="btn-group">
+							<button class="btn btn-lg save">저장</button>
+							<button type="button" class="btn btn-lg cancel"
+								onclick="history.back()">취소</button>
+						</div>
+					</div>
+				</nav>
 
 
-			
+
 			</form>
 			
 			<script>

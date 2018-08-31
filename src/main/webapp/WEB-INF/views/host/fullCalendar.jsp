@@ -174,6 +174,9 @@ div {
 	float: right;
 	display: inline-block;
 }
+#start_date, #end_date{
+	background-color: white;
+}
 </style>
 </head>
 <body>
@@ -257,14 +260,42 @@ div {
 										selectable : true,
 										selectHelper : true,
 										unselectAuto:false,
+// 										selectAllow:function(selectInfo){
+// 											var sstr=selectInfo.start.format('YYYY/MM/DD');
+// 											var m = moment();
+// 											var cstr = m.format('YYYY/MM/DD')
+// 											alert(sstr);
+// 											alert(cstr);
+// 											var sarr = sstr.split('/');
+// 											var carr = cstr.split('/');
+											
+// 											var sdate = new Date(sarr[0], sarr[1], sarr[2]);
+// 											var cdate = new Date(carr[0], carr[1], carr[2]);
+// 											var between = (cdate.getTime()-sdate.getTime())/1000/60/60/24;
+// 										},
 										select : function(start, end, jsEvent, view) {
 											console.log("seqqqqqqqqq::"+seq);
-											s_date = start.format("YYYY/MM/DD");
-											e_date = moment(end).subtract('days', 1).format(
-													"YYYY/MM/DD");
-					
+											
 											var m = moment();
-					
+
+											s_date = start.format("YYYY/MM/DD");
+											e_date = moment(end).subtract('days', 1).format("YYYY/MM/DD");
+											var cstr = m.format('YYYY/MM/DD')
+											
+											var sarr = s_date.split("/");
+											var carr = cstr.split('/');
+											var sdate = new Date(sarr[0], sarr[1], sarr[2]);
+											var cdate = new Date(carr[0], carr[1], carr[2]);
+											var between = (cdate.getTime()-sdate.getTime())/1000/60/60/24;
+											
+											if(between>0){
+												$('#calendar<%=cnt%>').fullCalendar('unselect');
+												$('#start_date').val("");
+												$('#end_date').val("");
+												
+												return false;
+											}
+											
 											console.log("시작날짜" + s_date);
 											console.log("종료날짜:" + e_date);
 					
@@ -304,7 +335,12 @@ div {
 										eventDragStart : false,
 										eventDragStop : false,
 										eventDrop : false,
-										eventMouseover : false,
+										eventMouseover : function(data, event, view){
+											 var date = new Date();
+											 var d = date.getDate();
+											 var m = date.getMonth()+1;
+											 var y = date.getFullYear();
+										},
 										eventMouseout :false,	
 										editable : false,
 										eventOverlap:false,
@@ -313,23 +349,32 @@ div {
 											console.log("seq::::::::::::::"+seq);
 											console.log("start.format()"+start.format());
 											console.log("end.format()"+end.format());
+
 											$.ajax({
 												url : 'eventsAjax.do',
 												type : 'post',
 												data : {
 													seq : seq
 												},
+												dataType:"json",
 												success : function(resp) {
 													console.log("썽공: "+resp);
-													console.log("썽공: "+resp.date);
-																					
-													var arr = new Array();
-													arr = resp.date.split(",");
-													console.log("asdasd::"+arr);
+													console.log("썽공: "+resp.jarr.length);
 													
+													var arr = new Array();
+													arr = resp.jarr[0].split(",");
+													console.log("asdasd::"+arr);
 													console.log("length:" + arr.length);
+													
 													for(var i=0; i<arr.length; i++){
 														console.log("arr::"+arr[i]);
+													}
+													
+													for(var i=1; i<resp.jarr.length; i++){
+														console.log("점심::"+resp.jarr[i].member_email);
+														console.log("점심::"+resp.jarr[i].reserv_checkin);
+														console.log("점심::"+resp.jarr[i].reserv_checkout);
+														console.log("점심::"+resp.jarr[i].member_name);
 													}
 													
 													arr.sort();
@@ -338,17 +383,40 @@ div {
 													var e_str = arr[arr.length-1];
 													var tit = '예약 불가';
 													var eventData=[];
+													today = new Date();
 													console.log("s_str::"+s_str);
 													console.log("e_str::"+e_str);
-					
+													
 													var events = [];
 													$(resp).each(function() {
+														
+														// 예약완료 출력 출력
+														for(var i=1; i<resp.jarr.length; i++){
+															events.push({
+																color:'#848484',
+																start:resp.jarr[i].member_checkin,
+																end:resp.jarr[i].member_checkout,
+																rendering:'background'
+															});
+														}
+														for(var i=1; i<resp.jarr.length; i++){
+															events.push({
+																start:resp.jarr[i].reserv_checkin,
+																end:resp.jarr[i].reserv_checkout,
+																title:resp.jarr[i].member_name,
+																backgroundColor:'#ff5a5f',
+												
+															});
+														}
+														
+														
+														// 예약 불가 출력
 														for(var i = 0; i<arr.length; i++){
 															events.push({
-																color:'#D8D8D8',
+																color:'#848484',
 																start: arr[i],
 																end:arr[i],
-																title: tit,
+																title:tit,
 																rendering:'background'
 															});
 														}
@@ -363,16 +431,18 @@ div {
 													});
 													events.push({
 														start: '2017-01-01',
-														end: '2018-08-23',
-														color:'#848484',
-														rendering:'background'
+														end: '2018-08-29',
+														color:'#E6E6E6',
+														rendering:'background',
+														select:false
+														
 													})
 													
 													$('#calendar').fullCalendar('renderEvent', events, true);
 													callback(events);
 												},
-												error : function(resp) {
-													console.log("실패 : ");
+												error : function(resp,error, status) {
+													console.log("실패 : "+resp.status+"::"+error+"::"+resp.responseText);
 												}
 												
 											});
@@ -406,8 +476,8 @@ div {
 
 		<form action="modifyCalendar.do" method=post>
 			<div>
-				<input type="text" id=start_date name=start
-					class="form-control input-lg"> <input type="text"
+				<input type="text" id=start_date name=start readonly="readonly" 
+					class="form-control input-lg"> <input type="text" readonly="readonly"
 					id=end_date name=end class="form-control input-lg">
 			</div>
 			<div class=line></div>
@@ -448,8 +518,8 @@ div {
 			<!-- 			</div> -->
 			<div class=line></div>
 			<div class="btn-group">
-				<button class="btn btn-lg">저장</button>
-				<button type="button" class="btn btn-lg"
+				<button class="btn btn-lg" id=save>저장</button>
+				<button type="button" id=cancel class="btn btn-lg"
 					onclick="history.go(-1)">취소</button>
 
 				<input id="hidden_seq" type="hidden" name="seq"

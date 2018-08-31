@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,7 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.LikeyDTO;
 import kh.spring.dto.LikeyListDTO;
+import kh.spring.dto.MailSendDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
@@ -73,6 +75,9 @@ public class HomeInfoController {
 	@Autowired
 	private LikeyService likeyService;
 	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	@RequestMapping("/home_info.do")
 	public ModelAndView home_Info(HttpServletRequest req) {
 		
@@ -82,6 +87,8 @@ public class HomeInfoController {
 		}
 
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
+		
+		int result = homeService.modifyHomeView(home_seq);
 		
 		System.out.println("homeseq : " + home_seq);
 		
@@ -271,7 +278,7 @@ public class HomeInfoController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("home_seq",home_seq);
 		mav.addObject("hdto", hdto);
 		mav.addObject("getBlockedDate", getBlockedDate);
 		mav.addObject("guestReviewList", guestReviewList);
@@ -589,6 +596,7 @@ public class HomeInfoController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
+	
 		mav.addObject("reservationDTO", reservationDTO);
 		mav.addObject("hdto", hdto);
 		mav.addObject("checkInDate", checkInDate);
@@ -740,11 +748,50 @@ public class HomeInfoController {
 		if (messageInsertResult > 0) {
 			System.out.println("메세지 전송 완료!");
 			 System.out.println("message_seq : "+messageDTO.getMessage_seq());
+		
 			 
 			//실제 메세지 보내기
 			  MemberDTO mGuest=memberService.printProfile(reservDTO.getMember_email());
 			  MemberDTO mHost=memberService.printProfile(reservDTO.getHost_email());
              
+			  MailSendDTO mailDto = new MailSendDTO(mailSender);
+				String mail = mHost.getMember_email();
+				System.out.println(mail);
+				System.out.println("멤버 사진 : "+mGuest.getMember_picture());
+				String urls = "<div style=\"heigh:100%;width:100%;height:45vw;\">" + 
+						"<img src=\"logo2.png/>\" style=\"position:relative;left:6vw;top:4vh;\">" + 
+						"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">" + 
+						"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의 문의에 답하세요</h3>" + 
+						"<img style=\"width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">" + 
+						"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>" + 
+						"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>" + 
+						"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">" + 
+						"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+messageDTO.getMessage_content()+"</h4>" + 
+						"</div>" + 
+						"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>" + 
+						"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>" + 
+						"<hr style=\"margin-top:0;margin-left:0;padding:0;width:68%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">" + 
+						"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">" + 
+						"빌림 드림 ♥<br>" + 
+						"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>" + 
+						"</div>" +"</div>";
+				
+
+				
+				try {
+				
+				mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 예약 문의 입니다.");
+				mailDto.setText(urls);
+				mailDto.setFrom("villim.cf", "villim.cf");
+				mailDto.setTo(mail);
+				mailDto.send();
+				System.out.println("메일보내기 성공");
+
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			  
+			  
 			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
 			  System.out.println("진짜 문자 보낼 내용 : "+getMessageAfterSend.getMessage_content());
 		      String to = "82" +mHost.getMember_phone();
@@ -788,7 +835,6 @@ public class HomeInfoController {
 		int reservation_Seq = Integer.parseInt(req.getParameter("seq"));
 		int message_room_seq = Integer.parseInt(req.getParameter("roomSeq"));
 
-		System.out.println("acceptReserv지혜언니가 수락했을때~!!!");
 		System.out.println("reservation_seq : "+reservation_Seq);
 		System.out.println("message_room_seq : "+message_room_seq);
 		//예약상태 업데이트 (1:예약 완료)
@@ -837,6 +883,49 @@ public class HomeInfoController {
 			
 			//실제 메세지 보내기
 			  MemberDTO mGuest=memberService.printProfile(reservationDTO.getMember_email());
+			  
+			  
+			  MailSendDTO mailDto = new MailSendDTO(mailSender);
+				String mail = mGuest.getMember_email();
+				System.out.println(mail);
+				System.out.println("멤버 사진 : "+memberDTO.getMember_picture());
+				String urls = "<div style=\"heigh:100%;width:100%;height:45vw;\">" + 
+						"<img src=\"logo2.png/>\" style=\"position:relative;left:6vw;top:4vh;\">" + 
+						"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">" + 
+						"<h3 style=\"position:relative;left:6vw; \">"+memberDTO.getMember_name()+"님의 예약수락 정보를 확인하세요!</h3>" + 
+						"<img style=\"width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+memberDTO.getMember_picture()+" class=\"img-circle img-responsive\">" + 
+						"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+memberDTO.getMember_name()+"</h4>" + 
+						"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+memberDTO.getMember_location()+"</h4>" + 
+						"<div style=\"position:relative; min-height:5vh;display: block;left:6vw;padding-bottom:5vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">" + 
+						"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+messageDTO.getMessage_content()+"</h4>" + 
+						"</div>" + 
+						"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>" + 
+						"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+memberDTO.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>" + 
+						"<hr style=\"margin-top:0;margin-left:0;padding:0;width:68%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">" + 
+						"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">" + 
+						"빌림 드림 ♥<br>" + 
+						"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>" + 
+						"</div>" +"</div>";
+				
+
+				
+				try {
+				
+				mailDto.setSubject("[Villim] "+memberDTO.getMember_name()+"님으로부터 온 예약 수락 메일입니다.");
+				mailDto.setText(urls);
+				mailDto.setFrom("villim.cf", "villim.cf");
+				mailDto.setTo(mail);
+				mailDto.send();
+				System.out.println("메일보내기 성공");
+
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			  
+			  
+			  
+			  
+			  
 			  
               System.out.println("msg_seq : "+messageInsertResult);
 			  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());

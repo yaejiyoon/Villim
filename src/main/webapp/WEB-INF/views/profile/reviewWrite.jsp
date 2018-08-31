@@ -20,7 +20,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>후기</title>
 
 

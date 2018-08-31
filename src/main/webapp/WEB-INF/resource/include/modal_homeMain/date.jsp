@@ -9,8 +9,9 @@
 		width : 20vw;
 	}
 	
-	.modal-backdrop {
+	.modal-backdrop{
    		background-color: #f9f2ef;
+   		z-index : 0;
 	}
 	
 	.mainModal{

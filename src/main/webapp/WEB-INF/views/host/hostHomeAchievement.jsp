@@ -215,6 +215,38 @@ a:focus {
 #review-title {
 	font-size: 25px;
 }
+
+li {
+	float: left;
+	list-style: none;
+}
+
+.pagination>li>a, .pagination>li>span {
+	border-radius: 50% !important;
+	margin: 0 5px;
+}
+
+#naviPrev, #naviNext {
+	border: 1px solid #008489;
+	color: #008489;
+}
+
+#naviPrev:hover, #naviNext:hover {
+	background-color: white !important;
+}
+
+.naviPage {
+	border: 0px !important;
+	color: #008489 !important;
+}
+
+.naviPage:hover {
+	background-color: white !important;
+}
+
+.naviCurrentPage {
+	background-color: #008489 !important;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -244,9 +276,24 @@ a:focus {
 			</div>
 		</div>
 
+		<div class=line></div>
+
 		<div id=wrapper-sub2>
+			<div>
+				<b>숙소 선택</b>
+			</div>
+			<select class="form-control input-lg"
+				onchange="if(this.value) location.href=(this.value);"
+				style="width: 70%; display: inline-block; margin-top: 20px;">
+				<option value="hostHomeAchievement.do">모든 숙소</option>
+				<c:forEach var="hlist" items="${hlist}">
+					<option ${param.seq eq hlist.home_seq ? "selected":"" }
+						value="hostHomeAchievement.do?seq=${hlist.home_seq}">${hlist.home_name }</option>
+				</c:forEach>
+			</select>
+
 			<div id=gpa>
-				<div style="width: 50%;">
+				<div style="width: 50%; margin-top: 40px;">
 					<div style="display: inline-block; font-size: 35px; width: 30%;">
 						<div>
 							<div style="width: 70%; display: inline-block; float: left;">
@@ -580,20 +627,20 @@ a:focus {
 		<div id=wrapper-sub3>
 			<div>
 				<div id=review-title>
-					<b>후기(${listGR.size() }개)</b>
+					<b>후기(${cnt }개)</b>
 				</div>
 				<div class=line></div>
-				<div style="font-size: 17px;">
-					<b>전체 평점으로 필터링</b>
-				</div>
-				<select id=sel-review name=gpa class="form-control input-lg">
-					<option value=all selected="selected">평점이 있는 숙소</option>
-					<option value=5>별 5개</option>
-					<option value=4>별 4개</option>
-					<option value=3>별 3개</option>
-					<option value=2>별 2개</option>
-					<option value=1>별 1개</option>
-				</select>
+				<!-- 				<div style="font-size: 17px;"> -->
+				<!-- 					<b>전체 평점으로 필터링</b> -->
+				<!-- 				</div> -->
+				<!-- 				<select id=sel-review name=gpa class="form-control input-lg"> -->
+				<!-- 					<option value=all selected="selected">평점이 있는 숙소</option> -->
+				<!-- 					<option value=5>별 5개</option> -->
+				<!-- 					<option value=4>별 4개</option> -->
+				<!-- 					<option value=3>별 3개</option> -->
+				<!-- 					<option value=2>별 2개</option> -->
+				<!-- 					<option value=1>별 1개</option> -->
+				<!-- 				</select> -->
 			</div>
 			<%
 				int c_cnt = 15;
@@ -608,7 +655,7 @@ a:focus {
 							style="width: 13%; display: inline-block; float: left;">
 							<img class="img-circle"
 								style="max-width: 100%; max-height: 100%;"
-								src="<c:url value='/resources/img/star.png'/>">
+								src="<c:url value='/resources/img/${list.member_picture }'/>">
 							<!-- 조인해서 member_picture가져오기 -->
 						</div>
 						<div
@@ -622,18 +669,18 @@ a:focus {
 					</div>
 
 					<div
-						style="margin-top: 10px; margin-bottom: 20px; display: inline-block; width: 100%; font-size: 16px;">
+						style="margin-bottom: 20px; display: inline-block; width: 100%; font-size: 16px;">
 						<b>공개 피드백</b>
 					</div>
 					<div style="margin-bottom: 10px; font-size: 15px;">${list.g_review_public }</div>
 					<div style="margin-bottom: 10px;">
 						날짜 : ${list.g_review_date }<a data-toggle=collapse
-							href=#collapseExample <%=c_cnt%> aria-expanded="false"
+							href="#collapseExample<%=c_cnt%>" aria-expanded="false"
 							aria-controls="collapseExample"><span
 							style="float: right; font-size: 16px;">세부정보 더 보기</span></a>
 					</div>
 					<div class=line></div>
-					<div class=collapse id=collapseExample <%=c_cnt%>>
+					<div class=collapse id="collapseExample<%=c_cnt%>">
 						<div class=well style="width: 100%; height: auto;">
 							<div style="width: 100%; height: auto; background-color: white;">
 								<div style="font-size: 16px;">
@@ -644,6 +691,7 @@ a:focus {
 									<b>비공개 피드백</b>
 								</div>
 								<div style="font-size: 15px;">${list.g_review_private }</div>
+								<div class=line></div>
 							</div>
 						</div>
 					</div>
@@ -651,6 +699,11 @@ a:focus {
 
 				</div>
 			</c:forEach>
+
+			<div style="text-align: center;">
+				<ul class="pagination">${paging }
+				</ul>
+			</div>
 
 		</div>
 	</div>
