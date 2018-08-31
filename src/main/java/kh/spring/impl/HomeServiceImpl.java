@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -14,6 +15,7 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeDAO;
 import kh.spring.interfaces.HomeService;
@@ -307,5 +309,20 @@ public class HomeServiceImpl implements HomeService {
 
 
 		
+
+	@Override
+	public List<AccountDTO> getAllAccount(String member_email) {
+		return hdao.getAllAccount(member_email);
+	}
+
+	@Override
+	public int insertAccount(AccountDTO adto) {
+		return hdao.insertAccount(adto);
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
+		return hdao.getAllPayment(map);
+	}
 
 }

@@ -24,6 +24,7 @@ div {
 #header {
 	width: 100%;
 	height: 80px;
+	border-bottom: 1px solid #EAEAEA;
 }
 
 #header div {
@@ -38,6 +39,7 @@ div {
 #header-menu {
 	width: 86%;
 	height: 100%;
+	padding: 0;
 }
 
 #header-pic {
@@ -133,11 +135,11 @@ div {
 
 #menu-ul {
 	height: 100%;
-	width: 40%;
+	width: 30%;
 	float: left;
 	display: inline-block;
 	padding-left: 0;
-	margin-left : 15px;
+	margin-left: 15px;
 }
 
 #menu-ul li {
@@ -147,15 +149,43 @@ div {
 	font-size: 15px;
 	text-align: center;
 	text-decoration: none;
-	margin-top: 20px;
 	overflow: hidden;
-	padding: 0px;
+	padding: 0;
+	padding-top: 25px;
+}
+
+#menu-ul li:hover {
+	border-bottom: 3px solid #008489;
+}
+
+.dropdown:hover #dLabel2-ul {
+	display: block;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+@media ( min-width :1000px) {
+	#dLabel2 {
+		display: none;
+	}
+}
+
+@media ( max-width :1000px) {
+	#menu-ul, #header-pic {
+		display: none;
+	}
+	#dLabel2 {
+		display: block;
+	}
 }
 </style>
 
 <div id="header">
 	<div id="header-logo">
-		<a href="hostMain.do"> <img src="<c:url value='/resources/img/logo2.png'/>">
+		<a href="hostMain.do"> <img
+			src="<c:url value='/resources/img/hostlogo.png'/>">
 		</a>
 	</div>
 	<div id="header-menu" class="container">
@@ -177,14 +207,36 @@ div {
 					data-hover="도움말"><b>도움말</b></span></a></li>
 		</ul>
 	</div>
+	<div id="header-btn-wrap" class="dropdown-content"
+		style="position: absolute; right: 25px; top: 25px;">
+		<button id="dLabel2" style="background-color: white; border: none;"
+			class="dropdown-toggle" type="button" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false">
+			<img id="menu" style="width: 25px;"
+				src="<c:url value='/resources/img/menu.png'/>">
+		</button>
+		<ul style="width: 100%;" id="dLabel2-ul"
+			class="dropdown-menu dropdown-menu-right" role="menu"
+			aria-labelledby="dLabel2">
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#">프로필 수정</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="/">게스트 모드로 전환</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="#">로그아웃</a></li>
+		</ul>
+	</div>
+	<script>
+		
+	</script>
+
 	<div id="header-pic" class="dropdown">
 		<a id="dLabel" class="dropdown-toggle" data-target="dropdown" href="#"
 			data-toggle="dropdown" aria-haspopup="true" role="button"
 			aria-expanded="false"><img
 			src="<c:url value='/resources/img/1.jpg'/>"> </a>
-		<ul
-			style="position: relative; margin-top: -70px; margin-left: -100px;"
-			class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		<ul class="dropdown-menu  dropdown-menu-right" role="menu"
+			aria-labelledby="dLabel">
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="#">프로필 수정</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"

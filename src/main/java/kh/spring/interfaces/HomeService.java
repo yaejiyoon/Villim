@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -11,9 +12,16 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 
 public interface HomeService {
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map);
+
+	public int insertAccount(AccountDTO adto);
+
+	public List<AccountDTO> getAllAccount(String member_email);
+
 	public List<HomeDTO> getAllHomeData(String member_email);
 
 	public HomeDTO getOldestHomeData(String member_email);

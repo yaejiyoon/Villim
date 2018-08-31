@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -16,6 +17,7 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeDAO;
 
@@ -497,6 +499,22 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<HomeDTO> getParis() {
 		return ssTemplate.selectList("Home.getParis");
+	}
+
+	@Override
+	public List<AccountDTO> getAllAccount(String member_email) {
+		return ssTemplate.selectList("Home.getAllAccount", member_email);
+	}
+
+	@Override
+	public int insertAccount(AccountDTO adto) {
+		String sql = "insert into account values(account_seq.nextval, ?,?,?)";
+		return jdbcTemplate.update(sql, adto.getHost_email(), adto.getAccount_bank(), adto.getAccount_number());
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getAllPayment", map);
 	}
 
 	
