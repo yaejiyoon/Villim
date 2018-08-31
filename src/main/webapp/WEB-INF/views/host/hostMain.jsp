@@ -184,6 +184,7 @@ div {
 
 .host-notice a:hover {
 	background-color: gray;
+	text-decoration: none;
 }
 
 .host-notice a:link {
@@ -236,12 +237,12 @@ div {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
+	height: auto;
 }
 
 .reserve-contents {
-	border: 1px dotted black;
 	width: 100%;
-	height: 200px;
+	height: 120px;
 }
 
 .hosting-result-wrap {
@@ -285,13 +286,11 @@ div {
 }
 
 .dd-wrap {
-	border: 1px solid black;
 	width: 100%;
 	height: 100px;
 }
 
 .dd-sub-pic {
-	border: 1px dotted black;
 	width: 35%;
 	display: inline-block;
 	float: left;
@@ -299,11 +298,10 @@ div {
 }
 
 .dd-pic {
-	width: 60%;
-	height: 60%;
+	width: 80%;
 	position: relative;
-	top: 20px;
-	left: 25px;
+	top: 3px;
+	left: 11px;
 }
 
 .dd-main-pic {
@@ -312,17 +310,17 @@ div {
 }
 
 .dd-sub-content {
-	border: 1px dotted black;
 	width: 65%;
 	display: inline-block;
 	float: left;
 	height: 100%;
+	padding-left: 15px;
+	padding-top: 15px;
 }
 
 .dropdown-menu {
-	width: 400px;
-	height: 250px;
-	overflow: scroll;
+	width: 350px;
+	height: 300px;
 }
 
 #dropdownMenu1:hover {
@@ -337,7 +335,42 @@ div {
 #bottom-wrap {
 	display: inline-block;
 	width: 100%;
+	border: 1px solid black;
 	margin-bottom: 30px;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.alim-link:hover {
+	background-color: #E6E6E6;
+}
+
+#cover-add-wrap {
+	margin: 0 auto;
+	width: 50%;
+}
+
+#cover-add {
+	width: 100%;
+}
+
+.left {
+	width: 35%;
+	display: inline-block;
+	float: left;
+}
+
+.right {
+	width: 64%;
+	height: 13px; 
+	float: right;
+	display: inline-block;
+}
+
+.lrwrap{
+width:100%;
+border: 1px dotted orange;
+	display: inline-block;
 }
 </style>
 
@@ -364,11 +397,12 @@ div {
 					<h2>
 						<a class="dropdown-toggle" id="dropdownMenu1"
 							data-toggle="dropdown" aria-expanded="true"
-							style="font-size: 25px;"> 숙소요약 <span class="caret"></span>
+							style="font-size: 25px; color: black;">숙소요약<span
+							style="font-size: 20px;" class="caret"></span>
 						</a>
 					</h2>
 					<ul class="dropdown-menu" role="menu"
-						aria-labelledby="dropdownMenu1">
+						aria-labelledby="dropdownMenu1" style="overflow: scroll;">
 						<c:if test="${homeList ne null }">
 							<li role="presentation" class="dropdown-header">숙소를 선택하세요</li>
 
@@ -387,7 +421,7 @@ div {
 												</c:if>
 												<c:if test="${result.home_main_pic eq null }">
 													<img class="dd-pic img-rounded"
-														src="<c:url value='/resources/img/imgadd.png'/>">
+														src="<c:url value='/resources/img/photo.png'/>">
 												</c:if>
 											</div>
 											<div class="dd-sub-content">${result.home_name }</div>
@@ -413,31 +447,35 @@ div {
 											success:function(resp){
 												console.log("성공 : "+resp);
 												$("#hp-number").text("${hpsize}/19");
-												if(resp.pic == null){
+												if(resp.hdto.home_main_pic == null){
 													$(".home-summary-contents-pic").find("img").each(function() {
 														console.log("pic"+resp.pic);
-														$("#mainpic").attr('src', "<c:url value ='/resources/img/imgadd.png'/>");
+														$("#mainpic").attr('src', "<c:url value ='/resources/img/photo.png'/>");
 													});
 													
 													$("#cover-wrap").find('img').each(function(){
-														$("#cover").attr("src", "<c:url value='/resources/img/imgadd.png'/>");
+														$("#cover").attr("src", "<c:url value='/resources/img/photo.png'/>");
 													})
+													$("#cover-wrap").attr("id", "cover-wrap");
+													
 												} else {
 													$(".home-summary-contents-pic").find("img").each(function() {
-														console.log("pic"+ resp.pic);
-														$("#mainpic").attr('src',"<c:url value ='files/"+resp.pic+"'/>");
+														console.log("pic"+ resp.hdto.home_main_pic);
+														$("#mainpic").attr('src',"<c:url value ='files/"+resp.hdto.home_main_pic+"'/>");
 													});
 													
 													$("#cover-wrap").find('img').each(function(){
-														$("#cover").attr("src", "<c:url value='files/"+resp.pic+"'/>");
+														$("#cover").attr("src", "<c:url value='files/"+resp.hdto.home_main_pic+"'/>");
 													})
 													
 												}
-													$('#homename').text(resp.name);
-													$('#address').text(resp.addr1+ " "+ resp.addr2+ " "+ resp.addr3+ " "
-																+ resp.addr4+ " "+ resp.state);
-													$('#price').text(resp.price+ "원");
-													$('#homename').attr("href",	"hostHomeTab.do?seq="+ resp.seq	+ "");
+													$('#homename').text(resp.hdto.home_name);
+													$('#address').text(resp.hdto.home_addr1+ " "+ resp.hdto.home_addr2+ " "+ resp.hdto.home_addr3+ " "
+																+ resp.hdto.home_addr4+ " "+ resp.hdto.home_state);
+													$('#price').text(resp.hdto.home_price+ "원");
+													$('#homename').attr("href",	"hostHomeTab.do?seq="+ resp.hdto.home_seq+ "");
+// 													$('#cover').attr("src", "<c:url value='files/"+resp.hdto.home_main_pic+"'/>");
+													$('#coverbtn').attr("onclick", "location.href='hostHomePhotoModifyTab.do?seq="+resp.hdto.home_seq+"'")
 												},
 													
 												error : function(data,status) {
@@ -463,7 +501,7 @@ div {
 				<div class="home-summary-contents-pic col-md-6">
 					<c:if test="${hdto.home_main_pic eq null}">
 						<img id=mainpic class="home-pic-add img-rounded"
-							src="<c:url value='/resources/img/imgadd.png'/>">
+							src="<c:url value='/resources/img/photo.png'/>">
 					</c:if>
 					<c:if test="${hdto.home_main_pic ne null}">
 						<img id=mainpic class="home-pic img-rounded"
@@ -472,17 +510,70 @@ div {
 				</div>
 				<div class="home-summary-contents-addr col-md-6">
 					<p>
-						<a id=homename href="hostHomeTab.do?seq=${hdto.home_seq }">${hdto.home_name }</a>
+						<a id=homename href="hostHomeTab.do?seq=${hdto.home_seq }"
+							style="color: black;">${hdto.home_name }</a>
 					</p>
 					<p id=address>${hdto.home_addr1},${hdto.home_addr2 },${hdto.home_addr3 },${hdto.home_addr4},${hdto.home_nation }운영중</p>
 					<p class="home-summary-contents-price">가격</p>
-					<p id=price class="home-summary-contents-price2">${hdto.home_price }<c:if
-							test="${hdto.home_currency.equals('KRW')}">&nbsp;원</c:if>
+					<p id=price class="home-summary-contents-price2">${hdto.home_price }
+						<c:if test="${hdto.home_currency.equals('KRW')}">&nbsp;원</c:if>
 					</p>
 
 					<div class="progress-wrap" style="margin-top: 30px;">
-						<span class="home-summary-contents-feel">숙소 호감도</span> <span
-							class="glyphicon glyphicon-question-sign"></span>
+						<span class="home-summary-contents-feel">숙소 호감도</span>
+
+
+						<div class="dropdown" style="display: inline-block;">
+							<a class="dropdown-toggle" id="dropdownMenu1"
+								data-toggle="dropdown" aria-expanded="true"
+								style="font-size: 25px; color: black;"> <span
+								class="glyphicon glyphicon-question-sign"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu" style="padding: 25px;"
+								aria-labelledby="dropdownMenu1">
+								<li role="presentation" class="dropdown-header"><b>숙소
+										호감도</b></li>
+								<li>숙소 호감도는 주변의 인기 숙소에 비해 회원님의 숙소가 게스트에게 얼마나 부각되는지를 판단합니다.</li>
+								<br>
+								<li><div class="lrwrap">
+										<span class="left"><b>달력</b></span><span class="right">예약
+											가능</span>
+									</div></li>
+								<li><div class="lrwrap">
+										<div class="left"><b>가격</b></div><div class="right">
+											<div class="progress">
+												<div class="progress-bar" role="progressbar"
+													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+													style="width: 50%; height: 15px;">
+													<span class="sr-only">60% Complete</span>
+												</div>
+											</div>
+									</div></li>
+								<li><div class="lrwrap">
+										<div class="left">
+											<b>사진</b>
+										</div>
+										<div class="right">
+											<div class="progress" style="width: 100%; height: 15px;">
+												<div class="progress-bar" role="progressbar"
+													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+													style="width: 80%;">
+													<span class="sr-only">60% Complete</span>
+												</div>
+											</div>
+										</div>
+									</div></li>
+								<li><div class="lrwrap">
+										<span class="left"><b>숙소 세부정보</b></span><span class="right">
+											<div class="progress-bar" role="progressbar"
+												aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+												style="width: 50%; height: 15px;">
+												<span class="sr-only">60% Complete</span>
+											</div>
+										</span>
+									</div></li>
+							</ul>
+						</div>
 
 						<!-- 호감도는 숙소 평점별로 나타내기 -->
 						<div class="progress" style="width: 50%; height: 10px;">
@@ -504,8 +595,8 @@ div {
 							신뢰할 수 있는 지인을 공동 호스트로 초대하여 도움을 받으세요.<br>
 						</div>
 						<div class="home-summary-card-sub1-contents-img"
-							style="width: 100%; height: 150px; margin-top: 40px;">
-							<img alt="Friend" height="100" width="140"
+							style="width: 100%; height: 150px; margin-top: 40px; text-align: center;">
+							<img alt="Friend" max-width="100%;"
 								src="https://a0.muscache.com/airbnb/static/cohosting/friend-8bb3af2d3a16ce627db9f5e48e982ed6.svg">
 						</div>
 						<button style="position: relative; top: 20px;"
@@ -521,12 +612,11 @@ div {
 						</div>
 						<span>게스트는 종종 커버 사진을 보고 숙소를 선택합니다. 멋진 사진을 찍는 팁을 확인해 보세요.</span>
 						<div id=cover-wrap class="img-rounded"
-							style="border: 1px dotted black; width: 100%; height: 150px; margin-top: 15px;">
+							style="width: 100%; height: 150px; margin-top: 15px;">
 							<c:if test="${hdto.home_main_pic eq null}">
-								<div
-									style="margin: 0 auto; margin-top: 32px; width: 30%; height: auto;">
-									<img id=cover class="img-rounded" style="width: 100%;"
-										src="<c:url value='/resources/img/imgadd.png'/>">
+								<div id=cover-add-wrap>
+									<img id=cover-add class="img-rounded"
+										src="<c:url value='/resources/img/photo.png'/>">
 								</div>
 							</c:if>
 							<c:if test="${hdto.home_main_pic ne null}">
@@ -535,8 +625,8 @@ div {
 									src="<c:url value='files/${hdto.home_main_pic }'/>">
 							</c:if>
 						</div>
-						<button type="button" style="position: relative; top: 20px;"
-							class="btn btn-lg"
+						<button type="button" id="coverbtn"
+							style="position: relative; top: 20px;" class="btn btn-lg"
 							onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'"
 							style="position: relative; top: 7px;">커버 사진 업데이트</button>
 					</div>
@@ -557,9 +647,10 @@ div {
 					</div>
 				</div>
 
-				<a data-toggle=collapse href=#collapseExample1 aria-expanded="false"
-					aria-controls="collapseExample" style="font-size: 18px;">더 보기</a>
-				<div class=collapse id=collapseExample1>
+				<a data-toggle="collapse" href="#collapseExample1"
+					aria-expanded="false" aria-controls="collapseExample"
+					style="font-size: 18px;">더 보기</a>
+				<div class=collapse id="collapseExample1">
 					<div class=well
 						style="display: inline-block; float: left; width: 100%; height: 390px; padding: 0; border: none;">
 
@@ -573,137 +664,323 @@ div {
 										받습니다.</div>
 									<div id="hp-number" class="img-rounded"
 										style="border: 1px dotted black; width: 100%; height: 150px; text-align: center; padding-top: 35px; margin-top: 38px; font-size: 40px;">
-										${hpsize} / 19</div>
-									<button type="button" class="btn btn-lg"
-										style="position: relative; top: 20px;"
-										onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">세부정보
-										추가</button>
+										<c:if test="${hdto.home_main_pic ne null}">
+											${hpsize+1} / 19
+									</div>
+									</c:if>
+									<c:if test="${hdto.home_main_pic eq null}">
+											${hpsize} / 19
 								</div>
+								</c:if>
+								<button type="button" class="btn btn-lg"
+									style="position: relative; top: 20px;"
+									onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">세부정보
+									추가</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
-
-
 			</div>
-			<!-- home-summary-card 끝 -->
+
+
 
 		</div>
-		<!-- home-summary 끝 -->
+		<!-- home-summary-card 끝 -->
+
+	</div>
+	<!-- home-summary 끝 -->
 
 
 
-		<div id="bottom-wrap">
-			<div class="notice-reserve">
-				<span class="host-notice"><h2>알림</h2></span>
-				<div style="width: 100%; height: auto; border: 1px solid red;">
-					<c:forEach var="rlist" items="${rlist }">
-						<c:if test="${rlist.reserv_state == 0 }">
-							<c:if test="${rlist.home_seq == hdto.home_seq }">
-								<a href="#">
-									<div class="host-notice-wrap"
-										style="border: 1px solid #E6E6E6;">
-										<div style="width: 80%; float: left; padding: 20px;">
-											<div style="font-size: 17px; color: #FF8000;">
-												<b>요청 · ${rlist.member_name }</b>
-											</div>
-											<div style="font-size: 15px; color: black;">숙박 인원
-												${rlist.home_people }명 · ${rlist.reserv_checkin } -
-												${rlist.reserv_checkout }</div>
-											<div style="font-size: 15px; color: black;">${rlist.home_name }</div>
-										</div>
-										<div style="width: 20%; float: right;">
-											<img style="width: 9vh; margin-top: 15px; margin-left: 15px;"
-												class="img-circle"
-												src="<c:url value='/resources/img/${rlist.member_picture }'/>">
-										</div>
-									</div>
-								</a>
-							</c:if>
-						</c:if>
-					</c:forEach>
+	<div id="bottom-wrap">
+		<div class="notice-reserve">
+			<span class="host-notice"><h2>알림</h2></span>
+			<div style="width: 100%; height: auto;">
+				<%-- 					<c:forEach var="rlist" items="${rlist }"> --%>
+				<%-- 						<c:if test="${rlist.reserv_state == 0 }"> --%>
+				<%-- 							<c:if test="${rlist.home_seq == hdto.home_seq }"> --%>
+				<!-- 								<div class="host-notice-wrap" style="border: 1px solid #E6E6E6;"> -->
+				<!-- 									<a href="#" -->
+				<!-- 										style="display: inline-block; width: 100%; height: 100%;"> -->
+				<!-- 										<div style="width: 80%; float: left; padding: 20px;"> -->
+				<!-- 											<div style="font-size: 17px; color: #FF8000;"> -->
+				<%-- 												<b>요청 · ${rlist.member_name }</b> --%>
+				<!-- 											</div> -->
+				<!-- 											<div style="font-size: 15px; color: black;">숙박 인원 -->
+				<%-- 												${rlist.home_people }명 · ${rlist.reserv_checkin } - --%>
+				<%-- 												${rlist.reserv_checkout }</div> --%>
+				<%-- 											<div style="font-size: 15px; color: black;">${rlist.home_name }</div> --%>
+				<!-- 										</div> -->
+				<!-- 										<div style="width: 20%; float: right;"> -->
+				<!-- 											<img style="width: 9vh; margin-top: 15px; margin-left: 15px;" -->
+				<!-- 												class="img-circle" -->
+				<%-- 												src="<c:url value='/resources/img/${rlist.member_picture }'/>"> --%>
+				<!-- 										</div> -->
+				<!-- 									</a> -->
+				<!-- 								</div> -->
+				<%-- 							</c:if> --%>
+				<%-- 						</c:if> --%>
+				<%-- 					</c:forEach> --%>
+				<%
+					int ncnt = 30;
+					int mcnt = 300;
+				%>
+				<c:forEach var="mlist" items="${mlist }" begin="0" end="2">
 					<%
-						int ncnt = 30;
+						ncnt++;
 					%>
-					<c:forEach var="mlist" items="${mlist }">
-						<%
-							ncnt++;
-						%>
-						<c:if test="${mlist.home_seq == hdto.home_seq}">
+					<div id="coll<%=ncnt%>" class="host-notice-wrap"
+						style="border: 1px solid #E6E6E6; height: auto;">
+						<a class="alim-link" data-toggle=collapse
+							href="#collapseExample<%=ncnt%>"
+							style="width: 100%; height: 100%; display: inline-block;"
+							aria-expanded="false" aria-controls="collapseExample">
+							<div style="width: 80%; float: left; padding: 20px;">
+								<div style="font-size: 17px; color: #FF8000;">
+									<b>문의 · ${mlist.member_name }</b>
+								</div>
+								<div style="font-size: 15px; color: black;">${mlist.home_name }</div>
+							</div>
+							<div style="width: 20%; float: right;">
+								<img style="width: 8vh; margin-top: 15px; margin-left: 15px;"
+									class="img-circle"
+									src="<c:url value='/resources/img/${mlist.member_picture }'/>">
+							</div>
 
-							<a href="#">
-								<div id="coll<%=ncnt%>" class="host-notice-wrap"
-									style="border: 1px solid #E6E6E6; height: auto;">
-									<div style="width: 80%; float: left; padding: 20px;">
-										<div style="font-size: 17px; color: #FF8000;">
-											<b>문의 · ${mlist.member_name }</b>
-										</div>
-										<div style="font-size: 15px; color: black;">${mlist.home_name }</div>
-									</div>
-									<div style="width: 20%; float: right;">
-										<img style="width: 9vh; margin-top: 15px; margin-left: 15px;"
-											class="img-circle"
-											src="<c:url value='/resources/img/${mlist.member_picture }'/>">
-									</div>
-									<div style="border: 1px dotted blue; width:80%;">
-										<div style="font-size: 15px; color: black;" >
+							<div class=collapse id="collapseExample<%=ncnt%>"
+								style="width: 100%; height: 170px;">
+								<div class=well
+									style="width: 100%; height: 170px; border-color: white; display: inline-block; padding: 0;">
+									<div class="well-sub"
+										style="width: 100%; height: 100%; background-color: white; display: inline-block;">
+										<div
+											style="padding-left: 20px; font-size: 16px; color: black;">
 											"${mlist.message_content}"</div>
-										<div>
-											<button type="button" class="btn">사전승인</button>
-											<button type="button" class="btn">거절</button>
-											<button type="button" class="btn">메시지 보내기</button>
+										<div
+											style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
+											<button type="button" class="btn btn-lg">사전승인</button>
+											<button type="button" class="btn btn-lg">거절</button>
 										</div>
 									</div>
 								</div>
-							</a>
-						</c:if>
-					</c:forEach>
+							</div>
+
+						</a>
+					</div>
+					<script>
+							$("#collapseExample<%=ncnt%>").click(function() {
+								$(this).css('background-color', 'white');
+						})
+					</script>
+				</c:forEach>
+			</div>
+			<c:if test="${mlist.size()>3 }">
+				<div>
+					<a href="#" data-toggle="modal" data-target="#myModal2">더 보기</a>
 				</div>
-				<script>
-					$('#coll<%=ncnt%>').collapse({
-						toggle:true;
-					})
-				</script>
+			</c:if>
 
 
+			<!-- Modal -->
+			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">알림 목록</h4>
+						</div>
+						<div class="modal-body">
 
-				<div class="reserve-wrap">
-					<h2>예약</h2>
-					<div class="reserve-contents">aa</div>
+
+							<c:forEach var="mlist" items="${mlist }" begin="0" end="2">
+								<%
+									mcnt++;
+								%>
+								<div id="coll<%=mcnt%>" class="host-notice-wrap"
+									style="border: 1px solid #E6E6E6; height: auto;">
+									<a class="alim-link" data-toggle=collapse
+										href="#collapseExample<%=mcnt%>"
+										style="width: 100%; height: 100%; display: inline-block;"
+										aria-expanded="false" aria-controls="collapseExample">
+										<div style="width: 80%; float: left; padding: 20px;">
+											<div style="font-size: 17px; color: #FF8000;">
+												<b>문의 · ${mlist.member_name }</b>
+											</div>
+											<div style="font-size: 15px; color: black;">${mlist.home_name }</div>
+										</div>
+										<div style="width: 20%; float: right;">
+											<img style="width: 8vh; margin-top: 15px; margin-left: 15px;"
+												class="img-circle"
+												src="<c:url value='/resources/img/${mlist.member_picture }'/>">
+										</div>
+
+
+										<div class=collapse id="collapseExample<%=mcnt%>"
+											style="width: 100%; height: 170px;">
+											<div class=well
+												style="width: 100%; height: 170px; border-color: white; display: inline-block; padding: 0;">
+												<div class="well-sub"
+													style="width: 100%; height: 100%; background-color: white; display: inline-block;">
+													<div
+														style="padding-left: 20px; font-size: 16px; color: black;">
+														"${mlist.message_content}"</div>
+													<div
+														style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
+														<button type="button" class="btn btn-lg">사전승인</button>
+														<button type="button" class="btn btn-lg">거절</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</a>
+								</div>
+							</c:forEach>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn" data-dismiss="modal">Close</button>
+							<!-- 							<button type="button" class="btn btn-primary">Save -->
+							<!-- 								changes</button> -->
+						</div>
+					</div>
 				</div>
 			</div>
 
 
-			<div class="hosting-result-wrap">
-				<span class="hosting-result">
-					<h2>호스팅 성과</h2>
-				</span>
-				<table class="hosting-result-table">
-					<tr>
-						<td><a href="">8월 수입</a></td>
-						<td class="right">0</td>
-					</tr>
-					<tr>
-						<td><a href="">8월 조회수</a></td>
-						<td class="right">0</td>
-					</tr>
-					<tr>
-						<td><a href="">8월 예약</a></td>
-						<td class="right">0</td>
-					</tr>
-					<tr>
-						<td><a href="">전체 평점</a></td>
-						<td class="right">후기없음</td>
-					</tr>
-					<tr>
-						<td><a href="">전체 후기 수</a></td>
-						<td class="right">${listGR.size()}</td>
-					</tr>
-				</table>
-				<div class="hosting-result-line"></div>
+
+			<div class="reserve-wrap">
+				<h2>예약</h2>
+				<div class="reserve-contents">
+					<c:if test="${rlist2.size() != 0 }">
+						<c:forEach var="rlist2" items="${rlist2 }" begin="0" end="2">
+							<a href="#"
+								style="display: inline-block; width: 100%; height: 100%; border: 1px solid #E6E6E6;">
+								<div style="width: 80%; float: left; padding: 20px;">
+									<div style="font-size: 17px; color: #FF8000;">
+										<b>요청 · ${rlist2.member_name }</b>
+									</div>
+									<div style="font-size: 15px; color: black;">숙박 인원
+										${rlist2.home_people }명 · ${rlist2.reserv_checkin } -
+										${rlist2.reserv_checkout }</div>
+									<div style="font-size: 15px; color: black;">${rlist2.home_name }</div>
+								</div>
+								<div style="width: 20%; float: right;">
+									<img style="width: 9vh; margin-top: 15px; margin-left: 15px;"
+										class="img-circle"
+										src="<c:url value='/resources/img/${rlist2.member_picture }'/>">
+								</div>
+							</a>
+						</c:forEach>
+					</c:if>
+					<c:if test="${rlist2.size() == 0 }">
+						<div
+							style="width: 30%; margin: 0 auto; text-align: center; margin-top: 50px;">
+							<img src="<c:url value='/resources/img/calendar.png'/>"
+								style="width: 10vh;">
+							<div>예정된 예약이 없습니다.</div>
+						</div>
+					</c:if>
+				</div>
+			</div>
+			<c:if test="${rlist2.size()>3 }">
+				<div>
+					<a href="#" data-toggle="modal" data-target="#myModal">더 보기</a>
+				</div>
+			</c:if>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">다가올 예약 목록</h4>
+					</div>
+					<div class="modal-body">
+						<c:forEach var="rlist2" items="${rlist2 }">
+							<a href="#"
+								style="display: inline-block; width: 100%; height: 100%; border: 1px solid #E6E6E6;">
+								<div style="width: 80%; float: left; padding: 20px;">
+									<div style="font-size: 17px; color: #FF8000;">
+										<b>요청 · ${rlist2.member_name }</b>
+									</div>
+									<div style="font-size: 15px; color: black;">숙박 인원
+										${rlist2.home_people }명 · ${rlist2.reserv_checkin } -
+										${rlist2.reserv_checkout }</div>
+									<div style="font-size: 15px; color: black;">${rlist2.home_name }</div>
+								</div>
+								<div style="width: 20%; float: right;">
+									<img style="width: 9vh; margin-top: 15px; margin-left: 15px;"
+										class="img-circle"
+										src="<c:url value='/resources/img/${rlist2.member_picture }'/>">
+								</div>
+							</a>
+						</c:forEach>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn" data-dismiss="modal">Close</button>
+						<!-- 							<button type="button" class="btn btn-primary">Save -->
+						<!-- 								changes</button> -->
+					</div>
+				</div>
 			</div>
 		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="hosting-result-wrap">
+			<span class="hosting-result">
+				<h2>호스팅 성과</h2>
+			</span>
+			<table class="hosting-result-table">
+				<tr>
+					<td><a href="">8월 수입</a></td>
+					<td class="right">0</td>
+				</tr>
+				<tr>
+					<td><a href="">8월 조회수</a></td>
+					<td class="right">0</td>
+				</tr>
+				<tr>
+					<td><a href="">8월 예약</a></td>
+					<td class="right">0</td>
+				</tr>
+				<tr>
+					<td><a href="">전체 평점</a></td>
+					<td class="right">후기없음</td>
+				</tr>
+				<tr>
+					<td><a href="">전체 후기 수</a></td>
+					<td class="right">${cnt}</td>
+				</tr>
+			</table>
+			<div class="hosting-result-line"></div>
+		</div>
+
+
+
+	</div>
 
 	</div>
 

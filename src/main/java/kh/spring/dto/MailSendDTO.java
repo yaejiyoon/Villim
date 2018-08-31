@@ -22,7 +22,9 @@ public class MailSendDTO {
     }
 
     public void setSubject(String subject) throws MessagingException {
-        messageHelper.setSubject(subject);
+    	System.out.println("메일 제목 : "+subject);
+    	messageHelper.setSubject(subject);
+        
     }
     public void setText(String htmlContent) throws MessagingException {
     	System.out.println(htmlContent);

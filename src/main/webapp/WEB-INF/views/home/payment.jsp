@@ -69,7 +69,9 @@
 @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
+        
    }
+   
 </style>
 </head>
 <body>

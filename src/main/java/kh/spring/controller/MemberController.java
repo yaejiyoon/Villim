@@ -529,15 +529,13 @@ public class MemberController {
 	//---- 지은 파트 시작
 	@RequestMapping("/printProfile.mo")
 	public ModelAndView printProfile(HttpSession session) {
-		session.setAttribute("userId", "jake@gmail.com");
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("login_email");
 
 		System.out.println("printProfile 들어온 사람 : " + userId);
 
 		MemberDTO result = this.service.printProfile(userId);
 		int houseCount = this.service.countHouse(userId);
 		List<HomeDTO> houseResult = this.service.getHouse(userId);
-		System.out.println("여기도 들어오니?" + houseResult);
 
 		for (HomeDTO tmp : houseResult) {
 
@@ -558,9 +556,8 @@ public class MemberController {
 
 	@RequestMapping("/profileEditView.mo")
 	public ModelAndView profileEditView(HttpSession session) {
-
 		String userId = (String) session.getAttribute("login_email");
-		System.out.println("들어온 사람 : " + userId);
+
 		MemberDTO result = this.service.printProfile(userId);
 		MemberDTO getPhoto = this.service.getPhoto(userId);
 		ModelAndView mav = new ModelAndView();
@@ -573,12 +570,10 @@ public class MemberController {
 			mav.addObject("photo", getPhoto.getMember_picture());
 			mav.setViewName("/profile/profileEdit");
 			session.removeAttribute("updateSuccess");
-			System.out.println("null일때 :" + success + "수정 성공후 수정페이지 입문");
 
 		} else {
 			mav.addObject("result", result);
 			mav.addObject("photo", getPhoto.getMember_picture());
-			System.out.println("null이 아닐때 : 여기로 잘들어옴 그냥 수정페이지 입문");
 			mav.setViewName("/profile/profileEdit");
 		}
 
@@ -630,7 +625,6 @@ public class MemberController {
 			System.out.println("systemName :  " + systemName);
 
 			editPhotoResult = this.service.editPhoto(systemName, userId);
-			System.out.println(" editPhotoResult  : " + editPhotoResult);
 
 			// 사진 다시 가져오기
 
@@ -658,7 +652,6 @@ public class MemberController {
 
 		List<Integer> g_review_seq = new ArrayList<Integer>();
 		String userId = (String) session.getAttribute("login_email");
-		System.out.println("아이디:" + userId);
 
 		// 나에 대한 지난 후기
 		List<Integer> getSeq = this.service.getSeq(userId);
