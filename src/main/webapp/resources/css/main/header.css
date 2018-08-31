@@ -154,7 +154,9 @@
 		font-size: 1vw;
 	}
 	
-	
+	.pac-logo {
+		z-index : 10001;
+	}
 	
 	
 	

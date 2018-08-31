@@ -105,14 +105,6 @@
 <script>
 	$(document).ready(function() {
 		$("#homeTypeSubmit").click(function() {
-// 			var values = document.getElementsByName("whole");
-// 			alert(values);
-// 			var count = 0;
-// 			for (var i = 0; i < values.length; i++) {
-// 				if(values[i].checked) {
-// 					count++;
-// 				}
-// 			}
 			
 			var selected = [];
 			$('input:checked').each(function() {
@@ -120,7 +112,6 @@
 			});
 			
 			$('#modalHomeType').val(selected);
-			alert(selected.length-1);
 			
 			var homeTypeBt = document.getElementById('homeTypeBt');
 			var count = selected.length-1;
@@ -141,15 +132,15 @@
 			homeTypeBt.style.borderRadius = "0px";
 		});
 		
-		<%if(session.getAttribute("homeType").equals("집전체")) {%>
-			$('#whole').attr("checked", true);
+		<%if(session.getAttribute("homeType").equals("집전체")|| session.getAttribute("whole").equals("집전체")) {%>
+		$('#whole').attr("checked", true);
 		<%}%>
 		
-		<%if(session.getAttribute("homeType").equals("개인실")) {%>
+		<%if(session.getAttribute("homeType").equals("개인실")|| session.getAttribute("one").equals("개인실")) {%>
 			$('#one').attr("checked", true);
 		<%}%>
 	
-		<%if(session.getAttribute("homeType").equals("다인실")) {%>
+		<%if(session.getAttribute("homeType").equals("다인실")|| session.getAttribute("many").equals("다인실")) {%>
 			$('#many').attr("checked", true);
 		<%}%>
 		
