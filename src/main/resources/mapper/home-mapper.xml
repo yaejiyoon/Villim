@@ -380,54 +380,9 @@
 		select * from Home where home_nation = '프랑스'
 	</select>
 
-	<select id="getHomeOnMap" resultType="Home" parameterType="map">
-		select * from home
-		where home_lat between #{swLat} and #{neLat}
-		and
-		home_lng between #{swLng} and #{neLng}
-		and home_people >= #{people}
-		and
-		home_price between #{minMoney} and #{maxMoney}
-		<if test="!homeType.equalsIgnoreCase('0')">
-			and home_type = #{homeType}
-		</if>
-		<if test="dateIsChecked.equalsIgnoreCase('1')">
-			and home_blocked_date is null or
-			<trim suffixOverrides="and">
-				<foreach collection="dates" item="type">
-					home_blocked_date not like
-					'%${type}%' and
-				</foreach>
-			</trim>
-		</if>
-	</select>
-
 	<select id="searchHomeData" resultType="Home"
 		parameterType="map">
 		select * from home where home_people >= #{people}
-		<if test="homeTypeIsChecked.equalsIgnoreCase('1')">
-			and
-			<trim suffixOverrides="or">
-				<foreach collection="homeTypeList" item="type">
-					home_type = #{type}
-					or
-				</foreach>
-			</trim>
-		</if>
-		<if test="dateIsChecked.equalsIgnoreCase('1')">
-			and home_blocked_date is null or
-			<trim suffixOverrides="and">
-				<foreach collection="dates" item="type">
-					home_blocked_date not like
-					'%${type}%' and
-				</foreach>
-			</trim>
-		</if>
-	</select>
-
-	<select id="modalHomeData" resultType="Home" parameterType="map">
-		select * from home where home_people >= #{people} and home_price
-		between #{minMoney} and #{maxMoney}
 		<if test="homeTypeIsChecked.equalsIgnoreCase('1')">
 			and
 			<trim suffixOverrides="or">

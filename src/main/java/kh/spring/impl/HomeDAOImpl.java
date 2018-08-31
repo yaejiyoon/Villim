@@ -516,6 +516,5 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
 		return ssTemplate.selectList("Home.getAllPayment", map);
 	}
-
 	
 }

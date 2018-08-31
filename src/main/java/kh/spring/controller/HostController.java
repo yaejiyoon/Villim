@@ -175,9 +175,12 @@ public class HostController {
 
 		List<String> list = new ArrayList<String>();
 		List<HomePicDTO> hplist = homeService.getHomePicData(seq);
-
+		String bstr = "";
 		BedDTO bdto = homeService.getBedData(seq);
-		String bstr = bdto.getBed_single() + "," + bdto.getBed_double() + "," + bdto.getBed_queen();
+
+		if (bdto != null) {
+			bstr = bdto.getBed_single() + "," + bdto.getBed_double() + "," + bdto.getBed_queen();
+		}
 
 		if (!bstr.equals(null) && !bstr.equals("")) {
 
@@ -190,14 +193,28 @@ public class HostController {
 		}
 
 		System.out.println("bstr::" + bstr);
-		String[] barr = bstr.split(",");
-		int bedCnt = 0;
+		String[] barr = null;
 
-		for (int i = 0; i < barr.length; i++) {
-			bedCnt += Integer.parseInt(barr[i]);
+		if (bstr != null && !bstr.equals("")) {
+			System.out.println("bstr::"+bstr);
+			barr = bstr.split(",");
 		}
 
-		String[] rarr = bdto.getBed_single().split(",");
+		int bedCnt = 0;
+		
+		if (barr != null) {
+			System.out.println("아오 짜증나진짜");
+			for (int i = 0; i < barr.length; i++) {
+				bedCnt += Integer.parseInt(barr[i]);
+			}
+		}
+
+		String[] rarr = {};
+
+		if (bdto != null) {
+			rarr = bdto.getBed_single().split(",");
+		}
+
 		int roomCnt = rarr.length;
 		System.out.println("bedCnt::" + bedCnt);
 
@@ -1577,12 +1594,12 @@ public class HostController {
 			p.setCheckOut(str3);
 
 			System.out.println("앙배불띠띠::" + p.getCheckOut());
-			
+
 			price += Integer.parseInt(p.getPayment_amount());
 		}
 		String amount = String.valueOf(price);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("amount",amount);
+		mav.addObject("amount", amount);
 		mav.addObject("plist", plist);
 		mav.addObject("hlist", hlist);
 		mav.addObject("hdto", hdto);
