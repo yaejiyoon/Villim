@@ -30,6 +30,7 @@ import com.google.gson.JsonIOException;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
+import kh.spring.dto.HomePicDTO;
 import kh.spring.interfaces.HomeService;
 
 @Controller
@@ -55,15 +56,23 @@ public class HostingController {
 	@RequestMapping("/choicemodify.host")
 	public ModelAndView choicemodify(HttpSession session,HttpServletRequest req ,HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView();
-		HomeDTO homedto = service.getNewestHomeData();
-		String homestep = homedto.getHome_step();
-		if(homestep.equals("1")||homestep.equals("2")||homestep.equals("3")){
-			req.getSession().setAttribute("homestep", homestep);
-			mav.setViewName("hosting/modifypage");
-		}else if(homestep.equals("4")||homestep.equals(null)){
-			req.getSession().setAttribute("homestep", homestep);
+		String email = "";
+		try {
+			email = req.getSession().getAttribute("member_email").toString();
+			HomeDTO homedto = service.getNewestHomeData(email);
+			String homestep = homedto.getHome_step();
+			if(homestep.equals("1")||homestep.equals("2")||homestep.equals("3")){
+				req.getSession().setAttribute("homestep", homestep);
+				mav.setViewName("hosting/modifypage");
+			}else if(homestep.equals("4")||homestep.equals(null)){
+				req.getSession().setAttribute("homestep", homestep);
+				mav.setViewName("hosting/hostFirstpage");
+			}
+		} catch (Exception e) {
+			
 			mav.setViewName("hosting/hostFirstpage");
 		}
+		
 		return mav;
 	}
 
@@ -71,8 +80,9 @@ public class HostingController {
 	public ModelAndView createAndnext(HomeDTO hdto,HttpSession session,HttpServletRequest req ,HttpServletResponse res) {
 		System.out.println("생성");
 		ModelAndView mav = new ModelAndView();
+		String	isemail = req.getSession().getAttribute("member_email").toString();
 		int result = service.insertFirstHome(hdto);
-		HomeDTO homedto = service.getNewestHomeData();
+		HomeDTO homedto = service.getNewestHomeData(isemail);
 		int seq= homedto.getHome_seq();
 		String email = homedto.getMember_email();
 		String homestep = homedto.getHome_step();
@@ -226,9 +236,10 @@ public class HostingController {
 		homedto.setHome_amenities(amenitiesList);
 		homedto.setHome_safety(safetyList);	
 		int result = service.modifyCommodity(homedto);
+		String	isemail = req.getSession().getAttribute("member_email").toString();
 		//-- 이후
 		System.out.println("1단계 업데이트");
-		HomeDTO callhomedto = service.getNewestHomeData();
+		HomeDTO callhomedto = service.getNewestHomeData(isemail);
 		String homestep = callhomedto.getHome_step();
 		System.out.println("!!! -> 단계:" + homestep);
 		req.getSession().setAttribute("homestep", homestep);
@@ -251,8 +262,37 @@ public class HostingController {
 		System.out.println(mainpic);
 		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		System.out.println(seq);
-		String mainpicList ="";
-		for(int i=1;i<mainpic.size();i++){
+		if(mainpic.size()==1){
+			String mainpicList =mainpic.get(0);
+			HomeDTO homedto = new HomeDTO();
+			homedto.setHome_seq(seq);
+			homedto.setHome_main_pic(mainpicList);
+			int result = service.modifyHomepicture(homedto);
+		}else if(mainpic.size()>1){
+			String mainpicList = mainpic.get(0);
+			
+			String picList = "";
+			for(int i=1;i<mainpic.size();i++){
+				if(i<mainpic.size()-1){
+					picList += mainpic.get(i)+",";
+				}else{
+					picList += mainpic.get(i);
+				}
+			}
+			
+			HomeDTO homedto = new HomeDTO();
+			homedto.setHome_seq(seq);
+			homedto.setHome_main_pic(mainpicList);
+			int result = service.modifyHomepicture(homedto);
+			
+			HomePicDTO homepicdto = new HomePicDTO();
+			homepicdto.setHome_seq(seq);
+			homepicdto.setHome_pic_name(picList);
+			int result2 = service.addHomePicData(homepicdto);
+		}
+		
+/*		String mainpicList ="";
+		for(int i=0;i<mainpic.size();i++){
 			if(i<mainpic.size()-1){
 				mainpicList += mainpic.get(i)+",";
 			}else{
@@ -264,7 +304,7 @@ public class HostingController {
 		homedto.setHome_seq(seq);
 		homedto.setHome_main_pic(mainpicList);
 		int result = service.modifyHomepicture(homedto);
-		mav.addObject("result",result);
+		mav.addObject("result",result);*/
 		mav.setViewName("hosting/step2HostSecondpage");
 		return mav;
 	}
@@ -350,7 +390,8 @@ public class HostingController {
 		int result = service.modifyHomename(homedto);
 		// 실행 이후
 		System.out.println("2단계 업데이트");
-		HomeDTO callhomedto = service.getNewestHomeData();
+		String	isemail = req.getSession().getAttribute("member_email").toString();
+		HomeDTO callhomedto = service.getNewestHomeData(isemail);
 		String homestep = callhomedto.getHome_step();
 		System.out.println("!!! -> 단계:" + homestep);
 		req.getSession().setAttribute("homestep", homestep);
@@ -487,10 +528,12 @@ public class HostingController {
 			}
 		}
 		System.out.println(blockeddateList);
+		int seq = Integer.parseInt(req.getSession().getAttribute("hostingseq").toString());
 		HomeDTO homedto = new HomeDTO();
-		//homedto.setHome_seq(seq);
-
-		//int result = service.modifyHomeblock(homedto);
+		homedto.setHome_seq(seq);
+		homedto.setHome_blocked_date(blockeddateList);
+		int result = service.modifyHomeblock(homedto);
+		
 		//mav.addObject("result",result);
 		mav.setViewName("hosting/step3HostFivepage");
 		return mav;

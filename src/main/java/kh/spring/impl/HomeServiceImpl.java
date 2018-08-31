@@ -317,9 +317,9 @@ public class HomeServiceImpl implements HomeService {
 
 	@Override
 
-	public HomeDTO getNewestHomeData() {
+	public HomeDTO getNewestHomeData(String email) {
 		// TODO Auto-generated method stub
-		return hdao.getNewestHomeData();
+		return hdao.getNewestHomeData(email);
 	}
 
 

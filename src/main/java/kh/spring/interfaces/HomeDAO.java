@@ -127,7 +127,7 @@ public interface HomeDAO {
 	//1찬연
 	public int insertFirstHome(HomeDTO hdto);
 	
-	public HomeDTO getNewestHomeData();
+	public HomeDTO getNewestHomeData(String email);
 	
 	public int modifyHomeType(HomeDTO hdto);
 	

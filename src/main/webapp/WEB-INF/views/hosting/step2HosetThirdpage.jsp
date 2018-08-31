@@ -13,7 +13,7 @@
 #housename{
 	height: 67px;
 	width: 484px;
-}
+}	
 .clearfix{
 	margin-top: 15px;
 }

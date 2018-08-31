@@ -378,8 +378,10 @@
 	
 	<select id="getNesestHomeData" resultType="Home">
 		select * from (select
-		* from home order by home_seq desc) where rownum = 1
+		* from home where member_email = #{member_email} order by home_seq desc) where rownum = 1
 	</select>
+	
+	
 	<!-- #{member_email} -->
 	<!-- all modify  -->
 	<update id="firststepbytwo" parameterType="Home">

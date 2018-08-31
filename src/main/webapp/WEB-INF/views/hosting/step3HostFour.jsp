@@ -13,7 +13,7 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 
 <style>
 #datepicker{
@@ -42,8 +42,13 @@
 
 	margin-top: 300px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 }
-.motherfucker{
+.conlay{
 margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
+}
+
+.ui-state-highlights{
+	/* border: 1px solid #b2a266; */
+	background-color: #FF0000;
 }
 </style>
 <title>Insert title here</title>
@@ -133,7 +138,7 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 									<div id="datepicker"></div>
 									<input type="hidden" name="home_blocked_date" value="" id="pickdate" style="width: 500px">
 									</form>
-									<div cl	ass="main-panel__actions-wrapper">
+									<div class="main-panel__actions-wrapper">
 										
 											
 												
@@ -141,7 +146,7 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 													<div></div>
 													
 														
-															<div class=" motherfucker"
+															<div class="conlay"
 																style="position: relative; margin-top: 100px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px; z-index: -9; top: 200px;">
 																<a href=" "
 																	class="_5rte3y6" aria-busy="false"><span
@@ -207,29 +212,30 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 	    return ret;
 	}
 	var dateToday = new Date();
+	
 	$("#datepicker").datepicker({
-		
+		dateFormat: 'yy/mm/dd',
 		minDate: 0,
-	    onSelect: function (dateText, inst) {
-	        addOrRemoveDate(dateText);
-	    },
-	    beforeShowDay: function (date) {
-	        var year = date.getFullYear();
-	        // months and days are inserted into the array in the form, e.g "01/01/2009", but here the format is "1/1/2009"
-	        var month = padNumber(date.getMonth() + 1);
-	        var day = padNumber(date.getDate());
-	        // This depends on the datepicker's date format
-	        var dateString =  year + "/" + month + "/" +  day;
+    onSelect: function (dateText, inst) {
+        addOrRemoveDate(dateText);
+    },
+    beforeShowDay: function (date) {
+        var year = date.getFullYear();
+        // months and days are inserted into the array in the form, e.g "01/01/2009", but here the format is "1/1/2009"
+        var month = padNumber(date.getMonth() + 1);
+        var day = padNumber(date.getDate());
+        // This depends on the datepicker's date format
+        var dateString =  year+ "/" + month + "/" + day ;
 
-	        var gotDate = jQuery.inArray(dateString, dates);
-	        if (gotDate >= 0) {
-	            // Enable date so it can be deselected. Set style to be highlighted
-	            return [true, "ui-state-highlight"];
-	        }
-	        // Dates not in the array are left enabled, but with no extra style
-	        return [true, ""];
-	    }
-	});
+        var gotDate = jQuery.inArray(dateString, dates);
+        if (gotDate >= 0) {
+            // Enable date so it can be deselected. Set style to be highlighted
+            return [true, "ui-state-highlights"];
+        }
+        // Dates not in the array are left enabled, but with no extra style
+        return [true, ""];
+    }
+});
 	
 		$("#nextpg").click(function() {
 			//$(location).attr("href","step2third.host");

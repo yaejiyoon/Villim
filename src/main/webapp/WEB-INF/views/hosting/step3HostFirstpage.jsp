@@ -9,8 +9,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="resources/js/bootstrap-checkbox.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
-<link rel="stylesheet" type="text/css" href="resources/thirdhost.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/thirdhost.css">
 <title>Insert title here</title>
 <style type="text/css">
 .checkmark {

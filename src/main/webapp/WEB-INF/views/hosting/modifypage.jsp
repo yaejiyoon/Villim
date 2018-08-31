@@ -73,7 +73,7 @@
 			<a href="/step3first.host"><div class="grid-item">규칙</div></a>
 			<a href="/step3second.host"><div class="grid-item">예약리미트</div></a>
 			<a href="/step3third.host"><div class="grid-item">최대최소</div></a>
-			<a href="/step3four.host"><div class="grid-item">예약블락</div></a>
+			<a href="/step3fore.host"><div class="grid-item">예약블락</div></a>
 			<a href="/step3five.host"><div class="grid-item">가격</div></a>
 		</div>
 	</div>
@@ -104,7 +104,7 @@
 			<a href="/step3first.host"><div class="grid-item">규칙</div></a>
 			<a href="/step3second.host"><div class="grid-item">예약리미트</div></a>
 			<a href="/step3third.host"><div class="grid-item">최대최소</div></a>
-			<a href="/step3four.host"><div class="grid-item">예약블락</div></a>
+			<a href="/step3fore.host"><div class="grid-item">예약블락</div></a>
 			<a href="/step3five.host"><div class="grid-item">가격</div></a>
 		</div>
 	</div>
@@ -135,7 +135,7 @@
 			<a href="/step3first.host"><div class="grid-item">규칙</div></a>
 			<a href="/step3second.host"><div class="grid-item">예약리미트</div></a>
 			<a href="/step3third.host"><div class="grid-item">최대최소</div></a>
-			<a href="/step3four.host"><div class="grid-item">예약블락</div></a>
+			<a href="/step3fore.host"><div class="grid-item">예약블락</div></a>
 			<a href="/step3five.host"><div class="grid-item">가격</div></a>
 		</div>
 	</div>

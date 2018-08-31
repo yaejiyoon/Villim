@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -92,9 +92,9 @@
 						<div class="list-your-space__content">
 							<div class="centered-content clearfix">
 								<div
-									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix">
+									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix col-md-4 col-md-offset-2 ">
 									<div
-										class="main-panel main-panel-padding main-panel-progress pull-right main-panel-inner-half space-sm-8">
+										class="main-panel main-panel-padding main-panel-progress main-panel-inner-half space-sm-8">
 										<div class="_1mbllh6j">
 											<div class="_492uxj4">숙소 요금 설정하기</div>
 										</div>
@@ -199,7 +199,7 @@
 										<div class="centered-content clearfix">
 											<div class="bg-white main-panel-outer-half clearfix shadowed">
 												<div
-													class="no-margin-padding__sm main-panel-padding main-panel-progress pull-right main-panel-inner-half space-sm-8">
+													class="no-margin-padding__sm main-panel-padding main-panel-progress main-panel-inner-half space-sm-8">
 													<div class="divider hide-sm"></div>
 													<div class="row no-margin-padding__sm">
 														<div
@@ -226,7 +226,7 @@
 										<span style="font-size: 0"></span>
 									</div>
 								</div>
-								<div class="help-panel-container">
+								<div class="help-panel-container col-md-4 col-md-offset-1">
 									<div style="margin-top: 0">
 										<div class="hide-sm help-panel panel">
 											<div class="panel-body">
