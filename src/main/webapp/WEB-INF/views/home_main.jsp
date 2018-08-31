@@ -312,6 +312,35 @@ $(document).ready(function() {
 		   off.style.display = 'none';
 		</c:if>
 
+	$('body').delegate('.submit','click',function(){
+        var chkval = 1;
+        $('#myonoffswitch').prop('checked', true);
+        var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
+    $.ajax({
+       url: "homeMain.do",
+       type: "get",
+       data:{chkval:chkval},
+       
+       success:function(returndata){
+			on.style.display = 'block';    
+			off.style.display = 'none';
+	   },error:function(errordata){
+			alert("error");
+       }
+     });
+   });  
+	
+	<c:if test="${sessionScope.login_email ne null }">
+		<c:forEach items="${homeList }" var="homeList">
+			<c:forEach items="${likeyList }" var="likeyList">
+				<c:if test="${homeList.home_seq eq likeyList.home_seq }">
+	 				$("#likeyBTId${homeList.home_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
+				</c:if>
+	 		</c:forEach>		
+		</c:forEach>
+	</c:if>
+	
 })
 
 
@@ -649,6 +678,13 @@ $(document).ready(function() {
 		height : 20vh;
 	}
  	
+ 	.likeyBT{
+ 		width:20px;
+ 		position: absolute;
+ 		z-index: 400000;
+ 		top:10px;
+ 		right:30px;
+ 	}
 </style>
 </head>
     
@@ -690,6 +726,7 @@ $(document).ready(function() {
 								  </ol>
 							 		 <!-- Wrapper for slides -->
 								  <div class="carousel-inner">
+								  	
 								    <div class="item active">
 								      <img class="homePic" src="<c:url value='files/${homeList.home_main_pic}'/>">
 								    </div>
@@ -710,6 +747,7 @@ $(document).ready(function() {
 								    <span class="sr-only">Next</span>
 								  </a>
 								</div>
+							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" id="likeyBTId${homeList.home_seq }">
 							<p class="homeType" id="homeType<%=cnt%>">${homeList.home_type}</p>
 		                  	<p class="homeName" id="homeName<%=cnt%>">
 		                    <B>${homeList.home_name}</B>

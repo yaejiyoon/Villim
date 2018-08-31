@@ -36,6 +36,7 @@ public class HomeDTO {
 	private String home_reserve_possible;
 	private String home_policy;
 	private String home_public;
+	private int likey_seq;
 
 	public HomeDTO() {
 		super();

@@ -24,7 +24,9 @@ import com.google.gson.Gson;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.LikeyDTO;
 import kh.spring.interfaces.HomeService;
+import kh.spring.interfaces.LikeyService;
 
 @Controller
 public class HomeMainController {
@@ -32,11 +34,26 @@ public class HomeMainController {
 	@Autowired
 	private HomeService homeService;
 	
+	@Autowired
+	private LikeyService likeyService;
+	
 	@RequestMapping("/homeMain.do")
-	public ModelAndView homeMain(HttpSession session) {
+	public ModelAndView homeMain(HttpServletRequest req,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
 		List<HomePicDTO> homePic = homeService.getHomePic();
+		
+		//하트 버튼
+		
+		String member_email = null;
+		List<LikeyDTO> likeyList = null;
+		if(req.getSession().getAttribute("login_email") != null) {
+			member_email = req.getSession().getAttribute("login_email").toString();
+			likeyList = likeyService.getLikeyData(member_email);
+		}
+		
+		 
+		
 		session.setAttribute("homeType", "0");
 		session.setAttribute("people", 0);
 		session.setAttribute("startDate", "0");
@@ -52,6 +69,7 @@ public class HomeMainController {
 		session.setAttribute("many",  "");
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
+		mav.addObject("likeyList", likeyList);
 		mav.setViewName("home_main");
 		return mav;
 	}

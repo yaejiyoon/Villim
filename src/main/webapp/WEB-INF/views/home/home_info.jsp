@@ -162,6 +162,12 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 		});
 			
 		
+		<c:forEach items="${likey }" var="likey">
+ 			<c:if test="${likey.home_seq eq hdto.home_seq }">
+ 		 		$("#likeImg").attr('src','<c:url value='../resources/img/like2.png'/>')
+ 			</c:if>
+ 		</c:forEach>
+		
 	})
 	
 	
@@ -236,28 +242,18 @@ href="<c:url value="../../resources/css/home/test.css" />" />
          	<c:if test="${sessionScope.login_email eq null}">
          		<button id="likeBT" class="btn btn-secondary" data-toggle="modal" href="#myModal1">
          			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg">
-         			저장
+         			<p style="display: inline;">저장</p>
          		</button>
          	</c:if>
          	<c:if test="${sessionScope.login_email ne null}">
          		<button id="likeBT2" class="btn btn-secondary" data-toggle="modal" href="#likeyModal">
          			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg">
-         			저장
+         			<p style="display: inline; margin-top: 0px;">저장</p>
          		</button>
          	</c:if>
          	
          	<script>
-         		 /* var likeState = 0;
-         		$("#likeBT2").click(function(){
-    				if(likeState == 0){
-    					$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
-    					likeState = 1;
-    				}else{
-    					$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
-    					likeState = 0;
-    				}
-         		}) */
-         		
+         	
          	</script>
          </div>
          <div id="info-contents-main">
@@ -461,6 +457,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                							TV
                						</div>
                					</c:when>
+               					
                				</c:choose>
                			</c:forEach>
                		</div>
