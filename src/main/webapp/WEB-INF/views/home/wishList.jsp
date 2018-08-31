@@ -189,7 +189,7 @@
 						    infoWindow.setContent('<div style="color: #008489; font-weight: 600;">'+locations[i][0]+'원</div>');
 				            infoWindow.open(map, marker);
 				            
-				            
+				            $("#wishWrapperID"+locations[i][3]).css({"border-top":"3px solid #008489"});
 						    
 			              }
 			              
@@ -199,6 +199,9 @@
 			    	 google.maps.event.addListener(marker, 'mouseout', (function(marker, i) {
 			              return function() {
 			                infoWindow.close();
+			                
+			                $("#wishWrapperID"+locations[i][3]).css({"border-top":"0px"});
+			                
 			              }
 			          })(marker, i));
 			          
