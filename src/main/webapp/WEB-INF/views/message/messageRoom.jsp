@@ -552,10 +552,6 @@ input[type="radio"]:checked ~ label {
   			})
   			
   			
-  			$("#paymentBT").click(function(){
-  				
-  			});
-  			
   			
           });
 			
@@ -723,9 +719,9 @@ input[type="radio"]:checked ~ label {
         <h4><b>${host_name}님의 숙소 결제가 완료되었습니다.</b></h4>
         <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
         <p>인원수 : ${reservCheck.population} </p>
-    <form action="" method="post" >
+    <form action="paymentCancel.re" method="post" >
     <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
-    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1vh;" id="">결제 취소</button>
+    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1vh;" id="paymentCancelBT">결제 취소</button>
   
   	</form>
   </div>
