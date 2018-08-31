@@ -9,7 +9,6 @@
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -116,10 +115,6 @@ function initMap() {
 		});
 		infoWindow = new google.maps.InfoWindow;
 		
-		google.maps.event.addListenerOnce(map, 'idle', function(){
-
-		  });
-		
 		</c:if>
 		
 		var locations = [];
@@ -133,8 +128,10 @@ function initMap() {
 		for (var i = 0; i < locations.length; i++) {
 		 marker = new google.maps.Marker({
 		     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-		     map: map
+		     map: map,
+		     animation : google.maps.Animation.DROP
 		 });
+		 
 		google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
 		    return function() {
 		      infoWindow.setContent(locations[i][0]+" 원");
@@ -322,8 +319,7 @@ $(document).ready(function() {
 
 <script>
 
-<%
-String homeType = (String)session.getAttribute("homeType");
+<% String homeType = (String)session.getAttribute("homeType");
 if(!homeType.equals("0")) {%>
    $(document).ready(function() {
       var homeTypeBt = document.getElementById('homeTypeBt');
@@ -683,6 +679,7 @@ $(document).ready(function() {
 				<div class="col">
 				<%int cnt=0;%>
 					<c:forEach var="homeList" items="${homeList}" varStatus="status">
+						<a href="home_info.do?seq=${homeList.home_seq}">
 						<div class="col-md-4">
 					  		<div id="carouselDiv">
 								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel">
@@ -723,6 +720,7 @@ $(document).ready(function() {
 		                  <p class="hostTitle">슈퍼호스트</p>
 						</div>
 				  </div>
+				  </a>
 					<%cnt++; %>
 					</c:forEach>
 				  

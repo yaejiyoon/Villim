@@ -133,7 +133,7 @@
 		});
 		
 		<%if(session.getAttribute("homeType").equals("집전체")|| session.getAttribute("whole").equals("집전체")) {%>
-			$('#whole').attr("checked", true);
+		$('#whole').attr("checked", true);
 		<%}%>
 		
 		<%if(session.getAttribute("homeType").equals("개인실")|| session.getAttribute("one").equals("개인실")) {%>

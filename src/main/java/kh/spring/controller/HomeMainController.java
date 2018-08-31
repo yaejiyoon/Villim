@@ -40,6 +40,11 @@ public class HomeMainController {
 		session.setAttribute("homeType", "0");
 		session.setAttribute("people", 0);
 		session.setAttribute("startDate", "0");
+		session.setAttribute("endDate", "0");
+		List dates = new ArrayList<>();
+		dates.add("0");
+		session.setAttribute("dates",dates);
+		session.setAttribute("dateIsChecked", "0");
 		session.setAttribute("minMoney", 0);
 		session.setAttribute("maxMoney", 1001000);
 		session.setAttribute("whole", "");
@@ -50,6 +55,7 @@ public class HomeMainController {
 		mav.setViewName("home_main");
 		return mav;
 	}
+	
 	
 	@RequestMapping("/search.do")
 	public ModelAndView search(HttpServletRequest request, HttpSession session, String homeType, int people, String lat, String lng, String startDate, String endDate) throws Exception  {
@@ -162,7 +168,7 @@ public class HomeMainController {
 	}
 	
 	@RequestMapping("/mapMove.do")
-	public void mapMove(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void mapMove(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		Double swLat = Double.parseDouble(request.getParameter("swLat"));
 		Double neLat = Double.parseDouble(request.getParameter("neLat"));
@@ -182,9 +188,6 @@ public class HomeMainController {
 		param.put("neLat", neLat);
 		param.put("swLng", swLng);
 		param.put("neLng", neLng);
-		
-		System.out.println("위도 차 : "+(neLat-swLat));
-		System.out.println("경도 차: "+(neLng-swLng));
 		
 		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
 		List<HomePicDTO> homePic = homeService.getHomePic();
@@ -356,6 +359,72 @@ public class HomeMainController {
 		mav.setViewName("home_main");
 		return mav;
 		
+	}
+	
+	@RequestMapping("/headerSearch.do")
+	public ModelAndView headerSearch(HttpSession session, HttpServletRequest request) {
+		String lat = request.getParameter("lat");
+		String lng = request.getParameter("lng");
+		System.out.println(lat);
+		System.out.println(lng);
+		
+		session.setAttribute("homeType", "0");
+		session.setAttribute("people", 0);
+		session.setAttribute("minMoney", 0);
+		session.setAttribute("maxMoney", 1001000);
+		session.setAttribute("startDate", "0");
+		session.setAttribute("endDate", "0");
+		session.setAttribute("whole", "");
+		session.setAttribute("one",  "");
+		session.setAttribute("many",  "");
+
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("mapOn", "mapOn");
+		mav.addObject("lat", lat);
+		mav.addObject("lng", lng);
+
+		List homeTypeList = new ArrayList<>();
+		homeTypeList.add("0");
+		String homeTypeIsChecked = "0";
+		session.setAttribute("homeTypeList", homeTypeList);
+		session.setAttribute("homeTypeIsChecked", homeTypeIsChecked);
+
+		List dates = new ArrayList<>();
+		dates.add("0");
+		String dateIsChecked = "0";
+		session.setAttribute("dates", dates);
+		session.setAttribute("dateIsChecked", dateIsChecked);
+
+		
+
+		Double currentLat = Double.parseDouble(lat);
+		Double currentLng = Double.parseDouble(lng);
+		Double swLat = currentLat-0.024;
+		Double neLat = currentLat+0.024;
+		Double swLng = currentLng-0.27396753;
+		Double neLng = currentLng+0.27396753;
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", (String) session.getAttribute("homeType"));
+		param.put("people", session.getAttribute("people"));
+		param.put("dates", (List) session.getAttribute("dates"));
+		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		param.put("swLat", swLat);
+		param.put("neLat", neLat);
+		param.put("swLng", swLng);
+		param.put("neLng", neLng);
+		
+		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
+		List<HomePicDTO> homePic = homeService.getHomePic();
+
+		mav.addObject("homeList", homeList);
+		mav.addObject("pic", homePic);
+		mav.setViewName("home_main");
+		return mav;
 	}
 	
 	
