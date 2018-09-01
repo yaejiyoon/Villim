@@ -143,7 +143,7 @@ function initMap() {
 		    return function() {
 		    	var content ='<div><img style="width:200px; height:100px; border-radius:10px; margin-bottom:5px;" src="<c:url value="files/'+locations[i][5]+'"/>"></div>'
 		    	+'<div style="width:200px;"><B>'+locations[i][4]+'</b></div>'
-		    	+'<div>'+locations[i][0]+'원</div>';
+		    	+'<div>₩ '+locations[i][0]+'/박</div>';
 		      infoWindow.setContent(content);
 		      infoWindow.open(map, marker);
 		      
