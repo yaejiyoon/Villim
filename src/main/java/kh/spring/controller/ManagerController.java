@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -276,6 +277,56 @@ public class ManagerController {
 		}catch(Exception e) {
 			e.printStackTrace();
 //			return "";
+		}
+		
+	}
+	@RequestMapping("managerNumCheck.admin")
+	@ResponseBody
+	public void managerNumCheck(HttpServletRequest request,HttpServletResponse response) {
+		
+		String adminNumber = request.getParameter("adminNumber");
+		String adminPassword = request.getParameter("adminPassword");
+		String result = adminService.isAdminNum(adminNumber,adminPassword);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		if(result.equals("success")) {
+			try {
+			new Gson().toJson(result, response.getWriter());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(result.equals("fail")) {
+			try {
+				new Gson().toJson(result, response.getWriter());
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			
+		}else {
+			try {
+			System.out.println("없는 사원입니다.");
+			new Gson().toJson(result, response.getWriter());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	@RequestMapping("ismanager.admin")
+	public ModelAndView isManager(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String adminNumber1 = request.getParameter("adminNumber1");
+		String adminPassword1 = request.getParameter("adminPassword1");
+		
+		String result = adminService.isManager(adminNumber1, adminPassword1);
+		
+		if(result.equals("notmanager")) {
+			System.out.println("관리자가 아닙니다.");
+			mav.setViewName("redirect:/manager.admin");
+			return mav;
+		}else {
+			System.out.println(result);
+			session.setAttribute("adminNumber", result);
 		}
 		
 	}

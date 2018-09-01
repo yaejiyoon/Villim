@@ -2,6 +2,7 @@ package kh.spring.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
-import kh.spring.dto.MemberDTO;
 import kh.spring.interfaces.AdminDAO;
 
 @Component
@@ -116,5 +116,71 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 		return result;
 	}
+
+	@Override
+	public String isAdminNum(String adminNum, String adminPw) {
+		String sql = "select admin_num from admin_number where admin_num=?";
+		System.out.println(adminNum + ":" + adminPw); 
+		List<String> list = new ArrayList<>();
+		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				list.add(rs.getString("admin_num"));
+
+				return list;
+			}
+
+		},adminNum);
+		System.out.println("asdasdasdasdwqeqwewqe");
+		if(result.size() == 0) {
+			System.out.println("사원 번호 존재하지 않음");
+			return "notexist";
+		}else {
+			System.out.println("사원 번호 존재");
+			return "exist";
+		}
+	}
+
+	@Override
+	public int adminSignup(String adminNum, String adminPw) {
+		String sql = "insert into admin_member values(admin_member_seq.nextval, ?, ?)";
+		int result = jdbcTemplate.update(sql, adminNum, adminPw);
+		
+		if(result>0) {
+			System.out.println("관리자 계정 회원가입 성공");
+			return result;
+		}else {
+			System.out.println("관리자 계정 회원가입 실패");
+			return result;
+		}
+		
+	}
+
+	@Override
+	public String isManager(String adminNumber, String adminPassword) {
+		
+		String sql = "select admin_number from admin_member";
+		List<String> list = new ArrayList<>();
+		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				list.add(rs.getString("admin_number"));
+
+				return list;
+			}
+
+		},adminNumber, adminPassword);
+		
+		if(result.size() == 0) {
+			System.out.println("관리자가 아닙니다.");
+			return "notmanager";
+		}else {
+			System.out.println("관리자 입니다.");
+			return list.get(0);
+		}
+	
+	}
+
+
 
 }

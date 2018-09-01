@@ -11,4 +11,8 @@ public interface AdminDAO {
 	public int updateHomeStateHome(List<String> arr);
 	public int updateHomeStatePayment(List<String> arr);
 	public List<AdminChartDTO> getPaymentChart(AdminChartDTO chartDto);
+	public String isAdminNum(String adminNum, String adminPw);
+	public int adminSignup(String adminNum, String adminPw);
+	public String isManager(String adminNumber, String adminPassword);
+
 }

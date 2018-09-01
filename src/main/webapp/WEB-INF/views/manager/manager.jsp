@@ -163,7 +163,29 @@
 		})
 		
 		$("#adminSignup1").click(function(){
-			
+			alert("asdasd");
+			var adminNumber = $("#adminNumber").val();
+			var adminPassword = $("#adminPassword").val();
+			$.ajax({
+				
+				url:"managerNumCheck.admin",
+				type : "post",
+				data : {
+					adminNumber : adminNumber,
+					adminPassword : adminPassword
+				},
+						
+				success : function(response) {
+					
+					if(response == 'success'){
+						alert(response);
+					}else if(response == 'fail'){
+						alert(response);
+					}else{
+						alert(response);
+					}
+					}
+				})
 			
 		})
 	})
@@ -182,22 +204,18 @@
 	<div id="adminLogin">
 		
 		<h3 id="loginH3">관리자 계정 로그인</h3><br>
-		<form>
+		<form action="ismanager.admin" method="post">
 			<div class="form-group">
-				<label for="exampleInputEmail1">이메일 주소</label> <input type="text"
-					class="form-control" id="adminemail"
-					placeholder="이메일을 입력하세요">
+			<input type="text" class="form-control" id="adminNumber1" name="adminNumber1" placeholder="사원번호를 입력하세요">
 			</div>
 			<div class="form-group">
-				<label for="exampleInputPassword1">암호</label> <input type="password"
-					class="form-control" id="password" placeholder="암호">
+			<input type="password" class="form-control" id="adminPassword1" name="adminPassword1" placeholder="비밀번호를 입력하세요">
 			</div>
-			
 			<div class="checkbox" style="display: inline;">
 				<label> <input type="checkbox"  id="remember"> 계정이름 저장
 				</label>
 			</div>
-			<button type="submit" class="btn btn-default" id="login">로그인</button>
+			<button type="submit" class="btn btn-default" id="adminLogin">로그인</button>
 			<button type="button" class="btn btn-default" id="adminSignup">회원가입</button>
 		</form>
 
@@ -213,15 +231,15 @@
       </div>
       
       <div class="modal-body">
-  		<form id="adminSignupForm">
+  		
   		<div class="form-group">
-    	<input type="text" class="form-control" id="adminNumber" placeholder="사원번호를 입력하세요">
+    	<input type="text" class="form-control" id="adminNumber" placeholder="사원번호를 입력하세요" name="adminNumber">
   		</div>
   		<div class="form-group">
    		
-   		<input type="password" class="form-control" id="adminPassword" placeholder="비밀번호를 입력하세요">
+   		<input type="password" class="form-control" id="adminPassword" placeholder="비밀번호를 입력하세요" name="adminPassword">
   		</div>
-  		</form>
+  	
 		<button type="button" class="btn btn-danger" id="adminSignup1">
       	<i class="far fa-envelope fa-2x" style="color:white"></i>
       	<font>회원가입</font>

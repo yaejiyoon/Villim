@@ -41,4 +41,38 @@ public class AdminServiceImpl implements AdminService{
 		return dao.getPaymentChart(chartDto);
 	}
 
+	@Override
+	public String isAdminNum(String adminNum, String adminPw) {
+		String result1 = dao.isAdminNum(adminNum, adminPw);
+		
+		if(result1.equals("exist")) {
+			int result = dao.adminSignup(adminNum, adminPw);
+			if(result > 0) {
+				System.out.println("service 부분: 가입 성공");
+				return "success";
+			}else {
+				System.out.println("service 부분: 가입 실패");
+				return "fail";
+			}
+		}else {
+			System.out.println("없는 사원입니다.");
+			return result1;
+		}
+		
+	}
+
+	@Override
+	public int adminSignup(String adminNum, String adminPw) {
+		
+		return 0;
+	}
+
+	@Override
+	public String isManager(String adminNumber, String adminPassword1) {
+		
+		return dao.isManager(adminNumber, adminPassword1);
+	}
+
+
+
 }
