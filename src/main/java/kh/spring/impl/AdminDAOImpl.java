@@ -27,7 +27,7 @@ public class AdminDAOImpl implements AdminDAO{
 				+ "m.MEMBER_NAME as R_MEMBER_NAME, h.MEMBER_EMAIL as H_MEMBER_EMAIL," 
 				+ "s.MEMBER_NAME as H_MEMBER_NAME, p.CHECKIN as CHECKIN,"
 				+ "p.CHECKOUT as CHECKOUT, p.PAYMENT_AMOUNT as PAYMENT_AMOUNT,"
-				+ "p.PAYMENT_DATE as PAYMENT_DATE, h.HOME_STATE as HOME_STATE "
+				+ "p.PAYMENT_DATE as PAYMENT_DATE, p.PAYMENT_STATE as PAYMENT_STATE "
 				+ "from payment p, home h, member m, member s " 
 				+ "where p.HOME_SEQ = h.HOME_SEQ and p.MEMBER_EMAIL = m.MEMBER_EMAIL and h.MEMBER_EMAIL = s.MEMBER_EMAIL";
 		
@@ -45,7 +45,7 @@ public class AdminDAOImpl implements AdminDAO{
 				adminPayDto.setCheck_out(rs.getString("CHECKOUT"));
 				adminPayDto.setPayment_amount(rs.getString("PAYMENT_AMOUNT"));
 				adminPayDto.setPayment_date(rs.getString("PAYMENT_DATE"));
-				adminPayDto.setHome_state(rs.getString("HOME_STATE"));
+				adminPayDto.setPayment_state(rs.getString("PAYMENT_STATE"));
 				return adminPayDto;
 			}
 		
@@ -96,7 +96,8 @@ public class AdminDAOImpl implements AdminDAO{
 				+ "sum(PAYMENT_AMOUNT) payment_sum, "
 				+ "extract(month from to_date(payment_date)) payment_month "
 				+ "from payment "
-				+ "where extract(year from to_date(payment_date)) = ? group by extract(month from to_date(payment_date))";
+				+ "where extract(year from to_date(payment_date)) = ? group by extract(month from to_date(payment_date))"
+				+ " order by payment_month";
 		List<AdminChartDTO> result = jdbcTemplate.query(sql, new RowMapper <AdminChartDTO>() {
 			@Override
 			public AdminChartDTO mapRow(ResultSet rs, int rowNum) throws SQLException {

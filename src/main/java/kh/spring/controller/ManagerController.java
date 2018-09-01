@@ -177,7 +177,7 @@ public class ManagerController {
 			json.put("check_out", tmp.getCheck_out());
 			json.put("payment_amount", tmp.getPayment_amount());
 			json.put("payment_date", tmp.getPayment_date());
-			json.put("home_state", tmp.getHome_state());
+			json.put("payment_state", tmp.getPayment_state());
 			array.add(json);
 			
 		}

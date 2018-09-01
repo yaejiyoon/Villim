@@ -11,7 +11,7 @@ public class AdminDTO {
 	private String check_out;
 	private String payment_amount;
 	private String payment_date;
-	private String home_state;
+	private String payment_state;
 
 	public AdminDTO() {
 
@@ -19,7 +19,7 @@ public class AdminDTO {
 
 	public AdminDTO(String reservation_seq, String r_member_email, String r_member_name, String h_member_email,
 			String h_member_name, String check_in, String check_out, String payment_amount, String payment_date,
-			String home_state) {
+			String payment_state) {
 		super();
 		this.reservation_seq = reservation_seq;
 		this.r_member_email = r_member_email;
@@ -30,7 +30,7 @@ public class AdminDTO {
 		this.check_out = check_out;
 		this.payment_amount = payment_amount;
 		this.payment_date = payment_date;
-		this.home_state = home_state;
+		this.payment_state = payment_state;
 	}
 
 	public String getReservation_seq() {
@@ -105,12 +105,12 @@ public class AdminDTO {
 		this.payment_date = payment_date;
 	}
 
-	public String getHome_state() {
-		return home_state;
+	public String getPayment_state() {
+		return payment_state;
 	}
 
-	public void setHome_state(String home_state) {
-		this.home_state = home_state;
+	public void setPayment_state(String payment_state) {
+		this.payment_state = payment_state;
 	}
 
 }

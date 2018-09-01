@@ -39,7 +39,7 @@
 #logo{
 	position: absolute;
 	z-index: 10;
-	margin-left:22%;
+	margin-left:25%;
 	margin-top:6%;
 	
 }
@@ -51,13 +51,16 @@
  	position: absolute;
 	z-index: 10;
 	border:2px solid white;
-	margin-left:15%;
-	margin-top:11%;
+	margin-left:22%;
+	margin-top:15%;
 	width:25%;
 	color:white;
 	height:50vh;	
 }
-#email{
+#loginH3{
+	margin-left:10%;
+}
+#adminemail{
 	width:80%;
 	margin-left:10%;
 	padding-top:4%;
@@ -82,7 +85,90 @@
 	height:2vh;
 	margin-top:0px;
 }
+
+/* 모달 스타일*/
+
+	#myModal{
+ 	right:10px;
+	text-align:center;
+	z-index: 12000;
+	height:100vh;
+	box-sizing: border-box;
+	
+
+	}
+	#mheader{
+		border-bottom-width:0px;
+		
+	}
+	#mfooter{
+		border-top-width: 0px;
+	}
+	.modal-body{
+	
+	height:500px;
+		
+	}
+	.modal-body font{
+		padding-left:2%;
+		font-size: large;
+		font-weight: bold;
+	}
+	.modal-body i{
+		
+	}
+		#facebook{
+		width:90%;
+		padding:3%;
+		margin-top:7%;
+		margin-bottom: 5%;
+		
+
+	}
+	
+	#facebook:hover{
+		
+
+	}
+	#kakao{
+		width:90%;
+		padding:3%;
+		margin-top:1%;
+		margin-bottom: 5%;
+	}
+	#google{
+		width:90%;
+		padding:3%;
+		margin-top:1%;
+		margin-bottom: 5%;
+	}
+	#email{
+		width:90%;
+		padding:3%;
+		margin-top:2%;
+		margin-bottom: 5%;
+	}
+	#toindex{
+		margin-top: 5%;
+	}
+	#underline{
+		width:550px;
+		height:50px;
+	}
 </style>
+<script>
+	$(document).ready(function(){
+		$("#adminSignup").click(function(){
+			$("#adminSignupModal").modal('show');
+		})
+		
+		$("#adminSignup1").click(function(){
+			
+			
+		})
+	})
+
+</script>
 </head>
 <body>
 
@@ -95,11 +181,11 @@
 	</div>
 	<div id="adminLogin">
 		
-		<h3>관리자 계정 로그인</h3><br>
+		<h3 id="loginH3">관리자 계정 로그인</h3><br>
 		<form>
 			<div class="form-group">
 				<label for="exampleInputEmail1">이메일 주소</label> <input type="text"
-					class="form-control" id="email"
+					class="form-control" id="adminemail"
 					placeholder="이메일을 입력하세요">
 			</div>
 			<div class="form-group">
@@ -112,12 +198,44 @@
 				</label>
 			</div>
 			<button type="submit" class="btn btn-default" id="login">로그인</button>
+			<button type="button" class="btn btn-default" id="adminSignup">회원가입</button>
 		</form>
-		
-		
 
 	</div>
+<!-- 모달 -->
+
+<div class="modal fade" id="adminSignupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none; margin:0px auto;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" id="mheader">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
+      </div>
+      
+      <div class="modal-body">
+  		<form id="adminSignupForm">
+  		<div class="form-group">
+    	<input type="text" class="form-control" id="adminNumber" placeholder="사원번호를 입력하세요">
+  		</div>
+  		<div class="form-group">
+   		
+   		<input type="password" class="form-control" id="adminPassword" placeholder="비밀번호를 입력하세요">
+  		</div>
+  		</form>
+		<button type="button" class="btn btn-danger" id="adminSignup1">
+      	<i class="far fa-envelope fa-2x" style="color:white"></i>
+      	<font>회원가입</font>
+        </button><br>
 
 
+      </div>
+      <div class="modal-footer" id="mfooter">
+      <!--   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+       <font>Villim의 회원이신가요?</font> <a href="#" id="moveLogin"><font>로그인</font></a>
+       
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
