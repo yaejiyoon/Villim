@@ -302,7 +302,11 @@ public class HomeServiceImpl implements HomeService {
 		public int guestReviewCount(HashMap<String, Object> map) {
 			return hdao.guestReviewCount(map);
 		}
-
+		
+		@Override
+		public int updateBlocked(String blockedDate, int home_seq) {
+			return hdao.updateBlocked(blockedDate, home_seq);
+		}
 
 		
 
@@ -428,4 +432,6 @@ public class HomeServiceImpl implements HomeService {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomeprice(hdto);
 	}
+
+	
 }

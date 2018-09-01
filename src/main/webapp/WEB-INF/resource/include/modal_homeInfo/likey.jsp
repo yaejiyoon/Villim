@@ -184,7 +184,7 @@
 </script>
 
 <!-- 모달 팝업 -->
-      <div class="modal fade" id="likeyMainModal" tabindex="-1" role="dialog"
+      <div class="modal fade" id="likeyModal" tabindex="-1" role="dialog"
       aria-labelledby="myModalLabel" aria-hidden="true"
       style="z-index:1000000000">
          <div class="modal-dialog likey-dialog">

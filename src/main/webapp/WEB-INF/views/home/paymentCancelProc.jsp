@@ -15,6 +15,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href="<c:url value="../resources/css/home/reservationReq.css?var=2" />" rel="stylesheet" />
+
+
+
 <script>
 	$(document).ready(function(){
 		$("#toindex").click(function(){
@@ -44,6 +47,7 @@
 		$("#goIndex").click(function(){
 			$(location).attr('href','/');
 		});
+		
 	})
 </script>
 </head>

@@ -842,8 +842,33 @@ $(document).ready(function() {
 								    <span class="glyphicon glyphicon-chevron-right"></span>
 								    <span class="sr-only">Next</span>
 								  </a>
-								</div>
-							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" id="likeyBTId${homeList.home_seq }" >
+								</div> likeyMainModal
+							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" 
+							id="likeyBTId${homeList.home_seq }" data-toggle="modal" href="#likeyMainModal"
+							data-pic-id="${homeList.home_main_pic}" data-name-id="${homeList.home_name }"
+							data-addr1-id="${homeList.home_addr1 }" data-addr2-id="${homeList.home_addr2 }"
+							data-addr3-id="${homeList.home_addr3 }"
+							>
+							<script>
+							$(function () {
+							    $(".likeyBT").click(function () {
+							        var home_main_pic = $(this).data('pic-id');
+							        $(".modal-body #hiddenValue").val(home_main_pic);
+							        
+							        var home_name = $(this).data('name-id');
+							        $(".modal-body #hiddenValue2").val(home_name);
+							        
+							        var home_addr1 = $(this).data('addr1-id');
+							        $(".modal-body #hiddenValue3").val(home_addr1);
+							        
+							        var home_addr2 = $(this).data('addr2-id');
+							        $(".modal-body #hiddenValue4").val(home_addr2);
+							        
+							        var home_addr3 = $(this).data('addr3-id');
+							        $(".modal-body #hiddenValue5").val(home_addr3);
+							    })
+							});
+   							</script>
 							<p class="homeType" id="homeType${homeList.home_seq}">${homeList.home_type}</p>
 		                  	<p class="homeName" id="homeName${homeList.home_seq}">
 		                    <B>${homeList.home_name}</B>
@@ -1163,6 +1188,7 @@ $(document).ready(function() {
 <%@ include file="../resource/include/modal_homeMain/people.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/homeType.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/price.jsp"%>
+<%@ include file="../resource/include/modal_homeInfo/likey_main.jsp"%>
 <%@ include file="../resource/include/footer.jsp"%>
 
 <script async defer

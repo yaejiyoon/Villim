@@ -121,6 +121,8 @@ public interface HomeService {
 	public int updateBlockedDate(String blockedDate, int home_seq);
 
 	public BedDTO getBedData(int home_seq);
+	
+	public int updateBlocked(String blockedDate, int home_seq);
 
 	// 예지
 	public List<HomeDTO> getAllHomeDataMain();

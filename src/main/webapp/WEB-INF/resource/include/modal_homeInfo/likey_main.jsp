@@ -118,10 +118,26 @@
 
 <script>
 	$(document).ready(function(){
+		
+		
 		$(".likeyButton").click(function(){
 			alert("버튼!");
+			var pic= $("#hiddenValue").val();
+	  		alert(pic);
+	  		
+	  		var name= $("#hiddenValue2").val();
+	  		alert(name);
+	  		
+	  		var addr1= $("#hiddenValue3").val();
+	  		alert(addr1);
+	  		
+	  		var addr2= $("#hiddenValue4").val();
+	  		alert(addr2);
+	  		
+	  		var addr3= $("#hiddenValue5").val();
+	  		alert(addr3);
 			
-			var srcBT = $(this).parent().find('img').attr('src');
+			/* var srcBT = $(this).parent().find('img').attr('src');
 			
 			if(srcBT == '../resources/img/like.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like2.png'/>");
@@ -167,7 +183,7 @@
 					}
 				})
 				
-			}
+			} */
 			
 		})
 		
@@ -184,7 +200,7 @@
 </script>
 
 <!-- 모달 팝업 -->
-      <div class="modal fade" id="likeyModal" tabindex="-1" role="dialog"
+      <div class="modal fade" id="likeyMainModal" tabindex="-1" role="dialog"
       aria-labelledby="myModalLabel" aria-hidden="true"
       style="z-index:1000000000">
          <div class="modal-dialog likey-dialog">
@@ -195,6 +211,11 @@
                   </button>
                </div>
                <div class="modal-body likey-body">
+               		<input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
+               		<input type="hidden" name="hiddenValue2" id="hiddenValue2" value="" />
+               		<input type="hidden" name="hiddenValue3" id="hiddenValue3" value="" />
+               		<input type="hidden" name="hiddenValue4" id="hiddenValue4" value="" />
+               		<input type="hidden" name="hiddenValue5" id="hiddenValue5" value="" />
                		<h2 style="font-weight: 600;">목록에 저장</h2>
                		<div id="likeyListDiv">
                			<h4 style="font-weight: 600; color: black;">이름</h4>	

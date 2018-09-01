@@ -467,6 +467,12 @@ public class HomeDAOImpl implements HomeDAO {
 		public BedDTO getBedData(int home_seq) {
 			return ssTemplate.selectOne("Home.getBedData",home_seq);
 		}
+		
+		@Override
+		public int updateBlocked(String blockedDate, int home_seq) {
+			String sql = "update home set home_blocked_date=? where home_seq=?";
+			return jdbcTemplate.update(sql,blockedDate,home_seq);
+		}
 
 		// 예지
 
@@ -596,6 +602,8 @@ public class HomeDAOImpl implements HomeDAO {
 		// TODO Auto-generated method stub
 		return ssTemplate.update("Home.thirdstepbyfive", hdto);
 	}
+
+	
 
 
 }

@@ -15,6 +15,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link href="<c:url value="../resources/css/home/reservationReq.css?var=2" />" rel="stylesheet" />
+
+<!-- 결제 -->
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
 <script>
 	$(document).ready(function(){
 		$("#toindex").click(function(){
@@ -41,9 +44,46 @@
 </style>
 <script>
 	$(document).ready(function(){
+		
+		var token ='';
+		
 		$("#continueBT").click(function(){
-			$(location).attr('href','paymentCancelMsg.re?reserv_seq=${reservationDTO.reservation_seq}');
+			//$(location).attr('href','paymentCancelMsg.re?reserv_seq=${reservationDTO.reservation_seq}');
+			
+			$.ajax({
+				url:"https://api.iamport.kr/users/getToken",
+				data:{
+					imp_key : "3566446879345688",
+					imp_secret : "198z86RsCz453GUMFifbU54gd0CLdJAfSJP1QHusgyxkes7UKm5FraVFbyqph1EaKubAbG3seAMt3ToN"
+				},
+				type:"post",
+				success:function(resp){
+					alert("성공?");
+					token = resp.response.access_token;
+					alert(token);
+					/* 
+					
+					$.ajax({
+						url:"https://api.iamport.kr/payments/cancel?_token="+token,
+						type:"post",
+						data:{
+						    "merchant_uid": "${paymentDTO.merchant_uid}",
+						    "cancel_reason": "사유",
+						    "pay_method": "card"
+						},
+						success:function(resp){
+							console.log(resp);
+						}
+					})
+					 */
+					
+					}
+				})
+			
 		});
+		
+		
+		
 	})
 </script>
 </head>
