@@ -1193,8 +1193,126 @@ public class HomeInfoController {
 		}
 	}
 	
-	@RequestMapping("/test.do")
-	public void test(HttpServletRequest req, HttpServletResponse response) {
+	@RequestMapping("/rejectResev.re")
+	public ModelAndView test(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
+		int message_room_seq = Integer.parseInt(req.getParameter("roomSeq"));
+		/*int home_seq = Integer.parseInt(req.getParameter("home_seq"));*/
+		String member_email = req.getSession().getAttribute("login_email").toString();
 		
+		MemberDTO memberDTO = memberService.printProfile(member_email);
+		
+		//예약상태 업데이트 (3:예약 거절)
+		int updateState = reservService.updateReservState(reservation_seq, 3);
+		
+		//블락데이트 지우기
+		
+		ModelAndView mav = new ModelAndView();
+		/*mav.addObject("home_seq", home_seq);*/
+		mav.addObject("message_room_seq", message_room_seq);
+		mav.addObject("memberDTO", memberDTO);
+		mav.addObject("updateState", updateState);
+		mav.setViewName("home/rejectProc");
+
+		return mav;
+	}
+	
+	@RequestMapping("/paymentCancel.re")
+	public ModelAndView paymentCancel(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentCancelReq");
+
+		return mav;
+	}
+	
+	@RequestMapping("/paymentCancelMsg.re")
+	public ModelAndView paymentCancelMsg(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentCancelMsg");
+
+		return mav;
+	}
+	
+	@RequestMapping("/paymentCancelProc.re")
+	public ModelAndView paymentCancelProc(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentCancelProc");
+
+		return mav;
 	}
 }

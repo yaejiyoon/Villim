@@ -48,6 +48,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
         src: url('<c:url value='/resources/fonts/dx.ttf'/>');
    }
    
+   #scrollNav{
+   		font-family: font2;
+   }
+   
    #lightgallery{
 		list-style: none;
 		width:20px !important;
@@ -212,7 +216,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <div id="info-wrapper">
       <div id="info-contents">
          <div id="info-contents-photo">
-         	<img src="<c:url value='../resources/img/home.jpg'/>" >
+         	<img src="<c:url value='files/${hdto.home_main_pic}'/>" >
          	
          	
          	<!-- 사진보기-->
@@ -1150,7 +1154,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			<span>지역 정보</span>
                			<br>
-               			<h5>Kim님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
+               			<h5>${memberDTO.member_name }님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
                			<p>${hddto.home_desc_region }</p>
                			<div id="map-collapse" class="collapse">
                				<div class="card card-body">
