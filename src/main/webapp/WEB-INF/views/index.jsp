@@ -476,7 +476,7 @@ $(document).ready(function() {
          </div>
       </div>
 
-<div id="homeContents">
+<%-- <div id="homeContents">
          <div class="col">
             <c:forEach var="homeList" items="${homeList}" varStatus="status" begin="0" end="11">
          <div class="col-md-3">
@@ -496,7 +496,7 @@ $(document).ready(function() {
             </c:forEach>        
             
          </div>
-      </div>
+      </div> --%>
    </div>
  </div>
  
