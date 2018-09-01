@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 <title>Insert title here</title>
 <style type="text/css">
 .input-file {
@@ -111,7 +111,7 @@
 </style>
 </head>
 <body>
-
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="26095f10-f2ae-42db-a659-dd67300d7df2">
 		<div dir="ltr" data-reactroot="">
@@ -222,7 +222,7 @@
 												<div class="row no-margin-h" role="group">
 													<div class="col-sm-12 ">
 														<form>
-															<input type="file" class="input-file" id="photo-image"
+															<input type="file"  class="input-file"  id="photo-image"
 																name="image"
 																accept="image/jpg, image/jpeg, image/png, image/gif"
 																multiple="multiple" velouteId="lys_photo_uploader"
@@ -257,7 +257,7 @@
 										</div>
 									</div>
 										<div style="float: left;">
-										<form>								
+										<form id="bigpicture" action="gostep2second.host" method="post">								
 											<div id="output" class="va-container-h"><ul>
 											</ul></div>							
 										</form>
@@ -302,6 +302,7 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden">
 	<script type="text/javascript">
 		$('#drugimg').on('dragover', function(e) {
 			e.preventDefault();
@@ -708,7 +709,7 @@ jQuery(document).ready(function($) {
 						"<br>" +
 						sizeInKB(imgObj.size) +
 						'</span><span class="name">' +
-						imgObj.name +
+						 imgObj.name + '<input type="hidden" name="home_main_pic" value="'+imgObj.name+'">'+
 						'</span><span class="options"><span class="imagedelete" title="Remove image"></span></span></div></li>'
 				).appendTo("#output ul");
 				$(".imagedelete", $wrapper).one("click", function(e) {
@@ -790,17 +791,19 @@ jQuery(document).ready(function($) {
   var listpicture = $("#output").val();
   
   if(listpicture == 0){
-	  console.log("읎어요");
+	  console.log("");
   }else{
-	  console.log("씨부럴");
+	  console.log("");
   }
   
 }
  */
 
 $("#nextpg").click(function() {
-	$(location).attr("href","step2second.host");
+	//$(location).attr("href","step2second.host");
+	$("#bigpicture").submit();
 });
+ 
 	</script>
 </body>
 </html>

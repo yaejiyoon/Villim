@@ -48,7 +48,12 @@
          <artifactId>aspectjrt</artifactId>
          <version>${org.aspectj-version}</version>
       </dependency>
-
+	  <!-- aop -->
+	  <dependency>
+	  	<groupId>org.aspectj</groupId>
+	  	<artifactId>aspectjweaver</artifactId>
+	  	<version>1.8.8</version>
+	  </dependency>
       <!-- Spring MyBatis -->
       <dependency>
          <groupId>org.mybatis</groupId>
@@ -61,6 +66,13 @@
          <artifactId>mybatis-spring</artifactId>
          <version>1.2.2</version>
       </dependency>
+      
+      <!--  session이  동작함  -->
+		<dependency>
+	<groupId>javax</groupId>
+	<artifactId>javaee-api</artifactId>
+	<version>7.0</version>
+	</dependency>
       <!-- oracle related -->
 
       <dependency>
@@ -119,6 +131,20 @@
          <artifactId>jackson-databind</artifactId>
          <version>2.9.5</version>
       </dependency>
+      
+      <!-- mail -->
+	<dependency>
+	<groupId>javax.mail</groupId>
+	<artifactId>mail</artifactId>
+	<version>1.4.7</version>
+	</dependency>
+	
+	<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-context-support</artifactId>
+	<version>${org.springframework-version}</version>
+	</dependency> 
+
 	  <!-- google_JaeHo-->
 	  
 	<!-- 찬연 -->  
@@ -134,7 +160,21 @@
     <artifactId>json-simple</artifactId>
     <version>1.1</version>
    </dependency>
+   
+        <!-- mail -->
+   <dependency>
+   <groupId>javax.mail</groupId>
+   <artifactId>mail</artifactId>
+   <version>1.4.7</version>
+   </dependency>
    <!-- 찬연 --> 
+		
+	<dependency>
+   <groupId>org.springframework</groupId>
+   <artifactId>spring-context-support</artifactId>
+   <version>${org.springframework-version}</version>
+   </dependency> 
+		
 		
 		<!-- Logging -->
 		<dependency>
@@ -203,6 +243,12 @@
          <groupId>javax.servlet</groupId>
          <artifactId>jstl</artifactId>
          <version>1.2</version>
+      </dependency>
+      
+      <dependency>
+         <groupId>taglibs</groupId>
+         <artifactId>standard</artifactId>
+         <version>1.1.2</version>
       </dependency>
       
       <!-- Gson -->

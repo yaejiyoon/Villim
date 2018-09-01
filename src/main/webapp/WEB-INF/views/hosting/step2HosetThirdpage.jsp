@@ -13,7 +13,7 @@
 #housename{
 	height: 67px;
 	width: 484px;
-}
+}	
 .clearfix{
 	margin-top: 15px;
 }
@@ -24,6 +24,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="62050424-501d-4e76-9922-995555779dfd">
 		<div dir="ltr" data-reactroot="">

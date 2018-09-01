@@ -8,9 +8,10 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -27,7 +28,7 @@ div {
 	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
-	height: 800px;
+	height: auto;
 }
 
 #wrapper-sub {
@@ -177,8 +178,29 @@ div {
 	display: inline-block;
 	float: left;
 }
-</style>
 
+.nav-wrap {
+	margin-top: 50px;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		/* 탭 클릭시  */
+		$('#navtab a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+
+		$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+			var id = $(e.target).attr("href").substr(1);
+			window.location.hash = id;
+		});
+
+		var hash = window.location.hash;
+		$('#navtab a[href="' + hash + '"]').tab('show');
+
+	})
+</script>
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
@@ -206,13 +228,13 @@ div {
 						<b>대금 수령 내역</b>
 					</div>
 
-					<div role="tabpanel">
+					<div class="nav-wrap" role="tabpanel">
 						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" role="tablist">
+						<ul class="nav nav-tabs" role="tablist" id="navtab">
 							<li role="presentation" class="active"><a href="#home"
 								aria-controls="home" role="tab" data-toggle="tab"><b>대금
 										수령 완료</b></a></li>
-							<li role="presentation"><a href="#profile"
+							<li role="presentation"><a href="#profile" id="pro"
 								aria-controls="profile" role="tab" data-toggle="tab"><b>수령예정
 										내역</b></a></li>
 						</ul>
@@ -226,9 +248,17 @@ div {
 								</div>
 
 								<div>
-									<div style="margin-bottom: 20px;">
-										<select class="form-control input-lg">
-											<option>모든 숙소</option>
+									<div style="width:100%;">
+										<select class="form-control input-lg" id="sel"
+											onchange="if(this.value) location.href=(this.value);"
+											style="width: 100%; display: inline-block; margin-top: 10px;
+											margin-bottom: 5px;">
+											<option value="hostHomePaymentBreakdown.do#profile">모든
+												숙소</option>
+											<c:forEach var="hlist" items="${hlist}">
+												<option ${param.seq eq hlist.home_seq ? "selected":"" }
+													value="hostHomePaymentBreakdown.do?seq=${hlist.home_seq}#profile">${hlist.home_name }</option>
+											</c:forEach>
 										</select>
 									</div>
 
@@ -295,20 +325,25 @@ div {
 
 							</div>
 
-							<!-- 탭 구분 -->
+							<!---------------------- 탭 구분 -------------------->
 
 							<div role="tabpanel" class="tab-pane" id="profile">
 								<div style="margin-top: 20px; margin-bottom: 20px;">
-									<b>입금 예정 금액: 10000원</b>
+									<b>입금 예정 금액:</b>
 								</div>
 								<div>
-									<select class="form-control input-lg">
-										<option>인형스 방빈다 뺌!</option>
-										<!-- 멤버 이메일로 숙소 꺼내기 -->
+									<select class="form-control input-lg" id="sel"
+										onchange="if(this.value) location.href=(this.value);"
+										style="width: 100%; display: inline-block; margin-top: 10px;">
+										<option value="hostHomePaymentBreakdown.do#profile">모든
+											숙소</option>
+										<c:forEach var="hlist" items="${hlist}">
+											<option ${param.seq eq hlist.home_seq ? "selected":"" }
+												value="hostHomePaymentBreakdown.do?seq=${hlist.home_seq}#profile">${hlist.home_name }</option>
+										</c:forEach>
 									</select>
 								</div>
-								<div
-									style="margin-top: 50px; width: 100%; height: auto;">
+								<div style="margin-top: 50px; width: 100%; height: auto;">
 									<div>
 										<div class="panel-group" id="accordion" role="tablist"
 											aria-multiselectable="true">
@@ -317,8 +352,8 @@ div {
 													<h4 class="panel-title">
 														<a data-toggle="collapse" data-parent="#accordion"
 															href="#collapseOne" aria-expanded="false"
-															aria-controls="collapseOne"> <b>2018년 8월 17일</b>
-															지혜,2018년 8월 16일 - 2018년 8월 17일 인형스 방빈다 뺌
+															aria-controls="collapseOne"> <b>
+																member_name,체크인날짜 체크아웃 날짜,host_name </b>
 
 														</a>
 													</h4>
@@ -328,7 +363,12 @@ div {
 													<div class="panel-body">
 														<div class="ar-sub">
 															<div>예약 코드</div>
-															<div>12000원</div>
+															<div>결제코드넣기</div>
+														</div>
+														<div class=line></div>
+														<div class="ar-sub">
+															<div>수령 예정 금액</div>
+															<div>금액 넣기</div>
 														</div>
 														<div class=line></div>
 														<div class="ar-sub">

@@ -7,5 +7,11 @@
 		resultType="HomeDesc">
 		select * from home_desc where home_seq = #{seq}
 	</select>
-
+	
+	<!-- 추가열 -->
+	<insert id="secondstepbytwosub" parameterType="HomeDesc">
+		insert into home_desc value (home_desc_seq ,home_seq,home_desc_explain,home_desc_space,home_desc_guest,home_desc_etc,home_desc_region,home_desc_traffic)
+		values (HOME_DESC_SEQ.NEXTVAL , #{home_Seq},#{home_desc_explain},#{home_desc_space},#{home_desc_guest},#{home_desc_etc},#{home_desc_region},#{home_desc_traffic} )
+	</insert>
+	
 </mapper>

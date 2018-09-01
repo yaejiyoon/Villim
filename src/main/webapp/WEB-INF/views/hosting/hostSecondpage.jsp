@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
 
 <title>Insert title here</title>
 <style data-aphrodite="data-aphrodite">
@@ -311,15 +312,24 @@
 	padding-top: undefined !important;
 	padding-bottom: undefined !important;
 }
+#myModal{
+	text-align: center;
+	margin: 0px auto;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 </head>
 <body>
+<%@ include file="../../resource/include/header.jsp" %>
 	<div id="lys-redesign-div">
 		<div data-hypernova-key="list_your_spacebundlejs"
 			data-hypernova-id="78a4e44d-c6d0-4fc1-bf49-a6e3d7abc784">
 			<div data-reactroot="">
 				<div>
+				
 					<div class="list-your-space__progress">
 						<div class="list-your-space__header">
 							<div class="airbnb-header new">
@@ -353,6 +363,7 @@
 							<div class="centered-content clearfix">
 								<div
 									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix col-md-6 landing__left-col">
+									<form action="thirdMove.host" method="post" id="housetypes">
 									<div
 										class="main-panel main-panel-padding main-panel-progress  main-panel-inner-half space-sm-8">
 										<div class="_1mbllh6j">
@@ -375,7 +386,7 @@
 														<div class="_az0uecb">
 															<div class="_y9ev9r">
 																<select id="property-type-group"
-																	name="property-type-group" class="_10p0m0gl"><option
+																	name="home_type" class="_10p0m0gl"><option
 																		selected="selected" value="0" disabled="disabled">하나를 선택해주세요.</option>
 																	<option value="apartments">아파트</option>
 																	<option value="houses">주택</option>
@@ -385,6 +396,7 @@
 																	<option value="boutique_hotels_and_more">부티크
 																		호텔</option></select>
 															</div>
+															
 															<span class="_1pzmvmb"><svg viewBox="0 0 18 18"
 																	role="presentation" aria-hidden="true"
 																	focusable="false"
@@ -462,7 +474,7 @@
 											</div>
 										</div>
 									</div>
-									
+									</form>
 									<div class="main-panel__actions-wrapper">
 										<div class="centered-content clearfix">
 											<div class="bg-white main-panel-outer-half clearfix shadowed">
@@ -474,8 +486,10 @@
 															class="main-panel__actions col-sm-12 no-margin-padding__sm">
 															<div class="_1dcqn1vg"
 																style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
-																<a href="/fisrt.host" class="_5rte3y6"
-																	aria-busy="false"><span class="_cgr7tc7"><span>뒤로</span></span></a>
+																<button type="button" class="_5rte3y6" data-toggle="modal" data-target="#myModal">
+																<span class="_cgr7tc7"><span>뒤로</span></span>
+																</button>
+																
 																<div class="_107ja4p">
 																	<button type="button" id="nextpg" disabled="disabled"
 																		class="_5rte3y6" aria-busy="false"
@@ -502,12 +516,30 @@
 			</div>
 		</div>
 	</div>
-	
-	
+		
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">나가셔도 임시 숙소는 저장이 되어있습니다</h4>
+      </div>
+      <div class="modal-body">
+        아무것도 값이 없는 상태로 숙소가 저장이 되어집니다.
+      </div>
+      <div class="modal-footer">
+   		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="save">임시저장후 나가기</button>
+      </div>
+    </div>
+  </div></div>
+		
+		
+		
+<!-- 		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
 	
 	<script type="text/javascript">
-
-
 	
 /*     $("#property-type-group").change(function() {
 		var gaybar = $("#property-type-group").val();
@@ -616,9 +648,13 @@
 	});
 	
 	$("#nextpg").click(function() {
-		$(location).attr("href","third.host");
+		//$(location).attr("href","third.host");
+		$( "#housetypes").submit();
 	});
 	  
+	$("#save").click(function() {
+		alert("밖으로 나가버리고");
+	})
 </script>
 </body>
 </html>

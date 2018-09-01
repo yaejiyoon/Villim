@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +27,19 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Baloo|Ubuntu" rel="stylesheet">
+
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=1" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
+<link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
+
 <title>${guest_name}님과의 대화</title>
 <style>
+@font-face {
+        font-family: font;
+        src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
+   }
 .card {
 	transition: 0.3s;
 	width: 18vw;
@@ -39,20 +51,6 @@
 	margin-bottom:10vh;
 }
 
- 
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-
-  -webkit-box-sizing: border-box;
- 	-moz-box-sizing: border-box;
-}
-
-body{
-
-  font-family: "Roboto", "Tahoma", "Arial", sans-serif;,
-} */
 
 .text-right{ text-align: right; }
 
@@ -149,7 +147,7 @@ body{
 
 .comment-form,
 .comment{ 
-   margin-bottom: 0vh; */
+   margin-bottom: 0vh; 
   height:auto;
   position: relative;
   z-index: 0;
@@ -375,7 +373,7 @@ select {
   border-radius: .25em;
   border:0px;
     left:3vw;
-  top:-7vh;
+  top:-5.5vh;
 }
 select {
   width: 100%;
@@ -414,7 +412,15 @@ select::-ms-expand {
 
 /* calender */
 
+.my-class{
+background:#ff5a5f;
+color:black;
+font-weight:800;
 
+}
+.my-class:hover{
+background-color: none;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -466,7 +472,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<%@ include file="../../resource/include/header_profile.jsp" %>
+<%@ include file="../../resource/include/header_msg.jsp" %>
 
 
 
@@ -475,7 +481,7 @@ $(document).ready(function(){
 <div class="card">
 						<div class="row" style="font-weight:700;width:100%;height:30vh;position:relative;left:0.8vw;">
 			<div style="position:relative;top:2vh;">
-					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">예약 세부정보</h4>
+					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">예약 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
 				<div style="position:relative;  top:4vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">체크인</h6><h6 style="display: inline !important;top:-2.8vh; margin:1vw;position:relative; left:1vw;font-weight:700;color:#9e9e9e;">체크 아웃</h6></div>
 				<div style="position:relative;  top:7vh;left:5vw;font-weight:700;"><h6  style="display: inline !important;position:relative; top:-4.5vh;left:-1.4vw;margin:1vw;font-weight:700;">${msgRoom.checkIn}</h6><h6 style="display: inline !important; margin:1vw;position:relative; left:1vw;top:-4.5vh;font-weight:700;">${msgRoom.checkOut}</h6></div>
@@ -494,7 +500,7 @@ $(document).ready(function(){
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:0vh;width:100%;">
 			
 			<div style="position:relative;top:1vh;">
-			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;">호스팅 대금</h4>
+			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">호스팅 대금</h4>
 			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:5.8vw;">￦${stayPrice}</h5></div>
             <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:6.8vw;">￦${home_servicefee}</h5></div>
             <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.2vw;">￦${home_cleaningfee}</h5></div>
@@ -505,30 +511,30 @@ $(document).ready(function(){
 			</div>
 			
 			</div>
-			<hr style="color:#666666;width:70%;position:relative;top:-0vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:1vh;font-weight:900;height:15px;">
 			
 			
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
-			<div style="width:75%;position:relative;top:0vh;left:3vw;">
-			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">예약 취소</h4>
-			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
+			<div style="width:75%;position:relative;top:1vh;left:3vw;">
+			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">예약 취소</h4>
+			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
 이 예약을 취소하면 페널티를 받게 됩니다. 페널티에는 1년간 슈퍼호스트 지위 박탈, 취소 기록을 보여주는 후기 공개, 취소 수수료가 포함되며, 취소한 예약에 해당하는 날짜가 달력에서 차단됩니다.</h5>
 			</div>
 			</div>
 			
-			<hr style="color:#666666;width:70%;position:relative;top:0.4vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:3vh;font-weight:900;height:15px;">
 	
 			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-3vh;width:100%;">
-			<div style="width:75%;position:relative;top:1.7vh;left:3vw;">
-			<h4 style="position:relative;top:1vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;">언제나 빌림을 통해 대화하세요</h4>
-			<h5 style="position:relative;top:3vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
+			<div style="width:75%;position:relative;top:3vh;left:3vw;">
+			<h4 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">언제나 빌림을 통해 대화하세요</h4>
+			<h5 style="position:relative;top:4vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
 			</div>
 			</div>
 			
 			
-			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;border:1px solid green;">
-			<div style="position:relative;top:-1vh;">
-			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;">게스트 소개 </h4>
+			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;">
+			<div style="position:relative;top:2vh;">
+			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;font-family: font;">게스트 소개 </h4>
 			<div style="width:4.2vw;height:7.7vh;position:relative;left:3vw;top:2.9vh;">
             <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
 			</div>
@@ -543,17 +549,74 @@ $(document).ready(function(){
  <option value="${homeList.home_name}">${homeList.home_name}</option>
 </c:forEach>
     </select>
+    
+     </div>
     <!-- 달력    -->
-    
-
-    
-    
-    
-    
-    
-    
-    
-  </div>
+   
+    <div class="datepicker-here" style="position:relative;width:90%;top:-2vh;left:0.4vw;border:0px;"></div>
+   <script>
+                      $(document).ready(function(){
+       
+                    	 
+                         var eventDates =[];
+                         <c:forEach var="item" items="${date}">
+                         eventDates.push("${item}");
+                         </c:forEach>
+                         for(var i=0 in eventDates.length){
+                        	 console.log(eventDates[i])
+                         }
+                    	  
+                          
+                    	  
+                          $('.datepicker-here').datepicker({
+                               
+                               dateFormat : "yyyy-mm-dd",
+                               minDate:new Date(),
+                               language: {
+                                  days: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                                   daysShort: ['일', '월', '화', '수', '목', '금', '토'],
+                                   daysMin: ['일', '월', '화', '수', '목', '금', '토'],
+                                   months: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                                   monthsShort: ['1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월'],
+                                   today: '오늘',
+                                   clear: '날짜 지우기',
+                                   dateFormat: "yyyy/mm/dd",
+                                   timeFormat: 'hh:ii aa'
+                                },
+                                 onRenderCell: function (date, cellType) {
+                               	  
+                               	  var currentDate = date.getDate();
+                                     var currentMonth = date.getMonth();
+                                     currentMonth = "0"+currentMonth;
+                                     
+                                     if (cellType == 'day') {
+                                        for(var i=0; i<eventDates.length;i++){
+                                           
+                                           var eventYear = eventDates[i].split('-')[0];
+                                              var eventMonth = eventDates[i].split('-')[1]-1;
+                                           eventMonth = "0"+eventMonth;
+                                              var eventDay = eventDates[i].split('-')[2];
+                                              
+                                              
+                                              if(eventMonth == currentMonth){
+                                                 if(eventDay == currentDate){
+                                                    return {
+                                                         classes: 'my-class',
+                                                         disabled: true
+                                                         
+                                                      }
+                                                 }
+                                              }
+                                              
+                                        }
+                                 }
+                                }
+                                    
+                            });
+                      })
+  					 
+                           </script>
+  
   </c:if>
 			</div>
               
@@ -563,9 +626,10 @@ $(document).ready(function(){
 			
 		</div>
 
-		
+<input type="hidden" value="${date}" id="date">		
 		<!--예약 확인 카드  -->
-<c:if test="${reservCheck.reserv_state==0}">
+<c:forEach var="re" items="${reservCheck}">
+<c:if test="${re.reserv_state==0}">
 <div class="card2 animated slideInRight">
  
   <div class="container"  style="width:100%;padding:1;">
@@ -578,12 +642,20 @@ $(document).ready(function(){
     <br>
     <p style="color:gray;position:relative;top:-8.8vh;left:6vw;width:16vw;">게스트의 예약을 자꾸 거절하면 검색 결과에서 뒤로 밀려날 수 있습니다.</p>
     </div>
+    <form action="acceptReserv.re" method="post">
+    	<input type="hidden" name="seq" value="${re.reservation_seq}">
+    	<input type="hidden" name="roomSeq" value="${message_room_seq}">
+    	<input type="hidden" name="guest_email" value="${guest_email}">
+    	<input type="hidden" name="host_email" value="${userId}">
+    	<input type="hidden" id="home_seq" value="${home_seq}">
+    	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
+    </form>
+    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:-1.6vh;left:9.1vw;">거절</button> 
     
-    <button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;">수락</button><button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:2vh;left:1vw;">거절</button> 
   </div>
 </div>
 </c:if>
-
+</c:forEach>
 <!-- Modal -->
   <div class="modal fade" id="demo-1" tabindex="-1" style="margin-top:10vh;height:65vh;">
     <div class="modal-dialog">
@@ -688,7 +760,7 @@ $(document).ready(function(){
 
    <%@ include file="../../resource/include/footer.jsp" %>   
 
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>

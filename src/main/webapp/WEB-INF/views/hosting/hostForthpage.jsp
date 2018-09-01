@@ -154,6 +154,8 @@ html, body {
 </style>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
+<form action="pagegofive.host" id="modifymap" method="post">
 	<div id="lys-redesign-div col-md-7 ">
 		<div data-hypernova-key="list_your_spacebundlejs"
 			data-hypernova-id="5a448c3f-0c91-45dc-8ea2-aeed82b9889b">
@@ -170,18 +172,18 @@ html, body {
 							</div>
 							
 				<br><label>국가/지역</label> <input type="text" id="contry"
-					placeholder="ex)대한민국" name="contry"> <br> <label>시/군</label>
-				<input type="text" id="town" placeholder="시/도/구" name="town">
+					placeholder="ex)대한민국" name="home_nation"> <br> <label>시/군</label>
+				<input type="text" id="town" placeholder="시/도/구" name="home_addr1">
 				<br> <label>시/도</label> <input type="text" id="city"
-					placeholder="시/군/구" name="city"> <br> <label>상세주소1(선택사항)</label>
+					placeholder="시/군/구" name="home_addr2"> <br> <label>상세주소1(선택사항)</label>
 				<input type="text" id="address1" placeholder="ex)이례빌딩 구관"
-					name="address1"> <br> <label>상세주소2(선택사항)</label> <input
+					name="home_addr3"> <br> <label>상세주소2(선택사항)</label> <input
 					type="text" id="address2" placeholder="ex) 19층 102호"
-					name="address2"> <br> <label>위도</label> <input
-					type="text" id="lat" placeholder="위도" name="lat"
-					disabled="disabled"> <br> <label>경도</label> <input
-					type="text" id="lng" placeholder="경도" name="lng"
-					disabled="disabled"> <br>
+					name="home_addr4"> <br> <label>위도</label> <input
+					type="text" id="lat" placeholder="위도" name="home_lat"
+					readonly="readonly"> <br> <label>경도</label> <input
+					type="text" id="lng" placeholder="경도" name="home_lng"
+					readonly="readonly"> <br>
 
 				<div class="pac-card" id="pac-card">
 					<div>
@@ -225,13 +227,13 @@ html, body {
 	</div>
 
 
+</form>
 	<div id="map"></div>
 	<div id="infowindow-content">
 		<img src="" width="16" height="16" id="place-icon"> <span
 			id="place-name" class="title"></span><br> <span
 			id="place-address"></span>
 	</div>
-
 	<script type="text/javascript">
 		function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'), {
@@ -347,6 +349,7 @@ html, body {
 		if(value01 == null && value02 == null && value03 == null && value04 == null){
 			$("#nextpg").attr("disabled",true);
 		}else{
+			$("#nextpg").attr("disabled",false);
 			console.log(value01);
 			console.log(value02);
 			console.log(value03);
@@ -354,8 +357,10 @@ html, body {
 		}
 		
 		$("#nextpg").click(function() {
-			$(location).attr("href","five.host");
+			//$(location).attr("href","five.host");
+			$("#modifymap").submit();
 		});
+		
 		
 		
 	</script>

@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+
+
+div {
+	box-sizing: border-box;
+	/* border: 1px solid black; */
+}
+
+#paymentContent{
+	min-height: 700px;
+}
+
+#paymentLeft-content01{
+	border-bottom: 0px !important;
+}
+
+.greenA{
+	color:#008489;
+	font-weight: 600;
+}
+
+.greenA:visited, .greenA:hover, .greenA:active, .greenA:link{
+	color:#008489;
+}
+
+.greenA:visited, .greenA:active, .greenA:link{
+	text-decoration: none;
+}
+
+.greenA:hover{
+	text-decoration: underline !important;
+}
+
+#content01{
+	min-height: 100px;
+}
+
+#content04{
+	border-bottom: 1px solid #d6d6d6;
+	min-height: 45px;
+}
+
+#content05{
+	margin: 0 auto;
+	width:90%;
+	height:auto;
+	position: relative;
+}
+
+#content05:after{
+	content: "";
+   	display: block;
+   	clear: both;
+}
+
+#paymentBT{
+	background-color: #ff5a5f;
+	color: white;
+	font-size: 2vh;
+	font-weight: 600;
+	width: 150px;
+	height: 45px;
+}

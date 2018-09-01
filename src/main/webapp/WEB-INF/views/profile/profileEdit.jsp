@@ -27,33 +27,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 <title>마이페이지</title>
 <style>
-/* .dropdown-submenu {
-	position: relative;
-}
 
-.dropdown-submenu>.dropdown-menu {
-	top: 0;
-	left: 100%;
-	margin-top: -6px;
-	margin-left: -1px;
-}
-
-.dropdown-submenu:hover>.dropdown-menu {
-	display: block;
-}
-
-.dropdown-submenu:hover>a:after {
-	border-left-color: #fff;
-}
-
-.dropdown-submenu.pull-left {
-	float: none;
-}
-
-.dropdown-submenu.pull-left>.dropdown-menu {
-	left: -100%;
-	margin-left: 10px;
-} */
 .avatar{
 padding: .7em;
 	position: relative;
@@ -109,8 +83,8 @@ left:100%;
   }
   
   
-  .animated bounce delay-10s msg msg-magick {
-  animation: bounce 10s;
+  .animated bounce delay-3s msg msg-magick {
+  animation: bounce 3s;
   -webkit-transition: opacity 10s ease-in-out;
   -moz-transition: opacity 10s ease-in-out;
   transition: opacity 10s ease-in-out;
@@ -145,10 +119,16 @@ left:100%;
 		 $('#day').val(date);
 		 
 		 
-		 /* 정규표현식 */
-		 
-	         
-		 
+	        if($('#success').val() =="success"){
+	        	$('#profileForm').prepend("<div class=\"alert alert-success\" style=\"width:100%;position:relative;text-align:center;border:none;\" role=\"alert\"><strong>Success! 업데이트에 성공하셨습니다! </strong></div>");
+	        	window.setTimeout(function() {
+	        	    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+	        	        $(this).remove(); 
+	        	    });
+	        	}, 3000);
+	        	
+	        } 
+		
 	}); 
 	 
 	 
@@ -160,24 +140,31 @@ left:100%;
 <body>
 	<%@ include file="../../resource/include/header_profile.jsp" %>
 	
-<c:if test="${inputSuccess eq 'success'}">
-	<div class="animated bounce delay-10s msg msg-magick" style="text-align:center;">업데이트에 성공했습니다!</div>
-	</c:if>
+	<input type="hidden" id="success" value="${inputSuccess}">
 	
-	
-	
-	<div class="" style="position: relative; left: 250px; top: 56px;">
-		<a style="font-size: 19px; position: relative; top: -24px; left: 0px; color:gray;text-decoration: none;font-weight:bold;">프로필
+	<div  id="profileForm">
+	<div style="position: relative; left: 250px; top: 56px;">
+		<a style="font-size: 19px; position: relative; top: -24px; left: -2vw; color:gray;text-decoration: none;font-weight:bold;">프로필
 			수정</a> <a href="profileReview.mo"
-			style="font-size: 18px; position: relative; top: 23px; left: -100px; color:gray;text-decoration: none;">후기</a>
+			style="font-size: 18px; position: relative; top: 23px; left: -6vw; color:gray;text-decoration: none;">후기</a>
 		<button id="profileShowBt" class="btn btn-default"
 			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
+<script>
 
+$(document).ready(function(){
+	
+	$('#profileShowBt').click(function(){
+		$(location).attr('href','printProfile.mo');
+	})
+
+})
+
+</script>
 
 	</div>
-	<div class=container style="height:1150px;">
+	<div class=container style="height:130vh;position:relative;">
 	<div class="panel panel-default"
-		style="width: 50%; position: absolute; left: 500px">
+		style="width: 81%; position: absolute; left: 11vw;">
 		<div class="panel-heading">
 			<h3 class="panel-title" >프로필 수정</h3>
 		</div>
@@ -261,19 +248,19 @@ left:100%;
 				</div>
 				<div class="form-group">
 					<label for="message" class="col-sm-2 control-label"></label>
-					<div class="col-sm-10" style="color: gray">Villim은 사람들 간의 관계를
+					<div class="col-sm-10" style="color: gray; position: relative; left: 0vw; ">Villim은 사람들 간의 관계를
 						기반으로 만들어졌습니다.</div>
 
 					<div class="col-sm-10"
-						style="color: gray; position: relative; left: 116px; top: 10px;">회원님이
+						style="color: gray; position: relative; left: 8.3vw; top: 10px;">회원님이
 						어떤 사람인지 알려주세요. 어떤 것들을 좋아하는지 알려주세요.</div>
 
 					<div class="col-sm-10"
-						style="color: gray; position: relative; left: 116px; top: 10px;">
+						style="color: gray; position: relative; left: 8.3vw; top: 10px;">
 						가장 좋아하는 여행지, 책, 영화, TV 프로그램, 음악, 음식 등 뭐든지 좋습니다.</div>
 
 					<div class="col-sm-10"
-						style="color: gray; position: relative; left: 116px; top: 16px;">
+						style="color: gray; position: relative; left:8.3vw; top: 16px;">
 						회원님은 어떤 스타일의 게스트 또는 호스트인가요? 인생의 좌우명은 무엇인가요?</div>
 
 				</div>
@@ -283,7 +270,7 @@ left:100%;
 					<div class="col-sm-12 col-sm-offset-2">
 						<input id="submit" name="submit" type="submit" value="저장하기"
 							class="btn btn-default"
-							style="margin-top: 15px; margin-left: 470px;">
+							style="margin-top: 5vh; margin-left: 35vw;">
 					</div>
 				</div>
 
@@ -291,7 +278,7 @@ left:100%;
 		</div>
 	
 	</div>
-
+</div>
 
 <!-- 사진 수정  -->
 <script>
@@ -339,7 +326,7 @@ $(document).on('change',"#file",function(){
 
 
 <div class="panel panel-default"
-		style="width: 50%; position: absolute; left:500px;top:800px">
+		style="width: 49.6%; position: absolute; left: 30.2vw;top:90vh;">
 		<div class="panel-heading">
 			<h3 class="panel-title">사진 수정</h3>
 		</div>

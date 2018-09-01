@@ -147,6 +147,22 @@ body{
 	width: 20px;
 }
 
+#likeBT2 {
+	position: absolute;
+	background-color: white;
+	width: 100px;
+	padding-left: 5px;
+	top:110px;
+	right:60px;
+	/* transform: translate(1370%, -2100%); */
+	box-shadow: 1px 1px 1px #d6d6d6;
+	font-weight: 600;
+}
+
+#likeBT2 img {
+	width: 20px;
+}
+
 /* -------------- main -------------- */
 
 #info-contents-main {
@@ -277,6 +293,15 @@ body{
 	border-bottom:  1px solid #d6d6d6;
 }
 
+#info-main02 div{
+	 /* border: 1px solid black;  */
+}
+
+.col-md-6 {
+	margin:10px 0px;
+	padding:0px !important;
+}
+
 #info-main02:after {
 	content: "";
 	display: block;
@@ -336,8 +361,8 @@ body{
 
 .bed-div{
 	float:left;
-	width:30.5%;
-	height:200px;
+	width:29% !important;
+	height:200px !important;
 	border-radius:5px;
 	border:  1px solid #d6d6d6;
 	margin-right: 10px;
@@ -373,11 +398,18 @@ body{
 	width: 100%;
 	height: auto;
 	border-bottom:  1px solid #d6d6d6;
+	position: static;
 }
 
 #info-main04 span{
 	font-weight: 800;
 }
+
+#contentInlineCal{
+	position: absolute;
+}
+
+
 
 /* -------------- 후기 -------------- */
 
@@ -842,8 +874,10 @@ input.search-query2 {
 
 
 
-
-
+/* 달력 */
+.my-class{
+	background-color: red;
+}
 
 
 

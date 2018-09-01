@@ -65,6 +65,7 @@
 </style>
 </head>
 <body>
+  <%@ include file="../../resource/include/header.jsp" %>
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="c1201b86-d2dd-47f6-9677-9271877497f0">
 		<div data-reactroot="">
@@ -110,6 +111,7 @@
 						<div class="centered-content clearfix">
 							<div
 								class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix  col-md-6 col-md-offset-2">
+								<form action="steponeover.host" method="post" id="convenient">
 								<div
 									class="main-panel main-panel-padding main-panel-progress pull-right main-panel-inner-half space-sm-8 ">
 									<div class="_1mbllh6j">
@@ -119,8 +121,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="12"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark"  id="12" value="allows_pets" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													class="checkmark"  id="12" value="반려동물" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">집에서 키우는 반려동물</span>
@@ -130,8 +132,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="9"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" 
-													class="checkmark" id="9" value="free_parking" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													class="checkmark" id="9" value="주차" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">주차</span>
@@ -141,8 +143,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="21"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="21" value="elevator" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													class="checkmark" id="21" value="엘리베이터" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">엘리베이터</span>
@@ -152,8 +154,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="7"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="7"
-													class="checkmark" value="pool" /></span>
+														<span class="_foa2bi"><input type="checkbox" id="7" name="home_amenities"
+													class="checkmark" value="수영장" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">수영장</span>
@@ -163,8 +165,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="27"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="27" value="fireplace" /></span>
+														<span class="_foa2bi"><input type="checkbox" 
+													class="checkmark" id="27" value="벽난로" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">벽난로</span>
@@ -174,8 +176,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="15"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="15" value="gym" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+														class="checkmark" id="15" value="헬스장" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">헬스장</span>
@@ -185,8 +187,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="25"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="25" value="jacuzzi" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+														class="checkmark" id="25" value="자쿠지욕조" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">자쿠지 욕조</span>
@@ -196,8 +198,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="8"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="8"
-													class="checkmark" value="kitchen" /></span>
+														<span class="_foa2bi"><input type="checkbox" id="8" name="home_amenities"
+													class="checkmark" value="주방" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">주방</span>
@@ -207,8 +209,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="4"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="4"
-														class="checkmark" value="wireless_internet" /></span>
+														<span class="_foa2bi"><input type="checkbox" id="4" name="home_amenities"
+														class="checkmark" value="무선인터넷" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">무선인터넷</span>
@@ -218,8 +220,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="16"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="16" value="breakfast" /></span>
+														<span class="_foa2bi"><input type="checkbox"  name="home_amenities"
+													class="checkmark" id="16" value="조식,커피,차" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">조식, 커피, 차</span>
@@ -229,8 +231,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="34"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													 class="checkmark" id="34" value="dryer" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													 class="checkmark" id="34" value="빨래-건조기" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">빨래 - 건조기</span>
@@ -240,8 +242,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="46"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="46" value="iron" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+														class="checkmark" id="46" value="다리미" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">다리미</span>
@@ -251,8 +253,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="45"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="45" value="hair-dryer" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+														class="checkmark" id="45" value="헤어드라이어" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">헤어드라이어</span>
@@ -262,8 +264,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="44"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="44" value="hangers" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+														class="checkmark" id="44" value="옷장/서랍장" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">옷장/서랍장</span>
@@ -273,8 +275,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="40"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													 class="checkmark" id="40" value="essentials" /></span>
+														<span class="_foa2bi"><input type="checkbox"  name="home_amenities"
+													 class="checkmark" id="40" value="필수품목" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">필수 품목</span><span class="_wzwtzh8">수건,
@@ -285,8 +287,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="41"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="41" value="shampoo" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													class="checkmark" id="41" value="샴푸" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">샴푸</span>
@@ -296,8 +298,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="47"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="47" value="laptop-friendly" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities" 
+													class="checkmark" id="47" value=">업무가능공간/책상" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">업무 가능 공간/책상</span>
@@ -307,8 +309,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="30"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="30" value="heating" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													class="checkmark" id="30" value="난방" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">난방</span>
@@ -318,7 +320,7 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="1"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="1"
+														<span class="_foa2bi"><input type="checkbox" id="1" name="home_amenities"
 													class="checkmark" value="tv" /></span>
 													</div>
 													<div class="zkrkb6">
@@ -328,20 +330,20 @@
 										</div>
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="33"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="33" value="washer" /></span>
+													<div class="_73ihd0r"> 
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+													class="checkmark" id="33" value="빨래-세탁기" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">빨래 - 세탁기</span>
+														<span class="f7dcovm">빨래-세탁기</span>
 													</div>
 												</div></label>
 										</div>
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="5"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="5"
-													class="checkmark" value="ac" /></span>
+														<span class="_foa2bi"><input type="checkbox" id="5" name="home_amenities"
+													class="checkmark" value="에어컨" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">에어컨</span>
@@ -351,8 +353,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="57"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="57" value="private-entrance" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
+														class="checkmark" id="57" value="게스트전용출입문" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">게스트 전용 출입문</span>
@@ -368,11 +370,11 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="35"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="35" value="smoke_detector" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_safety"
+														class="checkmark" id="35" value="연기감지기" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">연기 감지기</span><span class="_wzwtzh8">잘
+														<span class="f7dcovm">연기감지기</span><span class="_wzwtzh8">잘
 															작동하는 연기 감지기를 모든 방에 구비해야 하는지 현지 법규를 확인해보세요.</span>
 													</div>
 												</div></label>
@@ -380,8 +382,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="36"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="36" value="carbon_monoxide_detector" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_safety"
+														class="checkmark" id="36" value="일산화탄소감지기" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">일산화탄소 감지기</span><span
@@ -393,8 +395,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="37"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-														class="checkmark" id="37" value="first_aid_kit" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_safety"
+														class="checkmark" id="37" value="구급상자" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">구급상자</span>
@@ -404,8 +406,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="38"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="38" value="safety_card" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_safety"
+													class="checkmark" id="38" value="안전카드" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">안전 카드</span><span class="_wzwtzh8">긴급
@@ -416,8 +418,8 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="39"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="39" value="fire_extinguisher" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_safety"
+													class="checkmark" id="39" value="소화기" /></span>
 													</div>
 													<div class="zkrkb6">
 														<span class="f7dcovm">소화기</span>
@@ -427,11 +429,11 @@
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="42"><div class="_gyif22">
 													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"
-													class="checkmark" id="42" value="lock_on_bedroom_door" /></span>
+														<span class="_foa2bi"><input type="checkbox" name="home_safety"
+													class="checkmark" id="42" value="침실문잠금장치" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">침실문 잠금장치</span><span
+														<span class="f7dcovm">침실문잠금장치</span><span
 															class="_wzwtzh8">개인실은 안전과 사생활 보호를 위해 방문을 잠글 수 있습니다</span>
 													</div>
 												</div></label>
@@ -439,6 +441,7 @@
 										<div style="clear: both"></div>
 									</div>
 								</div>
+								</form>
 								<div class="main-panel__actions-wrapper">
 									<div class="centered-content clearfix">
 										<div class="bg-white main-panel-outer-half clearfix shadowed">
@@ -454,9 +457,11 @@
 																class="buttonevn" aria-busy="false"><span
 																class="_cgr7tc7"><span>뒤로</span></span></a>
 															<div class="_107ja4p">
-																<a href="/become-a-host/27615599" class="buttonevn"
-																	aria-busy="false" data-veloute="lys-next-button"><span
-																	class="_cgr7tc7"><span>완료</span></span></a>
+																<button  id="nextpg" 
+																		class="_5rte3y6" aria-busy="true">
+																		<span class="_cgr7tc7"><span>완료</span></span>
+																</button>
+																
 															</div>
 														</div>
 													</div>
@@ -505,7 +510,11 @@
 	</div>
 
 	<script type="text/javascript">
-			
+	$("#nextpg").click(function() {
+		//$(location).attr("href","five.host");
+		$("#convenient").submit();
+	});
+	
 	</script>
 
 </body>
