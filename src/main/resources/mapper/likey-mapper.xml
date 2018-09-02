@@ -26,4 +26,8 @@
 		select * from likeyList where likeylist_seq= #{likeyList_seq}
 	</select>
 	
+	<select id="getHomePic" resultType="Likey">
+		select *from (select l.*,h.home_main_pic, row_number()over(partition by likeylist_seq order by likey_seq desc) rn 
+		from likey l, home h where l.HOME_SEQ = h.home_seq) where rn = 1
+	</select>
 </mapper>

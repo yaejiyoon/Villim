@@ -137,10 +137,11 @@ function newListFunction2() {
 			
 			if(srcBT == '../resources/img/like.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like2.png'/>");
-				$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
+				
+				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				alert(likeylist_Seq);
 				alert(home_seq);
@@ -162,10 +163,10 @@ function newListFunction2() {
 				
 			}else{
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
-				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
+				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				$.ajax({
 					url:"removeLikey.do",
@@ -185,14 +186,6 @@ function newListFunction2() {
 			} 
 			
 		})
-		
-/* 		<c:forEach items="${likeyList }" var="likeyList">
-			<c:forEach items="${likeyHeart }" var="likeyHeart">
-				<c:if test="${likeyList.likeyList_seq eq likeyHeart.likeyList_seq }">
-		 			$("#likeyBTID${likeyList.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
-				</c:if>
-		 	</c:forEach>	
-		</c:forEach> */
 		
 	})
                 
@@ -244,7 +237,7 @@ function newListFunction2() {
                				}else{
                					var likeyListName = $("#makeName").val();
                					$('#makeName').val("");
-               					var home_seq = ${hdto.home_seq};
+               					var home_seq = $("#hiddenValue6").val();
                					
                					$.ajax({
                						url:"likeList.do",

@@ -57,4 +57,9 @@ public class LikeyServiceImpl implements LikeyService{
 		return likeyDAO.removeLikey(likeyList_seq, home_seq);
 	}
 
+	@Override
+	public List<LikeyDTO> getHomePic() {
+		return likeyDAO.getHomePic();
+	}
+
 }

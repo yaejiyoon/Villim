@@ -15,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -223,15 +223,17 @@ href="<c:url value="../../resources/css/home/test.css" />" />
          	
          	<div>
             	<ul id="lightgallery" class="list-unstyled row ">
-                	<li id="1stPhoto" data-src="<c:url value='/resources/img/1.jpg'/>" data-sub-html="<h4>Fading Light</h4><p>사진 설명</p>">
+                	<li id="1stPhoto" data-src="<c:url value='files/${hdto.home_main_pic}'/>">
                     	<button id="picsBT" class="btn btn-secondary">
-                    		사진 보기
-                    		<img class="img-responsive" src="<c:url value='/resources/img/1.jpg'/>" style="display: none;">
+                    		사진 ${picsCount }장 보기
+                    		<img class="img-responsive" src="<c:url value='files/${hdto.home_main_pic}'/>" style="display: none;">
                     	</button>
                 	</li>
-                	<li data-src="<c:url value='/resources/img/home.jpg'/>" data-sub-html="<p>설명설명</p>">
-                        <img class="img-responsive" src="<c:url value='/resources/img/home.jpg'/>" style="display: none;">
-                	</li>
+                	<c:forEach items="${homePicList }" var="homePicList">
+                		<li data-src="<c:url value='files/${homePicList.home_pic_name}'/>">
+                        	<img class="img-responsive" src="<c:url value='files/${homePicList.home_pic_name}'/>" style="display: none;">
+                		</li>
+                	</c:forEach>
             	</ul>
         	</div>
          	
@@ -1224,16 +1226,16 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 								map = new google.maps.Map(document
 										.getElementById('mapmap'), {
 									center : {
-										lat : 37.5338151,
-										lng : 126.89697839999997
+										lat : ${hdto.home_lat},
+										lng : ${hdto.home_lng}
 									},
 									zoom : 14
 								});
 								
 								var cityCircle = new google.maps.Circle({
 									  center:{
-										  lat:37.5338151,
-										  lng:126.89697839999997
+										  lat: ${hdto.home_lat},
+										  lng: ${hdto.home_lng}
 									  },
 									  radius:500,
 									  strokeColor:"#04B4AE",

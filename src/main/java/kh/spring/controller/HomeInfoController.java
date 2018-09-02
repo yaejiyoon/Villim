@@ -34,6 +34,7 @@ import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
+import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.LikeyDTO;
 import kh.spring.dto.LikeyListDTO;
@@ -277,6 +278,12 @@ public class HomeInfoController {
 			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
 		}
 		
+		//home_pic테이블 사진들
+		List<HomePicDTO> homePicList = homeService.getHomePicData(home_seq);
+		
+		//총 사진 갯수
+		int picsCount = homePicList.size() + 1;
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("home_seq",home_seq);
 		mav.addObject("hdto", hdto);
@@ -302,6 +309,8 @@ public class HomeInfoController {
 		mav.addObject("likeyList", likeyList);
 		mav.addObject("likey", likey);
 		mav.addObject("likeyHeart", likeyHeart);
+		mav.addObject("homePicList", homePicList);
+		mav.addObject("picsCount", picsCount);
 		mav.setViewName("home/home_info");
 		return mav;
 	}
@@ -1143,7 +1152,11 @@ public class HomeInfoController {
 		//likeyList 불러오기
 		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
 		
+		//최신 사진 불러오기
+		List<LikeyDTO> likeyPic = likeyService.getHomePic();
+		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("likeyPic", likeyPic);
 		mav.addObject("likeyList", likeyList);
 		mav.setViewName("home/likeyList");
 
@@ -1160,7 +1173,6 @@ public class HomeInfoController {
 		//클릭한 likeyList 정보
 		LikeyListDTO likeyListDTO = likeyService.getLikeyListDTO(likeyList_seq);
 		
-		System.out.println("adfsdfasd"+likeyHomeList.get(0).getLikey_seq());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("likeyListDTO", likeyListDTO);
