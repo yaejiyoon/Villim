@@ -326,7 +326,13 @@ public class ManagerController {
 			return mav;
 		}else {
 			System.out.println(result);
-			session.setAttribute("adminNumber", result);
+			String admin_name = result.split(":")[0];
+			String admin_number = result.split(":")[1];
+			session.setAttribute("admin_number", admin_number);
+			session.setAttribute("admin_name", admin_name);
+		
+			mav.setViewName("redirect:/main.admin");
+			return mav;
 		}
 		
 	}

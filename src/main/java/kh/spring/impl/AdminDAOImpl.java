@@ -159,13 +159,14 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public String isManager(String adminNumber, String adminPassword) {
 		
-		String sql = "select admin_number from admin_member";
+		String sql = "select m.ADMIN_NUMBER as admin_number, n.admin_name as admin_name from admin_number n, admin_member m"
+				+ " where n.ADMIN_NUM = m.ADMIN_NUMBER and m.admin_number = ? and m.admin_pw = ?";
 		List<String> list = new ArrayList<>();
 		List<String> result = jdbcTemplate.query(sql, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-				list.add(rs.getString("admin_number"));
-
+				list.add(rs.getString("admin_name") + ":" + rs.getString("admin_number"));
+			
 				return list;
 			}
 
