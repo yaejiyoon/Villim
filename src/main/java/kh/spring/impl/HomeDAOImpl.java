@@ -591,5 +591,11 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.update("Home.firststeptomodify", hdto);
 	}
 
+	@Override
+	public int insertbed(BedDTO bdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.insert("Bed.insertbed", bdto);
+	}
+
 
 }

@@ -156,4 +156,6 @@ public interface HomeService {
 		public int modifyHomeprice(HomeDTO hdto);
 		
 		public int modifyFirstHome(HomeDTO hdto);
+		
+		public int insertbed(BedDTO bdto);
 }

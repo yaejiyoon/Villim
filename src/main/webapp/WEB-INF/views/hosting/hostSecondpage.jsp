@@ -389,10 +389,10 @@
 																	name="home_type" class="_10p0m0gl"><option
 																		selected="selected" value="0" disabled="disabled">하나를 선택해주세요.</option>
 																	<option value="아파트">아파트</option>
-																	<option value="공동 주택">공동 주택</option>
+																	<option value="공동주택">공동 주택</option>
 																	<option value="레지던스">레지던스</option>
 																	<option value="로프트">로프트</option>
-																
+																</select>
 															</div>
 															
 															<span class="_1pzmvmb"><svg viewBox="0 0 18 18"

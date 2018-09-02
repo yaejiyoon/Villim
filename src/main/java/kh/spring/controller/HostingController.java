@@ -146,12 +146,20 @@ public class HostingController {
 		System.out.println("bed과bath수정동시 네번째 페이지 이동");
 		ModelAndView mav = new ModelAndView();
 		String people = req.getParameter("home_people");
-		String bedroom = req.getParameter("home_bedroom");
-		String bed = req.getParameter("home_bed");
-		System.out.println(people + " : " + bedroom + " : " + bed);
 		int peoplecount = Integer.parseInt(people.toString()+"");
 		req.getSession().setAttribute("home_people", people);
-
+		
+		String bedroom = req.getParameter("home_bedroom");
+		String bed = req.getParameter("home_bed");
+		String kings = req.getParameter("king_bed");
+		String queans = req.getParameter("queen_bed");
+		String singles = req.getParameter("single_bed");
+		String doubles = req.getParameter("double_bed");
+		String baths = req.getParameter("bath_count");
+		req.getSession().setAttribute("singlebed", singles);
+		req.getSession().setAttribute("doublebed", doubles);
+		req.getSession().setAttribute("queanbed", queans);
+		
 		//		int result = service.insertMessages(new MessagesDTO(0, writer, contents));
 /*		HomeDTO homedto = new HomeDTO();
 		homedto.setHome_seq(seq);
