@@ -750,7 +750,7 @@ $(document).ready(function() {
 	
 	.carousel-inner>.item>.homePic {
 		width : 100vh;
-		height : 20vh;
+		height : 30vh;
 	}
  	
  	.likeyBT{
@@ -892,6 +892,8 @@ $(document).ready(function() {
 											for(var j=0;j<resp.likeyHeart.length;j++){
 												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
 													$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
+												} else {
+													$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
 												}
 											}
 										}

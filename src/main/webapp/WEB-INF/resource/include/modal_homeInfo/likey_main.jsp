@@ -140,11 +140,13 @@ function newListFunction2() {
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
+				var home_name = $("#hiddenValue2").val();
 				
 				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				alert(likeylist_Seq);
 				alert(home_seq);
+				alert(home_name);
 				
 				$.ajax({
 					url:"likey.do",
@@ -161,7 +163,7 @@ function newListFunction2() {
 					}
 				})
 				
-			}else{
+			}else {
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
@@ -230,8 +232,6 @@ function newListFunction2() {
                			
                			$("#makeListBT").click(function(){
                				var name = $("#makeName").val();
-               				
-               				
                				if(name == ''){
                					alert("저장 목록 이름을 입력하세요");
                				}else{
