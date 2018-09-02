@@ -110,6 +110,7 @@
 		position: absolute;
 		z-index: 10;
 		height:100vh;
+		overflow: hidden;
 	}
 	#collapseExample{
 	
