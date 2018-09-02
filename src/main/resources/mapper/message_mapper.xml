@@ -40,7 +40,7 @@ select * from message where message_room_seq=#{message_room_seq}
 	<select id="messageRoomSeqExist" resultType="MessageRoom">
 		select
 		message_room_seq from message_room where host_email=#{host_email} and
-		guest_email=#{guest_email} and home_seq=#{home_seq}
+		guest_email=#{guest_email} <!-- and home_seq=#{home_seq} -->
 	</select>
 
 	<select id="getRoomSeq" resultType="int">

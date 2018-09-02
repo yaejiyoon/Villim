@@ -45,7 +45,8 @@
 <script>
 	$(document).ready(function(){
 		$("#continueBT2").click(function(){
-			$(location).attr('href','paymentCancelProc.re?reserv_seq=${reservationDTO.reservation_seq}');
+		var message=$('#message').val();
+			$(location).attr('href','paymentCancelProc.re?reserv_seq=${reservationDTO.reservation_seq}?message_content='+message);
 		});
 		
 		

@@ -1390,7 +1390,7 @@ public class HomeInfoController {
 	@RequestMapping("/paymentCancelProc.re")
 	public ModelAndView paymentCancelProc(HttpServletRequest req) {
 		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
-		
+		String message_content=req.getParameter("message_content");
 		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
 		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
 		
