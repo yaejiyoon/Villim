@@ -115,7 +115,14 @@
 		
 	}
 </style>
+<script>
+function newListFunction2() {
+      $("#makeList").css({"display":"none"});
+      $("#main_likeyListDiv").css({"display":"block"});
+   };
 
+</script>
+</script>
 <script>
 	$(document).ready(function(){
 		
@@ -179,14 +186,6 @@
 			
 		})
 		
-/* 		<c:forEach items="${likeyList }" var="likeyList">
-			<c:forEach items="${likeyHeart }" var="likeyHeart">
-				<c:if test="${likeyList.likeyList_seq eq likeyHeart.likeyList_seq }">
-		 			$("#likeyBTID${likeyList.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
-				</c:if>
-		 	</c:forEach>	
-		</c:forEach> */
-		
 	})
                 
 </script>
@@ -217,16 +216,9 @@
                			<button id="cancelListBT" class="btn btn-secondary" style="float:right; margin-right: 10px;">취소</button>
                			<br><br>
                		</div>
-               		<a href='javascript:void(0);' id="makeList" onClick='newListFunction2();'><br>새 목록 만들기</a>
+               		<a href='javascript:void(0);' id="makeList" onclick='newListFunction2();'><br>새 목록 만들기</a>
                		<div id="afterLineDiv"></div>
                		<script>
-               		
-               		$(function () {
-               			function newListFunction2() {
-               				$("#makeList").css({"display":"none"});
-               				$("#main_likeyListDiv").css({"display":"block"});
-               			}
-               		})
                		
                			
                			
@@ -244,7 +236,7 @@
                				}else{
                					var likeyListName = $("#makeName").val();
                					$('#makeName').val("");
-               					var home_seq = ${hdto.home_seq};
+               					var home_seq = $("#hiddenValue6").val();
                					
                					$.ajax({
                						url:"likeList.do",
