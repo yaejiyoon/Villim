@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -1284,9 +1285,12 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/paymentCancelProc.re")
-	public ModelAndView paymentCancelProc(HttpServletRequest req) {
+	public ModelAndView paymentCancelProc(HttpServletRequest req) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
 		String message_content=req.getParameter("message_content");
+		
+		System.out.println("paymentCancelProc.re들어왔따잉"+"예약 번호 : "+reservation_seq+" /내용 : "+message_content);
 		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
 		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
 		
@@ -1298,17 +1302,121 @@ public class HomeInfoController {
 
 		String checkInDate = null;
 		String checkOutDate = null;
-
 		if(checkIn != null || checkOut != null) {
 			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
 			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
 
 			System.out.println(checkInDate+ " : " +checkOutDate);
 		}
+
+		//메세지 보내기
+		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
+		MessageRoomDTO roomdto = new MessageRoomDTO();
+		roomdto.setHost_email(reservationDTO.getHost_email());
+		roomdto.setGuest_email(reservationDTO.getMember_email());
+
+		MessageRoomDTO messageRoomSeqExist = MessageService.messageRoomSeqExist(roomdto);
+		int message_room_seq = 0;
+		if (messageRoomSeqExist != null) {
+			message_room_seq = messageRoomSeqExist.getMessage_room_seq();
+			System.out.println("msgroom정보 이미 존재");
+		}
+
+		System.out.println("message_room_seq= " + message_room_seq);
+		
+		MessageDTO messageDTO = new MessageDTO();
+		
+		messageDTO.setMessage_room_seq(message_room_seq);
+		messageDTO.setHome_seq(reservationDTO.getHome_seq());
+		messageDTO.setFromID(reservationDTO.getMember_email());
+		messageDTO.setToID("plmn855000@gmail.com"/*reservationDTO.getHost_email()*/);
+		messageDTO.setMessage_content(message_content);
+		
+		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
+		int messageInsertResult = this.MessageService.messageInsert(messageDTO);
+		if (messageInsertResult > 0) {
+			System.out.println("결제 취소 메세지 전송 완료!");
+			 System.out.println("message_seq : "+messageDTO.getMessage_seq());
+		
+			 
+			//실제 메세지 보내기
+			  MemberDTO mGuest=memberService.printProfile(reservationDTO.getMember_email());
+			  MemberDTO mHost=memberService.printProfile(reservationDTO.getHost_email());
+             
+				mav.addObject("message_room_seq", message_room_seq);
+				mav.addObject("home_seq", reservationDTO.getHome_seq());
+				mav.addObject("member_email",reservationDTO.getHost_email());
+			    mav.addObject("message_seq",messageDTO.getMessage_seq());
+			  MailSendDTO mailDto = new MailSendDTO(mailSender);
+				String mail = mHost.getMember_email();
+				System.out.println(mail);
+				System.out.println("멤버 사진 : "+mGuest.getMember_picture());
+				String urls = "<div style=\"heigh:100%;width:100%;height:45vw;\">" + 
+						"<img src=\"logo2.png/>\" style=\"position:relative;left:6vw;top:4vh;\">" + 
+						"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">" + 
+						"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의  결제취소 메세지에 답하세요</h3>" + 
+						"<img style=\"width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">" + 
+						"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>" + 
+						"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>" + 
+						"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">" + 
+						"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+messageDTO.getMessage_content()+"</h4>" + 
+						"</div>" + 
+						"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>" + 
+						"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>" + 
+						"<hr style=\"margin-top:0;margin-left:0;padding:0;width:68%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">" + 
+						"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">" + 
+						"빌림 드림 ♥<br>" + 
+						"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>" + 
+						"</div>" +"</div>";
+				
+
+				
+				try {
+				
+				mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 결제 취소 메세지입니다.");
+				mailDto.setText(urls);
+				mailDto.setFrom("villim.cf", "villim.cf");
+				mailDto.setTo(mail);
+				mailDto.send();
+				System.out.println("메일보내기 성공");
+
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+				 System.out.println("msg_seq : "+messageDTO.getMessage_seq());
+				  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
+				  
+			      String to = "82" +mHost.getMember_phone();
+			      String from = "33644643087";
+			      String message =  URLEncoder.encode("[Villim] : "+mGuest.getMember_name()+", "+getMessageAfterSend.getCheckIn()+" - "+getMessageAfterSend.getCheckOut()+", '"+getMessageAfterSend.getMessage_content()+"'","UTF-8");
+			      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+			    
+			      StringBuilder sb = new StringBuilder();
+			      sb.append(sendUrl);
+			      sb.append("&to=" + to);
+			      sb.append("&from=" + from);
+			      sb.append("&text=" + message);
+
+			      System.out.println(sb.toString());
+
+			      try {
+			         URL url = new URL(sb.toString());
+			         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			         int result = con.getResponseCode();
+			         System.out.println(result);
+			         con.disconnect();
+			      }catch(Exception e) {
+			    	  e.printStackTrace();
+			      }
+			         //
+				
+		}
 		
 		
 		
-		ModelAndView mav = new ModelAndView();
+	
+
 		mav.addObject("checkInDate", checkInDate);
 		mav.addObject("checkOutDate", checkOutDate);
 		mav.addObject("reservationDTO", reservationDTO);

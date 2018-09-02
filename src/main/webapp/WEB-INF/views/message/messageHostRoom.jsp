@@ -36,10 +36,10 @@
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>${guest_name}님과의 대화</title>
 <style>
-@font-face {
+/* @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
-   }
+   } */
 .card {
 	transition: 0.3s;
 	width: 18vw;
@@ -264,6 +264,8 @@
   color: #595858;
   font-family: arial;
   position: relative;
+  
+  
 }
 
 
@@ -274,12 +276,14 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 10px solid #e2e2e2;
+  
+  border-left: 10px solid #fff2f2;
   border-right: 10px solid transparent;
-  border-top: 10px solid #e2e2e2;
+  border-top: 10px solid #fff2f2;
   border-bottom: 10px solid transparent;
   right: -21px;
   top: 6px;
+ 
 }
 
 .sb5:after {
@@ -287,12 +291,13 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 7px solid #e2e2e2;
+  border-left: 7px solid #fff2f2;
   border-right: 7px solid transparent;
-  border-top: 7px solid #e2e2e2;
+  border-top: 7px solid #fff2f2;
   border-bottom: 7px solid transparent;
   right: -11px;
   top: 10px;
+  
 }
 
 
@@ -637,7 +642,7 @@ $(document).ready(function(){
      </div>
     <!-- 달력    -->
    
-    <div class="datepicker-here" style="position:relative;width:90%;top:-2vh;left:0.4vw;border:0px;"></div>
+    <div class="datepicker-here" style="position:relative;width:90%;top:-2vh;left:0.4vw;border:0px;z-index:50000;"></div>
    <script>
                       $(document).ready(function(){
        
@@ -821,7 +826,7 @@ $(document).ready(function(){
         <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-4vh;margin-bottom:0;margin-top:0;">${message.message_content}
+      <div class="box1 sb5" style="position:relative;background:#fff2f2;border:#fff2f2;left:-3vw;width:80%;height:auto;top:-4vh;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       
@@ -870,14 +875,17 @@ $(document).ready(function(){
       <div class="radiobutton"></div>
     </li>
     <li>
-      <input type="radio" id="slow" name="selector">
+      <input type="radio" id="slow" name="selector"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       <label for="slow">기타</label>
       <div class="radiobutton"></div>
+      <div class="collapse" id="collapseExample">
+   <input type="text" class="form-control" value="" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
+</div>
     </li>
   </ul>
       </div>
        <div class="modal-footer" style="border:none;">
-       <button type="button" class="btn btn-default" style="position:relative;left:-2.5vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
+       <button type="button" class="btn btn-default" style="position:relative;left:-2.0vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
        
         </div>
      </div>

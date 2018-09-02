@@ -43,7 +43,9 @@
 	$(document).ready(function(){
 		$("#continueBT2").click(function(){
 		var message=$('#message').val();
-			$(location).attr('href','paymentCancelProc.re?reserv_seq=${reservationDTO.reservation_seq}?message_content='+message);
+			/* $(location).attr('href','paymentCancelProc.re?reserv_seq=${reservationDTO.reservation_seq}); */
+			
+			$('#formId').submit();
 		});
 	})
 </script>
@@ -64,12 +66,14 @@
 					<p>빌림님에게 왜 취소해야 하는지 알려주세요</p>
 					<br>
 					<p class="title">빌림님에게 메세지 보내기</p>
+					<form action="paymentCancelProc.re" method="post" id="formId">
 					<textarea class="form-control" style="resize:vertical;position:relative;top:2vh;" name="message_content" id="message" placeholder="여기에 메세지를 입력하세요" maxlength="500" rows="7" required autofocus></textarea>
-					
+					<input type="hidden" name="reserv_seq" value="${reservationDTO.reservation_seq}">
 					<br>
 					<br>
 					<br>
 					<button id="continueBT2" class="btn btn-secondary">계속</button>
+					</form>
 				</div>
 			</div>
 			<div id="paymentRight">

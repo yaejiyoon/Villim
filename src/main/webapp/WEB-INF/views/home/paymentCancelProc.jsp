@@ -42,7 +42,7 @@
 <script>
 	$(document).ready(function(){
 		$("#goIndex").click(function(){
-			$(location).attr('href','/');
+			$(location).attr('href','messageRoomEnter.msg?message_room_seq=${message_room_seq}&home_seq=${home_seq}&member_email=${member_email}&message_seq=${message_seq}');
 		});
 	})
 </script>
@@ -65,7 +65,7 @@
 					<br>
 					<br>
 					<br>
-					<button id="goIndex" class="btn btn-secondary">메인으로 돌아가기</button>
+					<button id="goIndex" class="btn btn-secondary">메세지룸으로 돌아가기</button>
 				</div>
 			</div>
 			<div id="paymentRight">
