@@ -1,7 +1,7 @@
 <%@ page pageEncoding="utf8"%>
 
 <style>
-	#likeyModal{
+	#likeyMainModal{
 		margin-top: 50px;
 		margin: 0 auto;
 		height:auto;
@@ -310,7 +310,7 @@
          function clickclick(BTid,Pid,seq) {
         	 
         	 var home_seq = ${hdto.home_seq }
-     		
+     		var likeylist_Seq = seq;
      		
      		var listName = $("#"+Pid).html();
 			alert(listName);
@@ -325,6 +325,22 @@
                  .attr("src","<c:url value='../resources/img/like2.png'/>");
      				
      			$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
+     			
+     			$.ajax({
+					url:"likey.do",
+					type:"get",
+					data:{
+						likeylist_Seq:likeylist_Seq,
+						home_seq:home_seq
+						},
+				success:function(){
+					console.log("전달 성공!")
+					},
+				error : function(request,status,error) {
+					console.log(request.status + " : " + status + " : " + error);
+					}
+				})
+     			
      		}else{
      			$("#"+BTid)
                  .find("img")

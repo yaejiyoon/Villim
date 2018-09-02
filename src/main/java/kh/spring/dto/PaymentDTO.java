@@ -9,16 +9,22 @@ public class PaymentDTO {
 	private String checkOut;
 	private String payment_amount;
 	private String payment_state;
-	private String payment_date;
+	private String member_name;
 	private String host_email;
+	private String home_name;
+	private String account_number;
+	private String receiveDate;
+	private String payment_date;
+	private String merchant_uid;
 	
 	
 	public PaymentDTO() {
-		
+
 	}
 
 	public PaymentDTO(int payment_seq, int home_seq, String member_email, int reservation_seq, String checkIn,
-			String checkOut, String payment_amount, String payment_state, String payment_date, String host_email) {
+			String checkOut, String payment_amount, String payment_state, String member_name, String host_email,
+			String home_name, String account_number, String receiveDate, String payment_date, String merchant_uid) {
 		super();
 		this.payment_seq = payment_seq;
 		this.home_seq = home_seq;
@@ -28,9 +34,15 @@ public class PaymentDTO {
 		this.checkOut = checkOut;
 		this.payment_amount = payment_amount;
 		this.payment_state = payment_state;
-		this.payment_date = payment_date;
+		this.member_name = member_name;
 		this.host_email = host_email;
+		this.home_name = home_name;
+		this.account_number = account_number;
+		this.receiveDate = receiveDate;
+		this.payment_date = payment_date;
+		this.merchant_uid = merchant_uid;
 	}
+
 
 
 	public int getPayment_seq() {
@@ -113,13 +125,13 @@ public class PaymentDTO {
 	}
 
 
-	public String getPayment_date() {
-		return payment_date;
+	public String getMember_name() {
+		return member_name;
 	}
 
 
-	public void setPayment_date(String payment_date) {
-		this.payment_date = payment_date;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 
 
@@ -132,5 +144,56 @@ public class PaymentDTO {
 		this.host_email = host_email;
 	}
 
+
+	public String getHome_name() {
+		return home_name;
+	}
+
+
+	public void setHome_name(String home_name) {
+		this.home_name = home_name;
+	}
+
+
+	public String getAccount_number() {
+		return account_number;
+	}
+
+
+	public void setAccount_number(String account_number) {
+		this.account_number = account_number;
+	}
+
+
+	public String getReceiveDate() {
+		return receiveDate;
+	}
+
+
+	public void setReceiveDate(String receiveDate) {
+		this.receiveDate = receiveDate;
+	}
+
+
+	public String getPayment_date() {
+		return payment_date;
+	}
+
+
+	public void setPayment_date(String payment_date) {
+		this.payment_date = payment_date;
+	}
+
+
+	public String getMerchant_uid() {
+		return merchant_uid;
+	}
+
+
+	public void setMerchant_uid(String merchant_uid) {
+		this.merchant_uid = merchant_uid;
+	}
+	
+	
 	
 }

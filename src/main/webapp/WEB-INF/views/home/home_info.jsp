@@ -48,6 +48,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
         src: url('<c:url value='/resources/fonts/dx.ttf'/>');
    }
    
+   #scrollNav{
+   		font-family: font2;
+   }
+   
    #lightgallery{
 		list-style: none;
 		width:20px !important;
@@ -212,7 +216,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <div id="info-wrapper">
       <div id="info-contents">
          <div id="info-contents-photo">
-         	<img src="<c:url value='../resources/img/home.jpg'/>" >
+         	<img src="<c:url value='files/${hdto.home_main_pic}'/>" >
          	
          	
          	<!-- 사진보기-->
@@ -264,7 +268,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				<span>집 전체</span>
                				<h2 style="color:black; margin-top:2px;">
                				${hdto.home_name}
-							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
                				</h2>
                				<span> ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</span>
                				<br>
@@ -1150,7 +1153,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			<span>지역 정보</span>
                			<br>
-               			<h5>Kim님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
+               			<h5>${memberDTO.member_name }님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
                			<p>${hddto.home_desc_region }</p>
                			<div id="map-collapse" class="collapse">
                				<div class="card card-body">
@@ -1215,7 +1218,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                		</div>
 
-						<!-- <script>
+						<script>
         					var map;
 							function initMap() {
 								map = new google.maps.Map(document
@@ -1244,7 +1247,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							}
 							
 							
-						</script> -->
+						</script>
 
 					</div>
                
@@ -1368,7 +1371,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     						checkinDate = formatDate(date[0]);
                     						
                     						/* inpunt value */
-            								$("#calendarDrop").val(checkinDate + "              →         체크아웃");
+            								$("#calendarDrop").val(checkinDate + "  →    체크아웃");
                     					}
                     					
                     					if(date.length == 2){
@@ -1383,7 +1386,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                         					console.log(checkoutDate);
                     						
                     						/* inpunt value */
-            								$("#calendarDrop").val(checkinDate + "              →           "+checkoutDate);
+            								$("#calendarDrop").val(checkinDate + "      →   "+checkoutDate);
                     						
                     						/* 날짜 선택시 달력 없애기 */
 											$( "#myDropdown2" ).removeClass( "show" );
@@ -1804,8 +1807,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
    <%@ include file="../../resource/include/modal_homeInfo/likey.jsp"%>
    <!-- 지도 -->
-	<!-- <script 
+	<script 
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>
-	</script> -->
+	</script>
 </body>
 </html>

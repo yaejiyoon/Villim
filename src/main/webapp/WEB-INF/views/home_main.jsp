@@ -303,33 +303,34 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	$('body').delegate('#myonoffswitch','click',function(){
-	     var chkval = 0;
-	          if($('#myonoffswitch').is(':checked')){
-	            chkval  = 1;
-	          } else {
-	        	chkval = 2;
-	          }
-	        var on = document.getElementById('mapOnDiv');
-	        var off = document.getElementById('mapOffDiv');
-	   $.ajax({
-	       url: "homeMain.do",
-	       type: "get",
-	       data:{chkval:chkval},
-	
-	       success:function(returndata){
-	    	   if(chkval==1) {
-					on.style.display = 'block';    
-					off.style.display = 'none';
-	    	   } else if(chkval==2) {
-					on.style.display = 'none';
-					off.style.display = 'block';    
-	    	   }
-	       },error:function(errordata){
-				alert("error 2");
-	       }
-	     });
-	   
-	})
+        var chkval = 0
+          if($('#myonoffswitch').is(':checked')){
+            chkval  = 1;
+          } else {
+        	chkval = 2;
+          }
+        
+        var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
+   $.ajax({
+       url: "homeMain.do",
+       type: "get",
+       data:{chkval:chkval},
+
+       success:function(returndata){
+    	   if(chkval==1) {
+				on.style.display = 'block';    
+				off.style.display = 'none';
+    	   } else if(chkval==2) {
+				on.style.display = 'none';
+				off.style.display = 'block';    
+    	   }
+       },error:function(errordata){
+			alert("error 2");
+       }
+     });
+   
+})
 	
 	<c:if test="${mapOn!=null}">
 		   $('#myonoffswitch').prop('checked', true);
@@ -760,6 +761,10 @@ $(document).ready(function() {
  		right:30px;
  	}
  	
+ 	.likeyBT:hover{
+ 		cursor: pointer;
+ 	}
+ 	
  	.newAtag {
  	   color : black;
  	}
@@ -833,7 +838,73 @@ $(document).ready(function() {
 								    <span class="sr-only">Next</span>
 								  </a>
 								</div>
-							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" id="likeyBTId${homeList.home_seq }">
+							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" 
+							id="likeyBTId${homeList.home_seq }" data-toggle="modal" href="#likeyMainModal"
+							data-pic-id="${homeList.home_main_pic}" data-name-id="${homeList.home_name }"
+							data-addr1-id="${homeList.home_addr1 }" data-addr2-id="${homeList.home_addr2 }"
+							data-nation-id="${homeList.home_nation }" data-seq-id="${homeList.home_seq }"
+							>
+							<script>
+							$(function () {
+							    $(".likeyBT").click(function () {
+							        var home_main_pic = $(this).data('pic-id');
+							        $(".modal-body #hiddenValue").val(home_main_pic);
+							        
+							        var home_name = $(this).data('name-id');
+							        $(".modal-body #hiddenValue2").val(home_name);
+							        
+							        var home_addr1 = $(this).data('addr1-id');
+							        $(".modal-body #hiddenValue3").val(home_addr1);
+							        
+							        var home_addr2 = $(this).data('addr2-id');
+							        $(".modal-body #hiddenValue4").val(home_addr2);
+							        
+							        var home_nation = $(this).data('nation-id');
+							        $(".modal-body #hiddenValue5").val(home_nation);
+							        
+							        var home_seq = $(this).data('seq-id');
+							        $(".modal-body #hiddenValue6").val(home_seq);
+							        
+							        var name= $("#hiddenValue2").val();
+					         		$("#home_home_name").text(name);
+					         		
+					         		var addr1= $("#hiddenValue3").val();
+					    	  		var addr2= $("#hiddenValue4").val();
+					    	  		var nation= $("#hiddenValue5").val();
+					         		
+					         		$("#home_home_addr").text(nation+", "+addr1+", "+addr2);
+					         		
+					         		var pic= $("#hiddenValue").val();
+					         		$("#home_home_pic").attr("src","<c:url value='files/"+pic+"'/>");
+					         		
+					         		var home_seq_heart = $("#hiddenValue6").val();
+					         		
+					         		
+					         		$.ajax({
+										url:"HeartHeart.do",
+										type:"get",
+										data:{
+											home_seq_heart:home_seq_heart
+											},
+									success:function(resp){
+											
+										for(var i=0;i<resp.lLikey.length;i++){
+											for(var j=0;j<resp.likeyHeart.length;j++){
+												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
+														$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
+													}
+												}
+											}
+										}
+										,
+									error : function(request,status,error) {
+										console.log(request.status + " : " + status + " : " + error);
+										}
+									})
+					         		
+							    })
+							});
+   							</script>
 							<p class="homeType" id="homeType${homeList.home_seq}">${homeList.home_type}</p>
 		                  	<p class="homeName" id="homeName${homeList.home_seq}">
 		                    <B>${homeList.home_name}</B>
@@ -845,13 +916,12 @@ $(document).ready(function() {
 						</div>
 				  </div>
 				  </a>
-					</c:forEach>
+				</c:forEach>
 				  
 				</div> 
 <!-- 				row -->
 				
 			</div>
-			
 			
 			
 			
@@ -1222,6 +1292,7 @@ $(document).ready(function() {
 <%@ include file="../resource/include/modal_homeMain/people.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/homeType.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/price.jsp"%>
+<%@ include file="../resource/include/modal_homeInfo/likey_main.jsp"%>
 <%@ include file="../resource/include/footer.jsp"%>
 
 <script async defer

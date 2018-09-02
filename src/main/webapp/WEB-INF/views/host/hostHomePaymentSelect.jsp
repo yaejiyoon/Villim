@@ -24,22 +24,18 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
-	height: 800px;
+	height: auto;
+	margin-bottom: 100px;
 }
 
 #wrapper-sub {
-	border: 1px solid black;
 	width: 100%;
 	height: auto;
-	display: inline-block;
-	float: left;
 }
 
 #left-side {
-	border: 1px solid black;
 	width: 30%;
 	height: 100%;
 	float: left;
@@ -56,7 +52,6 @@ div {
 	height: 100%;
 	width: 67%;
 	display: inline-block;
-	float: right;
 }
 
 .right-title {
@@ -120,21 +115,31 @@ div {
 	display: inline-block;
 	float: right;
 }
+
+#cancelbtn {
+	background-color: white;
+	color: #008489;
+	font-weight: bold;
+}
+
+#nextbtn {
+	background-color: #008489;
+	color: white;
+}
 </style>
 
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
-
 	<div id="wrapper">
 		<div id=wrapper-sub>
 			<div id="left-side">
-				<div>
-					<a href="hostHomeManage.do" style="color: #A4A4A4;">알림</a>
-				</div>
-				<div>
-					<a href="#" style="color: #A4A4A4;">결제 수단</a>
-				</div>
+				<!-- 				<div> -->
+				<!-- 					<a href="hostHomeManage.do" style="color: #A4A4A4;">알림</a> -->
+				<!-- 				</div> -->
+				<!-- 				<div> -->
+				<!-- 					<a href="#" style="color: #A4A4A4;">결제 수단</a> -->
+				<!-- 				</div> -->
 				<div>
 					<a href="hostHomePayment.do" style="color: Black;"><b>대금 수령
 							방법</b></a>
@@ -158,41 +163,46 @@ div {
 					</div>
 					<div>
 						<div class=radio-wrap>
-							<input id="radio1" type="radio" name="payment">
+							<input id="radio1" type="radio" name="payment"
+								data-toggle="modal" data-target="#myModal">
 						</div>
 						<div class=radio-content>
-							<label for="radio1">페이팔에 USD($)(으)로 수령<br> 3~4시간 내에 지급<br> 수수료가 부과될 수 있음</label>
+							<label for="radio1">페이팔에 USD($)(으)로 수령<br> 3~4시간 내에
+								지급<br> 수수료가 부과될 수 있음
+							</label>
 						</div>
-
 						<div class=line></div>
 
 						<div class=radio-wrap>
 							<input id=radio2 type="radio" name="payment">
 						</div>
 						<div class=radio-content>
-							<label for=radio2>페이팔에 USD($)(으)로 수령<br> 3~4시간 내에 지급<br> 수수료가 부과될 수 있음</label>
+							<label for=radio2>은행 송금에 KRW(￦)(으)로 수령<br>·영업일 기준으로
+								3~5일 이내 지급<br> 수수료가 없음
+							</label>
 						</div>
-
-						<div class=line></div>
-
-						<div class=radio-wrap>
-							<input id=radio3 type="radio" name="payment">
-						</div>
-						<div class=radio-content>
-							<label id="radio3">페이팔에 USD($)(으)로 수령<br> 3~4시간 내에 지급<br> 수수료가 부과될 수 있음</label>
-						</div>
+						<script>
+							$("#radio1").click(function() {
+								$('#nextbtn').prop("disabled", true);
+								$('#myModal').modal();
+							})
+							$("#radio2").click(function() {
+								$('#nextbtn').removeAttr("disabled");
+							})
+						</script>
 					</div>
 
 					<div class=line></div>
 
 					<div class="btn-wrap">
 						<div class=btn-wrap-sub1>
-							<button class="btn btn-info btn-lg" type="button"
-							onclick="location.href='hostHomePayment.do'">뒤로</button>
+							<button class="btn btn-lg" id=cancelbtn type="button"
+								onclick="location.href='hostHomePayment.do'">〈 뒤로</button>
 						</div>
 						<div class=btn-wrap-sub2>
-							<button class="btn btn-info btn-lg" type="button"
-							onclick="location.href='hostHomePaymentAddress.do'" >다음</button>
+							<button class="btn btn-lg" id="nextbtn" type="button"
+								onclick="location.href='hostHomePaymentAddress.do'">다음
+								〉</button>
 						</div>
 					</div>
 
@@ -200,6 +210,30 @@ div {
 			</div>
 		</div>
 	</div>
+
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" style="height: 100px;">
+					<p>준비중입니다. 빠른 시일 내에 준비하겠습니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+
+	<script>
+		
+	</script>
 
 	<%@ include file="../../resource/include/footer.jsp"%>
 </body>

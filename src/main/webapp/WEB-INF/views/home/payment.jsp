@@ -36,7 +36,7 @@
 				url:"https://api.iamport.kr/users/getToken",
 				data:{
 					imp_key : "3566446879345688",
-					imp_secret : "198z86RsCz453GUMFifbU54gd0CLdJAfSJP1QHusgyxkes7UKm5FraVFbyqph1EaKubAbG3seAMt3ToN"
+					imp_secret : "ROZteDbPjADbIXeFMXM9Mtj4NUM1T3ULRUe6xqWR0A2Ixhnkfau1EN5rISsBVnnNhBUP2QH2rKLZ19kg"
 				},
 				type:"post",
 				success:function(resp){
@@ -111,7 +111,7 @@
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
 			        
-			        $(location).attr('href','payment.re?seq='+${reservationDTO.reservation_seq}+'&home_seq='+${hdto.home_seq});
+			        $(location).attr('href','payment.re?seq='+${reservationDTO.reservation_seq}+'&home_seq='+${hdto.home_seq}+'&mr='+rsp.merchant_uid);
 			        
 			    } else {
 			        var msg = '결제에 실패하였습니다.';

@@ -457,6 +457,8 @@ public class MemberController {
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			mav.addObject("homeList", homeList);
+			String	isemail = request.getSession().getAttribute("login_email").toString();
+			System.out.println(isemail);
 			mav.setViewName("index");
 			return mav;
 		} else {

@@ -25,22 +25,19 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
 	height: auto;
 }
 
 #wrapper-sub {
-	border: 1px solid black;
 	width: 100%;
-	height: auto;
 	display: inline-block;
 	float: left;
+	margin-bottom: 100px;
 }
 
 #left-side {
-	border: 1px solid black;
 	width: 30%;
 	height: 100%;
 	float: left;
@@ -182,6 +179,10 @@ div {
 .nav-wrap {
 	margin-top: 50px;
 }
+
+#footer {
+	display: inline-block;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -203,17 +204,20 @@ div {
 </script>
 </head>
 <body>
+	<%
+		int cnt = 0;
+	%>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 
 	<div id="wrapper">
 		<div id=wrapper-sub>
 			<div id="left-side">
-				<div>
-					<a href="hostHomeManage.do" style="color: #A4A4A4;">알림</a>
-				</div>
-				<div>
-					<a href="#" style="color: #A4A4A4;">결제 수단</a>
-				</div>
+				<!-- 				<div> -->
+				<!-- 					<a href="hostHomeManage.do" style="color: #A4A4A4;">알림</a> -->
+				<!-- 				</div> -->
+				<!-- 				<div> -->
+				<!-- 					<a href="#" style="color: #A4A4A4;">결제 수단</a> -->
+				<!-- 				</div> -->
 				<div>
 					<a href="hostHomePayment.do" style="color: #A4A4A4;">대금 수령 방법</a>
 				</div>
@@ -248,11 +252,10 @@ div {
 								</div>
 
 								<div>
-									<div style="width:100%;">
+									<div style="width: 100%;">
 										<select class="form-control input-lg" id="sel"
 											onchange="if(this.value) location.href=(this.value);"
-											style="width: 100%; display: inline-block; margin-top: 10px;
-											margin-bottom: 5px;">
+											style="width: 100%; display: inline-block; margin-top: 10px; margin-bottom: 5px;">
 											<option value="hostHomePaymentBreakdown.do#profile">모든
 												숙소</option>
 											<c:forEach var="hlist" items="${hlist}">
@@ -329,7 +332,7 @@ div {
 
 							<div role="tabpanel" class="tab-pane" id="profile">
 								<div style="margin-top: 20px; margin-bottom: 20px;">
-									<b>입금 예정 금액:</b>
+									<b>입금 예정 금액 : &nbsp;￦${amount }</b>
 								</div>
 								<div>
 									<select class="form-control input-lg" id="sel"
@@ -343,51 +346,69 @@ div {
 										</c:forEach>
 									</select>
 								</div>
-								<div style="margin-top: 50px; width: 100%; height: auto;">
-									<div>
-										<div class="panel-group" id="accordion" role="tablist"
-											aria-multiselectable="true">
-											<div class="panel panel-default">
-												<div class="panel-heading" role="tab" id="headingOne">
-													<h4 class="panel-title">
-														<a data-toggle="collapse" data-parent="#accordion"
-															href="#collapseOne" aria-expanded="false"
-															aria-controls="collapseOne"> <b>
-																member_name,체크인날짜 체크아웃 날짜,host_name </b>
 
-														</a>
-													</h4>
+								<c:if test="${plist.size() != 0 }">
+									<c:forEach var="plist" items="${plist }">
+										<%
+											cnt++;
+										%>
+										<div
+											style="margin-top: 20px; float: left; width: 100%; height: 100px; border: 1px solid #E6E6E6">
+											<div style="width: 69%; display: inline-block;">
+												<div style="margin-bottom: 10px;">
+													<b>${plist.receiveDate}</b>
 												</div>
-												<div id="collapseOne" class="panel-collapse collapse in"
-													role="tabpanel" aria-labelledby="headingOne">
-													<div class="panel-body">
-														<div class="ar-sub">
-															<div>예약 코드</div>
-															<div>결제코드넣기</div>
-														</div>
-														<div class=line></div>
-														<div class="ar-sub">
-															<div>수령 예정 금액</div>
-															<div>금액 넣기</div>
-														</div>
-														<div class=line></div>
-														<div class="ar-sub">
-															<div>예상 입금 날짜</div>
-															<div>2018년 8월 22일</div>
-														</div>
-														<div class=line></div>
-														<div class="ar-sub">
-															<div>대금 수령 방법</div>
-															<div>페이팔</div>
-														</div>
+												<div>${plist.member_name },${plist.checkIn}-
+													${plist.checkOut }</div>
+												<div>${plist.home_name }</div>
+												<div>${plist.account_number }</div>
+											</div>
+											<div
+												style="color: #008489; width: 30%; height: 100%; float: right; text-align: right; display: inline-block;">
+												<a data-toggle="collapse" href="#collapseExample<%=cnt%>"
+													style="color: #008489;" aria-expanded="false"
+													aria-controls="collapseExample"><span
+													style="font-size: 17px;">￦${plist.payment_amount }</span>
+													&nbsp;<span style="font-size: 23px; margin-top: 5px;"
+													class="glyphicon glyphicon-chevron-down"></span> </a>
+											</div>
+										</div>
+										<div class="collapse" id="collapseExample<%=cnt%>"
+											style="background-color: white;">
+											<div class="well" style="padding: 0;">
+												<div class="panel-body" style="background-color: white;">
+													<div class="ar-sub">
+														<div>예약 코드</div>
+														<div>${plist.payment_seq }</div>
+													</div>
+													<div class=line></div>
+													<div class="ar-sub">
+														<div>수령 예정 금액</div>
+														<div>￦${plist.payment_amount }</div>
+													</div>
+													<div class=line></div>
+													<div class="ar-sub">
+														<div>예상 입금 날짜</div>
+														<div>${plist.receiveDate}</div>
+													</div>
+													<div class=line></div>
+													<div class="ar-sub">
+														<div>대금 수령 방법</div>
+														<div>은행 수령</div>
 													</div>
 												</div>
 											</div>
 										</div>
+
+									</c:forEach>
+								</c:if>
+								<c:if test="${plist.size() == 0 }">
+									<div
+										style="margin-top: 20px; width: 100%; height: auto; font-size: 18px;">
+										<b style="font-size: 20px;">수령예정 내역이 없습니다.</b> 현재 선택한 숙소 및 대금
+										수령 방법에 대한 결과
 									</div>
-
-
-								</div>
+								</c:if>
 							</div>
 						</div>
 
