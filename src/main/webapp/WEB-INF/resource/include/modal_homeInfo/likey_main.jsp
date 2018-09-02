@@ -161,12 +161,12 @@ function newListFunction2() {
 					}
 				})
 				
-			}else{
+			}else if(srcBT == '../resources/img/like2.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
-				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like.png'/>");
+				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/likeW.png'/>");
 				
 				$.ajax({
 					url:"removeLikey.do",

@@ -121,6 +121,20 @@ public class ReviewDAOImpl implements ReviewDAO{
 		return 0;
 	}
 
+	@Override
+	public int totalReviewCount(int home_seq) {
+		String sql = "select count(*) from GUEST_REVIEW where home_seq=?";
+		return jdbcTemplate.queryForObject(sql, Integer.class,home_seq);
+	}
+
+	@Override
+	public int starCount(int home_seq) {
+		String sql="select sum(g_review_accuracy+G_REVIEW_CLEANLINESS+g_review_checkin+"
+				+ "G_REVIEW_COMMUNICATION+G_REVIEW_LOCATION+G_REVIEW_VALUE)"
+				+ "from guest_review where home_seq=?";
+		return jdbcTemplate.queryForObject(sql, Integer.class,home_seq);
+	}
+
 	
 	
 }

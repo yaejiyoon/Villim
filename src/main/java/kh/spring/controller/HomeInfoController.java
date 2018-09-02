@@ -136,6 +136,15 @@ public class HomeInfoController {
 		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
 		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
 		
+		//총 리뷰 갯수
+		int reviewCount = reviewService.totalReviewCount(home_seq);
+		
+		//후기 별 갯수
+		int starCount=0;
+		if(reviewCount >0) {
+			starCount = reviewService.starCount(home_seq);
+		}
+		 
 
 		//guestReview date 변환
 		for(int i=0; i<guestReviewList.size(); i++) {
@@ -311,6 +320,8 @@ public class HomeInfoController {
 		mav.addObject("likeyHeart", likeyHeart);
 		mav.addObject("homePicList", homePicList);
 		mav.addObject("picsCount", picsCount);
+		mav.addObject("reviewCount", reviewCount);
+		mav.addObject("starCount", starCount);
 		mav.setViewName("home/home_info");
 		return mav;
 	}
@@ -604,6 +615,9 @@ public class HomeInfoController {
 			}
 		}
 		
+		//후기 별 갯수
+		int starCount = reviewService.starCount(reservationDTO.getHome_seq());
+		
 		ModelAndView mav = new ModelAndView();
 	
 		mav.addObject("reservationDTO", reservationDTO);
@@ -615,6 +629,7 @@ public class HomeInfoController {
 		mav.addObject("access", access);
 		mav.addObject("rulesList", rulesList);
 		mav.addObject("rulesDetailsList", rulesDetailsList);
+		mav.addObject("starCount", starCount);
 		mav.setViewName("home/reservationReq");
 
 		return mav;

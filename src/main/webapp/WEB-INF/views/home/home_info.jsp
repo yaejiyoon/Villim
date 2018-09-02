@@ -15,11 +15,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
-<link rel="stylesheet" media="screen and (max-width: 768px)" 
+<link rel="stylesheet" media="screen and (max-width: 1150px)" 
 href="<c:url value="../../resources/css/home/test.css" />" />
 
 <!-- 사진 -->
@@ -169,6 +169,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 		<c:forEach items="${likey }" var="likey">
  			<c:if test="${likey.home_seq eq hdto.home_seq }">
  		 		$("#likeImg").attr('src','<c:url value='../resources/img/like2.png'/>')
+ 		 		$("#scrollLike").attr('src','<c:url value='../resources/img/like2.png'/>')
  			</c:if>
  		</c:forEach>
 		
@@ -185,7 +186,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <!-- scrollspy -->
 
    
-   <div id="scrollNav">
+   <div id="scrollNav" style="z-index: 800000;">
 		<div id="scrollNav-contents">
 			<div id="scrollNav-contents01">
 				<nav id="navbar-example2" class="navbar navbar-light bg-light">
@@ -199,8 +200,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 			</div>
 			<div id="scrollNav-contents02">
          		<div>
-         			<img src="<c:url value='../resources/img/like.png'/>">
-         			<p>저장</p>
+         			<img src="<c:url value='../resources/img/like.png'/>" id="scrollLike">
+         			<p style="float: right">저장</p>
          		</div>
          		<div>
 					<img src="<c:url value='../resources/img/share.png'/>">
@@ -248,13 +249,13 @@ href="<c:url value="../../resources/css/home/test.css" />" />
          	<c:if test="${sessionScope.login_email eq null}">
          		<button id="likeBT" class="btn btn-secondary" data-toggle="modal" href="#myModal1">
          			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg">
-         			<p style="display: inline;">저장</p>
+         			<p style="display: inline; margin-top: 0px;">저장</p>
          		</button>
          	</c:if>
          	<c:if test="${sessionScope.login_email ne null}">
          		<button id="likeBT2" class="btn btn-secondary" data-toggle="modal" href="#likeyModal">
-         			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg">
-         			<p style="display: inline; margin-top: 0px;">저장</p>
+         			<img src="<c:url value='../resources/img/like.png'/>" id="likeImg" style="float: left; margin-left: 10px;">
+         			<p style="display: inline; position: absolute; left:45px;">저장</p>
          		</button>
          	</c:if>
          	
@@ -289,7 +290,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				<img src="<c:url value='../resources/img/1.jpg'/>">
                				<br>
                				<div style="width:80px;">
-               				<h5 style="padding-left: 25px;">${memberDTO.member_name }</h5>
+               				<h5 style="padding-left: 20px;">${memberDTO.member_name }</h5>
                				</div>
                			</div>
                		</div>
@@ -299,8 +300,11 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			${hdto.home_contents }
                			<br>
                			<br>
+               			
                			<div id="details-collapse" class="collapse">
                				<div class="card card-body">
+               				<c:if test="${hddto ne null }">
+               			
                					<div id="homeExplain">
                						<p class="homeDescTitle">
                							숙소
@@ -325,6 +329,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                						</p>
                						<p>${hddto.home_desc_etc }</p>
                					</div>
+               					</c:if>
                				</div>
                				
                			</div>
@@ -406,6 +411,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                		</div>
                </div>
+               <c:if test="${fn:length(amenitiesList)>0}">
                <div id="info-main02">
                		<br>
                     <span>편의 시설</span>
@@ -473,6 +479,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<br>
                		<br>
                </div>
+               </c:if>
+               <c:if test="${fn:length(bedList)>0}">
                <div id="info-main03">
                		<div id="info-main03-top">
                			<br>
@@ -531,6 +539,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			
                		</div>
                </div>
+               </c:if>
+               <c:if test="${fn:length(rulesList)>0}">
                <div id="info-main07">
                		<br>
                		<span>숙소 이용규칙</span>
@@ -608,6 +618,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			
                </div>
+               </c:if>
                <div id="info-main08">
                		<br>
                		<span>예약 취소</span>
@@ -860,18 +871,24 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		
                </div>
                <div id="info-main05">
-               		<div id="info-main05-top">
-               			<div id="main05-top-sub01">
+               <c:choose>
+               		<c:when test="${fn:length(guestReviewList)<=0}">
+               			<div style="margin-top: 10px; padding-bottom: 20px; border-bottom: 1px solid #d6d6d6;">
+	               			<span style="font-weight: 600; font-size: 1.5em;">후기 (아직) 없음</span>
+               			</div>
+               			
+               		</c:when>
+               		<c:otherwise>
+               			<div id="info-main05-top">
+               			<div id="main05-top-sub01" style="padding-bottom: 25px;">
                				<br>
-               				<span>후기 342개</span>
+               				<span >후기 ${reviewCount }개</span>
                				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
             				<img src="<c:url value='../resources/img/star.png'/>" class="main05-star">
-            				<img src="<c:url value='/resources/img/search.png'/>" id="reviewSearch">
-							<input type="text" class="search-query2 form-control" placeholder="후기 검색"
-							style="float:right;" />
+            				
                			</div>
                			<div id="main05-top-sub02">
                				<div class="main05-top-sub02">
@@ -1097,11 +1114,11 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 								        
 								    }
 								</script>
-
-							
-							
 							
                		</div>
+               		</c:otherwise>
+               </c:choose>
+               		
                		<div id="info-main05-host">
                			<div id="host-top">
                			<br>
@@ -1159,10 +1176,12 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<p>${hddto.home_desc_region }</p>
                			<div id="map-collapse" class="collapse">
                				<div class="card card-body">
+               				<c:if test="${hddto.home_desc_traffic ne null}">
                					<p class="homeDescTitle">
                						교통편
                					</p>
                					<p>${hddto.home_desc_traffic }</p>
+               				</c:if>
                				</div>
                			</div>
                			
@@ -1264,12 +1283,17 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" />
             			</h3>/박
             			<br>
-            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
-            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
-            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
-            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
-            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
-            			<h6 style="display: inline;">342</h6>
+            			<c:choose>
+               				<c:when test="${starCount>0}">
+               					<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            					<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            					<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            					<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            					<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            					<h6 style="display: inline;">${starCount }</h6>
+               				</c:when>
+               			</c:choose>
+            			
             		</div>
             		<div id="fixed-sub02">
             		 	<form action="reservReq.re" method="post" id="">
@@ -1664,6 +1688,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				
             					$("#peopledown").attr("disabled",true);
             				
+            				var maxPeople = ${hdto.home_people};
             					
             				   $("#peopledown").click(function() {
             					   var intmax = parseInt($("#pcount").text());
@@ -1686,12 +1711,12 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				    $("#peopleup").click(function() {
             				       var intmax = parseInt($("#pcount").text());
             				   
-            				       if(intmax < 14 ){
+            				       if(intmax < maxPeople ){
             				          $("#peopledown").attr("disabled",false);
             				          intmax = intmax + 1; 
             				          $("#pcount").text(intmax);
             				          $("#peopleDrop").val("게스트 "+intmax+"명");
-            				       }else if(intmax = 14){
+            				       }else if(intmax = maxPeople){
             				          $("#peopleup").attr("disabled",true);
             				          $("#pcount").text(intmax);
             				          $("#peopleDrop").val("게스트 "+intmax+"명");
@@ -1754,7 +1779,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             				
             				<div id="popover-content-popService" class="hide" >
             					<div style="float: left; width:82%; margin: 10px;">
-            						<p>수수료는 에어비앤비 플랫폼을 운영하고 연중무휴 고객 지원과 같은 다양한 서비스를 제공하는데 사용됩니다.</p>
+            						<p>수수료는 빌림 플랫폼을 운영하고 연중무휴 고객 지원과 같은 다양한 서비스를 제공하는데 사용됩니다.</p>
             					</div>
             					<div style="float: right; margin-top: 10px; margin-right: 10px; cursor: pointer;">
             						<img src="<c:url value='../resources/img/delete.png'/>" style="width:10px;"

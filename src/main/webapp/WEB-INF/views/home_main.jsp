@@ -426,6 +426,8 @@ $(document).ready(function() {
 	</c:forEach>
 </c:if>
 	
+	
+	
 });
 			
 		
@@ -855,7 +857,10 @@ $(document).ready(function() {
 							>
 							<script>
 							$(function () {
-							    $(".likeyBT").click(function () {
+								
+								
+								
+							    $("#likeyBTId${homeList.home_seq }").click(function () {
 							        var home_main_pic = $(this).data('pic-id');
 							        $(".modal-body #hiddenValue").val(home_main_pic);
 							        
@@ -897,6 +902,10 @@ $(document).ready(function() {
 											},
 									success:function(resp){
 											
+										for(var i=0;i<resp.lLikey.length;i++){
+											$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
+										}
+										
 										for(var i=0;i<resp.lLikey.length;i++){
 											for(var j=0;j<resp.likeyHeart.length;j++){
 												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){

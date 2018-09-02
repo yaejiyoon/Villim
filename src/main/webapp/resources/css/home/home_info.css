@@ -440,7 +440,6 @@ body{
 
 .main05-star{
 	width:20px;
-	padding-bottom: 5px;
 }
 
 
@@ -470,6 +469,8 @@ input.search-query2 {
 	font-weight: 600;
 	font-size: 1.5em;
 }
+
+
 
 #main05-top-sub02:after{
 	content: "";
@@ -699,7 +700,7 @@ input.search-query2 {
 
 #fixed-sub01{
 	width:90%;
-	height:90px;
+	min-height:80px;
 	margin: 0 auto;
 	border-bottom:  1px solid #d6d6d6;
 }
@@ -725,7 +726,7 @@ input.search-query2 {
 
 #fixed-sub02 p{
 	margin-top: 1vh;
-	font-size: 0.6vw;
+	font-size: 12px;
 }
 
 .fixedprice{
@@ -756,7 +757,7 @@ input.search-query2 {
 	height:53px;
 	background-color: #ff5a5f;
 	color: white;
-	font-size: 2vh;
+	font-size: 15px;
 }
 
 

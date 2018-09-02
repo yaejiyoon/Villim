@@ -155,7 +155,7 @@ function enterkey() {
                		</a>
                </div>
                
-            <div id="header-pic">
+            <div id="header-pic" >
               <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${sessionScope.login_picture}"/>
