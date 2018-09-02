@@ -389,8 +389,7 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageRoomEnter.msg")
-	public ModelAndView messageRoomEnter(HttpSession session, int message_room_seq, int home_seq, String member_picture,
-			String member_name, String member_email, int message_seq) {
+	public ModelAndView messageRoomEnter(HttpSession session, int message_room_seq, int home_seq,String member_email, int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageRoomEnter");
 		System.out.println("room_seq : " + message_room_seq);
@@ -406,8 +405,8 @@ public class MessageController {
 		mav.addObject("message_room_seq", message_room_seq);
 		mav.addObject("home_seq", home_seq);
 		mav.addObject("guest_picture", guestInfo.getMember_picture());
-		mav.addObject("host_picture", member_picture);
-		mav.addObject("host_name", member_name);
+		mav.addObject("host_picture", hostInfo.getMember_picture());
+		mav.addObject("host_name", hostInfo.getMember_name());
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		mav.addObject("home_location", hdto.getHome_nation() + " " + hdto.getHome_addr1() + " " + hdto.getHome_addr3());
 		mav.addObject("home_price", hdto.getHome_price());
@@ -427,6 +426,26 @@ public class MessageController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
+		
+		 //개수
+		int guestMsgUnreadCount = this.service.guestMsgUnreadCount(userId);
+		if (guestMsgUnreadCount > 0) {
+			System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+			mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("guestMsgUnreadCount", 0);
+		}
+
+int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
+		if (hostMsgUnreadCount > 0) {
+			System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+			mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("hostMsgUnreadCount", 0);
+		}
+		
 		try {
 			Date checkIn = sdf2.parse(cI);
 			Date checkOut = sdf2.parse(cO);
@@ -605,7 +624,7 @@ public class MessageController {
 	}
 	@RequestMapping("/messageHostRoomEnter.msg")
 	public ModelAndView messageHostRoomEnter(HttpSession session, int message_room_seq, int home_seq,
-			String member_picture, String member_name, String member_email, int message_seq) {
+			String member_email, int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageHostRoomEnter");
 		System.out.println("room_seq : " + message_room_seq);
@@ -624,8 +643,8 @@ public class MessageController {
 		mav.addObject("home_seq", home_seq);
 		mav.addObject("userId", userId);
 		mav.addObject("guest_email", member_email);
-		mav.addObject("guest_picture", member_picture);
-		mav.addObject("guest_name", member_name);
+		mav.addObject("guest_picture", guestInfo.getMember_picture());
+		mav.addObject("guest_name", guestInfo.getMember_name());
 		mav.addObject("guest_location", guestInfo.getMember_location());
 		mav.addObject("host_picture", hostInfo.getMember_picture());
 		mav.addObject("getHomeNames", getHomeNames);
@@ -648,7 +667,28 @@ public class MessageController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
+		
 
+        //개수
+		int guestMsgUnreadCount = this.service.guestMsgUnreadCount(userId);
+		if (guestMsgUnreadCount > 0) {
+			System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+			mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("guestMsgUnreadCount", 0);
+		}
+
+int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
+		if (hostMsgUnreadCount > 0) {
+			System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+			mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("hostMsgUnreadCount", 0);
+		}
+
+		
 		// 날짜
 		String checkinDate = "2018-" + dto.getCheckIn().split("월")[0] + "-"
 				+ dto.getCheckIn().split("일")[0].split("월")[1];

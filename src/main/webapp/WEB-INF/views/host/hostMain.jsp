@@ -722,7 +722,7 @@
 											"${mlist.message_content}"</div>
 										<div
 											style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
-											<button type="button" class="btn btn-lg">사전승인</button>
+											<button type="button" class="btn btn-lg" onclick="location.href='messageHostRoomEnter.msg?message_room_seq=${mlist.message_room_seq}&home_seq=${mlist.home_seq}&member_email=${mlist.fromID}&message_seq=${mlist.message_seq}'">메세지</button>
 											<button type="button" class="btn btn-lg">거절</button>
 										</div>
 									</div>
@@ -794,7 +794,7 @@
 														"${mlist.message_content}"</div>
 													<div
 														style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
-														<button type="button" class="btn btn-lg">사전승인</button>
+														<button type="button" class="btn btn-lg" onclick="location.href='messageHostRoomEnter.msg?message_room_seq=${mlist.message_room_seq}&home_seq=${mlist.home_seq}&member_email=${mlist.fromID}&message_seq=${mlist.message_seq}'">사전승인</button>
 														<button type="button" class="btn btn-lg">거절</button>
 													</div>
 												</div>
