@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -97,12 +98,26 @@
    		margin-bottom: 10px;
    }
    
+   .wish-homeWrapper:hover{
+   		cursor: pointer;
+   }
+   
    #mapmap{
    		
    		width: 57vw;
    		height:86vh;
    }
    
+   #goHomeMain{
+   		background-color: #008489;
+		color:white;
+		border:2px solid #008489;
+		width: 120px;
+		height:40px;
+		font-size: 15px;
+		font-weight: 600;
+		margin-top: 10px;
+   }
 	
 </style>
 
@@ -116,10 +131,15 @@
 				<h2 style="font-weight: 800;">${likeyListDTO.likeyList_name }</h2>
 			</div>
 			<div id="wishList-homeList-bottom">
+			<c:if test="${fn:length(likeyHomeList)<=0}">
+				<B>저장된 항목 없음</B>
+				<p style="margin-top: 20px;">맘에 드는 숙소가 있으면 하트 아이콘을 눌러 저장하세요.</p>
+				<button id="goHomeMain" class="btn btn-secondary">숙소 둘러보기</button>
+			</c:if>
 				<c:forEach items="${likeyHomeList }" var="likeyHomeList" varStatus="status">
-					<div class="wish-homeWrapper" id="wishWrapperID${likeyHomeList.likey_seq}">
+					<div class="wish-homeWrapper" id="wishWrapperID${likeyHomeList.likey_seq}" onclick="location.href='home_info.do?seq=${likeyHomeList.home_seq}'">
 						<div class="wish-homePic">
-							<img src="<c:url value='../resources/img/home.jpg'/>"
+							<img src="<c:url value='files/${likeyHomeList.home_main_pic}'/>"
 								style="width: 100%; height: 100%;">
 						</div>
 						<div class="wish-homeInfo">
@@ -139,6 +159,11 @@
             </div>
 		</div>
 		<script>
+		
+			$("#goHomeMain").click(function(){
+				$(location).attr('href','homeMain.do')
+			});
+			
 			var map, infoWindow;
 			
 			
@@ -149,7 +174,7 @@
 						lat : 37.5338151,
 						lng : 126.89697839999997
 					},
-					zoom : 9
+					zoom : 5
 				});
 				
 				

@@ -1,5 +1,7 @@
 package kh.spring.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,11 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public int insertDate(PaymentDTO dto) {
 		return paymentDAO.insertDate(dto);
+	}
+
+	@Override
+	public PaymentDTO getPaymentData(int reservation_seq) {
+		return paymentDAO.getPaymentData(reservation_seq);
 	}
 
 }

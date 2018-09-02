@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -11,9 +12,16 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 
 public interface HomeService {
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map);
+
+	public int insertAccount(AccountDTO adto);
+
+	public List<AccountDTO> getAllAccount(String member_email);
+
 	public List<HomeDTO> getAllHomeData(String member_email);
 
 	public HomeDTO getOldestHomeData(String member_email);
@@ -53,7 +61,7 @@ public interface HomeService {
 	public List<String> getCalendarDate(Map<String, String> map);
 
 	public String getBlockedDate(int home_seq);
-	
+
 	public int modifyPolicy(HomeDTO hdto);
 
 	public List<ReservationDTO> getAllReservation(String member_email);
@@ -83,10 +91,9 @@ public interface HomeService {
 	public List<GuestReviewDTO> getLocation(int home_seq);
 
 	public List<GuestReviewDTO> getValue(int home_seq);
-	
+
 	public List<MessageDTO> getAllMessage(String member_email);
 
-	public int modifyHomeType(HomeDTO hdto);
 
 	public int modifybed(BedDTO bdto);
 
@@ -109,28 +116,23 @@ public interface HomeService {
 	public int modifyHomeView(int home_seq);
 
 	public List<ReservationDTO> getCalReservation(Map<String, Object> map);
-	
-	
-	
-	
-	
-	
-	
-	//----------------지혜-----------------
-	public int updateBlockedDate(String blockedDate,int home_seq);
-	
+
+	// ----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate, int home_seq);
+
 	public BedDTO getBedData(int home_seq);
 	
-	
-//	예지
+	public int updateBlocked(String blockedDate, int home_seq);
+
+	// 예지
 	public List<HomeDTO> getAllHomeDataMain();
-	
+
 	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
-	
+
 	public List<HomePicDTO> getHomePic();
-	
+
 	public List<HomeDTO> modalHomeData(Map<String, Object> param);
-	
+
 	public List<HomeDTO> getParis();
 	
 	public List<HomeDTO> getNewyork();
@@ -143,4 +145,32 @@ public interface HomeService {
 	
 	public List<HomeDTO> getMadrid();
 
+	//찬연
+		public int insertFirstHome(HomeDTO hdto);
+		
+		public HomeDTO getNewestHomeData(String email);
+		
+		public int modifyHomeType(HomeDTO hdto);
+		
+		public int modifyBathbed(HomeDTO hdto);
+		
+		public int modifyCommodity(HomeDTO hdto);
+		
+		public int modifyHomepicture(HomeDTO hdto);
+		
+		public int insertHomeDescData(HomeDescDTO hddto);
+		
+		public int modifyContents(HomeDTO hdto);
+		
+		public int modifyHomename(HomeDTO hdto);
+		
+		public int modifyHomerule(HomeDTO hdto);
+		
+		public int modifyHomecheck(HomeDTO hdto);
+		
+		public int modifyHomestay(HomeDTO hdto);
+		
+		public int modifyHomeblock(HomeDTO hdto);
+		
+		public int modifyHomeprice(HomeDTO hdto);
 }

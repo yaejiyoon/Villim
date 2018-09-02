@@ -15,7 +15,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=1" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
@@ -46,6 +46,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
       @font-face {
         font-family: font2;
         src: url('<c:url value='/resources/fonts/dx.ttf'/>');
+   }
+   
+   #scrollNav{
+   		font-family: font2;
    }
    
    #lightgallery{
@@ -212,22 +216,24 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <div id="info-wrapper">
       <div id="info-contents">
          <div id="info-contents-photo">
-         	<img src="<c:url value='../resources/img/home.jpg'/>" >
+         	<img src="<c:url value='files/${hdto.home_main_pic}'/>" >
          	
          	
          	<!-- 사진보기-->
          	
          	<div>
             	<ul id="lightgallery" class="list-unstyled row ">
-                	<li id="1stPhoto" data-src="<c:url value='/resources/img/1.jpg'/>" data-sub-html="<h4>Fading Light</h4><p>사진 설명</p>">
+                	<li id="1stPhoto" data-src="<c:url value='files/${hdto.home_main_pic}'/>">
                     	<button id="picsBT" class="btn btn-secondary">
-                    		사진 보기
-                    		<img class="img-responsive" src="<c:url value='/resources/img/1.jpg'/>" style="display: none;">
+                    		사진 ${picsCount }장 보기
+                    		<img class="img-responsive" src="<c:url value='files/${hdto.home_main_pic}'/>" style="display: none;">
                     	</button>
                 	</li>
-                	<li data-src="<c:url value='/resources/img/home.jpg'/>" data-sub-html="<p>설명설명</p>">
-                        <img class="img-responsive" src="<c:url value='/resources/img/home.jpg'/>" style="display: none;">
-                	</li>
+                	<c:forEach items="${homePicList }" var="homePicList">
+                		<li data-src="<c:url value='files/${homePicList.home_pic_name}'/>">
+                        	<img class="img-responsive" src="<c:url value='files/${homePicList.home_pic_name}'/>" style="display: none;">
+                		</li>
+                	</c:forEach>
             	</ul>
         	</div>
          	
@@ -264,7 +270,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				<span>집 전체</span>
                				<h2 style="color:black; margin-top:2px;">
                				${hdto.home_name}
-							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
                				</h2>
                				<span> ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</span>
                				<br>
@@ -1150,7 +1155,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                			<span>지역 정보</span>
                			<br>
-               			<h5>Kim님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
+               			<h5>${memberDTO.member_name }님의 숙소는 ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }에 있습니다.</h5>
                			<p>${hddto.home_desc_region }</p>
                			<div id="map-collapse" class="collapse">
                				<div class="card card-body">
@@ -1215,22 +1220,22 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                			<br>
                		</div>
 
-						<!-- <script>
+						<script>
         					var map;
 							function initMap() {
 								map = new google.maps.Map(document
 										.getElementById('mapmap'), {
 									center : {
-										lat : 37.5338151,
-										lng : 126.89697839999997
+										lat : ${hdto.home_lat},
+										lng : ${hdto.home_lng}
 									},
 									zoom : 14
 								});
 								
 								var cityCircle = new google.maps.Circle({
 									  center:{
-										  lat:37.5338151,
-										  lng:126.89697839999997
+										  lat: ${hdto.home_lat},
+										  lng: ${hdto.home_lng}
 									  },
 									  radius:500,
 									  strokeColor:"#04B4AE",
@@ -1244,7 +1249,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 							}
 							
 							
-						</script> -->
+						</script>
 
 					</div>
                
@@ -1368,7 +1373,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     						checkinDate = formatDate(date[0]);
                     						
                     						/* inpunt value */
-            								$("#calendarDrop").val(checkinDate + "              →         체크아웃");
+            								$("#calendarDrop").val(checkinDate + "  →    체크아웃");
                     					}
                     					
                     					if(date.length == 2){
@@ -1383,7 +1388,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                         					console.log(checkoutDate);
                     						
                     						/* inpunt value */
-            								$("#calendarDrop").val(checkinDate + "              →           "+checkoutDate);
+            								$("#calendarDrop").val(checkinDate + "      →   "+checkoutDate);
                     						
                     						/* 날짜 선택시 달력 없애기 */
 											$( "#myDropdown2" ).removeClass( "show" );
@@ -1804,8 +1809,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
    <%@ include file="../../resource/include/modal_homeInfo/likey.jsp"%>
    <!-- 지도 -->
-	<!-- <script 
+	<script 
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>
-	</script> -->
+	</script>
 </body>
 </html>

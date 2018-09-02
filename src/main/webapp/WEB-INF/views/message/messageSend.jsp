@@ -167,11 +167,7 @@ $(document).ready(function() {
         	return false;
         }
         
-        
-        /* var checkIn=$('#checkInOut').val().split(" ~ ")[0].split("-")[1]+"월"+checkInOut.split(" ~ ")[2]+"일";
-        var checkOut=$('#checkInOut').val().split(" ~ ")[1]+"월"+checkInOut.split("-")[2]+"일";
-        alert(checkIn);
-        alert(checkOut); */
+
         $('#checkInOut').val($('#date').val())
      
      
@@ -223,7 +219,7 @@ $(document).ready(function() {
 				<!-- <h5 style="font-weight:800;position:relative;top:0vh;left:4vw;width:10vw;height:3vh;border:1px solid red;">날짜</h5> -->
 				
 <div style="position:relative;left:1vw;"><h5 style="font-weight:800;position:relative;left:0vw;top:1vh;">날짜</h5>
-				<input type='text' id="date" class='datepicker-here form-control' data-multiple-dates-separator=" ~ " data-range="true"  data-position='left center' style="position:relative;top:1.3vh;left:0vw;width:15vw;z-index:100;text-align:center;" /></div><div class="dropdown fixed" style="position:relative;top:10vh;left:-11.5vw;">
+				<input type='text' id="date" class='datepicker-here form-control' data-multiple-dates-separator=" ~ " data-range="true"  data-position="right top" style="position:relative;top:1.3vh;left:0vw;width:15vw;z-index:100;text-align:center;" /></div><div class="dropdown fixed" style="position:relative;top:10vh;left:-11.5vw;">
             			
             				<input type="text" class="search-query3 form-control"
             				style="position: relative; width:5vw;left:-1vw; border:none;"

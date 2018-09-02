@@ -25,10 +25,10 @@ div {
 }
 
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	height: auto;
 	width: 70%;
+	margin-bottom: 100px;
 }
 
 .wrapper-sub {
@@ -36,7 +36,6 @@ div {
 }
 
 .home-reserve {
-	border: 1px solid black;
 	margin-top: 60px;
 	width: 60%;
 	float: left;
@@ -188,12 +187,17 @@ div {
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<div style="display: inline-block; width:79%; border: 1px dotted black;">
+			<div style="display: inline-block; width: 79%;">
 				<h2>${hdto.home_name }</h2>
 			</div>
-			<div style="display: inline-block; width:20%; border: 1px dotted black; text-align: right;">
+			<div style="display: inline-block; width: 20%; text-align: right;">
 				<button type="button" class="btn"
-					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'"><b>달력보기</b></button>
+					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
+					<b>달력보기</b>
+					<button type="button" class="btn">
+						<b>숙소 미리보기</b>
+					</button>
+				</button>
 			</div>
 		</div>
 
@@ -247,14 +251,24 @@ div {
 				<div class="stayPeriod">
 					<div class="stayPeriod-sub1">최소 숙박일</div>
 					<div class="stayPeriod-sub2">
-						<b>${hdto.home_min_stay }박</b>
+						<c:if test='${hdto.home_min_stay != 0}'>
+							<b>${hdto.home_min_stay }박</b>
+						</c:if>
+						<c:if test='${hdto.home_min_stay == 0}'>  
+							설정되지 않음
+						</c:if>
 					</div>
 
 					<div class="price-line"></div>
 
 					<div class="stayPeriod-sub1">최대 숙박일</div>
 					<div class="stayPeriod-sub2">
-						<b>${hdto.home_max_stay }박</b>
+						<c:if test='${hdto.home_max_stay != 0}'>
+							<b>${hdto.home_max_stay }박</b>
+						</c:if>
+						<c:if test='${hdto.home_max_stay == 0}'> 
+							설정되지 않음
+						</c:if>
 					</div>
 				</div>
 				<div class="price-line"></div>
@@ -278,35 +292,27 @@ div {
 					<div class="checkInOut-sub1">체크 인 가능 시간</div>
 					<c:if
 						test="${hdto.home_checkin_start == '시간 선택' || hdto.home_checkin_start eq null}">
-						<div class="checkInOut-sub2">
-							<b>설정되지 않음</b>
-						</div>
+						<div class="checkInOut-sub2">설정되지 않음</div>
 					</c:if>
 					<c:if test="${hdto.home_checkin_start == '조정 가능'}">
-						<div class="checkInOut-sub2">
-							<b>조정 가능</b>
-						</div>
+						<div class="checkInOut-sub2">조정 가능</div>
 					</c:if>
 					<c:if
 						test="${(hdto.home_checkin_start != '조정 가능' && hdto.home_checkin_start != '시간 선택' )
 					  && (hdto.home_checkin_end == '조정 가능' || hdto.home_checkin_end == '시간 선택' )}">
 						<div class="checkInOut-sub2">
-							<b>${hdto.home_checkin_start}:00이후</b>
-						</div>
+							${hdto.home_checkin_start}:00이후</div>
 					</c:if>
 					<c:if
 						test="${(hdto.home_checkin_start != '조정 가능' && hdto.home_checkin_start != '시간 선택' )
 					  && (hdto.home_checkin_end != '조정 가능' && hdto.home_checkin_end != '시간 선택' ) &&  hdto.home_checkin_start ne null}">
-						<div class="checkInOut-sub2">
-							<b>${hdto.home_checkin_start}:00 ~ ${hdto.home_checkin_end }:00</b>
-						</div>
+						<div class="checkInOut-sub2">${hdto.home_checkin_start}:00 ~
+							${hdto.home_checkin_end }:00</div>
 					</c:if>
 					<div class="price-line"></div>
 
 					<div class="checkInOut-sub1">체크 아웃 가능 시간</div>
-					<div class="checkInOut-sub2">
-						<b>${hdto.home_checkout }:00</b>
-					</div>
+					<div class="checkInOut-sub2">${hdto.home_checkout }:00</div>
 
 					<div class="price-line"></div>
 				</div>

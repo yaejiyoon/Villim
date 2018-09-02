@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -16,6 +17,7 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeDAO;
 
@@ -251,12 +253,6 @@ public class HomeDAOImpl implements HomeDAO {
 
 	
 
-	@Override
-	public int modifyHomeType(HomeDTO hdto) {
-		String sql = "update home set home_buildingtype=?, home_type=?, home_public=?, home_people=? where home_seq = ?";
-		return jdbcTemplate.update(sql, hdto.getHome_buildingType(), hdto.getHome_type(), hdto.getHome_public(),
-				hdto.getHome_people(), hdto.getHome_seq());
-	}
 
 	@Override
 	public int modifybed(BedDTO bdto) {
@@ -471,6 +467,12 @@ public class HomeDAOImpl implements HomeDAO {
 		public BedDTO getBedData(int home_seq) {
 			return ssTemplate.selectOne("Home.getBedData",home_seq);
 		}
+		
+		@Override
+		public int updateBlocked(String blockedDate, int home_seq) {
+			String sql = "update home set home_blocked_date=? where home_seq=?";
+			return jdbcTemplate.update(sql,blockedDate,home_seq);
+		}
 
 		// 예지
 
@@ -524,5 +526,109 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.selectList("Home.getMadrid");
 	}
 
+	@Override
+	public List<AccountDTO> getAllAccount(String member_email) {
+		return ssTemplate.selectList("Home.getAllAccount", member_email);
+	}
+
+	@Override
+	public int insertAccount(AccountDTO adto) {
+		String sql = "insert into account values(account_seq.nextval, ?,?,?)";
+		return jdbcTemplate.update(sql, adto.getHost_email(), adto.getAccount_bank(), adto.getAccount_number());
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getAllPayment", map);
+	}
 	
+	//---찬연
+
+	@Override
+	public int insertFirstHome(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.insert("Home.firststepbyone",hdto);
+	}
+
+	@Override
+	public int modifyHomeType(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.firststepbytwo", hdto);
+	}
+
+	@Override
+	public HomeDTO getNewestHomeData(String email) {
+		// TODO Auto-generated method stub
+		return ssTemplate.selectOne("Home.getNesestHomeData",email);
+	}
+
+	@Override
+	public int modifyBathbed(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.firststepbythree", hdto);
+	}
+
+	@Override
+	public int modifyCommodity(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.firststepbyfinal", hdto);
+	}
+
+	@Override
+	public int modifyHomepicture(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.secondstepbyone", hdto);
+	}
+
+	@Override
+	public int insertHomeDescData(HomeDescDTO hddto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.insert("HomeDesc.secondstepbytwosub", hddto);
+	}
+
+	@Override
+	public int modifyContents(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.secondstepbytwo", hdto);
+	}
+
+	@Override
+	public int modifyHomename(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.secondstepbyfinal", hdto);
+	}
+
+	@Override
+	public int modifyHomerule(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbyone",hdto);
+	}
+
+	@Override
+	public int modifyHomecheck(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbytwo", hdto);
+	}
+
+	@Override
+	public int modifyHomestay(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbythird", hdto);
+	}
+
+	@Override
+	public int modifyHomeblock(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbyfore", hdto);
+	}
+
+	@Override
+	public int modifyHomeprice(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return ssTemplate.update("Home.thirdstepbyfive", hdto);
+	}
+
+	
+
+
 }

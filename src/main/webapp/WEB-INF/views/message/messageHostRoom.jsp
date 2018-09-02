@@ -546,6 +546,24 @@ $(document).ready(function(){
   				
   				
   			})
+  			
+  	
+  	$("#reservRejectBT").click(function(){
+  		
+  		var reservation_seq = $("#hiddenValue").val();
+  		alert(reservation_seq);
+  		
+  		$.ajax({
+			url:"rejectResev.re",
+			type:"post",
+			data:{
+				reservation_seq: reservation_seq
+			},
+			success:function(resp){
+				location.reload();
+			}
+		})
+  	})
 	
 })
 </script>
@@ -595,7 +613,7 @@ $(document).ready(function(){
 			
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-9vh;width:100%;">
 			<div style="width:75%;position:relative;top:1vh;left:3vw;">
-			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">예약 취소</h4>
+			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;" id="reservCancelBT">예약 취소</h4>
 			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
 이 예약을 취소하면 페널티를 받게 됩니다. 페널티에는 1년간 슈퍼호스트 지위 박탈, 취소 기록을 보여주는 후기 공개, 취소 수수료가 포함되며, 취소한 예약에 해당하는 날짜가 달력에서 차단됩니다.</h5>
 			</div>
@@ -723,15 +741,27 @@ $(document).ready(function(){
     <p style="color:gray;position:relative;top:-8.8vh;left:6vw;width:16vw;">게스트의 예약을 자꾸 거절하면 검색 결과에서 뒤로 밀려날 수 있습니다.</p>
     </div>
     <form action="acceptReserv.re" method="post">
-    	<input type="hidden" name="seq" value="${re.reservation_seq}">
+    	<input type="hidden" name="seq" value="${re.reservation_seq}" id="rrseq">
     	<input type="hidden" name="roomSeq" value="${message_room_seq}">
     	<input type="hidden" name="guest_email" value="${guest_email}">
     	<input type="hidden" name="host_email" value="${userId}">
     	<input type="hidden" id="home_seq" value="${home_seq}">
     	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
     </form>
-    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:-1.6vh;left:9.1vw;">거절</button> 
-    
+    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" 
+    class="btn btn-default modalseq" style="width:30%; border: 1px solid #c9cacc;
+    font-weight:800;position:relative;top:-1.6vh;left:9.1vw;"
+    data-id="${re.reservation_seq }">
+    거절</button>
+   <script>
+   $(function () {
+	    $(".modalseq").click(function () {
+	        var my_id_value = $(this).data('id');
+	        $(".modal-body #hiddenValue").val(my_id_value);
+	        
+	    })
+	});
+   </script>
   </div>
 </div><br>
 </c:if>
@@ -746,6 +776,7 @@ $(document).ready(function(){
         <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;"><strong>${guest_name}님의 예약 요청을 거절하시겠어요?</strong></h4>
       </div>
       <div class="modal-body">
+      <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
      <h5 style="line-height:2;color:gray;position:relative;top:2.5vh;left:0.5vw;width:28vw;">게스트는 여행에 적합한 숙소를 찾기 위해 심혈을 기울입니다. 계속하기 전에 ${guest_name}님의 프로필 세부정보를 확인하세요.</h5>
       		<div style="width:4.5vw;height:8.5vh;position:relative;left:24.5vw;top:3.5vh;">
             <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
@@ -755,7 +786,7 @@ $(document).ready(function(){
       <h5 style="color:#9e9e9e;position:relative;top:-5vh;left:0.5vw;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp; 회원가입 : ${guest_regdate}</h5>
       </div>
        <div class="modal-footer" style="border:none;">
-       <button type="button" class="btn btn-default" style="position:relative;left:-19.5vw;top:-4vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">예, 거절합니다</button>
+       <button type="submit" class="btn btn-default" style="position:relative;left:-19.5vw;top:-4vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;" id="reservRejectBT">예, 거절합니다</button>
        <button type="button" class="btn btn-default" data-dismiss="modal" style="position:relative;left:-19.5vw;top:-4vh; border:2px solid #008489;color:#008489;font-weight:800;">뒤로</button>
         </div>
      </div>
