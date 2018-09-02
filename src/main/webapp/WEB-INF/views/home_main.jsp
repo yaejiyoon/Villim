@@ -53,13 +53,10 @@ $(function () {
 <script>
 var map, infoWindow;
 var locations = [];
-// var allMarkers = [];
-// var icon1 = "http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Bubble-Azure-icon.png";
-// var icon2 = "http://www.clker.com/cliparts/U/8/J/z/5/D/google-maps-icon-blue-th.png";
 function initMap() {
 	
-	var lat = -34.397;
-	var lng = 150.644;
+	var lat = 37.534286;
+	var lng = 126.901990;
 	
 	<c:if test="${lat eq null}">
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -122,7 +119,7 @@ function initMap() {
 		</c:if>
 		
 		
-		<c:forEach var="item" items="${homeList}" varStatus="status">
+		<c:forEach var="item" items="${markerList}" varStatus="status">
 			locations['${status.index}'] = new Array();
 			locations['${status.index}'][0] = "${item.home_price}";
 			locations['${status.index}'][1] = "${item.home_lat}";
@@ -174,19 +171,6 @@ function initMap() {
 		
 }
 
-</script>
-<script>
-// <c:forEach var="homeList" items="${homeList}">
-// var id = ${homeList.home_seq};
-// function hover(id) {
-// 	for (var i = 0; i < allMarkers.length; i++) {
-// 		if(id==allMarkers[i]) {
-// 			marker.get(allMarkers[i]).setIcon(icon2);
-// 			break;
-// 		}
-// 	}
-// }
-// </c:forEach>
 </script>
 <script>
 $(document).ready(function() {
@@ -247,6 +231,7 @@ $(document).ready(function() {
 					}
 		    	   
 					for(var i = 0; i < resp.home.length ; i++) {
+						$('#'+resp.home[i].home_seq).after($('<img>').attr('src',"<c:url value='../resources/img/likeW.png'/>").attr('class','likeyBT').attr('id','likeyBTId'+resp.home[i].home_seq))
 						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp.home[i].home_price+" /박"));
 						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp.home[i].home_name+"</b>"));
 						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeType').append(resp.home[i].home_type));
@@ -318,13 +303,12 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	$('body').delegate('#myonoffswitch','click',function(){
-	        var chkval = 0
+	     var chkval = 0;
 	          if($('#myonoffswitch').is(':checked')){
 	            chkval  = 1;
 	          } else {
 	        	chkval = 2;
 	          }
-	        
 	        var on = document.getElementById('mapOnDiv');
 	        var off = document.getElementById('mapOffDiv');
 	   $.ajax({
@@ -367,9 +351,9 @@ $(document).ready(function() {
 		$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
 	});
 		
-	$('#goNewyork').click(function(){
+	$('#goRome').click(function(){
 		var lat = "41.90278349999999";
-		var lng = "-12.496365500000024";
+		var lng = "12.496365500000024";
 		$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
 	});
 	
@@ -416,7 +400,7 @@ $(document).ready(function() {
      });
    });  
 	
-	<c:if test="${sessionScope.login_email ne null }">
+<c:if test="${sessionScope.login_email ne null }">
 	<c:forEach items="${homeList }" var="homeList">
 		<c:forEach items="${likeyList }" var="likeyList">
 			<c:if test="${homeList.home_seq eq likeyList.home_seq }">
@@ -542,14 +526,13 @@ $(document).ready(function() {
  		font-family: Interpark;
 		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
  		width : 100%;
- 		height : 170vh;
+ 		height : 380vh;
  	}
- 	
  	
  	
  	#mapOffDiv {
  		width : 100%;
- 		height : 300px;
+ 		height : auto;
  	}
  	
  	#footer {
@@ -581,7 +564,7 @@ $(document).ready(function() {
      	margin-top : 20px;
      	margin-left : 15vw;
      	width : 70vw;
-     	height : 30vw;
+     	height : 40vw;
      	display: inline-block;
      }
      
@@ -632,7 +615,6 @@ $(document).ready(function() {
 		height : 100%;
 		width : 100%;
 		cursor: pointer;
-
 	}
 				
 	.countryCard img {
@@ -648,21 +630,23 @@ $(document).ready(function() {
 				
 	.countryName {
 		margin-top : 15%;
-		font-size : 1.7em;
+		font-size : 2.4vh;
 		color : #a0a6af; 
 		font-family: TmonTium;
 	}
 				
 	#newyork p{
-		font-size : 1.2em;
+/* 		font-size : 1.2em; */
+ 		font-size : 1.6vh; 
 	}
 	
+	
 	#madrid p {
-		font-size: 1.4em;
+		font-size: 2vh;
 	}
 	
 	#london p {
-		font-size: 1.3em;
+		font-size: 1.8vh;
 	}
 			
 
@@ -756,7 +740,7 @@ $(document).ready(function() {
 	
 	.col {
 		margin : auto;
-		height : 33vh;
+		height : 36vh;
 	}
 	
 	#onCardsWrapper .row{
@@ -782,6 +766,12 @@ $(document).ready(function() {
  	
  	.newAtag:hover {
  	   text-decoration: none;
+ 	}
+ 	
+ 	#jaehoModal {
+  		margin-left : 70vh; 
+  		width : 600px;
+  		height : 1000px;
  	}
 </style>
 </head>
@@ -922,6 +912,7 @@ $(document).ready(function() {
 			<p class="introSentence">파리(Paris)의 숙소 </p>
 				<div class="col" id="row">
 				  <c:forEach var="paris" items="${getParis}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${paris.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="${paris.home_seq}" class="carousel slide" data-ride="carousel">
@@ -962,6 +953,7 @@ $(document).ready(function() {
                   <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  </a>
 				  </c:forEach>
 				  </div>
 				  
@@ -969,7 +961,7 @@ $(document).ready(function() {
 				
 				<p class="introSentence">뉴욕(New York)의 숙소 </p>
 			
-				<div class="row" id="row">
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1016,6 +1008,11 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  
+				</div>
+				
+				<p class="introSentence">로마(Rome)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1062,6 +1059,10 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  
+				</div>
+				<p class="introSentence">런던(London)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1108,6 +1109,11 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  
+				</div>
+				
+				<p class="introSentence">프라하(Praha)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1153,6 +1159,58 @@ $(document).ready(function() {
                   <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  
+				</div>
+				
+				<p class="introSentence">마드리드(Madrid)의 숙소 </p>
+			
+				<div class="col" id="row">
+				  <div class="col-md-3">
+					<div id="carouselDiv">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						  		<!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					    <li data-target="#myCarousel" data-slide-to="1"></li>
+					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					  </ol>
+				  		
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active">
+					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					    </div>
+					
+					    <div class="item">
+					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
+					    </div>
+					
+					    <div class="item">
+					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
+					    </div>
+					  </div>
+					
+					  <!-- Left and right controls -->
+					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					    <span class="glyphicon glyphicon-chevron-left"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					    <span class="glyphicon glyphicon-chevron-right"></span>
+					    <span class="sr-only">Next</span>
+					  </a>
+						</div>
+					</div>
+					<p class="homeType">집 전체·레체</p>
+                  <p class="homeName">
+                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                  </p>
+                  <p class="homePrice">\88,732 /박</p>
+                  <p class="reviewStar">★★★★★</p>
+                  <p class="reviewCount">247</p>
+                  <p class="hostTitle">슈퍼호스트</p>
+				  </div>
+				  
 				</div>
 				
 			</div>

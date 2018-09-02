@@ -498,6 +498,31 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> getParis() {
 		return ssTemplate.selectList("Home.getParis");
 	}
+	
+	@Override
+	public List<HomeDTO> getNewyork() {
+		return ssTemplate.selectList("Home.getNewyork");
+	}
+	
+	@Override
+	public List<HomeDTO> getRome() {
+		return ssTemplate.selectList("Home.getRome");
+	}
+	
+	@Override
+	public List<HomeDTO> getLondon() {
+		return ssTemplate.selectList("Home.getLondon");
+	}
+	
+	@Override
+	public List<HomeDTO> getPraha() {
+		return ssTemplate.selectList("Home.getLondon");
+	}
+	
+	@Override
+	public List<HomeDTO> getMadrid() {
+		return ssTemplate.selectList("Home.getMadrid");
+	}
 
 	
 }
