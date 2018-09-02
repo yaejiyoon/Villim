@@ -63,7 +63,7 @@
 	<div class="container">
 		<div class="grid-container">
 			<a href="/step2first.host"><div class="grid-item">사진</div></a>
-			<a href="/step2seond.host"><div class="grid-item">숙소설명</div></a>
+			<a href="/step2second.host"><div class="grid-item">숙소설명</div></a>
 			<a href="/step2third.host"><div class="grid-item">숙소제목</div></a>
 		</div>
 	</div>
@@ -94,7 +94,7 @@
 	<div class="container">
 		<div class="grid-container">
 			<a href="/step2first.host"><div class="grid-item">사진</div></a>
-			<a href="/step2seond.host"><div class="grid-item">숙소설명</div></a>
+			<a href="/step2second.host"><div class="grid-item">숙소설명</div></a>
 			<a href="/step2third.host"><div class="grid-item">숙소제목</div></a>
 		</div>
 	</div>

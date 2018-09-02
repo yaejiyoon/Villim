@@ -56,10 +56,19 @@
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
 			<c:if test="${sessionScope.login_email != null}"> 
-               		<a href="choicemodify.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				<c:if test="${sessionScope.homestep == null}"> 
+					<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
+				<c:if test="${sessionScope.homestep == 1}"> 
+					<a href="endstepone.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
+				<c:if test="${sessionScope.homestep == 2}"> 
+					<a href="endsteptwo.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
+               		
 			</c:if>
                <c:if test="${sessionScope.login_email == null}"> 
-                     <a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+                     <a data-toggle="modal" href="#myModal" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
 				</c:if>
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
@@ -170,20 +179,26 @@
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
 			<c:if test="${sessionScope.login_email != null}"> 
-               		<a href="choicemodify.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				<c:if test="${sessionScope.homestep == null}"> 
+					<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
+				<c:if test="${sessionScope.homestep == 1}"> 
+					<a href="endstepone.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
+				<c:if test="${sessionScope.homestep == 2}"> 
+					<a href="endsteptwo.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
+               		
 			</c:if>
                <c:if test="${sessionScope.login_email == null}"> 
-                     <a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+                     <a data-toggle="modal" href="#myModal" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
 				</c:if>
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
-<<<<<<< HEAD
         					<li><a href="home_info.do?seq=5" id="tohome_info">Item</a></li>
         					<li><a href="profileEditView.mo">Product</a></li>
-=======
         					<li><a href="home_info.do?seq=1" id="tohome_info">Item</a></li>
         					<li><a href="#">Product</a></li>
->>>>>>> master
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
         					<li><a href="#">Thing</a></li>

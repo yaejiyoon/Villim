@@ -152,4 +152,6 @@ public interface HomeDAO {
 	public int modifyHomeblock(HomeDTO hdto);
 	
 	public int modifyHomeprice(HomeDTO hdto);
+	
+	public int modifyFirstHome(HomeDTO hdto);
 }

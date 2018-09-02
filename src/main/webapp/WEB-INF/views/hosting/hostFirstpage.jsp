@@ -8,8 +8,8 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 <style>
 ._tleczom {
 	cursor: pointer !important;
@@ -259,9 +259,9 @@ html, body {
 															<div class="col-sm-12">
 																<div class="pac-card">
 
-																	<input type="text" id="pac-input"
+																<!-- 	<input type="text" id="pac-input"
 																		class="list-space-location-input pull-left controls"
-																		placeholder="예) 강남구" name="full_address" />
+																		placeholder="예) 강남구" name="full_address" /> -->
 																	<!-- placeAPI -->
 
 																</div>

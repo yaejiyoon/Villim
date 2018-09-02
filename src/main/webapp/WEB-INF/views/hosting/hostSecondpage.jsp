@@ -388,13 +388,11 @@
 																<select id="property-type-group"
 																	name="home_type" class="_10p0m0gl"><option
 																		selected="selected" value="0" disabled="disabled">하나를 선택해주세요.</option>
-																	<option value="apartments">아파트</option>
-																	<option value="houses">주택</option>
-																	<option value="secondary_units">별채</option>
-																	<option value="unique_homes">독특한 숙소</option>
-																	<option value="bnb">B&amp;B</option>
-																	<option value="boutique_hotels_and_more">부티크
-																		호텔</option></select>
+																	<option value="아파트">아파트</option>
+																	<option value="공동 주택">공동 주택</option>
+																	<option value="레지던스">레지던스</option>
+																	<option value="로프트">로프트</option>
+																
 															</div>
 															
 															<span class="_1pzmvmb"><svg viewBox="0 0 18 18"
@@ -455,10 +453,10 @@
 															<div class="_az0uecb">
 																<div class="_y9ev9r">
 																	<select id="room-type" name="room_type"  hidden="true" 
-																		class="_10p0m0gl" ><option value="entire_home">집
+																		class="_10p0m0gl" ><option value="집전체">집
 																			전체</option>
-																		<option value="private_room">개인실</option>
-																		<option value="shared_room">다인실</option></select>
+																		<option value="개인실">개인실</option>
+																		<option value="다인실">다인실</option></select>
 																</div>
 																<span class="_1pzmvmb"><svg id="pickme"
 																		viewBox="0 0 18 18" role="presentation"
@@ -591,12 +589,12 @@
 					console.log(response);
 					//alert(response[0].vale);
 					var housetype = response[0].vale;
-					if(housetype == "apartments"){
+					if(housetype == "아파트"){
 						$("#property-type-category").html("<option selected=\"\" value=\"0\" disabled=\"\">건물 유형 선택</option>" 
 						 + "<option value=\"apart\">"+"아파트"+"</option>"
 						 + "<option value=\"highapart\">"+"고층아파트"+"</option>"
 						 + "<option value=\"goodapart\">"+"고급아파트"+"</option>")				 
-					}else if(housetype == "houses"){
+					}else if(housetype == "공동주택"){
 						$("#property-type-category").html("<option selected=\"\" value=\"0\" disabled=\"\">건물 유형 선택</option>" 
 								 + "<option value=\"house\">"+"하우스"+"</option>"   
 								 + "<option value=\"detached_house\">"+"단독주택"+"</option>"
@@ -607,20 +605,14 @@
 								 + "<option value=\"separate\">"+"별채"+"</option>" 
 								 + "<option value=\"farm\">"+"농촌"+"</option>" 
 								 );
-					}else if(housetype == "unique_homes"){
+					}else if(housetype == "레지던스"){
 						$("#property-type-category").html("<option selected=\"\" value=\"0\" disabled=\"\">건물 유형 선택</option>" 
 								+ "<option value=\"igloo\">"+"이글루"+"</option>"
 								+ "<option value=\"log\">"+"통나무집"+"</option>"
 								+ "<option value=\"tent\">"+"텐트"+"</option>"
 								+ "<option value=\"campingcar\">"+"캠핑카"+"</option>"
 								 );
-					}else if(housetype == "bnb"){
-						$("#property-type-category").html("<option selected=\"\" value=\"0\" disabled=\"\">건물 유형 선택</option>" 
-								+ "<option value=\"bnb\">"+"비앤비"+"</option>"
-								+ "<option value=\"crazyacade\">"+"크레이지아케이드"+"</option>"
-								+ "<option value=\"fortress2\">"+"포트리스2"+"</option>"
-								 );
-					}else if(housetype == "boutique_hotels_and_more"){
+					}else if(housetype == "로프트"){
 						$("#property-type-category").html("<option selected=\"\" value=\"0\" disabled=\"\">건물 유형 선택</option>" 
 								+ "<option value=\"hotel\">"+"호텔"+"</option>"
 								+ "<option value=\"boutique\">"+"부티크"+"</option>"

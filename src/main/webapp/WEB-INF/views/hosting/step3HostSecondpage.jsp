@@ -199,7 +199,7 @@
 																		class="main-panel__actions col-sm-12 no-margin-padding__sm">
 																		<div class="_1dcqn1vg" style="margin: 16px;">
 																			<a
-																				href="/become-a-host/27770089/availability-settings"
+																				href="/step3first.host"
 																				class="_5rte3y6" aria-busy="false"><span
 																				class="_cgr7tc7"><span>뒤로</span></span></a>
 																			<div class="_107ja4p">

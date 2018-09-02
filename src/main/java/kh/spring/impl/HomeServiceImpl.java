@@ -404,4 +404,10 @@ public class HomeServiceImpl implements HomeService {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomeprice(hdto);
 	}
+
+	@Override
+	public int modifyFirstHome(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyFirstHome(hdto);
+	}
 }
