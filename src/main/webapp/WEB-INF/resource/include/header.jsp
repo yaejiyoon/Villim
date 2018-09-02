@@ -13,6 +13,9 @@
 
 <script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
 
+<!-- google 검색 api -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKxwlQzLFSDHDwe0Wf_J9bmYrGNxC-R-E&libraries=places"></script>
+
 <!-- 재호  -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script> 
@@ -115,7 +118,7 @@ function enterkey() {
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="likeyPage.do">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
@@ -224,7 +227,7 @@ function enterkey() {
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			<ul>
-        					<li><a href="#">Item</a></li>
+        					<li><a href="likeyPage.do">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>

@@ -305,7 +305,7 @@
 
 	   <!--  예지 -->
 	<select id="getAllHomeDataMain" resultType="Home">
-      select * from home
+      select * from home order by home_seq
    </select>
 	
    <select id="getHomeOnMap" resultType="Home" parameterType="map" >
@@ -346,6 +346,30 @@
         	</trim>
          </if>
    </select>
+   
+   <select id="getParis" resultType="Home">
+		select * from Home where home_nation = '프랑스'
+	</select>
+	
+	 <select id="getNewyork" resultType="Home">
+		select * from Home where home_nation = '미국'
+	</select>
+	
+	<select id="getRome" resultType="Home">
+		select * from Home where home_nation = '이탈리아'
+	</select>
+	
+	<select id="getLondon" resultType="Home">
+		select * from Home where home_nation = '영국'
+	</select>
+	
+	<select id="getPraha" resultType="Home">
+		select * from Home where home_nation = '체코'
+	</select>
+	
+	<select id="getMadrid" resultType="Home">
+		select * from Home where home_nation = '스페인'
+	</select>
 
 	<!-- 지혜 -->
 	<select id="getBedData" parameterType="int" resultType="Bed">

@@ -35,6 +35,7 @@ import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HostReviewDTO;
+import kh.spring.dto.LikeyDTO;
 import kh.spring.dto.LikeyListDTO;
 import kh.spring.dto.MailSendDTO;
 import kh.spring.dto.MemberDTO;
@@ -264,8 +265,17 @@ public class HomeInfoController {
 			likeyList = likeyService.getAlldata(member_email);
 		}
 		
+		//likey 테이블
+		List<LikeyDTO> likey = null;
+		if(member_email != null) {
+			likey = likeyService.getLikeyData(member_email);
+		}
 		
-		
+		//모달 하트
+		List<LikeyDTO> likeyHeart = null;
+		if(member_email != null) {
+			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("home_seq",home_seq);
@@ -290,6 +300,8 @@ public class HomeInfoController {
 		mav.addObject("mattress", mattress);
 		mav.addObject("bedList", bedList);
 		mav.addObject("likeyList", likeyList);
+		mav.addObject("likey", likey);
+		mav.addObject("likeyHeart", likeyHeart);
 		mav.setViewName("home/home_info");
 		return mav;
 	}
@@ -466,7 +478,7 @@ public class HomeInfoController {
 		int intservicefee = (int) (priceWithNights * 0.05);
 		String servicefee = String.format("%,d", intservicefee);
 		
-		//총 금액
+		//총 금액 
 		int intTotal = priceWithNights + intCleaningfee + intservicefee;
 		String total = String.format("%,d", intTotal);
 		
@@ -1016,12 +1028,16 @@ public class HomeInfoController {
 	@RequestMapping("/payment.re")
 	public ModelAndView payment(HttpServletRequest req) {
 		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
 		
 		System.out.println("결제완료 seq"+reservation_seq);
 		
 		//예약 정보
 		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
 		
+		//호스트 이메일
+		HomeDTO hdto = homeService.getHomeData(home_seq);
+		String host_email = hdto.getMember_email();
 		
 		PaymentDTO paymentDTO = new PaymentDTO();
 		paymentDTO.setHome_seq(reservationDTO.getHome_seq());
@@ -1030,6 +1046,7 @@ public class HomeInfoController {
 		paymentDTO.setCheckIn(reservationDTO.getReserv_checkin());
 		paymentDTO.setCheckOut(reservationDTO.getReserv_checkout());
 		paymentDTO.setPayment_amount(reservationDTO.getTotalAmount());
+		paymentDTO.setHost_email(host_email);
 		
 		//결제 테이블
 		int paymentResult = paymentService.insertDate(paymentDTO);
@@ -1052,26 +1069,30 @@ public class HomeInfoController {
 	public void makeLikeList(HttpServletRequest req, HttpServletResponse response) {
 		String member_email = req.getSession().getAttribute("login_email").toString();
 		String likeyListName = req.getParameter("likeyListName");
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
 		
 		LikeyListDTO likeyListDTO = new LikeyListDTO();
 		likeyListDTO.setLikeyList_name(likeyListName);
 		likeyListDTO.setMember_email(member_email);
+		likeyListDTO.setHome_seq(home_seq);
 		
 		
-		int addLikeyListResult = likeyService.insertDate(likeyListDTO);
+		int addLikeyListResult = likeyService.insertData(likeyListDTO);
 		
 		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
+		List<LikeyDTO> likeyLikey = likeyService.getLikeyHeart(home_seq, member_email);
 		
-		Map<String, Object> reviewmap = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		reviewmap.put("likeyList", likeyList);
+		map.put("likeyList", likeyList);
+		map.put("likeyLikey", likeyLikey);
 		
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
 		
 		try {
-			new Gson().toJson(reviewmap,response.getWriter());
+			new Gson().toJson(map,response.getWriter());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1079,8 +1100,101 @@ public class HomeInfoController {
 	}
 	
 	@RequestMapping("/likey.do")
-	public void addLikey(HttpServletRequest req) {
+	public void addLikey(HttpServletRequest req, HttpServletResponse response) {
+		int likeyList_seq = Integer.parseInt(req.getParameter("likeylist_Seq"));
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		String member_email = req.getSession().getAttribute("login_email").toString();
+		
+		System.out.println("dtodto");
+		System.out.println(likeyList_seq);
+		System.out.println(home_seq);
+		System.out.println(member_email);
+		
+		LikeyDTO likeyDTO = new LikeyDTO();
+		likeyDTO.setLikeyList_seq(likeyList_seq);
+		likeyDTO.setHome_seq(home_seq);
+		likeyDTO.setMember_email(member_email);
+		
+		int likeyResult = likeyService.insertLikeyData(likeyDTO);
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("likeyResult", likeyResult);
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			response.getWriter().print(json);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
+	@RequestMapping("/likeyPage.do")
+	public ModelAndView likeyPage(HttpServletRequest req) {
+		String member_email = req.getSession().getAttribute("login_email").toString();
+		
+		//likeyList 불러오기
+		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("likeyList", likeyList);
+		mav.setViewName("home/likeyList");
+
+		return mav;
+	}
+	
+	@RequestMapping("/wishList.do")
+	public ModelAndView wishList(HttpServletRequest req) {
+		int likeyList_seq = Integer.parseInt(req.getParameter("likeyList_seq"));
+		
+		//클릭한 LikeyList안에 들어있는 homeList
+		List<HomeDTO> likeyHomeList = likeyService.getHomeInfoLikey(likeyList_seq);
+		
+		//클릭한 likeyList 정보
+		LikeyListDTO likeyListDTO = likeyService.getLikeyListDTO(likeyList_seq);
+		
+		System.out.println("adfsdfasd"+likeyHomeList.get(0).getLikey_seq());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("likeyListDTO", likeyListDTO);
+		mav.addObject("likeyHomeList", likeyHomeList);
+		mav.setViewName("home/wishList");
+
+		return mav;
+	}
+	
+	@RequestMapping("/removeLikey.do")
+	public void removeLikey(HttpServletRequest req, HttpServletResponse response) {
+		int likeyList_seq = Integer.parseInt(req.getParameter("likeylist_Seq"));
+		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		
+		int removeResult = likeyService.removeLikey(likeyList_seq, home_seq);
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("removeResult", removeResult);
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			response.getWriter().print(json);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/test.do")
+	public void test(HttpServletRequest req, HttpServletResponse response) {
+		
+	}
 }
