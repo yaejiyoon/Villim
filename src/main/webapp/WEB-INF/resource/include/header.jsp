@@ -209,13 +209,10 @@ function enterkey() {
 				</c:if>
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
-<<<<<<< HEAD
         					<li><a href="home_info.do?seq=5" id="tohome_info">Item</a></li>
         					<li><a href="profileEditView.mo">Product</a></li>
-=======
         					<li><a href="home_info.do?seq=1" id="tohome_info">Item</a></li>
         					<li><a href="#">Product</a></li>
->>>>>>> master
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
         					<li><a href="#">Thing</a></li>

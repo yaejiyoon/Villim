@@ -776,6 +776,10 @@ $(document).ready(function() {
  		right:30px;
  	}
  	
+ 	.likeyBT:hover{
+ 		cursor: pointer;
+ 	}
+ 	
  	.newAtag {
  	   color : black;
  	}
@@ -842,12 +846,12 @@ $(document).ready(function() {
 								    <span class="glyphicon glyphicon-chevron-right"></span>
 								    <span class="sr-only">Next</span>
 								  </a>
-								</div> likeyMainModal
+								</div>
 							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" 
 							id="likeyBTId${homeList.home_seq }" data-toggle="modal" href="#likeyMainModal"
 							data-pic-id="${homeList.home_main_pic}" data-name-id="${homeList.home_name }"
 							data-addr1-id="${homeList.home_addr1 }" data-addr2-id="${homeList.home_addr2 }"
-							data-addr3-id="${homeList.home_addr3 }"
+							data-nation-id="${homeList.home_nation }" data-seq-id="${homeList.home_seq }"
 							>
 							<script>
 							$(function () {
@@ -864,8 +868,48 @@ $(document).ready(function() {
 							        var home_addr2 = $(this).data('addr2-id');
 							        $(".modal-body #hiddenValue4").val(home_addr2);
 							        
-							        var home_addr3 = $(this).data('addr3-id');
-							        $(".modal-body #hiddenValue5").val(home_addr3);
+							        var home_nation = $(this).data('nation-id');
+							        $(".modal-body #hiddenValue5").val(home_nation);
+							        
+							        var home_seq = $(this).data('seq-id');
+							        $(".modal-body #hiddenValue6").val(home_seq);
+							        
+							        var name= $("#hiddenValue2").val();
+					         		$("#home_home_name").text(name);
+					         		
+					         		var addr1= $("#hiddenValue3").val();
+					    	  		var addr2= $("#hiddenValue4").val();
+					    	  		var nation= $("#hiddenValue5").val();
+					         		
+					         		$("#home_home_addr").text(nation+", "+addr1+", "+addr2);
+					         		
+					         		var pic= $("#hiddenValue").val();
+					         		$("#home_home_pic").attr("src","<c:url value='files/"+pic+"'/>");
+					         		
+					         		var home_seq_heart = $("#hiddenValue6").val();
+					         		
+					         		$.ajax({
+										url:"HeartHeart.do",
+										type:"get",
+										data:{
+											home_seq_heart:home_seq_heart
+											},
+									success:function(resp){
+										
+									/* <c:forEach items="${likeyListLikey }" var="likeyListLikey">
+										<c:forEach items="resp.likeyHeart" var="likeyHeart">
+											<c:if test="${likeyListLikey.likeyList_seq eq likeyHeart.likeyList_seq }">
+									 			$("#modalLikeyBTID${likeyListLikey.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
+											</c:if>
+									 	</c:forEach>	
+									</c:forEach> */
+										
+										},
+									error : function(request,status,error) {
+										console.log(request.status + " : " + status + " : " + error);
+										}
+									})
+					         		
 							    })
 							});
    							</script>
@@ -880,7 +924,7 @@ $(document).ready(function() {
 						</div>
 				  </div>
 				  </a>
-					</c:forEach>
+				</c:forEach>
 				  
 				</div> 
 <!-- 				row -->

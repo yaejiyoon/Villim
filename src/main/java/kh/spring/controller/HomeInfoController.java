@@ -1409,4 +1409,35 @@ public class HomeInfoController {
 
 		return mav;
 	}
+	
+	@RequestMapping("/HeartHeart.do")
+	public void heartHeart(HttpServletRequest req, HttpServletResponse response, HttpSession session) {
+		int home_seq = Integer.parseInt(req.getParameter("home_seq_heart"));
+		
+		String member_email = null;
+		if(req.getSession().getAttribute("login_email") != null) {
+			member_email = session.getAttribute("login_email").toString();
+		}
+		
+		//모달 하트
+		List<LikeyDTO> likeyHeart = null;
+		if(member_email != null) {
+			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("likeyHeart", likeyHeart);
+		
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			new Gson().toJson(map,response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

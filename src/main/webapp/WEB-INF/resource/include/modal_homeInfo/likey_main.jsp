@@ -63,7 +63,7 @@
 		display: none;
 	}
 	
-	.likeyBT{
+	.modal_likeyBT{
 		width: 25px;
 		float: right;
 	}
@@ -73,7 +73,7 @@
 		background-color: white;
 	}
 	
-	.likeyBT:hover{
+	.modal_likeyBT:hover{
 		cursor: pointer;
 	}
 	
@@ -120,31 +120,23 @@
 	$(document).ready(function(){
 		
 		
+		
 		$(".likeyButton").click(function(){
 			alert("버튼!");
-			var pic= $("#hiddenValue").val();
-	  		alert(pic);
 	  		
-	  		var name= $("#hiddenValue2").val();
-	  		alert(name);
-	  		
-	  		var addr1= $("#hiddenValue3").val();
-	  		alert(addr1);
-	  		
-	  		var addr2= $("#hiddenValue4").val();
-	  		alert(addr2);
-	  		
-	  		var addr3= $("#hiddenValue5").val();
-	  		alert(addr3);
 			
-			/* var srcBT = $(this).parent().find('img').attr('src');
+			var srcBT = $(this).parent().find('img').attr('src');
+			alert(srcBT);
 			
 			if(srcBT == '../resources/img/like.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like2.png'/>");
 				$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
-				var home_seq = ${hdto.home_seq}
+				var home_seq = $("#hiddenValue6").val();
+				
+				alert(likeylist_Seq);
+				alert(home_seq);
 				
 				$.ajax({
 					url:"likey.do",
@@ -166,7 +158,7 @@
 				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
-				var home_seq = ${hdto.home_seq}
+				var home_seq = $("#hiddenValue6").val();
 				
 				$.ajax({
 					url:"removeLikey.do",
@@ -183,7 +175,7 @@
 					}
 				})
 				
-			} */
+			} 
 			
 		})
 		
@@ -216,6 +208,7 @@
                		<input type="hidden" name="hiddenValue3" id="hiddenValue3" value="" />
                		<input type="hidden" name="hiddenValue4" id="hiddenValue4" value="" />
                		<input type="hidden" name="hiddenValue5" id="hiddenValue5" value="" />
+               		<input type="hidden" name="hiddenValue6" id="hiddenValue6" value="" />
                		<h2 style="font-weight: 600;">목록에 저장</h2>
                		<div id="likeyListDiv">
                			<h4 style="font-weight: 600; color: black;">이름</h4>	
@@ -273,7 +266,7 @@
                							for(var i=0; i<resp.likeyList.length;i++){
                								$("#likeyListPtag"+resp.likeyList[i].likeyList_seq).after(
                									$('<button>').attr('class','btn btn-secondary likeyButton').attr('id','likeyButtonID'+resp.likeyList[i].likeyList_seq).attr('onClick',"clickclick('likeyButtonID"+resp.likeyList[i].likeyList_seq+"','likeyListPtag"+resp.likeyList[i].likeyList_seq+"','"+resp.likeyList[i].likeyList_seq+"')").append(
-               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','likeyBT').attr('id','llImgId'+resp.likeyList[i].likeyList_seq)
+               										$('<img>').attr('src','<c:url value='../resources/img/like.png'/>').attr('class','modal_likeyBT').attr('id','llImgId'+resp.likeyList[i].likeyList_seq)
                									)
        										)
                							}
@@ -302,7 +295,7 @@
                						<p style="display: inline; float:left; margin-bottom: 0px; margin-top: 10px;" class="likeyList_name">${likeyListLikey.likeyList_name }</p>
                						<input type="hidden" class="hiddenSeq" value="${likeyListLikey.likeyList_seq }">
                						<button class="btn btn-secondary likeyButton">
-               							<img src="<c:url value='../resources/img/like.png'/>" class="likeyBT" id="likeyBTID${likeyListLikey.likeyList_seq }">
+               							<img src="<c:url value='../resources/img/like.png'/>" class="modal_likeyBT" id="modalLikeyBTID${likeyListLikey.likeyList_seq }">
          							</button>
                					</div>
                			</c:forEach>
@@ -315,15 +308,19 @@
                <div class="likey-footer">
                 	<div id="likey-homeInfo">
                    		<div id="likey-homeInfo-img">
-                   			<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
+                   			<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;" id="home_home_pic">
                    		</div>
                    		<div id="likey-homeInfo-content">
-                   			<p style="display: inline; font-weight: 600; font-size: 15px;">${hdto.home_name}</p><br>
-                   			<p style="margin-top: 7px; margin-bottom: 0px;">${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</p>
+                   			<p style="display: inline; font-weight: 600; font-size: 15px;" id="home_home_name">${hdto.home_name}</p><br>
+                   			<p style="margin-top: 7px; margin-bottom: 0px;" id="home_home_addr">${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</p>
                    			<p style="display: inline; color: #008489;">★★★★★</p><p style="display: inline; font-size: 13px;">후기 137개</p>
                    		</div>
 					</div>
                </div>
+               <script>
+               
+               </script>
+               
             </div>
          </div>
          <script>
