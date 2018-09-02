@@ -1419,15 +1419,19 @@ public class HomeInfoController {
 			member_email = session.getAttribute("login_email").toString();
 		}
 		
+		
 		//모달 하트
 		List<LikeyDTO> likeyHeart = null;
+		List<LikeyListDTO> lLikey = null;
 		if(member_email != null) {
 			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
+			lLikey = likeyService.getAlldata(member_email);
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("likeyHeart", likeyHeart);
+		map.put("lLikey", lLikey);
 		
 		
 		response.setCharacterEncoding("utf8");

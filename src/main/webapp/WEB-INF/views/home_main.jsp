@@ -888,6 +888,7 @@ $(document).ready(function() {
 					         		
 					         		var home_seq_heart = $("#hiddenValue6").val();
 					         		
+					         		
 					         		$.ajax({
 										url:"HeartHeart.do",
 										type:"get",
@@ -895,16 +896,16 @@ $(document).ready(function() {
 											home_seq_heart:home_seq_heart
 											},
 									success:function(resp){
-										
-									/* <c:forEach items="${likeyListLikey }" var="likeyListLikey">
-										<c:forEach items="resp.likeyHeart" var="likeyHeart">
-											<c:if test="${likeyListLikey.likeyList_seq eq likeyHeart.likeyList_seq }">
-									 			$("#modalLikeyBTID${likeyListLikey.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
-											</c:if>
-									 	</c:forEach>	
-									</c:forEach> */
-										
-										},
+											
+										for(var i=0;i<resp.lLikey.length;i++){
+											for(var j=0;j<resp.likeyHeart.length;j++){
+												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
+														$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
+													}
+												}
+											}
+										}
+										,
 									error : function(request,status,error) {
 										console.log(request.status + " : " + status + " : " + error);
 										}

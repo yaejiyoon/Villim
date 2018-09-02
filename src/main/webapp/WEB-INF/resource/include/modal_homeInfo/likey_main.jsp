@@ -59,7 +59,7 @@
 		border:2px solid #008489;
 	}
 	
-	#likeyListDiv{
+	#main_likeyListDiv{
 		display: none;
 	}
 	
@@ -210,23 +210,28 @@
                		<input type="hidden" name="hiddenValue5" id="hiddenValue5" value="" />
                		<input type="hidden" name="hiddenValue6" id="hiddenValue6" value="" />
                		<h2 style="font-weight: 600;">목록에 저장</h2>
-               		<div id="likeyListDiv">
+               		<div id="main_likeyListDiv">
                			<h4 style="font-weight: 600; color: black;">이름</h4>	
                			<input type="text" class="form-control" placeholder="이름 정하기" id="makeName"/>
                			<button id="makeListBT" class="btn btn-secondary" style="float:right;">만들기</button>
                			<button id="cancelListBT" class="btn btn-secondary" style="float:right; margin-right: 10px;">취소</button>
                			<br><br>
                		</div>
-               		<a href='javascript:void(0);' id="makeList" onclick='newListFunction();'><br>새 목록 만들기</a>
+               		<a href='javascript:void(0);' id="makeList" onClick='newListFunction2();'><br>새 목록 만들기</a>
                		<div id="afterLineDiv"></div>
                		<script>
-               			function newListFunction() {
+               		
+               		$(function () {
+               			function newListFunction2() {
                				$("#makeList").css({"display":"none"});
-               				$("#likeyListDiv").css({"display":"block"});
+               				$("#main_likeyListDiv").css({"display":"block"});
                			}
+               		})
+               		
+               			
                			
                			$("#cancelListBT").click(function(){
-               				$("#likeyListDiv").css({"display":"none"});
+               				$("#main_likeyListDiv").css({"display":"none"});
                				$("#makeList").css({"display":"block"});
                			});
                			
@@ -250,7 +255,7 @@
                							},
                						success:function(resp){
                							
-               							$("#likeyListDiv").css({"display":"none"});
+               							$("#main_likeyListDiv").css({"display":"none"});
                            				$("#makeList").css({"display":"block"});
                							
                							$('.likeyList-content').remove();
@@ -327,7 +332,7 @@
          var likeState1 = 0;
          function clickclick(BTid,Pid,seq) {
         	 
-        	 var home_seq = ${hdto.home_seq }
+        	var home_seq = $("#hiddenValue6").val();
      		var likeylist_Seq = seq;
      		
      		var listName = $("#"+Pid).html();
