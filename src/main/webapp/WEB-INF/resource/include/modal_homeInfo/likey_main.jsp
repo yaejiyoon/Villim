@@ -137,10 +137,11 @@ function newListFunction2() {
 			
 			if(srcBT == '../resources/img/like.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like2.png'/>");
-				$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
+				
+				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				alert(likeylist_Seq);
 				alert(home_seq);
@@ -162,10 +163,10 @@ function newListFunction2() {
 				
 			}else{
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
-				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
+				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				$.ajax({
 					url:"removeLikey.do",

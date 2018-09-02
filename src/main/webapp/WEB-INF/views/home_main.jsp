@@ -899,12 +899,9 @@ $(document).ready(function() {
 											
 										for(var i=0;i<resp.lLikey.length;i++){
 											for(var j=0;j<resp.likeyHeart.length;j++){
-												if(resp.likeyHeart[j].home_seq == home_seq_heart){
-													if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
-														$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
-													}
+												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
+													$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
 												}
-												
 											}
 										}
 									}
