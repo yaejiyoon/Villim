@@ -134,8 +134,6 @@ public interface HomeDAO {
 
 	public List<HomeDTO> getParis();
 	
-	public List<HomeDTO> getParis();
-	
 	public List<HomeDTO> getNewyork();
 	
 	public List<HomeDTO> getRome();

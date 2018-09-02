@@ -115,6 +115,13 @@
 		
 	}
 </style>
+<script>
+function newListFunction2() {
+		$("#makeList").css({"display":"none"});
+		$("#main_likeyListDiv").css({"display":"block"});
+	};
+
+</script>
 
 <script>
 	$(document).ready(function(){
@@ -217,16 +224,9 @@
                			<button id="cancelListBT" class="btn btn-secondary" style="float:right; margin-right: 10px;">취소</button>
                			<br><br>
                		</div>
-               		<a href='javascript:void(0);' id="makeList" onClick='newListFunction2();'><br>새 목록 만들기</a>
+               		<a href="javascript:void(0);" id="makeList" onclick="newListFunction2();">새 목록 만들기</a>
                		<div id="afterLineDiv"></div>
                		<script>
-               		
-               		$(function () {
-               			function newListFunction2() {
-               				$("#makeList").css({"display":"none"});
-               				$("#main_likeyListDiv").css({"display":"block"});
-               			}
-               		})
                		
                			
                			
