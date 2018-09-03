@@ -3,22 +3,35 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
+	<select id="getGapDate" parameterType="map" resultType="Payment">
+		select * from payment
+		where
+		payment_state = 3 and checkin
+		between to_date(#{start}, 'yyyy/MM/dd') and to_date(#{end},
+		'yyyy/MM/dd')
+		<if test="home_seq == 0">
+			and host_email = #{host_email}
+		</if>
+		<if test="home_seq gt 0">
+			and home_seq = #{home_seq}
+		</if>
+		
+	</select>
+
 	<select id="getAllPayment" parameterType="map"
 		resultType="Payment">
-		select * from account a,member m,
-		payment p
+		select * from account a,member m, payment p
 		where a.host_email =
-		p.host_email and m.member_email = p.member_email
+		p.host_email
+		and m.member_email = p.member_email
 		<if test="home_seq == 0">
 			and a.host_email = #{member_email}
 		</if>
 		<if test="home_seq gt 0">
-			and p.home_seq in
+			and home_seq in
 			(select home_seq from home
 			where
-			member_email
-			=
-			#{member_email} )
+			member_email = #{member_email} and home_seq = #{home_seq})
 		</if>
 		order by p.payment_seq
 	</select>
@@ -238,8 +251,8 @@
 		G_REVIEW_ACCURACY desc
 	</select>
 
-   
-   
+
+
 	<select id="getCleanLiness" resultType="GuestReview">
 		select
 		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
@@ -323,6 +336,9 @@
 		G_REVIEW_VALUE,
 		count(G_REVIEW_VALUE) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by
 		G_REVIEW_VALUE
 		having

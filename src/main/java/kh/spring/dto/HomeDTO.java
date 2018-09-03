@@ -39,6 +39,7 @@ public class HomeDTO {
 	private String home_step;
 	
 	private int likey_seq;
+	private int home_view;
 
 	public HomeDTO() {
 		super();
@@ -323,7 +324,7 @@ public class HomeDTO {
 	public void setHome_buildingType(String home_buildingType) {
 		this.home_buildingType = home_buildingType;
 	}
-	
+
 	public int getLikey_seq() {
 		return likey_seq;
 	}
@@ -339,6 +340,14 @@ public class HomeDTO {
 	
 	public void setLikey_seq(int likey_seq) {
 		this.likey_seq = likey_seq;
+	}
+
+	public int getHome_view() {
+		return home_view;
+	}
+
+	public void setHome_view(int home_view) {
+		this.home_view = home_view;
 	}
 
 }

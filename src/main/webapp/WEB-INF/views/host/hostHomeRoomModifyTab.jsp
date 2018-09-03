@@ -286,35 +286,61 @@ input {
 					</div>
 				</nav>
 				<input type="hidden" name="seq" value="${hdto.home_seq }">
-				<input type="hidden" id="cnt" name="cnt" value="">
+				<input type="hidden" id="cnt" name="cnt" value="0">
 	</form>
 	
 				<script>
 					$(document).ready(function(){
-						var fcnt = 0;
-						var bed_s = '${bdto.bed_single}';
-						var bed_d = '${bdto.bed_double}';
-						var bed_q = '${bdto.bed_queen}';
-						var arr_s = bed_s.split(",");
-						var arr_d = bed_d.split(",");
-						var arr_q = bed_q.split(",");
 						
-						console.log("arr_s 크기::"+ arr_s.length);
-						
-						for(var i=0; i<arr_s.length; i++){
-							console.log("arrrrr::"+arr_s[i]);
-							$('#roomup').click();
-							$("#single-count"+(i+1)+"").val(arr_s[i]);
+						if($('#roomcount').val(0)){
+							$('#roomdown').prop("disabled", true);
 						}
 						
-						for(var i=0; i<arr_d.length; i++){
-							console.log("arrrrr::"+arr_d[i]);
-							$("#double-count"+(i+1)+"").val(arr_d[i]);
-						}
+						if(${bdto ne null}){
+							var bed_s = '${bdto.bed_single}';
+							var bed_d = '${bdto.bed_double}';
+							var bed_q = '${bdto.bed_queen}';
+							
+							var arr_s = new Array();
+							arr_s = bed_s.split(",");
+							
+							var arr_d = new Array(); 
+							arr_d = bed_d.split(",");
+							
+							var arr_q = new Array(); 
+							arr_q = bed_q.split(",");
+							
+							console.log("arr_s 크기::"+ arr_s.length);
+							console.log("arr_d 크기::"+ arr_d.length);
+							console.log("arr_q 크기::"+ arr_q.length);
+							
+
+							for(var i=0; i<arr_s.length; i++){
+								$('#roomup').click();
+							}
+							
+							for(var i=0; i<arr_s.length; i++){
+								console.log("assss::"+arr_s[i]);
+								$("#single-count"+(i+1)+"").val(arr_s[i]);
+							}
 						
-						for(var i=0; i<arr_q.length; i++){
-							console.log("arrrrr::"+arr_q[i]);
-							$("#queen-count"+(i+1)+"").val(arr_q[i]);
+							for(var i=0; i<arr_d.length; i++){
+								console.log("adddd::"+arr_d[i]);
+								$("#double-count"+(i+1)+"").val(arr_d[i]);  
+							}
+							
+							for(var i=0; i<arr_q.length; i++){ 
+								console.log("aqqqq::"+arr_q[i]);
+								$("#queen-count"+(i+1)+"").val(arr_q[i]);
+							}
+							
+// 							$('#roomcount').val(arr_s.length);
+							
+						
+							
+							
+						}else{
+							$('#roomcount').val(0);							
 						}
 						
 // 						var type1 = [];
@@ -345,23 +371,38 @@ input {
 						}
 						
 						$('#pcount').val('${hdto.home_people}');
-						var str = '${hdto.home_public}';
-						var publicArr =	str.split(",");
+						
+						if(${hdto.home_public ne null}){
+							var str = '${hdto.home_public}';
+							var publicArr =	str.split(",");
+							
+						}
 						console.log("publicArr[0]::"+publicArr[0]);
 						console.log("publicArr[1]::"+publicArr[1]);
+						console.log("publicArr[1]::"+publicArr[2]);
 						$('#sofacount').val(publicArr[0]);
-						$('#mattcount').val
-						
-						
-						(publicArr[1]);
+						$('#mattcount').val(publicArr[1]);
 						$('#bathcount').val(publicArr[2]);
-						
 					});
 				
+					
+					
 					var output="";
 					var cnt=0;
 					var num1 = 0;
+					
 				$('#roomup').click(function(){
+					var intmax = parseInt($("#roomcount").val());
+					
+					if (intmax < 14) {
+						$("#roomdown").attr("disabled", false);
+						intmax = intmax + 1;
+						$("#roomcount").val(intmax);
+					} else if (intmax = 14) {
+						$("#roomup").attr("disabled", true);
+						$("#roomcount").val(intmax);
+					}
+					
 					cnt++;
 					output+="<div id='coll"+cnt+"'>";
 					output+="<a data-toggle='collapse' href='#collapseExample"+cnt+"' aria-expanded='false' aria-controls='collapseExample' style='font-size: 18px; width: 100%; color: black;'>"+cnt+" 번 침실</a>";
@@ -409,9 +450,9 @@ input {
 					}
 					
 					output="";
-					console.log("cnt::"+cnt);
 					
 					$("#cnt").val(cnt);
+					console.log("cnt::"+cnt)
 										
 					$("#double-up"+cnt+"").click(function() {
 						var val = $(this).attr('id');
@@ -424,6 +465,7 @@ input {
 					
 					$("#double-down"+cnt+"").click(function() {
 						var val = $(this).attr('id');
+						console.log("val::"+val);
 						var downcnt = val.split("wn")[1];
 						var min = $("#double-count"+downcnt+"").val();
 						if(min>1){
@@ -482,14 +524,14 @@ input {
 							$("#queen-count"+downcnt+"").val(0);
 						}
 					})
-					
-					
 				})
 				
 				$('#roomdown').click(function(){
 					$("#coll"+cnt+"").remove();
 					$("#sline"+cnt+"").remove();
 					cnt--;
+					console.log("cnt::"+cnt);
+					$('#cnt').val(cnt);
 				})
 				
 			
@@ -536,18 +578,6 @@ input {
 
 			});
 
-			$("#roomup").click(function() {
-				var intmax = parseInt($("#roomcount").val());
-
-				if (intmax < 14) {
-					$("#roomdown").attr("disabled", false);
-					intmax = intmax + 1;
-					$("#roomcount").val(intmax);
-				} else if (intmax = 14) {
-					$("#roomup").attr("disabled", true);
-					$("#roomcount").val(intmax);
-				}
-			});
 
 		
 
