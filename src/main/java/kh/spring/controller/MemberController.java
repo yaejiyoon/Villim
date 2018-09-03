@@ -710,6 +710,7 @@ public class MemberController {
 				mav.addObject("hostPicture", result.getMember_picture());
 				mav.addObject("hostName", result.getMember_name());
 				/* mav.addObject("hostComment","no"); */
+				
 			}
 
 		} else {

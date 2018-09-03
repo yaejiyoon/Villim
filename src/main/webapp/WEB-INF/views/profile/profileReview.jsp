@@ -546,11 +546,44 @@ $(document).ready(function(){
                   <div class="comment-post">
                     <p>
                       ${hostReview.g_review_public}
+                      ${hostReview.g_review_seq}
                     </p>
                   </div>
-                  <c:if test="${hostReview.g_review_seq!=host.g_review_seq}">
-                  <p class="text-right"><a class="btn btn-default btn-sm"  data-toggle="collapse" href="#collapseExample${i}" role="button" aria-expanded="false" >답글 리뷰쓰기</a></p>
-                       <article class="row collapse" id="collapseExample${i}">
+                  
+                  <c:choose>
+                 
+                    <c:when test="${hostReview.g_review_seq eq host.g_review_seq}">
+                     
+				     <article class="row">
+            <div class="col-md-10 col-sm-10">
+              <div class="panel panel-default arrow right">
+                <div class="panel-body">
+                  <header class="text-right">
+                    <div class="comment-user"><i class="fa fa-user"></i> </div>
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> ${host.h_review_date}</time>
+                  </header>
+                  <div class="comment-post">
+                    <p>
+                    ${host.h_review_public}
+                    ${host.g_review_seq}
+                    </p>
+                  </div>
+                  <p class="text-right"><!-- <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a> --></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-2 hidden-xs">
+              <figure class="thumbnail">
+                <img class="img-responsive" src="files/${hostPicture}" />
+                <figcaption class="text-center">${hostName}</figcaption>
+              </figure>
+            </div>
+          </article>
+				
+                    </c:when>
+                     <c:when test="${hostReview.g_review_seq ne host.g_review_seq}">
+                  <p class="text-right"><a class="btn btn-default btn-sm"  data-toggle="collapse" href="#collapseExample${hostReview.g_review_seq}" role="button" aria-expanded="true" >답글 리뷰쓰기</a></p>
+                       <article class="row collapse" id="collapseExample${hostReview.g_review_seq}">
          <form method="post" id="formId" name="formId" action="hostReview.mo" method="post">
             <div class="col-md-10 col-sm-10">
             
@@ -578,8 +611,8 @@ $(document).ready(function(){
             </div>
           </article>
                     
-                    </c:if> 
-       
+                    </c:when> 
+       </c:choose>
                    
                  
                 </div>
@@ -587,32 +620,7 @@ $(document).ready(function(){
             </div>
           </article>
 				  <!--  -->
-				  <c:if test="${hostReview.g_review_seq==host.g_review_seq}">
-				     <article class="row">
-            <div class="col-md-10 col-sm-10">
-              <div class="panel panel-default arrow right">
-                <div class="panel-body">
-                  <header class="text-right">
-                    <div class="comment-user"><i class="fa fa-user"></i> </div>
-                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> ${host.h_review_date}</time>
-                  </header>
-                  <div class="comment-post">
-                    <p>
-                    ${host.h_review_public}
-                    </p>
-                  </div>
-                  <p class="text-right"><!-- <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a> --></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2 col-sm-2 hidden-xs">
-              <figure class="thumbnail">
-                <img class="img-responsive" src="files/${hostPicture}" />
-                <figcaption class="text-center">${hostName}</figcaption>
-              </figure>
-            </div>
-          </article>
-				 </c:if> 
+				
 				  
 				   <c:if test="${not i.last}"><hr style="width:100%;color:#828282;position:relative;top:-1vh;"></c:if>
 				  </c:forEach>
@@ -621,19 +629,6 @@ $(document).ready(function(){
  
  
  
-				
-				<%-- 	<c:forEach items="${getrealHostReview}" var="host">
-					         <!-- Third Comment -->
-       
-				</c:forEach>	 --%>
-					
-					
-					
-					
-					
-					
-                                        
-										<!-- else 후기가 없다면 :  아직 작성된 후기가 없습니다. -->
 
 									</div>
 								</div>

@@ -60,6 +60,12 @@ select g.g_review_seq,g.home_seq,m.member_picture,m.member_name,g.g_review_publi
 <foreach collection="list" item="type" open="(" close=")" separator=",">
 #{type.value}
 </foreach>
+
+order by decode(g.home_seq,
+<foreach collection="list" item="type" index="index" separator=",">
+#{type.value},#{index}
+</foreach>
+)
 </select>
 
 
