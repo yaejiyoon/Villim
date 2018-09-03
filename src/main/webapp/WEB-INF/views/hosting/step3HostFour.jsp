@@ -17,9 +17,9 @@
 
 <style>
 #datepicker{
-	width: 500px;
-	height: 325px;
-	font-size: 1.8em;
+	width: 530px;
+	height: 355px;
+	font-size: 2.1em;
 	text-align: center;
 	margin: 0px auto;
 	
@@ -40,10 +40,10 @@
 }
 ._1dcqn1vg{
 
-	margin-top: 300px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
+	margin-top: 305px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 }
 .conlay{
-margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
+margin-top: 55px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 }
 
 .ui-state-highlights{
@@ -147,8 +147,8 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 													
 														
 															<div class="conlay"
-																style="position: relative; margin-top: 100px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px; z-index: -9; top: 200px;">
-																<a href=" "
+																style="position: relative; margin-top: 100px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px; z-index: -9; top: 205px;">
+																<a href="/step3third.host"
 																	class="_5rte3y6" aria-busy="false"><span
 																	class="_cgr7tc7"><span>뒤로</span></span></a>
 																<div class="_107ja4p">
@@ -214,7 +214,7 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 	var dateToday = new Date();
 	
 	$("#datepicker").datepicker({
-		dateFormat: 'yy/mm/dd',
+		dateFormat: 'yy-mm-dd',
 		minDate: 0,
     onSelect: function (dateText, inst) {
         addOrRemoveDate(dateText);
@@ -225,7 +225,7 @@ margin-top: 50px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
         var month = padNumber(date.getMonth() + 1);
         var day = padNumber(date.getDate());
         // This depends on the datepicker's date format
-        var dateString =  year+ "/" + month + "/" + day ;
+        var dateString =  year+ "-" + month + "-" + day ;
 
         var gotDate = jQuery.inArray(dateString, dates);
         if (gotDate >= 0) {

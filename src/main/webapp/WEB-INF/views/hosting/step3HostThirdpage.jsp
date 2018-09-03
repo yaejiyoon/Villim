@@ -8,7 +8,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 <title>Insert title here</title>
 <style type="text/css">
 
@@ -230,7 +230,7 @@
 </style>
 </head>
 <body>
-  <%@ include file="../../resource/include/header.jsp" %>
+
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="0d09f05f-633c-43b7-b450-fd45d7a5267f">
 		<div dir="ltr" data-reactroot="">
@@ -294,17 +294,17 @@
 																class="text-gray btn increment-btn__label increment-jumbo increment-btn__label--with-increment-btns">
 																<div
 																	class="increment-btn__border-container-label text-truncated">
-																	<input type="number" class="increment-btn__input" name="home_min_stay"
-																		id="min_nights_input_value" maxlength="4" value="0"><span
+																	<input type="text" class="increment-btn__input" name="home_min_stay"
+																		id="min_nights_input_value" maxlength="3" value="0" readonly="readonly"><span
 																		class="text-muted"><span>박(최소)</span></span>
 																</div>
 															</div>
-															<button type="button"
-																class="btn btn-jumbo increment-btn__decrementer"
+															<button type="button" id="minmin"
+																class="btn btn-jumbo increment-btn__decrementer" 
 																aria-label="minus 1" disabled="">
 																<div class="increment-btn__border-container-decrementer"></div>
 															</button>
-															<button type="button"
+															<button type="button" id="minmax"
 																class="btn btn-jumbo increment-btn__incrementer increment-btn__incrementer"
 																aria-label="plus 1"></button>
 														</div>
@@ -323,17 +323,17 @@
 																class="text-gray btn increment-btn__label increment-jumbo increment-btn__label--with-increment-btns">
 																<div
 																	class="increment-btn__border-container-label text-truncated">
-																	<input type="number" class="increment-btn__input" name="home_max_stay"
-																		id="max_nights_input_value" maxlength="4" value="0"><span
+																	<input type="text" class="increment-btn__input" name="home_max_stay"
+																		id="max_nights_input_value" maxlength="3" value="0" readonly="readonly"><span
 																		class="text-muted"><span>박(최대)</span></span>
 																</div>
 															</div>
-															<button type="button"
+															<button type="button" id="maxmin"
 																class="btn btn-jumbo increment-btn__decrementer"
 																aria-label="minus 1" disabled="">
 																<div class="increment-btn__border-container-decrementer"></div>
 															</button>
-															<button type="button"
+															<button type="button" id="maxmax"
 																class="btn btn-jumbo increment-btn__incrementer increment-btn__incrementer"
 																aria-label="plus 1"></button>
 														</div>
@@ -429,11 +429,62 @@
 			var minsleep = $("#min_nights_input_value").val();
 			if(minsleep>365){
 				alert("limet");
+				$("#min_nights_input_value").val("365");
 			}
 		});
 		$("#max_nights_input_value").keypress(function() {
 		   var maxsleep = $("#max_nights_input_value").val();
-			
+
+		});
+		
+		$("#minmin").click(function() {
+			var minsleep = $("#min_nights_input_value").val();
+			if(minsleep>1){
+				$("#minmax").attr("disabled",false);
+				minsleep = minsleep-1;
+				$("#min_nights_input_value").val(minsleep);
+			}else{
+				$("#minmin").attr("disabled",true);
+				$("#min_nights_input_value").val(0);
+			}
+		});
+		
+		$("#minmax").click(function() {
+			var minsleep = +$("#min_nights_input_value").val();
+			if(minsleep < 365 ){
+				$("#minmin").attr("disabled",false); 
+				minsleep = minsleep+1;
+				$("#min_nights_input_value").val(minsleep);
+				
+			}else if(intmax = 365){
+				$("#minmax").attr("disabled",true);
+				$("#min_nights_input_value").val(minsleep)
+			}
+		});
+		/* ----------------- */
+		$("#maxmin").click(function() {
+			var maxsleep = $("#max_nights_input_value").val();
+			if(maxsleep>1){
+				$("#maxmax").attr("disabled",false);
+				maxsleep = maxsleep-1;
+				$("#max_nights_input_value").val(maxsleep);
+			}else{
+				$("#maxmin").attr("disabled",true);
+				$("#min_nights_input_value").val(0);
+			}
+		});
+		
+		$("#maxmax").click(function() {
+			var maxsleep = +$("#max_nights_input_value").val();
+			if(maxsleep < 365 ){
+				maxsleep = maxsleep+1;
+				$("#maxmin").attr("disabled",false);
+				$("#max_nights_input_value").val(maxsleep);
+				
+			}else if(intmax = 365){
+				$("#maxmax").attr("disabled",true);
+				$("#max_nights_input_value").val(maxsleep)
+			}
 		});
 		
  		$("#nextpg").click(function() {

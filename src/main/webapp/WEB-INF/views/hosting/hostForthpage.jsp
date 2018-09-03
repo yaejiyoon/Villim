@@ -170,7 +170,7 @@ html, body {
 				<div class="progress-bar__container">
 								<div class="progress-section progress-bar__placeholder"></div>
 							</div>
-							
+				<div class="col-md-6 col-md-offset-1">			
 				<br><label>국가/지역</label> <input type="text" id="contry"
 					placeholder="ex)대한민국" name="home_nation"> <br> <label>시/군</label>
 				<input type="text" id="town" placeholder="시/도/구" name="home_addr1">
@@ -190,7 +190,7 @@ html, body {
 						<div id="title"></div>
 					</div>
 					<div id="pac-container">
-						<input id="pac-input" type="text" placeholder="Enter a location">
+						<input id="pac-input" type="text" placeholder="먼저 지도에  찾을 지역을 먼저 검색하세요">
 					</div>
 				</div>
 
@@ -221,6 +221,7 @@ html, body {
 						</div>
 					</div>
 				</div>
+				</div>
 
 			</div>
 		</div>
@@ -228,7 +229,7 @@ html, body {
 
 
 </form>
-	<div id="map"></div>
+	<div id="map"  class="col-md-6 col-md-offset-3"></div>
 	<div id="infowindow-content">
 		<img src="" width="16" height="16" id="place-icon"> <span
 			id="place-name" class="title"></span><br> <span
@@ -346,7 +347,7 @@ html, body {
 		var value03 = $("#town").val();
 		var value04 = $("#city").val();
 		
-		if(value01 == null && value02 == null && value03 == null && value04 == null){
+/* 		if(value01 == null && value02 == null && value03 == null && value04 == null){
 			$("#nextpg").attr("disabled",true);
 		}else{
 			$("#nextpg").attr("disabled",false);
@@ -354,13 +355,20 @@ html, body {
 			console.log(value02);
 			console.log(value03);
 			console.log(value04);
-		}
+		} */
 		
-		$("#nextpg").click(function() {
-			//$(location).attr("href","five.host");
-			$("#modifymap").submit();
+		$("#lat").change(function() {
+			$("#nextpg").attr("disabled",false);
+		})
+		
+		$("#pac-input").click(function() {
+/* 			//$(location).attr("href","five.host");
+			$("#modifymap").submit(); */
 		});
 		
+		$("#nextpg").click(function() {
+			$("#modifymap").submit();
+		})
 		
 		
 	</script>

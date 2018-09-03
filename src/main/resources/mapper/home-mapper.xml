@@ -448,6 +448,13 @@
 	<!-- 찬연 -->
 	
 	<insert id="firststepbyone" parameterType="Home">
+		insert into home value (home_seq,member_email,home_buildingType,home_type,home_people,home_nation,home_addr1,home_addr2,
+		home_addr3,home_addr4,home_lat,home_lng,home_amenities,home_safety,home_step) 
+		values (home_seq.nextval,#{member_email},#{home_buildingType},#{home_type},#{home_people},#{home_nation},
+		#{home_addr1},#{home_addr2},#{home_addr3},#{home_addr4},#{home_lat},#{home_lng},#{home_amenities},#{home_safety},'1')
+	</insert>
+	
+	<insert id="firststeptoinsert" parameterType="Home">
 		insert into home value (home_seq,member_email,home_step) values (home_seq.nextval,#{member_email},'1')
 	</insert>
 	
@@ -456,6 +463,12 @@
     	* from home where member_email = #{member_email} order by home_seq desc) where rownum = 1
 	</select>
 	
+	<update id="firststeptomodify" parameterType="Home">
+		update home set home_type =#{home_type}, home_buildingType =#{home_buildingType},
+		home_people = #{home_people}, home_nation = #{home_nation} , home_addr1 = #{home_addr1} , home_addr2 = #{home_addr2}, 
+		home_addr3 = #{home_addr3}, home_addr4 = #{home_addr4} , home_lat = #{home_lat} , home_lng=#{home_lng},
+		home_amenities = #{home_amenities} , home_safety = #{home_safety} where home_seq =#{home_seq}
+	</update>
 	
 	<!-- #{member_email} -->
 	<!-- all modify  -->
@@ -488,7 +501,7 @@
 	</update>
 	
 	<update id="secondstepbyfinal" parameterType="Home">
-		update home set home_name = #{home_name} , home_step = '3'   where home_seq = #{home_seq}  
+		update home set home_name = #{home_name} , home_step = '2'   where home_seq = #{home_seq}  
 	</update>
 	
 	<update id="thirdstepbyone" parameterType="Home">
@@ -510,7 +523,7 @@
 	</update>
 	
 	<update id="thirdstepbyfive" parameterType="Home">
-		update home set home_price = #{home_price}, home_step = '4'  where home_seq = #{home_seq}  
+		update home set home_price = #{home_price}, home_step = '3'  where home_seq = #{home_seq}  
 	</update>
 
 	<select id="getSimilarHome" resultType="Home">

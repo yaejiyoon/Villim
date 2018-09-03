@@ -458,4 +458,33 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeprice(hdto);
 	}
 
+	@Override
+	public int modifyFirstHome(HomeDTO hdto) {
+		// TODO Auto-generated method stub
+		return hdao.modifyFirstHome(hdto);
+	}
+
+	@Override
+	public int insertbed(BedDTO bdto) {
+		// TODO Auto-generated method stub
+		return hdao.insertbed(bdto);
+	}
+	
+	@Override
+	public int updatebed(BedDTO bdto) {
+		// TODO Auto-generated method stub
+		return hdao.updatebed(bdto);
+	}
+
+	@Override
+	public BedDTO selectbed(int homeseq) {
+		// TODO Auto-generated method stub
+		return hdao.selectbed(homeseq);
+	}
+
+	@Override
+	public int deletebed(int homeseq) {
+		// TODO Auto-generated method stub
+		return hdao.deletebed(homeseq);
+	}
 }
