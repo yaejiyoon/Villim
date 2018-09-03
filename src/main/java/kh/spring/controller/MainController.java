@@ -60,6 +60,7 @@ public class MainController {
 		System.out.println(url);
 		System.out.println(":" + url);
 		mav.addObject("google_url", url);
+		mav.addObject("homeList", homeList);
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("homeList", homeList);

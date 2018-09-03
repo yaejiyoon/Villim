@@ -519,7 +519,7 @@ public class HomeDAOImpl implements HomeDAO {
 	
 	@Override
 	public List<HomeDTO> getPraha() {
-		return ssTemplate.selectList("Home.getLondon");
+		return ssTemplate.selectList("Home.getPraha");
 	}
 	
 	@Override
