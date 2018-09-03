@@ -43,8 +43,7 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	@Autowired
-	HomeService hService;
+
 //	@Autowired
 //	MemberDTO dto;
 
@@ -422,7 +421,7 @@ public class MemberController {
 		List<HomeDTO> homeList = hService.getAllHomeDataMain();
 		
 		System.out.println("facebookInfo2 접속");
-		List<HomeDTO> homeList = hService.getAllHomeDataMain();
+		
 		mav.addObject("homeList", homeList);
 		dto.setMember_email(session.getAttribute("login_email").toString());
 		
@@ -454,7 +453,7 @@ public class MemberController {
 		List<HomeDTO> homeList = hService.getAllHomeDataMain();
 		
 		ModelAndView mav = new ModelAndView();
-		List<HomeDTO> homeList = hService.getAllHomeDataMain();
+		
 		
 		String picture = service.isMember(dto);
 		
