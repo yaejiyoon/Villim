@@ -17,9 +17,13 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
-<title>편의시설 수정 탭</title>
+<title>숙소 규칙</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
+body{
+min-width:1280px;
+}
 /* 라디오버튼 시작 */
 * {
 	font-family: 'Roboto', sans-serif;

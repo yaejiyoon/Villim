@@ -952,9 +952,9 @@ public class HostController {
 
 			hdto = homeService.getHomeData(seq);
 
-			if (sarr.length != 0) {
+			if (sarr != null) {
 				bdto.setBed_single(Arrays.toString(sarr));
-				System.out.println(bdto.getBed_single());
+				System.out.println("bdto.getBed_single::"+bdto.getBed_single());
 				if (bdto.getBed_single() != null) {
 					bdto.setBed_single(bdto.getBed_single().substring(1, bdto.getBed_single().length() - 1));
 				}
@@ -1470,6 +1470,7 @@ public class HostController {
 			dto.setG_review_accuracy(numList.get(i));
 			dto.setCount(0);
 			accList.add(dto);
+			System.out.println("getcount::"+dto.getCount());
 		}
 		// accuracy
 		numList.clear();
@@ -1484,7 +1485,6 @@ public class HostController {
 		for (int i = 0; i < numList.size(); i++) {
 			GuestReviewDTO dto = new GuestReviewDTO();
 			dto.setG_review_cleanliness(numList.get(i));
-			;
 			dto.setCount(0);
 			cleanList.add(dto);
 		}
@@ -1493,6 +1493,7 @@ public class HostController {
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
+		
 		// check
 		for (int i = 0; i < checkList.size(); i++) {
 			list_check.add(checkList.get(i).getG_review_checkIn());
@@ -1505,10 +1506,12 @@ public class HostController {
 			checkList.add(dto);
 		}
 		// check
+		
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
+		
 		// amenities
 		for (int i = 0; i < ameniList.size(); i++) {
 			list_ameni.add(ameniList.get(i).getG_review_amenities());
@@ -1521,10 +1524,12 @@ public class HostController {
 			ameniList.add(dto);
 		}
 		// amenities
+		
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
+		
 		// comm
 		for (int i = 0; i < commList.size(); i++) {
 			list_comm.add(commList.get(i).getG_review_communication());
@@ -1537,10 +1542,12 @@ public class HostController {
 			commList.add(dto);
 		}
 		// comm
+		
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
+		
 		// local
 		for (int i = 0; i < locList.size(); i++) {
 			list_loc.add(locList.get(i).getG_review_location());
@@ -1553,10 +1560,12 @@ public class HostController {
 			locList.add(dto);
 		}
 		// local
+		
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
+		
 		// val
 		for (int i = 0; i < valList.size(); i++) {
 			list_val.add(valList.get(i).getG_review_value());
@@ -1569,6 +1578,7 @@ public class HostController {
 			valList.add(dto);
 		}
 		// val
+		
 		// 반복끝
 
 		// review paging
@@ -1612,7 +1622,10 @@ public class HostController {
 		double avg8 = 0;
 
 		for (GuestReviewDTO g : satisList) {
+			System.out.println(g.getG_review_satisfaction());
 			avg1 += g.getG_review_satisfaction() * g.getCount();
+			System.out.println("a:"+avg1);
+			System.out.println(g.getCount());
 		}
 		for (GuestReviewDTO g : accList) {
 			avg2 += g.getG_review_accuracy() * g.getCount();
@@ -1635,6 +1648,9 @@ public class HostController {
 		for (GuestReviewDTO g : valList) {
 			avg8 += g.getG_review_value() * g.getCount();
 		}
+		
+		System.out.println("cnt::"+cnt);
+		
 		avg1 = avg1 / cnt;
 		avg1 = Double.parseDouble(String.format("%.1f", avg1));
 		avg2 = avg2 / cnt;
@@ -1653,8 +1669,20 @@ public class HostController {
 		avg8 = Double.parseDouble(String.format("%.1f", avg8));
 
 		double allTotal = (avg1 + avg2 + avg3 + avg4 + avg5 + avg6 + avg7 + avg8) / 8;
+		
+		System.out.println("avg1::"+avg1);
+		System.out.println("avg1::"+avg2);
+		System.out.println("avg1::"+avg3);
+		System.out.println("avg1::"+avg4);
+		System.out.println("avg1::"+avg5);
+		System.out.println("avg1::"+avg6);
+		System.out.println("avg1::"+avg7);
+		System.out.println("avg1::"+avg8);
+		
 		allTotal = Double.parseDouble(String.format("%.1f", allTotal));
+		System.out.println("allTotal::"+allTotal);
 
+		
 		List<HomeDTO> hlist = homeService.getAllHomeData(member_email);
 
 		ModelAndView mav = new ModelAndView();
@@ -2290,7 +2318,9 @@ public class HostController {
 			System.out.println("위::" + home_seq);
 		}
 
-		hdto.setHome_addr2(hdto.getHome_addr2().split(" ")[0]);
+		if(hdto.getHome_addr2() != null) {
+			hdto.setHome_addr2(hdto.getHome_addr2().split(" ")[0]);
+		}
 		List<HomeDTO> siList = homeService.getSimilarHome(hdto);
 		System.out.println("asd::" + hdto.getHome_addr2());
 		for (HomeDTO dto : siList) {

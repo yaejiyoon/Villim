@@ -235,8 +235,7 @@ a:hover {
 	<div id="header-pic" class="dropdown">
 		<a id="dLabel" class="dropdown-toggle" data-target="dropdown"
 			data-toggle="dropdown" aria-haspopup="true" role="button"
-			aria-expanded="false"
-			style="position: absolute; right: 25px; top: 25px;"> <img
+			aria-expanded="false"> <img
 			src="<c:url value='/resources/img/1.jpg'/>">
 		</a>
 		<ul class="dropdown-menu  dropdown-menu-right" role="menu"

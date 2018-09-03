@@ -27,12 +27,14 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
-	border: 1px solid black;
 	margin: 10px auto;
 	width: 70%;
-	height: auto;
+	height: auto;  
+	margin-bottom: 100px;
 }
 
 #wrapper-sub1 {
@@ -42,20 +44,17 @@ div {
 
 #wrapper-sub2 {
 	margin-top: 50px;
-	border: 1px solid black;
 	width: 90%;
 	display: inline-block;
 }
 
 #wrapper-sub3 {
 	margin-top: 50px;
-	border: 1px solid black;
 	width: 90%;
 	display: inline-block;
 }
 
 .home-details {
-	border: 1px solid black;
 	margin-top: 60px;
 	width: 50%;
 	padding: 0;
@@ -156,7 +155,8 @@ a:focus {
 	max-height: 60%;
 }
 </style>
-<title>Insert title here</title>
+<title>조회수</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
@@ -177,17 +177,13 @@ a:focus {
 						<b>조회수</b>
 					</button>
 				</div>
-				<div class="col-md-3">
-					<button class="nav-btn" type="button"
-						onclick="location.href='hostReservePossibleTab.do'">발전기회</button>
-				</div>
 			</div>
 		</div>
 		<div class="line"></div>
 
 		<div id=wrapper-sub2>
 			<div>
-				<b>숙소 선택</b>
+				<b style="font-size: 20px;">숙소 선택</b> 
 			</div>
 			<select class="form-control input-lg"
 				onchange="if(this.value) location.href=(this.value);"
@@ -320,31 +316,31 @@ a:focus {
 					},
 					"data" : [ {
 						"label" : "01",
-						"value" : "1"
+						"value" : "0"
 					}, {
 						"label" : "02",
-						"value" : "5"
+						"value" : "0"
 					}, {
 						"label" : "03",
-						"value" : "10"
+						"value" : "0"
 					}, {
 						"label" : "04",
-						"value" : "12"
+						"value" : "0"
 					}, {
 						"label" : "05",
-						"value" : "14"
+						"value" : "0"
 					}, {
 						"label" : "06",
-						"value" : "16"
+						"value" : "0"
 					}, {
 						"label" : "07",
-						"value" : "20"
+						"value" : "0"
 					}, {
 						"label" : "08",
-						"value" : "18"
+						"value" : "0"
 					}, {
 						"label" : "09",
-						"value" : "0"
+						"value" : "${hdto.home_view}"
 					}, {
 						"label" : "10",
 						"value" : "0"

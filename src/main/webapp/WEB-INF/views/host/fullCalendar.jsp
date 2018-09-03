@@ -29,7 +29,8 @@
 <script src="<c:url value="/resources/js/fullcalendar.min.js"/>"
 	type="text/javascript"></script>
 
-<title>달력보기</title>
+<title>달력</title>  
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 body {
@@ -37,6 +38,7 @@ body {
 	padding: 0;
 	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
 	font-size: 14px;
+min-width:1280px;
 }
 
 div {
