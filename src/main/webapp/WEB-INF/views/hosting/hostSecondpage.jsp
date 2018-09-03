@@ -362,7 +362,7 @@
 						<div class="list-your-space__content">
 							<div class="centered-content clearfix">
 								<div
-									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix col-md-6 landing__left-col">
+									class="main-panel-container no-padding-h bg-white main-panel-outer-half clearfix landing__left-col col-md-6 col-md-offset-2">
 									<form action="thirdMove.host" method="post" id="housetypes">
 									<div
 										class="main-panel main-panel-padding main-panel-progress  main-panel-inner-half space-sm-8">
