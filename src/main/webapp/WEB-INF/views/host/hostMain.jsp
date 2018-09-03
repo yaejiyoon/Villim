@@ -24,296 +24,371 @@
 
 <title>알림판 - Airbnb</title>
 <style>
-	div {
-		box-sizing: border-box;
-	}
-	#wrapper {
-		margin: 30px auto;
-		width: 70%;
-		height: auto;
-	}
-	.alimpan {
-		width: 100%;
-	}
-	.alimpan-title {
-		width: 50%;
-		text-align: left;
-		display: inline-block;
-	}
-	.add-homelink {
-		font-size: 20px;
-		text-align: right;
-		width: 49%;
-		display: inline-block;
-	}
-	.add-homelink-link:hover {
-		text-decoration: none;
-	}
-	.home-summary {
-		margin-top: 60px;
-	}
-	.home-summary-title h2 {
-		margin-bottom: 10px;
-	}
-	.home-summary-title-wrap {
-		margin-bottom: 20px;
-	}
-	.home-summary-title {
-		width: 150px;
-	}
-	.home-summary-span {
-		font-size: 17px;
-	}
-	.home-summary-contents {
-		display: inline-block;
-		width: 80%;
-		height: 200px;
-		margin-left: 2px;
-	}
-	.home-pic {
-		width: 100%;
-		height: 100%;
-	}
-	.home-pic-add {
-		width: 50%;
-		height: 50%;
-		position: relative;
-		top: 48px;
-		left: 46px;
-	}
-	.home-summary-contents-pic {
-		display: inline-block;
-		float: left;
-		width: 35%;
-		height: 100%;
-	}
-	.home-summary-contents-addr {
-		display: inline-block;
-		float: left;
-		width: 65%;
-		height: 100%;
-	}
-	.home-summary-contents-addr p, span {
-		margin-bottom: 0;
-		font-size: 15px;
-	}
-	.home-summary-contents-price {
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
-	.home-summary-contents-price2 {
-		margin-bottom: 20px;
-	}
-	.home-summary-card {
-		border: 1px solid black;
-		width: 100%;
-		height: 390px;
-		margin-top: 50px;
-	}
-	.home-summary-card-sub1 {
-		border: 1px dotted black;
-		display: inline-block;
-		width: 32%;
-		height: 100%;
-		float: left;
-	}
-	.home-summary-card-sub2 {
-		border: 1px dotted black;
-		display: inline-block;
-		width: 32%;
-		height: 100%;
-		float: left;
-		margin-left: 17px;
-		margin-right: 17px;
-	}
-	.home-summary-card-sub3 {
-		border: 1px dotted black;
-		display: inline-block;
-		width: 32%;
-		height: 100%;
-		float: left;
-	}
-	.home-summary-card-sub1-contents, .home-summary-card-sub2-contents,
-		.home-summary-card-sub3-contents {
-		width: 85%;
-		height: 85%;
-		margin: 0 auto;
-		margin-top: 30px;
-		font-size: 16px;
-	}
-	.noti-reser-host-resr-wrap {
-		width: 100%;
-		display: inline-block;
-		margin-top: 80px;
-	}
-	.notice-reserve {
-		display: inline-block;
-		float: left;
-		width: 60%;
-		margin-top: 70px;
-	}
-	.host-notice {
-		width: 200px;
-	}
-	.host-notice a:hover {
-		background-color: gray;
-		text-decoration: none;
-	}
-	.host-notice a:link {
-		text-decoration: none;
-	}
-	.host-notice a:visited {
-		text-decoration: none;
-	}
-	.host-notice-wrap {
-		display: inline-block;
-		width: 90%;
-		height: 120px;
-		margin: 0;
-	}
-	.host-notice-wrap:hover {
-		background-color: #F2F2F2;
-	}
-	.host-notice-wrap-sub {
-		width: 85%;
-		margin: 0 auto;
-		margin-top: 20px;
-	}
-	.host-notice-icon {
-		width: 50px;
-		display: inline-block;
-		float: left;
-	}
-	.host-notice-content {
-		width: 400px;
-		display: inline-block;
-		float: left;
-	}
-	.host-notice-contents {
-		width: 400px;
-		display: inline-block;
-	}
-	.host-notice-date {
-		width: 100px;
-		display: inline-block;
-	}
-	.reserve-wrap {
-		margin: 0;
-		margin-top: 30px;
-		display: inline-block;
-		width: 90%;
-		height: auto;
-	}
-	.reserve-contents {
-		width: 100%;
-		height: 120px;
-	}
-	.hosting-result-wrap {
-		display: inline-block;
-		width: 37%;
-		height: 500px;
-		margin-left: 20px;
-		margin-top: 70px;
-	}
-	.hosting-result-table {
-		margin-top: 20px;
-		width: 100%;
-	}
-	.hosting-result-table tr, td {
-		width: 50%;
-		font-size: 18px;
-	}
-	.right {
-		text-align: right;
-	}
-	.hosting-result-line {
-		display: inline-block;
-		width: 100%;
-		border: 0.5px solid #E6E6E6;
-		margin-top: 20px;
-		margin-bottom: 40px;
-	}
-	.dropdown:hover .dropdown-menu {
-		display: block;
-		margin-top: 0;
-	}
-	.dropdown-header {
-		font-size: 17px;
-		color: black;
-	}
-	.dd-wrap {
-		width: 100%;
-		height: 100px;
-	}
-	.dd-sub-pic {
-		width: 35%;
-		display: inline-block;
-		float: left;
-		height: 100%;
-	}
-	.dd-pic {
-		width: 80%;
-		position: relative;
-		top: 3px;
-		left: 11px;
-	}
-	.dd-main-pic {
-		width: 100%;
-		height: 100%;
-	}
-	.dd-sub-content {
-		width: 65%;
-		display: inline-block;
-		float: left;
-		height: 100%;
-		padding-left: 15px;
-		padding-top: 15px;
-	}
-	.dropdown-menu {
-		width: 350px;
-		height: 300px;
-	}
-	#dropdownMenu1:hover {
-		text-decoration: none;
-	}
-	.btn {
-		background-color: #008489;
-		color: white;
-	}
-	#bottom-wrap {
-		display: inline-block;
-		width: 100%;
-		border: 1px solid black;
-		margin-bottom: 30px;
-		margin-top: 40px;
-		margin-bottom: 30px;
-	}
-	.alim-link:hover {
-		background-color: #E6E6E6;
-	}
-	#cover-add-wrap {
-		margin: 0 auto;
-		width: 50%;
-	}
-	#cover-add {
-		width: 100%;
-	}
-	.left {
-		width: 35%;
-		display: inline-block;
-		float: left;
-	}
-	.right {
-		width: 64%;
-		height: 13px;
-		float: right;
-		display: inline-block;
-	}
-	.lrwrap {
-		width: 100%;
-		border: 1px dotted orange;
-		display: inline-block;
-	}
+div {
+	box-sizing: border-box;
+}
+body{
+	min-width: 1280px;
+}
+
+#wrapper {
+	margin: 30px auto;
+	width: 70%;
+	height: auto;
+}
+
+.alimpan {
+	width: 100%;
+}
+
+.alimpan-title {
+	width: 50%;
+	text-align: left;
+	display: inline-block;
+}
+
+.add-homelink {
+	font-size: 20px;
+	text-align: right;
+	width: 49%;
+	display: inline-block;
+}
+
+.add-homelink-link:hover {
+	text-decoration: none;
+}
+
+.home-summary {
+	margin-top: 60px;
+}
+
+.home-summary-title h2 {
+	margin-bottom: 10px;
+}
+
+.home-summary-title-wrap {
+	margin-bottom: 20px;
+}
+
+.home-summary-title {
+	width: 150px;
+}
+
+.home-summary-span {
+	font-size: 17px;
+}
+
+.home-summary-contents {
+	display: inline-block;
+	width: 80%;
+	height: 200px;
+	margin-left: 2px;
+}
+
+.home-pic {
+	width: 100%;
+	height: 100%;
+}
+
+.home-pic-add {
+	width: 50%;
+	height: 50%;
+	position: relative;
+	top: 48px;
+	left: 46px;
+}
+
+.home-summary-contents-pic {
+	display: inline-block;
+	float: left;
+	width: 35%;
+	height: 100%;
+}
+
+.home-summary-contents-addr {
+	display: inline-block;
+	float: left;
+	width: 65%;
+	height: 100%;
+}
+
+.home-summary-contents-addr p, span {
+	margin-bottom: 0;
+	font-size: 15px;
+}
+
+.home-summary-contents-price {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.home-summary-contents-price2 {
+	margin-bottom: 20px;
+}
+
+.home-summary-card {
+	width: 100%;
+	height: 390px;
+	margin-top: 50px;
+	margin-left: 0;
+}
+
+.home-summary-card-sub1 {
+	border: 1px solid #E6E6E6;
+	display: inline-block;
+	width: 32%;
+	height: 100%;
+	float: left;
+}
+
+.home-summary-card-sub2 {
+	border: 1px solid #E6E6E6;
+	display: inline-block;
+	width: 32%;
+	height: 100%;
+	float: left;
+	margin-left: 17px;
+	margin-right: 17px;
+}
+
+.home-summary-card-sub3 {
+	border: 1px solid #E6E6E6;
+	display: inline-block;
+	width: 32%;
+	height: 100%;
+	float: left;
+}
+
+.home-summary-card-sub1-contents, .home-summary-card-sub2-contents,
+	.home-summary-card-sub3-contents {
+	width: 85%;
+	height: 85%;
+	margin: 0 auto;
+	margin-top: 30px;
+	font-size: 16px;
+}
+
+.noti-reser-host-resr-wrap {
+	width: 100%;
+	display: inline-block;
+	margin-top: 80px;
+}
+
+.notice-reserve {
+	display: inline-block;
+	float: left;
+	width: 60%;
+	margin-top: 70px;
+}
+
+.host-notice {
+	width: 200px;
+}
+
+.host-notice a:hover {
+	background-color: gray;
+	text-decoration: none;
+}
+
+.host-notice a:link {
+	text-decoration: none;
+}
+
+.host-notice a:visited {
+	text-decoration: none;
+}
+
+.host-notice-wrap {
+	display: inline-block;
+	width: 90%;
+	height: 120px;
+	margin: 0;
+}
+
+.host-notice-wrap:hover {
+	background-color: #F2F2F2;
+}
+
+.host-notice-wrap-sub {
+	width: 85%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.host-notice-icon {
+	width: 50px;
+	display: inline-block;
+	float: left;
+}
+
+.host-notice-content {
+	width: 400px;
+	display: inline-block;
+	float: left;
+}
+
+.host-notice-contents {
+	width: 400px;
+	display: inline-block;
+}
+
+.host-notice-date {
+	width: 100px;
+	display: inline-block;
+}
+
+.reserve-wrap {
+	margin: 0;
+	margin-top: 30px;
+	display: inline-block;
+	width: 90%;
+	height: auto;
+}
+
+.reserve-contents {
+	width: 100%;
+	height: 120px;
+	margin: 0;
+}
+
+.hosting-result-wrap {
+	display: inline-block;
+	width: 37%;
+	height: 500px;
+	margin-left: 20px;
+	margin-top: 70px;
+}
+
+.hosting-result-table {
+	margin-top: 20px;
+	width: 100%;
+}
+
+.hosting-result-table tr, td {
+	width: 50%;
+	font-size: 18px;
+}
+
+.right {
+	text-align: right;
+}
+
+.hosting-result-line {
+	display: inline-block;
+	width: 100%;
+	border: 0.5px solid #E6E6E6;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+	margin-top: 0;
+}
+
+.dropdown-header {
+	font-size: 17px;
+	color: black;
+}
+
+.dd-wrap {
+	width: 100%;
+	height: 100px;
+}
+
+.dd-sub-pic {
+	width: 35%;
+	display: inline-block;
+	float: left;
+	height: 100%;
+}
+
+.dd-pic {
+	width: 80%;
+	position: relative;
+	top: 3px;
+	left: 11px;
+}
+
+.dd-main-pic {
+	width: 100%;
+	height: 100%;
+}
+
+.dd-sub-content {
+	width: 65%;
+	display: inline-block;
+	float: left;
+	height: 100%;
+	padding-left: 15px;
+	padding-top: 15px;
+}
+
+.dropdown-menu {
+	width: 350px;
+	height: 300px;
+}
+
+#dropdownMenu1:hover {
+	text-decoration: none;
+}
+
+.btn {
+	background-color: #008489;
+	color: white;
+}
+
+#bottom-wrap {
+	display: inline-block;
+	width: 100%;
+	margin: 0 auto;
+	margin-bottom: 30px;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.alim-link:hover {
+	background-color: #E6E6E6;
+}
+
+#cover-add-wrap {
+	margin: 0 auto;
+	width: 50%;
+}
+
+#cover-add {
+	width: 100%;
+}
+
+.left {
+	width: 35%;
+	display: inline-block;
+	float: left;
+}
+
+.right {
+	width: 64%;
+	height: 13px;
+	float: right;
+	display: inline-block;
+}
+
+.lrwrap {
+	width: 100%;
+	display: inline-block;
+}
+
+.rlist-left {
+	width: 80%;
+	float: left;
+	padding: 20px;
+}
+td{
+	color:#008489;
+}
+ul li{
+	margin-bottom: 5px;
+}
 
 /* @media (max-width:1260px){ */
 /* 	.home-summary-card-sub3, #card4{ */
@@ -326,7 +401,6 @@
 /* 	} */
 /* } */
 </style>
-
 </head>
 <body>
 	<%
@@ -354,7 +428,7 @@
 							style="font-size: 20px;" class="caret"></span>
 						</a>
 					</h2>
-					<ul class="dropdown-menu" role="menu"
+					<ul class="dropdown-menu" role="menu" 
 						aria-labelledby="dropdownMenu1" style="overflow: scroll;">
 						<c:if test="${homeList ne null }">
 							<li role="presentation" class="dropdown-header">숙소를 선택하세요</li>
@@ -364,7 +438,7 @@
 									cnt++;
 								%>
 								<li role="presentation">
-									<div class="dd-wrap">
+									<div class="dd-wrap" style="padding-left:20px; padding-right: 20px; padding-top: 20px;">
 										<a style="font-size: 17px;" role="menuitem" tabindex="-1"
 											id="summ-link<%=cnt%>" href="javascript:void(0);">
 											<div class="dd-sub-pic">
@@ -399,8 +473,40 @@
 											},
 											success:function(resp){
 												console.log("성공 : "+resp);
-												$("#hp-number").text("${hpsize}/19");
+												
+												//숙소호감도
+												if(${standard > resp.hdto.home_price}){
+													$('#pp').css('width', '50%');
+												}else{
+													$('#pp').css('width', '100%');
+												}
+												
+												if(resp.hplist.size <= 5){
+													$("#ip").css('width','35%')
+												}else if(resp.hplist.size>5 && resp.hplist.size() < 15){
+													$("#ip").css('width','70%')
+												}else if(resp.hplist.size>20 ){
+													$("#ip").css('width','100%')
+												}
+												
+												if(resp.ntot == 0){
+													$('#dp').css("width","0%");
+												}else if(resp==1){
+													$('#dp').css("width","20%");
+												}else if(resp==2){
+													$('#dp').css("width","40%");
+												}else if(resp==3){
+													$('#dp').css("width","60%");
+												}else if(resp==4){
+													$('#dp').css("width","80%");
+												}else if(resp==5){
+													$('#dp').css("width","100%");
+												}
+												
 												if(resp.hdto.home_main_pic == null){
+													alert(resp.hplist.length);
+													$(".hp-number").text(resp.hplist.length+"/19");
+													$("#hp-number").text(resp.hplist.length+"/19");
 													$(".home-summary-contents-pic").find("img").each(function() {
 														console.log("pic"+resp.pic);
 														$("#mainpic").attr('src', "<c:url value ='/resources/img/photo.png'/>");
@@ -412,6 +518,9 @@
 													$("#cover-wrap").attr("id", "cover-wrap");
 													
 												} else {
+													$(".hp-number").text((resp.hplist.length+1)+"/19");
+													$("#hp-number").text((resp.hplist.length+1)+"/19");
+													
 													$(".home-summary-contents-pic").find("img").each(function() {
 														console.log("pic"+ resp.hdto.home_main_pic);
 														$("#mainpic").attr('src',"<c:url value ='files/"+resp.hdto.home_main_pic+"'/>");
@@ -464,17 +573,17 @@
 				<div class="home-summary-contents-addr col-md-6">
 					<p>
 						<a id=homename href="hostHomeTab.do?seq=${hdto.home_seq }"
-							style="color: black;">${hdto.home_name }</a>
+							style="color: #008489; font-size: 17px;">${hdto.home_name }</a>
 					</p>
 					<p id=address>${hdto.home_addr1},${hdto.home_addr2 },${hdto.home_addr3 },${hdto.home_addr4},${hdto.home_nation }운영중</p>
 					<p class="home-summary-contents-price">가격</p>
-					<p id=price class="home-summary-contents-price2">${hdto.home_price }
-						<c:if test="${hdto.home_currency.equals('KRW')}">&nbsp;원</c:if>
+					<p id=price class="home-summary-contents-price2">
+						<c:if test="${hdto.home_currency.equals('KRW')}">￦</c:if>
+						${hdto.home_price }
 					</p>
 
 					<div class="progress-wrap" style="margin-top: 30px;">
 						<span class="home-summary-contents-feel">숙소 호감도</span>
-
 
 						<div class="dropdown" style="display: inline-block;">
 							<a class="dropdown-toggle" id="dropdownMenu1"
@@ -488,55 +597,123 @@
 										호감도</b></li>
 								<li>숙소 호감도는 주변의 인기 숙소에 비해 회원님의 숙소가 게스트에게 얼마나 부각되는지를 판단합니다.</li>
 								<br>
-								<li><div class="lrwrap">
-										<span class="left"><b>달력</b></span><span class="right">예약
-											가능</span>
+								<li><div class="lrwrap row">
+										<div class="left col-md-4"><b>달력</b></div><div class="right col-md-8">예약
+											가능</div>
 									</div></li>
-								<li><div class="lrwrap">
-										<div class="left">
+								<li><div class="lrwrap row">
+										<div class="left col-md-4">
 											<b>가격</b>
 										</div>
-										<div class="right">
-											<div class="progress">
-												<div class="progress-bar" role="progressbar"
-													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-													style="width: 50%; height: 15px;">
-													<span class="sr-only">60% Complete</span>
+										<div class="right col-md-8">
+											<div class="progress" style="width: 100%; height: 10px;">
+												<div class="progress-bar" role="progressbar" id="pp"
+													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
 												</div>
-											</div>
-										</div></li>
-								<li><div class="lrwrap">
-										<div class="left">
-											<b>사진</b>
-										</div>
-										<div class="right">
-											<div class="progress" style="width: 100%; height: 15px;">
-												<div class="progress-bar" role="progressbar"
-													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-													style="width: 80%;">
-													<span class="sr-only">60% Complete</span>
-												</div>
+											<c:if test="${standard > hdto.home_price}">
+												<script>
+													$('#pp').css("width",'50%');
+												</script>
+											</c:if>
+											<c:if test="${standard < hdto.home_price}">
+												<script>
+													$('#pp').css("width",'100%');
+												</script>
+											</c:if>
 											</div>
 										</div>
 									</div></li>
-								<li><div class="lrwrap">
-										<span class="left"><b>숙소 세부정보</b></span><span class="right">
-											<div class="progress-bar" role="progressbar"
-												aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-												style="width: 50%; height: 15px;">
-												<span class="sr-only">60% Complete</span>
+								<li><div class="lrwrap row">
+										<div class="left col-md-4">
+											<b>사진</b>
+										</div>
+										<div class="right col-md-8">
+											<div class="progress" style="width: 100%; height: 10px;">
+												<div class="progress-bar" role="progressbar" id="ip"
+													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+												</div>
+												<c:if test="${hplist.size()<= 5 }">
+													<script>
+														$('#ip').css("width","35%");
+													</script>
+												</c:if>
+												<c:if test="${hplist.size() > 5 && hplist.size() < 15 }">
+													<script>
+														$('#ip').css("width","70%");
+													</script>
+												</c:if>
+												<c:if test="${hplist.size()>20 }">
+													<script>
+														$('#ip').css("width","100%");
+													</script>
+												</c:if>
+												
 											</div>
-										</span>
+										</div>
+									</div>
+									</li>
+								<li><div class="lrwrap row">
+										<div class="left col-md-4">
+											<b>숙소 세부정보</b>
+										</div>
+										<div class="right col-md-8">
+											<div class="progress" style="width: 100%; height: 10px;">
+												<div id="dp" class="progress-bar" role="progressbar"
+													aria-valuenow="60" aria-valuemin="0"
+													aria-valuemax="100">
+												</div>
+												<c:if test="${ntot == 0 }">
+													<script>
+														$('#dp').css("width","0%");
+													</script>
+												</c:if>
+												<c:if test="${ntot == 1}">
+													<script>
+														$('#dp').css("width","20%");
+													</script>
+												</c:if>
+												<c:if test="${ntot == 2}">
+													<script>
+														$('#dp').css("width","40%");
+													</script>
+												</c:if>
+												<c:if test="${ntot == 3 }">
+													<script>
+														$('#dp').css("width","60%");
+													</script>
+												</c:if>
+												<c:if test="${ntot == 4 }">
+													<script>
+														$('#dp').css("width","80%");
+													</script>
+												</c:if>
+												<c:if test="${ntot == 5 }">
+													<script>
+														$('#dp').css("width","100%");
+													</script>
+												</c:if>
+												
+											</div>
+										</div>
 									</div></li>
 							</ul>
 						</div>
 
 						<!-- 호감도는 숙소 평점별로 나타내기 -->
-						<div class="progress" style="width: 50%; height: 10px;">
-							<div class="progress-bar" role="progressbar" style="width: 50%"
+						<div class="progress" style="width: 80%; height: 15px;">
+							<div class="progress-bar" role="progressbar" id="tp"
 								aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 						</div>
-
+						<script>
+							var dp = $('#dp').css('width');
+							var ip = $('#ip').css('width');
+							var pp = $('#pp').css('width');
+							dp = Number(dp.substring(0, dp.length-1));
+							ip = Number(ip.substring(0, ip.length-1));
+							pp = Number(pp.substring(0, pp.length-1));
+							var total = (pp+dp+ip)/3;
+							$('#tp').css('width', total+"%");
+						</script>
 					</div>
 				</div>
 			</div>
@@ -596,49 +773,51 @@
 				<div class="home-summary-card-sub3 col-md-4">
 					<div class="home-summary-card-sub3-contents">
 						<div>
-							<h4>상세한 설명 추가</h4>
+							<h4>사진 추가</h4>
 						</div>
-						<div>상세 설명을 추가하면 숙소에 대한 관심도를 높일 수 있습니다.</div>
-						<div class="img-rounded"
-							style="border: 1px dotted black; width: 100%; height: 150px; margin-top: 38px;"></div>
-						<button type="button" class="btn btn-lg"
-							style="position: relative; top: 20px;"
-							onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">세부정보
-							추가</button>
+						<div>회원님의 숙소 사진은 
+						<c:if test="${hdto.home_main_pic ne null }"><span class="hp-number">${hplist.size()+1 }</span></c:if>
+						<c:if test="${hdto.home_main_pic eq null }"><span class="hp-number">0</span></c:if>
+						장입니다. 일반적으로 숙소 사진이 19장 이상일 경우 더 많은 예약을
+							받습니다.</div> 
+						<div id="hp-number"
+							style="width: 100%; height: 150px; text-align: center; padding-top: 35px; margin-top: 38px; font-size: 40px;">
+							<c:if test="${hdto.home_main_pic ne null}">
+											${hplist.size()+1} / 19
+							</c:if>
+							<c:if test="${hdto.home_main_pic eq null}">
+											0 / 19
+							</c:if>
+						</div>
+					<button type="button" class="btn btn-lg"
+						style="position: relative;"
+						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">사진
+						추가</button>
 					</div>
 				</div>
+			</div>
 
-				<a id="card4" data-toggle="collapse" href="#collapseExample1"
-					aria-expanded="false" aria-controls="collapseExample"
-					style="font-size: 18px;">더 보기</a>
-				<div class=collapse id="collapseExample1">
-					<div class=well
-						style="display: inline-block; float: left; width: 100%; height: 390px; padding: 0; border: none;">
+			<a id="card4" data-toggle="collapse" href="#collapseExample1"
+				aria-expanded="false" aria-controls="collapseExample"
+				style="font-size: 18px;">더 보기</a>
+			<div class=collapse id="collapseExample1">
+				<div class=well
+					style="display: inline-block; float: left; width: 100%; height: 390px; padding: 0; border: none;">
 
-						<div style="background-color: white; width: 100%; height: 390px;">
-							<div class="home-summary-card-sub3 col-md-4">
-								<div class="home-summary-card-sub3-contents">
-									<div>
-										<h4>사진 추가</h4>
-									</div>
-									<div>회원님의 숙소 사진은 5장입니다. 일반적으로 숙소 사진이 19장 이상일 경우 더 많은 예약을
-										받습니다.</div>
-									<div id="hp-number" class="img-rounded"
-										style="border: 1px dotted black; width: 100%; height: 150px; text-align: center; padding-top: 35px; margin-top: 38px; font-size: 40px;">
-										<c:if test="${hdto.home_main_pic ne null}">
-											${hpsize+1} / 19
-									
-									</div>
-									</c:if>
-									<c:if test="${hdto.home_main_pic eq null}">
-											${hpsize} / 19
-								
+					<div style="background-color: white; width: 100%; height: 390px;">
+						<div class="home-summary-card-sub3 col-md-4">
+							<div class="home-summary-card-sub3-contents">
+								<div>
+									<h4>상세한 설명 추가</h4>
 								</div>
-								</c:if>
+								<div>상세 설명을 추가하면 숙소에 대한 관심도를 높일 수 있습니다.</div>
+								<div class="img-rounded"
+									style="border: width: 100%; height: 150px; margin-top: 38px;"></div>
 								<button type="button" class="btn btn-lg"
 									style="position: relative; top: 20px;"
 									onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">세부정보
 									추가</button>
+
 							</div>
 						</div>
 					</div>
@@ -650,7 +829,6 @@
 		</div>
 		<!-- home-summary-card 끝 -->
 
-	</div>
 	<!-- home-summary 끝 -->
 
 
@@ -712,18 +890,15 @@
 							</div>
 
 							<div class=collapse id="collapseExample<%=ncnt%>"
-								style="width: 100%; height: 170px;">
+								style="width: 100%;">
 								<div class=well
-									style="width: 100%; height: 170px; border-color: white; display: inline-block; padding: 0;">
+									style="width: 100%; height: 120px; border-color: white; display: inline-block; padding: 0;">
 									<div class="well-sub"
 										style="width: 100%; height: 100%; background-color: white; display: inline-block;">
-										<div
-											style="padding-left: 20px; font-size: 16px; color: black;">
+										<div style="padding: 20px; font-size: 16px; color: black;">
 											"${mlist.message_content}"</div>
-										<div
-											style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
-											<button type="button" class="btn btn-lg">사전승인</button>
-											<button type="button" class="btn btn-lg">거절</button>
+										<div style="padding-left: 20px; font-size: 15px;">
+											<button type="button" class="btn btn-lg">메시지 보내기</button>
 										</div>
 									</div>
 								</div>
@@ -733,9 +908,9 @@
 					</div>
 					<script>
 							$("#collapseExample<%=ncnt%>").click(function() {
-							$(this).css('background-color', 'white');
-						})
-					</script>
+								$(this).css('background-color', 'white');
+							})
+						</script>
 				</c:forEach>
 			</div>
 			<c:if test="${mlist.size()>3 }">
@@ -784,18 +959,15 @@
 
 
 										<div class=collapse id="collapseExample<%=mcnt%>"
-											style="width: 100%; height: 170px;">
+											style="width: 100%;">
 											<div class=well
-												style="width: 100%; height: 170px; border-color: white; display: inline-block; padding: 0;">
+												style="width: 100%; height: 120px; border-color: white; display: inline-block; padding: 0;">
 												<div class="well-sub"
 													style="width: 100%; height: 100%; background-color: white; display: inline-block;">
-													<div
-														style="padding-left: 20px; font-size: 16px; color: black;">
+													<div style="padding: 20px; font-size: 16px; color: black;">
 														"${mlist.message_content}"</div>
-													<div
-														style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
-														<button type="button" class="btn btn-lg">사전승인</button>
-														<button type="button" class="btn btn-lg">거절</button>
+													<div style="padding-left: 20px; font-size: 15px;">
+														<button type="button" class="btn btn-lg">메시지 보내기</button>
 													</div>
 												</div>
 											</div>
@@ -825,8 +997,7 @@
 						<c:forEach var="rlist2" items="${rlist2 }" begin="0" end="2">
 							<a href="#"
 								style="display: inline-block; width: 100%; height: 100%; border: 1px solid #E6E6E6;">
-								<div class='rlist-left col-md-9'
-									style="width: 80%; float: left; padding: 20px;">
+								<div class='rlist-left col-md-9'>
 									<div style="font-size: 17px; color: #FF8000;">
 										<b>요청 · ${rlist2.member_name }</b>
 									</div>
@@ -905,35 +1076,27 @@
 
 
 
-
-
-
-
-
-
-
-
-
 		<div class="hosting-result-wrap">
 			<span class="hosting-result">
 				<h2>호스팅 성과</h2>
 			</span>
 			<table class="hosting-result-table">
 				<tr>
-					<td><a href="">8월 수입</a></td>
-					<td class="right">0</td>
+					<td><a href="">${month }월 수입</a></td>
+					<td class="right">${amount }</td>
 				</tr>
 				<tr>
-					<td><a href="">8월 조회수</a></td>
-					<td class="right">0</td>
+					<td><a href="hostHits.do">${month }월 조회수</a></td>
+					<td class="right">${view }</td>
 				</tr>
 				<tr>
-					<td><a href="">8월 예약</a></td>
-					<td class="right">0</td>
+					<td><a href="hostReserveAllManaging.do">${month }월 예약</a></td>
+					<td class="right">${dateCnt }</td>
 				</tr>
 				<tr>
-					<td><a href="">전체 평점</a></td>
-					<td class="right">후기없음</td>
+					<td><a href="hostHomeAchievement.do">전체 평점</a></td>
+					<td class="right">
+					<img style="width:17px;" src="<c:url value='/resources/img/star.png'/>"> ${allTotal }</td>
 				</tr>
 				<tr>
 					<td><a href="">전체 후기 수</a></td>

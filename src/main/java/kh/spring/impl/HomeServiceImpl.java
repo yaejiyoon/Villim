@@ -250,12 +250,11 @@ public class HomeServiceImpl implements HomeService {
 	public int modifyHomeView(int home_seq) {
 		return hdao.modifyHomeView(home_seq);
 	}
-	
+
 	@Override
 	public List<ReservationDTO> getCalReservation(Map<String, Object> map) {
 		return hdao.getCalReservation(map);
 	}
-	
 
 	@Override
 	public int modifyCountdown(long getTime, int reservation_seq) {
@@ -266,49 +265,43 @@ public class HomeServiceImpl implements HomeService {
 	public BedDTO getBedData(int home_seq) {
 		return hdao.getBedData(home_seq);
 	}
-	
-	
-	
-	
+
 	// 예지
-		@Override
-		public List<HomeDTO> getAllHomeDataMain() {
-			return hdao.getAllHomeDataMain();
-		}
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return hdao.getAllHomeDataMain();
+	}
 
-		@Override
-		public List<HomeDTO> modalHomeData(Map<String, Object> param) {
+	@Override
+	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return hdao.modalHomeData(param);
-		}
-		
-		@Override
-		public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-			return hdao.getHomeOnMap(param);
-		}
+	}
 
-		@Override
-		public List<HomePicDTO> getHomePic() {
-			return hdao.getHomePic();
-		}
-		
-		@Override
-		public List<HomeDTO> getParis() {
-			return hdao.getParis();
-		}
-		
-		// ----------------지혜-----------------
-		@Override
-		public int updateBlockedDate(String blockedDate, int home_seq) {
-			return hdao.updateBlockedDate(blockedDate, home_seq);
-		}
+	@Override
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return hdao.getHomeOnMap(param);
+	}
 
-		@Override
-		public int guestReviewCount(HashMap<String, Object> map) {
-			return hdao.guestReviewCount(map);
-		}
+	@Override
+	public List<HomePicDTO> getHomePic() {
+		return hdao.getHomePic();
+	}
 
+	@Override
+	public List<HomeDTO> getParis() {
+		return hdao.getParis();
+	}
 
-		
+	// ----------------지혜-----------------
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		return hdao.updateBlockedDate(blockedDate, home_seq);
+	}
+
+	@Override
+	public int guestReviewCount(HashMap<String, Object> map) {
+		return hdao.guestReviewCount(map);
+	}
 
 	@Override
 	public List<AccountDTO> getAllAccount(String member_email) {
@@ -323,6 +316,26 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
 		return hdao.getAllPayment(map);
+	}
+
+	@Override
+	public int deleteBed(int home_seq) {
+		return hdao.deleteBed(home_seq);
+	}
+
+	@Override
+	public int insertBed(int home_seq, BedDTO bdto) {
+		return hdao.insertBed(home_seq, bdto);
+	}
+
+	@Override
+	public int modifyHomePrice(HomeDTO hdto) {
+		return hdao.modifyHomePrice(hdto);
+	}
+
+	@Override
+	public List<PaymentDTO> getGapDate(Map<String, Object> map) {
+		return hdao.getGapDate(map);
 	}
 
 }

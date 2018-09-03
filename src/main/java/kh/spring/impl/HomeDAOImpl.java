@@ -260,6 +260,7 @@ public class HomeDAOImpl implements HomeDAO {
 				hdto.getHome_people(), hdto.getHome_seq());
 	}
 
+	
 	@Override
 	public int modifybed(BedDTO bdto) {
 		String sql = "update bed set bed_single=?, bed_double=?, bed_queen=? where home_seq = ?";
@@ -516,5 +517,29 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
 		return ssTemplate.selectList("Home.getAllPayment", map);
 	}
+
+	@Override
+	public int deleteBed(int home_seq) {
+		String sql = "delete from bed where home_seq = ?";
+		return jdbcTemplate.update(sql, home_seq);
+				
+	}
+
+	@Override
+	public int insertBed(int home_seq, BedDTO bdto) {
+		String sql = "insert into bed values(bed_seq.nextval,?,'','','')";
+		return jdbcTemplate.update(sql, home_seq);
+	}
+
+	@Override
+	public int modifyHomePrice(HomeDTO hdto) {
+		String sql = "update table home set home_price = ? where home_seq = ? ";
+		return jdbcTemplate.update(sql, hdto.getHome_price(), hdto.getHome_seq());
+	}
+
+	@Override
+	public List<PaymentDTO> getGapDate(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getGapDate", map);
+	}	
 	
 }

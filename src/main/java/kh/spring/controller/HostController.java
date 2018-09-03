@@ -8,12 +8,15 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -44,42 +47,19 @@ public class HostController {
 	private HomeService homeService;
 
 	@RequestMapping("/hostMain.do")
-	public ModelAndView toHostMain(HttpServletRequest request) throws Exception {
+	public ModelAndView toHostMain(HttpServletRequest request, HttpSession session) throws Exception {
 		System.out.println("/homeMain.do:");
-		int seq = 0;
-		if (request.getParameter("seq") == null) {
+		session.setAttribute("login_email", "sksksrff@gmail.com");
+		String member_email = (String) session.getAttribute("login_email");
 
-		} else {
-			seq = Integer.parseInt(request.getParameter("seq"));
-		}
-		System.out.println("seq::::::::" + seq);
-		String member_email = "sksksrff@gmail.com";
+		System.out.println("member_email::" + member_email);
+
 		List<HomeDTO> homeList = homeService.getAllHomeData(member_email);
-		HomeDTO hdto = new HomeDTO();
-		List<HomePicDTO> hplist = new ArrayList<>();
+		HomeDTO hdto = homeService.getOldestHomeData(member_email);
 		List<ReservationDTO> rlist = homeService.getAllReservation(member_email);
-
-		if (seq == 0) {
-			hdto = homeService.getOldestHomeData(member_email);
-			hplist = homeService.getHomePicData(homeList.get(0).getHome_seq());
-			// rlist2 = homeService.getReservation(homeList.get(0).getHome_seq());
-		} else {
-			hdto = homeService.getHomeData(seq);
-			hplist = homeService.getHomePicData(seq);
-			// rlist2 = homeService.getReservation(seq);
-		}
-
-		int hpsize = hplist.size();
-
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("member_email", member_email);
-		map.put("home_seq", 0);
-		// map.put("startNum", 1);
-		// map.put("endNum",10);
-		// List<GuestReviewDTO> listGR = homeService.getAllGuestReview(map);
-		int cnt = homeService.guestReviewAllCount(member_email);
-
 		List<MessageDTO> mlist = homeService.getAllMessage(member_email);
+
+		int cnt = homeService.guestReviewAllCount(member_email);
 
 		SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -94,23 +74,95 @@ public class HostController {
 			rlist.get(i).setReserv_checkout(str2);
 		}
 
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
+		int month = cal.get(Calendar.MONTH) + 1;
+
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("member_email", member_email);
 		map2.put("reserv_state", 1);
-		List<ReservationDTO> rlist2 = homeService.getApprovalReserve(map2);
 
+		List<ReservationDTO> rlist2 = homeService.getApprovalReserve(map2);
+		double allTotal = getTotal(0, member_email);
+		System.out.println("alltotal::" + allTotal);
 		System.out.println("rlist2.size::" + rlist2.size());
+		System.out.println(hdto.getHome_main_pic());
+
+		List<HomePicDTO> hplist = homeService.getHomePicData(hdto.getHome_seq());
+
+		// 조회수
+		int view = 0;
+		for (HomeDTO h : homeList) {
+			view += h.getHome_view();
+		}
+		// 예약 & 월 수입
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("member_email", member_email);
+		map.put("home_seq", 0);
+		List<PaymentDTO> plist = homeService.getAllPayment(map);
+		String date = "";
+		for (PaymentDTO p : plist) {
+			date += p.getCheckIn() + ",";
+		}
+		if (date.endsWith(",")) {
+			date = date.substring(0, date.length() - 1);
+		}
+		System.out.println("date::" + date);
+		String[] dateArr = {};
+		dateArr = date.split(",");
+		int dateCnt = 0;
+		int amount = 0;
+		for (int i = 0; i < dateArr.length; i++) {
+			if (Integer.parseInt(dateArr[i].split("-")[1].split("-")[0]) == month) {
+				System.out.println("9월이용::" + Integer.parseInt(dateArr[i].split("-")[1].split("-")[0]));
+				dateCnt++;
+				amount += Integer.parseInt(plist.get(i).getPayment_amount());
+			}
+		}
+
+		// 숙소호감도
+		List<HomeDTO> hlist = homeService.getAllHomeDataMain();
+		int homePrice = 0;
+		int standard = 0;
+		for (HomeDTO h : hlist) {
+			homePrice += h.getHome_price();
+		}
+		standard = homePrice / hlist.size(); // 모든 숙소 가격 기준
+
+		int ntot = 0;
+		if (hdto.getHome_amenities() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_details() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_safety() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_rules() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_guest_access() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_public() == null) {
+			ntot++;
+		}
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("mlist", mlist);
 		mav.addObject("rlist", rlist);
 		mav.addObject("rlist2", rlist2);
 		mav.addObject("homeList", homeList);
-		mav.addObject("hdto", hdto);
-		// mav.addObject("listGR", listGR);
-		mav.addObject("cnt", cnt);
 		mav.addObject("hplist", hplist);
-		mav.addObject("hpsize", hpsize);
+		mav.addObject("hdto", hdto);
+		mav.addObject("view", view);
+		mav.addObject("standard", standard);
+		mav.addObject("amount", amount);
+		mav.addObject("dateCnt", dateCnt);
+		mav.addObject("cnt", cnt);
+		mav.addObject("ntot", ntot);
+		mav.addObject("month", month);
+		mav.addObject("allTotal", allTotal);
 		mav.setViewName("/host/hostMain");
 
 		return mav;
@@ -123,7 +175,6 @@ public class HostController {
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		System.out.println(seq);
 		List<HomePicDTO> hplist = homeService.getHomePicData(seq);
-		int hpsize = hplist.size();
 
 		JSONObject json = new JSONObject();
 
@@ -131,7 +182,6 @@ public class HostController {
 		response.setCharacterEncoding("UTF-8");
 
 		HomeDTO hdto = homeService.getHomeData(seq);
-
 		if (hdto.getHome_addr1() == null) {
 			hdto.setHome_addr1("");
 		}
@@ -145,25 +195,43 @@ public class HostController {
 			hdto.setHome_addr4("");
 		}
 
+		// 숙소호감도
+		List<HomeDTO> hlist = homeService.getAllHomeDataMain();
+		int homePrice = 0;
+		int standard = 0;
+		for (HomeDTO h : hlist) {
+			homePrice += h.getHome_price();
+		}
+		standard = homePrice / hlist.size(); // 모든 숙소 가격 기준
+
+		int ntot = 0;
+		if (hdto.getHome_amenities() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_details() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_safety() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_rules() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_guest_access() == null) {
+			ntot++;
+		}
+		if (hdto.getHome_public() == null) {
+			ntot++;
+		}
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("hdto", hdto);
-		map.put("hpsize", hpsize);
-		// json.put("seq", hdto.getHome_seq());
-		// json.put("name", hdto.getHome_name());
-		// json.put("pic", hdto.getHome_main_pic());
-		// json.put("addr1", hdto.getHome_addr1());
-		// json.put("addr2", hdto.getHome_addr2());
-		// json.put("addr3", hdto.getHome_addr3());
-		// json.put("addr4", hdto.getHome_addr4());
-		// json.put("state", hdto.getHome_state());
-		// json.put("price", hdto.getHome_price());
-		// json.put("hpsize", hpsize);
+		map.put("hplist", hplist);
+		map.put("homePrice", homePrice);
+		map.put("standard", standard);
+		map.put("ntot", ntot);
 		Gson gson = new Gson();
 		gson.toJson(map, response.getWriter());
-
-		// response.getWriter().print(json);
-		// response.getWriter().flush();
-		// response.getWriter().close();
 
 	}
 
@@ -183,7 +251,7 @@ public class HostController {
 		}
 
 		if (!bstr.equals(null) && !bstr.equals("")) {
-
+			// bstr = bstr.replace(null, "");
 			if (bstr.startsWith(",")) {
 				bstr.substring(1);
 			}
@@ -196,23 +264,35 @@ public class HostController {
 		String[] barr = null;
 
 		if (bstr != null && !bstr.equals("")) {
-			System.out.println("bstr::"+bstr);
+			bstr = bstr.replace(" ", "");
 			barr = bstr.split(",");
+			System.out.println("bstr::" + bstr);
 		}
 
 		int bedCnt = 0;
-		
+
 		if (barr != null) {
 			System.out.println("아오 짜증나진짜");
 			for (int i = 0; i < barr.length; i++) {
+				// if (barr[i] == null) {
+				// barr[i].replace(null, "0");
+				System.out.println("수박::" + barr[i]);
 				bedCnt += Integer.parseInt(barr[i]);
+				// }
+
 			}
 		}
 
 		String[] rarr = {};
 
 		if (bdto != null) {
-			rarr = bdto.getBed_single().split(",");
+			System.out.println("bdto::" + bdto.getBed_single());
+			if (bdto.getBed_single() != null) {
+				// bdto.setBed_single(bdto.getBed_single().replaceAll(null, ""));
+				System.out.println("bdto::" + bdto.getBed_single());
+				rarr = bdto.getBed_single().split(",");
+			}
+
 		}
 
 		int roomCnt = rarr.length;
@@ -222,27 +302,18 @@ public class HostController {
 		String[] safety = {};
 		String[] guest_access = {};
 
+		System.out.println(hdto.getHome_amenities());
+		System.out.println(hdto.getHome_safety());
+		System.out.println(hdto.getHome_guest_access());
+
 		if (hdto.getHome_amenities() != null) {
 			amenities = hdto.getHome_amenities().split(",");
-		} else {
-
 		}
-
 		if (hdto.getHome_safety() != null) {
 			safety = hdto.getHome_safety().split(",");
-		} else {
-
 		}
 		if (hdto.getHome_guest_access() != null) {
 			guest_access = hdto.getHome_guest_access().split(",");
-		} else {
-
-		}
-
-		if (hdto.getHome_guest_access() != null) {
-			guest_access = hdto.getHome_guest_access().split(",");
-		} else {
-
 		}
 
 		for (int i = 0; i < amenities.length; i++) {
@@ -363,13 +434,9 @@ public class HostController {
 	@RequestMapping("/uploadPhoto.do")
 	public void toUploadPhoto(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("/uploadPhoto.do : ");
-		System.out.println(request.getParameter("seq"));
-
-		int seq = 5;
 
 		String realPath = request.getSession().getServletContext().getRealPath("/files/");
 		System.out.println(realPath);
-
 		File f = new File(realPath);
 		if (!f.exists()) {
 			f.mkdir();
@@ -393,7 +460,8 @@ public class HostController {
 		Enumeration<String> names = mr.getFileNames();
 
 		String filename = null;
-
+		int seq = Integer.parseInt(mr.getParameter("seq"));
+		System.out.println("멀티파트 seq::" + seq);
 		if (names != null) {
 			String paramName = names.nextElement();
 			String systemName = mr.getFilesystemName(paramName);
@@ -438,7 +506,8 @@ public class HostController {
 
 		if (separate == 1) {
 			System.out.println("deletePhoto1: " + request.getParameter("file") + " : " + request.getParameter("seq"));
-			String file = request.getParameter("file");
+			String file = request.getParameter("file").split(";")[0];
+			System.out.println("sepsarate1::file::" + file);
 			int seq = Integer.parseInt(request.getParameter("seq"));
 
 			String realPath = request.getSession().getServletContext().getRealPath("/files/");
@@ -446,8 +515,10 @@ public class HostController {
 			File f = new File(realPath);
 			f.mkdir();
 			File[] innerFile = f.listFiles();
-
-			String filename = file.split("/")[1];
+			String filename = null;
+			if (file != null) {
+				filename = file.split("/")[1];
+			}
 
 			System.out.println("filename : " + filename);
 
@@ -460,6 +531,7 @@ public class HostController {
 					innerFile[i].delete();
 				}
 			}
+			System.out.println("separate1::delresult::" + delResult);
 			json.put("result", delResult);
 
 			response.getWriter().print(json);
@@ -468,7 +540,7 @@ public class HostController {
 
 		} else if (separate == 2) {
 			System.out.println("deletePhoto2: " + request.getParameter("file"));
-			String file = request.getParameter("file");
+			String file = request.getParameter("file").split(";")[0];
 
 			String realPath = request.getSession().getServletContext().getRealPath("/files/");
 
@@ -498,29 +570,32 @@ public class HostController {
 			response.getWriter().close();
 
 		} else if (separate == 3) {
-			System.out.println("deletePhoto3: " + request.getParameter("file"));
+			System.out.println("deletePhoto3:" + request.getParameter("file"));
 			System.out.println("toMainPic :" + request.getParameter("toMainPic"));
 
-			String file = request.getParameter("file");
-			String toMainPic = request.getParameter("toMainPic");
+			String file = request.getParameter("file").split(";")[0];
 			int seq = Integer.parseInt(request.getParameter("seq"));
+			String toMainPic = request.getParameter("toMainPic");
+			System.out.println("toMainPic::" + toMainPic);
 
 			if (toMainPic == null) {
-				System.out.println("null");
-			} else {
+			} else if (toMainPic != null) {
+				System.out.println("null이라매");
+				toMainPic = toMainPic.split(";")[0];
 				String homePic = toMainPic.split("/")[1];
-				// String mainPic = file.split("/")[1];
-				// System.out.println("mainPic :" + mainPic);
+
+				System.out.println("homePic::" + homePic);
 
 				int delResult = homeService.deleteHomePicData(homePic);
 				int upMainPicResult = homeService.addHomeRepresentData(homePic, seq);
-				System.out.println("디비삭제: " + delResult);
+				System.out.println("separate3::디비 결과: " + delResult + " :: " + upMainPicResult);
 				json.put("result", delResult);
+
+				response.getWriter().print(json);
+				response.getWriter().flush();
+				response.getWriter().close();
 			}
 
-			response.getWriter().print(json);
-			response.getWriter().flush();
-			response.getWriter().close();
 		}
 
 	}
@@ -768,8 +843,37 @@ public class HostController {
 
 		HomeDTO hdto = homeService.getHomeData(seq);
 		BedDTO bdto = homeService.getBedData(seq);
+		int bcnt = 0;
+		System.out.println("bdto::" + bdto);
 
 		ModelAndView mav = new ModelAndView();
+
+		System.out.println(bdto);
+
+		if (bdto == null) {
+			bcnt = 0;
+		} else {
+			if (bdto.getBed_single() != null) {
+				String[] arr = bdto.getBed_single().split(",");
+			}
+		}
+
+		if (bdto != null && bdto.getBed_single() == null) {
+			bdto.setBed_single("0");
+		} else if (bdto != null && bdto.getBed_single() != null) {
+			bdto.setBed_single(bdto.getBed_single().replace(" ", ""));
+		}
+		if (bdto != null && bdto.getBed_double() == null) {
+			bdto.setBed_double("0");
+		} else if (bdto != null && bdto.getBed_double() == null) {
+			bdto.setBed_double(bdto.getBed_double().replace(" ", ""));
+		}
+		if (bdto != null && bdto.getBed_queen() == null) {
+			bdto.setBed_queen("0");
+		} else if (bdto != null && bdto.getBed_queen() == null) {
+			bdto.setBed_queen(bdto.getBed_queen().replace(" ", ""));
+		}
+
 		mav.addObject("bdto", bdto);
 		mav.addObject("hdto", hdto);
 		mav.setViewName("/host/hostHomeRoomModifyTab");
@@ -782,48 +886,98 @@ public class HostController {
 		System.out.println("hostHomeRoomModifyProc:" + seq);
 		System.out.println("hostHomeRoomModifyProc:" + cnt);
 
-		String roomCnt = request.getParameter("roomcount");
-		String sofaCnt = request.getParameter("sofacount");
-		String mattCnt = request.getParameter("mattcount");
-		String bathCnt = request.getParameter("bathcount");
+		int bresult = 0;
+		int hresult = 0;
+		String sofaCnt = "0";
+		String mattCnt = "0";
+		String bathCnt = "0";
 
-		System.out.println(getHdto.getHome_buildingType());
-		System.out.println(getHdto.getHome_type());
+		HomeDTO hdto = new HomeDTO();
+		BedDTO bdto = homeService.getBedData(seq);
+		System.out.println("bdto::" + bdto);
 
-		String[] sarr = new String[cnt];
-		String[] darr = new String[cnt];
-		String[] qarr = new String[cnt];
+		if (cnt == 0) {
+			System.out.println("cnt == 0::");
+			if (bdto != null) {
+				homeService.deleteBed(seq);
+			}
+		} else {
+			System.out.println("cnt != 0::");
+			if (bdto == null) {
+				homeService.insertBed(seq, bdto);
+			}
 
-		String home_public = sofaCnt + "," + mattCnt + "," + bathCnt;
+			if (request.getParameter("sofacount") != null) {
+				sofaCnt = request.getParameter("sofacount");
+			}
+			if (request.getParameter("mattcount") != null) {
+				mattCnt = request.getParameter("mattcount");
+			}
+			if (request.getParameter("bathcount") != null) {
+				bathCnt = request.getParameter("bathcount");
+			}
 
-		for (int i = 0; i < cnt; i++) {
-			sarr[i] = request.getParameter("single-count" + (i + 1) + "");
-			darr[i] = request.getParameter("double-count" + (i + 1) + "");
-			qarr[i] = request.getParameter("queen-count" + (i + 1) + "");
+			System.out.println(getHdto.getHome_buildingType());
+			System.out.println(getHdto.getHome_type());
+			System.out.println(sofaCnt);
+			System.out.println(mattCnt);
+			System.out.println(bathCnt);
+
+			String home_public = sofaCnt + "," + mattCnt + "," + bathCnt;
+
+			String[] sarr = new String[cnt];
+			String[] darr = new String[cnt];
+			String[] qarr = new String[cnt];
+
+			System.out.println("sarr::" + sarr.length);
+			System.out.println("darr::" + darr.length);
+			System.out.println("qarr::" + qarr.length);
+
+			for (int i = 0; i < cnt; i++) {
+				sarr[i] = request.getParameter("single-count" + (i + 1) + "");
+				darr[i] = request.getParameter("double-count" + (i + 1) + "");
+				qarr[i] = request.getParameter("queen-count" + (i + 1) + "");
+			}
+
+			hdto = homeService.getHomeData(seq);
+
+			if (sarr.length != 0) {
+				bdto.setBed_single(Arrays.toString(sarr));
+				System.out.println(bdto.getBed_single());
+				if (bdto.getBed_single() != null) {
+					bdto.setBed_single(bdto.getBed_single().substring(1, bdto.getBed_single().length() - 1));
+				}
+			}
+			if (darr != null) {
+				bdto.setBed_double(Arrays.toString(darr));
+				if (bdto.getBed_double() != null) {
+					bdto.setBed_double(bdto.getBed_double().substring(1, bdto.getBed_double().length() - 1));
+				}
+			}
+			if (qarr != null) {
+				bdto.setBed_queen(Arrays.toString(qarr));
+				if (bdto.getBed_queen() != null) {
+					bdto.setBed_queen(bdto.getBed_queen().substring(1, bdto.getBed_queen().length() - 1));
+				}
+			}
+
+			bdto.setHome_seq(seq);
+			getHdto.setHome_seq(seq);
+			getHdto.setHome_public(home_public);
+
+			System.out.println("bdto::" + bdto.getBed_single());
+			System.out.println(bdto.getBed_double());
+			System.out.println(bdto.getBed_queen());
+			System.out.println(bdto.getHome_seq());
+
+			bdto.setBed_single(bdto.getBed_single().replace(" ", ""));
+			bdto.setBed_double(bdto.getBed_double().replace(" ", ""));
+			bdto.setBed_queen(bdto.getBed_queen().replace(" ", ""));
+
+			bresult = homeService.modifybed(bdto);
+			hresult = homeService.modifyHomeType(getHdto);
+			System.out.println("result:: " + bresult + "::" + hresult);
 		}
-
-		HomeDTO hdto = homeService.getHomeData(seq);
-
-		BedDTO bdto = new BedDTO();
-		bdto.setBed_single(Arrays.toString(sarr).replaceAll(" ", ""));
-		bdto.setBed_single(bdto.getBed_single().substring(1, bdto.getBed_single().length() - 1));
-		bdto.setBed_double(Arrays.toString(darr).replaceAll(" ", ""));
-		bdto.setBed_double(bdto.getBed_double().substring(1, bdto.getBed_double().length() - 1));
-		bdto.setBed_queen(Arrays.toString(qarr).replaceAll(" ", ""));
-		bdto.setBed_queen(bdto.getBed_queen().substring(1, bdto.getBed_queen().length() - 1));
-
-		bdto.setHome_seq(seq);
-		getHdto.setHome_seq(seq);
-		getHdto.setHome_public(home_public);
-
-		System.out.println("bdto::" + bdto.getBed_single());
-		System.out.println(bdto.getBed_double());
-		System.out.println(bdto.getBed_queen());
-
-		int bresult = homeService.modifybed(bdto);
-		int hresult = homeService.modifyHomeType(getHdto);
-
-		System.out.println("result:: " + bresult + "::" + hresult);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("seq", hdto.getHome_seq());
@@ -881,15 +1035,20 @@ public class HostController {
 	public ModelAndView toHostReserveModifyNightProc(int seq, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		System.out.println("hostReserveModifyNightProc: " + seq);
+		System.out.println(request.getParameter("home_min_stay"));
 
 		HomeDTO hdto = new HomeDTO();
 		hdto.setHome_seq(seq);
 
 		if (request.getParameter("home_min_stay") == null) {
 			hdto.setHome_min_stay(0);
+		} else {
+			hdto.setHome_min_stay(Integer.parseInt(request.getParameter("home_min_stay")));
 		}
 		if (request.getParameter("home_max_stay") == null) {
 			hdto.setHome_max_stay(0);
+		} else {
+			hdto.setHome_max_stay(Integer.parseInt(request.getParameter("home_max_stay")));
 		}
 
 		int result = homeService.modifyReserveNightData(hdto);
@@ -903,10 +1062,12 @@ public class HostController {
 	}
 
 	@RequestMapping("/fullCalendar.do")
-	public ModelAndView toFullCalendar() throws Exception {
+	public ModelAndView toFullCalendar(HttpSession session) throws Exception {
 		System.out.println("fullCalendar.do: ");
 
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
+		System.out.println("member_email::" + member_email);
 		List<HomeDTO> list = homeService.getAllHomeData(member_email);
 
 		System.out.println("list.get(0).getHome_seq()" + list.get(0).getHome_seq());
@@ -1228,7 +1389,7 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostHomeAchievement.do")
-	public ModelAndView toHostHomeAchievement(HttpServletRequest request) throws Exception {
+	public ModelAndView toHostHomeAchievement(HttpSession session, HttpServletRequest request) throws Exception {
 		System.out.println("hostHomeAchievement: ");
 		String currentPageString = request.getParameter("currentPage");
 		System.out.println("currentPageString::" + currentPageString);
@@ -1244,7 +1405,8 @@ public class HostController {
 		System.out.println("seq::" + home_seq);
 
 		// session에서 member_email을 통해 내 호스트의 모든 후기를 가져온다
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
 
 		List<GuestReviewDTO> satisList = homeService.getSatisfaction(home_seq);
 		List<GuestReviewDTO> accList = homeService.getAccuracy(home_seq);
@@ -1520,11 +1682,11 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostHomePayment.do")
-	public ModelAndView toHosHomePayment() throws Exception {
+	public ModelAndView toHosHomePayment(HttpSession session) throws Exception {
 		System.out.println("hostHomeManage: ");
 
-		String member_email = "sksksrff@gmail.com";
-
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
 		List<AccountDTO> alist = homeService.getAllAccount(member_email);
 
 		ModelAndView mav = new ModelAndView();
@@ -1552,10 +1714,11 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostHomePaymentBreakdown.do")
-	public ModelAndView toHostHomePaymentBreakdown(HttpServletRequest request) throws Exception {
+	public ModelAndView toHostHomePaymentBreakdown(HttpSession session, HttpServletRequest request) throws Exception {
 		System.out.println("hostHomePaymentBreakdown: ");
 
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
 		int seq = 0;
 
 		if (request.getParameter("seq") == null) {
@@ -1563,6 +1726,7 @@ public class HostController {
 		} else {
 			seq = Integer.parseInt(request.getParameter("seq"));
 		}
+		System.out.println("seq:::" + seq);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("member_email", member_email);
@@ -1572,6 +1736,39 @@ public class HostController {
 		HomeDTO hdto = homeService.getHomeData(seq);
 		int price = 0;
 
+		// 날짜 검색
+		String sm = request.getParameter("startmon");
+		String sy = request.getParameter("startyear");
+		String em = request.getParameter("endmon");
+		String ey = request.getParameter("endyear");
+
+		if (sm != null) {
+			if (Integer.parseInt(sm) < 10) {
+				sm = "0" + sm;
+			}
+		}
+		if (em != null) {
+			if (Integer.parseInt(em) < 10) {
+				em = "0" + em;
+			}
+		}
+		String start = sy + sm + "01";
+		String end = ey + em + "30";
+		System.out.println("start::end" + start + "::" + end);
+
+		Map<String, Object> dmap = new HashMap<>();
+		dmap.put("start", start);
+		dmap.put("end", end);
+		dmap.put("home_seq", seq);
+		dmap.put("host_email", member_email);
+
+		List<PaymentDTO> dateList = new ArrayList<>();
+		dateList = homeService.getGapDate(dmap);
+		for(PaymentDTO p:dateList) {
+			System.out.println("dateList::"+p.getPayment_amount());
+		}
+
+		// 년월일 만들기
 		SimpleDateFormat fm1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat fm2 = new SimpleDateFormat("yyyy년 MM월 dd일");
 
@@ -1594,7 +1791,9 @@ public class HostController {
 			p.setCheckOut(str3);
 
 			System.out.println("앙배불띠띠::" + p.getCheckOut());
-
+			for (PaymentDTO p1 : plist) {
+				System.out.println("payseq:::" + p1.getPayment_seq());
+			}
 			price += Integer.parseInt(p.getPayment_amount());
 		}
 		String amount = String.valueOf(price);
@@ -1602,6 +1801,7 @@ public class HostController {
 		mav.addObject("amount", amount);
 		mav.addObject("plist", plist);
 		mav.addObject("hlist", hlist);
+		mav.addObject("dateList", dateList);
 		mav.addObject("hdto", hdto);
 		mav.setViewName("/host/hostHomePaymentBreakdown");
 		return mav;
@@ -1898,11 +2098,12 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostHomeList.do")
-	public ModelAndView toHostHomeList() throws Exception {
+	public ModelAndView toHostHomeList(HttpSession session) throws Exception {
 		System.out.println("/hostHomeList:");
 
 		// 세션에서 아이디 꺼내기
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
 		List<HomeDTO> list = homeService.getAllHomeData(member_email);
 
 		System.out.println("list.size::" + list.size());
@@ -1914,17 +2115,18 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostReserveAllManaging.do")
-	public ModelAndView toHostReserveAllManaging() throws Exception {
+	public ModelAndView toHostReserveAllManaging(HttpSession session) throws Exception {
 		System.out.println("/hostReserveAllManaging:");
 
 		// 세션에서 아이디 꺼내기
-		String host_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
 		int state = 0;
 		Map<String, Object> map = new HashMap<>();
-		map.put("member_email", host_email);
+		map.put("member_email", member_email);
 		map.put("reserv_state", state);
 
-		List<ReservationDTO> rlist = homeService.getAllReservation(host_email);
+		List<ReservationDTO> rlist = homeService.getAllReservation(member_email);
 		List<ReservationDTO> wlist = homeService.getWaitReserve(map);
 
 		Date date = new Date();
@@ -1958,17 +2160,18 @@ public class HostController {
 	}
 
 	@RequestMapping("/hostReserveManaging.do")
-	public ModelAndView toHostReserveManaging() throws Exception {
+	public ModelAndView toHostReserveManaging(HttpSession session) throws Exception {
 		System.out.println("/hostReserveManaging:");
 
 		// 세션에서 아이디 꺼내기
-		String host_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
 		int state = 0;
 		Map<String, Object> map = new HashMap<>();
-		map.put("member_email", host_email);
+		map.put("member_email", member_email);
 		map.put("reserv_state", state);
 
-		List<ReservationDTO> rlist = homeService.getAllReservation(host_email);
+		List<ReservationDTO> rlist = homeService.getAllReservation(member_email);
 		List<ReservationDTO> wlist = homeService.getWaitReserve(map);
 
 		Date date = new Date();
@@ -2002,10 +2205,11 @@ public class HostController {
 	}
 
 	@RequestMapping("savetime.do")
-	public void toSavetiome(int seq, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void toSavetiome(int seq, HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		System.out.println("/savetime.do:" + seq);
 
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
 		int state = 0;
 		int result = 0;
 		Map<String, Object> map = new HashMap<>();
@@ -2033,11 +2237,11 @@ public class HostController {
 	}
 
 	@RequestMapping("modifyReservState.do")
-	public void toModifyReservState(int seq, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public void toModifyReservState(int seq, HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		System.out.println("/modifyReservState.do:" + seq);
 
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
 
 		int result = homeService.modifyReservState(seq);
 
@@ -2052,11 +2256,17 @@ public class HostController {
 	}
 
 	@RequestMapping("hostHits.do")
-	public ModelAndView toHostHits(HttpServletRequest request) throws Exception {
+	public ModelAndView toHostHits(HttpServletRequest request, HttpSession session) throws Exception {
 		System.out.println("hostHists.do/");
 
 		int home_seq = 0;
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
+		member_email = "sksksrff@gmail.com";
+		System.out.println("member::" + member_email);
+
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
+		int month = cal.get(Calendar.MONTH) + 1;
+
 		HomeDTO hdto = new HomeDTO();
 		List<HomeDTO> hlist = homeService.getAllHomeData(member_email);
 
@@ -2078,10 +2288,276 @@ public class HostController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hdto", hdto);
+		mav.addObject("month", month);
 		mav.addObject("siList", siList);
 		mav.addObject("hlist", hlist);
 		mav.setViewName("/host/hostHits");
 		return mav;
+	}
+
+	@RequestMapping("hostModifyPriceTab.do")
+	public ModelAndView toHostModifyPriceTab(int seq, HttpSession session) throws Exception {
+		System.out.println("hostModifyPriceTab::");
+
+		HomeDTO hdto = homeService.getHomeData(seq);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hdto", hdto);
+		mav.setViewName("/host/hostModifyPriceTab");
+		return mav;
+	}
+
+	@RequestMapping("hostModifyPriceProc.do")
+	public ModelAndView toHostModifyPriceProc(int seq, HomeDTO hdto) throws Exception {
+		System.out.println("hostModifyPriceProc::");
+		System.out.println(hdto.getHome_seq());
+		System.out.println(hdto.getHome_price());
+
+		hdto.setHome_seq(seq);
+		int result = homeService.modifyHomePrice(hdto);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
+		mav.addObject("seq", seq);
+		mav.setViewName("/host/hostModifyPriceProc");
+		return mav;
+	}
+
+	@RequestMapping("hostLogout.do")
+	public ModelAndView toHostLogout(HttpSession session) throws Exception {
+		System.out.println("logout::");
+
+		session.removeAttribute("login_email");
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("hostLogout");
+		return mav;
+	}
+
+	// total 함수
+	public double getTotal(int home_seq, String member_email) {
+		System.out.println("getTotal:::" + home_seq + " , " + member_email);
+		List<GuestReviewDTO> satisList = homeService.getSatisfaction(home_seq);
+		List<GuestReviewDTO> accList = homeService.getAccuracy(home_seq);
+		List<GuestReviewDTO> cleanList = homeService.getCleanLiness(home_seq);
+		List<GuestReviewDTO> checkList = homeService.getCheckin(home_seq);
+		List<GuestReviewDTO> ameniList = homeService.getAmenities(home_seq);
+		List<GuestReviewDTO> commList = homeService.getCommunication(home_seq);
+		List<GuestReviewDTO> locList = homeService.getLocation(home_seq);
+		List<GuestReviewDTO> valList = homeService.getValue(home_seq);
+
+		List<Integer> list_satis = new ArrayList<>();
+		List<Integer> list_acc = new ArrayList<>();
+		List<Integer> list_clean = new ArrayList<>();
+		List<Integer> list_check = new ArrayList<>();
+		List<Integer> list_ameni = new ArrayList<>();
+		List<Integer> list_comm = new ArrayList<>();
+		List<Integer> list_loc = new ArrayList<>();
+		List<Integer> list_val = new ArrayList<>();
+
+		List<Integer> numList = new ArrayList<>();
+
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+
+		// 여기서부터 반복하기
+		// satisfaction
+		for (int i = 0; i < satisList.size(); i++) {
+			list_satis.add(satisList.get(i).getG_review_satisfaction());
+		}
+		numList.removeAll(list_satis);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_satisfaction(numList.get(i));
+			dto.setCount(0);
+			satisList.add(dto);
+		}
+		// satisfaction
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// accuracy
+		for (int i = 0; i < accList.size(); i++) {
+			list_acc.add(accList.get(i).getG_review_accuracy());
+		}
+		numList.removeAll(list_acc);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_accuracy(numList.get(i));
+			dto.setCount(0);
+			accList.add(dto);
+		}
+		// accuracy
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// clean
+		for (int i = 0; i < cleanList.size(); i++) {
+			list_clean.add(cleanList.get(i).getG_review_cleanliness());
+		}
+		numList.removeAll(list_clean);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_cleanliness(numList.get(i));
+			;
+			dto.setCount(0);
+			cleanList.add(dto);
+		}
+		// clean
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// check
+		for (int i = 0; i < checkList.size(); i++) {
+			list_check.add(checkList.get(i).getG_review_checkIn());
+		}
+		numList.removeAll(list_check);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_checkIn(numList.get(i));
+			dto.setCount(0);
+			checkList.add(dto);
+		}
+		// check
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// amenities
+		for (int i = 0; i < ameniList.size(); i++) {
+			list_ameni.add(ameniList.get(i).getG_review_amenities());
+		}
+		numList.removeAll(list_ameni);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_amenities(numList.get(i));
+			dto.setCount(0);
+			ameniList.add(dto);
+		}
+		// amenities
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// comm
+		for (int i = 0; i < commList.size(); i++) {
+			list_comm.add(commList.get(i).getG_review_communication());
+		}
+		numList.removeAll(list_comm);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_communication(numList.get(i));
+			dto.setCount(0);
+			commList.add(dto);
+		}
+		// comm
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// local
+		for (int i = 0; i < locList.size(); i++) {
+			list_loc.add(locList.get(i).getG_review_location());
+		}
+		numList.removeAll(list_loc);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_location(numList.get(i));
+			dto.setCount(0);
+			locList.add(dto);
+		}
+		// local
+		numList.clear();
+		for (int i = 0; i < 5; i++) {
+			numList.add(i + 1);
+		}
+		// val
+		for (int i = 0; i < valList.size(); i++) {
+			list_val.add(valList.get(i).getG_review_value());
+		}
+		numList.removeAll(list_val);
+		for (int i = 0; i < numList.size(); i++) {
+			GuestReviewDTO dto = new GuestReviewDTO();
+			dto.setG_review_value(numList.get(i));
+			dto.setCount(0);
+			valList.add(dto);
+		}
+
+		double avg1 = 0;
+		double avg2 = 0;
+		double avg3 = 0;
+		double avg4 = 0;
+		double avg5 = 0;
+		double avg6 = 0;
+		double avg7 = 0;
+		double avg8 = 0;
+
+		for (GuestReviewDTO g : satisList) {
+			avg1 += g.getG_review_satisfaction() * g.getCount();
+		}
+		for (GuestReviewDTO g : accList) {
+			avg2 += g.getG_review_accuracy() * g.getCount();
+		}
+		for (GuestReviewDTO g : cleanList) {
+			avg3 += g.getG_review_cleanliness() * g.getCount();
+		}
+		for (GuestReviewDTO g : checkList) {
+			avg4 += g.getG_review_checkIn() * g.getCount();
+		}
+		for (GuestReviewDTO g : ameniList) {
+			avg5 += g.getG_review_amenities() * g.getCount();
+		}
+		for (GuestReviewDTO g : commList) {
+			avg6 += g.getG_review_communication() * g.getCount();
+		}
+		for (GuestReviewDTO g : locList) {
+			avg7 += g.getG_review_location() * g.getCount();
+		}
+		for (GuestReviewDTO g : valList) {
+			avg8 += g.getG_review_value() * g.getCount();
+		}
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("member_email", member_email);
+		map.put("home_seq", home_seq);
+
+		int cnt = homeService.guestReviewCount(map);
+
+		// 정렬
+		Collections.sort(satisList);
+		Collections.sort(accList);
+		Collections.sort(cleanList);
+		Collections.sort(checkList);
+		Collections.sort(ameniList);
+		Collections.sort(commList);
+		Collections.sort(locList);
+		Collections.sort(valList);
+
+		avg1 = avg1 / cnt;
+		avg1 = Double.parseDouble(String.format("%.1f", avg1));
+		avg2 = avg2 / cnt;
+		avg2 = Double.parseDouble(String.format("%.1f", avg2));
+		avg3 = avg3 / cnt;
+		avg3 = Double.parseDouble(String.format("%.1f", avg3));
+		avg4 = avg4 / cnt;
+		avg4 = Double.parseDouble(String.format("%.1f", avg4));
+		avg5 = avg5 / cnt;
+		avg5 = Double.parseDouble(String.format("%.1f", avg5));
+		avg6 = avg6 / cnt;
+		avg6 = Double.parseDouble(String.format("%.1f", avg6));
+		avg7 = avg7 / cnt;
+		avg7 = Double.parseDouble(String.format("%.1f", avg7));
+		avg8 = avg8 / cnt;
+		avg8 = Double.parseDouble(String.format("%.1f", avg8));
+
+		double allTotal = (avg1 + avg2 + avg3 + avg4 + avg5 + avg6 + avg7 + avg8) / 8;
+		allTotal = Double.parseDouble(String.format("%.1f", allTotal));
+
+		return allTotal;
 	}
 
 }

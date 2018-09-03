@@ -44,7 +44,6 @@ div {
 }
 
 #wrapper {
-	border: 1px black solid;
 	display: inline-block;
 	width: 100%;
 	float: left;
@@ -52,7 +51,6 @@ div {
 
 #content {
 	width: 74%;
-	border: 1px dotted red;
 	display: inline-block;
 	float: left;
 	margin-bottom: 50px;
@@ -70,13 +68,11 @@ div {
 }
 
 .dd-wrap {
-	border: 1px solid black;
 	width: 100%;
 	height: 70px;
 }
 
 .dd-sub-pic {
-	border: 1px dotted black;
 	width: 35%;
 	display: inline-block;
 	float: left;
@@ -97,7 +93,6 @@ div {
 }
 
 .dd-sub-content {
-	border: 1px dotted black;
 	width: 65%;
 	display: inline-block;
 	float: left;
@@ -125,7 +120,6 @@ div {
 	height: auto;
 	display: inline-block;
 	float: right;
-	border: 1px solid black;
 }
 
 .btn-group {
@@ -176,6 +170,11 @@ div {
 }
 #start_date, #end_date{
 	background-color: white;
+}
+#cancel{
+	background-color: white;
+	color: #008489;
+	border: 2px solid #008489;
 }
 </style>
 </head>
@@ -486,7 +485,7 @@ div {
 					<span><b>예약 가능 여부</b></span>
 				</div>
 				<div id=rp-wrap>
-					<div id=r-possible>예약 가능</div>
+					<label for="resp" id=r-possible>예약 가능</label>
 					<div id=r-possible2>
 						<input id="resp" name=home_reserve_possible type="radio"
 							value="예약 가능">
@@ -496,7 +495,7 @@ div {
 				<div class=line></div>
 
 				<div id=rip-wrap>
-					<div id=r-impossible>예약 불가</div>
+					<label for="resim" id=r-impossible>예약 불가</label>
 					<div id=r-impossible2>
 						<input id=resim name=home_reserve_possible type="radio"
 							value="예약 불가">
