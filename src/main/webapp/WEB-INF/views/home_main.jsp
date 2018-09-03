@@ -33,7 +33,7 @@ $(function () {
         var d = $("#mapOnDiv").offset().top;
         var f = $("#footer").offset().top;
         var c = $("#mapWrapper");
-        var h = $("#mapWrapper").height() + 220; // margin
+        var h = $("#mapWrapper").height() + 60; // margin
         if (b > d) {
             var myTop = $(window).scrollTop();
             if (myTop > f - h) myTop = f - h;
@@ -575,7 +575,7 @@ $(document).ready(function() {
      }
      
      #offTitlePic {
-     	margin-top : 200px;
+     	margin-top : 20px;
      	margin-left : 15vw;
      	width : 70vw;
      	height : 20vw;
@@ -740,7 +740,7 @@ $(document).ready(function() {
  	}
  	
  	#onCardsWrapper {
- 		margin-top : 200px;
+ 		margin-top : 20px;
  		margin-left : 5vw;
  		width : 55vw;
  		height : 40vw;
@@ -749,7 +749,7 @@ $(document).ready(function() {
  	}
  	
  	#mapWrapper {
- 		margin-top : 200px;
+ 		margin-top : 20px;
  		width : 35vw;
  		height : 70vw;
  		display: inline-block;
