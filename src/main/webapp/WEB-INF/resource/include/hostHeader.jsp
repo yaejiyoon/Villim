@@ -195,8 +195,8 @@ a:hover {
 
 			<li class="col-md-2"><a href="hostMain.do" style="color: black;"><span
 					data-hover="홈"><b>홈</b></span></a></li>
-			<li class="col-md-2"><a href="messageMain.msg" style="color: black;"><span
-					data-hover="메시지"><b>메시지</b></span></a></li>
+			<li class="col-md-2"><a href="messageMain.msg"
+				style="color: black;"><span data-hover="메시지"><b>메시지</b></span></a></li>
 			<li class="col-md-2"><a href="fullCalendar.do"
 				style="color: black;"><span data-hover="달력"><b>달력</b></span></a></li>
 			<li class="col-md-2"><a href="hostHomeList.do"
@@ -226,17 +226,19 @@ a:hover {
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="/">게스트 모드로 전환</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"
-				href="#">로그아웃</a></li>
+				href="hostLogout.do">로그아웃</a></li>
 		</ul>
 
 	</div>
 
 
 	<div id="header-pic" class="dropdown">
-		<a id="dLabel" class="dropdown-toggle" data-target="dropdown" href="#"
+		<a id="dLabel" class="dropdown-toggle" data-target="dropdown"
 			data-toggle="dropdown" aria-haspopup="true" role="button"
-			aria-expanded="false"><img
-			src="<c:url value='/resources/img/1.jpg'/>"> </a>
+			aria-expanded="false"
+			style="position: absolute; right: 25px; top: 25px;"> <img
+			src="<c:url value='/resources/img/1.jpg'/>">
+		</a>
 		<ul class="dropdown-menu  dropdown-menu-right" role="menu"
 			aria-labelledby="dLabel">
 			<li role="presentation"><a role="menuitem" tabindex="-1"
@@ -246,7 +248,7 @@ a:hover {
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="/">게스트 모드로 전환</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"
-				href="#">로그아웃</a></li>
+				href="hostLogout.do">로그아웃</a></li>
 		</ul>
 	</div>
 </div>

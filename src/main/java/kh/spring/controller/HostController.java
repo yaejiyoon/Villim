@@ -73,7 +73,6 @@ public class HostController {
 			String str2 = fm2.format(to2);
 			rlist.get(i).setReserv_checkout(str2);
 		}
-		
 
 		Calendar cal = new GregorianCalendar(Locale.KOREA);
 		int month = cal.get(Calendar.MONTH) + 1;
@@ -101,25 +100,36 @@ public class HostController {
 		map.put("home_seq", 0);
 		List<PaymentDTO> plist = homeService.getAllPayment(map);
 		String date = "";
+
 		for (PaymentDTO p : plist) {
 			date += p.getCheckIn() + ",";
 		}
+
 		if (date.endsWith(",")) {
 			date = date.substring(0, date.length() - 1);
 		}
+
 		System.out.println("date::" + date);
 		String[] dateArr = {};
-		dateArr = date.split(",");
-		int dateCnt = 0;
-		int amount = 0;
-		for (int i = 0; i < dateArr.length; i++) {
-			if (Integer.parseInt(dateArr[i].split("-")[1].split("-")[0]) == month) {
-				System.out.println("9월이용::" + Integer.parseInt(dateArr[i].split("-")[1].split("-")[0]));
-				dateCnt++;
-				amount += Integer.parseInt(plist.get(i).getPayment_amount());
-			}
+
+		if (date != null) {
+			dateArr = date.split(",");
 		}
 
+		int dateCnt = 0;
+		int amount = 0;
+
+		if (!date.equals("")) {
+			for (int i = 0; i < dateArr.length; i++) {
+				if (dateArr.length != 0 && dateArr != null) {
+					if (Integer.parseInt(dateArr[i].split("-")[1].split("-")[0]) == month) {
+						System.out.println("9월이용::" + Integer.parseInt(dateArr[i].split("-")[1].split("-")[0]));
+						dateCnt++;
+						amount += Integer.parseInt(plist.get(i).getPayment_amount());
+					}
+				}
+			}
+		}
 		// 숙소호감도
 		List<HomeDTO> hlist = homeService.getAllHomeDataMain();
 		int homePrice = 0;
@@ -1765,8 +1775,8 @@ public class HostController {
 
 		List<PaymentDTO> dateList = new ArrayList<>();
 		dateList = homeService.getGapDate(dmap);
-		for(PaymentDTO p:dateList) {
-			System.out.println("dateList::"+p.getPayment_amount());
+		for (PaymentDTO p : dateList) {
+			System.out.println("dateList::" + p.getPayment_amount());
 		}
 
 		// 년월일 만들기
@@ -2331,7 +2341,7 @@ public class HostController {
 		session.removeAttribute("login_email");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("hostLogout");
+		mav.setViewName("/host/hostLogout");
 		return mav;
 	}
 
