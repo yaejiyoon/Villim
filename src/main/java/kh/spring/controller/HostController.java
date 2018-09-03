@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -44,7 +45,7 @@ public class HostController {
 	private HomeService homeService;
 
 	@RequestMapping("/hostMain.do")
-	public ModelAndView toHostMain(HttpServletRequest request) throws Exception {
+	public ModelAndView toHostMain(HttpServletRequest request,HttpSession session) throws Exception {
 		System.out.println("/homeMain.do:");
 		int seq = 0;
 		if (request.getParameter("seq") == null) {
@@ -53,7 +54,7 @@ public class HostController {
 			seq = Integer.parseInt(request.getParameter("seq"));
 		}
 		System.out.println("seq::::::::" + seq);
-		String member_email = "sksksrff@gmail.com";
+		String member_email = (String) session.getAttribute("login_email");
 		List<HomeDTO> homeList = homeService.getAllHomeData(member_email);
 		HomeDTO hdto = new HomeDTO();
 		List<HomePicDTO> hplist = new ArrayList<>();
@@ -93,6 +94,7 @@ public class HostController {
 			String str2 = fm2.format(to2);
 			rlist.get(i).setReserv_checkout(str2);
 		}
+		
 
 		Map<String, Object> map2 = new HashMap<>();
 		map2.put("member_email", member_email);

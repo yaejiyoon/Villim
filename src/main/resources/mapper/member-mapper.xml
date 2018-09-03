@@ -32,7 +32,7 @@ select home_seq,home_name,home_main_pic from home where member_email=#{userId} o
 </select>
 
 <select id="getReviewInfo" resultType="Reservation">
-select * from reservation where member_email=#{userId} and reserv_checkout<![CDATA[<]]>=to_char(sysdate,'yyyy-mm-dd') and guest_review='N'
+select * from reservation where member_email=#{userId} and reserv_checkout<![CDATA[<]]>=to_char(sysdate,'yyyy-mm-dd') and guest_review='N' and reserv_state='4'
 </select>
 
 <select id="getHomePhoto" resultType="Home">
@@ -71,6 +71,6 @@ select * from host_review where g_review_seq IN
 </select>
 
 <insert id="insertHostReview">
-insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'))
+insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'),#{member_email},#{member_name},#{member_picture})
 </insert>
 </mapper>

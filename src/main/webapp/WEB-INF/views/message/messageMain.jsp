@@ -148,7 +148,7 @@ transition: transform .1s ease-in;
 	    						guestMemberInfo[i].member_location="";
 		    				}	
 	    					
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+guestUnreadMsg[i].message_seq+"\" style=\"position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+guestUnreadMsg[i].checkIn+" - "+guestUnreadMsg[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestUnreadMsg[i].message_room_seq+"&home_seq="+guestUnreadMsg[i].home_seq+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+guestUnreadMsg[i].message_seq+"\" style=\"position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+guestUnreadMsg[i].checkIn+" - "+guestUnreadMsg[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative; left:41vw;top:-19vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -203,9 +203,9 @@ transition: transform .1s ease-in;
 	    				output+="<h5 style=\"position:relative; left:8.5vw;top:-5.7vh;\">"+guestAllMsg[i].message_time+"</h5>";
 	    				if(guestAllMsg[i].message_read==0&&guestAllMsg[i].toID=="${userId}"){
 	    					output+="<div class=\"new-item-badge\">New</div>";
-		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;font-weight:800;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+guestAllMsg[i].message_content+"</h5></a><br>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;font-weight:800;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+guestAllMsg[i].message_content+"</h5></a><br>";
 	    				}else{
-	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_picture="+guestAllMsg[i].member_picture+"&member_name="+guestAllMemberInfo[i].member_name+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+guestAllMsg[i].message_content+"</h5></a><br>";
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+guestAllMsg[i].message_room_seq+"&home_seq="+guestAllMsg[i].home_seq+"&member_email="+guestAllMemberInfo[i].member_email+"&message_seq="+guestAllMsg[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+guestAllMsg[i].message_content+"</h5></a><br>";
 	    				}
 	    				
 	    				if(guestAllMemberInfo[i].member_location == undefined){
@@ -274,13 +274,13 @@ function ChangeHostList(){
 	    				output+="<h5 style=\"position:relative;left:8.5vw;top:-5.7vh;\">"+guestMemberInfo[i].member_name+"</h5>";
 	    				output+="<h5 style=\"position:relative; left:8.5vw;top:-5.7vh;\">"+hostUnreadMsg[i].message_time+"</h5>";
 	    				output+="<div class=\"new-item-badge\">New</div>";
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;font-weight:800;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+hostUnreadMsg[i].message_content+"</h5></a><br>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;font-weight:800;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+hostUnreadMsg[i].message_content+"</h5></a><br>";
 	    				
 	    				if(guestMemberInfo[i].member_location == undefined){
 	    					guestMemberInfo[i].member_location="";
 	    				}
 	    				
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_picture="+guestMemberInfo[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;text-overflow: ellipsis;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostUnreadMsg[i].checkIn+" - "+hostUnreadMsg[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostUnreadMsg[i].message_room_seq+"&home_seq="+hostUnreadMsg[i].home_seq+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostUnreadMsg[i].message_seq+"\" style=\"position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;text-overflow: ellipsis;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostUnreadMsg[i].checkIn+" - "+hostUnreadMsg[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative;left:41vw;top:-19vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -344,16 +344,16 @@ function ChangeHostList(){
 	    				output+="<h5 style=\"position:relative; left:8.5vw;top:-5.7vh;\">"+hostAllMessage[i].message_time+"</h5>";
 	    				if(hostAllMessage[i].message_read==0&&hostAllMessage[i].toID=="${userId}"){
 	    					output+="<div class=\"new-item-badge\">New</div>";
-		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;font-weight:800;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+hostAllMessage[i].message_content+"</h5></a><br>";
+		    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;font-weight:800;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+hostAllMessage[i].message_content+"</h5></a><br>";
 	    				}else{
-	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+hostAllMessage[i].message_content+"</h5></a><br>";
+	    					output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;\"><h5 style=\"width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;\">"+hostAllMessage[i].message_content+"</h5></a><br>";
 	    				}
 	    				
-	    				if(guestMemberInfo[i].member_location == undefined){
+	    				if(guestMemberInfo[i].member_location == undefined){  
 	    					guestMemberInfo[i].member_location="";
 	    				}
 	    				
-	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_picture="+hostAllMessage[i].member_picture+"&member_name="+guestMemberInfo[i].member_name+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostAllMessage[i].checkIn+" - "+hostAllMessage[i].checkOut+")</a>";
+	    				output+="<a href=\"messageRoomEnter.msg?message_room_seq="+hostAllMessage[i].message_room_seq+"&home_seq="+hostAllMessage[i].home_seq+"&member_email="+guestMemberInfo[i].member_email+"&message_seq="+hostAllMessage[i].message_seq+"\" style=\"position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;\">"+guestMemberInfo[i].member_location+" &nbsp;("+hostAllMessage[i].checkIn+" - "+hostAllMessage[i].checkOut+")</a>";
 	    				output+="<h5 style=\"position:relative;left:41vw;top:-19vh;color:#f9c945;font-weight:800;\">문의</h5>";
 	    				
 	    				
@@ -473,13 +473,13 @@ function ChangeHostList(){
 							<c:choose>
 							<c:when test="${message.message_read==0&&message.toID==userId}">
 							 <div class="new-item-badge">New</div>
-							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;font-weight:800;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${message.message_content}</h5></a><br>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;font-weight:800;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${message.message_content}</h5></a><br>
 							</c:when>
 							<c:otherwise>
-							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${message.message_content}</h5></a><br>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${message.message_content}</h5></a><br>
 							</c:otherwise>
 							</c:choose>
-							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&member_picture=${member.member_picture}&member_name=${member.member_name}&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;">${member.member_location} &nbsp;(${message.checkIn} - ${message.checkOut})</a></c:if></c:forEach>
+							<a href="messageRoomEnter.msg?message_room_seq=${message.message_room_seq}&home_seq=${message.home_seq}&&member_email=${member.member_email}&message_seq=${message.message_seq}" style="position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;">${member.member_location} &nbsp;(${message.checkIn} - ${message.checkOut})</a></c:if></c:forEach>
 							
 							<h5 style="position:relative;left:41vw;top:-19vh;color:#f9c945;font-weight:800;">문의</h5>
 							</div> <c:if test="${not i.last}"><hr style="width:88%; color:gray;position:relative;top:-2vh;"></c:if>
@@ -523,14 +523,14 @@ function ChangeHostList(){
 							<c:choose>
 							<c:when test="${messageH.message_read==0&&messageH.toID==userId}">
 							  <div class="new-item-badge">New</div>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;font-weight:800;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${messageH.message_content}</h5></a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;font-weight:800;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${messageH.message_content}</h5></a><br>
 							</c:when>
 							<c:otherwise>
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${messageH.message_content}</h5></a><br>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:18.2vw;top:-11vh;color:gray;text-decoration:none;text-overflow: ellipsis;"><h5 style="width:18vw;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${messageH.message_content}</h5></a><br>
 							</c:otherwise>
 							</c:choose>
 							
-							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_picture=${memberH.member_picture}&member_name=${memberH.member_name}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
+							<a href="messageHostRoomEnter.msg?message_room_seq=${messageH.message_room_seq}&home_seq=${messageH.home_seq}&member_email=${memberH.member_email}&message_seq=${messageH.message_seq}" style="position:relative;left:18vw;top:-13.7vh;color:gray;text-decoration:none;">${memberH.member_location} &nbsp;(${messageH.checkIn} - ${messageH.checkOut})</a></c:if></c:forEach>
 							
 							<h5 style="position:relative;  left:41vw;top:-19vh;color:#f9c945;font-weight:800;">문의</h5> 
 							</div> <c:if test="${not i.last}"><hr style="width:88%; color:gray;position:relative;top:-2vh;"></c:if>
