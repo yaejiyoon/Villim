@@ -952,9 +952,9 @@ public class HostController {
 
 			hdto = homeService.getHomeData(seq);
 
-			if (sarr.length != 0) {
+			if (sarr != null) {
 				bdto.setBed_single(Arrays.toString(sarr));
-				System.out.println(bdto.getBed_single());
+				System.out.println("bdto.getBed_single::"+bdto.getBed_single());
 				if (bdto.getBed_single() != null) {
 					bdto.setBed_single(bdto.getBed_single().substring(1, bdto.getBed_single().length() - 1));
 				}
