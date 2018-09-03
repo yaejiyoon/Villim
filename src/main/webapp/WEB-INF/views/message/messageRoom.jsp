@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -362,7 +363,40 @@ body{
     border: 1px solid #c9cacc;
     transition: 0.3s;
     width: 25%;
-    height:17vh;
+    height:22.5vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
+
+.card5 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:24vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
+
+.card6 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:19vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
+
+.card7 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:19vh;
     margin: 0 auto;
     position:relative;
     left:7.5vw;
@@ -490,6 +524,7 @@ input[type="radio"]:checked ~ label {
   			  $(this).parents('.card4').fadeOut();
   			});
   			
+  		
   			$('#msgSendBt').click(function(){
     		
   				
@@ -529,10 +564,6 @@ input[type="radio"]:checked ~ label {
   			})
   			
   			
-  			$("#paymentBT").click(function(){
-  				
-  			});
-  			
   			
           });
 			
@@ -543,7 +574,7 @@ input[type="radio"]:checked ~ label {
 </head>
 <body>
 
-<%@ include file="../../resource/include/header_profile.jsp" %>
+<%@ include file="../../resource/include/header_msg.jsp" %>
 	<div class="card">
 			
 			
@@ -579,6 +610,11 @@ input[type="radio"]:checked ~ label {
       <input type="radio" id="slow" name="selector">
       <label for="slow">기타</label>
       <div class="radiobutton"></div>
+      
+      <div class="collapse" id="collapseExample">
+   <input type="text" class="form-control" value="" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
+</div>
+      
     </li>
   </ul>
       </div>
@@ -614,11 +650,11 @@ input[type="radio"]:checked ~ label {
 			
 			<div style="position:relative;top:4vh;">
 			<h4 style="position:relative;top:1.6vh;left:2vw;color:#5e5e5e;font-weight:700;">결제</h4>
-			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">￦${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">￦${stayPrice}</h5></div>
-            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:7vw;">￦${home_servicefee}</h5></div>
-            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:3vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.4vw;">￦${home_cleaningfee}</h5></div>
+			<div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">&#8361;${home_price} x ${diffDay}박 </h5><h5 style="display: inline !important;position:relative;left:6vw;">&#8361;${stayPrice}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:2vw;top:0vh;width:15vw;line-height:4vh;">서비스 수수료</h5><h5 style="display: inline !important;position:relative;left:7vw;">&#8361;${home_servicefee}</h5></div>
+            <div style="position:relative;  color:#5e5e5e;top:3vh;left:1vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:3vw;top:0vh;width:15vw;line-height:4vh;">청소비</h5><h5 style="display: inline !important;position:relative;left:9.4vw;">&#8361;${home_cleaningfee}</h5></div>
 			<hr style="background-color:#727272;width:70%;position:relative;top:1.9vh;font-weight:900;height:3px;">
-			<div style="position:relative;  top:0vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.3vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">￦${totalPrice}</h5></div>
+			<div style="position:relative;  top:0vh;left:0vw;font-weight:700;height:3vh;"><h5 style="display: inline !important;position:relative;left:4.3vw;top:0vh;width:15vw;font-weight:700;">합계</h5><h5 style="display: inline !important;position:relative;left:10.5vw;font-weight:700;">&#8361;${totalPrice}</h5></div>
 			
 			<hr style="color:#666666;width:70%;position:relative;top:-2vh;">
 			</div>
@@ -650,19 +686,78 @@ input[type="radio"]:checked ~ label {
 </c:when>
 <c:when test="${reservCheck.reserv_state==1}">
 <div class="card4  animated slideInRight">
-  <div id="reservConfirm" class="container" style="width:100%;padding:1;">
-   <!-- <button class="close-button" id="close-button-3">+</button> -->
-    <h4><b>${host_name}님의 숙소에 예약하셨습니다.</b></h4> 
-    <p>${host_name}님이 예약에 수락하셨습니다. 즐거운 여행 되세요</p>
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;position:relative;top:1vh;">
+    <h4><b>${host_name}님의 숙소에 예약이 확정되었습니다.</b></h4> 
+    <p>호스트 ${host_name}님이 예약을 수락하셨습니다. 즐거운 여행 되세요</p>
+     <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
     <form action="paymentProc.re" method="post" >
     <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq }">
-    <button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:1.5vh;" id="paymentBT">결제하기</button>
+    <button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:1.8vh;" id="paymentBT">결제하기</button>
+  	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.8vh;" id="reservCancelBT">예약 취소</button>
+  	</form>
+  </div>
+</div>
+<br>
+</c:when>
+ <c:when test="${reservCheck.reserv_state==2}">
+<div class="card5  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;position:relative;top:1vh;">
+    <h4><b>회원님이 예약을 취소하셨습니다.</b></h4> 
+     <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
+    <%-- <p>${host_name}님의 유연 환불 정책에 따라<p style="display: inline; float:right; font-weight: 600;">₩ ${reservCheck.totalAmount} 전액을 환불 받을수 있습니다. 요청하신 계좌로 입금될 예정입니다. </p> --%>
+    <form action="homeMain.do" method="post" >
+    <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
+    <button class="btn btn-default" onclick="location.href='/homeMain.do'"  style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
+  	<!-- <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button> -->
   	</form>
   </div>
 </div>
 </c:when>
-<c:when test="">
-
+ <c:when test="${reservCheck.reserv_state==3}">
+<div class="card5  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;">
+    <h4><b>${host_name}님이 예약을 거절하셨습니다 ㅠㅠ</b></h4> 
+     <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
+    <p>다른 일정으로 예약을 하시거나 다른 숙소를 알아보시는게 어떨까요? </p>
+    <form action="homeMain.do" method="post" >
+    <%-- <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}"> --%>
+    <button class="btn btn-default" onclick="location.href='/homeMain.do'" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
+<!--   	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button> -->
+  	</form>
+  </div>
+</div>
+</c:when>
+<c:when test="${reservCheck.reserv_state==4}">
+<div class="card6  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;position:relative;top:1vh;">
+        <h4><b>${host_name}님의 숙소 결제가 완료되었습니다.</b></h4>
+        <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
+    <form action="paymentCancel.re" method="post" >
+    <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
+    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1vh;" id="paymentCancelBT">결제 취소</button>
+  
+  	</form>
+  </div>
+</div>
+</c:when>
+<c:when test="${reservCheck.reserv_state==5}">
+<div class="card7  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;position:relative;top:1vh;">
+    <h4><b>회원님이 결제를 취소하셨습니다.</b></h4> 
+     <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
+    <p>${host_name}님의 유연 환불 정책에 따라<p style="display: inline; float:right; font-weight: 600;">₩ ${reservCheck.totalAmount} 전액을 환불 받을수 있습니다. 요청하신 계좌로 입금될 예정입니다. </p>
+    <form action="" method="post" >
+    <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
+    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
+  	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button>
+  	</form>
+  </div>
+</div>
 </c:when>
 <c:when test="${empty reservCheck}">
 <div class="card2 animated slideInRight">
@@ -722,7 +817,7 @@ input[type="radio"]:checked ~ label {
         <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;">${message.message_content}
+      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;/* background:#ffe8fe; */">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       

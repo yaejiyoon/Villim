@@ -457,6 +457,8 @@ public class MemberController {
 			session.setAttribute("login_email", dto.getMember_email());
 			session.setAttribute("login_picture", dto.getMember_picture());
 			mav.addObject("homeList", homeList);
+			String	isemail = request.getSession().getAttribute("login_email").toString();
+			System.out.println(isemail);
 			mav.setViewName("index");
 			return mav;
 		} else {
@@ -665,7 +667,7 @@ public class MemberController {
 
 		if (!getSeq.isEmpty()) {
 			for (int i = 0; i < getSeq.size(); i++) {
-				hostHome_seq.add(i);
+				hostHome_seq.add(getSeq.get(i));
 				System.out.println(i + "번째 : " + getSeq.get(i));
 			}
 		} else {
@@ -674,6 +676,10 @@ public class MemberController {
 
 		}
 
+		for(Integer tmp:hostHome_seq) {
+			System.out.println(" > "+tmp.intValue());
+		}
+		
 		List<Review_H_DTO> getHostReview = this.service.getHostReview(hostHome_seq);
 
 		if (!getHostReview.isEmpty()) {
@@ -811,7 +817,10 @@ public class MemberController {
 	public String hostReviewInput(HttpSession session, HostReviewDTO dto) {
 		System.out.println("hostReview.mo");
 		String userId = (String) session.getAttribute("login_email");
-
+        MemberDTO member=this.service.printProfile(userId);
+        dto.setMember_email(userId);
+        dto.setMember_name(member.getMember_name());
+        dto.setMember_picture(member.getMember_picture());
 		// 리뷰 넣기
 
 		System.out.println("seq : " + dto.getG_review_seq() + "home_seq : " + dto.getHome_seq() + " public: "

@@ -3,22 +3,35 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Home">
+	<select id="getGapDate" parameterType="map" resultType="Payment">
+		select * from payment
+		where
+		payment_state = 3 and checkin
+		between to_date(#{start}, 'yyyy/MM/dd') and to_date(#{end},
+		'yyyy/MM/dd')
+		<if test="home_seq == 0">
+			and host_email = #{host_email}
+		</if>
+		<if test="home_seq gt 0">
+			and home_seq = #{home_seq}
+		</if>
+		
+	</select>
+
 	<select id="getAllPayment" parameterType="map"
 		resultType="Payment">
-		select * from account a,member m,
-		payment p
+		select * from account a,member m, payment p
 		where a.host_email =
-		p.host_email and m.member_email = p.member_email
+		p.host_email
+		and m.member_email = p.member_email
 		<if test="home_seq == 0">
 			and a.host_email = #{member_email}
 		</if>
 		<if test="home_seq gt 0">
-			and p.home_seq in
+			and home_seq in
 			(select home_seq from home
 			where
-			member_email
-			=
-			#{member_email} )
+			member_email = #{member_email} and home_seq = #{home_seq})
 		</if>
 		order by p.payment_seq
 	</select>
@@ -238,8 +251,8 @@
 		G_REVIEW_ACCURACY desc
 	</select>
 
-   
-   
+
+
 	<select id="getCleanLiness" resultType="GuestReview">
 		select
 		G_REVIEW_CLEANLINESS , count(G_REVIEW_CLEANLINESS) as count from
@@ -323,6 +336,9 @@
 		G_REVIEW_VALUE,
 		count(G_REVIEW_VALUE) as count from
 		guest_review
+		<if test="value gt 0">
+			where home_seq = #{home_seq}
+		</if>
 		group by
 		G_REVIEW_VALUE
 		having
@@ -342,7 +358,7 @@
       where home_lat between #{swLat} and #{neLat} 
       	and home_lng between #{swLng} and #{neLng} 
       	and home_people >= #{people}
-      	and home_price between #{minMoney} and #{maxMoney}
+      	and home_price >= #{minMoney}
    		<if test="!homeType.equalsIgnoreCase('0')">
             and home_type = #{homeType}
          </if>
@@ -357,7 +373,7 @@
    </select>
    
    <select id="modalHomeData" resultType="Home" parameterType="map" >
-      select * from home where home_people >= #{people} and home_price between #{minMoney} and #{maxMoney}
+      select * from home where home_people >= #{people} and home_price >= #{minMoney}
          <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
          	and 
 	         <trim suffixOverrides="or">
@@ -378,6 +394,71 @@
    
    <select id="getParis" resultType="Home">
 		select * from Home where home_nation = '프랑스'
+	</select>
+	
+	 <select id="getNewyork" resultType="Home">
+		select * from Home where home_nation = '미국'
+	</select>
+	
+	<select id="getRome" resultType="Home">
+		select * from Home where home_nation = '이탈리아'
+	</select>
+	
+	<select id="getLondon" resultType="Home">
+		select * from Home where home_nation = '영국'
+	</select>
+	
+	<select id="getPraha" resultType="Home">
+		select * from Home where home_nation = '체코'
+	</select>
+	
+	<select id="getMadrid" resultType="Home">
+		select * from Home where home_nation = '스페인'
+	</select>
+
+	<select id="getHomeOnMap" resultType="Home" parameterType="map">
+		select * from home
+		where home_lat between #{swLat} and #{neLat}
+		and home_lng between #{swLng} and #{neLng}
+		and home_people >= #{people}
+		and home_price between #{minMoney} and #{maxMoney}
+		<if test="!homeType.equalsIgnoreCase('0')">
+			and home_type = #{homeType}
+		</if>
+		<if test="dateIsChecked.equalsIgnoreCase('1')">
+			and home_blocked_date is null or
+			<trim suffixOverrides="and">
+				<foreach collection="dates" item="type">
+					home_blocked_date not like '%${type}%' and
+				</foreach>
+			</trim>
+		</if>
+	</select>
+
+	<select id="modalHomeData" resultType="Home" parameterType="map">
+		select * from home where home_people >= #{people} and home_price
+		between #{minMoney} and #{maxMoney}
+		<if test="homeTypeIsChecked.equalsIgnoreCase('1')">
+			and
+			<trim suffixOverrides="or">
+				<foreach collection="homeTypeList" item="type">
+					home_type = #{type} or
+				</foreach>
+			</trim>
+		</if>
+		<if test="dateIsChecked.equalsIgnoreCase('1')">
+			and home_blocked_date is null or
+			<trim suffixOverrides="and">
+				<foreach collection="dates" item="type">
+					home_blocked_date not like '%${type}%' and
+				</foreach>
+			</trim>
+		</if>
+	</select>
+
+	<select id="getParis" resultType="Home">
+		select * from Home where
+		home_nation = '프랑스'
 	</select>
 
 	<select id="searchHomeData" resultType="Home"
@@ -408,6 +489,74 @@
 		select *
 		from bed where home_seq = #{home_seq}
 	</select>
+	
+	<!-- 찬연 -->
+	
+	<insert id="firststepbyone" parameterType="Home">
+		insert into home value (home_seq,member_email,home_step) values (home_seq.nextval,#{member_email},'1')
+	</insert>
+	
+	<select id="getNesestHomeData" resultType="Home" parameterType="String">
+		 select * from (select
+    	* from home where member_email = #{member_email} order by home_seq desc) where rownum = 1
+	</select>
+	
+	
+	<!-- #{member_email} -->
+	<!-- all modify  -->
+	<update id="firststepbytwo" parameterType="Home">
+		update home set home_type =#{home_type} where home_seq =#{home_seq}
+	</update>
+	
+	<update id="firststepbythree" parameterType="Home">
+		update home set home_people = #{home_people} 
+		  where home_seq = #{home_seq} 
+	</update>
+	
+	<update id="firststepbyfore" parameterType="Home">
+		update home set home_nation = #{home_nation} , home_addr1 = #{home_addr1} , home_addr2 = #{home_addr2}, home_addr3 = #{home_addr3},
+		 home_addr4 = #{home_addr4} , home_lat = #{home_lat} , home_lng=#{home_lng}   where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="firststepbyfinal" parameterType="Home">
+		update home set  home_amenities = #{home_amenities} , home_safety = #{home_safety},
+		 home_step = '2'  where home_seq = #{home_seq} 
+	</update>
+	
+	<update id="secondstepbyone" parameterType="Home">
+		update home set home_main_pic = #{home_main_pic}  where home_seq = #{home_seq} 
+	</update>
+	
+	
+	<update id="secondstepbytwo" parameterType="Home">
+		update home set home_contents = #{home_contents}  where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="secondstepbyfinal" parameterType="Home">
+		update home set home_name = #{home_name} , home_step = '3'   where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbyone" parameterType="Home">
+		update home set home_guest_access = #{home_guest_access} ,home_rules = #{home_rules} 
+		 where home_seq = #{home_seq} 
+	</update>
+	
+	<update id="thirdstepbytwo" parameterType="Home">
+		update home set home_checkin_end = #{home_checkin_end} where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbythird" parameterType="Home">
+		update home set home_min_stay = #{home_min_stay},home_max_stay = #{home_min_stay}
+		 where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbyfore" parameterType="Home">
+		update home set home_blocked_date = #{home_blocked_date} where home_seq = #{home_seq}  
+	</update>
+	
+	<update id="thirdstepbyfive" parameterType="Home">
+		update home set home_price = #{home_price}, home_step = '4'  where home_seq = #{home_seq}  
+	</update>
 
 	<select id="getSimilarHome" resultType="Home">
 		select * from home where

@@ -20,6 +20,13 @@
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
+$(document).ready(function(){
+	<c:if test="${sessionScope.login_email eq null}">
+	$(".likeyBT").attr('href','#myModal1');
+</c:if>
+})
+</script>
+<script>
 $(function () {
     var a = function () {
         var b = $(window).scrollTop();
@@ -53,13 +60,10 @@ $(function () {
 <script>
 var map, infoWindow;
 var locations = [];
-// var allMarkers = [];
-// var icon1 = "http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Bubble-Azure-icon.png";
-// var icon2 = "http://www.clker.com/cliparts/U/8/J/z/5/D/google-maps-icon-blue-th.png";
 function initMap() {
 	
-	var lat = -34.397;
-	var lng = 150.644;
+	var lat = 37.534286;
+	var lng = 126.901990;
 	
 	<c:if test="${lat eq null}">
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -122,7 +126,7 @@ function initMap() {
 		</c:if>
 		
 		
-		<c:forEach var="item" items="${homeList}" varStatus="status">
+		<c:forEach var="item" items="${markerList}" varStatus="status">
 			locations['${status.index}'] = new Array();
 			locations['${status.index}'][0] = "${item.home_price}";
 			locations['${status.index}'][1] = "${item.home_lat}";
@@ -143,7 +147,7 @@ function initMap() {
 		    return function() {
 		    	var content ='<div><img style="width:200px; height:100px; border-radius:10px; margin-bottom:5px;" src="<c:url value="files/'+locations[i][5]+'"/>"></div>'
 		    	+'<div style="width:200px;"><B>'+locations[i][4]+'</b></div>'
-		    	+'<div>'+locations[i][0]+'원</div>';
+		    	+'<div>₩ '+locations[i][0]+'/박</div>';
 		      infoWindow.setContent(content);
 		      infoWindow.open(map, marker);
 		      
@@ -176,20 +180,13 @@ function initMap() {
 
 </script>
 <script>
-// <c:forEach var="homeList" items="${homeList}">
-// var id = ${homeList.home_seq};
-// function hover(id) {
-// 	for (var i = 0; i < allMarkers.length; i++) {
-// 		if(id==allMarkers[i]) {
-// 			marker.get(allMarkers[i]).setIcon(icon2);
-// 			break;
-// 		}
-// 	}
-// }
-// </c:forEach>
-</script>
-<script>
 $(document).ready(function() {
+	
+	$('.open-modal').click(function(){
+	      $('#likeyMainModal').modal('show');  // show modal
+	}); 
+		
+
 	$("#map").mouseup(function() {
 // 	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
@@ -247,6 +244,7 @@ $(document).ready(function() {
 					}
 		    	   
 					for(var i = 0; i < resp.home.length ; i++) {
+						$('#'+resp.home[i].home_seq).after($('<img>').attr('src',"<c:url value='../resources/img/likeW.png'/>").attr('class','likeyBT').attr('id','likeyBTId'+resp.home[i].home_seq))
 						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homePrice').append("₩"+resp.home[i].home_price+" /박"));
 						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeName').append("<b>"+resp.home[i].home_name+"</b>"));
 						$('#'+resp.home[i].home_seq).after($('<p>').attr('class','homeType').append(resp.home[i].home_type));
@@ -312,40 +310,41 @@ $(document).ready(function() {
 		
 	});
 });
+});
 
 </script>
 
 <script>
 $(document).ready(function() {
 	$('body').delegate('#myonoffswitch','click',function(){
-	        var chkval = 0
-	          if($('#myonoffswitch').is(':checked')){
-	            chkval  = 1;
-	          } else {
-	        	chkval = 2;
-	          }
-	        
-	        var on = document.getElementById('mapOnDiv');
-	        var off = document.getElementById('mapOffDiv');
-	   $.ajax({
-	       url: "homeMain.do",
-	       type: "get",
-	       data:{chkval:chkval},
-	
-	       success:function(returndata){
-	    	   if(chkval==1) {
-					on.style.display = 'block';    
-					off.style.display = 'none';
-	    	   } else if(chkval==2) {
-					on.style.display = 'none';
-					off.style.display = 'block';    
-	    	   }
-	       },error:function(errordata){
-				alert("error 2");
-	       }
-	     });
-	   
-	})
+        var chkval = 0
+          if($('#myonoffswitch').is(':checked')){
+            chkval  = 1;
+          } else {
+        	chkval = 2;
+          }
+        
+        var on = document.getElementById('mapOnDiv');
+        var off = document.getElementById('mapOffDiv');
+   $.ajax({
+       url: "homeMain.do",
+       type: "get",
+       data:{chkval:chkval},
+
+       success:function(returndata){
+    	   if(chkval==1) {
+				on.style.display = 'block';    
+				off.style.display = 'none';
+    	   } else if(chkval==2) {
+				on.style.display = 'none';
+				off.style.display = 'block';    
+    	   }
+       },error:function(errordata){
+			alert("error 2");
+       }
+     });
+   
+})
 	
 	<c:if test="${mapOn!=null}">
 		   $('#myonoffswitch').prop('checked', true);
@@ -367,9 +366,9 @@ $(document).ready(function() {
 		$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
 	});
 		
-	$('#goNewyork').click(function(){
+	$('#goRome').click(function(){
 		var lat = "41.90278349999999";
-		var lng = "-12.496365500000024";
+		var lng = "12.496365500000024";
 		$(location).attr("href","headerSearch.do?lat="+lat+"&lng="+lng);
 	});
 	
@@ -416,7 +415,7 @@ $(document).ready(function() {
      });
    });  
 	
-	<c:if test="${sessionScope.login_email ne null }">
+<c:if test="${sessionScope.login_email ne null }">
 	<c:forEach items="${homeList }" var="homeList">
 		<c:forEach items="${likeyList }" var="likeyList">
 			<c:if test="${homeList.home_seq eq likeyList.home_seq }">
@@ -425,6 +424,8 @@ $(document).ready(function() {
  		</c:forEach>		
 	</c:forEach>
 </c:if>
+	
+	
 	
 });
 			
@@ -542,14 +543,13 @@ $(document).ready(function() {
  		font-family: Interpark;
 		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
  		width : 100%;
- 		height : 170vh;
+ 		height : 380vh;
  	}
- 	
  	
  	
  	#mapOffDiv {
  		width : 100%;
- 		height : 300px;
+ 		height : auto;
  	}
  	
  	#footer {
@@ -581,7 +581,7 @@ $(document).ready(function() {
      	margin-top : 20px;
      	margin-left : 15vw;
      	width : 70vw;
-     	height : 30vw;
+     	height : 40vw;
      	display: inline-block;
      }
      
@@ -632,7 +632,6 @@ $(document).ready(function() {
 		height : 100%;
 		width : 100%;
 		cursor: pointer;
-
 	}
 				
 	.countryCard img {
@@ -648,21 +647,23 @@ $(document).ready(function() {
 				
 	.countryName {
 		margin-top : 15%;
-		font-size : 1.7em;
+		font-size : 2.4vh;
 		color : #a0a6af; 
 		font-family: TmonTium;
 	}
 				
 	#newyork p{
-		font-size : 1.2em;
+/* 		font-size : 1.2em; */
+ 		font-size : 1.6vh; 
 	}
 	
+	
 	#madrid p {
-		font-size: 1.4em;
+		font-size: 2vh;
 	}
 	
 	#london p {
-		font-size: 1.3em;
+		font-size: 1.8vh;
 	}
 			
 
@@ -756,7 +757,7 @@ $(document).ready(function() {
 	
 	.col {
 		margin : auto;
-		height : 33vh;
+		height : 36vh;
 	}
 	
 	#onCardsWrapper .row{
@@ -765,7 +766,7 @@ $(document).ready(function() {
 	
 	.carousel-inner>.item>.homePic {
 		width : 100vh;
-		height : 20vh;
+		height : 30vh;
 	}
  	
  	.likeyBT{
@@ -776,12 +777,22 @@ $(document).ready(function() {
  		right:30px;
  	}
  	
+ 	.likeyBT:hover{
+ 		cursor: pointer;
+ 	}
+ 	
  	.newAtag {
  	   color : black;
  	}
  	
  	.newAtag:hover {
  	   text-decoration: none;
+ 	}
+ 	
+ 	#jaehoModal {
+  		margin-left : 70vh; 
+  		width : 600px;
+  		height : 1000px;
  	}
 </style>
 </head>
@@ -794,7 +805,6 @@ $(document).ready(function() {
 			  <li><a href="" data-toggle="modal" data-target="#date" id="dateBt">날짜</a></li>
 			  <li><a href="" data-toggle="modal" data-target="#people" id="peopleBt">인원</a></li>
 			  <li><a href="" data-toggle="modal" data-target="#homeType" id="homeTypeBt">숙소 종류</a></li>
-			  <li><a href="" data-toggle="modal" data-target="#price" id="priceBt">가격</a></li>
 			</ul>
 			<div class="onoffswitch">
 			    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
@@ -843,7 +853,83 @@ $(document).ready(function() {
 								    <span class="sr-only">Next</span>
 								  </a>
 								</div>
-							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" id="likeyBTId${homeList.home_seq }">
+							<img src="<c:url value='../resources/img/likeW.png'/>" class="likeyBT" 
+							id="likeyBTId${homeList.home_seq }" data-toggle="modal" href="#likeyMainModal"
+							data-pic-id="${homeList.home_main_pic}" data-name-id="${homeList.home_name }"
+							data-addr1-id="${homeList.home_addr1 }" data-addr2-id="${homeList.home_addr2 }"
+							data-nation-id="${homeList.home_nation }" data-seq-id="${homeList.home_seq }"
+							>
+							<script>
+							$(function () {
+								
+								
+								
+							    $("#likeyBTId${homeList.home_seq }").click(function () {
+							        var home_main_pic = $(this).data('pic-id');
+							        $(".modal-body #hiddenValue").val(home_main_pic);
+							        
+							        var home_name = $(this).data('name-id');
+							        $(".modal-body #hiddenValue2").val(home_name);
+							        
+							        var home_addr1 = $(this).data('addr1-id');
+							        $(".modal-body #hiddenValue3").val(home_addr1);
+							        
+							        var home_addr2 = $(this).data('addr2-id');
+							        $(".modal-body #hiddenValue4").val(home_addr2);
+							        
+							        var home_nation = $(this).data('nation-id');
+							        $(".modal-body #hiddenValue5").val(home_nation);
+							        
+							        var home_seq = $(this).data('seq-id');
+							        $(".modal-body #hiddenValue6").val(home_seq);
+							        
+							        var name= $("#hiddenValue2").val();
+					         		$("#home_home_name").text(name);
+					         		
+					         		var addr1= $("#hiddenValue3").val();
+					    	  		var addr2= $("#hiddenValue4").val();
+					    	  		var nation= $("#hiddenValue5").val();
+					         		
+					         		$("#home_home_addr").text(nation+", "+addr1+", "+addr2);
+					         		
+					         		var pic= $("#hiddenValue").val();
+					         		$("#home_home_pic").attr("src","<c:url value='files/"+pic+"'/>");
+					         		
+					         		var home_seq_heart = $("#hiddenValue6").val();
+					         		
+					         		
+					         		$.ajax({
+										url:"HeartHeart.do",
+										type:"get",
+										data:{
+											home_seq_heart:home_seq_heart
+											},
+									success:function(resp){
+											
+										for(var i=0;i<resp.lLikey.length;i++){
+											$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
+										}
+										
+										for(var i=0;i<resp.lLikey.length;i++){
+											for(var j=0;j<resp.likeyHeart.length;j++){
+												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
+													$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like2.png'/>')
+												} else {
+													$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
+												}
+											}
+										}
+									}
+										,
+									error : function(request,status,error) {
+										console.log(request.status + " : " + status + " : " + error);
+										}
+									})
+									
+					         		
+							    })
+							});
+   							</script>
 							<p class="homeType" id="homeType${homeList.home_seq}">${homeList.home_type}</p>
 		                  	<p class="homeName" id="homeName${homeList.home_seq}">
 		                    <B>${homeList.home_name}</B>
@@ -855,13 +941,12 @@ $(document).ready(function() {
 						</div>
 				  </div>
 				  </a>
-					</c:forEach>
+				</c:forEach>
 				  
 				</div> 
 <!-- 				row -->
 				
 			</div>
-			
 			
 			
 			
@@ -922,6 +1007,7 @@ $(document).ready(function() {
 			<p class="introSentence">파리(Paris)의 숙소 </p>
 				<div class="col" id="row">
 				  <c:forEach var="paris" items="${getParis}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${paris.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="${paris.home_seq}" class="carousel slide" data-ride="carousel">
@@ -962,6 +1048,7 @@ $(document).ready(function() {
                   <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  </a>
 				  </c:forEach>
 				  </div>
 				  
@@ -969,7 +1056,57 @@ $(document).ready(function() {
 				
 				<p class="introSentence">뉴욕(New York)의 숙소 </p>
 			
-				<div class="row" id="row">
+				<div class="col" id="row">
+				  <c:forEach var="newyork" items="${getNewyork}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${newyork.home_seq}">
+				  <div class="col-md-3">
+					<div id="carouselDiv">
+						<div id="${newyork.home_seq}" class="carousel slide" data-ride="carousel">
+						  		<!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#${newyork.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${newyork.home_seq}" data-slide-to="1"></li>
+					  </ol>
+				  		
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active">
+					      <img class="homePic" src="<c:url value='files/${newyork.home_main_pic}'/>">
+					    </div>
+					
+					    <div class="item">
+					      <img class="homePic" src="<c:url value='files/${newyork.home_main_pic}'/>">
+					    </div> 
+					  </div>
+					
+					  <!-- Left and right controls -->
+					  <a class="left carousel-control" href="#${paris.home_seq}" data-slide="prev">
+					    <span class="glyphicon glyphicon-chevron-left"></span>
+					    <span class="sr-only">Previous</span>
+					  </a>
+					  <a class="right carousel-control" href="#${paris.home_seq}" data-slide="next">
+					    <span class="glyphicon glyphicon-chevron-right"></span>
+					    <span class="sr-only">Next</span>
+					  </a>
+						</div>
+					</div>
+					<p class="homeType">${newyork.home_type}</p>
+                  <p class="homeName">
+                     <B>${newyork.home_name}</B>
+                  </p>
+                  <p class="homePrice">₩ ${newyork.home_price}</p>
+                  <p class="reviewStar">★★★★★</p>
+                  <p class="reviewCount">247</p>
+                  <p class="hostTitle">슈퍼호스트</p>
+				  </div>
+				  </a>
+				  </c:forEach>
+				  </div>
+				  
+				
+				<p class="introSentence">로마(Rome)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1016,6 +1153,10 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  
+				</div>
+				<p class="introSentence">런던(London)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1062,6 +1203,11 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  
+				</div>
+				
+				<p class="introSentence">프라하(Praha)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1108,6 +1254,11 @@ $(document).ready(function() {
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  
+				</div>
+				
+				<p class="introSentence">마드리드(Madrid)의 숙소 </p>
+			
+				<div class="col" id="row">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -1153,6 +1304,7 @@ $(document).ready(function() {
                   <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  
 				</div>
 				
 			</div>
@@ -1164,6 +1316,7 @@ $(document).ready(function() {
 <%@ include file="../resource/include/modal_homeMain/people.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/homeType.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/price.jsp"%>
+<%@ include file="../resource/include/modal_homeInfo/likey_main.jsp"%>
 <%@ include file="../resource/include/footer.jsp"%>
 
 <script async defer

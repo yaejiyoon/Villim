@@ -13,7 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- main css -->
-<link href="<c:url value="/resources/css/main/main.css?ver=1" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/main/main.css?ver=2" />" rel="stylesheet" />
 <link href="<c:url value="/resources/css/style1.css" />" rel="stylesheet" />
 <script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.86080.js"/>"></script>
 
@@ -200,13 +200,6 @@ $(document).ready(function() {
 }
 
 
-#peopleTitle {
-	margin-bottom : 0;
-	margin-top : 6px;
-	font-size :  1.2em;
-	color : white;
-}
-
 #searchBt {
 	background-color: #ff5a5f;
 	color : white;
@@ -256,7 +249,7 @@ $(document).ready(function() {
 	
 	#locationTextField {
 		font-family : font;
-		margin-top : 8%;
+		margin-top : 30px;
 		width : 80%;
 		height : 40%;
 		font-size : 2vh;
@@ -265,21 +258,33 @@ $(document).ready(function() {
 	}
 	
 	#mapGlyphicon , #calendarGlyphicon{
-		margin-top : 11%;
+		margin-top : 6px;
 		font-size: 2vh;
 		color: #5c5d5e;
 	}
 	
+	#calendarGlyphicon {
+		margin-left : 10px;
+	}
+	
+#peopleTitle { 
+	margin-bottom : 0; 
+ 	margin-top : 6px; 
+ 	font-size :  1.2em; 
+ 	color : white; 
+ } 
+	
 	#datepicker {
 		border : 1px solid white;
 		font-family: font;
-		font-size : 1.8vh;
-		
+		font-size : 1.2em;
+		margin-top : 30px;
 	}
 
 	#searchicon {
 		color : white;
 		font-size : 5vh;
+		margin-top : 6px;
 	}
 	
 	#datepickers-container {

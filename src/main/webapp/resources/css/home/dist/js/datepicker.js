@@ -591,6 +591,8 @@
         clear: function () {
         	
         	$("#calendarDrop").val("");
+        	$(".fixedprice").css({"display":"none"});
+			$("#fixed").css({"height":"360px","transition-duration":"0.1s"});
         	
             this.selectedDates = [];
             this.minRange = '';

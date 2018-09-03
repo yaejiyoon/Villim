@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,6 +35,7 @@ import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
+import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.LikeyDTO;
 import kh.spring.dto.LikeyListDTO;
@@ -87,7 +89,6 @@ public class HomeInfoController {
 		}
 
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
-		
 		int result = homeService.modifyHomeView(home_seq);
 		
 		System.out.println("homeseq : " + home_seq);
@@ -135,6 +136,15 @@ public class HomeInfoController {
 		List<GuestReviewDTO> guestReviewList = reviewService.getAllGuestReviewData(map);
 		String page = reviewService.getReviewPageNavi(currentPage,home_seq);
 		
+		//총 리뷰 갯수
+		int reviewCount = reviewService.totalReviewCount(home_seq);
+		
+		//후기 별 갯수
+		int starCount=0;
+		if(reviewCount >0) {
+			starCount = reviewService.starCount(home_seq);
+		}
+		 
 
 		//guestReview date 변환
 		for(int i=0; i<guestReviewList.size(); i++) {
@@ -147,6 +157,7 @@ public class HomeInfoController {
 			String str = fm2.format(to1);
 			guestReviewList.get(i).setG_review_date(str);
 		}
+		
 
 		//숙소 상세 설명 
 		HomeDescDTO hddto = homeService.getHomeDescData(home_seq);
@@ -277,6 +288,12 @@ public class HomeInfoController {
 			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
 		}
 		
+		//home_pic테이블 사진들
+		List<HomePicDTO> homePicList = homeService.getHomePicData(home_seq);
+		
+		//총 사진 갯수
+		int picsCount = homePicList.size() + 1;
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("home_seq",home_seq);
 		mav.addObject("hdto", hdto);
@@ -302,6 +319,10 @@ public class HomeInfoController {
 		mav.addObject("likeyList", likeyList);
 		mav.addObject("likey", likey);
 		mav.addObject("likeyHeart", likeyHeart);
+		mav.addObject("homePicList", homePicList);
+		mav.addObject("picsCount", picsCount);
+		mav.addObject("reviewCount", reviewCount);
+		mav.addObject("starCount", starCount);
 		mav.setViewName("home/home_info");
 		return mav;
 	}
@@ -458,8 +479,31 @@ public class HomeInfoController {
 		
 		System.out.println(sb.toString());
 		
+		//블락데이트 포함 여부 확인
+		String checkBlocked = null;
+		List<String> cBList = new ArrayList<>();
+		boolean canReserv = true;
+		
+		if(hdto.getHome_blocked_date() != null) {
+			checkBlocked = hdto.getHome_blocked_date();
+			for(int i=0; i<checkBlocked.split(",").length;i++) {
+				cBList.add(checkBlocked.split(",")[i]);
+			}
+			
 		
 		
+			for(int j=0;j<dates.size();j++) {
+				for(int k=0;k<cBList.size();k++) {
+					if(dates.get(j).equals(cBList.get(k))) {
+						canReserv = false;
+					}
+				}
+			}
+		}
+		
+		
+		
+		System.out.println("체크용 블락데이트 " + cBList);
 		
 		//1박 가격
 		int price = hdto.getHome_price();
@@ -490,6 +534,7 @@ public class HomeInfoController {
 		json.put("servicefee", "₩"+servicefee);
 		json.put("total", "₩"+total);
 		json.put("blockedDate", blockedDate);
+		json.put("canReserv",canReserv);
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
@@ -595,6 +640,9 @@ public class HomeInfoController {
 			}
 		}
 		
+		//후기 별 갯수
+		int starCount = reviewService.starCount(reservationDTO.getHome_seq());
+		
 		ModelAndView mav = new ModelAndView();
 	
 		mav.addObject("reservationDTO", reservationDTO);
@@ -606,6 +654,7 @@ public class HomeInfoController {
 		mav.addObject("access", access);
 		mav.addObject("rulesList", rulesList);
 		mav.addObject("rulesDetailsList", rulesDetailsList);
+		mav.addObject("starCount", starCount);
 		mav.setViewName("home/reservationReq");
 
 		return mav;
@@ -1029,6 +1078,7 @@ public class HomeInfoController {
 	public ModelAndView payment(HttpServletRequest req) {
 		int reservation_seq = Integer.parseInt(req.getParameter("seq"));
 		int home_seq = Integer.parseInt(req.getParameter("home_seq"));
+		String merchant_uid = req.getParameter("mr");
 		
 		System.out.println("결제완료 seq"+reservation_seq);
 		
@@ -1047,6 +1097,7 @@ public class HomeInfoController {
 		paymentDTO.setCheckOut(reservationDTO.getReserv_checkout());
 		paymentDTO.setPayment_amount(reservationDTO.getTotalAmount());
 		paymentDTO.setHost_email(host_email);
+		paymentDTO.setMerchant_uid(merchant_uid);
 		
 		//결제 테이블
 		int paymentResult = paymentService.insertDate(paymentDTO);
@@ -1062,7 +1113,6 @@ public class HomeInfoController {
 		mav.setViewName("home/paymentProc");
 
 		return mav;
-		
 	}
 	
 	@RequestMapping("/likeList.do")
@@ -1142,7 +1192,11 @@ public class HomeInfoController {
 		//likeyList 불러오기
 		List<LikeyListDTO> likeyList = likeyService.getAlldata(member_email);
 		
+		//최신 사진 불러오기
+		List<LikeyDTO> likeyPic = likeyService.getHomePic();
+		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("likeyPic", likeyPic);
 		mav.addObject("likeyList", likeyList);
 		mav.setViewName("home/likeyList");
 
@@ -1159,7 +1213,6 @@ public class HomeInfoController {
 		//클릭한 likeyList 정보
 		LikeyListDTO likeyListDTO = likeyService.getLikeyListDTO(likeyList_seq);
 		
-		System.out.println("adfsdfasd"+likeyHomeList.get(0).getLikey_seq());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("likeyListDTO", likeyListDTO);
@@ -1193,8 +1246,361 @@ public class HomeInfoController {
 		}
 	}
 	
-	@RequestMapping("/test.do")
+	@RequestMapping("/rejectResev.re")
 	public void test(HttpServletRequest req, HttpServletResponse response) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reservation_seq"));
+		String member_email = req.getSession().getAttribute("login_email").toString();
+		
+		//예약상태 업데이트 (3:예약 거절)
+		int updateState = reservService.updateReservState(reservation_seq, 3);
+		
+		//예약 정보
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		
+		//블락데이트 지우기
+		//blockedDate불러오기
+		String getBlockedDate = homeService.getBlockedDate(reservationDTO.getHome_seq());
+		List<String> originBlockedList = new ArrayList<>();
+		
+		for(int i=0;i<getBlockedDate.split(",").length;i++) {
+			originBlockedList.add(getBlockedDate.split(",")[i]);
+		}
+		
+		System.out.println(originBlockedList);
+		
+		
+		getBlockedDate.startsWith(",");
+		
+		//두 날짜 사이의 날짜 구하기
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+        Date FirstDate = null;
+        Date SecondDate = null;
+		try {
+			FirstDate = format.parse(reservationDTO.getReserv_checkin());
+			SecondDate = format.parse(reservationDTO.getReserv_checkout());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+		ArrayList<String> dates = new ArrayList<String>();
+		Date currentDate = FirstDate;
+		while (currentDate.compareTo(SecondDate) <= 0) {
+			dates.add(format.format(currentDate));
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			currentDate = c.getTime();
+		}
+
+		/*if(hdto.getHome_blocked_date() != null) {
+			sb.append(",");
+		}*/
+
+		
+
+		//				        for (String date : dates) {
+		//				            System.out.println(date);
+		//				            sb.append(date+",");
+		//				        }
+
+		
+		
+		for(int i=0;i<originBlockedList.size();i++) {
+			for(int j=0;j<dates.size();j++) {
+				if(originBlockedList.get(i).equals(dates.get(j))) {
+					originBlockedList.remove(i);
+				}
+			}
+		}
+		
+		System.out.println(originBlockedList);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=0;i<originBlockedList.size();i++) {
+			if(i == originBlockedList.size()-1) {
+				sb.append(originBlockedList.get(i));
+			}else {
+				sb.append(originBlockedList.get(i)+",");
+			}
+		}
+		
+		System.out.println(dates);
+
+		String blockedDate = sb.toString();
+
+		System.out.println(sb.toString());
+
+		int update = homeService.updateBlocked(blockedDate, reservationDTO.getHome_seq());
+		
+		JSONObject json = new JSONObject();
+		
+		json.put("updateState", updateState);
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			response.getWriter().print(json);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping("/paymentCancel.re")
+	public ModelAndView paymentCancel(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+	
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentCancelReq");
+
+		return mav;
+	}
+	
+	@RequestMapping("/paymentCancelMsg.re")
+	public ModelAndView paymentCancelMsg(HttpServletRequest req) {
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+		
+		//결제 취소 위한 결제 정보
+		PaymentDTO paymentDTO = paymentService.getPaymentData(reservation_seq);
+						
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("paymentDTO", paymentDTO);
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentCancelMsg");
+
+		return mav;
+	}
+	
+	@RequestMapping("/paymentCancelProc.re")
+	public ModelAndView paymentCancelProc(HttpServletRequest req) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		int reservation_seq = Integer.parseInt(req.getParameter("reserv_seq"));
+		String message_content=req.getParameter("message_content");
+		
+		System.out.println("paymentCancelProc.re들어왔따잉"+"예약 번호 : "+reservation_seq+" /내용 : "+message_content);
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		HomeDTO hdto = homeService.getHomeData(reservationDTO.getHome_seq());
+		
+		//날짜형식 년월일로 변환
+		String checkIn = reservationDTO.getReserv_checkin();
+		String checkOut = reservationDTO.getReserv_checkout();
+
+		System.out.println(checkIn+ " : " +checkOut);
+
+		String checkInDate = null;
+		String checkOutDate = null;
+		if(checkIn != null || checkOut != null) {
+			checkInDate = checkIn.split("-")[0] +"년 "+ checkIn.split("-")[1]+"월 "+checkIn.split("-")[2]+"일";
+			checkOutDate = checkOut.split("-")[0] +"년 "+ checkOut.split("-")[1]+"월 "+checkOut.split("-")[2]+"일";
+
+			System.out.println(checkInDate+ " : " +checkOutDate);
+		}
+
+		//메세지 보내기
+		// 1. 메세지 룸 seq 가 존재하는지 여부 판단후 있을 경우 기존의 seq 넣어주고, 없을 경우 새로운 seq 넣어주기
+		MessageRoomDTO roomdto = new MessageRoomDTO();
+		roomdto.setHost_email(reservationDTO.getHost_email());
+		roomdto.setGuest_email(reservationDTO.getMember_email());
+
+		MessageRoomDTO messageRoomSeqExist = MessageService.messageRoomSeqExist(roomdto);
+		int message_room_seq = 0;
+		if (messageRoomSeqExist != null) {
+			message_room_seq = messageRoomSeqExist.getMessage_room_seq();
+			System.out.println("msgroom정보 이미 존재");
+		}
+
+		System.out.println("message_room_seq= " + message_room_seq);
+		
+		MessageDTO messageDTO = new MessageDTO();
+		
+		messageDTO.setMessage_room_seq(message_room_seq);
+		messageDTO.setHome_seq(reservationDTO.getHome_seq());
+		messageDTO.setFromID(reservationDTO.getMember_email());
+		messageDTO.setToID("plmn855000@gmail.com"/*reservationDTO.getHost_email()*/);
+		messageDTO.setMessage_content(message_content);
+		
+		// 2. 얻어낸 메세지 룸 seq와 함께 메세지테이블에 데이터 넣기
+		int messageInsertResult = this.MessageService.messageInsert(messageDTO);
+		if (messageInsertResult > 0) {
+			System.out.println("결제 취소 메세지 전송 완료!");
+			 System.out.println("message_seq : "+messageDTO.getMessage_seq());
+		
+			 
+			//실제 메세지 보내기
+			  MemberDTO mGuest=memberService.printProfile(reservationDTO.getMember_email());
+			  MemberDTO mHost=memberService.printProfile(reservationDTO.getHost_email());
+             
+				mav.addObject("message_room_seq", message_room_seq);
+				mav.addObject("home_seq", reservationDTO.getHome_seq());
+				mav.addObject("member_email",reservationDTO.getHost_email());
+			    mav.addObject("message_seq",messageDTO.getMessage_seq());
+			  MailSendDTO mailDto = new MailSendDTO(mailSender);
+				String mail = mHost.getMember_email();
+				System.out.println(mail);
+				System.out.println("멤버 사진 : "+mGuest.getMember_picture());
+				String urls = "<div style=\"heigh:100%;width:100%;height:45vw;\">" + 
+						"<img src=\"logo2.png/>\" style=\"position:relative;left:6vw;top:4vh;\">" + 
+						"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">" + 
+						"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의  결제취소 메세지에 답하세요</h3>" + 
+						"<img style=\"width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">" + 
+						"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>" + 
+						"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>" + 
+						"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">" + 
+						"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+messageDTO.getMessage_content()+"</h4>" + 
+						"</div>" + 
+						"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>" + 
+						"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>" + 
+						"<hr style=\"margin-top:0;margin-left:0;padding:0;width:68%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">" + 
+						"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">" + 
+						"빌림 드림 ♥<br>" + 
+						"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>" + 
+						"</div>" +"</div>";
+				
+
+				
+				try {
+				
+				mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 결제 취소 메세지입니다.");
+				mailDto.setText(urls);
+				mailDto.setFrom("villim.cf", "villim.cf");
+				mailDto.setTo(mail);
+				mailDto.send();
+				System.out.println("메일보내기 성공");
+
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+				 System.out.println("msg_seq : "+messageDTO.getMessage_seq());
+				  DetailDTO getMessageAfterSend=MessageService.getMsgAfterSend(messageDTO.getMessage_seq());
+				  
+			      String to = "82" +mHost.getMember_phone();
+			      String from = "33644643087";
+			      String message =  URLEncoder.encode("[Villim] : "+mGuest.getMember_name()+", "+getMessageAfterSend.getCheckIn()+" - "+getMessageAfterSend.getCheckOut()+", '"+getMessageAfterSend.getMessage_content()+"'","UTF-8");
+			      String sendUrl = "https://www.proovl.com/api/send.php?user=6394162&token=mZJb0hlGqKxlgbpx4GqNTH4lX0aNAQ04";
+			    
+			      StringBuilder sb = new StringBuilder();
+			      sb.append(sendUrl);
+			      sb.append("&to=" + to);
+			      sb.append("&from=" + from);
+			      sb.append("&text=" + message);
+
+			      System.out.println(sb.toString());
+
+			      try {
+			         URL url = new URL(sb.toString());
+			         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			         int result = con.getResponseCode();
+			         System.out.println(result);
+			         con.disconnect();
+			      }catch(Exception e) {
+			    	  e.printStackTrace();
+			      }
+			         //
+				
+		}
+		
+		
+		
+	
+
+		mav.addObject("checkInDate", checkInDate);
+		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("reservationDTO", reservationDTO);
+		mav.addObject("hdto", hdto);
+		mav.setViewName("home/paymentCancelProc");
+
+		return mav;
+	}
+	
+	@RequestMapping("/HeartHeart.do")
+	public void heartHeart(HttpServletRequest req, HttpServletResponse response, HttpSession session) {
+		int home_seq = Integer.parseInt(req.getParameter("home_seq_heart"));
+		
+		String member_email = null;
+		if(req.getSession().getAttribute("login_email") != null) {
+			member_email = session.getAttribute("login_email").toString();
+		}
+		
+		
+		//모달 하트
+		List<LikeyDTO> likeyHeart = null;
+		List<LikeyListDTO> lLikey = null;
+		if(member_email != null) {
+			likeyHeart = likeyService.getLikeyHeart(home_seq, member_email);
+			lLikey = likeyService.getAlldata(member_email);
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("likeyHeart", likeyHeart);
+		map.put("lLikey", lLikey);
+		
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			new Gson().toJson(map,response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 }

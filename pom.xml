@@ -67,6 +67,13 @@
          <artifactId>mybatis-spring</artifactId>
          <version>1.2.2</version>
       </dependency>
+      
+      <!--  session이  동작함  -->
+		<dependency>
+	<groupId>javax</groupId>
+	<artifactId>javaee-api</artifactId>
+	<version>7.0</version>
+	</dependency>
       <!-- oracle related -->
 
       <dependency>
@@ -238,14 +245,9 @@
          <artifactId>jstl</artifactId>
          <version>1.2</version>
       </dependency>
-      
-      <dependency>
-	    <groupId>jstl</groupId>
-	    <artifactId>jstl</artifactId>
-	    <version>1.2</version>
-	</dependency>
-      
-      <dependency>
+
+
+<dependency>
          <groupId>taglibs</groupId>
          <artifactId>standard</artifactId>
          <version>1.1.2</version>
@@ -255,8 +257,9 @@
     	<groupId>jstl</groupId>
     	<artifactId>jstl</artifactId>
     	<version>1.2</version>
-	</dependency>
+	</dependency> 
       
+    
       <!-- Gson -->
       <dependency>
           <groupId>com.google.code.gson</groupId>
@@ -271,7 +274,6 @@
           <version>1.1</version>
       </dependency>
       
-   
       <!-- Test -->
       <dependency>
          <groupId>junit</groupId>

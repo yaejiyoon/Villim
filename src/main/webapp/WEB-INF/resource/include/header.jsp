@@ -87,7 +87,12 @@ function enterkey() {
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="#" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+			<c:if test="${sessionScope.login_email != null}"> 
+               		<a href="choicemodify.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+			</c:if>
+               <c:if test="${sessionScope.login_email == null}"> 
+                     <a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
         					<li><a href="home_info.do?seq=1">Item</a></li>
@@ -136,11 +141,9 @@ function enterkey() {
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지" style="color:black;">메세지</span>
-             			<ul>
-        					<li><a href="#">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
+             			<c:if test="${guestMsgUnreadCount+hostMsgUnreadCount>0}">
+               			<div class="circle-badge" style="background:#1ACAC0"></div>
+               			</c:if>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
@@ -150,7 +153,7 @@ function enterkey() {
                		</a>
                </div>
                
-            <div id="header-pic">
+            <div id="header-pic" >
               <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${sessionScope.login_picture}"/>
@@ -196,9 +199,16 @@ function enterkey() {
          <section class="color-5">
             <nav class="cl-effect-5">
             	<div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+			<c:if test="${sessionScope.login_email != null}"> 
+               		<a href="choicemodify.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+			</c:if>
+               <c:if test="${sessionScope.login_email == null}"> 
+                     <a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+				</c:if>
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
+        					<li><a href="home_info.do?seq=5" id="tohome_info">Item</a></li>
+        					<li><a href="profileEditView.mo">Product</a></li>
         					<li><a href="home_info.do?seq=1" id="tohome_info">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
@@ -243,16 +253,7 @@ function enterkey() {
                		</a>
                </div>
         
-               <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="메세지" style="color:black;">메세지</span>
-               			<ul>
-        					<li><a href="messageRoomEnter.msg">Item</a></li>
-        					<li><a href="ok.msg">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
-               		</a>
-               </div>
+
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="도움말" style="color:black;">도움말</span>

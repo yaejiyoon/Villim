@@ -9,10 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${hresult>0 && bresult>0}">
 		<script>
 			location.href="hostHomeTab.do?seq=${seq}";
 		</script>  
-	</c:if>
 </body>
 </html>
