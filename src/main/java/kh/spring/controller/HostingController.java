@@ -408,7 +408,7 @@ public class HostingController {
 			bdto.setBed_queen(queenbed);
 			bdto.setHome_seq(seq);*/
 			
-			int bed = service.updatebed(bdto);
+			/*int bed = service.updatebed(bdto);*/
 			if(step.equals("1")){
 				mav.setViewName("hosting/modifysteppage");
 			}else if(step.equals("2")){
