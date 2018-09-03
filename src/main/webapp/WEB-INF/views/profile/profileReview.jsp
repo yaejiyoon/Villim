@@ -527,8 +527,8 @@ $(document).ready(function(){
 									<div class="panel-body" style="height:auto;">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
 
-                                        <c:forEach items="${getHostReview}" var="hostReview">
-				  
+                                        <c:forEach items="${getHostReview}" var="hostReview" varStatus="i">
+				  	<c:forEach items="${getrealHostReview}" var="host">
 				  <article class="row" style="margin-top:3%;">
             <div class="col-md-2 col-sm-2 hidden-xs">
               <figure class="thumbnail">
@@ -540,7 +540,7 @@ $(document).ready(function(){
               <div class="panel panel-default arrow left">
                 <div class="panel-body">
                   <header class="text-left">
-                    <div class="comment-user"><i class="fa fa-user"></i><%-- ${hostReview.home_name}' 을 위한 후기 --%></div>
+                    <div class="comment-user"><i class="fa fa-user"></i></div>
                     <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>${hostReview.g_review_date}</time>
                   </header>
                   <div class="comment-post">
@@ -548,10 +548,9 @@ $(document).ready(function(){
                       ${hostReview.g_review_public}
                     </p>
                   </div>
-                  <c:if test="${empty getrealHostReview}"> 
-                  <p class="text-right"><a class="btn btn-default btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">답글 리뷰쓰기</a></p>
-                     <!-- Third Comment -->
-          <article class="row collapse" id="collapseExample">
+                  <c:if test="${hostReview.g_review_seq!=host.g_review_seq}">
+                  <p class="text-right"><a class="btn btn-default btn-sm"  data-toggle="collapse" href="#collapseExample${i}" role="button" aria-expanded="false" >답글 리뷰쓰기</a></p>
+                       <article class="row collapse" id="collapseExample${i}">
          <form method="post" id="formId" name="formId" action="hostReview.mo" method="post">
             <div class="col-md-10 col-sm-10">
             
@@ -578,22 +577,18 @@ $(document).ready(function(){
               </figure>
             </div>
           </article>
+                    
+                    </c:if> 
+       
                    
-                   </c:if>
+                 
                 </div>
               </div>
             </div>
           </article>
-				  
-               </c:forEach>
- 
- 
- 
- 
-				
-					<c:forEach items="${getrealHostReview}" var="host">
-					         <!-- Third Comment -->
-          <article class="row">
+				  <!--  -->
+				  <c:if test="${hostReview.g_review_seq==host.g_review_seq}">
+				     <article class="row">
             <div class="col-md-10 col-sm-10">
               <div class="panel panel-default arrow right">
                 <div class="panel-body">
@@ -617,7 +612,20 @@ $(document).ready(function(){
               </figure>
             </div>
           </article>
-				</c:forEach>	
+				 </c:if> 
+				  
+				   <c:if test="${not i.last}"><hr style="width:100%;color:#828282;position:relative;top:-1vh;"></c:if>
+				  </c:forEach>
+               </c:forEach>
+ 
+ 
+ 
+ 
+				
+				<%-- 	<c:forEach items="${getrealHostReview}" var="host">
+					         <!-- Third Comment -->
+       
+				</c:forEach>	 --%>
 					
 					
 					

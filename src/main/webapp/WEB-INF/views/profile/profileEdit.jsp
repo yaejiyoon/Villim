@@ -294,7 +294,7 @@ $(document).on('change',"#file",function(){
 	 console.log("file");
 	  var form=$('#photoForm')[0];
 	  var formData=new FormData(form);
-	  
+	  if($('#file').val().length){
 	  $.ajax({
 		type:"post",
 		enctype:"multipart/form-data",
@@ -319,7 +319,7 @@ $(document).on('change',"#file",function(){
 		}
 		   
 	  })
-	  
+	  }
 	  
 })
 

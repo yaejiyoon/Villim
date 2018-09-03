@@ -68,9 +68,15 @@ select * from host_review where g_review_seq IN
 <foreach collection="list" item="type" open="(" close=")" separator=",">
 #{type.value}
 </foreach>
+
+order by decode(g_review_seq,
+<foreach collection="list" item="type" index="index" separator=",">
+#{type.value},#{index}
+</foreach>
+)
 </select>
 
 <insert id="insertHostReview">
-insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'),#{member_email},#{member_name},#{member_picture})
+insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YY/MM/DD'),#{member_email})
 </insert>
 </mapper>
