@@ -316,8 +316,8 @@
 		    
 		    
 			//새창의 크기
-     		var cw=500;
-     		var ch=550;
+     		var cw=600;
+     		var ch=700;
 
      		//스크린의 크기
      		var sw=screen.availWidth;
@@ -422,8 +422,8 @@
 		    console.log('Successful login for: ' + response.name +":" + response.email);
 		    alert(JSON.stringify(response));
 			//새창의 크기
-     		var cw=500;
-     		var ch=550;
+     		var cw=600;
+     		var ch=700;
 
      		//스크린의 크기
      		var sw=screen.availWidth;
@@ -515,8 +515,8 @@ function signupWithKakao() {
                  
                  
              	//새창의 크기
-         		var cw=500;
-         		var ch=550;
+         		var cw=600;
+         		var ch=700;
 
          		//스크린의 크기
          		var sw=screen.availWidth;
@@ -572,8 +572,8 @@ function loginWithKakao() {
 	                 
 	                 
 	             	//새창의 크기
-	         		var cw=500;
-	         		var ch=550;
+	         		var cw=600;
+	         		var ch=700;
 
 	         		//스크린의 크기
 	         		var sw=screen.availWidth;
@@ -608,8 +608,8 @@ function signupWithGoogle(){
 		var google_url = '${sessionScope.googleUrl}';
 
 		//새창의 크기
-		var cw=500;
-		var ch=550;
+		var cw=600;
+		var ch=700;
 
 		//스크린의 크기
 		var sw=screen.availWidth;
@@ -621,7 +621,7 @@ function signupWithGoogle(){
 		
 		$("#myModal").modal('hide');
 		$("#googleSignup").val("signup");
-		window.open(google_url, '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
+		window.open(google_url, '', 'status=no, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
 		
 	}
 		
@@ -630,8 +630,8 @@ function loginWithGoogle(){
 		var google_url = '${sessionScope.googleUrl}';
 		
 		//새창의 크기
-		var cw=500;
-		var ch=550;
+		var cw=600;
+		var ch=700;
 
 		//스크린의 크기
 		var sw=screen.availWidth;
@@ -642,7 +642,7 @@ function loginWithGoogle(){
 		var py=(sh-ch)/2;
 		
 		$("#myModal").modal('hide');
-		window.open(google_url, '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
+		window.open(google_url, '', 'status=no, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch +',resizable=no');
 		
 	}
 
@@ -650,19 +650,19 @@ function loginWithGoogle(){
 function loginWithEmail(){
 		
 	//새창의 크기
-	var cw=500;
-	var ch=550;
+	var cw=600;
+	var ch=750;
 
 	//스크린의 크기
 	var sw=screen.availWidth;
 	var sh=screen.availHeight;
-
+	
 	//열 창의 포지션
 	var px=(sw-cw)/2;
 	var py=(sh-ch)/2;
-	
+	alert(px + ":" + py);
 	$("#myModal").modal('hide');
-	window.open("controllerEmail.do", '', 'status=no, height=500, width=450, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch,',resizable=no');
+	window.open("controllerEmail.do", '', 'status=no, left='+ px + ', top='+ py + ', width='+ cw + ', height= '+ ch +',resizable=no');
 	
 	
 	}

@@ -469,7 +469,7 @@ $(document).ready(function(){
 
  	
  	$(function poll() {
- 		var reporthtml ='';
+ 		
 	    $.ajax({
 	        url: 'mainPolling.admin',
 	        type: 'post',
@@ -481,6 +481,7 @@ $(document).ready(function(){
 	        	$("#reportMessage").html("<a style='margin-right:10%;' id='newReport'>새로운 신고가 " + response.length + "건 있습니다.</a>");
 	        	
 	        	$("#newReport").click(function(){
+	        		var reporthtml ='';
 	        		alert("123");
 	        		$("#reportModal").modal('show');
 	        		reporthtml += "<tr>"

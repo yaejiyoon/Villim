@@ -48,28 +48,28 @@
 }
 #secondIcon{
 	position: absolute;
-	top:23.5%;
+	top:22.7%;
 	left:91%;
 	color: silver;
 	
 }
 #firstIcon{
 	position: absolute;
-	top:32.5%;
+	top:31.7%;
 	left:91%;
 	color: silver;
 	
 }
 #emailIcon{
 	position: absolute;
-	top:42.5%;
+	top:40.8%;
 	left:91%;
 	color: silver;
 	
 }
 #pwIcon{
 	position: absolute;
-	top:52%;
+	top:50.2%;
 	left:91%;
 	color: gold;
 	
@@ -98,18 +98,22 @@
 	z-index:1;
 	left: 88%;
 	top : 25%;
+	padding-bottom:2%;
 }
 #droplist2{
 	position: absolute;
 	z-index:1;
 	left: 88%;
 	top : 25%;
+	padding-bottom:2%;
 }
 #droplist3{
 	position: absolute;
 	z-index:1;
 	left: 88%;
 	top : 25%;
+	padding-top:1%;
+	padding-bottom:2%;
 }
 
 
@@ -228,7 +232,7 @@ color:white;
 #h52{
 position: absolute;
 top:63%;
-left:30%;
+left:28%;
 color:white;
 }
 #h53{
@@ -679,25 +683,38 @@ padding-top:3%;
 		</div>
 		<div id="bottom">
 			<div id="birthTitle"><font>생년월일을 선택하세요</font></div>
+			
+			
+
+			<div class="dropdown" id="year" style="display: inline;">
+				<input type="text" name="yearProp" placeholder="년" id="yearInput" class="form-control"><a
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					id="yearBtn" style="cursor: pointer;"> 
+				 <span class="caret" id="droplist3"></span></a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
+					id="yearList" style="overflow:scroll; height:150px"> 
+				</ul>
+			</div>
+			
 			<div class="dropdown" id="month" style="display: inline;">
 				<input type="text" name="monthProp" placeholder="월" id="monthInput" class="form-control">
 				<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 					id="monthBtn" style="cursor: pointer;"> <span class="caret" id="droplist1"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-					id="monthList" style="overflow:scroll; height:200px">
-					<li>1월</li>
-					<li>2월</li>
-					<li>3월</li>
-					<li>4월</li>
-					<li>5월</li>
-					<li>6월</li>
-					<li>7월</li>
-					<li>8월</li>
-					<li>9월</li>
-					<li>10월</li>
-					<li>11월</li>
-					<li>12월</li>
+					id="monthList" style="overflow:scroll; height:150px">
+					<li><a>1월</a></li>
+					<li><a>2월</a></li>
+					<li><a>3월</a></li>
+					<li><a>4월</a></li>
+					<li><a>5월</a></li>
+					<li><a>6월</a></li>
+					<li><a>7월</a></li>
+					<li><a>8월</a></li>
+					<li><a>9월</a></li>
+					<li><a>10월</a></li>
+					<li><a>11월</a></li>
+					<li><a>12월</a></li>
 				</ul>
 			</div>
 
@@ -707,20 +724,10 @@ padding-top:3%;
 					id="dayBtn" style="cursor: pointer;"> <span class="caret" id="droplist2"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-					id="dayList" style="overflow:scroll; height:200px">
+					id="dayList" style="overflow:scroll; height:150px">
 				</ul>
 			</div>
 
-
-			<div class="dropdown" id="year" style="display: inline;">
-				<input type="text" name="yearProp" placeholder="년" id="yearInput" class="form-control"><a
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-					id="yearBtn" style="cursor: pointer;"> 
-				 <span class="caret" id="droplist3"></span></a>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
-					id="yearList" style="overflow:scroll; height:200px"> 
-				</ul>
-			</div>
 		</div>
 		<br>
 
@@ -828,8 +835,8 @@ padding-top:3%;
 						<img src="resources/images/1.jpg" alt="" style="width: 100%; height:100%;">
 						<img src="resources/img/titleLogo.png" alt="" id="logo">
 						
-							 <h2 id="h21">Villim에 오신 것을</h2>
-							 <h2 id="h22">환영합니다.</h2>
+							 <h2 id="h21"><strong>Villim에 오신 것을</strong></h2>
+							 <h2 id="h22"><strong>환영합니다.</strong></h2>
 							 <h5 id="h51">Villim은 신뢰에 기반해 자신의 집을</h5>
 							 <h5 id="h52">빌려주는 호스트를 게스트와 연결해 줍니다.</h5>
 							 <h5 id="h53">따라서 계정을 활성화 하려면 몇가지</h5>
