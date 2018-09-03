@@ -83,9 +83,7 @@
 														placeholder="인테리어, 채광, 주변 정보 등을 설명하세요."
 														id="lys-summary-textarea" name="home_contents"
 														style="height: 123px; width: 484px; resize: none;"></textarea>
-													<strong><span
-														class="lys-input__remaining-char-count text-muted text-small"
-														aria-label="500자 남음">500</span></strong>
+													
 												</fieldset>
 											</div>
 											<div class="space-top-4">
