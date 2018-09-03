@@ -127,6 +127,10 @@ $(document).ready(function() {
    
 </script>
 <style>
+	body{
+	   min-width: 1280px;
+	}
+
    @font-face {
       font-family: font;
       src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
@@ -509,7 +513,7 @@ $(document).ready(function() {
 	              </a>
                   <p class="homePrice">₩ ${homeList.home_price} /박</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">${homeList.home_addr4}</p>
                   <p class="hostTitle">슈퍼호스트</p>
                </div>
             </div>    
