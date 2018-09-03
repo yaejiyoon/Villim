@@ -310,13 +310,12 @@ $(document).ready(function() {
 		
 	});
 });
-});
 
 </script>
 
 <script>
 $(document).ready(function() {
-	$('body').delegate('#myonoffswitch','click',function(){
+	 $('body').delegate('#myonoffswitch','click',function(){
         var chkval = 0
           if($('#myonoffswitch').is(':checked')){
             chkval  = 1;
