@@ -176,7 +176,7 @@
 													<div>
 														<div class="_2h22gn">
 															<div class="_tzjpbas">
-																<div style="margin-top: 64px;">
+																<div style="margin-top: 120px;">
 																	<div class="_1thhkotp">
 																		<span class="text-kazan"><span>팁:</span></span> <span>호스팅할
 																			수 있는 날짜만 예약 가능하도록 설정하면 예약을 취소하거나 예약 요청을 거절할 필요가
