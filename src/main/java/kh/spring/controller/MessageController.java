@@ -83,16 +83,21 @@ public class MessageController {
 				} else {
 					tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
 				}
+				
 
 				host_email.add(tmp.getHost_email());
 			}
 
 			List<MemberDTO> hostMemberInfo = this.service.memberInfo(host_email);
-
+           
 			mav.addObject("guestMessage", guestMessage);
 			mav.addObject("hostMemberInfo", hostMemberInfo);
 			for (MemberDTO tmp : hostMemberInfo) {
-				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
+				
+				/*if(tmp.getMember_location().equals("null")) {
+					tmp.setMember_location("");
+				}*/
+				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture()+"위치 : "+tmp.getMember_location());
 			}
 
 			// 모든개수
@@ -151,7 +156,8 @@ public class MessageController {
 			mav.addObject("hostMessage", hostMessage);
 			mav.addObject("guestMemberInfo", guestMemberInfo);
 			for (MemberDTO tmp : guestMemberInfo) {
-				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
+				
+				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture()+"위치 : "+tmp.getMember_location());
 			}
 
 			// 모든 개수
@@ -383,8 +389,7 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageRoomEnter.msg")
-	public ModelAndView messageRoomEnter(HttpSession session, int message_room_seq, int home_seq, String member_picture,
-			String member_name, String member_email, int message_seq) {
+	public ModelAndView messageRoomEnter(HttpSession session, int message_room_seq, int home_seq,String member_email, int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageRoomEnter");
 		System.out.println("room_seq : " + message_room_seq);
@@ -400,16 +405,16 @@ public class MessageController {
 		mav.addObject("message_room_seq", message_room_seq);
 		mav.addObject("home_seq", home_seq);
 		mav.addObject("guest_picture", guestInfo.getMember_picture());
-		mav.addObject("host_picture", member_picture);
-		mav.addObject("host_name", member_name);
+		mav.addObject("host_picture", hostInfo.getMember_picture());
+		mav.addObject("host_name", hostInfo.getMember_name());
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		mav.addObject("home_location", hdto.getHome_nation() + " " + hdto.getHome_addr1() + " " + hdto.getHome_addr3());
 		mav.addObject("home_price", hdto.getHome_price());
 
 		mav.addObject("host_email", member_email);
 		MessageRoomDTO dto = this.service.msgRoomInfo(message_room_seq);
-		String cI = "20180" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
-		String cO = "20180" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
+		String cI = "2018" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
+		String cO = "2018" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
 		String transCI = "2018-" + dto.getCheckIn().split("월")[0] + "-" + dto.getCheckIn().split("일")[0].split("월")[1];
 		String transCO = "2018-" + dto.getCheckOut().split("월")[0] + "-"
 				+ dto.getCheckOut().split("일")[0].split("월")[1];
@@ -421,13 +426,33 @@ public class MessageController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
+		
+		 //개수
+		int guestMsgUnreadCount = this.service.guestMsgUnreadCount(userId);
+		if (guestMsgUnreadCount > 0) {
+			System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+			mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("guestMsgUnreadCount", 0);
+		}
+
+int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
+		if (hostMsgUnreadCount > 0) {
+			System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+			mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("hostMsgUnreadCount", 0);
+		}
+		
 		try {
 			Date checkIn = sdf2.parse(cI);
 			Date checkOut = sdf2.parse(cO);
 			long diffDay = (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 60 * 1000);
 			int stayPrice = (int) (amount * diffDay);
-			int home_servicefee = (int) (amount * 0.05);
-			int home_cleaningfee = (int) (amount * 0.1);
+			int home_servicefee = (int) (stayPrice * 0.05);
+			int home_cleaningfee = (int) (stayPrice * 0.1);
 			System.out.println(diffDay + "박");
 
 			int totalPrice = (int) (stayPrice + (hdto.getHome_price() * 0.05) + (hdto.getHome_price() * 0.1));
@@ -458,11 +483,12 @@ public class MessageController {
 		ReservationDTO dto2 = new ReservationDTO();
 		dto2.setMember_email(userId);
 		dto2.setHome_seq(home_seq);
-
+        dto2.setHost_email(member_email);
+       
 		List<ReservationDTO> reservCheck = this.service.reservCheck(dto2);
 		if (!reservCheck.isEmpty()) {
 			for (ReservationDTO tmp : reservCheck) {
-				System.out.println("예약이미 신청 = " + tmp.getReserv_state());
+				System.out.println("예약이미 신청 = " + tmp.getReserv_state()+"total Amount : "+tmp.getTotalAmount());
 			}
 
 			mav.addObject("reservCheck", reservCheck);
@@ -598,7 +624,7 @@ public class MessageController {
 	}
 	@RequestMapping("/messageHostRoomEnter.msg")
 	public ModelAndView messageHostRoomEnter(HttpSession session, int message_room_seq, int home_seq,
-			String member_picture, String member_name, String member_email, int message_seq) {
+			String member_email, int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageHostRoomEnter");
 		System.out.println("room_seq : " + message_room_seq);
@@ -617,8 +643,8 @@ public class MessageController {
 		mav.addObject("home_seq", home_seq);
 		mav.addObject("userId", userId);
 		mav.addObject("guest_email", member_email);
-		mav.addObject("guest_picture", member_picture);
-		mav.addObject("guest_name", member_name);
+		mav.addObject("guest_picture", guestInfo.getMember_picture());
+		mav.addObject("guest_name", guestInfo.getMember_name());
 		mav.addObject("guest_location", guestInfo.getMember_location());
 		mav.addObject("host_picture", hostInfo.getMember_picture());
 		mav.addObject("getHomeNames", getHomeNames);
@@ -628,8 +654,8 @@ public class MessageController {
 		mav.addObject("home_price", hdto.getHome_price());
 
 		MessageRoomDTO dto = this.service.msgRoomInfo(message_room_seq);
-		String cI = "20180" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
-		String cO = "20180" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
+		String cI = "2018" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
+		String cO = "2018" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
 		String transCI = "2018-" + dto.getCheckIn().split("월")[0] + "-" + dto.getCheckIn().split("일")[0].split("월")[1];
 		String transCO = "2018-" + dto.getCheckOut().split("월")[0] + "-"
 				+ dto.getCheckOut().split("일")[0].split("월")[1];
@@ -641,7 +667,28 @@ public class MessageController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
+		
 
+        //개수
+		int guestMsgUnreadCount = this.service.guestMsgUnreadCount(userId);
+		if (guestMsgUnreadCount > 0) {
+			System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+			mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("guestMsgUnreadCount", 0);
+		}
+
+int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
+		if (hostMsgUnreadCount > 0) {
+			System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+			mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("hostMsgUnreadCount", 0);
+		}
+
+		
 		// 날짜
 		String checkinDate = "2018-" + dto.getCheckIn().split("월")[0] + "-"
 				+ dto.getCheckIn().split("일")[0].split("월")[1];
@@ -689,8 +736,8 @@ public class MessageController {
 			Date checkOut = sdf2.parse(cO);
 			long diffDay = (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 60 * 1000);
 			int stayPrice = (int) (amount * diffDay);
-			int home_servicefee = (int) (amount * 0.05);
-			int home_cleaningfee = (int) (amount * 0.1);
+			int home_servicefee = (int) (stayPrice * 0.05);
+			int home_cleaningfee = (int) (stayPrice * 0.1);
 			int totalPrice = (int) (stayPrice - (hdto.getHome_price() * 0.05) - (hdto.getHome_price() * 0.1));
 			mav.addObject("home_servicefee", home_servicefee);
 			mav.addObject("home_cleaningfee", home_cleaningfee);
@@ -724,6 +771,7 @@ public class MessageController {
 		ReservationDTO dto2 = new ReservationDTO();
 		dto2.setMember_email(member_email);
 		dto2.setHome_seq(home_seq);
+		dto2.setHost_email(userId);
 		System.out.println("이메일 : " + dto2.getMember_email() + " / 홈시퀸스 : " + dto2.getHome_seq());
 		List<ReservationDTO> reservCheck = this.service.reservCheck(dto2);
 
@@ -798,6 +846,7 @@ public class MessageController {
 
 			for (int i = 0; i < guestMemberInfo.size(); i++) {
 				JSONObject gmI = new JSONObject();
+				
 				gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 				gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
 				gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
@@ -1009,6 +1058,9 @@ public class MessageController {
 				}
 
 				guest_email.add(tmp.getGuest_email());
+				for(String tmp2:guest_email) {
+				System.out.println("guest_email list에 넣은것 : "+tmp2);
+				}
 
 			}
 			for (int i = 0; i < hostMessage.size(); i++) {
@@ -1022,19 +1074,19 @@ public class MessageController {
 				gmI.put("checkOut", hostMessage.get(i).getCheckOut());
 				gmI.put("message_read", hostMessage.get(i).getMessage_read());
 				gmI.put("host_email", hostMessage.get(i).getHost_email());
+				gmI.put("guest_email", hostMessage.get(i).getGuest_email());
 				gmI.put("fromID", hostMessage.get(i).getFromID());
 				gmI.put("toID", hostMessage.get(i).getToID());
 				jArray.add(gmI);
 			}
 			obj.put("hostAllMessage", jArray);
 
-			
-			
 			List<MemberDTO> guestMemberInfo = this.service.memberInfo(guest_email);
 
 			JSONArray jArray2 = new JSONArray();
 
 			for (int i = 0; i < guestMemberInfo.size(); i++) {
+				System.out.println("멤버 이메일 : : "+guestMemberInfo.get(i).getMember_email());
 				JSONObject gmI = new JSONObject();
 				gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 				gmI.put("member_name", guestMemberInfo.get(i).getMember_name());

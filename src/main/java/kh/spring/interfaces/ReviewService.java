@@ -16,4 +16,8 @@ public interface ReviewService {
 	
 	public int countTotalNavi();
 	
+	public int totalReviewCount(int home_seq);
+	
+	public int starCount(int home_seq);
+	
 }

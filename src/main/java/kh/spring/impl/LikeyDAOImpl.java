@@ -68,6 +68,11 @@ public class LikeyDAOImpl implements LikeyDAO{
 		String sql = "delete from likey where LIKEYLIST_SEQ=? and home_seq=?";
 		return jdbcTemplate.update(sql,likeyList_seq,home_seq);
 	}
+
+	@Override
+	public List<LikeyDTO> getHomePic() {
+		return ssTemplate.selectList("Likey.getHomePic");
+	}
 	
 	
 

@@ -897,8 +897,10 @@ ul li{
 										style="width: 100%; height: 100%; background-color: white; display: inline-block;">
 										<div style="padding: 20px; font-size: 16px; color: black;">
 											"${mlist.message_content}"</div>
-										<div style="padding-left: 20px; font-size: 15px;">
-											<button type="button" class="btn btn-lg">메시지 보내기</button>
+										<div
+											style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
+											<button type="button" class="btn btn-lg" onclick="location.href='messageHostRoomEnter.msg?message_room_seq=${mlist.message_room_seq}&home_seq=${mlist.home_seq}&member_email=${mlist.fromID}&message_seq=${mlist.message_seq}'">메세지</button>
+											<button type="button" class="btn btn-lg">거절</button>
 										</div>
 									</div>
 								</div>
@@ -966,8 +968,10 @@ ul li{
 													style="width: 100%; height: 100%; background-color: white; display: inline-block;">
 													<div style="padding: 20px; font-size: 16px; color: black;">
 														"${mlist.message_content}"</div>
-													<div style="padding-left: 20px; font-size: 15px;">
-														<button type="button" class="btn btn-lg">메시지 보내기</button>
+													<div
+														style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
+														<button type="button" class="btn btn-lg" onclick="location.href='messageHostRoomEnter.msg?message_room_seq=${mlist.message_room_seq}&home_seq=${mlist.home_seq}&member_email=${mlist.fromID}&message_seq=${mlist.message_seq}'">사전승인</button>
+														<button type="button" class="btn btn-lg">거절</button>
 													</div>
 												</div>
 											</div>

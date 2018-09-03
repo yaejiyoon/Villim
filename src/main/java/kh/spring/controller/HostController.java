@@ -73,6 +73,7 @@ public class HostController {
 			String str2 = fm2.format(to2);
 			rlist.get(i).setReserv_checkout(str2);
 		}
+		
 
 		Calendar cal = new GregorianCalendar(Locale.KOREA);
 		int month = cal.get(Calendar.MONTH) + 1;

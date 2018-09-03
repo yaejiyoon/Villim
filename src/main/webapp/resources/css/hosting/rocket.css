@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+.rocker-switch {
+	display: table;
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+/* 	border: 2px solid #bbb; */
+	padding: 2px;
+	white-space: nowrap
+}
+
+.rocker-switch-dark {
+	display: table;
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+/* 	border: 1px solid black; */
+	padding: 2px;
+	white-space: nowrap
+}
+
+.rocker-switch__table {
+	table-layout: fixed
+}
+
+.rocker-switch__table td {
+	padding: 0
+}
+
+.rocker-switch__label--dark {
+	display: block;
+	padding: 0 7px;
+	cursor: pointer;
+	color: black;
+	text-decoration: none
+}
+
+.rocker-switch__label--dark:hover, .rocker-switch__label--dark:focus {
+	color: #484848;
+	text-decoration: none
+}
+
+.rocker-switch__button--deactivated .rocker-switch__label--dark {
+	color: #bbb
+}
+
+.rocker-switch__button--no .rocker-switch__label--dark,
+	.rocker-switch__button--yes .rocker-switch__label--dark {
+	color: #fff
+}
+
+.rocker-switch__label {
+	display: block;
+	padding: 0 8px;
+	cursor: pointer;
+	color: #484848;
+	text-decoration: none
+}
+
+.rocker-switch__label:hover, .rocker-switch__label:focus {
+	color: #484848;
+	text-decoration: none
+}
+
+.rocker-switch__button--deactivated .rocker-switch__label {
+	color: #bbb
+}
+
+.rocker-switch__button--no .rocker-switch__label,
+	.rocker-switch__button--yes .rocker-switch__label {
+	color: #fff
+}
+
+.rocker-switch__button {
+	padding: 0;
+	cursor: pointer;
+	text-align: center
+}
+
+.rocker-switch__button--no {
+	-webkit-border-top-left-radius: 37px;
+	-moz-border-radius-topleft: 37px;
+	border-top-left-radius: 37px;
+	-webkit-border-bottom-left-radius: 37px;
+	-moz-border-radius-bottomleft: 37px;
+	border-bottom-left-radius: 37px;
+	background-color: #767676
+}
+
+.rocker-switch__button--yes {
+	-webkit-border-top-right-radius: 37px;
+	-moz-border-radius-topright: 37px;
+	border-top-right-radius: 37px;
+	-webkit-border-bottom-right-radius: 37px;
+	-moz-border-radius-bottomright: 37px;
+	border-bottom-right-radius: 37px;
+	background-color: #008489
+}
+
+.rocker-switch__divider {
+	height: 16px;
+	width: 2px
+}
+
+.rocker-switch__divider.activated {
+	background: #bbb
+}
+
+.rocker-switch__divider--dark {
+	height: 16px;
+	width: 1px
+}
+
+.rocker-switch__divider--dark.activated {
+	background: black
+}
+

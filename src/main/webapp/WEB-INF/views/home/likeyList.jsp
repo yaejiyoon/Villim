@@ -21,7 +21,11 @@
    }
    
 	#header{
-		font-family: font;
+		font-family: font !important;
+	}
+	
+	body{
+		font-family: font2;
 	}
 	
 	@font-face {
@@ -97,6 +101,17 @@
 		cursor: pointer;
 	}
 </style>
+<script>
+	$(document).ready(function(){
+		<c:forEach items="${likeyList }" var="likeyList">
+			<c:forEach items="${likeyPic }" var="likeyPic">
+				<c:if test="${likeyList.likeyList_seq eq likeyPic.likeyList_seq }">
+	 				$("#listImgListID${likeyList.likeyList_seq }").attr("src","<c:url value='files/${likeyPic.home_main_pic}'/>")
+				</c:if>
+	 		</c:forEach>	
+		</c:forEach>
+	})
+</script>
 </head>
 <body>
 	<%@ include file="../../resource/include/header.jsp" %>
@@ -104,7 +119,7 @@
 		<div id="likeyList-contents">
 			<div id="likeyList-contents-sub01">
 				<h2 style="float: left; font-weight: 600; margin:0px;">목록</h2>
-				<button id="ListmakeBT" class="btn btn-secondary" style="float:right;">목록 만들기</button>
+				<button id="ListmakeBT" class="btn btn-secondary" style="float:right;" data-toggle="modal" href="#makeModall">목록 만들기</button>
 			</div>
 			<div id="likeyList-contents-sub02">
 				<div id="likeyList-contents-sub02-top">
@@ -117,7 +132,7 @@
 						<div class="col-md-4" style="height:250px; padding: 0px;">
 							<div class="thumbnail" style="width:100%; height:100%; box-shadow:none; border:0px; padding:0px 10px 10px 0px; "
 								onclick="likeyClickFn('${likeyList.likeyList_seq }');">
-       							<img src="<c:url value='../resources/img/home.jpg'/>" style="width:100%; height:100%;">
+       							<img src="<c:url value='../resources/img/de.jpg'/>" style="width:100%; height:100%;" id="listImgListID${likeyList.likeyList_seq }">
        							<p class="thumbnailName">${likeyList.likeyList_name }</p>
      						</div>
 						</div>
@@ -134,6 +149,8 @@
 			</div>
 			<div id="likeyList-contents-sub02"></div>
 		</div>
+		
 	</div>
+   <%@ include file="../../resource/include/modal_homeInfo/make.jsp"%>
 </body>
 </html>

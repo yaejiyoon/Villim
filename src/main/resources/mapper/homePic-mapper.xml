@@ -13,4 +13,8 @@
 		select * from home_pic
 	</select>
 	
+	<insert id="secondstepbyoneother" parameterType="HomePic">
+		insert into home_pic values (HOME_PIC_SEQ.nextval,#{home_seq},#{home_pic_name})
+	</insert>
+	
 </mapper>

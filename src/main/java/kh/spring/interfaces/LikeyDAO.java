@@ -22,4 +22,6 @@ public interface LikeyDAO {
 	public LikeyListDTO getLikeyListDTO(int likeyList_seq);
 	
 	public int removeLikey(int likeyList_seq, int home_seq);
+	
+	public List<LikeyDTO> getHomePic();
 }

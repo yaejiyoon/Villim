@@ -1,0 +1,157 @@
+@CHARSET "UTF-8";
+
+.availability-settings__calendar-page-container {
+	display: block;
+	position: relative;
+	list-style: none;
+	margin: 0 0 20px 20px;
+	padding: 16px 0;
+	width: 72px;
+	height: 78px;
+	float: left;
+	z-index: 0
+}
+
+
+
+.availability-settings__calendar-page-container--first {
+	margin-left: 0
+}
+
+.availability-settings__calendar-page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 72px;
+	height: auto;
+	z-index: -1
+}
+
+
+.availability-settings__calendar-page--available {
+	background-repeat: no-repeat;
+	background-image:
+		url(https://a0.muscache.com/airbnb/static/list_your_space/cal-date-v2-207a312ba346075ed37f56a97ef1b9b8.png);
+	width: 72px;
+	height: 78px
+}
+
+@media ( min--moz-device-pixel-ratio : 1.3) , ( -o-min-device-pixel-ratio : 2.6 /
+		2) , ( -webkit-min-device-pixel-ratio : 1.3) , (
+		min-device-pixel-ratio : 1.3) , ( -o-min-device-pixel-ratio : 13/10) ,
+		( min-resolution : 1.3dppx) {
+	.availability-settings__calendar-page--available {
+		background-image:
+			url(https://a0.muscache.com/airbnb/static/list_your_space/cal-date-v2@2x-a8a9f65a9fc61ed9876266d94bdb0c25.png);
+		-moz-background-size: 72px 78px;
+		background-size: 72px 78px
+	}
+}
+
+.availability-settings__calendar-page--blocked {
+	background-repeat: no-repeat;
+	background-image:
+		url(https://a0.muscache.com/airbnb/static/list_your_space/cal-gray-9622527be67438e58796bcbdf42ddd01.png);
+	width: 72px;
+	height: 78px
+}
+
+@media ( min--moz-device-pixel-ratio : 1.3) , ( -o-min-device-pixel-ratio : 2.6 /
+		2) , ( -webkit-min-device-pixel-ratio : 1.3) , (
+		min-device-pixel-ratio : 1.3) , ( -o-min-device-pixel-ratio : 13/10) ,
+		( min-resolution : 1.3dppx) {
+	.availability-settings__calendar-page--blocked {
+		background-image:
+			url(https://a0.muscache.com/airbnb/static/list_your_space/cal-gray@2x-190c4d7359020ded909516087e84f590.png);
+		-moz-background-size: 72px 78px;
+		background-size: 72px 78px
+	}
+}
+
+.availability-settings__calendar-page--guest {
+	background-repeat: no-repeat;
+	background-image:
+		url(https://a0.muscache.com/airbnb/static/list_your_space/cal-profile-106b278549dbefb0d53d6d95f50870ba.png);
+	width: 72px;
+	height: 78px
+}
+
+@media ( min--moz-device-pixel-ratio : 1.3) , ( -o-min-device-pixel-ratio : 2.6 /
+		2) , ( -webkit-min-device-pixel-ratio : 1.3) , (
+		min-device-pixel-ratio : 1.3) , ( -o-min-device-pixel-ratio : 13/10) ,
+		( min-resolution : 1.3dppx) {
+	.availability-settings__calendar-page--guest {
+		background-image:
+			url(https://a0.muscache.com/airbnb/static/list_your_space/cal-profile@2x-d4f69d351ec57af46c5a2ebf48e02ce8.png);
+		-moz-background-size: 72px 78px;
+		background-size: 72px 78px
+	}
+}
+
+.no-wrap {
+	white-space: nowrap
+}
+
+.availability-settings__trip-profile-width {
+	display: inline-block;
+	width: 90px
+}
+
+
+/**/
+.availability-settings__calendar-pages-container {
+	max-width: 296px
+}
+
+.availability-settings__calendar-container.availability-settings__calendar-pages-container-v5
+	{
+	max-width: 384px
+}
+
+.availability-settings__calendar-container {
+	padding: 0
+}
+
+.availability-settings__calendar-container.availability-settings__calendar-container--multi-week
+	{
+	max-width: 294px
+}
+
+.availability-settings__calendar-container.availability-settings__calendar-pages-container
+	{
+	max-width: 296px
+}
+
+.availability-settings__calendar-container.availability-settings__calendar-pages-container-v5
+	{
+	max-width: 384px
+}
+
+.availability-settings__help-panel-container {
+	max-width: none !important
+}
+
+@media ( max-width : 743px) {
+	.availability-settings__help-panel-container {
+		background-color: #fafafa;
+		padding-bottom: 66px
+	}
+}
+
+.availability-settings__help-panel {
+	margin: 60px 70px;
+	display: inline-block
+}
+
+@media ( min-width : 744px) and (max-width: 1127px) {
+	.availability-settings__help-panel {
+		margin: 60px 10px
+	}
+}
+
+@media ( max-width : 743px) {
+	.availability-settings__help-panel {
+		margin: 40px
+	}
+}
+.text-jumbo-normal{font-size:18px}

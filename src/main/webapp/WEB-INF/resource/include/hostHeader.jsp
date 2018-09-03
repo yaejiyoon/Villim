@@ -195,7 +195,7 @@ a:hover {
 
 			<li class="col-md-2"><a href="hostMain.do" style="color: black;"><span
 					data-hover="홈"><b>홈</b></span></a></li>
-			<li class="col-md-2"><a href="#" style="color: black;"><span
+			<li class="col-md-2"><a href="messageMain.msg" style="color: black;"><span
 					data-hover="메시지"><b>메시지</b></span></a></li>
 			<li class="col-md-2"><a href="fullCalendar.do"
 				style="color: black;"><span data-hover="달력"><b>달력</b></span></a></li>
