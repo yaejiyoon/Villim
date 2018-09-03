@@ -33,7 +33,7 @@ $(function () {
         var d = $("#mapOnDiv").offset().top;
         var f = $("#footer").offset().top;
         var c = $("#mapWrapper");
-        var h = $("#mapWrapper").height() + 60; // margin
+        var h = $("#mapWrapper").height() + 220; // margin
         if (b > d) {
             var myTop = $(window).scrollTop();
             if (myTop > f - h) myTop = f - h;
@@ -214,7 +214,7 @@ $(document).ready(function() {
 		    		   $('.col').append(
 		    			$('<div>').attr('class','col-md-4').attr('id','colMd'+resp.home[i].home_seq).append(
 		    			 $('<a>').attr('href','home_info.do?seq='+resp.home[i].home_seq).attr('class','newAtag').attr('id','newAtagId'+resp.home[i].home_seq).append(
-		    			  $('<div>').attr('id','carouselDiv '+i).attr('class','carouselDivOnMap').append(
+		    			  $('<div>').attr('id','carouselDiv '+i).append(
 		    			   $('<div>').attr('id',resp.home[i].home_seq).attr('class','carousel slide').attr('data-ride','carousel').append(
 		    			  	 $('<ol>').attr('class','carousel-indicators').attr('id','ol'+resp.home[i].home_seq).append(
 		    			  	 )
@@ -303,8 +303,7 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					// alert("error 1");
-					console.log("error 1");
+					alert("error 1");
 		       }
 		});
 
@@ -340,8 +339,7 @@ $(document).ready(function() {
 				off.style.display = 'block';    
     	   }
        },error:function(errordata){
-			// alert("error 2");
-    	   console.log("error 2");
+			alert("error 2");
        }
      });
    
@@ -411,8 +409,7 @@ $(document).ready(function() {
 			on.style.display = 'block';    
 			off.style.display = 'none';
 	   },error:function(errordata){
-			// alert("error");
-		   console.log("error");
+			alert("error");
        }
      });
    });  
@@ -477,11 +474,6 @@ $(document).ready(function() {
 
 
 <style>
-
-	body{
-		   maxmin-width: 1280px;
-	}
-	
 	@font-face {
   		font-family: font;
 		src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
@@ -553,7 +545,6 @@ $(document).ready(function() {
 		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
  		width : 100%;
  		height : 380vh;
-  		overflow: hidden; 
  	}
  	
  	
@@ -575,7 +566,7 @@ $(document).ready(function() {
      }
      
      #offTitlePic {
-     	margin-top : 20px;
+     	margin-top : 200px;
      	margin-left : 15vw;
      	width : 70vw;
      	height : 20vw;
@@ -694,11 +685,6 @@ $(document).ready(function() {
 	#carouselDiv {
 		width : 100%;
 		height : 60%;
-	}
-	
-	.carouselDivOnMap {
-		width : 100%;
-		height : 60%;
 	}	
 				
 	.reviewStar {
@@ -735,12 +721,12 @@ $(document).ready(function() {
  	
  	#mapOnDiv {
  		width : 100%;
-		height : 500px; 
+ 		height : 500px;
  		display : none;
  	}
  	
  	#onCardsWrapper {
- 		margin-top : 20px;
+ 		margin-top : 200px;
  		margin-left : 5vw;
  		width : 55vw;
  		height : 40vw;
@@ -749,7 +735,7 @@ $(document).ready(function() {
  	}
  	
  	#mapWrapper {
- 		margin-top : 20px;
+ 		margin-top : 200px;
  		width : 35vw;
  		height : 70vw;
  		display: inline-block;
@@ -837,10 +823,11 @@ $(document).ready(function() {
 		<div id="mapOnDiv">
 			<div id="onCardsWrapper">
 				<div class="col">
-					<c:forEach var="homeList" items="${homeList}" varStatus="status" begin="0" end="26">
+					<c:forEach var="homeList" items="${homeList}" varStatus="status">
 						<a href="home_info.do?seq=${homeList.home_seq}">
 						<div class="col-md-4" id="homeCard${homeList.home_seq}">
-					  		<div id="carouselDiv" class="carouselDivOnMap">
+					  		<div id="carouselDiv">
+<%-- 								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel" onmouseover="hover(${homeList.home_seq})" onmouseout="out(${homeList.home_seq})"> --%>
 								<div id="${homeList.home_seq}" class="carousel slide" data-ride="carousel" >
 								  		<!-- Indicators -->
 								  <ol class="carousel-indicators">
@@ -951,7 +938,7 @@ $(document).ready(function() {
 		                  </p>
 		                  <p class="homePrice" id="homePrice${homeList.home_seq}">₩ ${homeList.home_price} /박</p>
 		                  <p class="reviewStar">★★★★★</p>
-		                  <p class="reviewCount">${homeList.home_addr4}</p>
+		                  <p class="reviewCount">247</p>
 		                  <p class="hostTitle">슈퍼호스트</p>
 						</div>
 				  </div>
@@ -1060,7 +1047,7 @@ $(document).ready(function() {
                   </p>
                   <p class="homePrice">₩ ${paris.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount"></p>
+                  <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  </a>
@@ -1111,7 +1098,7 @@ $(document).ready(function() {
                   </p>
                   <p class="homePrice">₩ ${newyork.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount"></p>
+                  <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  </a>
@@ -1161,7 +1148,7 @@ $(document).ready(function() {
                   </p>
                   <p class="homePrice">₩ ${rome.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount"></p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  </a>
@@ -1210,7 +1197,7 @@ $(document).ready(function() {
                   </p>
                   <p class="homePrice">₩ ${london.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount"></p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  </a>
@@ -1255,11 +1242,11 @@ $(document).ready(function() {
 					</div>
 					<p class="homeType">${praha.home_type}</p>
                   <p class="homeName">
-                     <B>${praha.home_name}</B>
+                     <B>${rome.home_name}</B>
                   </p>
                   <p class="homePrice">₩ ${praha.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount"></p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  </a>
@@ -1304,11 +1291,11 @@ $(document).ready(function() {
 					</div>
 					<p class="homeType">${madrid.home_type}</p>
                   <p class="homeName">
-                     <B>${madrid.home_name}</B>
+                     <B>${rome.home_name}</B>
                   </p>
                   <p class="homePrice">₩ ${madrid.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount"></p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
 				  </a>
