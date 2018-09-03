@@ -37,6 +37,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDAO.countTotalNavi();
 	}
 
+	@Override
+	public int totalReviewCount(int home_seq) {
+		return reviewDAO.totalReviewCount(home_seq);
+	}
+
+	@Override
+	public int starCount(int home_seq) {
+		return reviewDAO.starCount(home_seq);
+	}
+
 	
 	
 	
