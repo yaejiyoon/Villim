@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.interfaces.AdminService;
 import kh.spring.interfaces.MemberService;
 
@@ -248,7 +249,7 @@ public class ManagerController {
 	@ResponseBody
 	public void mainReservationCount(HttpServletRequest request,HttpServletResponse response) {
 		AdminChartDTO chartDto = new AdminChartDTO();
-		ModelAndView mav =  new ModelAndView();
+		
 		JSONArray array = new JSONArray();
 		JSONObject json = null;
 		chartDto.setPayment_year("2018");
@@ -336,5 +337,31 @@ public class ManagerController {
 		}
 		
 	}
+	@RequestMapping("mainPolling.admin")
+	@ResponseBody
+	public void mainPolling(HttpServletRequest request,HttpServletResponse response) {
+		
+		JSONArray array = new JSONArray();
+		JSONObject json = null;
+		List<ReportDTO> result = adminService.getReportData();
+		
+		
+		
+		for(ReportDTO tmp:result) {
+			
+			json = new JSONObject();
+			json.put("report_email", tmp.getMember_email());
+			json.put("report_name", tmp.getMember_name());
+			json.put("reported_email", tmp.getReported_email());
+			json.put("reported_name", tmp.getReported_name());
+			json.put("report_reason", tmp.getReport_reason());
+			json.put("report_seq", tmp.getReport_seq());
+			json.put("report_state", tmp.getReport_state());
+			
+			array.add(json);
+		}
+		
+	}
+	
 	
 }

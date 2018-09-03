@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.interfaces.AdminDAO;
 import kh.spring.interfaces.AdminService;
 
@@ -71,6 +72,12 @@ public class AdminServiceImpl implements AdminService{
 	public String isManager(String adminNumber, String adminPassword1) {
 		
 		return dao.isManager(adminNumber, adminPassword1);
+	}
+
+	@Override
+	public List<ReportDTO> getReportData() {
+		
+		return dao.getReportData();
 	}
 
 

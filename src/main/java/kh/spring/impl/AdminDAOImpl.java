@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.interfaces.AdminDAO;
 
 @Component
@@ -180,6 +181,31 @@ public class AdminDAOImpl implements AdminDAO{
 			return list.get(0);
 		}
 	
+	}
+
+	@Override
+	public List<ReportDTO> getReportData() {
+		
+		String sql = "select * from report where report_state = 0";
+		
+		List<ReportDTO> result = jdbcTemplate.query(sql, new RowMapper <ReportDTO>() {
+			@Override
+			public ReportDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				
+				ReportDTO reportDto = new ReportDTO();
+				reportDto.setMember_email(rs.getString("member_email"));
+				reportDto.setMember_name(rs.getString("member_name"));
+				reportDto.setReported_email(rs.getString("reported_email"));
+				reportDto.setReported_name(rs.getString("reported_name"));
+				reportDto.setReport_seq(rs.getInt("report_seq"));
+				reportDto.setReport_reason(rs.getString("report_reason"));
+				reportDto.setReport_state(rs.getString("report_state"));
+
+				return reportDto;
+			}
+		
+		});
+		return result;
 	}
 
 

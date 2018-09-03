@@ -4,6 +4,7 @@ import java.util.List;
 
 import kh.spring.dto.AdminChartDTO;
 import kh.spring.dto.AdminDTO;
+import kh.spring.dto.ReportDTO;
 
 public interface AdminDAO {
 	
@@ -14,5 +15,6 @@ public interface AdminDAO {
 	public String isAdminNum(String adminNum, String adminPw);
 	public int adminSignup(String adminNum, String adminPw);
 	public String isManager(String adminNumber, String adminPassword);
+	public List<ReportDTO> getReportData();
 
 }
