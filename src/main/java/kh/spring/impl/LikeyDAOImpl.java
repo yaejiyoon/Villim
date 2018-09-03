@@ -25,8 +25,8 @@ public class LikeyDAOImpl implements LikeyDAO{
 
 	@Override
 	public int insertData(LikeyListDTO dto) {
-		String sql = "insert into likeylist values(likeylist_seq.nextval,?,?,?)";
-		return jdbcTemplate.update(sql,dto.getLikeyList_name(),dto.getMember_email(),dto.getHome_seq());
+		String sql = "insert into likeylist values(likeylist_seq.nextval,?,?)";
+		return jdbcTemplate.update(sql,dto.getLikeyList_name(),dto.getMember_email());
 	}
 
 	@Override

@@ -210,23 +210,26 @@
                         								
                         								$("#priceLeft").text(priceLeft);
                         								$("#priceRight").text(priceRight);
-                        								$("#cleaningfee").text(cleaningfee);
-                        								$("#servicefee").text(servicefee);
-                        								$("#total").text(total);
+                        								$("#footer-cleaningFee").text(cleaningfee);
+                        								$("#footer-servicefee").text(servicefee);
+                        								$("#footer-total").text(total);
                         								
                         								
                         								$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
                         								$(".fixedprice").css({"display":"block"});
                         								$(".footerModal-body").css({"height":"455px"});
                         								
-                        								$("#reserv_checkin").val(checkinDate);
-                        								$("#reserv_checkout").val(checkoutDate);
-                        								$("#nightsAmount").val(priceRight);
+                        								$("#footer_reserv_checkin").val(checkinDate);
+                        								$("#footer_reserv_checkout").val(checkoutDate);
+                        								$("#footer-nightsAmount").val(priceRight);
                         								$("#cleaningFee").val(cleaningfee);
                         								$("#serviceFee").val(servicefee);
                         								$("#totalAmount").val(total);
                         								
-                        								$("#blockedDate").val(blockedDate);
+                        								$("#footer-blockedDate").val(blockedDate);
+                        								
+                        								alert(checkinDate);
+                        								alert(checkoutDate);
                     								}
                     								
                     							},
@@ -405,7 +408,7 @@
             					    var population = $("#peopleDrop2").val();
             					    console.log(population.split("게스트 ")[1].split("명")[0]);
             					    
-            					    $("#population").val(population.split("게스트 ")[1].split("명")[0]);
+            					    $("#footer-population").val(population.split("게스트 ")[1].split("명")[0]);
             					    
             					    for (i = 0; i < dropdowns.length; i++) {
             					      var openDropdown = dropdowns[i];
@@ -527,12 +530,12 @@
             			</div>
             			<br>
             			<c:if test="${sessionScope.login_email eq null}">
-            				<button id="reservationBT" class="btn btn-secondary" type="button" data-toggle="modal" href="#myModal1">
+            				<button id="footerReservationBT" class="btn btn-secondary" type="button" data-toggle="modal" href="#myModal1">
             					예약 하기
             				</button>
             			</c:if>
             			<c:if test="${sessionScope.login_email ne null}">
-            				<button id="reservationBT" class="btn btn-secondary" type="submit">
+            				<button id="footerReservationBT" class="btn btn-secondary" type="submit">
             					예약 하기
             				</button>
             			</c:if>
@@ -540,18 +543,18 @@
             			<br>
             			<p style="text-align: center;">예약 확정 전에는 요금이 청구되지 않습니다</p>
             			
-            			<!-- 게스트 이메일로 바꾸기 -->
+            			
             			<input type="hidden" name="member_email" value="${sessionScope.login_email}">
-            		 	<input type="hidden" name="reserv_checkin" id="reserv_checkin" value="">
-            		 	<input type="hidden" name="reserv_checkout" id="reserv_checkout" value="">
-            			<input type="hidden" name="population" id="population" value="1">
+            		 	<input type="hidden" name="reserv_checkin" id="footer_reserv_checkin" value="">
+            		 	<input type="hidden" name="reserv_checkout" id="footer_reserv_checkout" value="">
+            			<input type="hidden" name="population" id="footer-population" value="1">
             			<input type="hidden" name="home_seq" value="${hdto.getHome_seq() }">
             			<input type="hidden" name="home_name" value="${hdto.getHome_name() }">
-            			<input type="hidden" name="nightsAmount" id="nightsAmount">
-            			<input type="hidden" name="cleaningFee" id="cleaningFee">
-            			<input type="hidden" name="serviceFee" id="serviceFee">
-            			<input type="hidden" name="totalAmount" id="totalAmount">
-            			<input type="hidden" name="blockedDate" id="blockedDate">
+            			<input type="hidden" name="nightsAmount" id="footer-nightsAmount">
+            			<input type="hidden" name="cleaningFee" id="footer-cleaningFee">
+            			<input type="hidden" name="serviceFee" id="footer-servicefee">
+            			<input type="hidden" name="totalAmount" id="footer-totalAmount">
+            			<input type="hidden" name="blockedDate" id="footer-blockedDate">
             			<input type="hidden" name="host_email" value="${hdto.member_email }">
             			</form>
             		</div>

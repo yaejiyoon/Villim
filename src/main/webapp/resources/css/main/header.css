@@ -30,11 +30,16 @@
 	}
 	
 	#header-menu{
-		width:57%;
+		width:580px;
 		height:100%;
 		text-align: center;
-
-		
+		margin-left: 200px;
+	}
+	
+	#header-menu:after{
+		content: "";
+   display: block;
+   clear: both;
 	}
 	
 	#header-pic{

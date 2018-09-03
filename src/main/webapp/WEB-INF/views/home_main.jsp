@@ -390,8 +390,6 @@ $(document).ready(function() {
 	});
 	   
 });  
-	
-	
 		
 		
 $(document).ready(function() {
@@ -474,331 +472,345 @@ $(document).ready(function() {
 
 
 <style>
-	@font-face {
-  		font-family: font;
-		src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
-	}
-	
-	@font-face {
-		font-family: TmonTium;
-		src: url('<c:url value='/resources/fonts/TmonTium.ttf'/>');
-	}
-	
-	
-	#header {
-		font-family: font;
-		z-index : 100;
-		background-color: white;
-	}
-	
-	#fixedHeader {
-		position: fixed;
-		width : 100%;
-		z-index : 100;
-	}
-	
-	#searchBar {
-		font-family: Interpark;
-		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
-		font-weight : 200;
-  		font-size: 0.8vw;
-		width : 100%;
-		height : 8vh;
-		border-top : 1px solid #e0dee0;
-		border-bottom : 1px solid #e0dee0;
-		background-color: white;
 
-	}
-	
-	#searchBar ul {
-		float : left;
-	    list-style-type: none;
-	    margin: 10px 0px 10px 50px;
-	    padding: 0;
-	    overflow: hidden;
-	    background-color: white;
-	}
-	
-	#searchBar li {
-	    float: left;
-	    height : 100%;
-	    margin-right : 10px;
-	}
-	
-	#searchBar li a {
-	    display: block;
-	    color: black;
-	    text-align: center;
-	    padding: 10px 16px 10px;
-	    text-decoration: none;
-	}
-	
- 	#searchBar li a:hover { 
-		border-bottom: 1px solid  #1c7a96;
-		color: #1c7a96;
- 	}
- 	
- 	#contentsWrapper {
- 		font-family: Interpark;
-		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
- 		width : 100%;
- 		height : 380vh;
- 	}
- 	
- 	
- 	#mapOffDiv {
- 		width : 100%;
- 		height : auto;
- 	}
- 	
- 	#footer {
- 		z-index:2;
-     	position:relative;
+   body{
+         maxmin-width: 1280px;
+   }
+   
+   @font-face {
+        font-family: font;
+      src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
+   }
+   
+   @font-face {
+      font-family: TmonTium;
+      src: url('<c:url value='/resources/fonts/TmonTium.ttf'/>');
+   }
+   
+   
+   #header {
+      font-family: font;
+      z-index : 100;
+      background-color: white;
+   }
+   
+   #fixedHeader {
+      /* position:fixed; */
+      width : 100%;
+      z-index : 100;
+      
+      
+   }
+   
+   #searchBar {
+      font-family: Interpark;
+      src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
+      font-weight : 200;
+        font-size: 0.8vw;
+      width : 100%;
+      height : 8vh;
+      border-top : 1px solid #e0dee0;
+      border-bottom : 1px solid #e0dee0;
+      background-color: white;
+
+   }
+   
+   #searchBar ul {
+      float : left;
+       list-style-type: none;
+       margin: 10px 0px 10px 50px;
+       padding: 0;
+       overflow: hidden;
+       background-color: white;
+   }
+   
+   #searchBar li {
+       float: left;
+       height : 100%;
+       margin-right : 10px;
+   }
+   
+   #searchBar li a {
+       display: block;
+       color: black;
+       text-align: center;
+       padding: 10px 16px 10px;
+       text-decoration: none;
+   }
+   
+    #searchBar li a:hover { 
+      border-bottom: 1px solid  #1c7a96;
+      color: #1c7a96;
+    }
+    
+    #contentsWrapper {
+       font-family: Interpark;
+      src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
+       width : 100%;
+       height : 380vh;
+        overflow: hidden; 
+    }
+    
+    
+    #mapOffDiv {
+       width : 100%;
+       height : auto;
+    }
+    
+    #footer {
+       z-index:2;
+        position:relative;
      }
      
      #map {
-     	margin : 0 0 0 5%;
-     	width : 95%;
-     	height: 100%;
-     	
+        margin : 0 0 0 5%;
+        width : 95%;
+        height: 100%;
+        
      }
      
      #offTitlePic {
-     	margin-top : 200px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 20vw;
-     	display: inline-block;
-     	overflow:hidden;
+        margin-top : 20px;
+        margin-left : 15vw;
+        width : 70vw;
+        height : 20vw;
+        display: inline-block;
+        overflow:hidden;
      }
      
      #offTitlePic img{
-     	height : 100%;
+        height : 100%;
      }
      
      #offContentsWrapper {
-     	margin-top : 20px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 40vw;
-     	display: inline-block;
+        margin-top : 20px;
+        margin-left : 15vw;
+        width : 70vw;
+        height : 40vw;
+        display: inline-block;
      }
      
      #offContentsTitle {
-     	margin-top : 20px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 5vw;
-     	display: inline-block;
-     	 
+        margin-top : 20px;
+        margin-left : 15vw;
+        width : 70vw;
+        height : 5vw;
+        display: inline-block;
+         
      }
      
-	.row {
-		box-sizing : border-box;
-		height : 50%;
-		margin : auto;
-	} 
-	
-	#row {
-		box-sizing : border-box;
-		height : 50%;
-		margin : auto;
-	}
+   .row {
+      box-sizing : border-box;
+      height : 50%;
+      margin : auto;
+   } 
+   
+   #row {
+      box-sizing : border-box;
+      height : 50%;
+      margin : auto;
+   }
      
      .col-md-3 {
-     	height : 100%;
-     	margin : auto;
-     	line-height: 0.8em;
-     	overflow: hidden;
+        height : 100%;
+        margin : auto;
+        line-height: 0.8em;
+        overflow: hidden;
      }
      
-	.recommend {
-		height : 100%;
-	}
-				
-	.col-md-2 {
-		height : 100%;
-	}
-	
-	#col-md-2 {
-		padding-left : 3px;
-		padding-right: 3px;
-	}
-	
-	.countryCard {
-		border : 1px solid white;
-		border-radius : 10px;
-		height : 100%;
-		width : 100%;
-		cursor: pointer;
-	}
-				
-	.countryCard img {
-		width : 50%;
-		height: 80%;
-		margin-top : 5%;
-		margin-bottom : 5%;
-		margin-left : 5%;
-		margin-right : 4%;
-		float : left;
-		border-radius: 10px;
-	}
-				
-	.countryName {
-		margin-top : 15%;
-		font-size : 2.4vh;
-		color : #a0a6af; 
-		font-family: TmonTium;
-	}
-				
-	#newyork p{
-/* 		font-size : 1.2em; */
- 		font-size : 1.6vh; 
-	}
-	
-	
-	#madrid p {
-		font-size: 2vh;
-	}
-	
-	#london p {
-		font-size: 1.8vh;
-	}
-			
+   .recommend {
+      height : 100%;
+   }
+            
+   .col-md-2 {
+      height : 100%;
+   }
+   
+   #col-md-2 {
+      padding-left : 3px;
+      padding-right: 3px;
+   }
+   
+   .countryCard {
+      border : 1px solid white;
+      border-radius : 10px;
+      height : 100%;
+      width : 100%;
+      cursor: pointer;
+   }
+            
+   .countryCard img {
+      width : 50%;
+      height: 80%;
+      margin-top : 5%;
+      margin-bottom : 5%;
+      margin-left : 5%;
+      margin-right : 4%;
+      float : left;
+      border-radius: 10px;
+   }
+            
+   .countryName {
+      margin-top : 15%;
+      font-size : 2.4vh;
+      color : #a0a6af; 
+      font-family: TmonTium;
+   }
+            
+   #newyork p{
+/*       font-size : 1.2em; */
+       font-size : 1.6vh; 
+   }
+   
+   
+   #madrid p {
+      font-size: 2vh;
+   }
+   
+   #london p {
+      font-size: 1.8vh;
+   }
+         
 
-	
-	.carousel.slide {
-		width : 100%;
-	   	height : 100%;
-	   	display: inline-block;
-	}
-			     
- 	
-			     
-	.carousel-inner {
-		width : 100%;
-		height : 100%;
-	}
-			     
-	#carouselDiv {
-		width : 100%;
-		height : 60%;
-	}	
-				
-	.reviewStar {
-		color : #008489; 
-		display : inline;
-	}
- 	
- 	.hostTitle, .reviewCount {
- 		display: inline;
- 	}
- 	
- 	.homeType {
- 		margin-top: 1vh;
- 		padding : 0px;
- 		margin-bottom : 0.5vh;
- 	}
- 	
- 	.homeName {
- 		margin-bottom : 0.5vh;
- 		padding : 0px;
- 	}
- 	
- 	.homePrice{
- 		margin-bottom : 0.5vh;
- 		padding : 0px;
- 	}
- 	
- 	.introSentence {
- 		margin-top : 1vw;
- 		font-size: 2em;
- 		font-family: TmonTium;
- 		color : #3a3b3d;
- 	}
- 	
- 	#mapOnDiv {
- 		width : 100%;
- 		height : 500px;
- 		display : none;
- 	}
- 	
- 	#onCardsWrapper {
- 		margin-top : 200px;
- 		margin-left : 5vw;
- 		width : 55vw;
- 		height : 40vw;
- 		display: inline-block;
- 		line-height : 1em;
- 	}
- 	
- 	#mapWrapper {
- 		margin-top : 200px;
- 		width : 35vw;
- 		height : 70vw;
- 		display: inline-block;
- 	}
- 	
- 	
- 	#mapWrapper {
- 		position: fixed;
- 		height: 75vh;
-	    z-index: 0;
- 	}
-	
-	.col-md-4 {
-		height : 100%;
-	}
-	
-	.row {
-		margin : auto;
-	}
-	
-	.col {
-		margin : auto;
-		height : 36vh;
-	}
-	
-	#onCardsWrapper .row{
-		height : 50%;
-	}
-	
-	.carousel-inner>.item>.homePic {
-		width : 100vh;
-		height : 30vh;
-	}
- 	
- 	.likeyBT{
- 		width:20px;
- 		position: absolute;
- 		z-index: 400000;
- 		top:10px;
- 		right:30px;
- 	}
- 	
- 	.likeyBT:hover{
- 		cursor: pointer;
- 	}
- 	
- 	.newAtag {
- 	   color : black;
- 	}
- 	
- 	.newAtag:hover {
- 	   text-decoration: none;
- 	}
- 	
- 	#jaehoModal {
-  		margin-left : 70vh; 
-  		width : 600px;
-  		height : 1000px;
- 	}
+   
+   .carousel.slide {
+      width : 100%;
+         height : 100%;
+         display: inline-block;
+   }
+              
+    
+              
+   .carousel-inner {
+      width : 100%;
+      height : 100%;
+   }
+              
+   #carouselDiv {
+      width : 100%;
+      height : 60%;
+   }
+   
+   .carouselDivOnMap {
+      width : 100%;
+      height : 60%;
+   }   
+            
+   .reviewStar {
+      color : #008489; 
+      display : inline;
+   }
+    
+    .hostTitle, .reviewCount {
+       display: inline;
+    }
+    
+    .homeType {
+       margin-top: 1vh;
+       padding : 0px;
+       margin-bottom : 0.5vh;
+    }
+    
+    .homeName {
+       margin-bottom : 0.5vh;
+       padding : 0px;
+    }
+    
+    .homePrice{
+       margin-bottom : 0.5vh;
+       padding : 0px;
+    }
+    
+    .introSentence {
+       margin-top : 1vw;
+       font-size: 2em;
+       font-family: TmonTium;
+       color : #3a3b3d;
+    }
+    
+    #mapOnDiv {
+       width : 100%;
+      height : 500px; 
+       display : none;
+    }
+    
+    #onCardsWrapper {
+       margin-top : 20px;
+       margin-left : 5vw;
+       width : 55vw;
+       height : 40vw;
+       display: inline-block;
+       line-height : 1em;
+    }
+    
+    #mapWrapper {
+       margin-top : 20px;
+       width : 35vw;
+       height : 70vw;
+       display: inline-block;
+    }
+    
+    
+    #mapWrapper {
+       position: fixed;
+       height: 75vh;
+       z-index: 0;
+    }
+   
+   .col-md-4 {
+      height : 100%;
+   }
+   
+   .row {
+      margin : auto;
+   }
+   
+   .col {
+      margin : auto;
+      height : 36vh;
+   }
+   
+   #onCardsWrapper .row{
+      height : 50%;
+   }
+   
+   .carousel-inner>.item>.homePic {
+      width : 100vh;
+      height : 30vh;
+   }
+    
+    .likeyBT{
+       width:20px;
+       position: absolute;
+       z-index: 400000;
+       top:10px;
+       right:30px;
+    }
+    
+    .likeyBT:hover{
+       cursor: pointer;
+    }
+    
+    .newAtag {
+       color : black;
+    }
+    
+    .newAtag:hover {
+       text-decoration: none;
+    }
+    
+    #jaehoModal {
+        margin-left : 70vh; 
+        width : 600px;
+        height : 1000px;
+    }
 </style>
 </head>
     
 <body>
+
 	<div id=fixedHeader>
-		<%@ include file="../resource/include/header.jsp"%>
+<%@ include file="../resource/include/header.jsp"%>	
 		<div id="searchBar">
 			<ul>
 			  <li><a href="" data-toggle="modal" data-target="#date" id="dateBt">날짜</a></li>
@@ -904,7 +916,6 @@ $(document).ready(function() {
 											home_seq_heart:home_seq_heart
 											},
 									success:function(resp){
-											
 										for(var i=0;i<resp.lLikey.length;i++){
 											$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
 										}
@@ -1106,210 +1117,203 @@ $(document).ready(function() {
 				<p class="introSentence">로마(Rome)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="rome" items="${getRome}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${rome.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${rome.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${rome.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${rome.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${rome.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${rome.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${rome.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${rome.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${rome.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${rome.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${rome.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				  
-				</div>
 				<p class="introSentence">런던(London)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="london" items="${getLondon}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${london.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${london.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${london.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${london.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${london.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${london.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${london.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${london.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${london.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${london.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${london.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
-				  
-				</div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				
 				<p class="introSentence">프라하(Praha)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="praha" items="${getPraha}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${praha.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${praha.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${praha.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${praha.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${praha.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${praha.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${praha.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${praha.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${praha.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${rome.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${praha.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
-				  
-				</div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				
 				<p class="introSentence">마드리드(Madrid)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="madrid" items="${getMadrid}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${madrid.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${madrid.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${madrid.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${madrid.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${madrid.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${madrid.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${madrid.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${madrid.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${madrid.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${rome.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${madrid.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
-				  
-				</div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				
 			</div>
 		</div>
 	</div>
-	
+
 
 <%@ include file="../resource/include/modal_homeMain/date.jsp"%>
 <%@ include file="../resource/include/modal_homeMain/people.jsp"%>

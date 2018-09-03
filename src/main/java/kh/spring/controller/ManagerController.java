@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebEndpoint;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,7 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import kh.spring.dto.AdminChartDTO;
+import kh.spring.dto.AdminDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.ReportDTO;
+import kh.spring.interfaces.AdminService;
 import kh.spring.interfaces.MemberService;
 
 @Controller
@@ -26,6 +30,9 @@ public class ManagerController {
 	
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	AdminService adminService;
 	
 /*	@Autowired
 	MemberDTO dto;
@@ -149,9 +156,241 @@ public class ManagerController {
 	
 		
 	}
-	@RequestMapping("mainTest.admin")
-	public String mainTest() {
+	@RequestMapping("mainPayCheck.admin")
+	@ResponseBody
+	public void mainTest(HttpServletRequest request,HttpServletResponse response) {
 		
-		return "jaehotest";
+		ModelAndView mav =  new ModelAndView();
+		List<AdminDTO> result = adminService.getAllPaymentData();
+		
+		JSONArray array = new JSONArray();
+		JSONObject json = null;
+		
+
+		for(AdminDTO tmp:result) {
+			
+			json = new JSONObject();
+			json.put("reservation_seq", tmp.getReservation_seq());
+			json.put("r_member_email", tmp.getR_member_email());
+			json.put("r_member_name", tmp.getR_member_name());
+			json.put("h_member_email", tmp.getH_member_email());
+			json.put("h_member_name", tmp.getH_member_name());
+			json.put("check_in", tmp.getCheck_in());
+			json.put("check_out", tmp.getCheck_out());
+			json.put("payment_amount", tmp.getPayment_amount());
+			json.put("payment_date", tmp.getPayment_date());
+			json.put("payment_state", tmp.getPayment_state());
+			array.add(json);
+			
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		System.out.println(array.size());
+		for(int i=0; i<array.size(); i++) {
+		System.out.println(array.get(i) + "");
+		}
+		try {
+		System.out.println("response 까지는 나온다");
+		new Gson().toJson(array, response.getWriter());
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
+	@RequestMapping("mainSendUpdate.admin")
+	@ResponseBody
+	public int mainSendUpdate(HttpServletRequest request,HttpServletResponse response) {
+		String arr = request.getParameter("sendarray");
+		
+		List<String> list = new ArrayList<>();
+		System.out.println(arr);
+		JSONParser parser = new JSONParser();
+		try {
+		Object obj = parser.parse(arr);
+		JSONArray jsonArr = (JSONArray) obj;
+		for(int i=0; i<jsonArr.size(); i++) {
+			
+			System.out.println(jsonArr.get(i));
+			JSONObject jsonObj = (JSONObject) jsonArr.get(i);
+			String reservation_seq = (String)jsonObj.get("rseq");
+			String send_val = (String)jsonObj.get("sendvalval");
+			String sum1 = reservation_seq + ":" + send_val;
+			list.add(sum1);
+			
+		}
+		
+		for(int j=0; j<list.size(); j++) {
+			System.out.println(list.get(j));
+		}
+
+		int result = adminService.updateHomeStateHome(list);
+		
+		if(result==list.size()) {
+			String msg = "성공";
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(msg, response.getWriter());
+		}else {
+			String msg = "실패";
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(msg, response.getWriter());
+		}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return 1;
+	}
+	
+	@RequestMapping("mainReservationCount.admin")
+	@ResponseBody
+	public void mainReservationCount(HttpServletRequest request,HttpServletResponse response) {
+		AdminChartDTO chartDto = new AdminChartDTO();
+		
+		JSONArray array = new JSONArray();
+		JSONObject json = null;
+		chartDto.setPayment_year("2018");
+		List<AdminChartDTO> result = adminService.getPaymentChart(chartDto);
+		
+		for(AdminChartDTO tmp:result) {
+			
+			json = new JSONObject();
+			json.put("reservation_count", tmp.getReservation_count());
+			json.put("payment_month", tmp.getPayment_month());
+			json.put("payment_sum", tmp.getPayment_sum());
+			
+			array.add(json);
+			
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		System.out.println(array.size());
+		for(int i=0; i<array.size(); i++) {
+		System.out.println(array.get(i) + "");
+		}
+		try {
+			
+		new Gson().toJson(array, response.getWriter());
+//		return "";
+		}catch(Exception e) {
+			e.printStackTrace();
+//			return "";
+		}
+		
+	}
+	@RequestMapping("managerNumCheck.admin")
+	@ResponseBody
+	public void managerNumCheck(HttpServletRequest request,HttpServletResponse response) {
+		
+		String adminNumber = request.getParameter("adminNumber");
+		String adminPassword = request.getParameter("adminPassword");
+		String result = adminService.isAdminNum(adminNumber,adminPassword);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		if(result.equals("success")) {
+			try {
+			new Gson().toJson(result, response.getWriter());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else if(result.equals("fail")) {
+			try {
+				new Gson().toJson(result, response.getWriter());
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			
+		}else {
+			try {
+			System.out.println("없는 사원입니다.");
+			new Gson().toJson(result, response.getWriter());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	@RequestMapping("ismanager.admin")
+	public ModelAndView isManager(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String adminNumber1 = request.getParameter("adminNumber1");
+		String adminPassword1 = request.getParameter("adminPassword1");
+		
+		String result = adminService.isManager(adminNumber1, adminPassword1);
+		
+		if(result.equals("notmanager")) {
+			System.out.println("관리자가 아닙니다.");
+			mav.setViewName("redirect:/manager.admin");
+			return mav;
+		}else {
+			System.out.println(result);
+			String admin_name = result.split(":")[0];
+			String admin_number = result.split(":")[1];
+			session.setAttribute("admin_number", admin_number);
+			session.setAttribute("admin_name", admin_name);
+		
+			mav.setViewName("redirect:/main.admin");
+			return mav;
+		}
+		
+	}
+	@RequestMapping("mainPolling.admin")
+	@ResponseBody
+	public void mainPolling(HttpServletRequest request,HttpServletResponse response) {
+		
+		JSONArray array = new JSONArray();
+		JSONObject json = null;
+		List<ReportDTO> result = adminService.getReportData();
+		
+		if(result.size()!=0) {
+			System.out.println("새로운 메세지가" + result.size() + "건 있습니다.");
+		for(ReportDTO tmp:result) {
+			
+			
+			json = new JSONObject();
+			json.put("report_email", tmp.getMember_email());
+			json.put("report_name", tmp.getMember_name());
+			json.put("reported_email", tmp.getReported_email());
+			json.put("reported_name", tmp.getReported_name());
+			json.put("report_reason", tmp.getReport_reason());
+			json.put("report_seq", tmp.getReport_seq());
+			json.put("report_state", tmp.getReport_state());
+			json.put("report_date", tmp.getReport_date());
+			
+			array.add(json);
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+		new Gson().toJson(result, response.getWriter());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		}else {
+			System.out.println("새로운 메세지가 없습니다.");
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			try {
+				new Gson().toJson(result, response.getWriter());
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	@RequestMapping("mainLogout.admin")
+	public String mainLogout(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		
+		session.removeAttribute("admin_name");
+		session.removeAttribute("admin_number");
+		
+		return "redirect:/manager.admin";
+		
+	}
+	
+	
 }
