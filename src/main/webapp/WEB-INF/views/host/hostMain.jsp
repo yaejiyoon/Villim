@@ -23,6 +23,7 @@
 
 
 <title>알림판 - Airbnb</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 <style>
 div {
 	box-sizing: border-box;

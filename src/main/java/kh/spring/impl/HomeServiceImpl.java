@@ -273,62 +273,40 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modalHomeData(param);
 	}
 
-		@Override
-		public List<HomePicDTO> getHomePic() {
-			return hdao.getHomePic();
-		}
-		
-		@Override
-		public List<HomeDTO> getParis() {
-			return hdao.getParis();
-		}
-		
-		@Override
-		public List<HomeDTO> getNewyork() {
-			return hdao.getNewyork();
-		}
-
-		@Override
-		public List<HomeDTO> getRome() {
-			return hdao.getRome();
-		}
-
-		@Override
-		public List<HomeDTO> getLondon() {
-			return hdao.getLondon();
-		}
-
-		@Override
-		public List<HomeDTO> getPraha() {
-			return hdao.getPraha();
-		}
-
-		@Override
-		public List<HomeDTO> getMadrid() {
-			return hdao.getMadrid();
-		}
-
-		
-		// ----------------지혜-----------------
-		@Override
-		public int updateBlockedDate(String blockedDate, int home_seq) {
-			return hdao.updateBlockedDate(blockedDate, home_seq);
-		}
 	@Override
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-		return hdao.getHomeOnMap(param);
+	public List<HomePicDTO> getHomePic() {
+		return hdao.getHomePic();
 	}
 
-		@Override
-		public int guestReviewCount(HashMap<String, Object> map) {
-			return hdao.guestReviewCount(map);
-		}
-		
-		@Override
-		public int updateBlocked(String blockedDate, int home_seq) {
-			return hdao.updateBlocked(blockedDate, home_seq);
-		}
+	@Override
+	public List<HomeDTO> getParis() {
+		return hdao.getParis();
+	}
 
+	@Override
+	public List<HomeDTO> getNewyork() {
+		return hdao.getNewyork();
+	}
+
+	@Override
+	public List<HomeDTO> getRome() {
+		return hdao.getRome();
+	}
+
+	@Override
+	public List<HomeDTO> getLondon() {
+		return hdao.getLondon();
+	}
+
+	@Override
+	public List<HomeDTO> getPraha() {
+		return hdao.getPraha();
+	}
+
+	@Override
+	public List<HomeDTO> getMadrid() {
+		return hdao.getMadrid();
+	}
 
 	// ----------------지혜-----------------
 	@Override
@@ -337,8 +315,18 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return hdao.getHomeOnMap(param);
+	}
+
+	@Override
 	public int guestReviewCount(HashMap<String, Object> map) {
 		return hdao.guestReviewCount(map);
+	}
+
+	@Override
+	public int updateBlocked(String blockedDate, int home_seq) {
+		return hdao.updateBlocked(blockedDate, home_seq);
 	}
 
 	@Override
@@ -376,15 +364,13 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.getGapDate(map);
 	}
 
-	
-//	----찬연 ----
+	// ----찬연 ----
 	@Override
 
 	public int insertFirstHome(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.insertFirstHome(hdto);
 	}
-
 
 	@Override
 
@@ -393,14 +379,12 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeType(hdto);
 	}
 
-
 	@Override
 
 	public HomeDTO getNewestHomeData(String email) {
 		// TODO Auto-generated method stub
 		return hdao.getNewestHomeData(email);
 	}
-
 
 	@Override
 
@@ -409,14 +393,12 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyBathbed(hdto);
 	}
 
-
 	@Override
 
 	public int modifyCommodity(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyCommodity(hdto);
 	}
-
 
 	@Override
 
@@ -425,14 +407,12 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomepicture(hdto);
 	}
 
-
 	@Override
 
 	public int insertHomeDescData(HomeDescDTO hddto) {
 		// TODO Auto-generated method stub
 		return hdao.insertHomeDescData(hddto);
 	}
-
 
 	@Override
 
@@ -441,7 +421,6 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyContents(hdto);
 	}
 
-
 	@Override
 
 	public int modifyHomename(HomeDTO hdto) {
@@ -449,13 +428,11 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomename(hdto);
 	}
 
-
 	@Override
 	public int modifyHomerule(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomerule(hdto);
 	}
-
 
 	@Override
 	public int modifyHomecheck(HomeDTO hdto) {
@@ -463,13 +440,11 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomecheck(hdto);
 	}
 
-
 	@Override
 	public int modifyHomestay(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomestay(hdto);
 	}
-
 
 	@Override
 	public int modifyHomeblock(HomeDTO hdto) {
@@ -477,12 +452,10 @@ public class HomeServiceImpl implements HomeService {
 		return hdao.modifyHomeblock(hdto);
 	}
 
-
 	@Override
 	public int modifyHomeprice(HomeDTO hdto) {
 		// TODO Auto-generated method stub
 		return hdao.modifyHomeprice(hdto);
 	}
 
-	
 }
