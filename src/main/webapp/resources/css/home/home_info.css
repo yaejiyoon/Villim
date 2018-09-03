@@ -38,6 +38,7 @@ body{
 	float:left;
 	width:75%;
 	height:100%;
+	z-index: 50000;
 }
 
 #scrollNav-contents02{

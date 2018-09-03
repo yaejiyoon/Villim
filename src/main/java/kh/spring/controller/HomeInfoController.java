@@ -559,6 +559,10 @@ public class HomeInfoController {
 		
 		String amount = reservationDTO.getTotalAmount();
 		
+		System.out.println("널???");
+		System.out.println(reservationDTO.getReserv_checkin());
+		System.out.println(reservationDTO.getReserv_checkout());
+		
 		reservationDTO.setGuset_review("N");
 		reservationDTO.setReservation_seq(1);
 		reservationDTO.setTotalAmount(amount.replaceAll("[^0-9]", ""));

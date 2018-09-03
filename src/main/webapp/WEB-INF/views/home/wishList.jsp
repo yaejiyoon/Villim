@@ -16,6 +16,9 @@
 
 <style>
 
+	body{
+		min-width: 1280px;
+	}
 	@font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');

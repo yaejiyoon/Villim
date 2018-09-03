@@ -229,7 +229,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 
 
 			<div id="info-contents-photo">
-         	<img src="<c:url value='../resources/img/home.jpg'/>" >
+         	<img src="<c:url value='files/${hdto.home_main_pic}'/>" >
 
 
 				<!-- 사진보기-->
@@ -281,9 +281,8 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                		<div id="info-title">
                			<div id="info-title-left">
                				<span>집 전체</span>
-               				<h2 style="color:black; margin-top:2px;">
+               				<h2 style="color:black; margin-top:2px; font-weight: 600;">
                				${hdto.home_name}
-							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
                				<c:if test="${param.sep==0 }">
 	               				( <a style="color:#008489;" href="hostHomeTab.do?seq=${param.seq}">숙소 수정하기</a> )
                				</c:if>
@@ -303,10 +302,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				</c:if>
                			</div>
                			<div id="info-title-right">
-               				<img src="<c:url value='../resources/img/1.jpg'/>">
+               				<img src="<c:url value='files/${memberDTO.member_picture}'/>">
                				<br>
                				<div style="width:80px;">
-               				<h5 style="padding-left: 20px;">${memberDTO.member_name }</h5>
+               				<h5 style="padding-left: 15px;">${memberDTO.member_name }</h5>
                				</div>
                			</div>
                		</div>
@@ -468,7 +467,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                					</c:when>
                					<c:when test="${amenitiesList eq '세탁기'}">
                						<div class="col-md-6">
-               							<img src="<c:url value='../resources/img/iron.png'/>" class="amenities">
+               							<img src="<c:url value='../resources/img/washingmachine.png'/>" class="amenities">
                							세탁기
                						</div>
                					</c:when>
@@ -655,7 +654,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                					체크인 5일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.
                				</div>
                			</c:when>
-               			<c:when test="${hdto.home_policy eq '엄격' }">
+               			<c:when test="${hdto.home_policy eq '유연' }">
                				<div>
                					<span>유연 정책 - 체크인 1일 전까지 예약 취소 시 취소 수수료 없음</span>
                					<br>
@@ -1153,16 +1152,13 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                					${memberDTO.member_location } · 회원 가입: ${memberDTO.member_date }
                				</div>
                				<div id="host-top-right">
-               					<img src="<c:url value='../resources/img/1.jpg'/>">
+               					<img src="<c:url value='files/${memberDTO.member_picture}'/>">
                				</div>
                			</div>
                			<div id="host-contents">
                				${memberDTO.member_introduction }
                			</div>
                			<div id="host-bottom">
-               				<p>언어: </p><span>English, 한국어</span><br>
-							<p>응답률: </p><span>100%</span><br>
-							<P>응답 시간: </P><span>1시간 이내</span>
                			</div>
                		<form action="messageSend.msg" method="post" id="formId">
                		<input type="hidden" name="home_seq" value="${home_seq}">
