@@ -1,15 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-Built-By: Son Jieun
-Build-Jdk: 1.8.0_171
-=======
 Built-By: user1
 Build-Jdk: 1.8.0_161
->>>>>>> Stashed changes
-=======
-Built-By: Administrator
-Build-Jdk: 1.8.0_151
->>>>>>> master
 Created-By: Maven Integration for Eclipse
 
