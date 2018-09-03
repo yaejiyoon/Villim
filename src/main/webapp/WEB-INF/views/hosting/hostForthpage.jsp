@@ -170,7 +170,7 @@ html, body {
 				<div class="progress-bar__container">
 								<div class="progress-section progress-bar__placeholder"></div>
 							</div>
-							
+				<div class="col-md-6 col-md-offset-2">			
 				<br><label>국가/지역</label> <input type="text" id="contry"
 					placeholder="ex)대한민국" name="home_nation"> <br> <label>시/군</label>
 				<input type="text" id="town" placeholder="시/도/구" name="home_addr1">
@@ -221,6 +221,7 @@ html, body {
 						</div>
 					</div>
 				</div>
+				</div>
 
 			</div>
 		</div>
@@ -228,7 +229,7 @@ html, body {
 
 
 </form>
-	<div id="map"></div>
+	<div id="map"  class="col-md-6 col-md-offset-2"></div>
 	<div id="infowindow-content">
 		<img src="" width="16" height="16" id="place-icon"> <span
 			id="place-name" class="title"></span><br> <span

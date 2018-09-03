@@ -230,7 +230,7 @@
 </style>
 </head>
 <body>
-  <%@ include file="../../resource/include/header.jsp" %>
+
 	<div data-hypernova-key="list_your_spacebundlejs"
 		data-hypernova-id="0d09f05f-633c-43b7-b450-fd45d7a5267f">
 		<div dir="ltr" data-reactroot="">
@@ -294,17 +294,17 @@
 																class="text-gray btn increment-btn__label increment-jumbo increment-btn__label--with-increment-btns">
 																<div
 																	class="increment-btn__border-container-label text-truncated">
-																	<input type="number" class="increment-btn__input" name="home_min_stay" readonly="readonly"
-																		id="min_nights_input_value" maxlength="3" value="0"><span
+																	<input type="text" class="increment-btn__input" name="home_min_stay"
+																		id="min_nights_input_value" maxlength="3" value="0" readonly="readonly"><span
 																		class="text-muted"><span>박(최소)</span></span>
 																</div>
 															</div>
-															<button type="button"
-																class="btn btn-jumbo increment-btn__decrementer"
+															<button type="button" id="minmin"
+																class="btn btn-jumbo increment-btn__decrementer" 
 																aria-label="minus 1" disabled="">
 																<div class="increment-btn__border-container-decrementer"></div>
 															</button>
-															<button type="button"
+															<button type="button" id="minmax"
 																class="btn btn-jumbo increment-btn__incrementer increment-btn__incrementer"
 																aria-label="plus 1"></button>
 														</div>
@@ -323,17 +323,17 @@
 																class="text-gray btn increment-btn__label increment-jumbo increment-btn__label--with-increment-btns">
 																<div
 																	class="increment-btn__border-container-label text-truncated">
-																	<input type="number" class="increment-btn__input" name="home_max_stay" readonly="readonly"
-																		id="max_nights_input_value" maxlength="3" value="0"><span
+																	<input type="text" class="increment-btn__input" name="home_max_stay"
+																		id="max_nights_input_value" maxlength="3" value="0" readonly="readonly"><span
 																		class="text-muted"><span>박(최대)</span></span>
 																</div>
 															</div>
-															<button type="button"
+															<button type="button" id="maxmin"
 																class="btn btn-jumbo increment-btn__decrementer"
 																aria-label="minus 1" disabled="">
 																<div class="increment-btn__border-container-decrementer"></div>
 															</button>
-															<button type="button"
+															<button type="button" id="maxmax"
 																class="btn btn-jumbo increment-btn__incrementer increment-btn__incrementer"
 																aria-label="plus 1"></button>
 														</div>
@@ -376,7 +376,7 @@
 															<div
 																class="main-panel__actions col-sm-12 no-margin-padding__sm">
 																<div class="_1dcqn1vg" style="margin: 16px;">
-																	<a href="/step3second.host"
+																	<a href="/become-a-host/27770089/availability-settings"
 																		class="_5rte3y6" aria-busy="false"><span
 																		class="_cgr7tc7"><span>뒤로</span></span></a>
 																	<div class="_107ja4p">
@@ -425,73 +425,72 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	$("#min_nights_input_value").keypress(function() {
-		var minsleep = $("#min_nights_input_value").val();
-		if(minsleep>365){
-			alert("limet");
-			$("#min_nights_input_value").val("365");
-		}
-	});
-	$("#max_nights_input_value").keypress(function() {
-	   var maxsleep = $("#max_nights_input_value").val();
+		$("#min_nights_input_value").keypress(function() {
+			var minsleep = $("#min_nights_input_value").val();
+			if(minsleep>365){
+				alert("limet");
+				$("#min_nights_input_value").val("365");
+			}
+		});
+		$("#max_nights_input_value").keypress(function() {
+		   var maxsleep = $("#max_nights_input_value").val();
 
-	});
-	
-	$("#minmin").click(function() {
-		var minsleep = $("#min_nights_input_value").val();
-		if(minsleep>1){
-			minsleep = minsleep-1;
-			$("#min_nights_input_value").val(minsleep);
-			$("#minmax").attr("disabled",false);
-		}else{
-			$("#minmin").attr("disabled",true);
-			$("#min_nights_input_value").val(0);
-		}
-	});
-	
-	$("#minmax").click(function() {
-		var minsleep = $("#min_nights_input_value").val();
-		if(minsleep < 365 ){
-			minsleep = minsleep + 1; 
-			$("#min_nights_input_value").val(minsleep);
-			$("#minmin").attr("disabled",false);
-			
-		}else if(intmax = 365){
-			$("#minmax").attr("disabled",true);
-			$("#min_nights_input_value").val(minsleep)
-		}
-	});
-	/* ----------------- */
-	$("#maxmin").click(function() {
-		var maxsleep = $("#max_nights_input_value").val();
-		if(maxsleep>1){
-			maxsleep = maxsleep-1;
-			$("#max_nights_input_value").val(maxsleep);
-			$("#maxmax").attr("disabled",false);
-		}else{
-			$("#maxmin").attr("disabled",true);
-			$("#min_nights_input_value").val(0);
-		}
-	});
-	
-	$("#maxmax").click(function() {
-		var maxsleep = $("#max_nights_input_value").val();
-		if(maxsleep < 365 ){
-			maxsleep = maxsleep + 1; 
-			$("#max_nights_input_value").val(maxsleep);
-			$("#maxmin").attr("disabled",false);
-			
-		}else if(intmax = 365){
-			$("#maxmax").attr("disabled",true);
-			$("#max_nights_input_value").val(maxsleep)
-		}
-	});
-	
-		$("#nextpg").click(function() {
-		//$(location).attr("href","step2third.host");
-		$("#homestay").submit();
-	});
-	
+		});
+		
+		$("#minmin").click(function() {
+			var minsleep = $("#min_nights_input_value").val();
+			if(minsleep>1){
+				$("#minmax").attr("disabled",false);
+				minsleep = minsleep-1;
+				$("#min_nights_input_value").val(minsleep);
+			}else{
+				$("#minmin").attr("disabled",true);
+				$("#min_nights_input_value").val(0);
+			}
+		});
+		
+		$("#minmax").click(function() {
+			var minsleep = +$("#min_nights_input_value").val();
+			if(minsleep < 365 ){
+				$("#minmin").attr("disabled",false); 
+				minsleep = minsleep+1;
+				$("#min_nights_input_value").val(minsleep);
+				
+			}else if(intmax = 365){
+				$("#minmax").attr("disabled",true);
+				$("#min_nights_input_value").val(minsleep)
+			}
+		});
+		/* ----------------- */
+		$("#maxmin").click(function() {
+			var maxsleep = $("#max_nights_input_value").val();
+			if(maxsleep>1){
+				$("#maxmax").attr("disabled",false);
+				maxsleep = maxsleep-1;
+				$("#max_nights_input_value").val(maxsleep);
+			}else{
+				$("#maxmin").attr("disabled",true);
+				$("#min_nights_input_value").val(0);
+			}
+		});
+		
+		$("#maxmax").click(function() {
+			var maxsleep = +$("#max_nights_input_value").val();
+			if(maxsleep < 365 ){
+				maxsleep = maxsleep+1;
+				$("#maxmin").attr("disabled",false);
+				$("#max_nights_input_value").val(maxsleep);
+				
+			}else if(intmax = 365){
+				$("#maxmax").attr("disabled",true);
+				$("#max_nights_input_value").val(maxsleep)
+			}
+		});
+		
+ 		$("#nextpg").click(function() {
+			//$(location).attr("href","step2third.host");
+			$("#homestay").submit();
+		});
 		
 	</script>
 </body>
