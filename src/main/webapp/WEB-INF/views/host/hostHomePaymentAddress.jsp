@@ -16,13 +16,16 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-<title>계정 관리</title>
+<title>대금 수령 방법</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	width: 70%;
@@ -129,7 +132,7 @@ input[type=text] {
 							방법</b></a>
 				</div>
 				<div>
-					<a href="hostHomePaymentBreakdown.do" style="color: #A4A4A4;">대금
+					<a href="hostHomePaymentBreakdown.do?seq=0&startmon=1&startyear=2018&endmon=9&endyear=2018" style="color: #A4A4A4;">대금
 						수령 내역</a>
 				</div>
 			</div>
@@ -282,19 +285,67 @@ input[type=text] {
 // 						}
 					
 					
+// 					$.ajax({
+// 							url : "https://testapi.open-platform.or.kr", 
+// 							type : "get",
+// 							data:{
+// 								client_id:'l7xx8e89e5098dc14e8e87198f4fb1f4fdab',
+// 								redirect_uri:'https://192.168.120.113/hostHomePaymentAddress.do',
+// 								scope:inquiry,
+// 								client_info:'이녕초이',
+// 								auth_type:0,
+// 								lang:'kor'
+// 							},
+// 							contentType:" application/x-www-form-urlencoded; charset=UTF-8",
+// 							success : function(resp) {
+// 							console.log("성공::"+ resp);
+// // 							console.log(resp.bank_code_std); 
+// // 							console.log(resp.account_num);
+// // 							console.log(resp.tran_dtime);
+// 							}
+// 						});
+
+					
 					
 					$.ajax({
-							url : "https://openapi.open-platform.or.kr/oauth/2.0/authorize", 
-							type : "get",
+							url : "https://testapi.open-platform.or.kr/oauth/2.0/token", 
+							type : "post",
 							data:{
 								client_id:'l7xx8e89e5098dc14e8e87198f4fb1f4fdab',
 								client_secret:'b44314fd0881410ca6ebac6d0a79797d',
+								scope:"oob",
+								grant_type:"client_credentials"
 							},
+							contentType:" application/x-www-form-urlencoded; charset=UTF-8",
 							success : function(resp) {
-							console.log("성공::"+ resp);
-// 							console.log(resp.bank_code_std); 
-// 							console.log(resp.account_num);
-// 							console.log(resp.tran_dtime);
+								console.log("성공::"+ resp);
+								console.log('토큰::'+resp.access_token);
+								
+								$.ajax({
+		 							url : "https://testapi.open-platform.or.kr/inquiry/real_name", 
+		 							type : "post",
+		 							beforeSend : function(xhr){
+		 						    		xhr.setRequestHeader("Bearer", resp.access_token);
+	 						        },
+		 							data:{
+		 								scope:"oob",
+										bank_code_std:"011",
+										account_num:"3020008422921",
+										account_holder_info:"9012261",
+										tran_dtime:"20160310101921"		 							
+		 							},
+		 							contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+		 							success : function(resp) {
+		 								console.log("성공::"+ resp);
+		 								console.log(resp.bank_name);
+		 								console.log(resp.account_holder_info);
+		 								console.log(resp.account_holder_name);
+		 							}
+		 						});
+								
+								
+								
+							
 							}
 						});
 

@@ -16,13 +16,16 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-<title>계정 관리</title>
-
+	
+<title>대금 수령 방법</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	width: 70%;
@@ -126,6 +129,54 @@ div {
 	background-color: #008489;
 	color: white;
 }
+
+/* 모달모달 */
+   #likeyModal{
+      margin-top: 50px;
+      margin: 0 auto;
+      height:auto;
+      font-family:font2 !important;
+   }
+   
+   .modal-dialog.reserv-dialog{
+      width: 380px;
+      height: 100%;
+   }
+   
+   .modal-content.reserv-content{
+      height: auto;
+   }
+   
+   .modal-header.reserv-header{
+      width:100%;
+      border: 0px !important;
+   }
+   
+   .basicAmenities{
+      border-bottom:  1px solid #d6d6d6;
+      margin: 20px 0px;
+      
+   }
+   
+   .modal-body.reserv-body{
+      padding:0 30px;
+      height: 100px;;
+   }
+
+   .reserv-footer{
+      border-top: 1px solid #d6d6d6;
+      
+   }
+   
+   .reserv-body button{
+      background-color: white;
+      color:#ff5a5f;
+      border:2px solid #ff5a5f;
+   }
+   
+   .reserv-body button:hover{
+      color:#ff5a5f;
+   }
 </style>
 
 </head>
@@ -145,7 +196,7 @@ div {
 							방법</b></a>
 				</div>
 				<div>
-					<a href="hostHomePaymentBreakdown.do" style="color: #A4A4A4;">대금
+					<a href="hostHomePaymentBreakdown.do?seq=0&startmon=1&startyear=2018&endmon=9&endyear=2018" style="color: #A4A4A4;">대금
 						수령 내역</a>
 				</div>
 			</div>
@@ -214,25 +265,38 @@ div {
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body" style="height: 100px;">
-					<p>준비중입니다. 빠른 시일 내에 준비하겠습니다.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
+		  <div class="modal-dialog reserv-dialog">
+            <div class="modal-content reserv-content">
+               <div class="modal-header reserv-header">
+                     <img src="<c:url value='/resources/img/logo2.png'/>" style="width:60px;">
+                  <button type="button" class="close" data-dismiss="modal">
+                     <span aria-hidden="true" >×</span><span class="sr-only">Close</span>
+                  </button>
+               </div>
+               <div class="modal-body reserv-body">
+                     <p style="font-weight: 600;">
+                        	준비중입니다. 빠른 시일내에 보여드리겠습니다.
+                     </p>
+                     <button class="btn btn-secondary" style="float:right;" data-dismiss="modal">닫기</button>
+               </div>
+            </div>
+         </div>
+
 	</div>
 	<!-- /.modal -->
 
 
+
+
+
 	<script>
-		
+		$(document).ready(function(){
+			if( !($("input:radio[name=payment]").is(':checked')) ){
+				$('#nextbtn').prop('disabled', true); 
+			}else{
+				$('#nextbtn').prop('disabled', false);
+			}
+		})
 	</script>
 
 	<%@ include file="../../resource/include/footer.jsp"%>

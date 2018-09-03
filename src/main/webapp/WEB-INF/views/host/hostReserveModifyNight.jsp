@@ -17,13 +17,16 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
-<title>편의시설 수정 탭</title>
+<title>숙박</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	margin-bottom: 100px;
@@ -83,20 +86,6 @@ div {
 	margin-top: 30px;
 }
 
-{
-margin-top
-
-
-:
-
- 
-
-30
-px
-
-
-;
-}
 .wrap {
 	width: 100%;
 }
@@ -144,14 +133,14 @@ px
 				<b>숙박 기간</b>
 			</div>
 
-			<form action=hostReserveModifyNightProc.do method=post>
+			<form id="submit" action=hostReserveModifyNightProc.do method=post>
 
 				<div class=wrap-title1>
 					<b>최소 숙박일</b>
 				</div>
 				<div class=wrap>
 					<div class=wrap-sub>
-						<input type=tel class="form-control input-lg" name=home_min_stay
+						<input type=number id="min" class="form-control input-lg" name=home_min_stay
 							value=${hdto.home_min_stay }> <span>박</span>
 					</div>
 				</div>
@@ -161,7 +150,7 @@ px
 				</div>
 				<div class=wrap>
 					<div class=wrap-sub>
-						<input type=tel class="form-control input-lg" name=home_max_stay
+						<input type=number id="max" class="form-control input-lg" name=home_max_stay
 							value=${hdto.home_max_stay }> <span>박</span>
 					</div>
 				</div>
@@ -170,8 +159,8 @@ px
 					style="width: 70%; height: 12%; margin: 0 auto;">
 					<div class="container">
 						<div class="btn-group">
-							<button class="btn btn-lg save">저장</button>
-							<button type="button" class="btn btn-lg cancel"
+							<button type="button" id="save" class="btn btn-lg save">저장</button>
+							<button type="button" id="cancel" class="btn btn-lg cancel"
 								onclick="history.back()">취소</button>
 						</div>
 					</div>
@@ -179,6 +168,19 @@ px
 
 				<input type=hidden name=seq value=${hdto.home_seq }>
 			</form>
+			<script>
+				$('#save').click(function(){
+					if($('#min').val()==" "){
+						alert("aa");
+						$('#min').val(0);
+					}
+					if($('#max').val()==" "){
+						$('#max').val(0);
+					}
+					document.getElementById('submit').submit();
+				})
+			
+			</script>
 		</div>
 	</div>
 

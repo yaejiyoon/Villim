@@ -22,9 +22,10 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
-	border: 1px solid black;
 	margin: 10px auto;
 	width: 70%;
 	height: auto;
@@ -36,23 +37,19 @@ div {
 
 #wrapper-sub2 {
 	margin-top: 50px;
-	border: 1px solid black;
 	width: 70%;
 	display: inline-block;
 	float: left;
 }
 
 #wrapper-sub3 {
-	border: 1px solid black;
 	margin-top: 70px;
 	margin-bottom: 50px;
-	border: 1px solid black;
 	width: 60%;
 	display: inline-block;
 }
 
 .home-details {
-	border: 1px solid black;
 	margin-top: 60px;
 	width: 50%;
 	padding: 0;
@@ -248,7 +245,7 @@ li {
 	background-color: #008489 !important;
 }
 </style>
-<title>Insert title here</title>
+<title>성취도</title><link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>

@@ -27,12 +27,14 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
-	border: 1px solid black;
 	margin: 10px auto;
 	width: 70%;
-	height: auto;
+	height: auto;  
+	margin-bottom: 100px;
 }
 
 #wrapper-sub1 {
@@ -42,20 +44,17 @@ div {
 
 #wrapper-sub2 {
 	margin-top: 50px;
-	border: 1px solid black;
 	width: 90%;
 	display: inline-block;
 }
 
 #wrapper-sub3 {
 	margin-top: 50px;
-	border: 1px solid black;
 	width: 90%;
 	display: inline-block;
 }
 
 .home-details {
-	border: 1px solid black;
 	margin-top: 60px;
 	width: 50%;
 	padding: 0;
@@ -156,7 +155,8 @@ a:focus {
 	max-height: 60%;
 }
 </style>
-<title>Insert title here</title>
+<title>조회수</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
@@ -177,17 +177,13 @@ a:focus {
 						<b>조회수</b>
 					</button>
 				</div>
-				<div class="col-md-3">
-					<button class="nav-btn" type="button"
-						onclick="location.href='hostReservePossibleTab.do'">발전기회</button>
-				</div>
 			</div>
 		</div>
 		<div class="line"></div>
 
 		<div id=wrapper-sub2>
 			<div>
-				<b>숙소 선택</b>
+				<b style="font-size: 20px;">숙소 선택</b> 
 			</div>
 			<select class="form-control input-lg"
 				onchange="if(this.value) location.href=(this.value);"
@@ -203,7 +199,7 @@ a:focus {
 					<div style="display: inline-block; font-size: 35px; width: 30%;">
 						<div>
 							<div style="width: 70%; display: inline-block;">
-								<b>100</b>
+								<b>${hdto.home_view }</b>
 							</div>
 						</div>
 						<div style="font-size: 17px;">9월 조회수</div>
@@ -254,6 +250,18 @@ a:focus {
 	</div>
 
 	<script>
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;
+		var yyyy = today.getFullYear();
+		
+		if(dd<10){
+			dd='0'+dd;
+		}
+		if(mm <10){
+			mm='0'+mm;
+		}
+	
 		FusionCharts.ready(function() {
 			var visitChart = new FusionCharts({
 				type : 'spline',
@@ -284,7 +292,7 @@ a:focus {
 					// 	        "showAlternateHGridColor": "0",
 					// 	      },
 					"chart" : {
-						"xAxisName" : "2018년 8월",
+						"xAxisName" : yyyy+"년"+mm+"월",
 						"yaxisname" : "Views",
 						"anchorradius" : "5",
 						"showhovereffect" : "1",
@@ -307,52 +315,40 @@ a:focus {
 						"yAxisMaxValue" : "300"
 					},
 					"data" : [ {
-						"label" : "2",
-						"value" : "1"
+						"label" : "01",
+						"value" : "0"
 					}, {
-						"label" : "4",
-						"value" : "5"
+						"label" : "02",
+						"value" : "0"
 					}, {
-						"label" : "6",
-						"value" : "10"
+						"label" : "03",
+						"value" : "0"
 					}, {
-						"label" : "8",
-						"value" : "12"
+						"label" : "04",
+						"value" : "0"
+					}, {
+						"label" : "05",
+						"value" : "0"
+					}, {
+						"label" : "06",
+						"value" : "0"
+					}, {
+						"label" : "07",
+						"value" : "0"
+					}, {
+						"label" : "08",
+						"value" : "0"
+					}, {
+						"label" : "09",
+						"value" : "${hdto.home_view}"
 					}, {
 						"label" : "10",
-						"value" : "14"
+						"value" : "0"
+					}, {
+						"label" : "11",
+						"value" : "0"
 					}, {
 						"label" : "12",
-						"value" : "16"
-					}, {
-						"label" : "14",
-						"value" : "20"
-					}, {
-						"label" : "16",
-						"value" : "18"
-					}, {
-						"label" : "18",
-						"value" : "20"
-					}, {
-						"label" : "20",
-						"value" : "16"
-					}, {
-						"label" : "22",
-						"value" : "7"
-					}, {
-						"label" : "24",
-						"value" : "0"
-					}, {
-						"label" : "26",
-						"value" : "0"
-					}, {
-						"label" : "28",
-						"value" : "0"
-					}, {
-						"label" : "30",
-						"value" : "0"
-					}, {
-						"label" : "31",
 						"value" : "0"
 					}
 

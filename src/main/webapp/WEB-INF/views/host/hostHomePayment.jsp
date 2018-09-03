@@ -16,17 +16,22 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-<title>계정 관리</title>
+	
+<title>대금 수령 방법</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	width: 70%;
 	height: auto;
+	margin-bottom: 100px;
 }
 
 #wrapper-sub {
@@ -121,7 +126,7 @@ td{
 							방법</b></a>
 				</div>
 				<div>
-					<a href="hostHomePaymentBreakdown.do" style="color: #A4A4A4;">대금
+					<a href="hostHomePaymentBreakdown.do?seq=0&startmon=1&startyear=2018&endmon=9&endyear=2018" style="color: #A4A4A4;">대금
 						수령 내역</a>
 				</div>
 			</div>

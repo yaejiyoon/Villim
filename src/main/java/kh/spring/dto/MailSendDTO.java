@@ -6,24 +6,26 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+
 public class MailSendDTO {
-	
+
 	private JavaMailSender mailSender;
-    private MimeMessage message;
+	private MimeMessage message;
     private MimeMessageHelper messageHelper;
 
     public MailSendDTO(JavaMailSender mailSender) throws MessagingException {
         this.mailSender = mailSender;
+        System.out.println("여기실행");
         message = this.mailSender.createMimeMessage();
         messageHelper = new MimeMessageHelper(message, true, "UTF-8");
     }
 
     public void setSubject(String subject) throws MessagingException {
-    	System.out.println("메일 제목 : "+subject);
-    	messageHelper.setSubject(subject);
+        messageHelper.setSubject(subject);
         
     }
     public void setText(String htmlContent) throws MessagingException {
@@ -43,7 +45,7 @@ public class MailSendDTO {
         mailSender.send(message);
     }
 
-	public MailSendDTO() {
+	public MailSendDTO() throws MessagingException{
 		
 	}
 

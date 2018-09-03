@@ -20,7 +20,9 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	margin-bottom: 100px;
@@ -129,6 +131,7 @@ div {
 }
 </style>
 <title>위치 수정</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 <script>
 	$(document).ready(function(){
 		$('input[type="text"]').keydown(function() {

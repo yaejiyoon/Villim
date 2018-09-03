@@ -17,13 +17,16 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
-<title>호스트 홈 사진 수정 탭</title>
+<title>사진</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	margin-bottom: 100px;
@@ -32,7 +35,7 @@ div {
 }
 
 #wrapper-sub {
-	border: 5px dotted black;
+margin:0 auto;
 	width: 70%;
 }
 
@@ -73,6 +76,7 @@ div {
 	height: 350px;
 	border: 4px dotted #D8D8D8;
 	position: relative;
+	margin-left: 0;
 }
 
 .add-mainpic-wrap {
@@ -80,9 +84,9 @@ div {
 	height: 20%;
 	margin: 0 auto;
 	position: relative;
-	top: 85px;
+	top: 120px;  
 }
-
+  
 .add-img {
 	max-width: 100%;
 	max-height: 100%;
@@ -113,6 +117,7 @@ div {
 	height: 180px;
 	margin: 10px;
 	z-index: 1;
+	border: 3px dotted #D8D8D8;
 }
 
 .add-pic {
@@ -141,6 +146,177 @@ div {
 }
 </style>
 <script>
+function isEmpty(str){
+	console.log("isEmpty");
+	console.log(str);
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
+}
+
+function nvl(str, defaultStr){
+	console.log("nvl");
+	console.log("str:"+str+":"+defaultStr)
+    if(typeof str == "undefined" || str == null || str == "")
+        str = defaultStr ;
+    return str ;
+}
+
+
+//메인사진 삭제--------------------------------------------------------------
+function maindel(){
+	var seq = ${hdto.home_seq};
+	
+	$('.main-pic-wrap').hover(function(){
+		$("#add-pic1").find("img").each(function() {
+			var tomainpic = $(this).attr('src');
+			console.log("tomainpic:" +tomainpic); 
+		});
+	
+		console.log("in");
+		$(this).prepend("<button id='delmain-btn' class='btn btn-danger' type='button'>삭제</button>");
+		$('#delmain-btn').css('position','absolute');
+		$('#delmain-btn').css('z-index','10');
+		
+	},function(){
+		console.log("out");
+		$("#delmain-btn").remove();
+	});
+	
+	$(document).on('click', '#delmain-btn', function(){
+		console.log("delmainbtn");
+		var file;
+		var separate = 1;
+		
+	$("#pic").find("img").each(function() {
+		console.log("경로: "+ $(this).attr('src'));
+		file = $(this).attr('src');
+		console.log("file : " + file);
+	})
+	
+	
+	$.ajax({
+		url:"deletePhoto.do",
+		type:"get",
+		data:{
+			separate:separate,
+			file:file,
+			seq:seq
+		},
+		success:function(resp){
+			console.log("메인삭제성공 : "+resp);
+			
+			var toMainPic;
+			var separate = 3;
+			
+			$(".add-pic").find("img").each(function(index) {
+				console.log("index:: "+ index);
+				console.log("메인사진 삭제 후 경로: "+ $(this).first().attr('src'));
+				if(index==0){
+					toMainPic = $(this).first().attr('src').split(";")[0];
+				}
+			});
+			
+			console.log("home.home_seq" + seq);
+			console.log("toMainPic당촘!!!::"+toMainPic);
+			
+			var mp = $('#main-pic');	
+			var mpw = $('#main-pic-wrap');
+			
+			if(toMainPic==undefined || toMainPic == null){
+				alert("없을때");
+				$('#ap .add-pic-wrap').first().remove();
+				mp.removeClass('main-pic');
+				mp.addClass('add-img');
+				mp.attr('id', 'upimg');
+				mp.attr('src',"<c:url value='/resources/img/imgadd.png'/>")
+				mpw.removeClass('main-pic-wrap');
+				mpw.addClass('add-mainpic-wrap');
+				mpw.attr('id', 'add-mainpic-wrap');
+			}
+			
+			$.ajax({
+				url:"deletePhoto.do",
+				type:"get",
+				data:{ 
+					separate:separate,
+					file:file,
+					seq:seq,
+					toMainPic:toMainPic
+				},
+				success:function(){
+					if( $('.add-pic').length ){	// 메인사진을 지울때 homepic이 남아있을때
+						$("#main-pic").attr('src', "<c:url value ='"+toMainPic+"'/>");
+						$('#ap .add-pic-wrap').first().remove();						
+					}
+					
+				
+				}
+					
+			});
+		},
+		error:function(){
+			console.log("삭제 실패");
+		}
+	});
+	
+	
+	})
+	
+}
+//메인 사진 삭제 끝-----------------------------------------------------
+//homepic 삭제 시작-----------------------------------------
+	function hpdel(cnt){
+			$(document).on('click', "pic-list"+cnt+"",function(){
+				$("#add-pic"+cnt+"").find("img").each(function() {
+					console.log("경로: "+ $(this).attr('src'));
+					})
+				})
+									
+				$("#add-pic"+cnt+"").hover(
+					function(){
+						console.log("in");
+							$(this).prepend("<button id='delbtn"+cnt+"' class='btn btn-danger' type='button'>삭제</button>");
+								$("#delbtn"+cnt+"").css('position','absolute');
+								$("#delbtn"+cnt+"").css('z-index','100');
+//			 					$('.add-pic-fix').css('z-index','1');
+								},function(){
+								console.log("out");
+								$("#delbtn"+cnt+"").remove();
+								}
+							);
+									
+						$(document).on('click', "#delbtn"+cnt+"",function(){
+							var file;
+							var separate=2;
+							$("#add-pic"+cnt+"").find("img").each(function() {
+								console.log("경로: "+ $(this).attr('src'));
+								file = $(this).attr('src');
+								console.log("file : " + file);
+										$("#add-pic-wrap"+cnt+"").remove();
+									
+								$.ajax({
+									url:"deletePhoto.do",
+										type:"get",
+										data:{
+										separate:separate,
+										file:file
+										},
+										success:function(resp){
+										console.log("삭제성공 : "+resp);
+										//	location.reload();
+										},
+										error:function(resp){
+											console.log("삭제 실패");
+										}
+									});
+										
+								})
+							})
+						
+						}
+//homepic 삭제 끝-----------------------------------------						
 </script>
 </head>
 <body>
@@ -150,7 +326,7 @@ div {
 		<div id="wrapper-sub">
 			<div class="wrapper-sub-back">
 				<div class="back-wrap"><img class="back-img" src="<c:url value='/resources/img/back.png'/>"></div>
-				<div class="back-link"><a onclick="history.back()">${hdto.home_name } 수정으로 돌아가기</a></div>
+				<div class="back-link"><a href="hostHomeTab.do?seq=${hdto.home_seq}">${hdto.home_name } 수정으로 돌아가기</a></div>
 			</div>
 				<p class="wrapper-sub-title">
 					<b>사진</b>
@@ -162,12 +338,12 @@ div {
 					<form id="photoForm" action="uploadPhoto.do"
 						enctype="multipart/form-data" method=post>
 						<input type="file" id="file2" name="file" style="display: none;">
-						<input type="hidden" name="seq" value="${hdto.home_seq }">
+						<input type="hidden" name="seq" value="${param.seq }">
 					
 					
 						<c:choose>
 							<c:when
-								test="${hdto.home_main_pic eq null && hplist.size() == 0 }">
+								test="${hdto.home_main_pic eq null}">
 
 								<div id="add-mainpic-wrap" class="add-mainpic-wrap">
 									<img id="upimg" class="add-img"
@@ -180,92 +356,13 @@ div {
 								<img id="main-pic" class="main-pic"
 									src="<c:url value='files/${hdto.home_main_pic }'/>">
 							</div>
+							<script>
+								maindel();  
+							</script> 
 							</c:otherwise>
 						</c:choose>
 					</form>
 						<!-- 커버사진 삭제 로직 -->
-					<script>
-					
-					var seq = ${hdto.home_seq};
-					
-					$('.main-pic-wrap').hover(
-							function(){
-								$("#add-pic1").find("img").each(function() {
-									console.log("메인사진 삭제 후 경로: "+ $(this).attr('src'));
-									var tomainpic = $(this).attr('src');
-									console.log("tomainpic:" +tomainpic);
-								});
-								
-								console.log("in");
-								$(this).prepend("<button id='delmain-btn' class='btn btn-danger' type='button'>삭제</button>");
-								$('#delmain-btn').css('position','absolute');
-								$('#delmain-btn').css('z-index','10');
-								
-							},function(){
-								console.log("out");
-								$("#delmain-btn").remove();
-							}
-						);
-						
-						$(document).on('click', '#delmain-btn', function(){
-							console.log("delmainbtn");
-							var file;
-							var separate = 1;
-							
-							$("#pic").find("img").each(function() {
-								console.log("경로: "+ $(this).attr('src'));
-								file = $(this).attr('src');
-								console.log("file : " + file);
-							})
-								
-								$.ajax({
-									url:"deletePhoto.do",
-									type:"get",
-									data:{
-										separate:separate,
-										file:file,
-										seq:seq
-									},
-									success:function(resp){
-										console.log("삭제성공 : "+resp);
-										
-										var toMainPic;
-										
-										var separate = 3;
-										
-										$("#add-pic1").find("img").each(function() {
-											console.log("메인사진 삭제 후 경로: "+ $(this).attr('src'));
-											toMainPic = $(this).attr('src');
-										});
-										
-										
-										console.log("home.home_seq" + seq);
-										
-										$.ajax({
-											url:"deletePhoto.do",
-											type:"get",
-											data:{
-												separate:separate,
-												file:file,
-												seq:seq,
-												toMainPic:toMainPic
-											},
-											success:function(resp){
-												console.log("메인사진으로 고고씽 성공");
-												$("#main-pic").attr('src', "<c:url value ='"+toMainPic+"'/>");
-// 												location.reload();
-											}
-										});
-										
-									},
-									error:function(resp){
-										console.log("삭제 실패");
-									}
-								});
-								
-							
-						})
-					</script>
 
 
 				</div>
@@ -281,10 +378,10 @@ div {
 <!-- 							<p id="deltab" class="deltab">hi</p> -->
 						</div>
 					
-					<!-- hplist  삭제 로직 -->
 						<script>
+						hpdel(<%=cnt%>);
 						
-						$(document).on('click', 'pic-list<%=cnt%>',function(){
+			<%-- 			$(document).on('click', 'pic-list<%=cnt%>',function(){
 							$("#add-pic<%=cnt%>").find("img").each(function() {
 								console.log("경로: "+ $(this).attr('src'));
 							})
@@ -301,7 +398,6 @@ div {
 								$("#delbtn<%=cnt%>").remove();
 							}
 						);
-					
 						
 						$(document).on('click', '#delbtn<%=cnt%>',function(){
 							var file;
@@ -330,20 +426,19 @@ div {
 								});
 								
 							})
-						})
+						}) --%>
 						</script>
 				<%cnt++; %>
 					</c:forEach>
 				</c:if>
 
 				<c:if test="${hdto.home_main_pic ne null }">
-					<div id="add-pic-wrap<%=cnt%>" class="add-pic-wrap col-md-4" style="border: 3px dotted #D8D8D8;">
+					<div id="add-pic-wrap<%=cnt%>" class="add-pic-wrap col-md-4">
 						<div id="add-pic-list-wrap<%=cnt%>" class="add-pic-list-wrap">
-							<form id="photoForm2" action="uploadPhoto.do"
-								enctype="multipart/form-data" method=post>
+							<form id="photoForm2" action="uploadPhoto.do" enctype="multipart/form-data" method=post>
 
 								<input type="file" id="file3" name="file" style="display: none;">
-								<input type="hidden" name="seq" value="${hdto.home_seq }">
+								<input type="hidden" name="seq" value="${param.seq }">
 
 								<img id="upimgg" class="add-pic-list"
 									src="<c:url value='/resources/img/imgadd.png'/>">
@@ -353,7 +448,6 @@ div {
 				</c:if>
 				</div>
 		</div>
-	버튼을 누르면 function(cnt받아와서)
 	</div>
 	<script>
 		// Home_pic 추가
@@ -371,7 +465,9 @@ div {
 							console.log("file3");
 							var form = $('#photoForm2')[0];
 							var formData = new FormData(form);
-
+							
+							if($('#file3').val().length){
+							
 							$.ajax({
 										type : "post",
 										enctype : "multipart/form-data",
@@ -382,12 +478,11 @@ div {
 										cache : false,
 										timeout : 6000000,
 										success : function(resp) {
-											console.log("성공 : " + resp);
-											console.log(resp.hdto.home_main_pic);
-											console.log(resp.filename);
-											console.log(resp.hplist)
-											console.log(resp.hplist.length);
-											var output;
+											
+											if(resp)
+											var output="";
+											
+											
 											var addpicw = $("#add-pic-wrap"+cnt+"");
 											console.log("#add-pic-wrap+cnt+::"+cnt);
 											var upimgg = $("#upimgg");
@@ -404,74 +499,32 @@ div {
 									addpiclw.addClass('add-pic');
 									addpiclw.addClass('add-pic-fix');
 									console.log("output전의 cnt::"+cnt);
+									
 									cnt++;
+									
 									output += "<div id='add-pic-wrap"+cnt+"' class='add-pic-wrap col-md-4'>";
 									output += "<div id='add-pic-list-wrap"+cnt+"' class='add-pic-list-wrap'>";
 									output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
-									output += "<input type='file' id='file3' name='file' style='display:none;'>"
+ 									output += "<input type='hidden' name='seq' value="+${param.seq}+">";
+ 									output += "<input type='file' id='file3' name='file' style='display:none;'>"
 									output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
 									output += "</form>";
 									output += "</div>";
 									output += "</div>";
-									output += "</div>";
+									//output += "</div>";
 									
 									$("#ap").append(output);
-									
-									
-									$(document).on('click', "pic-list"+cnt+"",function(){
-										$("#add-pic"+cnt+"").find("img").each(function() {
-											console.log("경로: "+ $(this).attr('src'));
-										})
-									})
-									
-									$("#add-pic"+cnt+"").hover(
-										function(){
-											console.log("in");
-											$(this).prepend("<button id='delbtn"+cnt+"' class='btn btn-danger' type='button'>삭제</button>");
-											$("#delbtn"+cnt+"").css('position','absolute');
-											$("#delbtn"+cnt+"").css('z-index','100');
-//			 								$('.add-pic-fix').css('z-index','1');
-										},function(){
-											console.log("out");
-											$("#delbtn"+cnt+"").remove();
-										}
-									);
-									
-									$(document).on('click', "#delbtn"+cnt+"",function(){
-										var file;
-										var separate=2;
-										$("#add-pic"+cnt+"").find("img").each(function() {
-											console.log("경로: "+ $(this).attr('src'));
-											file = $(this).attr('src');
-											console.log("file : " + file);
-											$("#add-pic-wrap"+cnt+"").remove();
-											
-											$.ajax({
-												url:"deletePhoto.do",
-												type:"get",
-												data:{
-													separate:separate,
-													file:file
-												},
-												success:function(resp){
-													console.log("삭제성공 : "+resp);
-													
-//			 										location.reload();
-												},
-												error:function(resp){
-													console.log("삭제 실패");
-												}
-											});
-											
-										})
-									})
+									hpdel(cnt-1);
 // 									location.reload();
-							},
+								},
 								error : function(resp) {
 									console.log("실패");
 								}
 							});
+							}
 						})
+						
+						
 						
 						
 		//main사진 추가 이벤트
@@ -485,6 +538,7 @@ div {
 							var form = $('#photoForm')[0];
 							var formData = new FormData(form);
 
+							if($('#file2').val().length){
 							$.ajax({
 										type : "post",
 										enctype : "multipart/form-data", 
@@ -495,39 +549,57 @@ div {
 										cache : false,
 										timeout : 6000000,
 										success : function(resp) {
-											console.log("성공 : " + resp);
-											console.log(resp.hdto.home_main_pic);
+											
 											var output;
 											var mainpic = $("#upimg");
 											var wrap = $("#add-mainpic-wrap");
-
+											
 											if (resp.hdto.home_main_pic != null) {
 												wrap.removeClass('add-mainpic-wrap');
+												wrap.attr('class','main-pic-wrap');
+												wrap.attr('id','main-pic-wrap');
+												
 												mainpic.attr('src',"<c:url value ='files/"+resp.hdto.home_main_pic+"'/>");
 												mainpic.removeClass('add-img');
 												mainpic.addClass('main-pic');
+												mainpic.attr('id','main-pic');
+												
 
+												
+// 												<form id="photoForm2" action="uploadPhoto.do"
+// 													enctype="multipart/form-data" method=post>
+
+// 													<input type="file" id="file3" name="file" style="display: none;">
+// 													<input type="hidden" name="seq" value="${param.seq }">
+
+// 													<img id="upimgg" class="add-pic-list"
+// 														src="<c:url value='/resources/img/imgadd.png'/>">
+// 												</form>
+												
 												output += "<div id='add-pic-wrap0' class='add-pic-wrap col-md-4'>";
 												output += "<div id='add-pic-list-wrap0' class='add-pic-list-wrap'>";
 												output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
-												output += "<input type='file' id='file3' name='file' style='display:none;'>"
-												output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
+												output += "<input type='file' id='file3' name='file' style='display:none;'>";
+												output += "<input type='hidden' name='seq' value="+${param.seq}+">";
+												output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>";
 												output += "</form>";
 												output += "</div>";
 												output += "</div>";
 
 												$("#ap").append(output);
+												maindel();
 // 												location.reload();
 
 											}
 
 										},
-										error : function(resp) {
-											console.log("실패");
-										}
 									});
+							}
 
 						})
+						
+		
+						
 		})
 	</script>
 	<%@ include file="../../resource/include/footer.jsp"%>

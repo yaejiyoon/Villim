@@ -11,13 +11,57 @@ body{
 }
 
 /* -------------- scrollNav -------------- */
-
-
 #scrollNav{
-	display:none;
-	width: 100%;
-	height: 7vh;
-	background-color: black;
-	box-shadow: 1px 1px 1px #d6d6d6;
-	z-index: 10000;
+	right:0px;
+}
+
+
+#home_info_footer{
+   display: block;
+}
+
+#info-main-right{
+	display: none;
+}
+
+#info-main-left{
+	width: 93%;
+}
+
+#scrollNav-contents01{
+	width:60%;
+}
+
+#scrollNav-contents02{
+	width:40%;
+}
+
+.datepicker{
+	width: 260px !important;
+}
+
+#Modalpeopleup, #Modalpeopledown{
+	background-color: #008489; 
+    color : white;
+    outline:0;
+    display: inline;
+    border-radius: 50%;
+    font-size: 300;
+}
+
+#modalDropdownClose{
+	background-color: white; 
+    color : #008489;
+}
+
+#reservationModal {
+	font-family: font2 !important;
+}
+
+#footerReservationBT{
+	width:100%;
+	height:53px;
+	background-color: #ff5a5f;
+	color: white;
+	font-size: 15px;
 }

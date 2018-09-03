@@ -16,11 +16,16 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-<title>숙소 탭</title>
+<title>숙소</title>
+
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 
 
 <style>
+body{
+min-width:1280px;
+}
 div {
 	box-sizing: border-box;
 }
@@ -30,6 +35,7 @@ div {
 	width: 70%;
 	height: auto;
 	margin-bottom: 100px;
+	
 }
 
 .wrapper-sub {
@@ -279,7 +285,7 @@ div {
 					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
 					<b>달력보기</b>
 				</button>
-				<button type="button" class="btn">
+				<button type="button" class="btn" onclick="location.href='home_info.do?seq=${hdto.home_seq}&sep=0'">
 					<b>숙소 미리보기</b>
 				</button>
 			</div>
@@ -287,31 +293,25 @@ div {
 		</div>
 
 		<div class="home-details" class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button" style="color: #008489;"
 					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">
 					<b>숙소 세부정보</b>
 				</button>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
 					설정</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
-			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
 					가능 여부</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">현지 법규</button>
-			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">공동 호스트</button>
+			<div class="col-md-3">
+				<button class="nav-btn" type="button"
+					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">현지 법규</button>
 			</div>
 		</div>
 

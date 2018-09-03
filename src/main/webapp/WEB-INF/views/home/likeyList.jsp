@@ -26,6 +26,7 @@
 	
 	body{
 		font-family: font2;
+		min-width: 1280px;
 	}
 	
 	@font-face {

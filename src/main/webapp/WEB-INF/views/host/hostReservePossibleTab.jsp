@@ -23,7 +23,9 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	height: auto;
@@ -202,31 +204,25 @@ div {
 		</div>
 
 		<div class="home-reserve">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">숙소
 					세부정보</button>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
 					설정</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
-			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button" style="color: #008489;"
 					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">
 					<b>예약 가능 여부</b>
 				</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">현지 법규</button>
-			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">공동 호스트</button>
+			<div class="col-md-3">
+				<button class="nav-btn" type="button"
+					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">현지 법규</button>
 			</div>
 		</div>
 
@@ -252,7 +248,7 @@ div {
 					<div class="stayPeriod-sub1">최소 숙박일</div>
 					<div class="stayPeriod-sub2">
 						<c:if test='${hdto.home_min_stay != 0}'>
-							<b>${hdto.home_min_stay }박</b>
+							${hdto.home_min_stay }박
 						</c:if>
 						<c:if test='${hdto.home_min_stay == 0}'>  
 							설정되지 않음
@@ -264,7 +260,7 @@ div {
 					<div class="stayPeriod-sub1">최대 숙박일</div>
 					<div class="stayPeriod-sub2">
 						<c:if test='${hdto.home_max_stay != 0}'>
-							<b>${hdto.home_max_stay }박</b>
+							${hdto.home_max_stay }박
 						</c:if>
 						<c:if test='${hdto.home_max_stay == 0}'> 
 							설정되지 않음

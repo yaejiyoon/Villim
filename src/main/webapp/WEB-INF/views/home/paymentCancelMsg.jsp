@@ -45,6 +45,38 @@
 <script>
 	$(document).ready(function(){
 		$("#continueBT2").click(function(){
+			
+
+			$.ajax({
+				url:"https://api.iamport.kr/users/getToken",
+				data:{
+					imp_key : "3566446879345688",
+					imp_secret : "ROZteDbPjADbIXeFMXM9Mtj4NUM1T3ULRUe6xqWR0A2Ixhnkfau1EN5rISsBVnnNhBUP2QH2rKLZ19kg"
+				},
+				type:"post",
+				success:function(resp){
+					alert("성공?");
+					token = resp.response.access_token;
+					alert(token);
+					
+					$.ajax({
+						url:"https://api.iamport.kr/payments/cancel?_token="+token,
+						type:"post",
+						data:{
+						    "merchant_uid": "${paymentDTO.merchant_uid}",
+						    "cancel_reason": "사유",
+						    "pay_method": "card"
+						},
+						success:function(resp){
+							console.log("취소됐니이이");
+						}
+					})
+					
+					}
+				})
+				
+				$(location).attr('href','paymentCancelProc.re?reserv_seq=${reservationDTO.reservation_seq}');
+			
 		var message=$('#message').val();
 			/* $(location).attr('href','paymentCancelProc.re?reserv_seq=${reservationDTO.reservation_seq}); */
 			
