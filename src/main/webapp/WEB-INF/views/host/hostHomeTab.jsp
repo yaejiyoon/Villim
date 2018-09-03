@@ -29,6 +29,7 @@ div {
 	margin: 30px auto;
 	width: 70%;
 	height: auto;
+	margin-bottom: 100px;
 }
 
 .wrapper-sub {
@@ -116,7 +117,7 @@ div {
 	width: 30%;
 	height: 140px;
 	margin-top: 30px;
-	margin-right:20px;
+	margin-right: 20px;
 	float: left;
 	display: inline-block;
 }
@@ -237,46 +238,74 @@ div {
 	margin-top: 30px;
 	margin-top: 30px;
 }
+
+.accomo-table tr td {
+	padding-left: 0;
+}
+
+.accomo-table tr td:nth-child(2n) {
+	text-align: right;
+}
+
+.ameni-before, .ameni-after {
+	font-size: 17px;
+	margin-bottom: 20px;
+}
+
+.ameni-before:nth-child(2n), .ameni-after:nth-child(2n) {
+	text-align: right;
+	padding-left: 0;
+	padding-right: 30px;
+}
+
+#add-link {
+	margin-bottom: 20px;
+}
+
+.img {
+	width: 4vh;
+}
 </style>
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<div style="display: inline-block; width:79%;">
+			<div style="display: inline-block; width: 79%;">
 				<h2>${hdto.home_name }</h2>
 			</div>
-			<div style="display: inline-block; width:20%;text-align: right;">
+			<div style="display: inline-block; width: 20%; text-align: right;">
 				<button type="button" class="btn"
-					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'"><b>달력보기</b></button>
+					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
+					<b>달력보기</b>
+				</button>
+				<button type="button" class="btn" onclick="location.href='home_info.do?seq=${hdto.home_seq}&sep=0'">
+					<b>숙소 미리보기</b>
+				</button>
 			</div>
+
 		</div>
 
 		<div class="home-details" class="row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button" style="color: #008489;"
-					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'"><b>숙소
-					세부정보</b></button>
+					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">
+					<b>숙소 세부정보</b>
+				</button>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">예약
 					설정</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
-			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
 					가능 여부</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">현지 법규</button>
-			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">공동 호스트</button>
+			<div class="col-md-3">
+				<button class="nav-btn" type="button"
+					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">현지 법규</button>
 			</div>
 		</div>
 
@@ -291,9 +320,11 @@ div {
 				</div>
 				<div class="home-pic-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
+						onclick="location.href='hostHomePhotoModifyTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
-				
+
 				<c:if test="${hdto.home_main_pic ne null }">
 					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
 						<div class="home-pic">
@@ -302,23 +333,23 @@ div {
 						</div>
 					</a>
 				</c:if>
-				
+
 				<c:if test="${hplist.size() ne 0 }">
-					<c:forEach var="hplist" items="${hplist }" begin="1" end="2">  
-					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
-						<div class="home-pic">
-							<img class="dd-pic img-responsive img-rounded"
-								src="<c:url value='files/${hplist.home_pic_name }'/>">
-						</div>
-					</a>				
+					<c:forEach var="hplist" items="${hplist }" begin="1" end="2">
+						<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
+							<div class="home-pic">
+								<img class="dd-pic img-responsive img-rounded"
+									src="<c:url value='files/${hplist.home_pic_name }'/>">
+							</div>
+						</a>
 					</c:forEach>
 				</c:if>
-				
+
 				<c:if test="${hdto.home_main_pic eq null }">
 					<a href="hostHomePhotoModifyTab.do?seq=${hdto.home_seq}">
 						<div class="home-pic">
-								<img class="dd-pic img-responsive img-rounded"
-									src="<c:url value='/resources/img/photo.png'/>">
+							<img class="dd-pic img-responsive img-rounded"
+								src="<c:url value='/resources/img/photo.png'/>">
 						</div>
 					</a>
 				</c:if>
@@ -334,7 +365,9 @@ div {
 				</div>
 				<div class="title-expl-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
+						onclick="location.href='hostHomeTitleModifyTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 				<div class="title-expl-loc">
 					<b>${hdto.home_name }</b>
@@ -397,8 +430,8 @@ div {
 						</tr>
 					</c:if>
 					<tr class="row" style="margin: auto;">
-						<td class="col-md-6"><div>침실 :</div></td>
-						<td class="col-md-6"><div>침대 :</div></td>
+						<td class="col-md-6"><div>침실 : ${roomCnt }</div></td>
+						<td class="col-md-6"><div>침대 : ${bedCnt }</div></td>
 					</tr>
 				</table>
 			</div>
@@ -407,7 +440,7 @@ div {
 
 			<div class="accommo-wrap">
 				<div class="title-expl-title">
-					<h4>
+					<h4 style="margin-bottom: 20px;">
 						<b>편의시설</b>
 					</h4>
 				</div>
@@ -417,50 +450,166 @@ div {
 						<b>수정</b>
 					</button>
 				</div>
-				<table class="facility-table" style="margin-bottom: 20px;">
-					<c:set var="i" value="0" />
-					<c:set var="j" value="2" />
-					<c:forEach var="list" items="${list }" begin="0" end="3">
-						<c:if test="${i%j == 0 }">
-							<tr class="row"
-								style="text-align: left; border: 1px dotted white;">
-						</c:if>
-
-						<td class="col-md-6" style="padding-left: 0"><div>${list }</div></td>
-
-						<c:if test="${i%j == j-1 }">
-						</tr>
-						</c:if>
-
-						<c:set var="i" value="${i+1 }" />
+				<div class="add-before row">
+					<c:forEach var="list" items="${list }" begin="0" end="5">
+						<c:choose>
+							<c:when test="${list == '필수품목' }">
+								<div class="ameni-before col-md-6">
+									<img class='img' src="<c:url value='/resources/img/essential.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '에어컨' }">
+								<div class="ameni-before col-md-6">
+									<img class='img' src="<c:url value='/resources/img/air.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '난방' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/heating.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == 'TV' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/television.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '샴푸' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/shampoo.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '헤어드라이어' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/hairdryer.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list =='작업공간' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/laptop.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '주방' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/kitchen.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '옷걸이' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/hanger.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '다리미' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/hanger.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '세탁기' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/washingmachine.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '건조기' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/washingmachine.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '무선인터넷' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/wifi.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '침구' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/bed2.png'/>">${list }</div>
+							</c:when>
+						</c:choose>
 					</c:forEach>
-
-				</table>
-
-				<div>
-					<a style="font-size: 15px; padding-left: 0;" class="col-md-12"
-						data-toggle="collapse" href="#collapseExample"
-						aria-expanded="false" aria-controls="collapseExample">더 보기 </a>
 				</div>
+				<c:if test="${list.size() == 0 }">
+					<tr>
+						<td style="font-size: 17px;"><b>설정되지 않았습니다.</b></td>
+					</tr>
+				</c:if>
+				<c:if test="${list.size() != 0}">
+					<div>
+						<a id="add-link" style="font-size: 15px; padding-left: 0;"
+							class="col-md-12" data-toggle="collapse" href="#collapseExample"
+							aria-expanded="false" aria-controls="collapseExample">더 보기 </a><br>
+					</div>
+				</c:if>
 
-				<c:set var="i" value="0" />
-				<c:set var="j" value="2" />
-				<div class="collapse" id="collapseExample">
-					<table class="facility-table">
-						<c:forEach var="list" items="${list }" begin="4">
-							<c:if test="${i%j == 0 }">
-								<tr class="row"
-									style="text-align: left; border: 1px dotted white;">
-							</c:if>
-
-							<td class="col-md-6" style="padding-left: 0"><div>${list }</div></td>
-
-							<c:if test="${i%j == j-1 }">
-								</tr>
-							</c:if>
-							<c:set var="i" value="${i+1 }" />
-						</c:forEach>
-					</table>
+				<div class="collapse row add-after" id="collapseExample">
+					<c:forEach var="list" items="${list }" begin="6">
+						<c:choose>
+							<c:when test="${list == '필수품목' }">
+								<div class="ameni-before col-md-6">
+									<img class='img' src="<c:url value='/resources/img/essential.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '에어컨' }">
+								<div class="ameni-before col-md-6">
+									<img class='img' src="<c:url value='/resources/img/air.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '난방' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/heating.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == 'TV' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/television.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '샴푸' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/shampoo.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '헤어드라이어' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/hairdryer.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list =='작업공간' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/laptop.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '주방' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/kitchen.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '옷걸이' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/hanger.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '다리미' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/hanger.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '세탁기' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/washingmachine.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '건조기' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/washingmachine.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '무선인터넷' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/wifi.png'/>">${list }</div>
+							</c:when>
+							<c:when test="${list == '침구' }">
+								<div class="ameni-before col-md-6">
+									<img class='img'
+										src="<c:url value='/resources/img/bed2.png'/>">${list }</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
 				</div>
 
 			</div>
@@ -475,7 +624,9 @@ div {
 				</div>
 				<div class="title-expl-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostHomeModifyLocationTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
+						onclick="location.href='hostHomeModifyLocationTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 				<div class="loc-contents">${hdto.home_addr1 },
 					${hdto.home_addr2 }, ${hdto.home_zipcode }, ${hdto.home_nation }</div>
@@ -491,7 +642,9 @@ div {
 				</div>
 				<div class="title-expl-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostHomeModifyStateTab.do?seq=${hdto.home_seq}'"><b>수정</b></button>
+						onclick="location.href='hostHomeModifyStateTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
 				</div>
 				<div class="state-chan">
 					<c:if test="${hdto.home_state == 0 }">				

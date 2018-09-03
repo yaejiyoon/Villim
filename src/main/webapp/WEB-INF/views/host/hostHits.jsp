@@ -203,7 +203,7 @@ a:focus {
 					<div style="display: inline-block; font-size: 35px; width: 30%;">
 						<div>
 							<div style="width: 70%; display: inline-block;">
-								<b>100</b>
+								<b>${hdto.home_view }</b>
 							</div>
 						</div>
 						<div style="font-size: 17px;">9월 조회수</div>
@@ -254,6 +254,18 @@ a:focus {
 	</div>
 
 	<script>
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;
+		var yyyy = today.getFullYear();
+		
+		if(dd<10){
+			dd='0'+dd;
+		}
+		if(mm <10){
+			mm='0'+mm;
+		}
+	
 		FusionCharts.ready(function() {
 			var visitChart = new FusionCharts({
 				type : 'spline',
@@ -284,7 +296,7 @@ a:focus {
 					// 	        "showAlternateHGridColor": "0",
 					// 	      },
 					"chart" : {
-						"xAxisName" : "2018년 8월",
+						"xAxisName" : yyyy+"년"+mm+"월",
 						"yaxisname" : "Views",
 						"anchorradius" : "5",
 						"showhovereffect" : "1",
@@ -307,52 +319,40 @@ a:focus {
 						"yAxisMaxValue" : "300"
 					},
 					"data" : [ {
-						"label" : "2",
+						"label" : "01",
 						"value" : "1"
 					}, {
-						"label" : "4",
+						"label" : "02",
 						"value" : "5"
 					}, {
-						"label" : "6",
+						"label" : "03",
 						"value" : "10"
 					}, {
-						"label" : "8",
+						"label" : "04",
 						"value" : "12"
 					}, {
-						"label" : "10",
+						"label" : "05",
 						"value" : "14"
 					}, {
-						"label" : "12",
+						"label" : "06",
 						"value" : "16"
 					}, {
-						"label" : "14",
+						"label" : "07",
 						"value" : "20"
 					}, {
-						"label" : "16",
+						"label" : "08",
 						"value" : "18"
 					}, {
-						"label" : "18",
-						"value" : "20"
-					}, {
-						"label" : "20",
-						"value" : "16"
-					}, {
-						"label" : "22",
-						"value" : "7"
-					}, {
-						"label" : "24",
+						"label" : "09",
 						"value" : "0"
 					}, {
-						"label" : "26",
+						"label" : "10",
 						"value" : "0"
 					}, {
-						"label" : "28",
+						"label" : "11",
 						"value" : "0"
 					}, {
-						"label" : "30",
-						"value" : "0"
-					}, {
-						"label" : "31",
+						"label" : "12",
 						"value" : "0"
 					}
 

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,10 @@ import kh.spring.interfaces.MessageService;
 
 @Controller
 public class MessageController {
-
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	@Autowired
 	MessageService service;
 
@@ -52,14 +56,15 @@ public class MessageController {
 	StringBuilder builder = new StringBuilder();
 
 	@RequestMapping("/messageMain.msg")
-	public ModelAndView main(HttpSession session) {
+	public ModelAndView main(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-		String today = "2018년 08월 21일";
+		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
 		System.out.println("messageMain");
-
+	
 		String userId = (String) session.getAttribute("login_email");
+
 		System.out.println("아이디 :" + userId);
 
 		// 여행
@@ -78,16 +83,21 @@ public class MessageController {
 				} else {
 					tmp.setMessage_time(tmp.getMessage_time().substring(7, 21));
 				}
+				
 
 				host_email.add(tmp.getHost_email());
 			}
 
 			List<MemberDTO> hostMemberInfo = this.service.memberInfo(host_email);
-
+           
 			mav.addObject("guestMessage", guestMessage);
 			mav.addObject("hostMemberInfo", hostMemberInfo);
 			for (MemberDTO tmp : hostMemberInfo) {
-				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
+				
+				/*if(tmp.getMember_location().equals("null")) {
+					tmp.setMember_location("");
+				}*/
+				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture()+"위치 : "+tmp.getMember_location());
 			}
 
 			// 모든개수
@@ -146,7 +156,8 @@ public class MessageController {
 			mav.addObject("hostMessage", hostMessage);
 			mav.addObject("guestMemberInfo", guestMemberInfo);
 			for (MemberDTO tmp : guestMemberInfo) {
-				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture());
+				
+				System.out.println("멤버이름: " + tmp.getMember_name() + "멤버 사진 : " + tmp.getMember_picture()+"위치 : "+tmp.getMember_location());
 			}
 
 			// 모든 개수
@@ -281,6 +292,65 @@ public class MessageController {
 			MemberDTO mGuest = this.m_service.printProfile(userId);
 			MemberDTO mHost = this.m_service.printProfile(host_email);
 
+			
+			MailSendDTO mailDto = new MailSendDTO(mailSender);
+			String mail = mHost.getMember_email();
+			System.out.println(mail);
+			System.out.println("멤버 사진 : "+mGuest.getMember_picture());
+			String urls = "<div style=\"heigh:100%;width:100%;height:45vw;\">" + 
+					"<img src=\"logo2.png/>\" style=\"position:relative;left:6vw;top:4vh;\">" + 
+					"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">" + 
+					"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의 문의에 답하세요</h3>" + 
+					"<img style=\"width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">" + 
+					"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>" + 
+					"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>" + 
+					"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">" + 
+					"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+dto.getMessage_content()+"</h4>" + 
+					"</div>" + 
+					"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>" + 
+					/*"<button style=\"position:relative;width:75%;top:-10vh;left:5vw;height:7vh;box-sizing: border-box;appearance: none;background-color: transparent;" + 
+					"  border: 2px solid #ff5a5f;" + 
+					"  border-radius: 0.6em;" + 
+					"  color: #ff5a5f;" + 
+					"  cursor: pointer;" + 
+					"  display: flex;" + 
+					"  align-self: center;" + 
+					"  font-size: 1rem;" + 
+					"  font-weight: 400;" + 
+					"  line-height: 1;" + 
+					"  margin: 20px;" + 
+					"  padding: 1.2em 2.8em;" + 
+					"  text-decoration: none;" + 
+					"  text-align: center;" + 
+					"  text-transform: uppercase;" + 
+					"  font-weight: 700; onclick=\"window.location.href='http://localhost:8080/messageMain.msg?loginId="+dto.getToID()+"';><span style=\"position:relative;left:20vw;top:-0.5vh;\">답장 보내기</span></button>" + */
+					"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>" + 
+					"<hr style=\"margin-top:0;margin-left:0;padding:0;width:68%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">" + 
+					"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">" + 
+					"빌림 드림 ♥<br>" + 
+					"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>" + 
+					"</div>" +"</div>";
+			
+
+			
+			try {
+			
+			mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 문의 입니다.");
+			mailDto.setText(urls);
+			mailDto.setFrom("villim.cf", "villim.cf");
+			mailDto.setTo(mail);
+			mailDto.send();
+			System.out.println("메일보내기 성공");
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+			
+			
 			DetailDTO getMessageAfterSend = this.service.getMsgAfterSend(dto.getMessage_seq());
              System.out.println("message_seq : "+dto.getMessage_seq());
 			String to = "82" + mHost.getMember_phone();
@@ -319,8 +389,7 @@ public class MessageController {
 	}
 
 	@RequestMapping("/messageRoomEnter.msg")
-	public ModelAndView messageRoomEnter(HttpSession session, int message_room_seq, int home_seq, String member_picture,
-			String member_name, String member_email, int message_seq) {
+	public ModelAndView messageRoomEnter(HttpSession session, int message_room_seq, int home_seq,String member_email, int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageRoomEnter");
 		System.out.println("room_seq : " + message_room_seq);
@@ -328,7 +397,7 @@ public class MessageController {
 		System.out.println("member_email : " + member_email);
 		String userId = (String) session.getAttribute("login_email");
 
-		/* int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId); */
+		 int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
 
 		MemberDTO guestInfo = this.m_service.getPhoto(userId);
 		MemberDTO hostInfo = this.m_service.getPhoto(member_email);
@@ -336,16 +405,16 @@ public class MessageController {
 		mav.addObject("message_room_seq", message_room_seq);
 		mav.addObject("home_seq", home_seq);
 		mav.addObject("guest_picture", guestInfo.getMember_picture());
-		mav.addObject("host_picture", member_picture);
-		mav.addObject("host_name", member_name);
+		mav.addObject("host_picture", hostInfo.getMember_picture());
+		mav.addObject("host_name", hostInfo.getMember_name());
 		HomeDTO hdto = homeService.getHomeData(home_seq);
 		mav.addObject("home_location", hdto.getHome_nation() + " " + hdto.getHome_addr1() + " " + hdto.getHome_addr3());
 		mav.addObject("home_price", hdto.getHome_price());
 
 		mav.addObject("host_email", member_email);
 		MessageRoomDTO dto = this.service.msgRoomInfo(message_room_seq);
-		String cI = "20180" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
-		String cO = "20180" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
+		String cI = "2018" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
+		String cO = "2018" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
 		String transCI = "2018-" + dto.getCheckIn().split("월")[0] + "-" + dto.getCheckIn().split("일")[0].split("월")[1];
 		String transCO = "2018-" + dto.getCheckOut().split("월")[0] + "-"
 				+ dto.getCheckOut().split("일")[0].split("월")[1];
@@ -357,13 +426,33 @@ public class MessageController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
+		
+		 //개수
+		int guestMsgUnreadCount = this.service.guestMsgUnreadCount(userId);
+		if (guestMsgUnreadCount > 0) {
+			System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+			mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("guestMsgUnreadCount", 0);
+		}
+
+int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
+		if (hostMsgUnreadCount > 0) {
+			System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+			mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("hostMsgUnreadCount", 0);
+		}
+		
 		try {
 			Date checkIn = sdf2.parse(cI);
 			Date checkOut = sdf2.parse(cO);
 			long diffDay = (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 60 * 1000);
 			int stayPrice = (int) (amount * diffDay);
-			int home_servicefee = (int) (amount * 0.05);
-			int home_cleaningfee = (int) (amount * 0.1);
+			int home_servicefee = (int) (stayPrice * 0.05);
+			int home_cleaningfee = (int) (stayPrice * 0.1);
 			System.out.println(diffDay + "박");
 
 			int totalPrice = (int) (stayPrice + (hdto.getHome_price() * 0.05) + (hdto.getHome_price() * 0.1));
@@ -394,11 +483,12 @@ public class MessageController {
 		ReservationDTO dto2 = new ReservationDTO();
 		dto2.setMember_email(userId);
 		dto2.setHome_seq(home_seq);
-
+        dto2.setHost_email(member_email);
+       
 		List<ReservationDTO> reservCheck = this.service.reservCheck(dto2);
 		if (!reservCheck.isEmpty()) {
 			for (ReservationDTO tmp : reservCheck) {
-				System.out.println("예약이미 신청 = " + tmp.getReserv_state());
+				System.out.println("예약이미 신청 = " + tmp.getReserv_state()+"total Amount : "+tmp.getTotalAmount());
 			}
 
 			mav.addObject("reservCheck", reservCheck);
@@ -417,7 +507,7 @@ public class MessageController {
 	public void messageSendInRoom(MessageDTO dto, HttpServletResponse response,HttpServletRequest req) throws Exception {
 		System.out.println("messageSendInRoom");
 		System.out.println("메세지내용 : " + dto.getMessage_content());
-
+         
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
@@ -444,70 +534,51 @@ public class MessageController {
 		MemberDTO mGuest = this.m_service.printProfile(dto.getFromID());
 		MemberDTO mHost = this.m_service.printProfile(dto.getToID());
 
-		MailSendDTO mailDto = new MailSendDTO();
-		String mail = "plmn855000@gmail.com";/*mHost.getMember_email();*/
+		MailSendDTO mailDto = new MailSendDTO(mailSender);
+		String mail = mHost.getMember_email();
 		System.out.println(mail);
-
-		String urls = "<div style=\"position:relative;left:25vw;width:50vw;height:45vw;\">\r\n" + 
-				"<img src=\"//placehold.it/194x54\" style=\"position:relative;left:6vw;top:4vh;\">\r\n" + 
-				"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">\r\n" + 
-				"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의 문의에 답하세요</h3>\r\n" + 
-				"<img style=\"position:relative;left:-17vw;top:1vh;width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">\r\n" + 
-				"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>\r\n" + 
-				"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>\r\n" + 
-				"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">\r\n" + 
-				"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+dto.getMessage_content()+"</h4>\r\n" + 
-				"</div>\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"<button style=\"position:relative;width:75%;top:-10vh;left:5vw;height:7vh;box-sizing: border-box;\r\n" + 
-				"  appearance: none;\r\n" + 
-				"  background-color: transparent;\r\n" + 
-				"  border: 2px solid #ff5a5f;\r\n" + 
-				"  border-radius: 0.6em;\r\n" + 
-				"  color: #ff5a5f;\r\n" + 
-				"  cursor: pointer;\r\n" + 
-				"  display: flex;\r\n" + 
-				"  align-self: center;\r\n" + 
-				"  font-size: 1rem;\r\n" + 
-				"  font-weight: 400;\r\n" + 
-				"  line-height: 1;\r\n" + 
-				"  margin: 20px;\r\n" + 
-				"  padding: 1.2em 2.8em;\r\n" + 
-				"  text-decoration: none;\r\n" + 
-				"  text-align: center;\r\n" + 
-				"  text-transform: uppercase;\r\n" + 
-				"  font-weight: 700;\"><span style=\"position:relative;left:13vw;top:-0.5vh;\">답장 보내기</span></button>\r\n" + 
-				"\r\n" + 
-				"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>\r\n" + 
-				"<hr style=\"margin-top:0;padding:0;width:73%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">\r\n" + 
-				"\r\n" + 
-				"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">\r\n" + 
-				"빌림 드림 ♥<br>\r\n" + 
-				"\r\n" + 
-				"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>\r\n" + 
-				"</div>\r\n" + 
-				"\r\n" + 
-				"\r\n" + 
-				"</div>";
+		System.out.println("멤버 사진 : "+mGuest.getMember_picture());
+		String urls = "<div style=\"heigh:100%;width:100%;height:45vw;\">" + 
+				"<img src=\"logo2.png/>\" style=\"position:relative;left:6vw;top:4vh;\">" + 
+				"<div style=\"position:relative;color:#515151;width:100%;height:auto;top:5vh;\">" + 
+				"<h3 style=\"position:relative;left:6vw; \">"+mGuest.getMember_name()+"님의 메세지에 답하세요</h3>" + 
+				"<img style=\"width:4vw;height:8.5vh;margin: 0 auto 10px;display: block;-moz-border-radius: 50%;-webkit-border-radius: 50%;border-radius: 50%;\" src=\"files/"+mGuest.getMember_picture()+" class=\"img-circle img-responsive\">" + 
+				"<h4 style=\"position:relative;left:12vw;top:-10vh;\">"+mGuest.getMember_name()+"</h4>" + 
+				"<h4 style=\"position:relative;left:12vw;top:-11.4vh;font-weight:400;\">"+mGuest.getMember_location()+"</h4>" + 
+				"<div style=\"position:relative; min-height:7vh;display: block;left:6vw;padding-bottom:9vh;height:100%;top:-8vh;width:75%;background:#f4f4f4;border:1px solid #f4f4f4; border-radius: 8px;\">" + 
+				"<h4 style=\"position:relative;font-weight:500;width:33vw;height:auto;top:5vh;left:2vw;line-height:3vh;margin:0;\">"+dto.getMessage_content()+"</h4>" + 
+				"</div>" + 
+				"<h4 style=\"position:relative;top:-7vh;left:7vw;font-weight:100;\">빌림을 통해서는 절대 직접 송금하실 필요가 없습니다. </h4><a href=\"https://www.airbnb.co.kr/help/article/209/why-should-i-pay-and-communicate-through-airbnb-directly\" style=\"color:#ff5a5f;font-weight:500;text-decoration:none;position:relative;left:33vw;top:-12.8vh;\">자세히 알아보기</a>" + 
+				/*"<button style=\"position:relative;width:75%;top:-10vh;left:5vw;height:7vh;box-sizing: border-box;appearance: none;background-color: transparent;" + 
+				"  border: 2px solid #ff5a5f;" + 
+				"  border-radius: 0.6em;" + 
+				"  color: #ff5a5f;" + 
+				"  cursor: pointer;" + 
+				"  display: flex;" + 
+				"  align-self: center;" + 
+				"  font-size: 1rem;" + 
+				"  font-weight: 400;" + 
+				"  line-height: 1;" + 
+				"  margin: 20px;" + 
+				"  padding: 1.2em 2.8em;" + 
+				"  text-decoration: none;" + 
+				"  text-align: center;" + 
+				"  text-transform: uppercase;" + 
+				"  font-weight: 700; onclick=\"window.location.href='http://localhost:8080/messageMain.msg?loginId="+dto.getToID()+"';><span style=\"position:relative;left:20vw;top:-0.5vh;\">답장 보내기</span></button>" + */
+				"<h6 style=\"font-size:7px;font-weight:500;position:relative;left:7vw;top:-8vh;\">"+mGuest.getMember_name()+"님께 메시지를 보내려면 본 이메일에 회신하세요. </h6>" + 
+				"<hr style=\"margin-top:0;margin-left:0;padding:0;width:68%;color:#d6d4d4;background:#d6d4d4;border:0.1px solid #d6d4d4;size:0.1;\">" + 
+				"<h5 style=\"color:#d6d4d4;position:relative;left:7vw;\">" + 
+				"빌림 드림 ♥<br>" + 
+				"‌서울특별시 영등포구 선유동2로 57 이레빌딩‌</h5>" + 
+				"</div>" +"</div>";
 		
-/*		String url1 ="<div style=\"width:50vw;height:50vw;\">"
-				    +"<img src='<c:url value='/resources/img/logo2.png'/>'"
-				    +mGuest.getMember_name()+"님의 문의에 답하세요"
-				    +"<img style=\"position:relative;left:1vw;top:1vh;width:7vh;height:7vh;\" src=\"files/"+mGuest.getMember_picture()+"\" class=\"img-circle\">"
-		            +"<h4>감사합니다. </h4>"+"<h4>Villim 팀 드림 </h4><br>"
-		            +"</div>";*/
+
 		
 		try {
 		
-		mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 메세지 문의입니다.");
+		mailDto.setSubject("[Villim] "+mGuest.getMember_name()+"님의 메세지 입니다.");
 		mailDto.setText(urls);
-		mailDto.setFrom("villim", "Villim");
+		mailDto.setFrom("villim.cf", "villim.cf");
 		mailDto.setTo(mail);
 		mailDto.send();
 		System.out.println("메일보내기 성공");
@@ -553,7 +624,7 @@ public class MessageController {
 	}
 	@RequestMapping("/messageHostRoomEnter.msg")
 	public ModelAndView messageHostRoomEnter(HttpSession session, int message_room_seq, int home_seq,
-			String member_picture, String member_name, String member_email, int message_seq) {
+			String member_email, int message_seq) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("messageHostRoomEnter");
 		System.out.println("room_seq : " + message_room_seq);
@@ -561,7 +632,7 @@ public class MessageController {
 		System.out.println("message_seq" + message_seq);
 		String userId = (String) session.getAttribute("login_email");
 
-		/* int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId); */
+		int readUpdate=this.service.ReadUpdate(message_seq, member_email, userId);
 		List<HomeDTO> getHomeNames = this.service.getHomeNames(userId);
 
 		System.out.println("호스트 이메일 : " + userId + " / 게스트 이메일 : " + member_email);
@@ -572,8 +643,8 @@ public class MessageController {
 		mav.addObject("home_seq", home_seq);
 		mav.addObject("userId", userId);
 		mav.addObject("guest_email", member_email);
-		mav.addObject("guest_picture", member_picture);
-		mav.addObject("guest_name", member_name);
+		mav.addObject("guest_picture", guestInfo.getMember_picture());
+		mav.addObject("guest_name", guestInfo.getMember_name());
 		mav.addObject("guest_location", guestInfo.getMember_location());
 		mav.addObject("host_picture", hostInfo.getMember_picture());
 		mav.addObject("getHomeNames", getHomeNames);
@@ -583,8 +654,8 @@ public class MessageController {
 		mav.addObject("home_price", hdto.getHome_price());
 
 		MessageRoomDTO dto = this.service.msgRoomInfo(message_room_seq);
-		String cI = "20180" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
-		String cO = "20180" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
+		String cI = "2018" + dto.getCheckIn().split("월")[0] + dto.getCheckIn().split("일")[0].split("월")[1];
+		String cO = "2018" + dto.getCheckOut().split("월")[0] + dto.getCheckOut().split("일")[0].split("월")[1];
 		String transCI = "2018-" + dto.getCheckIn().split("월")[0] + "-" + dto.getCheckIn().split("일")[0].split("월")[1];
 		String transCO = "2018-" + dto.getCheckOut().split("월")[0] + "-"
 				+ dto.getCheckOut().split("일")[0].split("월")[1];
@@ -596,7 +667,28 @@ public class MessageController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		System.out.println("오늘 날짜: " + today);
+		
 
+        //개수
+		int guestMsgUnreadCount = this.service.guestMsgUnreadCount(userId);
+		if (guestMsgUnreadCount > 0) {
+			System.out.println("읽지않은 개수 :" + guestMsgUnreadCount);
+			mav.addObject("guestMsgUnreadCount", guestMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("guestMsgUnreadCount", 0);
+		}
+
+int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
+		if (hostMsgUnreadCount > 0) {
+			System.out.println("읽지않은개수 :" + hostMsgUnreadCount);
+			mav.addObject("hostMsgUnreadCount", hostMsgUnreadCount);
+		} else {
+			System.out.println("읽지않은개수 없음");
+			mav.addObject("hostMsgUnreadCount", 0);
+		}
+
+		
 		// 날짜
 		String checkinDate = "2018-" + dto.getCheckIn().split("월")[0] + "-"
 				+ dto.getCheckIn().split("일")[0].split("월")[1];
@@ -644,8 +736,8 @@ public class MessageController {
 			Date checkOut = sdf2.parse(cO);
 			long diffDay = (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 60 * 1000);
 			int stayPrice = (int) (amount * diffDay);
-			int home_servicefee = (int) (amount * 0.05);
-			int home_cleaningfee = (int) (amount * 0.1);
+			int home_servicefee = (int) (stayPrice * 0.05);
+			int home_cleaningfee = (int) (stayPrice * 0.1);
 			int totalPrice = (int) (stayPrice - (hdto.getHome_price() * 0.05) - (hdto.getHome_price() * 0.1));
 			mav.addObject("home_servicefee", home_servicefee);
 			mav.addObject("home_cleaningfee", home_cleaningfee);
@@ -679,6 +771,7 @@ public class MessageController {
 		ReservationDTO dto2 = new ReservationDTO();
 		dto2.setMember_email(member_email);
 		dto2.setHome_seq(home_seq);
+		dto2.setHost_email(userId);
 		System.out.println("이메일 : " + dto2.getMember_email() + " / 홈시퀸스 : " + dto2.getHome_seq());
 		List<ReservationDTO> reservCheck = this.service.reservCheck(dto2);
 
@@ -753,6 +846,7 @@ public class MessageController {
 
 			for (int i = 0; i < guestMemberInfo.size(); i++) {
 				JSONObject gmI = new JSONObject();
+				
 				gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 				gmI.put("member_name", guestMemberInfo.get(i).getMember_name());
 				gmI.put("member_location", guestMemberInfo.get(i).getMember_location());
@@ -964,6 +1058,9 @@ public class MessageController {
 				}
 
 				guest_email.add(tmp.getGuest_email());
+				for(String tmp2:guest_email) {
+				System.out.println("guest_email list에 넣은것 : "+tmp2);
+				}
 
 			}
 			for (int i = 0; i < hostMessage.size(); i++) {
@@ -977,19 +1074,19 @@ public class MessageController {
 				gmI.put("checkOut", hostMessage.get(i).getCheckOut());
 				gmI.put("message_read", hostMessage.get(i).getMessage_read());
 				gmI.put("host_email", hostMessage.get(i).getHost_email());
+				gmI.put("guest_email", hostMessage.get(i).getGuest_email());
 				gmI.put("fromID", hostMessage.get(i).getFromID());
 				gmI.put("toID", hostMessage.get(i).getToID());
 				jArray.add(gmI);
 			}
 			obj.put("hostAllMessage", jArray);
 
-			
-			
 			List<MemberDTO> guestMemberInfo = this.service.memberInfo(guest_email);
 
 			JSONArray jArray2 = new JSONArray();
 
 			for (int i = 0; i < guestMemberInfo.size(); i++) {
+				System.out.println("멤버 이메일 : : "+guestMemberInfo.get(i).getMember_email());
 				JSONObject gmI = new JSONObject();
 				gmI.put("member_picture", guestMemberInfo.get(i).getMember_picture());
 				gmI.put("member_name", guestMemberInfo.get(i).getMember_name());

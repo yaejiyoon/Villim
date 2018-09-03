@@ -19,5 +19,8 @@
 		<typeAlias type="kh.spring.dto.DetailDTO" alias="Detail"/>
 		<typeAlias type="kh.spring.dto.BedDTO" alias="Bed"/>
 		<typeAlias type="kh.spring.dto.LikeyListDTO" alias="LikeyList"/>
+		<typeAlias type="kh.spring.dto.LikeyDTO" alias="Likey"/>
+		<typeAlias type="kh.spring.dto.AccountDTO" alias="Account"/>
+		<typeAlias type="kh.spring.dto.PaymentDTO" alias="Payment"/>
 	</typeAliases>
 </configuration>

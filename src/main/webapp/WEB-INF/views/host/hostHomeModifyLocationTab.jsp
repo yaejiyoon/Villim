@@ -333,7 +333,6 @@ div {
 		        	  lng:h_lng
 		          },
 		          map: map,
-				  animation:google.maps.Animation.BOUNCE
 	        });
 		
 			var input = document.getElementById('pac-input');
@@ -361,7 +360,7 @@ div {
 									marker = new google.maps.Marker({
 										map : resultsMap,
 										position : results[0].geometry.location,
-										animation:google.maps.Animation.BOUNCE
+// 										animation:google.maps.Animation.BOUNCE
 									});
 									loc = address;
 									latlng = marker.position;

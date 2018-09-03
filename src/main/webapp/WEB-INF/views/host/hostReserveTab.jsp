@@ -28,6 +28,7 @@ div {
 	margin: 30px auto;
 	height: auto;
 	width: 70%;
+	margin-bottom: 100px;
 }
 
 .wrapper-sub {
@@ -36,7 +37,7 @@ div {
 
 .home-reserve {
 	margin-left: 0;
-	margin-top: 60px; 
+	margin-top: 60px;
 	width: 60%;
 	float: left;
 	padding: 0;
@@ -61,13 +62,12 @@ div {
 /* 	padding-left: 0; */
 /* 	font-size: 15px; */
 /* } */
-.home-reserve-line {
+.line {
 	border: 0.5px solid #E6E6E6;
 	display: inline-block;
 	width: 100%;
 	margin-top: 40px;
 }
-
 .guest-rule-wrap {
 	margin-top: 50px;
 	width: 100%;
@@ -127,6 +127,7 @@ div {
 	margin-top: 40px;
 	margin-bottom: 15px;
 	font-size: 17px;
+	display: inline-block;
 }
 
 .nav-btn {
@@ -172,51 +173,46 @@ div {
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id="wrapper">
 		<div class="home-title">
-			<div
-				style="display: inline-block; width: 79%;">
+			<div style="display: inline-block; width: 79%;">
 				<h2>${hdto.home_name }</h2>
 			</div>
-			<div
-				style="display: inline-block; width: 20%;text-align: right;">
+			<div style="display: inline-block; width: 20%; text-align: right;">
 				<button type="button" class="btn"
 					onclick="location.href='fullCalendar.do?seq=${hdto.home_seq}'">
 					<b>달력보기</b>
+				</button>
+				<button type="button" class="btn">
+					<b>숙소 미리보기</b>
 				</button>
 			</div>
 		</div>
 
 		<div class="home-reserve row">
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostHomeTab.do?seq=${hdto.home_seq}'">숙소
-					세부정보</button>
+					세부정보</button> 
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button" style="color: #008489;"
 					onclick="location.href='hostReserveTab.do?seq=${hdto.home_seq}'">
 					<b>예약 설정</b>
 				</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button"
-					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">요금</button>
-			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button class="nav-btn" type="button"
 					onclick="location.href='hostReservePossibleTab.do?seq=${hdto.home_seq}'">예약
 					가능 여부</button>
 			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">현지 법규</button>
-			</div>
-			<div class="col-md-2">
-				<button class="nav-btn" type="button">공동 호스트</button>
+			<div class="col-md-3">
+				<button class="nav-btn" type="button"
+					onclick="location.href='hostPriceTab.do?seq=${hdto.home_seq}'">현지 법규</button>
 			</div>
 		</div>
 
 		<div class="wrapper-sub">
 
-			<div class="home-reserve-line"></div>
+			<div class="line"></div>
 
 			<div class="guest-rule-wrap">
 				<div class="guest-rule-title">
@@ -226,7 +222,7 @@ div {
 				</div>
 				<div class="guest-rule-mod">
 					<button type="button" class="btn"
-					onclick="location.href='hostHomePolicyModifyTab.do?seq=${hdto.home_seq}'">
+						onclick="location.href='hostHomePolicyModifyTab.do?seq=${hdto.home_seq}'">
 						<b>수정</b>
 					</button>
 				</div>
@@ -238,7 +234,29 @@ div {
 				</div>
 			</div>
 
-			<div class="home-reserve-line"></div>
+			<div class="line"></div>
+			
+			<div class="guest-rule-wrap">
+				<div class="guest-rule-title">
+					<h4>
+						<b>요금</b>
+					</h4>
+				</div>
+				<div class="guest-rule-mod">
+					<button type="button" class="btn"
+					onclick="location.href='hostModifyPriceTab.do?seq=${hdto.home_seq}'">
+						<b>수정</b>
+					</button>
+				</div>
+				<div class="policy">
+					<div class="policy-sub2">
+						<div>환불 정책</div>
+						<div style="text-align: right;">${hdto.home_policy }</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="line"></div>
 
 			<div class="guest-rule-wrap">
 				<div class="guest-rule-title">
@@ -248,22 +266,26 @@ div {
 				</div>
 				<div class="guest-rule-mod">
 					<button type="button" class="btn"
-						onclick="location.href='hostReserveModifyRule.do?home_seq=${hdto.home_seq}'">
+						onclick="location.href='hostReserveModifyRule.do?seq=${hdto.home_seq}'">
 						<b>수정</b>
 					</button>
 				</div>
 				<!-- for문으로 체크된것 출력하기 -->
 				<c:forEach var="list" items="${ruleList }">
 					<div class="rule">${list}</div>
-					<div class="home-reserve-line"></div>
+					<div class="line"></div>
 				</c:forEach>
 
+			<c:if test="${detailsList.size() != 0 }">   
 				<div class="details">게스트가 숙소에 대해 알아두어야 할 세부 사항</div>
 				<c:forEach var="list" items="${detailsList }">
-					<div class="details-contents">${list }</div>
-				</c:forEach>
-			</div>
-			<div class="home-reserve-line"></div>
+					<div class="details-contents" style="font-size: 15px;">
+					${list }
+					</div>
+				</c:forEach>   
+			</c:if>
+				</div>
+			<div class="line"></div>
 
 		</div>
 	</div>

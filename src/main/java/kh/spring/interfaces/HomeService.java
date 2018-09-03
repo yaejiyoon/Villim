@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -11,9 +12,24 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 
 public interface HomeService {
+	public List<PaymentDTO> getGapDate(Map<String, Object> map);
+
+	public int modifyHomePrice(HomeDTO hdto);
+
+	public int deleteBed(int home_seq);
+
+	public int insertBed(int home_seq, BedDTO bdto);
+
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map);
+
+	public int insertAccount(AccountDTO adto);
+
+	public List<AccountDTO> getAllAccount(String member_email);
+
 	public List<HomeDTO> getAllHomeData(String member_email);
 
 	public HomeDTO getOldestHomeData(String member_email);
@@ -53,23 +69,6 @@ public interface HomeService {
 	public List<String> getCalendarDate(Map<String, String> map);
 
 	public String getBlockedDate(int home_seq);
-
-	// ----------------지혜-----------------
-	public int updateBlockedDate(String blockedDate, int home_seq);
-
-	public BedDTO getBedData(int home_seq);
-
-	// 예지
-	public List<HomeDTO> getAllHomeDataMain();
-
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
-
-	public List<HomePicDTO> getHomePic();
-
-	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates,
-			String dateIsChecked);
-
-	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 	public int modifyPolicy(HomeDTO hdto);
 
@@ -125,6 +124,34 @@ public interface HomeService {
 	public int modifyHomeView(int home_seq);
 
 	public List<ReservationDTO> getCalReservation(Map<String, Object> map);
+
+	// ----------------지혜-----------------
+	public int updateBlockedDate(String blockedDate, int home_seq);
+
+	public BedDTO getBedData(int home_seq);
+	
+	public int updateBlocked(String blockedDate, int home_seq);
+
+	// 예지
+	public List<HomeDTO> getAllHomeDataMain();
+
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param);
+
+	public List<HomePicDTO> getHomePic();
+
+	public List<HomeDTO> modalHomeData(Map<String, Object> param);
+
+	public List<HomeDTO> getParis();
+	
+	public List<HomeDTO> getNewyork();
+	
+	public List<HomeDTO> getRome();
+	
+	public List<HomeDTO> getLondon();
+	
+	public List<HomeDTO> getPraha();
+	
+	public List<HomeDTO> getMadrid();
 
 	//찬연
 		public int insertFirstHome(HomeDTO hdto);
