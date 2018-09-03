@@ -26,7 +26,9 @@
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>후기</title>
 <style>
-
+#header{
+font-family:!important font;
+}
 /* Tabs panel */
 .tabbable-panel {
 	padding: 10px;
@@ -530,8 +532,8 @@ $(document).ready(function(){
 									<div class="panel-body" style="height:auto;">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
 
-                                        <c:forEach items="${getHostReview}" var="hostReview" varStatus="i">
-				  	<c:forEach items="${getrealHostReview}" var="host">
+                                        <c:forEach items="${getHostReview}" var="hostReview" varStatus="status">
+				  	<%-- <c:forEach items="${getrealHostReview}" var="host"> --%>
 				  <article class="row" style="margin-top:3%;">
             <div class="col-md-2 col-sm-2 hidden-xs">
               <figure class="thumbnail">
@@ -549,13 +551,12 @@ $(document).ready(function(){
                   <div class="comment-post">
                     <p>
                       ${hostReview.g_review_public}
-                      ${hostReview.g_review_seq}
                     </p>
                   </div>
                   
                   <c:choose>
                  
-                    <c:when test="${hostReview.g_review_seq eq host.g_review_seq}">
+                    <c:when test="${hostReview.g_review_seq eq getrealHostReview[status.index].g_review_seq}">
                      
 				     <article class="row">
             <div class="col-md-10 col-sm-10">
@@ -563,12 +564,11 @@ $(document).ready(function(){
                 <div class="panel-body">
                   <header class="text-right">
                     <div class="comment-user"><i class="fa fa-user"></i> </div>
-                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> ${host.h_review_date}</time>
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> ${getrealHostReview[status.index].h_review_date}</time>
                   </header>
                   <div class="comment-post">
                     <p>
-                    ${host.h_review_public}
-                    ${host.g_review_seq}
+                    ${getrealHostReview[status.index].h_review_public}
                     </p>
                   </div>
                   <p class="text-right"><!-- <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a> --></p>
@@ -625,8 +625,8 @@ $(document).ready(function(){
 				  <!--  -->
 				
 				  
-				   <c:if test="${not i.last}"><hr style="width:100%;color:#828282;position:relative;top:-1vh;"></c:if>
-				  </c:forEach>
+				   <c:if test="${not status.last}"><hr style="width:100%;color:#828282;position:relative;top:-1vh;"></c:if>
+				<%--   </c:forEach> --%>
                </c:forEach>
  
  

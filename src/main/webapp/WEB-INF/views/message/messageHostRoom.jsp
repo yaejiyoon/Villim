@@ -582,7 +582,7 @@ $(document).ready(function(){
 
 <div class="card">
 						<div class="row" style="font-weight:700;width:100%;top:-8vh;height:30vh;position:relative;left:0.8vw;">
-			<div style="position:relative;top:2vh;">
+			<div style="position:relative;top:5vh;">
 					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">예약 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
 				<div style="position:relative;  top:4vh;left:5.3vw;font-weight:700;"><h6 style="display: inline !important;position:relative;left:-1.5vw;top:-2.8vh;margin:1vw;font-weight:700;color:#9e9e9e;">체크인</h6><h6 style="display: inline !important;top:-2.8vh; margin:1vw;position:relative; left:1vw;font-weight:700;color:#9e9e9e;">체크 아웃</h6></div>
@@ -599,7 +599,7 @@ $(document).ready(function(){
 			</div>
 			
 			
-			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-8vh;width:100%;">
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-5vh;width:100%;">
 			
 			<div style="position:relative;top:1vh;">
 			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">호스팅 대금</h4>
@@ -613,7 +613,7 @@ $(document).ready(function(){
 			</div>
 			
 			</div>
-			<hr style="color:#666666;width:70%;position:relative;top:-6vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:-3vh;font-weight:900;height:15px;">
 			
 			
 			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-9vh;width:100%;">

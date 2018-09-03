@@ -54,29 +54,25 @@
       <div id="header-menu" class="headerContainer" >
          <section class="color-5">
             <nav class="cl-effect-5">
-            	<div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="profileEditView.mo" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+            	<div id="header-menu-div" class="dropdown hover headerDR" style="">
+               		<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="hostMain.do" style="width:100%;color:black;  font-family: font;overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="호스트" style="color:black;">호스트</span>
                		
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="likeyPage.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
                			
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="여행" style="color:black;">여행</span>
-               		</a>
-               </div>
+              
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지" style="color:black;">메세지</span>
@@ -85,12 +81,7 @@
                			</c:if>
                		</a>
                </div>
-               <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="도움말" style="color:black;">도움말</span>
-               			
-               		</a>
-               </div>
+               
 
 
             </nav>
@@ -100,7 +91,7 @@
          <img src="<c:url value='/resources/img/1.jpg'/>">
       </div> --%>
       
-         <div id="header-pic" style="position:relative;left:80vw;top:-8.6vh;line-height:1vh;">
+         <div id="header-pic" style="position:relative;left:30vw;top:-1vh;line-height:1vh;border:1px solid red;">
               <div class="dropdown">
               <a id="dLabel" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                <c:set var="test" value="${sessionScope.login_picture}"/>

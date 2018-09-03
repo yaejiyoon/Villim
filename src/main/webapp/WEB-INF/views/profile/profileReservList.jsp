@@ -31,7 +31,7 @@
 
 </head>
 <body>
-	<%@ include file="../../resource/include/header.jsp"%>
+	<%@ include file="../../resource/include/header_profile.jsp"%>
 	<div class=container
 		style="height: auto; min-height:50vh;position: relative; top:6vh;left:-1vw;">
       <h3 style="color:#595959;font-weight:800;position:relative;left:-1vw;top:2vh;">예약 & 결제 정보</h3>
