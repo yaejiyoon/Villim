@@ -490,14 +490,14 @@ $(document).ready(function(){
 			수정</a> 
 			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -6vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
 		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
+			style="position: relative; left: -11vw; top: 80px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
 
 
 	</div>
 
 	<div class="container"
-		style="position: relative; left: 130px; top: -20px; width: 50%; height: 1000px;">
+		style="position: relative; left: 130px; top: -20px; width: 50%; height: auto;">
 		<div class="row">
 			<div class="col-md-12">
 
@@ -526,14 +526,8 @@ $(document).ready(function(){
 								
 									<div class="panel-body" style="height:auto;">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
-										
-										
 
                                         <c:forEach items="${getHostReview}" var="hostReview">
-                                         
-       
-       	
- 
 				  
 				  <article class="row" style="margin-top:3%;">
             <div class="col-md-2 col-sm-2 hidden-xs">
@@ -672,7 +666,7 @@ $(document).ready(function(){
 						</div>
 						<div class="comment-content">
 							<input type="hidden" value="${info.home_seq}">
-														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_main_pic=${homePhotoResult}&home_name=${info.home_name}"
+														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_main_pic=${homePhotoResult}&home_name=${info.home_name}&reservation_seq=${info.reservation_seq}"
 															style="color: #ff5959; text-decoration: none;">리뷰쓰기</a>						
 	
 						</div>

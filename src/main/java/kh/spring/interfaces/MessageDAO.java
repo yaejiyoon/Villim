@@ -9,6 +9,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.dto.ReservationDTO;
 
 public interface MessageDAO {
@@ -51,6 +52,8 @@ public interface MessageDAO {
 	public List<ReservationDTO> reservCheck(ReservationDTO dto2);
 	
 	public int ReadUpdate(int message_seq,String member_email,String userId);
+	
+	public int reportGuest(ReportDTO dto);
 	
 	//Message Host Main
 	public List<GuestMsgDTO> hostMessageMain(String userId);

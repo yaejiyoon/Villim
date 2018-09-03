@@ -43,12 +43,12 @@ select home_main_pic from home where home_seq=#{home_seq}
 select member_email from home where home_seq=#{home_seq}
 </select>
 
-<select id="insertGuestReview" resultType="GuestReview">
-insert into guest_review values(guest_review_seq.nextval,#{home_seq},#{member_email},#{g_review_satisfaction},#{g_review_accuracy},#{g_review_cleanliness},#{g_review_checkIn},#{g_review_amenities},#{g_review_communication},#{g_review_location},#{g_review_value},#{g_review_repurchase},#{g_review_public},#{g_review_private},to_char(SYSDATE,'YYYY"년" MM"월" DD"일"'))
-</select>
+<insert id="insertGuestReview">
+insert into guest_review values(guest_review_seq.nextval,#{home_seq},#{member_email},#{g_review_satisfaction},#{g_review_accuracy},#{g_review_cleanliness},#{g_review_checkIn},#{g_review_amenities},#{g_review_communication},#{g_review_location},#{g_review_value},#{g_review_repurchase},#{g_review_public},#{g_review_private},to_char(SYSDATE,'YY/MM/DD'),#{reservation_seq})
+</insert>
 
 <select id="getGuestReview" resultType="Review">
-select guest_review.home_seq,guest_review.g_review_public,guest_review.g_review_date,reservation.home_name from guest_review,reservation where reservation.home_seq=guest_review.home_seq and guest_review.member_email=#{member_email}
+select guest_review.home_seq,guest_review.g_review_public,guest_review.g_review_date,reservation.home_name from guest_review,reservation where reservation.reservation_seq=guest_review.reservation_seq and reservation.home_seq=guest_review.home_seq and guest_review.member_email=#{member_email}
 </select>
 
 <select id="getSeq" resultType="Integer">
