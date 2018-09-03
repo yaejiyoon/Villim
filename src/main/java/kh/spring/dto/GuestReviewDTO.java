@@ -22,7 +22,7 @@ public class GuestReviewDTO implements Comparable<GuestReviewDTO> {
 
 	String member_name;
 	String member_picture;
-	
+	int reservation_seq;
 	public GuestReviewDTO() {
 		
 	}
@@ -31,7 +31,7 @@ public class GuestReviewDTO implements Comparable<GuestReviewDTO> {
 			int g_review_accuracy, int g_review_cleanliness, int g_review_checkIn, int g_review_amenities,
 			int g_review_communication, int g_review_location, int g_review_value, String g_review_repurchase,
 			String g_review_public, String g_review_private, String g_review_date, String member_name,
-			String member_picture) {
+			String member_picture, int reservation_seq) {
 		super();
 		this.g_review_seq = g_review_seq;
 		this.home_seq = home_seq;
@@ -50,6 +50,7 @@ public class GuestReviewDTO implements Comparable<GuestReviewDTO> {
 		this.g_review_date = g_review_date;
 		this.member_name = member_name;
 		this.member_picture = member_picture;
+		this.reservation_seq=reservation_seq;
 	}
 
 	public int getG_review_seq() {
@@ -209,6 +210,14 @@ public class GuestReviewDTO implements Comparable<GuestReviewDTO> {
 
 	public void setH_review_date(String h_review_date) {
 		this.h_review_date = h_review_date;
+	}
+
+	public int getReservation_seq() {
+		return reservation_seq;
+	}
+
+	public void setReservation_seq(int reservation_seq) {
+		this.reservation_seq = reservation_seq;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MessageDAO;
 import kh.spring.interfaces.MessageService;
@@ -140,6 +141,11 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public MessageDTO getMessageOne(int message_room_seq) {
 		return dao.getMessageOne(message_room_seq);
+	}
+
+	@Override
+	public int reportGuest(ReportDTO dto) {
+		return dao.reportGuest(dto);
 	}
 
 	

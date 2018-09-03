@@ -237,9 +237,8 @@ $(document).ready(function(){
 <body>
 	<%@ include file="../../resource/include/header_profile.jsp" %>
 
-	<div id="wrapper" style="height: 2500px; margin: 10px auto">
-		<h3
-			style="color: #595c63; position: relative; left: 180px; top: 10px;">평점
+	<div id="wrapper" style="height: 300vh; margin: 10px auto;">
+		<h3 style="color: #595c63; position: relative; left: -1.2vw; top: 10px;width:20vw;margin-left:0;">평점
 			및 후기</h3>
 
 <form id="formId" name="formId" action="guestReview.mo" method="post">
@@ -251,15 +250,15 @@ $(document).ready(function(){
 				<div class="avatar"></div>
 				<div class="info" style="height: 130px;">
 					<img src="files/${member_picture}" alt=""
-						style="position: relative; left: -95px; top: 53px; height: 50px; width: 50px;" />
+						style="position: relative; left: -110px; top: 55px; height: 50px; width: 50px;" />
 					<div class="title"
-						style="font-size: 15px; position: relative; left: 18px; top: 10px;">
+						style="font-size: 15px;width:21vh;height:2vh; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;position: relative; left: 3.45vw; top: 7px;margin-left:0;">
 						${home_name}</div>
 					<div class="desc"
-						style="position: relative; left: -8px; top: 5px; font-weight: bold;">호스트: ${member_name}</div>
-					<div class="desc" style="position: relative; left: 33px;">${checkin} ~ ${checkout}</div>
+						style="position: relative; left: -37px; top:-0.4vh; font-weight: bold;width:15vw;margin-left:0;padding-left:0;">호스트: ${member_name}</div>
+					<div class="desc" style="position: relative; left: 32px;top:-1vh;">${checkin} ~ ${checkout}</div>
 					<input type="hidden" id="home_seq" name="home_seq" value="${home_seq}">
-					
+					<input type="hidden" id="reservation_seq" name="reservation_seq" value="${reservation_seq}">
 				</div>
 
 			</div>
@@ -268,7 +267,7 @@ $(document).ready(function(){
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8"
-					style="position: relative; left: 180px; top: -360px;">
+					style="position: relative; left: 180px; top: -39vh;">
 					<h3 style="font-weight: bold;">${member_name}님에 대한 후기를 쓰세요</h3>
 					<h5>14일동안 후기를 작성하실수 있습니다. 회원님이 후기를 작성하셔야 호스트도 회원님의 피드백을 읽을 수
 						있습니다. 후기 작성 기간이 종료되면, 회원님의 피드백이 공개됩니다.</h5>
@@ -280,10 +279,10 @@ $(document).ready(function(){
 
 
 		<div class="container"
-			style="position: relative; left: 180px; top: -300px;">
+			style="position: relative; left: 180px; top: -35vh;">
 			<div class="row">
 
-				<div class="col-sm-5">
+				<div class="col-sm-5" >
 					<h3 style="font-weight: bold; position: relative; top: -30px;">숙박이
 						어떠셨나요?</h3>
 					<div style="position: relative; top: 15px; font-weight: bold;">

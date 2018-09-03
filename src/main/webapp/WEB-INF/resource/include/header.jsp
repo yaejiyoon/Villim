@@ -132,12 +132,13 @@ function enterkey() {
              	</c:if>
              	</a>
              	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        			<li><a href="profileEditView.mo">프로필 수정하기</a></li>
-        			<li><a href="#">친구 초대하기</a></li>
-        			<li><a href="#">호스트 추천하기</a></li>
-        			<li><a href="#">계정관리</a></li>
-        			<li><a href="#">나의 가이드북</a></li>
-        			<li><a href="logout.do">로그아웃</a></li>
+        					<li><a href="profileEditView.mo">프로필 수정하기</a></li>
+        				<!-- 	<li><a href="#">친구 초대하기</a></li>
+        					<li><a href="#">호스트 추천하기</a></li>
+        					 -->
+        					 <li><a href="profileReview.mo">후기</a></li>
+        					<li><a href="myReservList.mo">에약 목록</a></li>
+        					<li><a href="logout.do">로그아웃</a></li>
       			</ul>
               </div>  
               

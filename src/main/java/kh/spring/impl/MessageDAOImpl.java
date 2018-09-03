@@ -13,6 +13,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.MessageDAO;
 
@@ -147,6 +148,11 @@ public class MessageDAOImpl implements MessageDAO{
 	@Override
 	public MessageDTO getMessageOne(int message_room_seq) {
 		return template.selectOne("Message.getMessageOne",message_room_seq);
+	}
+
+	@Override
+	public int reportGuest(ReportDTO dto) {
+		return template.insert("Message.report",dto);
 	}
 
 	

@@ -541,7 +541,7 @@ $(document).ready(function(){
   				    url:"messageSendInRoom.msg",
   					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#guest_email').val()+"&message_content="+$('#message_content').val(),
   					success:function(resp){
-  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${host_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
+  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${host_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;background:#fff2f2;border:#fff2f2;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
   					}
   					
   					
@@ -883,29 +883,66 @@ $(document).ready(function(){
         <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;color:black;"><strong>어떤 문제가 있나요?</strong></h4>
       </div>
       <div class="modal-body">
+      
+      <script type="text/javascript">
+			
+			$(document).ready(function(){
+			 $('#accuseBt').click(function(){
+				 var val = $('input[name=selector]:checked').val();
+				 if(val=="기타"){
+					 var example=$('#example').val();
+					 val=example;
+				 }
+				
+				 $.ajax({
+					 url:"reportHost.msg",
+                     type:"post",
+                     data:{
+                    	 report_reason:val,userId:$('#userId').val(),guest_email:$('#guest_email').val()
+                     },
+                     success:function(resp){
+                    	 if(resp=="success"){
+                    		 alert("신고가 접수되었습니다!") 
+                    		 $('#demo-2').modal('hide');
+                    	 }
+                    	 
+                     }
+					 
+					 
+					 
+				 })
+				 
+				 
+			
+			 })
+				
+			})
+			
+			
+			</script>
 <ul>
     <li>
-      <input type="radio" id="fast" name="selector">
+      <input type="radio" id="fast" name="selector" value="사기 또는 스팸 메세지를 보내는 것 같아요">
       <label for="fast">사기 또는 스팸 메세지를 보내는 것 같아요</label>
       <div class="radiobutton"></div>
     </li>
     <li>
-      <input type="radio" id="medium" name="selector">
+      <input type="radio" id="medium" name="selector" value="불쾌해요">
       <label for="medium">불쾌해요</label>
       <div class="radiobutton"></div>
     </li>
     <li>
-      <input type="radio" id="slow" name="selector"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <input type="radio" value="기타" id="slow" name="selector"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       <label for="slow">기타</label>
       <div class="radiobutton"></div>
       <div class="collapse" id="collapseExample">
-   <input type="text" class="form-control" value="" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
+   <input type="text" class="form-control" value="" id="example" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
 </div>
     </li>
   </ul>
       </div>
        <div class="modal-footer" style="border:none;">
-       <button type="button" class="btn btn-default" style="position:relative;left:-2.0vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
+       <button type="button" id="accuseBt" class="btn btn-default" style="position:relative;left:-2.0vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
        
         </div>
      </div>

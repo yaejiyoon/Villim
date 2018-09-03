@@ -164,4 +164,10 @@ select * from message where message_room_seq=#{message_room_seq}
 		desc
 	</select>
 
+<insert id="report">
+		insert into report
+		values(report_seq.nextval,#{member_email},#{member_name},#{reported_email},#{reported_name},#{report_reason},#{report_state},to_char(SYSDATE))
+	</insert>
+
+
 </mapper>

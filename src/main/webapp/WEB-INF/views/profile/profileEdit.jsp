@@ -11,8 +11,8 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
+<!-- <link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700"> -->
 
 <!-- jQuery library -->
 <script
@@ -139,7 +139,7 @@ left:100%;
 </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/header_profile.jsp" %>
+	<%@ include file="../../resource/include/header.jsp" %>
 	
 	<input type="hidden" id="success" value="${inputSuccess}">
 	
@@ -147,9 +147,12 @@ left:100%;
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a style="font-size: 19px; position: relative; top: -24px; left: -2vw; color:gray;text-decoration: none;font-weight:bold;">프로필
 			수정</a> <a href="profileReview.mo"
-			style="font-size: 18px; position: relative;z-index:500; top: 23px; left: -6vw; color:gray;text-decoration: none;">후기</a>
+			style="font-size: 18px; position: relative;z-index:500; top: 23px; left: -7.5vw; color:gray;text-decoration: none;">후기</a>
+			
+			<a href="myReservList.mo"
+			style="font-size: 18px; position: relative;z-index:500; top: 65px; left: -9.5vw; color:gray;text-decoration: none;">예약 목록</a>
 		<button id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px;z-index:500; top: 80px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
+			style="position: relative; left: -14vw;z-index:500; top: 100px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
 <script>
 
 $(document).ready(function(){
@@ -294,7 +297,7 @@ $(document).on('change',"#file",function(){
 	 console.log("file");
 	  var form=$('#photoForm')[0];
 	  var formData=new FormData(form);
-	  
+	  if($('#file').val().length){
 	  $.ajax({
 		type:"post",
 		enctype:"multipart/form-data",
@@ -319,7 +322,7 @@ $(document).on('change',"#file",function(){
 		}
 		   
 	  })
-	  
+	  }
 	  
 })
 
