@@ -342,7 +342,8 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					alert("error 1");
+					//alert("error 1");
+					console.lon(error1);
 		       }
 		});
 
@@ -377,8 +378,9 @@ $(document).ready(function() {
 				on.style.display = 'none';
 				off.style.display = 'block';    
     	   }
-       },error:function(errordata){
-			alert("error 2");
+       },error:function(data){
+			//alert("error 2");
+    	   console.lon(error2);
        }
      });
    
@@ -446,7 +448,8 @@ $(document).ready(function() {
 			on.style.display = 'block';    
 			off.style.display = 'none';
 	   },error:function(errordata){
-			alert("error");
+			//alert("error");
+		   console.lon(error);
        }
      });
    });  
