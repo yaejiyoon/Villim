@@ -342,7 +342,7 @@
       where home_lat between #{swLat} and #{neLat} 
       	and home_lng between #{swLng} and #{neLng} 
       	and home_people >= #{people}
-      	and home_price between #{minMoney} and #{maxMoney}
+      	and home_price >= #{minMoney}
    		<if test="!homeType.equalsIgnoreCase('0')">
             and home_type = #{homeType}
          </if>
@@ -357,7 +357,7 @@
    </select>
    
    <select id="modalHomeData" resultType="Home" parameterType="map" >
-      select * from home where home_people >= #{people} and home_price between #{minMoney} and #{maxMoney}
+      select * from home where home_people >= #{people} and home_price >= #{minMoney}
          <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
          	and 
 	         <trim suffixOverrides="or">

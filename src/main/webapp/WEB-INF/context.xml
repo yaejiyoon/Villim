@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+      http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin:@192.168.0.2:1521:xe" />
-		<property name="username" value="villim" />
-		<property name="password" value="villim" />
-	</bean>
+   <bean id="dataSource"
+      class="org.apache.commons.dbcp.BasicDataSource">
+      <property name="driverClassName"
+         value="oracle.jdbc.driver.OracleDriver" />
+      <property name="url" 
+         value="jdbc:oracle:thin:@192.168.20.21:1521:xe" />
+      <property name="username" value="villim" />
+      <property name="password" value="villim" />
+   </bean>
 
    <bean id="jdbcTemplate"
       class="org.springframework.jdbc.core.JdbcTemplate">
       <property name="dataSource" ref="dataSource"></property>
    </bean>
 
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:/mapper/**/*mapper.xml" />
-		<property name="configLocation" value="classpath:/mybatis-config.xml" />
-	</bean>
+   <bean id="sqlSession"
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <property name="mapperLocations" value="classpath:/mapper/**/*mapper.xml" />
+      <property name="configLocation" value="classpath:/mybatis-config.xml" />
+   </bean>
 
    <bean id="sqlSessionTemplate"
       class="org.mybatis.spring.SqlSessionTemplate">
@@ -47,51 +47,51 @@
       <property name="suffix" value=".jsp" />
    </bean>
 
-	<context:component-scan base-package="kh.spring"></context:component-scan>
-	
-	<!-- Jae Ho -->
-	<!-- google Class Bean설정 추가 -->
-	<!-- 클라이언트ID와 보안비밀 세팅 -->
-	<bean id="googleConnectionFactory"
-		class="org.springframework.social.google.connect.GoogleConnectionFactory">
-		<constructor-arg
-			value="843090659613-infjks132cip8etv5h2tr2gasgur0toh.apps.googleusercontent.com" />
-		<constructor-arg value="Eldfe1PMxby23ofR2IYx5Xb4" />
-	</bean>
-	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
- 	<bean id="googleOAuth2Parameters" 
-		class="org.springframework.social.oauth2.OAuth2Parameters"> 
-		<property name="scope" 
- 			value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/> 
- 		<property name="redirectUri" 
-			value="https://www.villim.cf/oauth2callback" />
- 	</bean> 
+   <context:component-scan base-package="kh.spring"></context:component-scan>
+   
+   <!-- Jae Ho -->
+   <!-- google Class Bean설정 추가 -->
+   <!-- 클라이언트ID와 보안비밀 세팅 -->
+   <bean id="googleConnectionFactory"
+      class="org.springframework.social.google.connect.GoogleConnectionFactory">
+      <constructor-arg
+         value="843090659613-infjks132cip8etv5h2tr2gasgur0toh.apps.googleusercontent.com" />
+      <constructor-arg value="Eldfe1PMxby23ofR2IYx5Xb4" />
+   </bean>
+   <!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+    <bean id="googleOAuth2Parameters" 
+      class="org.springframework.social.oauth2.OAuth2Parameters"> 
+      <property name="scope" 
+          value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"/> 
+       <property name="redirectUri" 
+         value="https://www.villim.cf/oauth2callback" />
+    </bean> 
 
-	<!-- jaeho -->
- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="jangjaeho0000@gmail.com" />
-		<property name="password" value="ronaldo7aptx4869" />
- 	
-	<!-- jaeho -->
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	 </bean>
-	<mvc:annotation-driven/>
-	<mvc:default-servlet-handler/>
-	<aop:aspectj-autoproxy />
-	<tx:annotation-driven />
-	<bean id="MemberAspect" class="kh.spring.aspect.MemberAspect" />
-	
+   <!-- jaeho -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="jangjaeho0000@gmail.com" />
+      <property name="password" value="ronaldo7aptx4869" />
+    
+   <!-- jaeho -->
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+    </bean>
+   <mvc:annotation-driven/>
+   <mvc:default-servlet-handler/>
+   <aop:aspectj-autoproxy />
+   <tx:annotation-driven />
+   <bean id="MemberAspect" class="kh.spring.aspect.MemberAspect" />
+   
 
-	
+   
     <mvc:default-servlet-handler/>
    
     <mvc:annotation-driven></mvc:annotation-driven> 
