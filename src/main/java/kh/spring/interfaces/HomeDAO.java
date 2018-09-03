@@ -156,4 +156,6 @@ public interface HomeDAO {
 	public int modifyFirstHome(HomeDTO hdto);
 	
 	public int insertbed(BedDTO bdto);
+	
+	public int updatebed(BedDTO bdto);
 }

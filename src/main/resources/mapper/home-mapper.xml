@@ -389,7 +389,7 @@
 	</select>
 	
 	<update id="firststeptomodify" parameterType="Home">
-		update home set home_type =#{home_type}, home_type =#{home_type},home_buildingType =#{home_buildingType},
+		update home set home_type =#{home_type}, home_buildingType =#{home_buildingType},
 		home_people = #{home_people}, home_nation = #{home_nation} , home_addr1 = #{home_addr1} , home_addr2 = #{home_addr2}, 
 		home_addr3 = #{home_addr3}, home_addr4 = #{home_addr4} , home_lat = #{home_lat} , home_lng=#{home_lng},
 		home_amenities = #{home_amenities} , home_safety = #{home_safety} where home_seq =#{home_seq}

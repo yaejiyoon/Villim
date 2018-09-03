@@ -137,7 +137,7 @@
 																				style="transition-delay: 0ms; display: inline-block"><div>
 																						<a href="/step3first.host"
 																							class="_tleczom" aria-busy="false"><span
-																							class="_iiprhvv">3step변경</span></a>
+																							class="_iiprhvv">3step작업시작</span></a>
 																					</div></span></span>
 																		</div>
 																	</div>

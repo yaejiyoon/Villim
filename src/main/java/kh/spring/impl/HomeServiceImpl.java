@@ -416,4 +416,10 @@ public class HomeServiceImpl implements HomeService {
 		// TODO Auto-generated method stub
 		return hdao.insertbed(bdto);
 	}
+	
+	@Override
+	public int updatebed(BedDTO bdto) {
+		// TODO Auto-generated method stub
+		return hdao.updatebed(bdto);
+	}
 }

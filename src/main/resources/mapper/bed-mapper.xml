@@ -8,4 +8,9 @@
 		insert into bed values (bed_seq.nextval,#{home_seq},#{bed_single},#{bed_double},#{bed_queen})
 	</insert>
 	
+	<update id="updatebed" parameterType="Bed">
+		update bed set bed_single = #{bed_single},bed_double = #{bed_double},bed_queen = #{bed_queen} 
+		where home_seq = #{home_seq} 
+	</update>
+	
 </mapper>

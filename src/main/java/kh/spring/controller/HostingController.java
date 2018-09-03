@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
+import kh.spring.dto.BedDTO;
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
@@ -142,7 +143,9 @@ public class HostingController {
 
 
 	@RequestMapping("/foreMove.host")
-	public ModelAndView toMoveFore(HomeDTO hdto,HttpSession session,HttpServletRequest req,HttpServletResponse res) {
+	public ModelAndView toMoveFore(@RequestParam(value="queen_bed", required=false) List<String>queen_bed,
+			@RequestParam(value="single_bed", required=false) List<String>single_bed,@RequestParam(value="double_bed", required=false) List<String>double_bed,
+			HomeDTO hdto,HttpSession session,HttpServletRequest req,HttpServletResponse res) {
 		System.out.println("bed과bath수정동시 네번째 페이지 이동");
 		ModelAndView mav = new ModelAndView();
 		String people = req.getParameter("home_people");
@@ -151,21 +154,31 @@ public class HostingController {
 		
 		String bedroom = req.getParameter("home_bedroom");
 		String bed = req.getParameter("home_bed");
-		String kings = req.getParameter("king_bed");
-		String queans = req.getParameter("queen_bed");
-		String singles = req.getParameter("single_bed");
-		String doubles = req.getParameter("double_bed");
+		String kings = req.getParameter("home_bedroom");
+		List<String> queans = queen_bed;
+		List<String> singles = single_bed;
+		List<String> doubles = double_bed;
+		System.out.println(queans);
+		System.out.println(singles);
+		System.out.println(doubles);
 		String baths = req.getParameter("bath_count");
 		req.getSession().setAttribute("singlebed", singles);
 		req.getSession().setAttribute("doublebed", doubles);
 		req.getSession().setAttribute("queanbed", queans);
-		
+		req.getSession().setAttribute("bedroom", bedroom);
 		//		int result = service.insertMessages(new MessagesDTO(0, writer, contents));
 /*		HomeDTO homedto = new HomeDTO();
 		homedto.setHome_seq(seq);
 		homedto.setHome_people(peoplecount);
 		int result = service.modifyBathbed(homedto);*/
 		//mav.addObject("result",result);
+		System.out.println("-----------------------------");
+		List<String> queenbed = (List<String>) req.getSession().getAttribute("queanbed");
+		List<String> singlebed =  (List<String>) req.getSession().getAttribute("singlebed");
+		List<String> doublebed = (List<String>) req.getSession().getAttribute("doublebed");
+		System.out.println(queenbed);
+		System.out.println(singlebed);
+		System.out.println(doublebed);
 		mav.setViewName("hosting/hostForthpage");
 		return mav;
 	}
@@ -261,8 +274,7 @@ public class HostingController {
 		System.out.println(amenitiesList + ":" +safetyList );
 		String	isemail = req.getSession().getAttribute("login_email").toString();
 		String	home_buildingType = req.getSession().getAttribute("home_buildingType").toString();
-		String	room_type = req.getSession().getAttribute("room_type").toString();
-		
+		String	room_type = req.getSession().getAttribute("room_type").toString();		
 		int	home_people = Integer.parseInt(req.getSession().getAttribute("home_people").toString());
 		String	home_nation = req.getSession().getAttribute("home_nation").toString();
 		String	home_addr1 = req.getSession().getAttribute("home_addr1").toString();
@@ -290,7 +302,14 @@ public class HostingController {
 		homedto.setHome_amenities(amenitiesList);
 		homedto.setHome_safety(safetyList);	
 		
+		
+		int homebedroom = Integer.parseInt(req.getSession().getAttribute("bedroom").toString());
+		List<String> queenbed = (List<String>) req.getSession().getAttribute("queanbed");
+		List<String> singlebed =  (List<String>) req.getSession().getAttribute("singlebed");
+		List<String> doublebed = (List<String>) req.getSession().getAttribute("doublebed");		
+		
 		String checkstep = "";
+		
 		try {
 			checkstep = req.getSession().getAttribute("homestep").toString();
 		} catch (Exception e) {
@@ -300,26 +319,107 @@ public class HostingController {
 		if(checkstep.equals("0")) {
 			int result = service.insertFirstHome(homedto);
 			mav.addObject("result",result);
+			System.out.println("1단계 건설");
 			HomeDTO callhomedto = service.getNewestHomeData(isemail);
 			String homestep = callhomedto.getHome_step();
 			System.out.println("!!! -> 단계:" + homestep);
 			int seq= callhomedto.getHome_seq();
 			req.getSession().setAttribute("hostingseq", seq);
 			req.getSession().setAttribute("homestep", homestep);
+			System.out.println("1단계 값받기");
+			
+			BedDTO bdto = new BedDTO();
+			if(homebedroom == 0){
+				System.out.println("침실없음");
+			}else if (homebedroom == 1){
+				String aqueenbed = queenbed.get(0);
+				String asinglebed = singlebed.get(0);
+				String adoublebed = doublebed.get(0);
+				bdto.setBed_single(aqueenbed);
+				bdto.setBed_double(asinglebed);
+				bdto.setBed_queen(adoublebed);
+				bdto.setHome_seq(seq);
+				int bed = service.insertbed(bdto);
+				
+			}else if(homebedroom > 1){
+				String queenbeds = "";
+				String singlebeds = "";
+				String doublebeds = "";
+				for(int i=0;i<queenbed.size();i++){
+					if(i<queenbed.size()-1){
+						queenbeds += queenbed.get(i)+",";
+					}else{
+						queenbeds += queenbed.get(i);
+					}
+				}
+				for(int i=0;i<singlebed.size();i++){
+					if(i<singlebed.size()-1){
+						singlebeds += singlebed.get(i)+",";
+					}else{
+						singlebeds += singlebed.get(i);
+					}
+				}
+				for(int i=0;i<doublebed.size();i++){
+					if(i<doublebed.size()-1){
+						doublebeds += doublebed.get(i)+",";
+					}else{
+						doublebeds += doublebed.get(i);
+					}
+				}
+				System.out.println(queenbeds);
+				System.out.println(singlebeds);
+				bdto.setBed_single(queenbeds);
+				bdto.setBed_double(singlebeds);
+				bdto.setBed_queen(doublebeds);
+				bdto.setHome_seq(seq);
+				int bed = service.insertbed(bdto);
+				
+			}
+			
+/*			bdto.setBed_single(singlebed);
+			bdto.setBed_double(doublebed);
+			bdto.setBed_queen(queenbed);
+			bdto.setHome_seq(seq);*/
+			
+			
+			
+			mav.setViewName("hosting/modifysteppage");
 		}else {
 			HomeDTO callhomedto = service.getNewestHomeData(isemail);
 			int seq= callhomedto.getHome_seq();
+			String step= callhomedto.getHome_step();
 			req.getSession().setAttribute("hostingseq", seq);
 			homedto.setHome_seq(seq);
 			int result = service.modifyFirstHome(homedto);
 			mav.addObject("result",result);
+			System.out.println("1단계 업데이트");
+			
+			BedDTO bdto = new BedDTO();
+			if(homebedroom == 0){
+				System.out.println("침실없음");
+			}else if (homebedroom == 1){
+				
+			}else if(homebedroom > 1){
+				
+			}
+			
+/*			bdto.setBed_single(singlebed);
+			bdto.setBed_double(doublebed);
+			bdto.setBed_queen(queenbed);
+			bdto.setHome_seq(seq);*/
+			
+			int bed = service.updatebed(bdto);
+			if(step.equals("1")){
+				mav.setViewName("hosting/modifysteppage");
+			}else if(step.equals("2")){
+				mav.setViewName("hosting/modifysteppagetwo");
+			}
+			
 		}
 		
 		
 		//-- 이후
-		System.out.println("1단계 업데이트");
 		/*mav.addObject("result",result);*/
-		mav.setViewName("hosting/modifysteppage");
 		return mav;
 	}
 	
@@ -700,6 +800,20 @@ public @ResponseBody void home( @RequestParam("val") String id, HttpServletReque
 
 }
 	
+	@RequestMapping(value = "/bedrooms.host", method = RequestMethod.GET)
+	public @ResponseBody void bedroom( @RequestParam("val") String id, HttpServletRequest request , HttpServletResponse response) throws JsonIOException, IOException {
+	JSONArray jarray = new JSONArray();
+	String valuebulid = id;
+	response.setCharacterEncoding("utf8");
+	response.setContentType("application/json");
+	System.out.println(valuebulid);
+	Map<String, String> resultMap = new HashMap<>();
+	JSONObject json = new JSONObject();
+	json.put("homeval",valuebulid);
+	jarray.add(json);
+	System.out.println(jarray);
+	new Gson().toJson(jarray, response.getWriter());
+   }
 	
 	@RequestMapping(value = "/textis.ho", method = RequestMethod.POST)
 	public @ResponseBody  void vone(@RequestParam("val") String val , HttpServletRequest request , HttpServletResponse response)throws Exception {

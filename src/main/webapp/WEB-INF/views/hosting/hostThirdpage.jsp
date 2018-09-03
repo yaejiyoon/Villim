@@ -431,9 +431,6 @@
 										class="main-panel main-panel-padding main-panel-progress pull-right main-panel-inner-half space-sm-8">
 										<div class="_1mbllh6j">
 											<div class="_492uxj4">숙소에 얼마나 많은 인원이 숙박할 수 있나요?</div>
-										</div>
-
-										<div>
 											<div>
 												<div style="margin-bottom: 32px">
 													<div class="_2h22gn">
@@ -502,8 +499,8 @@
 																		<div class="_y9ev9r">
 																			<select id="bedroom-select" name="home_bedroom"
 																				class="_10p0m0gl">
-																				<option value="0" selected="">침실 0개</option>
-																				<option value="1">침실 1개</option>
+																				<option value="0" >침실 0개</option>
+																				<option value="1" selected="selected">침실 1개</option>
 																				<option value="2">침실 2개</option>
 																				<option value="3">침실 3개</option>
 																				<option value="4">침실 4개</option>
@@ -571,7 +568,7 @@
 																							<rect height="2" rx="1" width="12" x="6" y="11"></rect></svg></span>
 																					</button>
 																				</div>
-																				<div aria-hidden="false" class="_zac1rbz">
+																				<div aria-hidden="false" class="_zac1rbz" >
 
 																					<input class="_1n57hdr7" id=bedcount
 																						name="home_bed" value="0" readonly="readonly">
@@ -604,11 +601,11 @@
 													<span>침대 유형</span>
 												</h3>
 											</div>
-											<div class="page-container-full">
+											<div class="page-container-full" >
 												<div id="room_0"
 													class="beddetail-item-container no-margin-h row beddetail-item-container-last">
 
-													<div>
+													<div  id="firstdiv">
 														<div class="col-sm-12 no-padding-h">
 															<div class="beddetail-item-selectors-group">
 																<div class="space-3 beddetail-item-selector">
@@ -631,7 +628,7 @@
 																						</div>
 																					</div>
 																					<div class="_ni9axhe">
-																						<div class="_1fb7ddvw">
+																						<div class="_1fb7ddvw" id="firstdoublediv">
 																							<div class="_7eamzqx">
 																								<button type="button" disabled=""
 																									id="doubledown" class="_qz4lhy5"
@@ -645,7 +642,7 @@
 																												y="11"></rect></svg></span>
 																								</button>
 																							</div>
-																							<div aria-hidden="true" class="_zac1rbz">
+																							<div aria-hidden="true" class="_zac1rbz" >
 
 																								<input class="_1n57hdr7" id=doublecount
 																									name="double_bed" value="0" readonly="readonly">
@@ -690,7 +687,7 @@
 																						</div>
 																					</div>
 																					<div class="_ni9axhe">
-																						<div class="_1fb7ddvw">
+																						<div class="_1fb7ddvw" id="firstqueendiv">
 																							<div class="_7eamzqx">
 																								<button type="button" disabled="" id=queendown
 																									class="_qz4lhy5" aria-busy="false">
@@ -703,7 +700,7 @@
 																												y="11"></rect></svg></span>
 																								</button>
 																							</div>
-																							<div aria-hidden="true" class="_zac1rbz">
+																							<div aria-hidden="true" class="_zac1rbz" >
 
 																								<input class="_1n57hdr7" id=queencount
 																									name="queen_bed" value="0" readonly="readonly">
@@ -728,6 +725,7 @@
 																		</div>
 																	</div>
 																</div>
+																
 																<div class="space-3 beddetail-item-selector">
 																	<div class="_1ik5bx6">
 																		<div class="_42uiotg">
@@ -748,7 +746,7 @@
 																						</div>
 																					</div>
 																					<div class="_ni9axhe">
-																						<div class="_1fb7ddvw">
+																						<div class="_1fb7ddvw" id="firstsinglediv">
 																							<div class="_7eamzqx">
 																								<button type="button" disabled=""
 																									id="singledown" class="_qz4lhy5"
@@ -762,7 +760,7 @@
 																												y="11"></rect></svg></span>
 																								</button>
 																							</div>
-																							<div aria-hidden="true" class="_zac1rbz">
+																							<div aria-hidden="true" class="_zac1rbz" >
 																							
 																								<input class="_1n57hdr7" id=singlecount
 																									name="single_bed" value="0" readonly="readonly">
@@ -788,119 +786,14 @@
 																	</div>
 																</div>
 																
-																<div class="space-3 beddetail-item-selector">
-																	<div class="_1ik5bx6">
-																		<div class="_42uiotg">
-																			<div role="group"
-																				aria-labelledby="StepIncrementerRow-title-king_bed-beddetail-select">
-																				<div class="_2930ex">
-																					<div class="_10ejfg4u">
-																						<div class="_mke2gl1">
-																							<div
-																								id="StepIncrementerRow-title-king_bed-beddetail-select">
-																								<div class="_1n57hdr7">킹</div>
-																							</div>
-																							<div
-																								id="StepIncrementerRow-subtitle-king_bed-beddetail-select"
-																								class="_1pjh0qr">
-																								<div class="_1nhodd4u">폭 180~220cm</div>
-																							</div>
-																						</div>
-																					</div>
-																					<div class="_ni9axhe">
-																						<div class="_1fb7ddvw">
-																							<div class="_7eamzqx">
-																								<button type="button" class="_qz4lhy5"
-																									id="kingdown" aria-busy="false" disabled="">
-																									<span class="_gemu6jr"><svg
-																											viewBox="0 0 24 24" role="img"
-																											aria-label="subtract, 킹 침대 0개"
-																											focusable="false"
-																											style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-																										<rect height="2" rx="1" width="12" x="6"
-																												y="11"></rect></svg></span>
-																								</button>
-																							</div>
-																							<div aria-hidden="true" class="_zac1rbz">
-																								
-																								<input class="_1n57hdr7" id=kingcount
-																									name="king_bed" value="0" readonly="readonly">
-																							</div>
-																							<div class="_1a72ixey">
-																								<button type="button" class="_qz4lhy5"
-																									id="kingup" aria-busy="false">
-																									<span class="_1rwjd1n1"><svg
-																											viewBox="0 0 24 24" role="img"
-																											aria-label="add, 킹 침대 0개" focusable="false"
-																											style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-																										<rect height="2" rx="1" width="12" x="6"
-																												y="11"></rect>
-																										<rect height="12" rx="1" width="2" x="11"
-																												y="6"></rect></svg></span>
-																								</button>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<!-- <div class="space-3 beddetail-item-selector">
-																<div class="_1ik5bx6">
-																	<div class="_42uiotg">
-																		<div role="group"
-																			aria-labelledby="StepIncrementerRow-title-floor_mattress-beddetail-select">
-																			<div class="_2930ex">
-																				<div class="_10ejfg4u">
-																					<div class="_mke2gl1">
-																						<div
-																							id="StepIncrementerRow-title-floor_mattress-beddetail-select">
-																							<div class="_1n57hdr7">매트 리스</div>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="_ni9axhe">
-																					<div class="_1fb7ddvw">
-																						<div class="_7eamzqx">
-																							<button type="button" disabled="" id="matrixdown"
-																								class="_qz4lhy5" aria-busy="false">
-																								<span class="_gemu6jr"><svg
-																										viewBox="0 0 24 24" role="img"
-																										aria-label="subtract, 매트리스 0개"
-																										focusable="false"
-																										style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-																										<rect height="2" rx="1" width="12" x="6"
-																											y="11"></rect></svg></span>
-																							</button>
-																						</div>
-																						<div aria-hidden="true" class="_zac1rbz">
-																							<div class="_1n57hdr7" id="matrixcount">0</div>
-																						</div>
-																						<div class="_1a72ixey">
-																							<button type="button" class="_qz4lhy5"
-																								id="matrixup" aria-busy="false">
-																								<span class="_1rwjd1n1"><svg
-																										viewBox="0 0 24 24" role="img"
-																										aria-label="add, 매트리스  0개" focusable="false"
-																										style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-																										<rect height="2" rx="1" width="12" x="6"
-																											y="11"></rect>
-																										<rect height="12" rx="1" width="2" x="11"
-																											y="6"></rect></svg></span>
-																							</button>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div> -->
-
-
+																
 															</div>
 														</div>
+														
+													</div>
+													
+													<div id="foreach">
+																
 													</div>
 												</div>
 											</div>
@@ -961,6 +854,7 @@
 												</div>
 											</div>
 										</div>
+										
 									</div>
 								</div>
 							</form>
@@ -1025,13 +919,13 @@
 		$("#peopledis").click(function() {
 			var intmax = parseInt($("#pcount").val());
 
-			if (intmax > 1) {
+			if (intmax > 2) {
 				intmax = intmax - 1;
 				$("#pcount").val(intmax);
 				$("#peopleup").attr("disabled", false);
 			} else {
 				$("#peopledis").attr("disabled", true);
-				$("#pcount").val(0);
+				$("#pcount").val(1);
 			}
 
 		});
@@ -1078,198 +972,780 @@
 			}
 		});
 
-		$("#doubledown").click(function() {
-			var doubleh = parseInt($("#doublecount").text());
-			if (doubleh > 1) {
-				$("#doubleup").attr("disabled", false);
-				doubleh = doubleh - 1;
-				$("#doublecount").text(doubleh);
-			} else {
-				$("#doublecount").text(doubleh - 1);
-				$("#doubledown").attr("disabled", true);
-			}
-		});
-
-		$("#doubleup").click(function() {
-			var doubleh = parseInt($("#doublecount").text());
-			if (doubleh < 19) {
-				$("#doubledown").attr("disabled", false);
-				doubleh = doubleh + 1;
-				$("#doublecount").text(doubleh);
-			} else if (doubleh = 19) {
-				$("#doublecount").text(doubleh + 1);
-				$("#doubleup").attr("disabled", true);
-			}
-		});
-
-		$("#queendown").click(function() {
-			var countd = parseInt($("#queencount").text());
-			if (countd > 1) {
-				countd = countd - 1;
-				$("#queencount").text(countd);
-				$("#queenup").attr("disabled", false);
-			} else {
-				$("#queencount").text(countd - 1);
-				$("#queendown").attr("disabled", true);
-			}
-		});
-
-		$("#queenup").click(function() {
-			var countd = parseInt($("#queencount").text());
-			if (countd < 19) {
-				countd = countd + 1;
-				$("#queencount").text(countd);
-				$("#queendown").attr("disabled", false);
-			} else if (countd = 19) {
-				$("#queencount").text(countd + 1);
-				$("#queenup").attr("disabled", true);
-			}
-		});
-
-		$("#singledown").click(function() {
-			var countd = parseInt($("#singlecount").text());
-			if (countd > 1) {
-				countd = countd - 1;
-				$("#singlecount").text(countd);
-				$("#singleup").attr("disabled", false);
-			} else {
-				$("#singlecount").text(countd - 1);
-				$("#singledown").attr("disabled", true);
-			}
-		});
-
-		$("#singleup").click(function() {
-			var countd = parseInt($("#singlecount").text());
-			if (countd < 19) {
-				countd = countd + 1;
-				$("#singlecount").text(countd);
-				$("#singledown").attr("disabled", false);
-			} else if (countd = 19) {
-				$("#singlecount").text(countd + 1);
-				$("#singleup").attr("disabled", true);
-			}
-		});
-
-		$("#sofadown").click(function() {
-			var countd = parseInt($("#sofacount").text());
-			if (countd > 1) {
-				countd = countd - 1;
-				$("#sofacount").text(countd);
-				$("#sofaup").attr("disabled", false);
-			} else {
-				$("#sofacount").text(countd - 1);
-				$("#sofadown").attr("disabled", true);
-			}
-		});
-
-		$("#sofaup").click(function() {
-			var countd = parseInt($("#sofacount").text());
-			if (countd < 19) {
-				countd = countd + 1;
-				$("#sofacount").text(countd);
-				$("#sofadown").attr("disabled", false);
-			} else if (countd = 19) {
-				$("#sofacount").text(countd + 1);
-				$("#sofaup").attr("disabled", true);
-			}
-		});
-
-		$("#kingdown").click(function() {
-			var countd = parseInt($("#kingcount").text());
-			if (countd > 1) {
-				countd = countd - 1;
-				$("#kingcount").text(countd);
-				$("#kingup").attr("disabled", false);
-			} else {
-				$("#kingcount").text(countd - 1);
-				$("#kingdown").attr("disabled", true);
-			}
-		});
-
-		$("#kingup").click(function() {
-			var countd = parseInt($("#kingcount").text());
-			if (countd < 19) {
-				countd = countd + 1;
-				$("#kingcount").text(countd);
-				$("#kingdown").attr("disabled", false);
-			} else if (countd = 19) {
-				$("#kingcount").text(countd + 1);
-				$("#kingup").attr("disabled", true);
-			}
-		});
-
-		$("#matrixdown").click(function() {
-			var countd = parseInt($("#matrixcount").text());
-			if (countd > 1) {
-				countd = countd - 1;
-				$("#matrixcount").text(countd);
-				$("#matrixup").attr("disabled", false);
-			} else {
-				$("#matrixcount").text(countd - 1);
-				$("#matrixdown").attr("disabled", true);
-			}
-		});
-
-		$("#matrixup").click(function() {
-			var countd = parseInt($("#matrixcount").text());
-			if (countd < 19) {
-				countd = countd + 1;
-				$("#matrixcount").text(countd);
-				$("#matrixdown").attr("disabled", false);
-			} else if (countd = 19) {
-				$("#matrixcount").text(countd + 1);
-				$("#matrixup").attr("disabled", true);
-			}
-		});
-
-		$("#seconddown").click(function() {
-			var countd = parseInt($("#secoundcount").text());
-			if (countd > 1) {
-				countd = countd - 1;
-				$("#secoundcount").text(countd);
-				$("#secondup").attr("disabled", false);
-			} else {
-				$("#secoundcount").text(countd - 1);
-				$("#seconddown").attr("disabled", true);
-			}
-		});
-
-		$("#secondup").click(function() {
-			var countd = parseInt($("#secoundcount").text());
-			if (countd < 19) {
-				countd = countd + 1;
-				$("#secoundcount").text(countd);
-				$("#seconddown").attr("disabled", false);
-			} else if (countd = 19) {
-				$("#secoundcount").text(countd + 1);
-				$("#secondup").attr("disabled", true);
-			}
-		});
+		
 
 		$("#bathroomdown").click(function() {
-			var countd = parseInt($("#bathroomcount").text());
+			var countd = parseInt($("#bathroomcount").val());
 			if (countd > 1) {
 				countd = countd - 1;
-				$("#bathroomcount").text(countd);
+				$("#bathroomcount").val(countd);
 				$("#bathroomup").attr("disabled", false);
 			} else {
-				$("#bathroomcount").text(countd - 1);
+				$("#bathroomcount").val(countd - 1);
 				$("#bathroomdown").attr("disabled", true);
 			}
 		});
 
 		$("#bathroomup").click(function() {
-			var countd = parseInt($("#bathroomcount").text());
+			var countd = parseInt($("#bathroomcount").val());
 			if (countd < 19) {
 				countd = countd + 1;
-				$("#bathroomcount").text(countd);
+				$("#bathroomcount").val(countd);
 				$("#bathroomdown").attr("disabled", false);
 			} else if (countd = 19) {
-				$("#bathroomcount").text(countd + 1);
+				$("#bathroomcount").val(countd + 1);
 				$("#bathroomup").attr("disabled", true);
 			}
 		});
+		
+		/*     $("#property-type-group").change(function() {
+		var gaybar = $("#property-type-group").val();
+		if(gaybar != "0"){
+			$("#property-type-category").attr("class","_10p0m0gl");
+			$("#property-type-category").attr("disabled",false);
+			$("#pickme").css("fill","#484848");
+		}
+		if(gaybar == "apartments"){
+			$.ajax({
+				url:"listrecall.do",
+				type:"post",
+				data:{val:gaybar},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					//$("#response").text(response);
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});		
+		}else if(gaybar == "houses"){			
+		}else if(gaybar == "secondary_units"){
+		}else if(gaybar == "unique_homes"){
+		}else if(gaybar == "bnb"){
+		}else if(gaybar == "boutique_hotels_and_more"){
+		}
+	}); */
+	
+	$("#bedroom-select").on({
+		change: function() {
+			var bedrooms =  $("#bedroom-select").val();
+			$.ajax({
+				url:"bedrooms.host",
+				type:"get",
+				data:{val:bedrooms},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					//$("#response").text(response);
+					var bedroomcount = response[0].homeval;
+					if(bedroomcount == 0){
+						$("#firstdiv").html(" ");
+/* 						$("#firstdoublediv").html(" ");
+						$("#firstqueendiv").html(" ");
+						$("#firstsinglediv").html(" "); */
+					}else if (bedroomcount == 1){
+						
+						createfirstdiv();
+						
+						/* $("#firstdoublediv").html(" <div class=\"_7eamzqx\">"
+								+"<button type=\"button\" disabled=\"\" "
+									+"id=\"doubledown\" class=\"_qz4lhy5\" "
+									+"aria-busy=\"false\">"
+									+"<span class=\"_gemu6jr\"><svg "
+											+"viewBox=\"0 0 24 24\" role=\"img\" "
+											+"aria-label=\"subtract, 더블 침대 0개\" "
+											+"focusable=\"false\" "
+											+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+										+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+												+"y=\"11\"></rect></svg></span> "
+								+"</button>"
+							+"</div>"
+							+"<div aria-hidden=\"true\" class=\"_zac1rbz\" >"
 
+								+"<input class=\"_1n57hdr7\" id=\"doublecount\" "
+									+"name=\"double_bed\" value=\"0\" readonly=\"readonly\">"
+							+"</div>"
+							+"<div class=\"_1a72ixey\">"
+								+"<button type=\"button\" class=\"_qz4lhy5\" "
+									+"id=\"doubleup\" aria-busy=\"false\">"
+									+"<span class=\"_1rwjd1n1\"><svg "
+											+" viewBox=\"0 0 24 24\" role=\"img\" "
+											+" aria-label=\"add, 더블 침대 0개\" focusable=\"false\" "
+											+" style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+										+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+												+" y=\"11\"></rect> "
+										+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+												+"y=\"6\"></rect></svg></span> "
+								+"</button>"
+							+"</div>");
+						$("#firstqueendiv").html(" <div class=\"_7eamzqx\"> "
+								+"<button type=\"button\" disabled=\"\" id=queendown "
+								+"class=\"_qz4lhy5\" aria-busy=\"false\"> "
+								+"<span class=\"_gemu6jr\"><svg "
+										+"viewBox=\"0 0 24 24\" role=\"img\" "
+										+"aria-label=\"subtract, 퀸 침대 0개\" "
+										+"focusable=\"false\" "
+										+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\">"
+									+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+											+"y=\"11\"></rect></svg></span>"
+							+"</button>"
+						+"</div>"
+						+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "
+							+"<input class=\"_1n57hdr7\" id=queencount "
+								+"name=\"queen_bed\" value=\"0\" readonly=\"readonly\"> "
+						+"</div>"
+						+"<div class=\"_1a72ixey\">"
+							+"<button type=\"button\" class=\"_qz4lhy5\" "
+								+"id=\"queenup\" aria-busy=\"false\"> "
+								+"<span class=\"_1rwjd1n1\"><svg "
+										+"viewBox=\"0 0 24 24\" role=\"img\" "
+										+"aria-label=\"add, 퀸 침대 0개\" focusable=\"false\" "
+										+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+									+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+											+"y=\"11\"></rect>"
+									+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+											+"y=\"6\"></rect></svg></span> "
+							+"</button>"
+						+"</div>" );
+						$("#firstsinglediv").html(" <div class=\"_7eamzqx\"> "
+								+"<button type=\"button\" disabled=\"\" "
+									+"id=\"singledown\" class=\"_qz4lhy5\" "
+									+"aria-busy=\"false\"> "
+									+"<span class=\"_gemu6jr\"><svg "
+											+"viewBox=\"0 0 24 24\" role=\"img\" "
+											+"aria-label=\"subtract, 싱글 침대 0개\" "
+											+"focusable=\"false\""
+											+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+										+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+												+"y=\"11\"></rect></svg></span>"
+								+"</button>"
+							+"</div>"
+							+"<div aria-hidden=\"true\" class=\"_zac1rbz\" >"						
+								+"<input class=\"_1n57hdr7\" id=singlecount "
+									+"name=\"single_bed\" value=\"0\" readonly=\"readonly\"> "
+							+"</div>"
+							+"<div class=\"_1a72ixey\">"
+								+"<button type=\"button\" class=\"_qz4lhy5\" "
+									+"id=\"singleup\" aria-busy=\"false\">"
+									+"<span class=\"_1rwjd1n1\"><svg "
+											+"viewBox=\"0 0 24 24\" role=\"img\" "
+											+"aria-label=\"add, 싱글 침대 0개\" focusable=\"false\" "
+											+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+										+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+												+"y=\"11\"></rect>"
+										+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+												+"y=\"6\"></rect></svg></span>"
+								+"</button>"
+							+"</div>" ); */
+							$("#foreach").html(" ");
+						btnefc();
+						
+					}else if (bedroomcount >= 2){
+						createfirstdiv();
+							$("#foreach").html(" ")
+							
+						for(var i=2; i <= bedroomcount ;i++){
+							
+							$("#foreach").html($("#foreach").html()+"<div><p>"+i+"번째 침실</p></div>"
+									+"<div class=\"col-sm-12 no-padding-h\"> "
+									+"<div class=\"beddetail-item-selectors-group\">"
+									+"<div class=\"space-3 beddetail-item-selector\">"
+										+"<div class=\"_1ik5bx6\">"
+											+"<div class=\"_42uiotg\">"
+												+"<div role=\"group\" "
+													+"aria-labelledby=\"StepIncrementerRow-title-double_bed-beddetail-select\">"
+													+"<div class=\"_2930ex\">"
+														+"<div class=\"_10ejfg4u\">"
+															+"<div class=\"_mke2gl1\">"
+																+"<div "
+																	+"id=\"StepIncrementerRow-title-double_bed-beddetail-select\">"
+																	+"<div class=\"_1n57hdr7\">더블</div>"
+																+"</div>"
+																+"<div "
+																	+"id=\"StepIncrementerRow-subtitle-double_bed-beddetail-select\" "
+																	+"class=\"_1pjh0qr\">"
+																	+"<div class=\"_1nhodd4u\">폭 125~149cm</div>"
+																+"</div>"
+															+"</div>"
+														+"</div>"
+														+"<div class=\"_ni9axhe\">"
+															+"<div class=\"_1fb7ddvw\" id=\"firstdoublediv\">"
+																+"<div class=\"_7eamzqx\">"
+																	+"<button type=\"button\" disabled=\"\" "
+																		+"id=\"doubledown"+i+"\" class=\"_qz4lhy5\" "
+																		+"aria-busy=\"false\">"
+																		+"<span class=\"_gemu6jr\"><svg "
+																				+"viewBox=\"0 0 24 24\" role=\"img\" "
+																				+"aria-label=\"subtract, 더블 침대 0개\" "
+																				+"focusable=\"false\" "
+																				+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+																			+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+																					+"y=\"11\"></rect></svg></span> "
+																	+"</button>"
+																+"</div>"
+																+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "
+
+																	+"<input class=\"_1n57hdr7\" id=\"doublecount"+i+"\" "
+																		+"name=\"double_bed\" value=\"0\" readonly=\"readonly\"> "
+																+"</div>"
+																+"<div class=\"_1a72ixey\">"
+																	+"<button type=\"button\" class=\"_qz4lhy5\" "
+																		+"id=\"doubleup"+i+"\" aria-busy=\"false\"> "
+																		+"<span class=\"_1rwjd1n1\"><svg "
+																				+"viewBox=\"0 0 24 24\" role=\"img\" "
+																				+"aria-label=\"add, 더블 침대 0개\" focusable=\"false\" "
+																				+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+																			+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+																					+"y=\"11\"></rect> "
+																			+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+																					+"y=\"6\"></rect></svg></span> "
+																	+"</button>"
+																+"</div>"
+															+"</div>"
+														+"</div>"
+													+"</div>"
+												+"</div>"
+											+"</div>"
+										+"</div>"
+									+"</div>"
+									+"<div class=\"space-3 beddetail-item-selector\">"
+										+"<div class=\"_1ik5bx6\">"
+											+"<div class=\"_42uiotg\">"
+												+"<div role=\"group\" "
+													+"aria-labelledby=\"StepIncrementerRow-title-queen_bed-beddetail-select\">"
+													+"<div class=\"_2930ex\">"
+														+"<div class=\"_10ejfg4u\">"
+															+"<div class=\"_mke2gl1\">"
+																+"<div "
+																	+"id=\"StepIncrementerRow-title-queen_bed-beddetail-select\">"
+																	+"<div class=\"_1n57hdr7\">퀸</div>"
+																+"</div>"
+																+"<div "
+																	+"id=\"StepIncrementerRow-subtitle-queen_bed-beddetail-select\" "
+																	+"class=\"_1pjh0qr\">"
+																	+"<div class=\"_1nhodd4u\">폭 150~179cm</div>"
+																+"</div>"
+															+"</div>"
+														+"</div>"
+														+"<div class=\"_ni9axhe\">"
+															+"<div class=\"_1fb7ddvw\" id=\"firstqueendiv\">"
+																+"<div class=\"_7eamzqx\">"
+																	+"<button type=\"button\" disabled=\"\" id=queendown"+i+" " 
+																		+"class=\"_qz4lhy5\" aria-busy=\"false\"> "
+																		+"<span class=\"_gemu6jr\"><svg "
+																				+"viewBox=\"0 0 24 24\" role=\"img\" "
+																				+"aria-label=\"subtract, 퀸 침대 0개\" "
+																				+"focusable=\"false\" "
+																				+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+																			+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+																					+"y=\"11\"></rect></svg></span>"
+																	+"</button>"
+																+"</div>"
+																+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "
+
+																	+"<input class=\"_1n57hdr7\" id=\"queencount"+i+"\" "
+																		+"name=\"queen_bed\" value=\"0\" readonly=\"readonly\"> "
+																+"</div>"
+																+"<div class=\"_1a72ixey\"> "
+																	+"<button type=\"button\" class=\"_qz4lhy5\" "
+																		+"id=\"queenup"+i+"\" aria-busy=\"false\">"
+																		+"<span class=\"_1rwjd1n1\"><svg "
+																				+"viewBox=\"0 0 24 24\" role=\"img\" "
+																				+"aria-label=\"add, 퀸 침대 0개\" focusable=\"false\" "
+																				+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+																			+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+																					+"y=\"11\"></rect> "
+																			+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+																					+"y=\"6\"></rect></svg></span> "
+																	+"</button>"
+																+"</div>"
+															+"</div>"
+														+"</div>"
+													+"</div>"
+												+"</div>"
+											+"</div>"
+										+"</div>"
+									+"</div>"
+									+"<div class=\"space-3 beddetail-item-selector\">"
+										+"<div class=\"_1ik5bx6\">"
+											+"<div class=\"_42uiotg\">"
+												+"<div role=\"group\" "
+													+"aria-labelledby=\"StepIncrementerRow-title-single_bed-beddetail-select\">"
+													+"<div class=\"_2930ex\">"
+														+"<div class=\"_10ejfg4u\">"
+															+"<div class=\"_mke2gl1\">"
+																+"<div "
+																	+"id=\"StepIncrementerRow-title-single_bed-beddetail-select\">"
+																	+"<div class=\"_1n57hdr7\">싱글</div>"
+																+"</div>"
+																+"<div "
+																	+"id=\"StepIncrementerRow-subtitle-single_bed-beddetail-select\" "
+																	+"class=\"_1pjh0qr\"> "
+																	+"<div class=\"_1nhodd4u\">폭 80~109cm</div> "
+																+"</div>"
+															+"</div>"
+														+"</div>"
+														+"<div class=\"_ni9axhe\">"
+															+"<div class=\"_1fb7ddvw\" id=\"firstsinglediv\">"
+																+"<div class=\"_7eamzqx\">"
+																	+"<button type=\"button\" disabled=\"\" "
+																		+"id=\"singledown"+i+"\" class=\"_qz4lhy5\" "
+																		+"aria-busy=\"false\"> "
+																		+"<span class=\"_gemu6jr\"><svg "
+																				+"viewBox=\"0 0 24 24\" role=\"img\" "
+																				+"aria-label=\"subtract, 싱글 침대 0개\" "
+																				+"focusable=\"false\" "
+																				+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+																			+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+																					+"y=\"11\"></rect></svg></span> "
+																	+"</button>"
+																+"</div>"
+																+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "								
+																	+"<input class=\"_1n57hdr7\" id=\"singlecount"+i+"\" "
+																		+"name=\"single_bed\" value=\"0\" readonly=\"readonly\"> "
+																+"</div>" 
+																+"<div class=\"_1a72ixey\"> "
+																	+"<button type=\"button\" class=\"_qz4lhy5\" "
+																		+"id=\"singleup"+i+"\" aria-busy=\"false\">"
+																		+"<span class=\"_1rwjd1n1\"><svg "
+																				+"viewBox=\"0 0 24 24\" role=\"img\" "
+																				+"aria-label=\"add, 싱글 침대 0개\" focusable=\"false\" "
+																				+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+																			+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+																					+"y=\"11\"></rect> "
+																			+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+																					+"y=\"6\"></rect></svg></span> "
+																	+"</button>"
+																+"</div>"
+															+"</div>"
+														+"</div>"
+													+"</div>"
+												+"</div>"
+											+"</div>"
+										+"</div>"
+									+"</div>"
+									
+								+"</div>"
+							+"</div>" );
+							
+							
+							
+						}
+						
+						for(var i=2; i <= bedroomcount ;i++){
+							
+							scriptlist(i);
+								
+						}
+						
+						btnefc();
+					}
+					
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});	
+		}
+	});
+	
+	
+	$("#doubledowns").click(function() {
+		var countd = parseInt($("#doubledowns").text());
+		if (countd > 1) {
+			countd = countd - 1;
+			$("#sofacount").val(countd);
+			$("#sofaup").attr("disabled", false);
+		} else {
+			$("#sofacount").val(countd - 1);
+			$("#sofadown").attr("disabled", true);
+		}
+	});
+
+	$("#doubleups").click(function() {
+		var countd = parseInt($("#sofacount").text());
+		if (countd < 19) {
+			countd = countd + 1;
+			$("#sofacount").text(countd);
+			$("#sofadown").attr("disabled", false);
+		} else if (countd = 19) {
+			$("#sofacount").text(countd + 1);
+			$("#sofaup").attr("disabled", true);
+		}
+	});
+	
+	function btnefc() {
+		
+	$("#doubledown").click(function() {
+		var doubleh = parseInt($("#doublecount").val());
+		if (doubleh > 1) {
+			$("#doubleup").attr("disabled", false);
+			doubleh = doubleh - 1;
+			$("#doublecount").val(doubleh);
+		} else {
+			$("#doublecount").val(doubleh - 1);
+			$("#doubledown").attr("disabled", true);
+		}
+	});
+
+	$("#doubleup").click(function() {
+		var doubleh = parseInt($("#doublecount").val());
+		if (doubleh < 19) {
+			$("#doubledown").attr("disabled", false);
+			doubleh = doubleh + 1;
+			$("#doublecount").val(doubleh);
+		} else if (doubleh = 19) {
+			$("#doublecount").val(doubleh + 1);
+			$("#doubleup").attr("disabled", true);
+		}
+	});
+
+	$("#queendown").click(function() {
+		var countd = parseInt($("#queencount").val());
+		if (countd > 1) {
+			countd = countd - 1;
+			$("#queencount").val(countd);
+			$("#queenup").attr("disabled", false);
+		} else {
+			$("#queencount").val(countd - 1);
+			$("#queendown").attr("disabled", true);
+		}
+	});
+
+	$("#queenup").click(function() {
+		var countd = parseInt($("#queencount").val());
+		if (countd < 19) {
+			countd = countd + 1;
+			$("#queencount").val(countd);
+			$("#queendown").attr("disabled", false);
+		} else if (countd = 19) {
+			$("#queencount").val(countd + 1);
+			$("#queenup").attr("disabled", true);
+		}
+	});
+
+	$("#singledown").click(function() {
+		var countd = parseInt($("#singlecount").val());
+		if (countd > 1) {
+			countd = countd - 1;
+			$("#singlecount").val(countd);
+			$("#singleup").attr("disabled", false);
+		} else {
+			$("#singlecount").val(countd - 1);
+			$("#singledown").attr("disabled", true);
+		}
+	});
+
+	$("#singleup").click(function() {
+		var countd = parseInt($("#singlecount").val());
+		if (countd < 19) {
+			countd = countd + 1;
+			$("#singlecount").val(countd);
+			$("#singledown").attr("disabled", false);
+		} else if (countd = 19) {
+			$("#singlecount").val(countd + 1);
+			$("#singleup").attr("disabled", true);
+		}
+	});
+	
+	
+	}
+	
+	function addlist(i) {
+		
+	}
+	
+	function scriptlist(i) {
+		$("#doubledown"+i+"").click(function() {
+			var doubleh = parseInt($("#doublecount"+i+"").val());
+			if (doubleh > 1) {
+				$("#doubleup"+i+"").attr("disabled", false);
+				doubleh = doubleh - 1;
+				$("#doublecount"+i+"").val(doubleh);
+			} else {
+				$("#doublecount"+i+"").val(doubleh - 1);
+				$("#doubledown"+i+"").attr("disabled", true);
+			}
+		});
+
+		$("#doubleup"+i+"").click(function() {
+			var doubleh = parseInt($("#doublecount"+i+"").val());
+			if (doubleh < 19) {
+				$("#doubledown"+i+"").attr("disabled", false);
+				doubleh = doubleh + 1;
+				$("#doublecount"+i+"").val(doubleh);
+			} else if (doubleh = 19) {
+				$("#doublecount"+i+"").val(doubleh + 1);
+				$("#doubleup"+i+"").attr("disabled", true);
+			}
+		});
+
+		$("#queendown"+i+"").click(function() {
+			var countd = parseInt($("#queencount"+i+"").val());
+			if (countd > 1) {
+				countd = countd - 1;
+				$("#queencount"+i+"").val(countd);
+				$("#queenup"+i+"").attr("disabled", false);
+			} else {
+				$("#queencount"+i+"").val(countd - 1);
+				$("#queendown"+i+"").attr("disabled", true);
+			}
+		});
+
+		$("#queenup"+i+"").click(function() {
+			var countd = parseInt($("#queencount"+i+"").val());
+			if (countd < 19) {
+				countd = countd + 1;
+				$("#queencount"+i+"").val(countd);
+				$("#queendown"+i+"").attr("disabled", false);
+			} else if (countd = 19) {
+				$("#queencount"+i+"").val(countd + 1);
+				$("#queenup"+i+"").attr("disabled", true);
+			}
+		});
+
+		$("#singledown"+i+"").click(function() {
+			var countd = parseInt($("#singlecount"+i+"").val());
+			if (countd > 1) {
+				countd = countd - 1;
+				$("#singlecount"+i+"").val(countd);
+				$("#singleup"+i+"").attr("disabled", false);
+			} else {
+				$("#singlecount"+i+"").val(countd - 1);
+				$("#singledown"+i+"").attr("disabled", true);
+			}
+		});
+
+		$("#singleup"+i+"").click(function() {
+			var countd = parseInt($("#singlecount"+i+"").val());
+			if (countd < 19) {
+				countd = countd + 1;
+				$("#singlecount"+i+"").val(countd);
+				$("#singledown"+i+"").attr("disabled", false);
+			} else if (countd = 19) {
+				$("#singlecount"+i+"").val(countd + 1);
+				$("#singleup"+i+"").attr("disabled", true);
+			}
+		});
+	}
+	
+	function createfirstdiv() {
+		$("#firstdiv").html(" <div class=\"col-sm-12 no-padding-h\"> "
+				+"<div class=\"beddetail-item-selectors-group\">"
+		+"<div class=\"space-3 beddetail-item-selector\">"
+			+"<div class=\"_1ik5bx6\">"
+				+"<div class=\"_42uiotg\">"
+					+"<div role=\"group\" "
+						+"aria-labelledby=\"StepIncrementerRow-title-double_bed-beddetail-select\">"
+						+"<div class=\"_2930ex\">"
+							+"<div class=\"_10ejfg4u\">"
+								+"<div class=\"_mke2gl1\">"
+									+"<div "
+										+"id=\"StepIncrementerRow-title-double_bed-beddetail-select\">"
+										+"<div class=\"_1n57hdr7\">더블</div>"
+									+"</div>"
+									+"<div "
+										+"id=\"StepIncrementerRow-subtitle-double_bed-beddetail-select\" "
+										+"class=\"_1pjh0qr\">"
+										+"<div class=\"_1nhodd4u\">폭 125~149cm</div>"
+									+"</div>"
+								+"</div>"
+							+"</div>"
+							+"<div class=\"_ni9axhe\">"
+								+"<div class=\"_1fb7ddvw\" id=\"firstdoublediv\">"
+									+"<div class=\"_7eamzqx\">"
+										+"<button type=\"button\" disabled=\"\" "
+											+"id=\"doubledown\" class=\"_qz4lhy5\" "
+											+"aria-busy=\"false\">"
+											+"<span class=\"_gemu6jr\"><svg "
+													+"viewBox=\"0 0 24 24\" role=\"img\" "
+													+"aria-label=\"subtract, 더블 침대 0개\" "
+													+"focusable=\"false\" "
+													+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+												+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+														+"y=\"11\"></rect></svg></span> "
+										+"</button>"
+									+"</div>"
+									+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "
+
+										+"<input class=\"_1n57hdr7\" id=\"doublecount\" "
+											+"name=\"double_bed\" value=\"0\" readonly=\"readonly\"> "
+									+"</div>"
+									+"<div class=\"_1a72ixey\">"
+										+"<button type=\"button\" class=\"_qz4lhy5\" "
+											+"id=\"doubleup\" aria-busy=\"false\"> "
+											+"<span class=\"_1rwjd1n1\"><svg "
+													+"viewBox=\"0 0 24 24\" role=\"img\" "
+													+"aria-label=\"add, 더블 침대 0개\" focusable=\"false\" "
+													+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+												+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+														+"y=\"11\"></rect> "
+												+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+														+"y=\"6\"></rect></svg></span> "
+										+"</button>"
+									+"</div>"
+								+"</div>"
+							+"</div>"
+						+"</div>"
+					+"</div>"
+				+"</div>"
+			+"</div>"
+		+"</div>"
+		+"<div class=\"space-3 beddetail-item-selector\">"
+			+"<div class=\"_1ik5bx6\">"
+				+"<div class=\"_42uiotg\">"
+					+"<div role=\"group\" "
+						+"aria-labelledby=\"StepIncrementerRow-title-queen_bed-beddetail-select\">"
+						+"<div class=\"_2930ex\">"
+							+"<div class=\"_10ejfg4u\">"
+								+"<div class=\"_mke2gl1\">"
+									+"<div "
+										+"id=\"StepIncrementerRow-title-queen_bed-beddetail-select\">"
+										+"<div class=\"_1n57hdr7\">퀸</div>"
+									+"</div>"
+									+"<div "
+										+"id=\"StepIncrementerRow-subtitle-queen_bed-beddetail-select\" "
+										+"class=\"_1pjh0qr\">"
+										+"<div class=\"_1nhodd4u\">폭 150~179cm</div>"
+									+"</div>"
+								+"</div>"
+							+"</div>"
+							+"<div class=\"_ni9axhe\">"
+								+"<div class=\"_1fb7ddvw\" id=\"firstqueendiv\">"
+									+"<div class=\"_7eamzqx\">"
+										+"<button type=\"button\" disabled=\"\" id=queendown " 
+											+"class=\"_qz4lhy5\" aria-busy=\"false\"> "
+											+"<span class=\"_gemu6jr\"><svg "
+													+"viewBox=\"0 0 24 24\" role=\"img\" "
+													+"aria-label=\"subtract, 퀸 침대 0개\" "
+													+"focusable=\"false\" "
+													+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+												+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+														+"y=\"11\"></rect></svg></span>"
+										+"</button>"
+									+"</div>"
+									+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "
+
+										+"<input class=\"_1n57hdr7\" id=\"queencount\" "
+											+"name=\"queen_bed\" value=\"0\" readonly=\"readonly\"> "
+									+"</div>"
+									+"<div class=\"_1a72ixey\"> "
+										+"<button type=\"button\" class=\"_qz4lhy5\" "
+											+"id=\"queenup\" aria-busy=\"false\">"
+											+"<span class=\"_1rwjd1n1\"><svg "
+													+"viewBox=\"0 0 24 24\" role=\"img\" "
+													+"aria-label=\"add, 퀸 침대 0개\" focusable=\"false\" "
+													+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+												+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+														+"y=\"11\"></rect> "
+												+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+														+"y=\"6\"></rect></svg></span> "
+										+"</button>"
+									+"</div>"
+								+"</div>"
+							+"</div>"
+						+"</div>"
+					+"</div>"
+				+"</div>"
+			+"</div>"
+		+"</div>"
+		+"<div class=\"space-3 beddetail-item-selector\">"
+			+"<div class=\"_1ik5bx6\">"
+				+"<div class=\"_42uiotg\">"
+					+"<div role=\"group\" "
+						+"aria-labelledby=\"StepIncrementerRow-title-single_bed-beddetail-select\">"
+						+"<div class=\"_2930ex\">"
+							+"<div class=\"_10ejfg4u\">"
+								+"<div class=\"_mke2gl1\">"
+									+"<div "
+										+"id=\"StepIncrementerRow-title-single_bed-beddetail-select\">"
+										+"<div class=\"_1n57hdr7\">싱글</div>"
+									+"</div>"
+									+"<div "
+										+"id=\"StepIncrementerRow-subtitle-single_bed-beddetail-select\" "
+										+"class=\"_1pjh0qr\"> "
+										+"<div class=\"_1nhodd4u\">폭 80~109cm</div> "
+									+"</div>"
+								+"</div>"
+							+"</div>"
+							+"<div class=\"_ni9axhe\">"
+								+"<div class=\"_1fb7ddvw\" id=\"firstsinglediv\">"
+									+"<div class=\"_7eamzqx\">"
+										+"<button type=\"button\" disabled=\"\" "
+											+"id=\"singledown\" class=\"_qz4lhy5\" "
+											+"aria-busy=\"false\"> "
+											+"<span class=\"_gemu6jr\"><svg "
+													+"viewBox=\"0 0 24 24\" role=\"img\" "
+													+"aria-label=\"subtract, 싱글 침대 0개\" "
+													+"focusable=\"false\" "
+													+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+												+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+														+"y=\"11\"></rect></svg></span> "
+										+"</button>"
+									+"</div>"
+									+"<div aria-hidden=\"true\" class=\"_zac1rbz\" > "								
+										+"<input class=\"_1n57hdr7\" id=\"singlecount\" "
+											+"name=\"single_bed\" value=\"0\" readonly=\"readonly\"> "
+									+"</div>" 
+									+"<div class=\"_1a72ixey\"> "
+										+"<button type=\"button\" class=\"_qz4lhy5\" "
+											+"id=\"singleup\" aria-busy=\"false\">"
+											+"<span class=\"_1rwjd1n1\"><svg "
+													+"viewBox=\"0 0 24 24\" role=\"img\" "
+													+"aria-label=\"add, 싱글 침대 0개\" focusable=\"false\" "
+													+"style=\"height: 1em; width: 1em; display: block; fill: currentcolor;\"> "
+												+"<rect height=\"2\" rx=\"1\" width=\"12\" x=\"6\" "
+														+"y=\"11\"></rect> "
+												+"<rect height=\"12\" rx=\"1\" width=\"2\" x=\"11\" "
+														+"y=\"6\"></rect></svg></span> "
+										+"</button>"
+									+"</div>"
+								+"</div>"
+							+"</div>"
+						+"</div>"
+					+"</div>"
+				+"</div>"
+			+"</div>"
+		+"</div>"
+		
+	+"</div>"
++"</div>" );
+	}
+	
+	
+	$("#kingdown").click(function() {
+		var countd = parseInt($("#kingcount").val());
+		if (countd > 1) {
+			countd = countd - 1;
+			$("#kingcount").text(countd);
+			$("#kingup").attr("disabled", false);
+		} else {
+			$("#kingcount").text(countd - 1);
+			$("#kingdown").attr("disabled", true);
+		}
+	});
+
+	$("#kingup").click(function() {
+		var countd = parseInt($("#kingcount").val());
+		if (countd < 19) {
+			countd = countd + 1;
+			$("#kingcount").text(countd);
+			$("#kingdown").attr("disabled", false);
+		} else if (countd = 19) {
+			$("#kingcount").text(countd + 1);
+			$("#kingup").attr("disabled", true);
+		}
+	});
+	
 		$("#nextpg").click(function() {
 			//$(location).attr("href","fore.host");
 			$("#bedbath").submit();
