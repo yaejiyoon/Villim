@@ -61,7 +61,7 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public int updateHomeStateHome(List<String> arr) {
-		String sql = "update home set home_state=? where reservation_seq=?";
+		String sql = "update home set payment_state=? where reservation_seq=?";
 		System.out.println(arr + "daoImpl");
 		int result = 0 ;
 		int count = 0;
@@ -69,7 +69,9 @@ public class AdminDAOImpl implements AdminDAO{
 		String seq = arr.get(i).split(":")[0];
 		String val = arr.get(i).split(":")[1];
 		
-		result = jdbcTemplate.update(sql, val, seq);
+		if(val.equals("이체성공")) {
+		result = jdbcTemplate.update(sql, "3", seq);
+		}
 		
 		if(result>0) {
 			
@@ -81,7 +83,7 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		}
 		}
-		return 0;
+		return count;
 		
 	}
 

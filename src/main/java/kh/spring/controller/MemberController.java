@@ -491,7 +491,9 @@ public class MemberController {
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		
-		session.invalidate();
+		session.removeAttribute("login_email");
+		session.removeAttribute("login_picture");
+		
 		return "redirect:/";
 		
 	}

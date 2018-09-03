@@ -113,14 +113,15 @@
 		overflow: hidden;
 	}
 	#collapseExample{
-	
-		
+
 		
 	}
 	div{
 		
-		color:blue;
+	
 	}
+		
+
 	#navi{
 		display:inline-block;
 		width:15%;
@@ -199,7 +200,33 @@
 	#payChkModal .modal-dialog{
 		width:80%;
 	}
-
+	
+	tr{
+	
+		
+	}
+	td{
+	   
+		padding-top: 1%;
+		padding-bottom:1%;
+	}
+	th{
+	    
+	 	border-bottom-width:1px;
+	 	border-bottom-style:groove;
+	 	border-bottom-color:#d8e7ff;
+		padding-top: 0.5%;
+		padding-bottom:0.5%;
+		text-align:center;	
+	}
+/* 	tr:hover{
+		background-color: #c6d8f4;
+		
+	} */
+ 	tr:nth-child(2n) {
+		background-color: #d8e7ff;
+	}
+ */
 </style>	
 <script>
 /* $("#slide").animate({width:'toggle'},350); */
@@ -223,14 +250,14 @@ $(document).ready(function(){
 			
 			success : function(response) {
 				html += "<tr>"
-				html += "<td>회원번호";
-				html += "<td>이메일";
-				html += "<td>이름";
-				html += "<td>생년월일";
+				html += "<th><h4><strong>회원번호</strong></h4>";
+				html += "<th><h4><strong>이메일</strong></h4>";
+				html += "<th><h4><strong>이름</strong></h4>";
+				html += "<th><h4><strong>생년월일</strong></h4>";
 				/* html += "<td>프로필"; */
-				html += "<td>차단여부";
-				html += "<td>가입 날짜";
-				html += "<td>주소";
+				html += "<th><h4><strong>차단여부</strong></h4>";
+				html += "<th><h4><strong>가입 날짜</strong></h4>";
+				html += "<th><h4><strong>주소</strong></h4>";
 				html += "</tr>"
 				for(var i=0; i<response.length; i++){					
 				/* 	$("#table").after("<tr>"); */
@@ -251,18 +278,18 @@ $(document).ready(function(){
 				/* 	$("#table").after("/<tr>"); */
 					
 						  html += "<tr>";
-						  html += "<td>"+ response[i].member_seq;
-						  html += "<td>" + response[i].member_email;
-						  html += "<td>" + response[i].member_name;
-						  html += "<td>" + response[i].member_birth;
+						  html += "<td style='text-align:center'>"+ response[i].member_seq;
+						  html += "<td style='text-align:center'>" + response[i].member_email;
+						  html += "<td style='text-align:center'>" + response[i].member_name;
+						  html += "<td style='text-align:center'>" + response[i].member_birth;
 						  /* html += "<td>" + response[i].member_picture; */
 						  if(response[i].member_block == 'N'){
-							    html += "<td><select id="+response[i].member_seq+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>";
+							    html += "<td style='text-align:center'><select id="+response[i].member_seq+"><option value='N' selected='selected'>N</option><option value='Y'>Y</option></select>";
 						  }else{
-							    html +=	"<td><select id="+response[i].member_seq+"><option value='N'>N</option><option value='Y' selected='selected'>Y</option></select>";
+							    html +=	"<td style='text-align:center'><select id="+response[i].member_seq+"><option value='N'>N</option><option value='Y' selected='selected'>Y</option></select>";
 						  }
-						  html += "<td>" + response[i].member_date;
-					      html += "<td>" + response[i].member_location;
+						  html += "<td style='text-align:center'>" + response[i].member_date;
+					      html += "<td style='text-align:left'>" + response[i].member_location;
 
 					   	  html += "</tr>";
 					    
@@ -328,34 +355,35 @@ $(document).ready(function(){
 			success : function(response) {
 				alert(response);
 					html += "<tr>"
-					html += "<td>예약번호";
-					html += "<td>예약자이메일";
-					html += "<td>예약자명";
-					html += "<td>호스트이메일";
-					html += "<td>호스트명";
-					html += "<td>체크인";
-					html += "<td>체크아웃";
-					html += "<td>결제금액";
-					html += "<td>결제날짜";
-					html += "<td>이체상태";
+					html += "<th><h4><strong>예약번호</strong></h4>";
+					html += "<th><h4><strong>예약자이메일</strong></h4>";
+					html += "<th><h4><strong>예약자명</strong></h4>";
+					html += "<th><h4><strong>호스트이메일</strong></h4>";
+					html += "<th><h4><strong>호스트명</strong></h4>";
+					html += "<th><h4><strong>체크인</strong></h4>";
+					html += "<th><h4><strong>체크아웃</strong></h4>";
+					html += "<th><h4><strong>결제금액</strong></h4>";
+					html += "<th><h4><strong>결제날짜</strong></h4>";
+					html += "<th><h4><strong>이체상태</strong></h4>";
 					html += "</tr>"
 					for(var i=0; i<response.length; i++){
 						
 						  html += "<tr>";
-						  html += "<td>"+ response[i].reservation_seq;
-						  html += "<td>" + response[i].r_member_email;
-						  html += "<td>" + response[i].r_member_name;
-						  html += "<td>" + response[i].h_member_email;
-						  html += "<td>" + response[i].h_member_name;
-						  html += "<td>" + response[i].check_in;
-						  html += "<td>" + response[i].check_out;
-						  html += "<td>" + response[i].payment_amount;
-						  html += "<td>" + response[i].payment_date;
+						  html += "<td style='text-align:center'>"+ response[i].reservation_seq;
+						  html += "<td style='text-align:center'>" + response[i].r_member_email;
+						  html += "<td style='text-align:center'>" + response[i].r_member_name;
+						  html += "<td style='text-align:center'>" + response[i].h_member_email;
+						  html += "<td style='text-align:center'>" + response[i].h_member_name;
+						  html += "<td style='text-align:center'>" + response[i].check_in;
+						  html += "<td style='text-align:center'>" + response[i].check_out;
+						  html += "<td style='text-align:center'>" + response[i].payment_amount;
+						  html += "<td style='text-align:center'>" + response[i].payment_date;
 						  
 						  if(response[i].payment_state == '0'){
-							    html += "<td id='sendtd'><button id="+response[i].reservation_seq+">이체하기</button>";
+						  html += "<td id='sendtd' style='text-align:center'><a id="+response[i].reservation_seq+"><i class='fas fa-hand-holding-usd'></i></a>";
+
 						  }else{
-							    html +=	"<td>이체완료";
+							    html +=	"<td style='text-align:center'>이체완료";
 						  }
 					   	  html += "</tr>";
 				
@@ -363,7 +391,7 @@ $(document).ready(function(){
 						
 					}
 					
-					$("button").click(function(){
+					$("sendtd > a").click(function(){
 						alert($(this).attr('id'));
 						alert("asads");
 						var IMP = window.IMP; // 생략가능
@@ -416,7 +444,7 @@ $(document).ready(function(){
 							success : function(response) {
 				
 							alert(response);
-							currentarray.splice(0, currentarray.length);
+							sendarray.splice(0, sendarray.length);
 							}
 				
 						})
@@ -441,15 +469,50 @@ $(document).ready(function(){
 
  	
  	$(function poll() {
+ 		var reporthtml ='';
 	    $.ajax({
 	        url: 'mainPolling.admin',
 	        type: 'post',
 	       
 	        success: function(response) {
-	           
+	        	if(response.length > 0){
+	        	$("#reportIcon").append("<span class='badge' style='wi' id='reportCount'></span>");	
 	        	$("#reportCount").html(response.length);
-	        	$("#reportMessage").html("<a style='margin-right:10%;'>새로운 신고가 " + response.length + "건 있습니다.</a>");
+	        	$("#reportMessage").html("<a style='margin-right:10%;' id='newReport'>새로운 신고가 " + response.length + "건 있습니다.</a>");
 	        	
+	        	$("#newReport").click(function(){
+	        		alert("123");
+	        		$("#reportModal").modal('show');
+	        		reporthtml += "<tr>"
+	        		reporthtml += "<th><h4><strong>신고번호</strong></h4>"
+	        		reporthtml += "<th><h4><strong>신고자 이메일</strong></h4>"
+	        		reporthtml += "<th><h4><strong>신고자 이름</strong></h4>"
+	        		reporthtml += "<th><h4><strong>가해자 이메일</strong></h4>"
+	        		reporthtml += "<th><h4><strong>가해자 이름</strong></h4>"
+	        		reporthtml += "<th><h4><strong>신고 사유</strong></h4>"
+	        		reporthtml += "<th><h4><strong>신고 날짜</strong></h4>"
+	        		reporthtml += "<tr>"
+	        		for(var r=0; r<response.length; r++){
+	        			
+	        			reporthtml += "<tr>"
+	        			reporthtml += "<td style='text-align:center'>" + response[r].report_seq
+	        			reporthtml += "<td style='text-align:center'>" + response[r].report_email
+	        			reporthtml += "<td style='text-align:center'>" + response[r].report_name
+	        			reporthtml += "<td style='text-align:center'>" + response[r].reported_email
+	        			reporthtml += "<td style='text-align:center'>" + response[r].reported_name
+	        			reporthtml += "<td style='text-align:center'>" + response[r].report_reason
+	        			reporthtml += "<td style='text-align:center'>" + response[r].report_date
+	        			reporthtml += "<tr>"
+	        		}
+	        		
+	        		$("#newReportTab").html(reporthtml);
+	        		
+	        	})
+	        	
+	        	}else{
+	        		$("#reportIcon").append("");	
+		       	
+	        	}
 	        },
 	        timeout: 3000,
 	        complete: setTimeout(function() { poll(); }, 10000)
@@ -574,7 +637,7 @@ $(document).ready(function(){
 		<a id="btn"><i class="fas fa-align-justify fa-2x"></i></a>
 		<div class="dropdown" style="display: inline-block; margin-right:2%;">
 		<a style="margin-right:1%;" data-target="dropdown-menu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
- 		 <i class="fas fa-envelope fa-2x"></i> <span class="badge" style="wi" id="reportCount"></span>
+ 		 <i class="fas fa-envelope fa-2x" id="reportIcon"></i> 
 			
 		</a>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -647,7 +710,7 @@ $(document).ready(function(){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body" style="overflow: auto;">
- 		<table class="table table-striped" id="memberTable">
+ 		<table class="table table-hover" id="memberTable">
 		</table>
       </div>
       <div class="modal-footer">
@@ -677,14 +740,33 @@ $(document).ready(function(){
 </div>
 
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width:80%;">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
- 		<table class="table table-striped" id="payTable">
-		</table>
+ 		<div role="tabpanel">
+
+  		<!-- Nav tabs -->
+  		<ul class="nav nav-tabs" role="tablist">
+    		<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+    		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+    	
+ 		</ul>
+
+  <!-- Tab panes -->
+  	<div class="tab-content">
+    	<div role="tabpanel" class="tab-pane active" id="home">
+    		<table class="table table-striped" id="newReportTab">
+				
+			</table>
+    	</div>
+    	<div role="tabpanel" class="tab-pane" id="profile">
+    	
+    	</div>
+    </div>
+
+</div>
       </div>
       <div class="modal-footer">
 
@@ -692,6 +774,9 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+
+
+
 
 </body>
 </html>

@@ -373,9 +373,9 @@ public class ManagerController {
 			System.out.println("새로운 메세지가 없습니다.");
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			String msg = "notmsg";
+			
 			try {
-				new Gson().toJson(msg, response.getWriter());
+				new Gson().toJson(result, response.getWriter());
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -385,7 +385,9 @@ public class ManagerController {
 	@RequestMapping("mainLogout.admin")
 	public String mainLogout(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		
-		session.invalidate();
+		session.removeAttribute("admin_name");
+		session.removeAttribute("admin_number");
+		
 		return "redirect:/manager.admin";
 		
 	}
