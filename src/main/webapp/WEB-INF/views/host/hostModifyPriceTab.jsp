@@ -17,8 +17,6 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
-<title>편의시설 수정 탭</title>
-
 <style>
 div {
 	box-sizing: border-box;
@@ -61,34 +59,15 @@ div {
 }
 
 .wrapper-sub-title {
-	font-size: 20px;
+	font-size: 18px;
 	margin-top: 30px;
-	margin-bottom: 30px;
 }
 
 .line {
 	border: 0.5px solid #E6E6E6;
 	display: inline-block;
 	width: 100%;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-.wrap-title1, .wrap-title2 {
-	font-size: 16px;
-	margin-bottom: 10px;
-}
-
-.wrap-title2 {
-	margin-top: 30px;
-}
-
-.wrap {
-	width: 100%;
-}
-
-.wrap-sub {
-	width: 60%;
+	margin-top: 20px;
 }
 
 .btn-group {
@@ -111,7 +90,6 @@ div {
 }
 </style>
 
-<title>Insert title here</title>
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
@@ -126,60 +104,69 @@ div {
 					<a onclick="history.back()">${hdto.home_name } 수정으로 돌아가기</a>
 				</div>
 			</div>
-			<div class="wrapper-sub-title">
-				<b>숙박 기간</b>
-			</div>
-
-			<form id="submit" action=hostReserveModifyNightProc.do method=post>
-
-				<div class=wrap-title1>
-					<b>최소 숙박일</b>
+			<form id="submit" action="hostModifyPriceProc.do" method="post">
+				<div class="wrapper-sub-title">
+					<b style="font-size: 20px;">1박 요금</b>
 				</div>
-				<div class=wrap>
-					<div class=wrap-sub>
-						<input type=number id="min" class="form-control input-lg" name=home_min_stay
-							value=${hdto.home_min_stay }> <span>박</span>
+
+				<div style="margin-top: 40px;">
+					<div style="margin-bottom: 10px;">
+						<b>기본 요금</b>
+					</div>
+					<div id="price-wrap">
+							<input id="price" type="number" required="required" class="form-control"
+								name="home_price" style="width: 80%; padding: 0;">
 					</div>
 				</div>
-
-				<div class=wrap-title2>
-					<b>최대 숙박일</b>
-				</div>
-				<div class=wrap>
-					<div class=wrap-sub>
-						<input type=number id="max" class="form-control input-lg" name=home_max_stay
-							value=${hdto.home_max_stay }> <span>박</span>
-					</div>
-				</div>
-
 				<nav class="navbar navbar-default navbar-fixed-bottom"
 					style="width: 70%; height: 12%; margin: 0 auto;">
 					<div class="container">
 						<div class="btn-group">
-							<button type="button" id="save" class="btn btn-lg save">저장</button>
-							<button type="button" id="cancel" class="btn btn-lg cancel"
+							<button id="save" type="button" class="btn btn-lg save">저장</button>
+							<button type="button" class="btn btn-lg cancel"
 								onclick="history.back()">취소</button>
 						</div>
 					</div>
 				</nav>
-
-				<input type=hidden name=seq value=${hdto.home_seq }>
+				<input type="hidden" name="home_seq" value="${hdto.home_seq }">
 			</form>
 			<script>
-				$('#save').click(function(){
-					if($('#min').val()==" "){
-						alert("aa");
-						$('#min').val(0);
-					}
-					if($('#max').val()==" "){
-						$('#max').val(0);
-					}
-					document.getElementById('submit').submit();
+				$(document).ready(function() {
+					var output;
+					$('#save').prop("disabled", true);
+				
+					$("#price").on('keyup', function(){
+						if($('#price').val()==""){
+							if($('#price-sub').length<=0){
+								$('#price').css("border", '1.5px solid red');
+								output="<div id='price-sub' style='color:red;'>기본 요금은  필수 입력 사항입니다.</div>"
+								$('#price-wrap').after(output);
+							}
+						}else{
+							$('#price-sub').remove();
+						}
+						
+						if($('#price').val() <= 10000){
+							if($('#price-sub').length<=0){
+								output="<div id='price-sub' style='color:red;'>10,000 이상의 기본요금을 사용하세요.</div>"
+								$('#price').css("border", '1.5px solid red');
+								$('#price-wrap').after(output);
+								$('#save').prop("disabled", true);
+							}
+						}else{
+							$('#price-sub').remove();				
+							$('#price').css("border", '1px solid black');
+							$('#save').prop("disabled", false);
+							
+							$('#save').click(function(){
+								document.getElementById('submit').submit();
+							})
+						}
+					})
+					
 				})
-			
 			</script>
 		</div>
 	</div>
-
 </body>
 </html>

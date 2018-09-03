@@ -216,11 +216,23 @@ href="<c:url value="../../resources/css/home/test.css" />" />
    
    <div id="info-wrapper">
       <div id="info-contents">
-         <div id="info-contents-photo">
-         	<img src="<c:url value='files/${hdto.home_main_pic}'/>" >
-         	
-         	
-         	<!-- 사진보기-->
+
+			<!-- 인형스 -->
+			<c:if test="${param.sep == 0 }">
+				<div class="row" style="height: 70px; background-color: #008489; text-align: center;">
+					<span class="col-md-6" style="font-size: 16px; margin-top:22px; color: white;"> 미리보기 모드: 게스트에게 보이는 숙소 화면입니다. </span> 
+					<span class="col-md-6"><button style="background-color:#008489; color: white; border: 2px solid white"
+							class="btn btn-lg">숙소 수정</button></span>
+				</div>
+			</c:if>
+			<!-- 인형스 -->
+
+
+			<div id="info-contents-photo">
+         	<img src="<c:url value='../resources/img/home.jpg'/>" >
+
+
+				<!-- 사진보기-->
          	
          	<div>
             	<ul id="lightgallery" class="list-unstyled row ">
@@ -271,6 +283,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                				<span>집 전체</span>
                				<h2 style="color:black; margin-top:2px;">
                				${hdto.home_name}
+							안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕안녕
+               				<c:if test="${param.sep==0 }">
+	               				( <a style="color:#008489;" href="hostHomeTab.do?seq=${param.seq}">숙소 수정하기</a> )
+               				</c:if>
                				</h2>
                				<span> ${hdto.home_nation }, ${hdto.home_addr1 }, ${hdto.home_addr2 }</span>
                				<br>

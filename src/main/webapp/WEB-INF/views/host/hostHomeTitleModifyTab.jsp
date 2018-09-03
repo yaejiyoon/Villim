@@ -216,7 +216,7 @@ textarea {
 					</div>
 					<div>숙소 이름을 한국어로 입력하세요.</div>
 					<div class="title-wrap-sub2">
-						<input type="text" class="form-control" name="home_name" value="${hdto.home_name }">
+						<input id="hname" type="text" class="form-control" name="home_name" value="${hdto.home_name }">
 					</div>
 				</div>
 
@@ -331,17 +331,18 @@ textarea {
 			style="width: 70%; height: 12%; margin: 0 auto;">
 			<div class="container">
 				<div class="btn-group">
-					<button class="btn btn-lg save">저장</button>
+					<button id="save" class="btn btn-lg save">저장</button>
 					<button type="button" class="btn btn-lg cancel"
 						onclick="history.back()">취소</button>
 				</div>
 			</div>
-		</nav>
+		</nav>  
 				
 				<input type="hidden" name="home_desc_seq" value="${hddto.home_desc_seq }">
 				<input type="hidden" name="home_seq" value="${hdto.home_seq }">
 			</form>
 		</div>
 	</div>
+
 </body>
 </html>
