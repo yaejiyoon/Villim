@@ -1128,7 +1128,6 @@ public class HomeInfoController {
 		LikeyListDTO likeyListDTO = new LikeyListDTO();
 		likeyListDTO.setLikeyList_name(likeyListName);
 		likeyListDTO.setMember_email(member_email);
-		likeyListDTO.setHome_seq(home_seq);
 		
 		
 		int addLikeyListResult = likeyService.insertData(likeyListDTO);
