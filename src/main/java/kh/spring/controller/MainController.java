@@ -43,12 +43,16 @@ public class MainController {
 
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	private HomeService homeService;
 
 
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView welcome(HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
+		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
 
 		//---재호
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
@@ -58,7 +62,7 @@ public class MainController {
 		mav.addObject("google_url", url);
 		//---
 		session.setAttribute("googleUrl", url);
-		mav.addObject("result","result");
+		mav.addObject("homeList", homeList);
 		mav.setViewName("index");
 		return mav;
 	}

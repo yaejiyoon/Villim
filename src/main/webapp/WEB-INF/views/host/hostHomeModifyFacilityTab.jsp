@@ -385,7 +385,7 @@ input[type=checkbox] {
 						var str = accarr[i];
 						console.log("str:::"+str)  
 						$("input[value="+str+"]").prop("checked", true);
-s					}
+				}
 				}
 			}
 			for (var i = 0; i < amenarr.length; i++) {

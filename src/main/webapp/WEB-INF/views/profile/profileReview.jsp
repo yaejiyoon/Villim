@@ -23,7 +23,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>후기</title>
 <style>
 
@@ -486,18 +486,18 @@ $(document).ready(function(){
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"
-			style="font-size: 18px; position: relative; top: -24px; left: 0px; color: gray; text-decoration: none;">프로필
-			수정</a> <a
-			style="font-size: 19px; position: relative; top: 23px; left: -100px; color: gray; font-weight: bold;text-decoration:none;">후기</a>
+			style="font-size: 18px; position: relative;  top: -24px; left: -2vw;  color: gray; text-decoration: none;">프로필
+			수정</a> 
+			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -6vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
 		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; width: 150px; text-decoration: none; font-weight: bold;"
+			style="position: relative; left: -150px; top: 80px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
 
 
 	</div>
 
 	<div class="container"
-		style="position: relative; left: 130px; top: -20px; width: 60%; height: 1000px;">
+		style="position: relative; left: 130px; top: -20px; width: 50%; height: 1000px;">
 		<div class="row">
 			<div class="col-md-12">
 
@@ -524,7 +524,7 @@ $(document).ready(function(){
 									</div>
 									
 								
-									<div class="panel-body">
+									<div class="panel-body" style="height:auto;">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
 										
 										
@@ -649,15 +649,13 @@ $(document).ready(function(){
                                       <%--  <fmt:formatDate var="checkoutDate" value="${info.reserv_checkout}" pattern="yyyy-mm-dd"/>
                                        <c:set var="today" value="<%=new java.util.Date() %>"/>
                                        <fmt:formatDate var="today" value="${today}"  pattern="yyyy-mm-dd"/> --%>
+										<c:choose>
+										<c:when test="${not empty result}">
 										<c:forEach items="${result}" var="info">
 										
 										<%-- <c:if test="${today.date-checkoutDate<=14}"> --%> 
 								
-												 
-												
-												
-												
-												
+											
 	<ul id="comments-list" class="comments-list">
 			<li>
 				<div class="comment-main-level" style="width:auto;">
@@ -682,12 +680,15 @@ $(document).ready(function(){
 				</div>
 				</li>
 				</ul>
-                   <%-- </c:if>     --%>                     
+                                    
                     </c:forEach>
-	                                              <!-- else 현재 작성할 후기가 없습니다. 여행을 한번 다녀올 때가 된 것 같네요! -->
-                                                  
-
-									
+	                          </c:when>
+	                          <c:otherwise>
+	                          현재 작성할 후기가 없습니다. 여행을 한번 다녀올 때가 된 것 같네요!
+	                          </c:otherwise>             
+	                          </c:choose>
+	                              
+                                 
 									</div>
 								</div>
 
@@ -697,8 +698,9 @@ $(document).ready(function(){
 											후기</h3>
 									</div>
 									<div class="panel-body">
-									
-						<!-- if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)  -->
+								<c:choose>	
+								<c:when test="${not empty guestReviewresult}">
+						
 										<c:forEach items="${guestReviewresult}" var="review">			
 
           	<ul id="comments-list" class="comments-list">
@@ -720,12 +722,16 @@ $(document).ready(function(){
           
           
           </c:forEach>
-          
+          </c:when>
+          <c:otherwise>
+          아직 후기를 남기지 않으셨습니다.
+          </c:otherwise>
+          </c:choose>
            
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-offset-2"></div>
 										</div>
-										<!-- else 작성한후기 없다면 : 아직 후기를 남기지 않으셨습니다. -->
+										
 									</div>
 								</div>
 

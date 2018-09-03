@@ -40,7 +40,7 @@ select * from message where message_room_seq=#{message_room_seq}
 	<select id="messageRoomSeqExist" resultType="MessageRoom">
 		select
 		message_room_seq from message_room where host_email=#{host_email} and
-		guest_email=#{guest_email} and home_seq=#{home_seq}
+		guest_email=#{guest_email} <!-- and home_seq=#{home_seq} -->
 	</select>
 
 	<select id="getRoomSeq" resultType="int">
@@ -73,7 +73,13 @@ select * from message where message_room_seq=#{message_room_seq}
 			separator="," open="(" close=")">
 			#{item}
 		</foreach>
-		order by member_email
+		order by decode(member_email,
+		<foreach collection="list" item="item" index="index"
+			separator="," >
+			#{item},#{index}
+		</foreach> 
+		     )
+		
 	</select>
 
 	<select id="msgRoomInfo" resultType="MessageRoom">
@@ -115,7 +121,7 @@ select * from message where message_room_seq=#{message_room_seq}
 	</select>
 
 	<select id="reservCheck" resultType="Reservation">
-		select * from reservation where member_email=#{member_email} and
+		select * from reservation where member_email=#{member_email} and host_email=#{host_email} and
 		home_seq=#{home_seq}
 	</select>
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import kh.spring.dto.AccountDTO;
 import kh.spring.dto.BedDTO;
 import kh.spring.dto.GuestReviewDTO;
 import kh.spring.dto.HomeDTO;
@@ -16,6 +17,7 @@ import kh.spring.dto.HomeDescDTO;
 import kh.spring.dto.HomePicDTO;
 import kh.spring.dto.HostReviewDTO;
 import kh.spring.dto.MessageDTO;
+import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeDAO;
 
@@ -249,47 +251,10 @@ public class HomeDAOImpl implements HomeDAO {
 		return jdbcTemplate.update(sql, hdto.getHome_policy(), hdto.getHome_seq());
 	}
 
-	// ----------------지혜-----------------
-	@Override
-	public int updateBlockedDate(String blockedDate, int home_seq) {
-		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
-		return jdbcTemplate.update(sql, blockedDate, home_seq);
-	}
 	
-	@Override
-	public BedDTO getBedData(int home_seq) {
-		return ssTemplate.selectOne("Home.getBedData",home_seq);
-	}
-
-	// 예지
-
-	@Override
-	public List<HomeDTO> getAllHomeDataMain() {
-		return ssTemplate.selectList("Home.getAllHomeDataMain");
-	}
-
-	@Override
-	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-		return ssTemplate.selectList("Home.getHomeOnMap", param);
-	}
-
-	@Override
-	public List<HomePicDTO> getHomePic() {
-		return ssTemplate.selectList("HomePic.getHomePic");
-	}
-
-	@Override
-	public List<HomeDTO> searchHomeData(List homeTypeList, String homeTypeIsChecked, int people, List dates, String dateIsChecked) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("homeTypeList", homeTypeList);
-		param.put("homeTypeIsChecked", homeTypeIsChecked);
-		param.put("people", people);
-		param.put("dates", dates);
-		param.put("dateIsChecked", dateIsChecked);
-		return ssTemplate.selectList("Home.searchHomeData", param);
-	}
 
 
+	
 	@Override
 	public int modifybed(BedDTO bdto) {
 		String sql = "update bed set bed_single=?, bed_double=?, bed_queen=? where home_seq = ?";
@@ -492,12 +457,115 @@ public class HomeDAOImpl implements HomeDAO {
 		return sb.toString();
 	}
 
+	// ----------------지혜-----------------
+		@Override
+		public int updateBlockedDate(String blockedDate, int home_seq) {
+			String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
+			return jdbcTemplate.update(sql, blockedDate, home_seq);
+		}
+		
+		@Override
+		public BedDTO getBedData(int home_seq) {
+			return ssTemplate.selectOne("Home.getBedData",home_seq);
+		}
+		
+		@Override
+		public int updateBlocked(String blockedDate, int home_seq) {
+			String sql = "update home set home_blocked_date=? where home_seq=?";
+			return jdbcTemplate.update(sql,blockedDate,home_seq);
+		}
+
+		// 예지
+
+		@Override
+		public List<HomeDTO> getAllHomeDataMain() {
+			return ssTemplate.selectList("Home.getAllHomeDataMain");
+		}
+
+		@Override
+		public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+			return ssTemplate.selectList("Home.getHomeOnMap", param);
+		}
+
+		@Override
+		public List<HomePicDTO> getHomePic() {
+			return ssTemplate.selectList("HomePic.getHomePic");
+		}
 	
 	@Override
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return ssTemplate.selectList("Home.modalHomeData", param);
 	}
 
+	@Override
+	public List<HomeDTO> getParis() {
+		return ssTemplate.selectList("Home.getParis");
+	}
+	
+	@Override
+	public List<HomeDTO> getNewyork() {
+		return ssTemplate.selectList("Home.getNewyork");
+	}
+	
+	@Override
+	public List<HomeDTO> getRome() {
+		return ssTemplate.selectList("Home.getRome");
+	}
+	
+	@Override
+	public List<HomeDTO> getLondon() {
+		return ssTemplate.selectList("Home.getLondon");
+	}
+	
+	@Override
+	public List<HomeDTO> getPraha() {
+		return ssTemplate.selectList("Home.getLondon");
+	}
+	
+	@Override
+	public List<HomeDTO> getMadrid() {
+		return ssTemplate.selectList("Home.getMadrid");
+	}
+
+	@Override
+	public List<AccountDTO> getAllAccount(String member_email) {
+		return ssTemplate.selectList("Home.getAllAccount", member_email);
+	}
+
+	@Override
+	public int insertAccount(AccountDTO adto) {
+		String sql = "insert into account values(account_seq.nextval, ?,?,?)";
+		return jdbcTemplate.update(sql, adto.getHost_email(), adto.getAccount_bank(), adto.getAccount_number());
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPayment(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getAllPayment", map);
+	}
+
+	@Override
+	public int deleteBed(int home_seq) {
+		String sql = "delete from bed where home_seq = ?";
+		return jdbcTemplate.update(sql, home_seq);
+				
+	}
+
+	@Override
+	public int insertBed(int home_seq, BedDTO bdto) {
+		String sql = "insert into bed values(bed_seq.nextval,?,'','','')";
+		return jdbcTemplate.update(sql, home_seq);
+	}
+
+	@Override
+	public int modifyHomePrice(HomeDTO hdto) {
+		String sql = "update table home set home_price = ? where home_seq = ? ";
+		return jdbcTemplate.update(sql, hdto.getHome_price(), hdto.getHome_seq());
+	}
+
+	@Override
+	public List<PaymentDTO> getGapDate(Map<String, Object> map) {
+		return ssTemplate.selectList("Home.getGapDate", map);
+	}	
 	
 	//---찬연
 

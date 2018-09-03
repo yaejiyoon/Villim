@@ -5,7 +5,7 @@
 <div id="footer">
 		<div id="footer-contents">
 			<div id="contents01" class="contents">
-				<span>에어비엔비</span>
+				<span>빌림</span>
 				<ul>
 					<li><a href="">채용정보</a></li>
 					<li><a href="">미디어</a></li>
@@ -23,7 +23,7 @@
 					<li><a href="">비지니스 프로그램</a></li>
 					<li><a href="">가이드북</a></li>
 					<li><a href="">villimmag</a></li>
-					<li><a href="">에어비앤비 이벤트</a><img src="<c:url value='/resources/img/new.png'/>" style="widht:10px; margin-left: 5px;"></li>
+					<li><a href="">빌림 이벤트</a><img src="<c:url value='/resources/img/new.png'/>" style="widht:10px; margin-left: 5px;"></li>
 					<li><a href="">한국의 변경된 환불 정책</a></li>
 				</ul>
 			</div>

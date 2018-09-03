@@ -3,6 +3,14 @@
 
 
 <script>
+
+$(function () {
+    $(".ddd").click(function () {
+        var my_id_value = $(this).data('id');
+        $(".modal-body #hiddenValue").val(my_id_value);
+    })
+});
+
 $(document).ready(function() {
 	$("#peopledis").click(function() {
 	    var intmax = parseInt($("#pcount").text());
@@ -91,31 +99,32 @@ $(document).ready(function() {
 			peopleBt.style.borderRadius = "10px";
 			var pcountInt = parseInt(pcount);
 			$('#modalPeople').val(pcountInt);
+			
 		});
 		
 		$("#peopleDelete").click(function() {
-// 			var pcount = document.getElementById('peopleBt');
-// 			var peopleBt = document.getElementById('peopleBt');
-// 			peopleBt.innerHTML = "인원";
-// 			peopleBt.style.backgroundColor = 'white';
-// 			peopleBt.style.color = "black";
-// 			peopleBt.style.borderRadius = "0px";
 			$("#pcount").text("0");
 		});
 		
 		$('#peopleSubmit').submit(function() {
+			 var my_id_value = $(this).data('id');
+	         $(".modal-body #hiddenValue").val(my_id_value);
 		    $('#modalPeople').modal('hide');
+		    
 		    return false;
 		});
 		
 		
 	});
+	
+	
+	
 </script>
 <form action="modalPeople.do" method="post">
-      <div class="modal fade" id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-         <div class="modal-dialog" id="peopleDialog">
-            <div class="modal-content">
-               <div class="modal-header" >
+      <div class="modal fade " id="people" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog " id="peopleDialog">
+            <div class="modal-content ">
+               <div class="modal-header " >
                   <button type="button" class="close" data-dismiss="modal">
                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                   </button>

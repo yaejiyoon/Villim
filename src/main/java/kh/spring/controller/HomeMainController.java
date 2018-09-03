@@ -24,7 +24,10 @@ import com.google.gson.Gson;
 
 import kh.spring.dto.HomeDTO;
 import kh.spring.dto.HomePicDTO;
+import kh.spring.dto.LikeyDTO;
+import kh.spring.dto.LikeyListDTO;
 import kh.spring.interfaces.HomeService;
+import kh.spring.interfaces.LikeyService;
 
 @Controller
 public class HomeMainController {
@@ -32,19 +35,64 @@ public class HomeMainController {
 	@Autowired
 	private HomeService homeService;
 	
+	@Autowired
+	private LikeyService likeyService;
+	
 	@RequestMapping("/homeMain.do")
-	public ModelAndView homeMain(HttpSession session) {
+	public ModelAndView homeMain(HttpServletRequest req,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
+		List<HomeDTO> markerList = homeService.getAllHomeDataMain();
+		List<HomeDTO> getParis = homeService.getParis();
+		List<HomeDTO> getNewyork = homeService.getNewyork();
+		List<HomeDTO> getRome = homeService.getRome();
+		List<HomeDTO> getLondon = homeService.getLondon();
+		List<HomeDTO> getPraha = homeService.getPraha();
+		List<HomeDTO> getMadrid = homeService.getMadrid();
 		List<HomePicDTO> homePic = homeService.getHomePic();
+		
+		//하트 버튼
+		String member_email = null;
+		List<LikeyDTO> likeyList = null;
+		List<LikeyListDTO> likeyListLikey = null;
+		List<LikeyDTO> likey = null;
+		
+		if(req.getSession().getAttribute("login_email") != null) {
+			member_email = req.getSession().getAttribute("login_email").toString();
+			likeyList = likeyService.getLikeyData(member_email);
+			likeyListLikey = likeyService.getAlldata(member_email);
+			likey = likeyService.getLikeyData(member_email);
+		}
+		
 		session.setAttribute("homeType", "0");
 		session.setAttribute("people", 0);
 		session.setAttribute("startDate", "0");
+		session.setAttribute("endDate", "0");
+		List dates = new ArrayList<>();
+		dates.add("0");
+		session.setAttribute("dates",dates);
+		session.setAttribute("dateIsChecked", "0");
+		session.setAttribute("minMoney", 0);
+		session.setAttribute("maxMoney", 1001000);
+		session.setAttribute("whole", "");
+		session.setAttribute("one",  "");
+		session.setAttribute("many",  "");
 		mav.addObject("homeList", homeList);
 		mav.addObject("pic", homePic);
+		mav.addObject("likeyList", likeyList);
+		mav.addObject("getParis", getParis);
+		mav.addObject("getNewyork", getNewyork);
+		mav.addObject("getRome", getRome);
+		mav.addObject("getLondon", getLondon);
+		mav.addObject("getPraha", getPraha);
+		mav.addObject("getMadrid", getMadrid);
+		mav.addObject("markerList", markerList);
+		mav.addObject("likeyListLikey", likeyListLikey);
+		mav.addObject("likey", likey);
 		mav.setViewName("home_main");
 		return mav;
 	}
+	
 	
 	@RequestMapping("/search.do")
 	public ModelAndView search(HttpServletRequest request, HttpSession session, String homeType, int people, String lat, String lng, String startDate, String endDate) throws Exception  {
@@ -54,6 +102,9 @@ public class HomeMainController {
 		session.setAttribute("maxMoney", 1001000);
 		session.setAttribute("startDate", startDate);
 		session.setAttribute("endDate", endDate);
+		session.setAttribute("whole", "");
+		session.setAttribute("one",  "");
+		session.setAttribute("many",  "");
 		System.out.println("==============================================");
 		System.out.println("homeType : "+homeType);
 		System.out.println("people : "+people);
@@ -118,8 +169,6 @@ public class HomeMainController {
 		System.out.println("날짜 체크됐니? "+(String)session.getAttribute("dateIsChecked"));
 		System.out.println("startDate 세션값 들어감?? "+(String)session.getAttribute("startDate"));
 		
-		
-//		List<HomeDTO> homeList = homeService.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
 		List<HomePicDTO> homePic = homeService.getHomePic();
 		
 		//////////////////////////////////////////////////////
@@ -144,17 +193,19 @@ public class HomeMainController {
 		param.put("neLng", neLng);
 		
 		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
+		List<HomeDTO> markerList = homeService.getAllHomeDataMain();
 		
 		//////////////////////////////////////////////////
 		
 		mav.addObject("homeList", homeList);
+		mav.addObject("markerList", markerList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");
 		return mav;
 	}
 	
 	@RequestMapping("/mapMove.do")
-	public void mapMove(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws Exception {
+	public void mapMove(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		Double swLat = Double.parseDouble(request.getParameter("swLat"));
 		Double neLat = Double.parseDouble(request.getParameter("neLat"));
@@ -175,9 +226,6 @@ public class HomeMainController {
 		param.put("swLng", swLng);
 		param.put("neLng", neLng);
 		
-		System.out.println("위도 차 : "+(neLat-swLat));
-		System.out.println("경도 차: "+(neLng-swLng));
-		
 		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
 		List<HomePicDTO> homePic = homeService.getHomePic();
 		
@@ -195,7 +243,6 @@ public class HomeMainController {
 	
 	@RequestMapping("/modalPeople.do")
 	public ModelAndView modalPeopleChange(HttpSession session, HttpServletRequest request, int modalPeople) {
-		
 		session.setAttribute("people", modalPeople);
 		List dates = (List) session.getAttribute("dates");
 		
@@ -220,24 +267,44 @@ public class HomeMainController {
 	}
 	
 	@RequestMapping("/modalHomeType.do")
-	public ModelAndView modalHomeTypeChange(HttpSession session, HttpServletRequest request, String homeType) {
+	public ModelAndView modalHomeTypeChange(HttpSession session, HttpServletRequest request, String whole, String one, String many) {
 		
-		if(homeType==null) {
-			homeType="0";
-			session.setAttribute("homeTypeIsChecked", "0");
+		session.setAttribute("homeTypeIsChecked", "0");
+		
+		if(whole!=null||one!=null||many!=null) {
+			session.setAttribute("homeTypeIsChecked", "1");
 		}
 		
-		session.setAttribute("homeTypeIsChecked", "1");
-		
 		List homeTypeList = new ArrayList<>();
-		
-		homeTypeList.add(homeType);
-		
-		session.setAttribute("homeTypeList", homeTypeList);
-		session.setAttribute("homeType", homeType);
 
-		System.out.println("modal로 homeType 바꾸고 나서 list : "+(List) session.getAttribute("homeTypeList"));
-		System.out.println("modal로 homeType 바꾸고 나서 checked : "+(String)session.getAttribute("homeTypeIsChecked"));
+		if(whole!=null) {
+			homeTypeList.add(whole);
+			session.setAttribute("whole", whole);
+		} else {
+			session.setAttribute("whole", "");
+		}
+		
+		if(one!=null) {
+			homeTypeList.add(one);
+			session.setAttribute("one", one);
+		} else {
+			session.setAttribute("one", "");
+		}
+		
+		if(many!=null) {
+			homeTypeList.add(many);
+			session.setAttribute("many", many);
+		} else {
+			session.setAttribute("many", "");
+		}
+		
+		System.out.println("whole "+whole);
+		System.out.println("one "+one);
+		System.out.println("many "+many);
+		
+		
+		session.setAttribute("homeType", "숙소 유형 ·"+ homeTypeList.size());
+		session.setAttribute("homeTypeList", homeTypeList);
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
@@ -328,6 +395,74 @@ public class HomeMainController {
 		mav.setViewName("home_main");
 		return mav;
 		
+	}
+	
+	@RequestMapping("/headerSearch.do")
+	public ModelAndView headerSearch(HttpSession session, HttpServletRequest request) {
+		String lat = request.getParameter("lat");
+		String lng = request.getParameter("lng");
+		System.out.println(lat);
+		System.out.println(lng);
+		
+		session.setAttribute("homeType", "0");
+		session.setAttribute("people", 0);
+		session.setAttribute("minMoney", 0);
+		session.setAttribute("maxMoney", 1001000);
+		session.setAttribute("startDate", "0");
+		session.setAttribute("endDate", "0");
+		session.setAttribute("whole", "");
+		session.setAttribute("one",  "");
+		session.setAttribute("many",  "");
+
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("mapOn", "mapOn");
+		mav.addObject("lat", lat);
+		mav.addObject("lng", lng);
+
+		List homeTypeList = new ArrayList<>();
+		homeTypeList.add("0");
+		String homeTypeIsChecked = "0";
+		session.setAttribute("homeTypeList", homeTypeList);
+		session.setAttribute("homeTypeIsChecked", homeTypeIsChecked);
+
+		List dates = new ArrayList<>();
+		dates.add("0");
+		String dateIsChecked = "0";
+		session.setAttribute("dates", dates);
+		session.setAttribute("dateIsChecked", dateIsChecked);
+
+		
+
+		Double currentLat = Double.parseDouble(lat);
+		Double currentLng = Double.parseDouble(lng);
+		Double swLat = currentLat-0.024;
+		Double neLat = currentLat+0.024;
+		Double swLng = currentLng-0.27396753;
+		Double neLng = currentLng+0.27396753;
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", (String) session.getAttribute("homeType"));
+		param.put("people", session.getAttribute("people"));
+		param.put("dates", (List) session.getAttribute("dates"));
+		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
+		param.put("minMoney", (int) session.getAttribute("minMoney"));
+		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		param.put("swLat", swLat);
+		param.put("neLat", neLat);
+		param.put("swLng", swLng);
+		param.put("neLng", neLng);
+		
+		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
+		List<HomeDTO> markerList = homeService.getHomeOnMap(param);
+		List<HomePicDTO> homePic = homeService.getHomePic();
+
+		mav.addObject("homeList", homeList);
+		mav.addObject("markerList", markerList);
+		mav.addObject("pic", homePic);
+		mav.setViewName("home_main");
+		return mav;
 	}
 	
 	

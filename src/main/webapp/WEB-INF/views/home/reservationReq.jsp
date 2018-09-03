@@ -89,7 +89,7 @@
 						<div id="content01-homeName">
 							<p>${hdto.home_name }</p>
 							<p>${hdto.home_addr1 }, ${hdto.home_addr2 }의 ${hdto.home_type }</p>
-							<p>★★★★★</p><p>후기 137개</p>
+							<p>★★★★★</p><p>후기 ${starCount }개</p>
 							<p></p>
 						</div>
 						<div id="content01-homepic">

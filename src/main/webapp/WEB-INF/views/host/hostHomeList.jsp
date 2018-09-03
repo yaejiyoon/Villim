@@ -105,7 +105,6 @@
 	height: 100%;
 	display: inline-block;
 	float: left;
-	border: 1px solid black;
 }
 
 #pic-wrap {

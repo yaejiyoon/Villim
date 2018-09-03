@@ -33,13 +33,13 @@
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
-
+<link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <title>${guest_name}님과의 대화</title>
 <style>
-@font-face {
+/* @font-face {
         font-family: font;
         src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
-   }
+   } */
 .card {
 	transition: 0.3s;
 	width: 18vw;
@@ -252,10 +252,6 @@
 }
 
 
-/* * {
-  margin: 0px;
-  padding: 0px;
-} */
 
 .box1 {
   width: 300px;
@@ -268,6 +264,8 @@
   color: #595858;
   font-family: arial;
   position: relative;
+  
+  
 }
 
 
@@ -278,12 +276,14 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 10px solid #e2e2e2;
+  
+  border-left: 10px solid #fff2f2;
   border-right: 10px solid transparent;
-  border-top: 10px solid #e2e2e2;
+  border-top: 10px solid #fff2f2;
   border-bottom: 10px solid transparent;
   right: -21px;
   top: 6px;
+ 
 }
 
 .sb5:after {
@@ -291,12 +291,13 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 7px solid #e2e2e2;
+  border-left: 7px solid #fff2f2;
   border-right: 7px solid transparent;
-  border-top: 7px solid #e2e2e2;
+  border-top: 7px solid #fff2f2;
   border-bottom: 7px solid transparent;
   right: -11px;
   top: 10px;
+  
 }
 
 
@@ -337,7 +338,7 @@
     border: 1.3px solid #e8e8e8;
     transition: 0.3s;
     width: 30%;
-    height:26vh;
+    height:35vh;
     margin: 0 auto;
     position:relative;
     left:10vw;
@@ -413,13 +414,96 @@ select::-ms-expand {
 /* calender */
 
 .my-class{
-background:#ff5a5f;
-color:black;
+background:#bcbcbc;
+color:#848484;
 font-weight:800;
 
 }
-.my-class:hover{
-background-color: none;
+.datepicker-here{
+  /* pointer-events: none; */
+}
+
+
+.unactive {
+  display:none;
+}
+
+.invisible {
+  display:none;
+}
+
+ul li {
+  color: #918f8f;
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 100px;
+}
+ul li input[type="radio"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+ul li label {
+  display: block;
+  position: relative;
+  font-weight: 400;
+  font-size: 1.5em;
+  padding: 25px 25px 25px 80px;
+  margin: 10px auto;
+  height: 30px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+ul li:hover label {
+  color: #918f8f;
+}
+
+ul li .radiobutton {
+  display: block;
+  position: absolute;
+  border: 4px solid #918f8f;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  top: 30px;
+  left: 20px;
+  transition: border 0.25s linear;
+  -webkit-transition: border 0.25s linear; 
+}
+
+ ul li:hover .radiobutton {
+  border: 4px solid #918f8f;
+}
+
+ul li .radiobutton::before {
+  display: block;
+  position: absolute;
+  content: "";
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  top: 5px;
+  left: 5px;
+  margin: auto;
+  transition: background 0.25s linear;
+  -webkit-transition: background 0.25s linear;
+}
+input[type="radio"]:checked ~ .radiobutton::before {
+  background: #333333;
+  margin: auto;
+  transition: background 0.25s linear;
+  -webkit-transition: background 0.25s linear;
+}
+input[type="radio"]:checked ~ .radiobutton {
+  border: 4px solid #333333;
+}
+
+input[type="radio"]:checked ~ label {
+  color: #333333;
 }
 </style>
 <script>
@@ -467,6 +551,24 @@ $(document).ready(function(){
   				
   				
   			})
+  			
+  	
+  	$("#reservRejectBT").click(function(){
+  		
+  		var reservation_seq = $("#hiddenValue").val();
+  		alert(reservation_seq);
+  		
+  		$.ajax({
+			url:"rejectResev.re",
+			type:"post",
+			data:{
+				reservation_seq: reservation_seq
+			},
+			success:function(resp){
+				location.reload();
+			}
+		})
+  	})
 	
 })
 </script>
@@ -479,7 +581,7 @@ $(document).ready(function(){
 		
 
 <div class="card">
-						<div class="row" style="font-weight:700;width:100%;height:30vh;position:relative;left:0.8vw;">
+						<div class="row" style="font-weight:700;width:100%;top:-8vh;height:30vh;position:relative;left:0.8vw;">
 			<div style="position:relative;top:2vh;">
 					<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">예약 세부정보</h4>
 					<hr style="color:gray;width:70%;position:relative;top:2vh;">
@@ -497,7 +599,7 @@ $(document).ready(function(){
 			</div>
 			
 			
-			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:0vh;width:100%;">
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-8vh;width:100%;">
 			
 			<div style="position:relative;top:1vh;">
 			<h4 style="position:relative;top:1.6vh;left:2.5vw;color:#5e5e5e;font-weight:700;font-family: font;">호스팅 대금</h4>
@@ -511,20 +613,20 @@ $(document).ready(function(){
 			</div>
 			
 			</div>
-			<hr style="color:#666666;width:70%;position:relative;top:1vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:-6vh;font-weight:900;height:15px;">
 			
 			
-			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-1vh;width:100%;">
+			<div class="row" style="height:24vh;position:relative;left:0.8vw;top:-9vh;width:100%;">
 			<div style="width:75%;position:relative;top:1vh;left:3vw;">
-			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">예약 취소</h4>
+			<h4 style="position:relative;top:0vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;" id="reservCancelBT">예약 취소</h4>
 			<h5 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">현재 숙소에 유연 환불 정책을 적용하고 계십니다.
 이 예약을 취소하면 페널티를 받게 됩니다. 페널티에는 1년간 슈퍼호스트 지위 박탈, 취소 기록을 보여주는 후기 공개, 취소 수수료가 포함되며, 취소한 예약에 해당하는 날짜가 달력에서 차단됩니다.</h5>
 			</div>
 			</div>
 			
-			<hr style="color:#666666;width:70%;position:relative;top:3vh;font-weight:900;height:15px;">
+			<hr style="color:#666666;width:70%;position:relative;top:-10vh;font-weight:900;height:15px;">
 	
-			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-3vh;width:100%;">
+			<div class="row" style="height:22vh;position:relative;left:0.8vw;top:-15vh;width:100%;">
 			<div style="width:75%;position:relative;top:3vh;left:3vw;">
 			<h4 style="position:relative;top:2vh;left:-0.8vw;color:#5e5e5e;font-weight:700;line-height:1.3;font-family: font;">언제나 빌림을 통해 대화하세요</h4>
 			<h5 style="position:relative;top:4vh;left:-0.8vw;color:#5e5e5e;line-height:1.7;width:75%;">안전한 결제를 위해 빌림 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요</h5>
@@ -532,7 +634,7 @@ $(document).ready(function(){
 			</div>
 			
 			
-			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-3vh;height:60.5vh;">
+			<div class="row" style="position:relative;width:100%;left:0.8vw;top:-15vh;height:60.5vh;">
 			<div style="position:relative;top:2vh;">
 			<h4 style="color:#5e5e5e;position:relative;top:1vh;left:2.4vw;font-weight:700;font-family: font;">게스트 소개 </h4>
 			<div style="width:4.2vw;height:7.7vh;position:relative;left:3vw;top:2.9vh;">
@@ -540,7 +642,7 @@ $(document).ready(function(){
 			</div>
 			<h4 style="color:#5e5e5e;position:relative;top:-6vh;left:7.8vw;">${guest_name}</h4>
 			<h5 style="color:#9e9e9e;position:relative;top:-6vh;left:7.8vw;">${guest_location}</h5>
-            <a style="color:#337a46;position:relative;left:7.8vw;top:-6vh;">신고하기</a>
+            <a style="color:#337a46;position:relative;left:7.8vw;top:-6vh;" data-toggle="modal" data-target="#demo-2">신고하기</a>
             <hr style="color:#666666;width:70%;position:relative;top:-6vh;font-weight:900;height:15px;">
             <c:if test="${!empty getHomeNames}">
      <div class="select">
@@ -553,7 +655,7 @@ $(document).ready(function(){
      </div>
     <!-- 달력    -->
    
-    <div class="datepicker-here" style="position:relative;width:90%;top:-2vh;left:0.4vw;border:0px;"></div>
+    <div class="datepicker-here" style="position:relative;width:90%;top:-2vh;left:0.4vw;border:0px;z-index:50000;"></div>
    <script>
                       $(document).ready(function(){
        
@@ -569,7 +671,7 @@ $(document).ready(function(){
                           
                     	  
                           $('.datepicker-here').datepicker({
-                               
+                        	
                                dateFormat : "yyyy-mm-dd",
                                minDate:new Date(),
                                language: {
@@ -603,7 +705,7 @@ $(document).ready(function(){
                                                     return {
                                                          classes: 'my-class',
                                                          disabled: true
-                                                         
+                                                        
                                                       }
                                                  }
                                               }
@@ -632,10 +734,11 @@ $(document).ready(function(){
 <c:if test="${re.reserv_state==0}">
 <div class="card2 animated slideInRight">
  
-  <div class="container"  style="width:100%;padding:1;">
-    <h4><b>${guest_name}님이 숙소 예약을 요청합니다.</b></h4> 
-    
-    <p style="color:gray;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp;응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
+  <div class="container"  style=" width:100%;padding:1;">
+    <h4><b>${guest_name}님이 숙소 예약을 요청합니다. </b></h4> 
+    <p style="padding-top:2vh;">숙박 기간  ${re.reserv_checkin} ~ ${re.reserv_checkout}</p>
+     <p style="paddgin-top:-3vh;">인원수  ${re.population}명</p>
+    <p style="color:gray;padding-top:-1vh;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp;응답률을 유지하려면 빠른 시간내로 응답하세요.</p>
     <div style="border:1.3px solid #e8e8e8;width:98%;height:10vh;">
     <img src="<c:url value='/resources/img/barchart.png'/>" style="width:3.5vw;height:6vh;position:relative;top:1.5vh;left:1vw;">
     <h5 style="font-weight:1000;position:relative;left:6vw;top:-6.5vh;">품격 있는 시작</h5>
@@ -643,17 +746,29 @@ $(document).ready(function(){
     <p style="color:gray;position:relative;top:-8.8vh;left:6vw;width:16vw;">게스트의 예약을 자꾸 거절하면 검색 결과에서 뒤로 밀려날 수 있습니다.</p>
     </div>
     <form action="acceptReserv.re" method="post">
-    	<input type="hidden" name="seq" value="${re.reservation_seq}">
+    	<input type="hidden" name="seq" value="${re.reservation_seq}" id="rrseq">
     	<input type="hidden" name="roomSeq" value="${message_room_seq}">
     	<input type="hidden" name="guest_email" value="${guest_email}">
     	<input type="hidden" name="host_email" value="${userId}">
     	<input type="hidden" id="home_seq" value="${home_seq}">
     	<button class="btn btn-default" style="background-color:#ff5a5f;width:30%;color:white;font-weight:800;border:1px solid #ff6b6b;position:relative;top:2vh;" id="acceptBT">수락</button>
     </form>
-    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" class="btn btn-default" style="width:30%; border: 1px solid #c9cacc;font-weight:800;position:relative;top:-1.6vh;left:9.1vw;">거절</button> 
-    
+    <button id="rejectBt" data-toggle="modal" data-target="#demo-1" 
+    class="btn btn-default modalseq" style="width:30%; border: 1px solid #c9cacc;
+    font-weight:800;position:relative;top:-1.6vh;left:9.1vw;"
+    data-id="${re.reservation_seq }">
+    거절</button>
+   <script>
+   $(function () {
+	    $(".modalseq").click(function () {
+	        var my_id_value = $(this).data('id');
+	        $(".modal-body #hiddenValue").val(my_id_value);
+	        
+	    })
+	});
+   </script>
   </div>
-</div>
+</div><br>
 </c:if>
 </c:forEach>
 <!-- Modal -->
@@ -666,6 +781,7 @@ $(document).ready(function(){
         <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;"><strong>${guest_name}님의 예약 요청을 거절하시겠어요?</strong></h4>
       </div>
       <div class="modal-body">
+      <input type="hidden" name="hiddenValue" id="hiddenValue" value="" />
      <h5 style="line-height:2;color:gray;position:relative;top:2.5vh;left:0.5vw;width:28vw;">게스트는 여행에 적합한 숙소를 찾기 위해 심혈을 기울입니다. 계속하기 전에 ${guest_name}님의 프로필 세부정보를 확인하세요.</h5>
       		<div style="width:4.5vw;height:8.5vh;position:relative;left:24.5vw;top:3.5vh;">
             <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
@@ -675,7 +791,7 @@ $(document).ready(function(){
       <h5 style="color:#9e9e9e;position:relative;top:-5vh;left:0.5vw;"><span class="glyphicon glyphicon-time" style="color:gray;padding:0;"></span>&nbsp; 회원가입 : ${guest_regdate}</h5>
       </div>
        <div class="modal-footer" style="border:none;">
-       <button type="button" class="btn btn-default" style="position:relative;left:-19.5vw;top:-4vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">예, 거절합니다</button>
+       <button type="submit" class="btn btn-default" style="position:relative;left:-19.5vw;top:-4vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;" id="reservRejectBT">예, 거절합니다</button>
        <button type="button" class="btn btn-default" data-dismiss="modal" style="position:relative;left:-19.5vw;top:-4vh; border:2px solid #008489;color:#008489;font-weight:800;">뒤로</button>
         </div>
      </div>
@@ -730,7 +846,7 @@ $(document).ready(function(){
         <img src="files/${host_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-4vh;margin-bottom:0;margin-top:0;">${message.message_content}
+      <div class="box1 sb5" style="position:relative;background:#fff2f2;border:#fff2f2;left:-3vw;width:80%;height:auto;top:-4vh;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       
@@ -757,7 +873,45 @@ $(document).ready(function(){
 
 </div>
 
-
+ <!-- Modal -->
+  <div class="modal fade" id="demo-2" tabindex="-1" style="margin-top:10vh;height:65vh;">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
+      <div class="modal-header" style="border:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;color:black;"><strong>어떤 문제가 있나요?</strong></h4>
+      </div>
+      <div class="modal-body">
+<ul>
+    <li>
+      <input type="radio" id="fast" name="selector">
+      <label for="fast">사기 또는 스팸 메세지를 보내는 것 같아요</label>
+      <div class="radiobutton"></div>
+    </li>
+    <li>
+      <input type="radio" id="medium" name="selector">
+      <label for="medium">불쾌해요</label>
+      <div class="radiobutton"></div>
+    </li>
+    <li>
+      <input type="radio" id="slow" name="selector"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <label for="slow">기타</label>
+      <div class="radiobutton"></div>
+      <div class="collapse" id="collapseExample">
+   <input type="text" class="form-control" value="" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
+</div>
+    </li>
+  </ul>
+      </div>
+       <div class="modal-footer" style="border:none;">
+       <button type="button" class="btn btn-default" style="position:relative;left:-2.0vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
+       
+        </div>
+     </div>
+    </div>
+  </div>
+<!-- Modal -->
    <%@ include file="../../resource/include/footer.jsp" %>   
 
 	
