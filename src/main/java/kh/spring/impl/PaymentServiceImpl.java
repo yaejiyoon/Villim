@@ -25,4 +25,9 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentDAO.getPaymentData(reservation_seq);
 	}
 
+	@Override
+	public int updatePaymentState(int seq, int state) {
+		return paymentDAO.updatePaymentState(seq, state);
+	}
+
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>예약 확인 및 요청</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/titleLogo.png'/>" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -23,6 +23,11 @@
 	})
 </script>
 <style>
+
+body{
+	min-width: 1280px;
+}
+
 @font-face {
 	font-family: font2;
 	src: url('<c:url value='/ resources/ fonts/ dx.ttf'/>');
@@ -93,7 +98,7 @@
 							<p></p>
 						</div>
 						<div id="content01-homepic">
-							<img src="<c:url value='/resources/img/home.jpg'/>">
+							<img src="<c:url value='files/${hdto.home_main_pic}'/>">
 						</div>
 					</div>
 					<div id="content02">
