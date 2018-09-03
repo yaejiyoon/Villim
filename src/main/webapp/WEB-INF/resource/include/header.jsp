@@ -108,29 +108,12 @@ function enterkey() {
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="호스트" style="color:black;">호스트</span>
-               			<ul>
-        					<li><a href="#">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-        					<li><a href="#">Page</a></li>
-        					<li><a href="#">Thing</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="likeyPage.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
-               			<ul>
-        					<li><a href="likeyPage.do">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-        					<li><a href="#">Page</a></li>
-        					<li><a href="#">Thing</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
+               			
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
@@ -222,29 +205,12 @@ function enterkey() {
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="호스트" style="color:black;">호스트</span>
-               			<ul>
-        					<li><a href="#">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-        					<li><a href="#">Page</a></li>
-        					<li><a href="#">Thing</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
+               		<a href="likeyPage.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
-               			<ul>
-        					<li><a href="likeyPage.do">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-        					<li><a href="#">Page</a></li>
-        					<li><a href="#">Thing</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
+               			
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
