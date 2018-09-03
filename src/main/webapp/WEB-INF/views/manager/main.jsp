@@ -48,7 +48,7 @@
   position: absolute;
   z-index: 10;
   margin-left: 16%;
-  margin-top:25%;
+  margin-top:20%;
   
 }
 
@@ -172,6 +172,7 @@
 	}
 	#checkDiv{
 		height:160px;
+		margin-right:2%;
 		display:inline-block;
 	}
 	#btn{
@@ -185,6 +186,7 @@
 	}
 	#checkDiv1{
 	height:160px;
+	
 	display:inline-block;
 	}
 	
@@ -574,17 +576,17 @@ $(document).ready(function(){
 	</div>
 	<div id="titleDiv"><h2 id="title">Dashboard</h2>
 	
-	<div style="background-color:#47639b; width:15%;" id="checkDiv">
+	<div style="background-color:#47639b; width:300px;" id="checkDiv">
 		<h1 id="memberCount" style="color:white; margin-left:3%; margin-top:0px; margin-bottom:0px; padding-top:5%;"></h1>
 		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">전체 회원수</p>
-		<i class="fas fa-users fa-5x" style="color:white; z-index: 20;"></i>
+		<i class="fas fa-users fa-5x" style="color:white; z-index: 20; display:inline;"></i>
 		<a href="#" style="display:block; background-color:#152f59; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="memberCheck">More Info</a>
 	</div>
 	
-	<div style="background-color:#309b22; width:15%;" id="checkDiv1">
+	<div style="background-color:#309b22; width:300px;" id="checkDiv1">
 		<h1 id="memberCount1" style="color:white; margin-left:3%; margin-top:0px; margin-bottom:0px; padding-top:5%;"></h1>
 		<p style="display:inline; color:white; margin-right:41%; margin-left:3%;">당일 결제건</p>
-		<i class="fas fa-users fa-5x" style="color:white; z-index: 20;"></i>
+		<i class="fas fa-users fa-5x" style="color:white; z-index: 20; display:inline"></i>
 		<a href="#" style="display:block; background-color:#216818; text-align:center; height:19%;margin-top:1.5%; text-decoration: none;" id="payCheck">More Info</a>
 	</div>
 </div>
@@ -621,12 +623,12 @@ $(document).ready(function(){
 
 
 <div class="modal fade" id="memberChkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width:70%;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow: auto;">
  		<table class="table table-striped" id="memberTable">
 		</table>
       </div>

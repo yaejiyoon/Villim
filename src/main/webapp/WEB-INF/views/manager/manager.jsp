@@ -39,42 +39,53 @@
 #logo{
 	position: absolute;
 	z-index: 10;
-	margin-left:25%;
+	margin-left:23%;
 	margin-top:6%;
 	
 }
 #logo img{
-	width:250%;
+	width:70%;
 
 }
 #adminLogin{
  	position: absolute;
 	z-index: 10;
-	border:2px solid white;
+	border:5px solid #545891;
 	margin-left:22%;
 	margin-top:15%;
 	width:25%;
 	color:white;
 	height:50vh;	
+	
+	
 }
 #loginH3{
 	margin-left:10%;
 }
-#adminemail{
+#adminNumber1{
 	width:80%;
 	margin-left:10%;
 	padding-top:4%;
 	padding-bottom:4%;
 
 }
-#password{
+#adminPassword1{
 	width:80%;
 	margin-left:10%;
 	padding-top:4%;
 	padding-bottom:4%;
 }
+#adminLoginBtn{
+
+	
+}
 #adminLogin label{
 	margin-left:10%;
+}
+#loginBtns{
+	margin-left:10%;
+	margin-top:5%;
+	
 }
 #login{
 	margin-left:44%;
@@ -150,9 +161,12 @@
 	}
 	#toindex{
 		margin-top: 5%;
+		width:20%;
+		margin-left:40%;
+		
 	}
 	#underline{
-		width:550px;
+		width:380px;
 		height:50px;
 	}
 </style>
@@ -160,6 +174,7 @@
 	$(document).ready(function(){
 		$("#adminSignup").click(function(){
 			$("#adminSignupModal").modal('show');
+			
 		})
 		
 		$("#adminSignup1").click(function(){
@@ -183,6 +198,12 @@
 						alert(response);
 					}else{
 						alert(response);
+						$('.collapse').collapse('show');
+						$("#adminNumber").val("");
+						$("#adminPassword").val("");
+						$("#adminNumber").click(function(){
+							$('.collapse').collapse('hide');
+						})
 					}
 					}
 				})
@@ -199,11 +220,11 @@
 	</div>
 	
 	<div id="logo">
-	<img alt="" src="../resources/img/logo2.png">
+	<img alt="" src="../resources/img/logo3.png">
 	</div>
 	<div id="adminLogin">
 		
-		<h3 id="loginH3">관리자 계정 로그인</h3><br>
+		<h3 id="loginH3"><strong>관리자 계정 로그인</strong></h3><br>
 		<form action="ismanager.admin" method="post">
 			<div class="form-group">
 			<input type="text" class="form-control" id="adminNumber1" name="adminNumber1" placeholder="사원번호를 입력하세요">
@@ -214,24 +235,30 @@
 			<div class="checkbox" style="display: inline;">
 				<label> <input type="checkbox"  id="remember"> 계정이름 저장
 				</label>
+			</div><br>
+			<div id="loginBtns">
+			<button type="button" class="btn btn-danger" id="adminSignup" style="margin-bottom:3%;  width:89%;">회원가입</button>
+			<button type="submit" class="btn btn-success" id="adminLoginBtn" style="width:89%;">로그인</button><br>
+			
 			</div>
-			<button type="submit" class="btn btn-default" id="adminLogin">로그인</button>
-			<button type="button" class="btn btn-default" id="adminSignup">회원가입</button>
 		</form>
 
 	</div>
 <!-- 모달 -->
 
 <div class="modal fade" id="adminSignupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="outline: none; margin:0px auto;">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style=" width:30%;">
     <div class="modal-content">
       <div class="modal-header" id="mheader">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-         <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
+         <img src="<c:url value='/resources/img/titleLogo.png'/>" id="toindex" >
+          <!--  	<img src="../resources/img/admin/admin.jpg" id="signupAdminImg" style="width:20%;" class="img-circle"> -->
+        
       </div>
-      
-      <div class="modal-body">
-  		
+    
+     
+      <div class="modal-body" style="height:50vh;">
+
   		<div class="form-group">
     	<input type="text" class="form-control" id="adminNumber" placeholder="사원번호를 입력하세요" name="adminNumber">
   		</div>
@@ -239,17 +266,25 @@
    		
    		<input type="password" class="form-control" id="adminPassword" placeholder="비밀번호를 입력하세요" name="adminPassword">
   		</div>
-  	
-		<button type="button" class="btn btn-danger" id="adminSignup1">
+  		
+  		<div class="collapse" id="collapseExample">
+  			<div class="well">
+   				존재하지 않는 사원번호 입니다.
+  			</div>
+		</div>
+			<img src="<c:url value='../resources/img/signup/underline5.png'/>" id="underline">
+		<button type="button" class="btn btn-danger" id="adminSignup1" style="width:100%; margin-bottom:3%;">
       	<i class="far fa-envelope fa-2x" style="color:white"></i>
       	<font>회원가입</font>
+        </button><br>
+        <button type="button" class="btn btn-default" id="returnBtn" style="width:100%;">
+      	<i class="far fa-envelope fa-2x" style="color:white"></i>
+      	<font>돌아가기</font>
         </button><br>
 
 
       </div>
       <div class="modal-footer" id="mfooter">
-      <!--   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-       <font>Villim의 회원이신가요?</font> <a href="#" id="moveLogin"><font>로그인</font></a>
        
       </div>
     </div>
