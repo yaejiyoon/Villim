@@ -1333,9 +1333,7 @@
 									
 								+"</div>"
 							+"</div>" );
-							
-							
-							
+										
 						}
 						
 						for(var i=2; i <= bedroomcount ;i++){

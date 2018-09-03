@@ -190,7 +190,7 @@ html, body {
 						<div id="title"></div>
 					</div>
 					<div id="pac-container">
-						<input id="pac-input" type="text" placeholder="Enter a location">
+						<input id="pac-input" type="text" placeholder="먼저 지도에  찾을 지역을 먼저 검색하세요">
 					</div>
 				</div>
 
@@ -347,7 +347,7 @@ html, body {
 		var value03 = $("#town").val();
 		var value04 = $("#city").val();
 		
-		if(value01 == null && value02 == null && value03 == null && value04 == null){
+/* 		if(value01 == null && value02 == null && value03 == null && value04 == null){
 			$("#nextpg").attr("disabled",true);
 		}else{
 			$("#nextpg").attr("disabled",false);
@@ -355,13 +355,20 @@ html, body {
 			console.log(value02);
 			console.log(value03);
 			console.log(value04);
-		}
+		} */
 		
-		$("#nextpg").click(function() {
-			//$(location).attr("href","five.host");
-			$("#modifymap").submit();
+		$("#lat").change(function() {
+			$("#nextpg").attr("disabled",false);
+		})
+		
+		$("#pac-input").click(function() {
+/* 			//$(location).attr("href","five.host");
+			$("#modifymap").submit(); */
 		});
 		
+		$("#nextpg").click(function() {
+			$("#modifymap").submit();
+		})
 		
 		
 	</script>
