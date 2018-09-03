@@ -88,7 +88,6 @@ public class HomeInfoController {
 		}
 
 		int home_seq = Integer.parseInt(req.getParameter("seq"));
-		
 		int result = homeService.modifyHomeView(home_seq);
 		
 		System.out.println("homeseq : " + home_seq);
@@ -157,6 +156,7 @@ public class HomeInfoController {
 			String str = fm2.format(to1);
 			guestReviewList.get(i).setG_review_date(str);
 		}
+		
 
 		//숙소 상세 설명 
 		HomeDescDTO hddto = homeService.getHomeDescData(home_seq);
@@ -478,8 +478,31 @@ public class HomeInfoController {
 		
 		System.out.println(sb.toString());
 		
+		//블락데이트 포함 여부 확인
+		String checkBlocked = null;
+		List<String> cBList = new ArrayList<>();
+		boolean canReserv = true;
+		
+		if(hdto.getHome_blocked_date() != null) {
+			checkBlocked = hdto.getHome_blocked_date();
+			for(int i=0; i<checkBlocked.split(",").length;i++) {
+				cBList.add(checkBlocked.split(",")[i]);
+			}
+			
 		
 		
+			for(int j=0;j<dates.size();j++) {
+				for(int k=0;k<cBList.size();k++) {
+					if(dates.get(j).equals(cBList.get(k))) {
+						canReserv = false;
+					}
+				}
+			}
+		}
+		
+		
+		
+		System.out.println("체크용 블락데이트 " + cBList);
 		
 		//1박 가격
 		int price = hdto.getHome_price();
@@ -510,6 +533,7 @@ public class HomeInfoController {
 		json.put("servicefee", "₩"+servicefee);
 		json.put("total", "₩"+total);
 		json.put("blockedDate", blockedDate);
+		json.put("canReserv",canReserv);
 		
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
@@ -1352,7 +1376,7 @@ public class HomeInfoController {
 
 			System.out.println(checkInDate+ " : " +checkOutDate);
 		}
-		
+	
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("checkInDate", checkInDate);

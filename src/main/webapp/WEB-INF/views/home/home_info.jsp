@@ -15,18 +15,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- css -->
-<link href="<c:url value="../resources/css/home/home_info.css?var=3" />" rel="stylesheet" />
+<link href="<c:url value="../resources/css/home/home_info.css?var=2" />" rel="stylesheet" />
 
 
 <!-- 반응형 테스트 -->
-<link rel="stylesheet" media="screen and (max-width: 1150px)" 
+<link rel="stylesheet" media="screen and (max-width: 1200px)" 
 href="<c:url value="../../resources/css/home/test.css" />" />
 
 <!-- 사진 -->
 <link href="<c:url value="../../resources/css/home/dist/css/lightgallery.css" />" rel="stylesheet">
 
 <!-- 달력 -->
-<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=1" />"></script>
+<script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/datepicker.js?var=2" />"></script>
 <script type="text/javascript" src="<c:url value="../../resources/css/home/dist/js/i18n/datepicker.en.js" />"></script>
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/dist/css/datepicker.css?var=1" />" />
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css?var=1" />"/>
@@ -759,28 +759,37 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     						var servicefee = resp.servicefee;
                     						var total = resp.total;
                     						var blockedDate = resp.blockedDate;
+                    						var canReserv = resp.canReserv;
                     								
                     						/* alert(priceLeft+" : "+priceRight); */
                     								
-                    						$("#priceLeft").text(priceLeft);
-                    						$("#priceRight").text(priceRight);
-                    						$("#cleaningfee").text(cleaningfee);
-                    						$("#servicefee").text(servicefee);
-                    						$("#total").text(total);
-                    								
-                    								
-                    						$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
-                    						$(".fixedprice").css({"display":"block"});
-                    								
-                    						$("#reserv_checkin").val(checkinDate);
-                    						$("#reserv_checkout").val(checkoutDate);
-                    						$("#nightsAmount").val(priceRight);
-                    						$("#cleaningFee").val(cleaningfee);
-                    						$("#serviceFee").val(servicefee);
-                    						$("#totalAmount").val(total);
-                    								
-                    						$("#blockedDate").val(blockedDate);
-                    								
+                    						if(canReserv == false){
+            									$(".fixedprice").css({"display":"none"});
+            									$("#fixed").css({"height":"360px","transition-duration":"0.1s"});
+            									$('#reservationModal').modal('show');
+            									$("#calendarDrop").val("체크인          →      체크아웃");
+            									
+            								}else{
+            									$("#priceLeft").text(priceLeft);
+                        						$("#priceRight").text(priceRight);
+                        						$("#cleaningfee").text(cleaningfee);
+                        						$("#servicefee").text(servicefee);
+                        						$("#total").text(total);
+                        								
+                        								
+                        						$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
+                        						$(".fixedprice").css({"display":"block"});
+                        								
+                        						$("#reserv_checkin").val(checkinDate);
+                        						$("#reserv_checkout").val(checkoutDate);
+                        						$("#nightsAmount").val(priceRight);
+                        						$("#cleaningFee").val(cleaningfee);
+                        						$("#serviceFee").val(servicefee);
+                        						$("#totalAmount").val(total);
+                        								
+                        						$("#blockedDate").val(blockedDate);
+                        								
+            								}
                     								
                     					},
                     					error : function(request,status,error) {
@@ -1315,25 +1324,12 @@ href="<c:url value="../../resources/css/home/test.css" />" />
             					var blockedDates = '${getBlockedDate}';
             					var disabledDays = new Array; 
             				
-            					
-            					//disabledDays.split(",");
-            					
             					for(var i=0;i<blockedDates.split(",").length;i++){
             						disabledDays.push(blockedDates.split(",")[i]);
             					}
-            					//var test;
             					
-            					//<c:forTokens items="disabledDays" delims="," var="item">
-            					//	test = ${item}
-            					//	disabledDays2.push(test.toString());
-								//</c:forTokens>
-            					
-            					//console.log(disabledDays[0]);
-            					//console.log(disabledDaysString);
             					console.log(disabledDays);
-            					
-            					
-            					//var disabledDays = ${getBlockedDate};
+            			
                     			var isDisabled;
                     			var today = new Date();
                     			var d;
@@ -1401,8 +1397,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     					}
                     					
                     					if(date.length == 2){
-                    						alert("이오와엉");
-                    						
                     						checkinDate = formatDate(date[0]);
                     						checkoutDate = formatDate(date[1]);
                     						
@@ -1431,28 +1425,36 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     								var servicefee = resp.servicefee;
                     								var total = resp.total;
                     								var blockedDate = resp.blockedDate;
+                    								var canReserv = resp.canReserv;
                     								
-                    								alert(priceLeft+" : "+priceRight);
-                    								
-                    								$("#priceLeft").text(priceLeft);
-                    								$("#priceRight").text(priceRight);
-                    								$("#cleaningfee").text(cleaningfee);
-                    								$("#servicefee").text(servicefee);
-                    								$("#total").text(total);
-                    								
-                    								
-                    								$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
-                    								$(".fixedprice").css({"display":"block"});
-                    								
-                    								$("#reserv_checkin").val(checkinDate);
-                    								$("#reserv_checkout").val(checkoutDate);
-                    								$("#nightsAmount").val(priceRight);
-                    								$("#cleaningFee").val(cleaningfee);
-                    								$("#serviceFee").val(servicefee);
-                    								$("#totalAmount").val(total);
-                    								
-                    								$("#blockedDate").val(blockedDate);
-                    								
+                    								if(canReserv == false){
+                    									$(".fixedprice").css({"display":"none"});
+                    									$("#fixed").css({"height":"360px","transition-duration":"0.1s"});
+                    									$('#reservationModal').modal('show');
+                    									$("#calendarDrop").val("");
+                    									
+                    								}else{
+                    									alert(priceLeft+" : "+priceRight);
+                        								
+                        								$("#priceLeft").text(priceLeft);
+                        								$("#priceRight").text(priceRight);
+                        								$("#cleaningfee").text(cleaningfee);
+                        								$("#servicefee").text(servicefee);
+                        								$("#total").text(total);
+                        								
+                        								
+                        								$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
+                        								$(".fixedprice").css({"display":"block"});
+                        								
+                        								$("#reserv_checkin").val(checkinDate);
+                        								$("#reserv_checkout").val(checkoutDate);
+                        								$("#nightsAmount").val(priceRight);
+                        								$("#cleaningFee").val(cleaningfee);
+                        								$("#serviceFee").val(servicefee);
+                        								$("#totalAmount").val(total);
+                        								
+                        								$("#blockedDate").val(blockedDate);
+                    								}
                     								
                     							},
                     							error : function(request,status,error) {
@@ -1500,42 +1502,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     			    	 var currentMonth = date.getMonth();
                     			    	 currentMonth = "0"+currentMonth;
                     			    	 
-                    			         /* // Add extra element, if `eventDates` contains `currentDate`
-                    			         if (cellType == 'day' && eventDates.indexOf(currentDate) != -1) {
-                    			             return {
-                    			            	 classes: 'my-class'
-                    			             }
-                    			         }
-                    			    	  */
-                    			    	  
-                    			    	  
                     			    	 
                     			        if (cellType == 'day') {
                     			        	
                     			        	
-                    			        	/* console.log("fff");
-                    			        	console.log(blockDate);
-                    			        	console.log(d);
-                    			        	console.log(ttt);
-                    			        	console.log(vvv);
-                    			        	
-                    			        	var c = new Date(2111,1,1);
-                    			        	console.log(c);
-                    			        	
-                    			        	if(blockDate >= date){
-                    		        			return {
-                    			        			   disabled : true
-                    			        		   }
-                    		        		}else if(blockDate < date){
-                    		        			return {
-                    			        			   disabled : false
-                    			        		   }
-                    		        		}else if(vvv > 0){
-                    			        		return {
-                    			        			   disabled : true
-                    			        		   }
-                    			        	}
-                    			        	 */
                     			        	function formatDate(date) {
                     			                var d = new Date(date),
                     			                    month = '' + (d.getMonth() + 1),
@@ -1561,8 +1531,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     				           var inMonth = checkin.split('-')[1];
                     				           var inDay = checkin.split('-')[2];
                     				            
-                    				           //console.log("reservMonth : "+reservMonth);
-                    				           //console.log("inMonth : "+inMonth);
                     				           
                     				           if(reservMonth == inMonth){
                     				        	   /* console.log("같으면 : "+inMonth);
@@ -1577,18 +1545,6 @@ href="<c:url value="../../resources/css/home/test.css" />" />
                     				        	   };
                     				           }
                     			        	
-                    			                
-
-                    			                /* console.log(isDisabled);
-                    				            console.log(date);
-                    				            console.log(checkin);
-                    				            console.log(inDay);   */
-                    				            
-                    				            /* return {
-                    				                disabled: isDisabled
-                    				                
-                    				            	} */
-                    				             
                     			        	 }
                     			        	
                     			        }
@@ -1829,10 +1785,48 @@ href="<c:url value="../../resources/css/home/test.css" />" />
          </div>
       </div>
    </div>
+   <div>
+   		<div id="home_info_footer" style="border-top: 1px solid #d6d6d6;">
+   			<div id="fixed-sub01" style="float:left; width:400px;">
+            	<br>
+            	<img src="<c:url value='../resources/img/won.png'/>" style="width:20px;">
+            	<h3 style="display: inline; font-weight: 600;">
+            		<fmt:formatNumber value="${hdto.home_price }" pattern="#,###" />
+            	</h3>/박
+            	<br>
+            	<c:choose>
+               		<c:when test="${starCount>0}">
+               			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<img src="<c:url value='../resources/img/star.png'/>" class="star">
+            			<h6 style="display: inline;">${starCount }</h6>
+               		</c:when>
+               	</c:choose>
+            </div>
+            <c:if test="${sessionScope.login_email eq null}">
+            	<button id="footerReservationBT" class="btn btn-secondary" type="button" 
+            	data-toggle="modal" href="#myModal1" 
+            	style="position: absolute; width: 130px; font-weight: 600; top:15px;">
+            		예약 요청
+            	</button>
+            </c:if>
+            <c:if test="${sessionScope.login_email ne null}">
+            	<button id="footerReservationBT" class="btn btn-secondary" type="button" 
+            	data-toggle="modal" href="#footerReservation" 
+            	style="position: absolute; width: 130px; font-weight: 600; top:15px;">
+            		예약 요청
+            	</button>
+            </c:if>
+   		</div>
+   </div>
    
    <%@ include file="../../resource/include/footer.jsp" %>
    <%@ include file="../../resource/include/modal_homeInfo/amenities.jsp"%>
    <%@ include file="../../resource/include/modal_homeInfo/likey.jsp"%>
+   <%@ include file="../../resource/include/modal_homeInfo/reservation.jsp"%>
+   <%@ include file="../../resource/include/modal_homeInfo/footerReservation.jsp"%>
    <!-- 지도 -->
 	<script 
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiC2f29Ojya4wPHM03CBAOZRc-q_4KeYU&callback=initMap" async defer>

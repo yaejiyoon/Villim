@@ -192,8 +192,7 @@ function newListFunction2() {
 </script>
 
 <!-- 모달 팝업 -->
-      <div class="modal fade" id="likeyMainModal" tabindex="-1" role="dialog"
-      aria-labelledby="myModalLabel" aria-hidden="true"
+      <div class="modal fade" id="likeyMainModal" 
       style="z-index:1000000000">
          <div class="modal-dialog likey-dialog">
             <div class="modal-content likey-content">

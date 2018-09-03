@@ -20,6 +20,13 @@
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
+$(document).ready(function(){
+	<c:if test="${sessionScope.login_email eq null}">
+	$(".likeyBT").attr('href','#myModal1');
+</c:if>
+})
+</script>
+<script>
 $(function () {
     var a = function () {
         var b = $(window).scrollTop();
@@ -190,6 +197,12 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
+	
+	$('.open-modal').click(function(){
+	      $('#likeyMainModal').modal('show');  // show modal
+	}); 
+		
+
 	$("#map").mouseup(function() {
 // 	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
@@ -311,6 +324,7 @@ $(document).ready(function() {
 
 		
 	});
+});
 });
 
 </script>
