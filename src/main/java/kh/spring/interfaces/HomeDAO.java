@@ -134,6 +134,16 @@ public interface HomeDAO {
 
 	public List<HomeDTO> getParis();
 	
+	public List<HomeDTO> getNewyork();
+	
+	public List<HomeDTO> getRome();
+	
+	public List<HomeDTO> getLondon();
+	
+	public List<HomeDTO> getPraha();
+	
+	public List<HomeDTO> getMadrid();
+	
 	
 	//1찬연
 	public int insertFirstHome(HomeDTO hdto);

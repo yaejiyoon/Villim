@@ -5,7 +5,7 @@
 <!-- header css -->
 <link rel="shortcut icon" href="../favicon.ico">
 <link href="<c:url value="/resources/css/main/header.css?var=2" />"
-	rel="stylesheet">
+	rel="stylesheet"> 
 <link href="<c:url value="/resources/css/main/demo.css?var=3" />"
 	rel="stylesheet" />
 <link href="<c:url value="/resources/css/main/component.css?var=1" />"
@@ -15,10 +15,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <style>
-@font-face {
-        font-family: font;
-        src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');
-   }
    
 .circle-badge {
   height: 10px;
@@ -58,7 +54,7 @@
       <div id="header-logo">
          <img src="<c:url value='/resources/img/logo2.png'/>" id="toindex">
       </div>
-      <div id="header-search" class="form-search form-inline">
+      <div id="header-search" class="form-search form-inline" style="font-family: font;">
          <img src="<c:url value='/resources/img/search.png'/>">
          <input type="text" class="search-query form-control" placeholder="모든 위치·숙소" />
       </div>
@@ -70,19 +66,19 @@
                			<span data-hover="숙소추가" style="color:black;">숙소추가</span>
                			<ul>
         					<li><a href="home_info.do" id="tohome_info">Item</a></li>
-        					<li><a href="#">Product</a></li>
+        					<!-- <li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
         					<li><a href="#">Page</a></li>
         					<li><a href="#">Thing</a></li>
         					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
+        					<li><a href="#">Text</a></li> -->
       					</ul>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="호스트" style="color:black;">호스트</span>
-               			<ul>
+               			<!-- <ul>
         					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
@@ -90,13 +86,13 @@
         					<li><a href="#">Thing</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
-      					</ul>
+      					</ul> -->
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="hostMain.do" style="width:100%; color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="저장목록" style="color:black;">저장목록</span>
-               			<ul>
+               			<!-- <ul>
         					<li><a href="#">Item</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
@@ -104,7 +100,7 @@
         					<li><a href="#">Thing</a></li>
         					<li><a href="#">Product</a></li>
         					<li><a href="#">Text</a></li>
-      					</ul>
+      					</ul> -->
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
@@ -118,12 +114,7 @@
                			<c:if test="${guestMsgUnreadCount+hostMsgUnreadCount>0}">
                			<div class="circle-badge" style="background:#1ACAC0"></div>
                			</c:if>
-             			
-             			<!-- <ul>
-        					<li><a href="#">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul> -->
+
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
@@ -137,9 +128,7 @@
             </nav>
          </section>
       </div>
-      <%-- <div id="header-pic">
-         <img src="<c:url value='/resources/img/1.jpg'/>">
-      </div> --%>
+  
       
        <div id="header-pic" style="position:relative;left:83vw;top:-7.6vh;">
               <div class="dropdown">

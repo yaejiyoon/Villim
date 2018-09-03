@@ -292,6 +292,32 @@ public class HomeServiceImpl implements HomeService {
 			return hdao.getParis();
 		}
 		
+		@Override
+		public List<HomeDTO> getNewyork() {
+			return hdao.getNewyork();
+		}
+
+		@Override
+		public List<HomeDTO> getRome() {
+			return hdao.getRome();
+		}
+
+		@Override
+		public List<HomeDTO> getLondon() {
+			return hdao.getLondon();
+		}
+
+		@Override
+		public List<HomeDTO> getPraha() {
+			return hdao.getPraha();
+		}
+
+		@Override
+		public List<HomeDTO> getMadrid() {
+			return hdao.getMadrid();
+		}
+
+		
 		// ----------------지혜-----------------
 		@Override
 		public int updateBlockedDate(String blockedDate, int home_seq) {
@@ -307,6 +333,8 @@ public class HomeServiceImpl implements HomeService {
 		public int updateBlocked(String blockedDate, int home_seq) {
 			return hdao.updateBlocked(blockedDate, home_seq);
 		}
+
+		
 
 		
 

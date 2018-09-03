@@ -42,7 +42,13 @@ public class HomeMainController {
 	public ModelAndView homeMain(HttpServletRequest req,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
+		List<HomeDTO> markerList = homeService.getAllHomeDataMain();
 		List<HomeDTO> getParis = homeService.getParis();
+		List<HomeDTO> getNewyork = homeService.getNewyork();
+		List<HomeDTO> getRome = homeService.getRome();
+		List<HomeDTO> getLondon = homeService.getLondon();
+		List<HomeDTO> getPraha = homeService.getPraha();
+		List<HomeDTO> getMadrid = homeService.getMadrid();
 		List<HomePicDTO> homePic = homeService.getHomePic();
 		
 		//하트 버튼
@@ -75,6 +81,12 @@ public class HomeMainController {
 		mav.addObject("pic", homePic);
 		mav.addObject("likeyList", likeyList);
 		mav.addObject("getParis", getParis);
+		mav.addObject("getNewyork", getNewyork);
+		mav.addObject("getRome", getRome);
+		mav.addObject("getLondon", getLondon);
+		mav.addObject("getPraha", getPraha);
+		mav.addObject("getMadrid", getMadrid);
+		mav.addObject("markerList", markerList);
 		mav.addObject("likeyListLikey", likeyListLikey);
 		mav.addObject("likey", likey);
 		mav.setViewName("home_main");
@@ -157,8 +169,6 @@ public class HomeMainController {
 		System.out.println("날짜 체크됐니? "+(String)session.getAttribute("dateIsChecked"));
 		System.out.println("startDate 세션값 들어감?? "+(String)session.getAttribute("startDate"));
 		
-		
-//		List<HomeDTO> homeList = homeService.searchHomeData(homeTypeList, homeTypeIsChecked, people, dates, dateIsChecked);
 		List<HomePicDTO> homePic = homeService.getHomePic();
 		
 		//////////////////////////////////////////////////////
@@ -183,10 +193,12 @@ public class HomeMainController {
 		param.put("neLng", neLng);
 		
 		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
+		List<HomeDTO> markerList = homeService.getAllHomeDataMain();
 		
 		//////////////////////////////////////////////////
 		
 		mav.addObject("homeList", homeList);
+		mav.addObject("markerList", markerList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");
 		return mav;
@@ -231,7 +243,6 @@ public class HomeMainController {
 	
 	@RequestMapping("/modalPeople.do")
 	public ModelAndView modalPeopleChange(HttpSession session, HttpServletRequest request, int modalPeople) {
-		
 		session.setAttribute("people", modalPeople);
 		List dates = (List) session.getAttribute("dates");
 		
@@ -444,9 +455,11 @@ public class HomeMainController {
 		param.put("neLng", neLng);
 		
 		List<HomeDTO> homeList = homeService.getHomeOnMap(param);
+		List<HomeDTO> markerList = homeService.getHomeOnMap(param);
 		List<HomePicDTO> homePic = homeService.getHomePic();
 
 		mav.addObject("homeList", homeList);
+		mav.addObject("markerList", markerList);
 		mav.addObject("pic", homePic);
 		mav.setViewName("home_main");
 		return mav;

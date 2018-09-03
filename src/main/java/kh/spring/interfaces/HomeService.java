@@ -134,6 +134,16 @@ public interface HomeService {
 	public List<HomeDTO> modalHomeData(Map<String, Object> param);
 
 	public List<HomeDTO> getParis();
+	
+	public List<HomeDTO> getNewyork();
+	
+	public List<HomeDTO> getRome();
+	
+	public List<HomeDTO> getLondon();
+	
+	public List<HomeDTO> getPraha();
+	
+	public List<HomeDTO> getMadrid();
 
 	//찬연
 		public int insertFirstHome(HomeDTO hdto);

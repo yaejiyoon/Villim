@@ -342,7 +342,7 @@
       where home_lat between #{swLat} and #{neLat} 
       	and home_lng between #{swLng} and #{neLng} 
       	and home_people >= #{people}
-      	and home_price between #{minMoney} and #{maxMoney}
+      	and home_price >= #{minMoney}
    		<if test="!homeType.equalsIgnoreCase('0')">
             and home_type = #{homeType}
          </if>
@@ -357,7 +357,7 @@
    </select>
    
    <select id="modalHomeData" resultType="Home" parameterType="map" >
-      select * from home where home_people >= #{people} and home_price between #{minMoney} and #{maxMoney}
+      select * from home where home_people >= #{people} and home_price >= #{minMoney}
          <if test="homeTypeIsChecked.equalsIgnoreCase('1')">
          	and 
 	         <trim suffixOverrides="or">
@@ -378,6 +378,26 @@
    
    <select id="getParis" resultType="Home">
 		select * from Home where home_nation = '프랑스'
+	</select>
+	
+	 <select id="getNewyork" resultType="Home">
+		select * from Home where home_nation = '미국'
+	</select>
+	
+	<select id="getRome" resultType="Home">
+		select * from Home where home_nation = '이탈리아'
+	</select>
+	
+	<select id="getLondon" resultType="Home">
+		select * from Home where home_nation = '영국'
+	</select>
+	
+	<select id="getPraha" resultType="Home">
+		select * from Home where home_nation = '체코'
+	</select>
+	
+	<select id="getMadrid" resultType="Home">
+		select * from Home where home_nation = '스페인'
 	</select>
 
 	<select id="searchHomeData" resultType="Home"

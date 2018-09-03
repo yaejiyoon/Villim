@@ -524,7 +524,7 @@ $(document).ready(function(){
 									</div>
 									
 								
-									<div class="panel-body">
+									<div class="panel-body" style="height:auto;">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
 										
 										
@@ -649,15 +649,13 @@ $(document).ready(function(){
                                       <%--  <fmt:formatDate var="checkoutDate" value="${info.reserv_checkout}" pattern="yyyy-mm-dd"/>
                                        <c:set var="today" value="<%=new java.util.Date() %>"/>
                                        <fmt:formatDate var="today" value="${today}"  pattern="yyyy-mm-dd"/> --%>
+										<c:choose>
+										<c:when test="${not empty result}">
 										<c:forEach items="${result}" var="info">
 										
 										<%-- <c:if test="${today.date-checkoutDate<=14}"> --%> 
 								
-												 
-												
-												
-												
-												
+											
 	<ul id="comments-list" class="comments-list">
 			<li>
 				<div class="comment-main-level" style="width:auto;">
@@ -682,12 +680,15 @@ $(document).ready(function(){
 				</div>
 				</li>
 				</ul>
-                   <%-- </c:if>     --%>                     
+                                    
                     </c:forEach>
-	                                              <!-- else 현재 작성할 후기가 없습니다. 여행을 한번 다녀올 때가 된 것 같네요! -->
-                                                  
-
-									
+	                          </c:when>
+	                          <c:otherwise>
+	                          현재 작성할 후기가 없습니다. 여행을 한번 다녀올 때가 된 것 같네요!
+	                          </c:otherwise>             
+	                          </c:choose>
+	                              
+                                 
 									</div>
 								</div>
 
@@ -697,8 +698,9 @@ $(document).ready(function(){
 											후기</h3>
 									</div>
 									<div class="panel-body">
-									
-						<!-- if 작성한 후기가 있다면 호스트 사진과 누구를 위한 리뷰와 그리고 리뷰, 작성한 날짜(예:2018년 8월)  -->
+								<c:choose>	
+								<c:when test="${not empty guestReviewresult}">
+						
 										<c:forEach items="${guestReviewresult}" var="review">			
 
           	<ul id="comments-list" class="comments-list">
@@ -720,12 +722,16 @@ $(document).ready(function(){
           
           
           </c:forEach>
-          
+          </c:when>
+          <c:otherwise>
+          아직 후기를 남기지 않으셨습니다.
+          </c:otherwise>
+          </c:choose>
            
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-offset-2"></div>
 										</div>
-										<!-- else 작성한후기 없다면 : 아직 후기를 남기지 않으셨습니다. -->
+										
 									</div>
 								</div>
 

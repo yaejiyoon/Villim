@@ -141,11 +141,9 @@ function enterkey() {
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="메세지" style="color:black;">메세지</span>
-             			<ul>
-        					<li><a href="#">Item</a></li>
-        					<li><a href="#">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
+             			<c:if test="${guestMsgUnreadCount+hostMsgUnreadCount>0}">
+               			<div class="circle-badge" style="background:#1ACAC0"></div>
+               			</c:if>
                		</a>
                </div>
                <div id="header-menu-div" class="dropdown hover headerDR">
@@ -255,16 +253,7 @@ function enterkey() {
                		</a>
                </div>
         
-               <div id="header-menu-div" class="dropdown hover headerDR">
-               		<a href="messageMain.msg" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
-               			<span data-hover="메세지" style="color:black;">메세지</span>
-               			<ul>
-        					<li><a href="messageRoomEnter.msg">Item</a></li>
-        					<li><a href="ok.msg">Product</a></li>
-        					<li><a href="#">Text</a></li>
-      					</ul>
-               		</a>
-               </div>
+
                <div id="header-menu-div" class="dropdown hover headerDR">
                		<a href="" style="width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500;  padding-left: 14px;">
                			<span data-hover="도움말" style="color:black;">도움말</span>

@@ -117,12 +117,12 @@
 </style>
 <script>
 function newListFunction2() {
-      $("#makeList").css({"display":"none"});
-      $("#main_likeyListDiv").css({"display":"block"});
-   };
+		$("#makeList").css({"display":"none"});
+		$("#main_likeyListDiv").css({"display":"block"});
+	};
 
 </script>
-</script>
+
 <script>
 	$(document).ready(function(){
 		
@@ -140,11 +140,13 @@ function newListFunction2() {
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
+				var home_name = $("#hiddenValue2").val();
 				
 				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				alert(likeylist_Seq);
 				alert(home_seq);
+				alert(home_name);
 				
 				$.ajax({
 					url:"likey.do",
@@ -216,7 +218,7 @@ function newListFunction2() {
                			<button id="cancelListBT" class="btn btn-secondary" style="float:right; margin-right: 10px;">취소</button>
                			<br><br>
                		</div>
-               		<a href='javascript:void(0);' id="makeList" onclick='newListFunction2();'><br>새 목록 만들기</a>
+               		<a href="javascript:void(0);" id="makeList" onclick="newListFunction2();">새 목록 만들기</a>
                		<div id="afterLineDiv"></div>
                		<script>
                		
@@ -229,8 +231,6 @@ function newListFunction2() {
                			
                			$("#makeListBT").click(function(){
                				var name = $("#makeName").val();
-               				
-               				
                				if(name == ''){
                					alert("저장 목록 이름을 입력하세요");
                				}else{

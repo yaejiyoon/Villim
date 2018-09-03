@@ -391,6 +391,17 @@ body{
     left:7.5vw;
     top:-125vh;
 }
+
+.card7 {
+    border: 1px solid #c9cacc;
+    transition: 0.3s;
+    width: 25%;
+    height:19vh;
+    margin: 0 auto;
+    position:relative;
+    left:7.5vw;
+    top:-125vh;
+}
 #reservAfter{
    position:relative;
    top:3vh;
@@ -513,6 +524,7 @@ input[type="radio"]:checked ~ label {
   			  $(this).parents('.card4').fadeOut();
   			});
   			
+  		
   			$('#msgSendBt').click(function(){
     		
   				
@@ -562,7 +574,7 @@ input[type="radio"]:checked ~ label {
 </head>
 <body>
 
-<%@ include file="../../resource/include/header_profile.jsp" %>
+<%@ include file="../../resource/include/header_msg.jsp" %>
 	<div class="card">
 			
 			
@@ -598,6 +610,11 @@ input[type="radio"]:checked ~ label {
       <input type="radio" id="slow" name="selector">
       <label for="slow">기타</label>
       <div class="radiobutton"></div>
+      
+      <div class="collapse" id="collapseExample">
+   <input type="text" class="form-control" value="" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
+</div>
+      
     </li>
   </ul>
       </div>
@@ -689,11 +706,11 @@ input[type="radio"]:checked ~ label {
     <h4><b>회원님이 예약을 취소하셨습니다.</b></h4> 
      <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
         <p>인원수 : ${reservCheck.population} </p>
-    <p>${host_name}님의 유연 환불 정책에 따라 ₩${reservCheck.totalAmount} 전액을 환불 받을수 있습니다. 요청하신 계좌로 입금될 예정입니다. </p>
-    <form action="" method="post" >
+    <%-- <p>${host_name}님의 유연 환불 정책에 따라<p style="display: inline; float:right; font-weight: 600;">₩ ${reservCheck.totalAmount} 전액을 환불 받을수 있습니다. 요청하신 계좌로 입금될 예정입니다. </p> --%>
+    <form action="homeMain.do" method="post" >
     <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
-    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
-  	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button>
+    <button class="btn btn-default" onclick="location.href='/homeMain.do'"  style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
+  	<!-- <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button> -->
   	</form>
   </div>
 </div>
@@ -705,10 +722,10 @@ input[type="radio"]:checked ~ label {
      <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
         <p>인원수 : ${reservCheck.population} </p>
     <p>다른 일정으로 예약을 하시거나 다른 숙소를 알아보시는게 어떨까요? </p>
-    <form action="" method="post" >
-    <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
-    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
-  	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button>
+    <form action="homeMain.do" method="post" >
+    <%-- <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}"> --%>
+    <button class="btn btn-default" onclick="location.href='/homeMain.do'" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
+<!--   	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button> -->
   	</form>
   </div>
 </div>
@@ -723,6 +740,21 @@ input[type="radio"]:checked ~ label {
     <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
     <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1vh;" id="paymentCancelBT">결제 취소</button>
   
+  	</form>
+  </div>
+</div>
+</c:when>
+<c:when test="${reservCheck.reserv_state==5}">
+<div class="card7  animated slideInRight">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;position:relative;top:1vh;">
+    <h4><b>회원님이 결제를 취소하셨습니다.</b></h4> 
+     <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
+        <p>인원수 : ${reservCheck.population} </p>
+    <p>${host_name}님의 유연 환불 정책에 따라<p style="display: inline; float:right; font-weight: 600;">₩ ${reservCheck.totalAmount} 전액을 환불 받을수 있습니다. 요청하신 계좌로 입금될 예정입니다. </p>
+    <form action="" method="post" >
+    <input type="hidden" name="reserv_seq" value="${reservCheck.reservation_seq}">
+    <button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">숙소 더 찾아보기</button>
+  	<button class="btn btn-default" style="background-color:white;width:30%;color:#545454;font-weight:800;border:1px solid #cccccc;position:relative;top:1.5vh;" id="">세부사항 보기</button>
   	</form>
   </div>
 </div>
@@ -785,7 +817,7 @@ input[type="radio"]:checked ~ label {
         <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;">${message.message_content}
+      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;/* background:#ffe8fe; */">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       
