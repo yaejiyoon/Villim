@@ -163,12 +163,12 @@ function newListFunction2() {
 					}
 				})
 				
-			}else {
+			}else if(srcBT == '../resources/img/like2.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = $("#hiddenValue6").val();
-				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/like.png'/>");
+				$("#likeyBTId"+home_seq).attr("src","<c:url value='../resources/img/likeW.png'/>");
 				
 				$.ajax({
 					url:"removeLikey.do",
@@ -194,8 +194,7 @@ function newListFunction2() {
 </script>
 
 <!-- 모달 팝업 -->
-      <div class="modal fade" id="likeyMainModal" tabindex="-1" role="dialog"
-      aria-labelledby="myModalLabel" aria-hidden="true"
+      <div class="modal fade" id="likeyMainModal" 
       style="z-index:1000000000">
          <div class="modal-dialog likey-dialog">
             <div class="modal-content likey-content">

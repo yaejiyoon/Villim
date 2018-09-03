@@ -1,11 +1,11 @@
 <%@ page pageEncoding="utf8"%>
 
 <style>
-	#likeyMainModal{
+	#likeyModal{
 		margin-top: 50px;
 		margin: 0 auto;
 		height:auto;
-		font-family:font2;
+		font-family:font2 !important;
 	}
 	
 	.modal-dialog.likey-dialog{
@@ -126,6 +126,7 @@
 			if(srcBT == '../resources/img/like.png'){
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like2.png'/>");
 				$("#likeImg").attr("src","<c:url value='../resources/img/like2.png'/>");
+				$("#scrollLike").attr("src","<c:url value='../resources/img/like2.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = ${hdto.home_seq}
@@ -148,6 +149,7 @@
 			}else{
 				$(this).parent().find('img').attr("src","<c:url value='../resources/img/like.png'/>");
 				$("#likeImg").attr("src","<c:url value='../resources/img/like.png'/>");
+				$("#scrollLike").attr("src","<c:url value='../resources/img/like.png'/>");
 				
 				var likeylist_Seq = $(this).parent().find('input').val();
 				var home_seq = ${hdto.home_seq}
@@ -175,6 +177,7 @@
 			<c:forEach items="${likeyHeart }" var="likeyHeart">
 				<c:if test="${likeyList.likeyList_seq eq likeyHeart.likeyList_seq }">
 		 			$("#likeyBTID${likeyList.likeyList_seq }").attr('src','<c:url value='../resources/img/like2.png'/>')
+		 			
 				</c:if>
 		 	</c:forEach>	
 		</c:forEach>

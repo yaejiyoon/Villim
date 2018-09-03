@@ -28,7 +28,7 @@
 <style>
 @font-face {
 	font-family: font2;
-	src: url('<c:url value='/ resources/ fonts/ dx.ttf'/>');
+	src: url('<c:url value='/resources/fonts/dx.ttf'/>');
 }
 
 @font-face {
@@ -47,38 +47,16 @@
 		
 		var token ='';
 		
+		$("#select").change(function(){
+			$("#continueBT").removeClass('noClick');
+		})
+		
 		$("#continueBT").click(function(){
-			//$(location).attr('href','paymentCancelMsg.re?reserv_seq=${reservationDTO.reservation_seq}');
-			
-			$.ajax({
-				url:"https://api.iamport.kr/users/getToken",
-				data:{
-					imp_key : "3566446879345688",
-					imp_secret : "198z86RsCz453GUMFifbU54gd0CLdJAfSJP1QHusgyxkes7UKm5FraVFbyqph1EaKubAbG3seAMt3ToN"
-				},
-				type:"post",
-				success:function(resp){
-					alert("성공?");
-					token = resp.response.access_token;
-					alert(token);
-					/* 
-					
-					$.ajax({
-						url:"https://api.iamport.kr/payments/cancel?_token="+token,
-						type:"post",
-						data:{
-						    "merchant_uid": "${paymentDTO.merchant_uid}",
-						    "cancel_reason": "사유",
-						    "pay_method": "card"
-						},
-						success:function(resp){
-							console.log(resp);
-						}
-					})
-					 */
-					
-					}
-				})
+			if($('#continueBT').hasClass('noClick')){
+				 alert("취소 사유를 선택하세요");
+			 }else{
+				$(location).attr('href','paymentCancelMsg.re?reserv_seq=${reservationDTO.reservation_seq}');
+			 }
 			
 		});
 		
@@ -103,19 +81,18 @@
 					<p>취소하려는 이유가 무엇인가요?</p>
 					<br>
 					<p class="title">이유를 선택하세요</p>
-					<select class="form-control">
-					 <option style="display:none"> </option>
+					<select class="form-control" id="select">
+					 	<option style="display:none"> </option>
 						<option>숙소가 필요 없어졌어요</option>
 						<option>실수로 예약했어요</option>
 						<option>호스트가 예약 취소를 원해요</option>
 						<option>호스트가 마음에 들지 않아요</option>
 						<option>여행 날짜가 변경되었어요</option>
 					</select>
-					
 					<br>
 					<br>
 					<br>
-					<button id="continueBT" class="btn btn-secondary">계속</button>
+					<button id="continueBT" class="btn btn-secondary noClick">계속</button>
 				</div>
 			</div>
 			<div id="paymentRight">

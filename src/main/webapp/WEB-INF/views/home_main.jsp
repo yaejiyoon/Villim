@@ -20,6 +20,13 @@
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
+$(document).ready(function(){
+	<c:if test="${sessionScope.login_email eq null}">
+	$(".likeyBT").attr('href','#myModal1');
+</c:if>
+})
+</script>
+<script>
 $(function () {
     var a = function () {
         var b = $(window).scrollTop();
@@ -174,6 +181,12 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
+	
+	$('.open-modal').click(function(){
+	      $('#likeyMainModal').modal('show');  // show modal
+	}); 
+		
+
 	$("#map").mouseup(function() {
 // 	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
@@ -297,6 +310,7 @@ $(document).ready(function() {
 		
 	});
 });
+});
 
 </script>
 
@@ -410,6 +424,8 @@ $(document).ready(function() {
  		</c:forEach>		
 	</c:forEach>
 </c:if>
+	
+	
 	
 });
 			
@@ -845,7 +861,10 @@ $(document).ready(function() {
 							>
 							<script>
 							$(function () {
-							    $(".likeyBT").click(function () {
+								
+								
+								
+							    $("#likeyBTId${homeList.home_seq }").click(function () {
 							        var home_main_pic = $(this).data('pic-id');
 							        $(".modal-body #hiddenValue").val(home_main_pic);
 							        
@@ -887,6 +906,10 @@ $(document).ready(function() {
 											},
 									success:function(resp){
 											
+										for(var i=0;i<resp.lLikey.length;i++){
+											$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
+										}
+										
 										for(var i=0;i<resp.lLikey.length;i++){
 											for(var j=0;j<resp.likeyHeart.length;j++){
 												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
