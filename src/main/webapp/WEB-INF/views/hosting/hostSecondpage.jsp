@@ -455,10 +455,10 @@
 															<div class="_az0uecb">
 																<div class="_y9ev9r">
 																	<select id="room-type" name="room_type"  hidden="true" 
-																		class="_10p0m0gl" ><option value="entire_home">집
+																		class="_10p0m0gl" ><option value="집전체">집
 																			전체</option>
-																		<option value="private_room">개인실</option>
-																		<option value="shared_room">다인실</option></select>
+																		<option value="개인실">개인실</option>
+																		<option value="다인실">다인실</option></select>
 																</div>
 																<span class="_1pzmvmb"><svg id="pickme"
 																		viewBox="0 0 18 18" role="presentation"

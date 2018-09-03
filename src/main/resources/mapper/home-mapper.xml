@@ -53,7 +53,7 @@
 		select * from (select
 		* from home
 		where member_email = #{member_email} order by home_seq)
-		where rownum = 1
+	 where rownum = 1 
 	</select>
 
 	<select id="getHomeData" parameterType="int" resultType="Home">

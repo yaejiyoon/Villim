@@ -34,7 +34,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int signup(MemberDTO dto) {
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,'N',sysdate,'null',?,?)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?,'N',sysdate,'null',default,'null',?)";
 		return jdbcTemplate.update(sql, dto.getMember_email(), dto.getMember_name(), dto.getMember_pw(),
 				dto.getMember_birth(), dto.getMember_picture(), dto.getMember_phone(),dto.getMember_type());
 	}
@@ -122,7 +122,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<MemberDTO> getAllMemberData() {
 	String sql = "select member_seq, member_email, member_name, member_birth, member_picture, member_block,"
-			+ "to_char(to_date(member_signup_date),'YYYY-MM-DD') as member_signup_date, member_location from member";
+			+ "to_char(to_date(member_date),'YYYY-MM-DD') as member_date, member_location from member";
 		
 
 		List<MemberDTO> result = jdbcTemplate.query(sql, new RowMapper <MemberDTO>() {
@@ -136,7 +136,7 @@ public class MemberDAOImpl implements MemberDAO {
 				adminDto.setMember_birth(rs.getString("member_birth"));
 				adminDto.setMember_picture(rs.getString("member_picture"));
 				adminDto.setMember_block(rs.getString("member_block"));
-				adminDto.setMember_date(rs.getString("member_signup_date"));
+				adminDto.setMember_date(rs.getString("member_date"));
 				adminDto.setMember_location(rs.getString("member_location"));
 				
 				return adminDto;
