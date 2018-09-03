@@ -121,7 +121,7 @@ td{
 							방법</b></a>
 				</div>
 				<div>
-					<a href="hostHomePaymentBreakdown.do" style="color: #A4A4A4;">대금
+					<a href="hostHomePaymentBreakdown.do?seq=0&startmon=1&startyear=2018&endmon=9&endyear=2018" style="color: #A4A4A4;">대금
 						수령 내역</a>
 				</div>
 			</div>

@@ -20,6 +20,13 @@
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
 <script>
+$(document).ready(function(){
+	<c:if test="${sessionScope.login_email eq null}">
+	$(".likeyBT").attr('href','#myModal1');
+</c:if>
+})
+</script>
+<script>
 $(function () {
     var a = function () {
         var b = $(window).scrollTop();
@@ -174,6 +181,12 @@ function initMap() {
 </script>
 <script>
 $(document).ready(function() {
+	
+	$('.open-modal').click(function(){
+	      $('#likeyMainModal').modal('show');  // show modal
+	}); 
+		
+
 	$("#map").mouseup(function() {
 // 	$("#map").mousemove(function() {
 		// 남서쪽의 좌표
@@ -302,7 +315,7 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-	$('body').delegate('#myonoffswitch','click',function(){
+	 $('body').delegate('#myonoffswitch','click',function(){
         var chkval = 0
           if($('#myonoffswitch').is(':checked')){
             chkval  = 1;
@@ -410,6 +423,8 @@ $(document).ready(function() {
  		</c:forEach>		
 	</c:forEach>
 </c:if>
+	
+	
 	
 });
 			
@@ -789,7 +804,6 @@ $(document).ready(function() {
 			  <li><a href="" data-toggle="modal" data-target="#date" id="dateBt">날짜</a></li>
 			  <li><a href="" data-toggle="modal" data-target="#people" id="peopleBt">인원</a></li>
 			  <li><a href="" data-toggle="modal" data-target="#homeType" id="homeTypeBt">숙소 종류</a></li>
-			  <li><a href="" data-toggle="modal" data-target="#price" id="priceBt">가격</a></li>
 			</ul>
 			<div class="onoffswitch">
 			    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
@@ -846,7 +860,10 @@ $(document).ready(function() {
 							>
 							<script>
 							$(function () {
-							    $(".likeyBT").click(function () {
+								
+								
+								
+							    $("#likeyBTId${homeList.home_seq }").click(function () {
 							        var home_main_pic = $(this).data('pic-id');
 							        $(".modal-body #hiddenValue").val(home_main_pic);
 							        
@@ -888,6 +905,10 @@ $(document).ready(function() {
 											},
 									success:function(resp){
 											
+										for(var i=0;i<resp.lLikey.length;i++){
+											$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
+										}
+										
 										for(var i=0;i<resp.lLikey.length;i++){
 											for(var j=0;j<resp.likeyHeart.length;j++){
 												if(resp.lLikey[i].likeyList_seq == resp.likeyHeart[j].likeyList_seq){
@@ -1035,256 +1056,248 @@ $(document).ready(function() {
 				<p class="introSentence">뉴욕(New York)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="newyork" items="${getNewyork}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${newyork.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${newyork.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${newyork.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${newyork.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${newyork.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${newyork.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${paris.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${paris.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${newyork.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${newyork.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${newyork.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
                   <p class="reviewCount">247</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				  
-				</div>
 				
 				<p class="introSentence">로마(Rome)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="rome" items="${getRome}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${rome.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${rome.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${rome.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${rome.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${rome.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${rome.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${rome.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${rome.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${rome.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${rome.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${rome.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				  
-				</div>
 				<p class="introSentence">런던(London)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="london" items="${getLondon}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${london.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${london.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${london.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${london.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${london.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${london.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${london.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${london.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${london.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${london.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${london.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
-				  
-				</div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				
 				<p class="introSentence">프라하(Praha)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="praha" items="${getPraha}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${praha.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${praha.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${praha.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${praha.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${praha.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${praha.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${praha.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${praha.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${praha.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${rome.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${praha.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
-				  
-				</div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				
 				<p class="introSentence">마드리드(Madrid)의 숙소 </p>
 			
 				<div class="col" id="row">
+				  <c:forEach var="madrid" items="${getMadrid}" varStatus="status" begin="0" end="3">
+				  <a href="home_info.do?seq=${madrid.home_seq}">
 				  <div class="col-md-3">
 					<div id="carouselDiv">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div id="${madrid.home_seq}" class="carousel slide" data-ride="carousel">
 						  		<!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#myCarousel" data-slide-to="1"></li>
-					    <li data-target="#myCarousel" data-slide-to="2"></li>
+					    <li data-target="#${madrid.home_seq}" data-slide-to="0" class="active"></li>
+					    <li data-target="#${madrid.home_seq}" data-slide-to="1"></li>
 					  </ol>
 				  		
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="<c:url value='/resources/img/index/homeTitle5.jpg'/>" alt="chicago">
+					      <img class="homePic" src="<c:url value='files/${madrid.home_main_pic}'/>">
 					    </div>
 					
 					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle6.jpg'/>" alt="chicago">
-					    </div>
-					
-					    <div class="item">
-					      <img src="<c:url value='/resources/img/index/homeTitle4.jpg'/>" alt="chicago">
-					    </div>
+					      <img class="homePic" src="<c:url value='files/${madrid.home_main_pic}'/>">
+					    </div> 
 					  </div>
 					
 					  <!-- Left and right controls -->
-					  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <a class="left carousel-control" href="#${madrid.home_seq}" data-slide="prev">
 					    <span class="glyphicon glyphicon-chevron-left"></span>
 					    <span class="sr-only">Previous</span>
 					  </a>
-					  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <a class="right carousel-control" href="#${madrid.home_seq}" data-slide="next">
 					    <span class="glyphicon glyphicon-chevron-right"></span>
 					    <span class="sr-only">Next</span>
 					  </a>
 						</div>
 					</div>
-					<p class="homeType">집 전체·레체</p>
+					<p class="homeType">${madrid.home_type}</p>
                   <p class="homeName">
-                     <B>Apartment 1 of 4 with green terrace in Roma Norte</B>
+                     <B>${rome.home_name}</B>
                   </p>
-                  <p class="homePrice">\88,732 /박</p>
+                  <p class="homePrice">₩ ${madrid.home_price}</p>
                   <p class="reviewStar">★★★★★</p>
-                  <p class="reviewCount">247</p>
+                  <p class="reviewCount">135</p>
                   <p class="hostTitle">슈퍼호스트</p>
 				  </div>
-				  
-				</div>
+				  </a>
+				  </c:forEach>
+				  </div>
 				
 			</div>
 		</div>
