@@ -345,9 +345,10 @@ public class ManagerController {
 		JSONObject json = null;
 		List<ReportDTO> result = adminService.getReportData();
 		
-		
-		
+		if(result.size()!=0) {
+			System.out.println("새로운 메세지가" + result.size() + "건 있습니다.");
 		for(ReportDTO tmp:result) {
+			
 			
 			json = new JSONObject();
 			json.put("report_email", tmp.getMember_email());
@@ -357,9 +358,35 @@ public class ManagerController {
 			json.put("report_reason", tmp.getReport_reason());
 			json.put("report_seq", tmp.getReport_seq());
 			json.put("report_state", tmp.getReport_state());
+			json.put("report_date", tmp.getReport_date());
 			
 			array.add(json);
 		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		try {
+		new Gson().toJson(result, response.getWriter());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		}else {
+			System.out.println("새로운 메세지가 없습니다.");
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			String msg = "notmsg";
+			try {
+				new Gson().toJson(msg, response.getWriter());
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	@RequestMapping("mainLogout.admin")
+	public String mainLogout(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		
+		session.invalidate();
+		return "redirect:/manager.admin";
 		
 	}
 	

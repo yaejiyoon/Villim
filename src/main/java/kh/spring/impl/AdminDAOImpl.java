@@ -186,7 +186,10 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<ReportDTO> getReportData() {
 		
-		String sql = "select * from report where report_state = 0";
+		String sql = "select member_email, member_name, reported_email,"
+				+ "reported_name, report_reason, report_seq, report_state,"
+				+ "to_char(to_date(report_date), 'YYYY-MM-DD') as report_date"
+				+ " from report where report_state = 0";
 		
 		List<ReportDTO> result = jdbcTemplate.query(sql, new RowMapper <ReportDTO>() {
 			@Override
@@ -200,7 +203,7 @@ public class AdminDAOImpl implements AdminDAO{
 				reportDto.setReport_seq(rs.getInt("report_seq"));
 				reportDto.setReport_reason(rs.getString("report_reason"));
 				reportDto.setReport_state(rs.getString("report_state"));
-
+				reportDto.setReport_date(rs.getString("report_date"));
 				return reportDto;
 			}
 		

@@ -134,8 +134,8 @@
 		
 	}
 	#adminProfile1{
-		width:2.2%;
-		margin-bottom:0.5%;
+		width:10%;
+		margin-bottom:5%;
 		margin-right:0.5%;
 		
 	}
@@ -162,7 +162,6 @@
 	height:5%;
 	padding-top: 0.5%;
 	
-	
 	}
 
 	#titleDiv{
@@ -177,7 +176,7 @@
 	}
 	#btn{
 		width:100px;
-		margin-right:70%;
+		margin-right:65%;
 		margin-top:5%;
 		
 	}
@@ -440,20 +439,24 @@ $(document).ready(function(){
 	})
 	
 
-	
-/* 	(function poll() {
+ 	
+ 	$(function poll() {
 	    $.ajax({
-	        url: 'mainTest.admin',
-	        type: 'GET',
-	        dataType: 'json',
+	        url: 'mainPolling.admin',
+	        type: 'post',
+	       
 	        success: function(response) {
 	           
+	        	$("#reportCount").html(response.length);
+	        	$("#reportMessage").html("<a style='margin-right:10%;'>새로운 신고가 " + response.length + "건 있습니다.</a>");
+	        	
 	        },
 	        timeout: 3000,
-	        complete: setTimeout(function() { poll(); }, 6000)
+	        complete: setTimeout(function() { poll(); }, 10000)
 	    })
-	})(); */
-				
+	});  
+	 
+	
 
 	 
 })
@@ -569,10 +572,25 @@ $(document).ready(function(){
 <div id="content">
 	<div id="contentHeader">
 		<a id="btn"><i class="fas fa-align-justify fa-2x"></i></a>
-		<a href="#" style="margin-right:1%;">
- 		 <i class="fas fa-envelope fa-2x"></i> <span class="badge" style="wi">4</span>
+		<div class="dropdown" style="display: inline-block; margin-right:2%;">
+		<a style="margin-right:1%;" data-target="dropdown-menu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+ 		 <i class="fas fa-envelope fa-2x"></i> <span class="badge" style="wi" id="reportCount"></span>
+			
 		</a>
-		<a href="#" style="";><img src="../resources/img/admin/admin.jpg" id="adminProfile1" class="img-circle"><h4 style="display: inline-block;"><strong>${sessionScope.admin_name}</strong></h4></a>		
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    		<li id="reportMessage"></li>
+    		
+  		</ul>
+		</div>
+
+<!-- </div> -->
+	
+	<div class="dropdown" style="display: inline-block; margin-right:2%;">
+	<a href="#" style=""; data-target="dropdown-menu" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false"><img src="../resources/img/admin/admin.jpg" id="adminProfile1" class="img-circle"><h4 style="display: inline-block;"><strong>${sessionScope.admin_name}</strong></h4></a>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    		<li><a id="adminLogout" href="mainLogout.admin">로그아웃</a></li>	
+  	</ul>
+	</div>		
 	</div>
 	<div id="titleDiv"><h2 id="title">Dashboard</h2>
 	
@@ -657,5 +675,23 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+ 		<table class="table table-striped" id="payTable">
+		</table>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
