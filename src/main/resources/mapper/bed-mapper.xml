@@ -13,4 +13,12 @@
 		where home_seq = #{home_seq} 
 	</update>
 	
+	<select id="selectbed" parameterType="int">
+		select * from bed where home_seq = #{home_seq}
+	</select>
+	
+	<delete id="deletebed" parameterType="int">
+		delete bed where home_seq=#{home_seq};
+	</delete>
+	
 </mapper>

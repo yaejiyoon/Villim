@@ -39,6 +39,34 @@ public class HostingController {
 
 	@Autowired
 	private HomeService service;
+	
+	@RequestMapping("/logincut.host")
+	public ModelAndView logincut(HttpSession session,HttpServletRequest req,HttpServletResponse res) {
+		String email = req.getSession().getAttribute("login_email").toString();
+		System.out.println(email);
+		HomeDTO homedto = service.getNewestHomeData(email);
+		String homestep = homedto.getHome_step();
+		System.out.println(homestep);
+		ModelAndView mav = new ModelAndView();
+		if(homestep.equals("1")){
+			int seq = homedto.getHome_seq();
+			System.out.println(seq);
+			req.getSession().setAttribute("hostingseq", seq);
+			req.getSession().setAttribute("homestep", homestep);
+			mav.setViewName("hosting/modifysteppage");
+		}else if(homestep.equals("2")){
+			int seq = homedto.getHome_seq();
+			System.out.println(seq);
+			req.getSession().setAttribute("hostingseq", seq);
+			req.getSession().setAttribute("homestep", homestep);
+			mav.setViewName("hosting/modifysteppagetwo");
+		}else{
+			req.getSession().setAttribute("homestep", homestep);
+			mav.setViewName("hosting/hostFirstpage");
+		}
+		
+		return mav;
+	}
 
 	@RequestMapping("/first.host")
 	public ModelAndView toFirst(HttpSession session,HttpServletRequest req,HttpServletResponse res) {
@@ -331,6 +359,7 @@ public class HostingController {
 			BedDTO bdto = new BedDTO();
 			if(homebedroom == 0){
 				System.out.println("침실없음");
+				req.getSession().setAttribute("bedcheck", "f");
 			}else if (homebedroom == 1){
 				String aqueenbed = queenbed.get(0);
 				String asinglebed = singlebed.get(0);
@@ -340,6 +369,93 @@ public class HostingController {
 				bdto.setBed_queen(adoublebed);
 				bdto.setHome_seq(seq);
 				int bed = service.insertbed(bdto);
+				req.getSession().setAttribute("bedcheck", "t");
+				BedDTO getbdto = service.getBedData(seq);
+				int bedseq = getbdto.getBed_seq();
+				req.getSession().setAttribute("bedseq", bedseq);
+			}else if(homebedroom > 1){
+				String queenbeds = "";
+				String singlebeds = "";
+				String doublebeds = "";
+				for(int i=0;i<queenbed.size();i++){
+					if(i<queenbed.size()-1){
+						queenbeds += queenbed.get(i)+",";
+					}else{
+						queenbeds += queenbed.get(i);
+					}
+				}
+				for(int i=0;i<singlebed.size();i++){
+					if(i<singlebed.size()-1){
+						singlebeds += singlebed.get(i)+",";
+					}else{
+						singlebeds += singlebed.get(i);
+					}
+				}
+				for(int i=0;i<doublebed.size();i++){
+					if(i<doublebed.size()-1){
+						doublebeds += doublebed.get(i)+",";
+					}else{
+						doublebeds += doublebed.get(i);
+					}
+				}
+				
+				System.out.println(queenbeds);
+				System.out.println(singlebeds);
+				bdto.setBed_single(queenbeds);
+				bdto.setBed_double(singlebeds);
+				bdto.setBed_queen(doublebeds);
+				bdto.setHome_seq(seq);
+				int bed = service.insertbed(bdto);
+				req.getSession().setAttribute("bedcheck", "t");
+				BedDTO getbdto = service.getBedData(seq);
+				int bedseq = getbdto.getBed_seq();
+				req.getSession().setAttribute("bedseq", bedseq);
+			}
+			
+/*			bdto.setBed_single(singlebed);
+			bdto.setBed_double(doublebed);
+			bdto.setBed_queen(queenbed);
+			bdto.setHome_seq(seq);*/
+			
+			mav.setViewName("hosting/modifysteppage");
+			
+		}else {
+			HomeDTO callhomedto = service.getNewestHomeData(isemail);
+			int seq= callhomedto.getHome_seq();
+			String step= callhomedto.getHome_step();
+			req.getSession().setAttribute("hostingseq", seq);
+			homedto.setHome_seq(seq);
+			int result = service.modifyFirstHome(homedto);
+			mav.addObject("result",result);
+			System.out.println("1단계 업데이트");
+			BedDTO getbdto = service.getBedData(seq);
+			int bedseq = 0;
+			try {
+				 bedseq = getbdto.getBed_seq();
+			} catch (Exception e) {
+				bedseq = 0;
+			}
+			
+			BedDTO bdto = new BedDTO();
+			if(homebedroom == 0){
+				if(bedseq == 0){
+					System.out.println("침실없음");
+				}else {
+					int bed = service.deletebed(seq);
+				}
+			}else if (homebedroom == 1){
+				String aqueenbed = queenbed.get(0);
+				String asinglebed = singlebed.get(0);
+				String adoublebed = doublebed.get(0);
+				bdto.setBed_single(aqueenbed);
+				bdto.setBed_double(asinglebed);
+				bdto.setBed_queen(adoublebed);
+				bdto.setHome_seq(seq);
+				if(bedseq ==0){
+					int bed = service.insertbed(bdto);
+				}else{
+					int bed = service.updatebed(bdto);
+				}
 				
 			}else if(homebedroom > 1){
 				String queenbeds = "";
@@ -366,14 +482,18 @@ public class HostingController {
 						doublebeds += doublebed.get(i);
 					}
 				}
+				
 				System.out.println(queenbeds);
 				System.out.println(singlebeds);
 				bdto.setBed_single(queenbeds);
 				bdto.setBed_double(singlebeds);
 				bdto.setBed_queen(doublebeds);
 				bdto.setHome_seq(seq);
-				int bed = service.insertbed(bdto);
-				
+				if(bedseq ==0){
+					int bed = service.insertbed(bdto);
+				}else{
+					int bed = service.updatebed(bdto);
+				}
 			}
 			
 /*			bdto.setBed_single(singlebed);
@@ -381,34 +501,6 @@ public class HostingController {
 			bdto.setBed_queen(queenbed);
 			bdto.setHome_seq(seq);*/
 			
-			
-			
-			mav.setViewName("hosting/modifysteppage");
-		}else {
-			HomeDTO callhomedto = service.getNewestHomeData(isemail);
-			int seq= callhomedto.getHome_seq();
-			String step= callhomedto.getHome_step();
-			req.getSession().setAttribute("hostingseq", seq);
-			homedto.setHome_seq(seq);
-			int result = service.modifyFirstHome(homedto);
-			mav.addObject("result",result);
-			System.out.println("1단계 업데이트");
-			
-			BedDTO bdto = new BedDTO();
-			if(homebedroom == 0){
-				System.out.println("침실없음");
-			}else if (homebedroom == 1){
-				
-			}else if(homebedroom > 1){
-				
-			}
-			
-/*			bdto.setBed_single(singlebed);
-			bdto.setBed_double(doublebed);
-			bdto.setBed_queen(queenbed);
-			bdto.setHome_seq(seq);*/
-			
-			int bed = service.updatebed(bdto);
 			if(step.equals("1")){
 				mav.setViewName("hosting/modifysteppage");
 			}else if(step.equals("2")){
@@ -826,5 +918,6 @@ public @ResponseBody void home( @RequestParam("val") String id, HttpServletReque
 		jarray.add(valuebulid);
 		new Gson().toJson(jarray, response.getWriter());
 	}
-
+	
+	
 }

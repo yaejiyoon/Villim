@@ -57,7 +57,7 @@
             	<div id="header-menu-div" class="dropdown hover headerDR">
 			<c:if test="${sessionScope.login_email != null}"> 
 				<c:if test="${sessionScope.homestep == null}"> 
-					<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+					<a href="logincut.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
 				</c:if>
 				<c:if test="${sessionScope.homestep == 1}"> 
 					<a href="endstepone.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
@@ -180,7 +180,7 @@
             	<div id="header-menu-div" class="dropdown hover headerDR">
 			<c:if test="${sessionScope.login_email != null}"> 
 				<c:if test="${sessionScope.homestep == null}"> 
-					<a href="first.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
+					<a href="logincut.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">
 				</c:if>
 				<c:if test="${sessionScope.homestep == 1}"> 
 					<a href="endstepone.host" style=" width:100%;color:black;  overflow: hidden; margin:0px; font-size: 0.93vw; font-weight: 500; padding-left: 14px;">

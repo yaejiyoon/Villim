@@ -602,4 +602,16 @@ public class HomeDAOImpl implements HomeDAO {
 		// TODO Auto-generated method stub
 		return ssTemplate.update("Bed.updatebed", bdto);
 	}
+
+	@Override
+	public BedDTO selectbed(int homeseq) {
+		// TODO Auto-generated method stub
+		return ssTemplate.selectOne("Bed.selectbed", homeseq);
+	}
+
+	@Override
+	public int deletebed(int homeseq) {
+		// TODO Auto-generated method stub
+		return ssTemplate.delete("Bed.deletebed", homeseq);
+	}
 }

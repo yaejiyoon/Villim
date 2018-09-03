@@ -158,4 +158,8 @@ public interface HomeDAO {
 	public int insertbed(BedDTO bdto);
 	
 	public int updatebed(BedDTO bdto);
+	
+	public BedDTO selectbed(int homeseq);
+	
+	public int deletebed(int homeseq);
 }
