@@ -19,12 +19,49 @@
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
+
 <script>
 $(document).ready(function(){
 	<c:if test="${sessionScope.login_email eq null}">
 	$(".likeyBT").attr('href','#myModal1');
 </c:if>
 })
+</script>
+<script>
+
+<% String homeType = (String)session.getAttribute("homeType");
+if(!homeType.equals("0")) {%>
+   $(document).ready(function() {
+      var homeTypeBt = document.getElementById('homeTypeBt');
+      homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
+      homeTypeBt.style.backgroundColor = '#008489';
+      homeTypeBt.style.color = "white";
+      homeTypeBt.style.borderRadius = "10px";
+   })
+<%}%>
+
+<%
+int people = (int) session.getAttribute("people"); 
+if(people!=0) {%>
+   $(document).ready(function() {
+      var homeTypeBt = document.getElementById('peopleBt');
+      homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
+      homeTypeBt.style.backgroundColor = '#008489';
+      homeTypeBt.style.color = "white";
+      homeTypeBt.style.borderRadius = "10px";
+   })
+<%}%>
+
+<% String startDate = (String) session.getAttribute("startDate"); 
+if(!startDate.equals("0")) {%>
+$(document).ready(function() {
+   var dateBt = document.getElementById('dateBt');
+   dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
+   dateBt.style.backgroundColor = '#008489';
+   dateBt.style.color = "white";
+   dateBt.style.borderRadius = "10px";
+})
+<%}%>
 </script>
 <script>
 $(function () {
@@ -179,6 +216,8 @@ function initMap() {
 }
 
 </script>
+
+
 <script>
 $(document).ready(function() {
 	
@@ -431,43 +470,7 @@ $(document).ready(function() {
 
 </script>
 
-<script>
 
-
-<% String homeType = (String)session.getAttribute("homeType");
-if(!homeType.equals("0")) {%>
-   $(document).ready(function() {
-      var homeTypeBt = document.getElementById('homeTypeBt');
-      homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
-      homeTypeBt.style.backgroundColor = '#008489';
-      homeTypeBt.style.color = "white";
-      homeTypeBt.style.borderRadius = "10px";
-   })
-<%}%>
-
-<%
-int people = (int) session.getAttribute("people"); 
-if(people!=0) {%>
-   $(document).ready(function() {
-      var homeTypeBt = document.getElementById('peopleBt');
-      homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
-      homeTypeBt.style.backgroundColor = '#008489';
-      homeTypeBt.style.color = "white";
-      homeTypeBt.style.borderRadius = "10px";
-   })
-<%}%>
-
-<% String startDate = (String) session.getAttribute("startDate"); 
-if(!startDate.equals("0")) {%>
-$(document).ready(function() {
-   var dateBt = document.getElementById('dateBt');
-   dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
-   dateBt.style.backgroundColor = '#008489';
-   dateBt.style.color = "white";
-   dateBt.style.borderRadius = "10px";
-})
-<%}%>
-</script>
 
 
 

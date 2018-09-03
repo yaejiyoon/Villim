@@ -246,7 +246,14 @@ public class HomeMainController {
 		session.setAttribute("people", modalPeople);
 		List dates = (List) session.getAttribute("dates");
 		
+		String homeType = (String) session.getAttribute("homeType");
+		List homeTypeList = (List) session.getAttribute("homeTypeList");
+		System.out.println("사람수 입력후 homeType: "+homeType);
+		System.out.println("사람수 입력후 homeType세션값 :"+(String) session.getAttribute("homeType"));
+		System.out.println("사람수 입력후 homeTypeList: "+homeTypeList);
+		
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", (String) session.getAttribute("homeType"));
 		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
 		param.put("homeTypeIsChecked", (String) session.getAttribute("homeTypeIsChecked"));
 		param.put("people", session.getAttribute("people"));
@@ -254,6 +261,8 @@ public class HomeMainController {
 		param.put("dateIsChecked", (String) session.getAttribute("dateIsChecked"));
 		param.put("minMoney", (int) session.getAttribute("minMoney"));
 		param.put("maxMoney", (int) session.getAttribute("maxMoney"));
+		
+		System.out.println("모달 피플 바꾼뒤"+session.getAttribute("people"));
 		
 		List<HomeDTO> homeList = homeService.modalHomeData(param);
 		
@@ -301,6 +310,7 @@ public class HomeMainController {
 		System.out.println("whole "+whole);
 		System.out.println("one "+one);
 		System.out.println("many "+many);
+		System.out.println("homeTypeList " + homeTypeList);
 		
 		
 		session.setAttribute("homeType", "숙소 유형 ·"+ homeTypeList.size());
@@ -375,9 +385,10 @@ public class HomeMainController {
 		System.out.println("===============================================");
 		System.out.println("날짜바꿔보았스 : "+(List) session.getAttribute("dates"));
 		
-		
+		session.setAttribute("homeType", "숙소 유형 ·"+ ((List) session.getAttribute("homeTypeList")).size());
 		
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("homeType", session.getAttribute("homeType"));
 		param.put("homeTypeList", (List) session.getAttribute("homeTypeList"));
 		param.put("homeTypeIsChecked", (String) session.getAttribute("homeTypeIsChecked"));
 		param.put("people", session.getAttribute("people"));
