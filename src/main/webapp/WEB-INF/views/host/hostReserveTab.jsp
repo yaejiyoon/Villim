@@ -30,7 +30,9 @@ div {
 	width: 70%;
 	margin-bottom: 100px;
 }
-
+body{
+min-width:1280px;
+}
 .wrapper-sub {
 	width: 65%;
 }

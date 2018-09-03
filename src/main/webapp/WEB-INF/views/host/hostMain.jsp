@@ -22,7 +22,7 @@
 <!-- 	rel="stylesheet" /> -->
 
 
-<title>알림판 - Airbnb</title>
+<title>Host_Main</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 <style>
 div {
@@ -505,7 +505,6 @@ ul li{
 												}
 												
 												if(resp.hdto.home_main_pic == null){
-													alert(resp.hplist.length);
 													$(".hp-number").text(resp.hplist.length+"/19");
 													$("#hp-number").text(resp.hplist.length+"/19");
 													$(".home-summary-contents-pic").find("img").each(function() {

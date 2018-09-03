@@ -21,7 +21,9 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	margin-bottom: 100px;
@@ -89,7 +91,7 @@ div {
 	border: 2px solid #008489;
 }
 </style>
-
+<title>가격 수정</title><link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>

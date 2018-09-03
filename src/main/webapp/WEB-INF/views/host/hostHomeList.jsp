@@ -25,7 +25,9 @@
 	height: auto;
 	width: 100%;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper-sub {
 	width: 70%;
 }
@@ -132,6 +134,7 @@
 }
 </style>
 <title>숙소</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
