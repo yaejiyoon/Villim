@@ -310,7 +310,6 @@ $(document).ready(function() {
 		
 	});
 });
-});
 
 </script>
 
