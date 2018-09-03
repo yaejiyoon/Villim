@@ -54,4 +54,6 @@ public interface MemberDAO {
     public List<HostReviewDTO> getRealHostReview(List<Integer> g_review_seq);
     
     public int insertHostReview(HostReviewDTO dto);
+    
+    public List<ReservationDTO> getMyReservList(String userId);
 }

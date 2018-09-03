@@ -482,15 +482,18 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/header_profile.jsp" %>
+	<%@ include file="../../resource/include/header.jsp" %>
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"
 			style="font-size: 18px; position: relative;  top: -24px; left: -2vw;  color: gray; text-decoration: none;">프로필
 			수정</a> 
-			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -6vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
+			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -7.2vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
+		
+		<a href="myReservList.mo"
+			style="font-size: 18px; position: relative;z-index:500;  top: 70px;left: -9.5vw; color:gray;text-decoration: none;">예약 목록</a>
 		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -11vw; top: 80px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
+			style="position: relative; left: -14vw; top: 100px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
 
 

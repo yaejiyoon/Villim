@@ -85,4 +85,9 @@ order by decode(g_review_seq,
 <insert id="insertHostReview">
 insert into host_review values(h_review_seq.nextval,#{home_seq},#{g_review_seq},#{h_review_public},to_char(SYSDATE,'YY/MM/DD'),#{member_email})
 </insert>
+
+
+<select id="getMyReservList" resultType="Reservation">
+select * from reservation where member_email=#{userId} order by reservation_seq
+</select>
 </mapper>
