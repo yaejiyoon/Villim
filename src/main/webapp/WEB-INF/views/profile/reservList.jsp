@@ -35,6 +35,10 @@
 	<div class=container
 		style="height: auto; min-height:50vh;position: relative; top:6vh;left:-1vw;">
       <h3 style="color:#595959;font-weight:800;position:relative;left:-1vw;top:2vh;">예약 & 결제 정보</h3>
+		
+		
+			<c:choose>
+			<c:when test="${not empty myReservList}">
 		<table class="table table-hover" style="text-align:center; position:relative;top:4vh;left:-2vw;">
 			<thead style="text-align:center;">
 				<tr  style="text-align:center;">
@@ -48,10 +52,13 @@
 
 				</tr>
 			</thead>
+			
+			
 			<tbody>
+			
 				<c:forEach items="${myReservList}" var="list" varStatus="i">
-					<tr>
-						<th scope="row">${i.count}</th>
+				
+					<tr><th scope="row">${i.count}</th>
 						<td style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${list.home_name}</td>
 						<td>${list.reserv_checkin}</td>
 						<td>${list.reserv_checkout}</td>
@@ -79,9 +86,21 @@
 
 						</c:choose>
 					</tr>
+				
+				
+				
 				</c:forEach>
+				
 			</tbody>
+			
+		
+			
 		</table>
+		</c:when>
+			<c:otherwise>
+			<h4 style="position:relative;left:24vw;top:4vh;">예약과 결제 내역이 없습니다</h4> 
+			</c:otherwise>
+		</c:choose>
 
 	</div>
 	<%@ include file="../../resource/include/footer.jsp"%>

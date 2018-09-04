@@ -947,5 +947,10 @@ public class HostingController {
 		jarray.add(valuebulid);
 		new Gson().toJson(jarray, response.getWriter());
 	}
-
+	
+	@RequestMapping("/finalend.host")
+	public String endend() {
+		//string <- 스프링이 해석함 
+		return "/hosting/finish";
+	}
 }

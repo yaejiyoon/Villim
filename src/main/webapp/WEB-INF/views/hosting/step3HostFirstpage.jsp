@@ -20,6 +20,9 @@
     width: 20px;
     background-color: #eee;
 }
+.kals{
+
+}
 </style>
 </head>
 <body>
@@ -59,35 +62,7 @@
 							</div>
 							<div>
 								<div class="progress-bar__container">
-									<div>
-										<span><div
-												class="progress-section progress__bar-section progress-section--first progress-section--completed progress-section--last-completed"
-												style="width: 7.6923076923076925%; left: 0%; max-width: 100%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 7.6923076923076925%; max-width: 92.3076923076923%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 15.384615384615385%; max-width: 84.61538461538461%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 23.076923076923077%; max-width: 76.92307692307692%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 30.76923076923077%; max-width: 69.23076923076923%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 38.46153846153846%; max-width: 61.53846153846154%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 46.15384615384615%; max-width: 53.84615384615385%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 53.84615384615385%; max-width: 46.15384615384615%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 61.53846153846154%; max-width: 38.46153846153846%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 69.23076923076923%; max-width: 30.769230769230774%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 76.92307692307692%; max-width: 23.07692307692308%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 84.61538461538461%; max-width: 15.384615384615387%"></div>
-											<div class="progress-section progress__bar-section"
-												style="width: 7.6923076923076925%; left: 92.3076923076923%; max-width: 7.692307692307693%"></div></span>
-									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -227,7 +202,7 @@
 														<div style="margin-bottom: 6px">
 															<div class=" pull-right">
 															<input type="checksmoke">
-															</div>
+															</div>	
 														</div>
 													</div>
 												</div>
@@ -273,7 +248,7 @@
 																class="checkmark" id="requires_stairs"
 																name="home_details" value="계단을 올라가야 함" /></span>
 														</div>
-														<div class="_zkrkb6">
+														<div class="_zkrkb6" id="stairafter">
 															<span class="_f7dcovm"><div class="_1n57hdr7">계단을
 																	올라가야 함</div></span>
 														</div>
@@ -287,7 +262,7 @@
 																class="checkmark" id="potential_noise"
 																name="home_details" value="소음이 발생할 수 있음" /></span>
 														</div>
-														<div class="_zkrkb6">
+														<div class="_zkrkb6" id="soundafter">
 															<span class="_f7dcovm"><div class="_1n57hdr7">소음이
 																	발생할 수 있음</div></span>
 														</div>
@@ -301,7 +276,7 @@
 																class="checkmark" id="has_pets" name="home_details"
 																value="숙소에 반려동물 있음" /></span>
 														</div>
-														<div class="_zkrkb6">
+														<div class="_zkrkb6" id="zooafter">
 															<span class="_f7dcovm"><div class="_1n57hdr7">숙소에
 																	반려동물 있음</div></span>
 														</div>
@@ -315,7 +290,7 @@
 																class="checkmark" id="limited_parking"
 																name="home_details" value="건물 내 주차 불가" /></span>
 														</div>
-														<div class="_zkrkb6">
+														<div class="_zkrkb6" id="parkafter">
 															<span class="_f7dcovm"><div class="_1n57hdr7">건물
 																	내 주차 불가</div></span>
 														</div>
@@ -329,7 +304,7 @@
 																class="checkmark" id="shared_spaces" name="home_details"
 																value="일부 공용 공간 있음" /></span>
 														</div>
-														<div class="_zkrkb6">
+														<div class="_zkrkb6" id="roomafter">
 															<span class="_f7dcovm"><div class="_1n57hdr7">일부
 																	공용 공간 있음</div></span>
 														</div>
@@ -343,7 +318,7 @@
 																class="checkmark" id="limited_amenities"
 																name="home_details" value="편의시설 제한" /></span>
 														</div>
-														<div class="_zkrkb6">
+														<div class="_zkrkb6" id="convafter">
 															<span class="_f7dcovm"><div class="_1n57hdr7">편의시설
 																	제한</div></span>
 														</div>
@@ -441,7 +416,7 @@
 	<script type="text/javascript">
 	
 	$("#save").click(function() {
-		$(location).attr("href","toindex.host");
+		$(location).attr("href", "/");
 	});
 	
 		$('input[type="checkkid"]').checkboxpicker({
@@ -540,7 +515,7 @@
 		
 		$("#requires_stairs").click( function(){
 			   if( $("#requires_stairs").is(':checked') ){ 
-				$("#requires_stairs").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"staired\">");
+				$("#stairafter").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"staired\" class=\"kals\" >");
 			   }else{
 				$("#staired").remove();	   
 			   }
@@ -548,7 +523,7 @@
 		
 		$("#potential_noise").click( function(){
 			   if( $("#potential_noise").is(':checked') ){ 
-				$("#potential_noise").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"noise\">");
+				$("#soundafter").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"noise\" class=\"kals\" >");
 			   }else{
 				$("#noise").remove();	   
 			   }
@@ -556,7 +531,7 @@
 		
 		$("#has_pets").click( function(){
 			   if( $("#has_pets").is(':checked') ){ 
-				$("#has_pets").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"petsdo\">");
+				$("#zooafter").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"petsdo\" class=\"kals\" >");
 			   }else{
 				$("#petsdo").remove();	   
 			   }
@@ -564,7 +539,7 @@
 		
 		$("#limited_parking").click( function(){
 			   if( $("#limited_parking").is(':checked') ){ 
-				$("#limited_parking").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"parking\">");
+				$("#parkafter").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"parking\" class=\"kals\" >");
 			   }else{
 				$("#parking").remove();	   
 			   }
@@ -572,7 +547,7 @@
 		
 		$("#shared_spaces").click( function(){
 			   if( $("#shared_spaces").is(':checked') ){ 
-				$("#shared_spaces").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"spaces\">");
+				$("#roomafter").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"spaces\" class=\"kals\" >");
 			   }else{
 				$("#spaces").remove();	   
 			   }
@@ -580,33 +555,9 @@
 		
 		$("#limited_amenities").click( function(){
 			   if( $("#limited_amenities").is(':checked') ){ 
-				$("#limited_amenities").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"amenities\">");
+				$("#convafter").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"amenities\" class=\"kals\" >");
 			   }else{
 				$("#amenities").remove();	   
-			   }
-		});
-		
-		$("#surveillance").click( function(){
-			   if( $("#surveillance").is(':checked') ){ 
-				$("#surveillance").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"camera\">");
-			   }else{
-				$("#camera").remove();	   
-			   }
-		});
-		
-		$("#weapons").click( function(){
-			   if( $("#weapons").is(':checked') ){ 
-				$("#weapons").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"killed\">");
-			   }else{
-				$("#killed").remove();	   
-			   }
-		});
-		
-		$("#animals").click( function(){
-			   if( $("#animals").is(':checked') ){ 
-				$("#animals").after("<input type=\"text\" name=\"addon\" value=\"\" id=\"cation\">");
-			   }else{
-				$("#cation").remove();	   
 			   }
 		});
 		

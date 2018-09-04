@@ -8,9 +8,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
-<link rel="stylesheet" type="text/css" href="resources/css/hosting/rocket.css">
-<link rel="stylesheet" type="text/css" href="resources/css/hosting/cals.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/hosting/hosting.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/hosting/rocket.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/hosting/cals.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
@@ -22,9 +25,75 @@
 	border-bottom: 1px solid #EBEBEB !important;
 	border-top: 1px solid #EBEBEB !important;
 }
+
+.landing__title-title {
+	font-size: 32px
+}
+
+.landing-width {
+	margin-left: auto;
+	margin-right: auto
+}
+
+@media ( min-width : 1128px) {
+	.landing-width {
+		max-width: 1310px
+	}
+}
+
+.landing__left-col-content {
+	max-width: 470px
+}
+
+@media ( max-width : 743px) {
+	.landing__left-col-content {
+		margin: 34px 28.5px 34px 34px
+	}
+}
+
+@media ( min-width : 744px) and (max-width: 1127px) {
+	.landing__left-col-content {
+		margin: 58px 62.5px 58px 68px
+	}
+}
+
+@media ( min-width : 1128px) {
+	.landing__left-col-content {
+		margin: 58px 93.5px 100px 100px
+	}
+}
+
+.landing-step-collection {
+	-webkit-transition-duration: .25s;
+	-moz-transition-duration: .25s;
+	-o-transition-duration: .25s;
+	transition-duration: .25s
+}
+
+.landing-step-collection .disabled {
+	opacity: 0.53;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=53)";
+	cursor: default
+}
+
+.landing__wmpw-controls {
+	max-width: 385px
+}
+
+.landing__wmpw-controls .panel {
+	background: #e5faf9;
+	border: 1px solid #b2f1ec;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px
+}
+.landing__subtitle-width{max-width:430px}
+.landing__step-content{-webkit-transition:opacity .25s ease;-o-transition:opacity .25s ease;-moz-transition:opacity .25s ease;transition:opacity .25s ease}
 </style>
 </head>
 <body>
+
+  <%@ include file="../../resource/include/header.jsp" %>
 
 	<div id="field-guide-container"></div>
 
@@ -52,7 +121,7 @@
 										<div class="space-5">
 											<p class="text-gray">친구, 이웃 또는 청소 도우미를 공동 호스트로 추가해 예약 관리와
 												게스트 맞이에 도움을 받을 수 있습니다.</p>
-											
+
 										</div>
 										<button type="button" class="btn btn-babu" id="home">
 											<span class="text-large">홈으로</span>
@@ -71,13 +140,11 @@
 			</div>
 		</div>
 	</div>
-	
-<script type="text/javascript">
 
-	$("#home").click(function() {
-		$(location).attr("href","/");
-	})
-	
-</script>
+	<script type="text/javascript">
+		$("#home").click(function() {
+			$(location).attr("href", "/");
+		})
+	</script>
 </body>
 </html>
