@@ -23,7 +23,9 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	height: auto;

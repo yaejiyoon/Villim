@@ -29,7 +29,9 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	margin-bottom: 100px;
@@ -116,7 +118,8 @@ margin-top:50px;
 	width:100%;
 }
 </style>
-<title>숙소 상태 탭</title>
+<title>숙소 상태</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <script>
 	

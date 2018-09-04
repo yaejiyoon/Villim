@@ -16,17 +16,22 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-<title>계정 관리</title>
+	
+<title>대금 수령 방법</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	width: 70%;
 	height: auto;
+	margin-bottom: 100px;
 }
 
 #wrapper-sub {

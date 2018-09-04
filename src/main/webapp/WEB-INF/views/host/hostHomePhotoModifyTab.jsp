@@ -17,13 +17,16 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
-<title>호스트 홈 사진 수정 탭</title>
+<title>사진</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	margin-bottom: 100px;
@@ -73,6 +76,7 @@ margin:0 auto;
 	height: 350px;
 	border: 4px dotted #D8D8D8;
 	position: relative;
+	margin-left: 0;
 }
 
 .add-mainpic-wrap {
@@ -80,9 +84,9 @@ margin:0 auto;
 	height: 20%;
 	margin: 0 auto;
 	position: relative;
-	top: 85px;
+	top: 120px;  
 }
-
+  
 .add-img {
 	max-width: 100%;
 	max-height: 100%;
@@ -142,6 +146,24 @@ margin:0 auto;
 }
 </style>
 <script>
+function isEmpty(str){
+	console.log("isEmpty");
+	console.log(str);
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
+}
+
+function nvl(str, defaultStr){
+	console.log("nvl");
+	console.log("str:"+str+":"+defaultStr)
+    if(typeof str == "undefined" || str == null || str == "")
+        str = defaultStr ;
+    return str ;
+}
+
+
 //메인사진 삭제--------------------------------------------------------------
 function maindel(){
 	var seq = ${hdto.home_seq};
@@ -149,7 +171,7 @@ function maindel(){
 	$('.main-pic-wrap').hover(function(){
 		$("#add-pic1").find("img").each(function() {
 			var tomainpic = $(this).attr('src');
-			console.log("tomainpic:" +tomainpic);
+			console.log("tomainpic:" +tomainpic); 
 		});
 	
 		console.log("in");
@@ -172,6 +194,7 @@ function maindel(){
 		file = $(this).attr('src');
 		console.log("file : " + file);
 	})
+	
 	
 	$.ajax({
 		url:"deletePhoto.do",
@@ -200,10 +223,6 @@ function maindel(){
 			
 			var mp = $('#main-pic');	
 			var mpw = $('#main-pic-wrap');
-			
-			if($('#main-pic-wrap>#delmain-btn').length){
-				$("#main-pic-wrap>#delmain-btn").remove();
-			}
 			
 			if(toMainPic==undefined || toMainPic == null){
 				alert("없을때");
@@ -339,7 +358,7 @@ function maindel(){
 							</div>
 							<script>
 								maindel();  
-							</script>
+							</script> 
 							</c:otherwise>
 						</c:choose>
 					</form>
@@ -446,7 +465,9 @@ function maindel(){
 							console.log("file3");
 							var form = $('#photoForm2')[0];
 							var formData = new FormData(form);
-
+							
+							if($('#file3').val().length){
+							
 							$.ajax({
 										type : "post",
 										enctype : "multipart/form-data",
@@ -457,32 +478,10 @@ function maindel(){
 										cache : false,
 										timeout : 6000000,
 										success : function(resp) {
-											if(resp == undefined){
-												resp == "";
-											}
-											if(resp.hdto== undefined){
-												resp.hdto= "";
-											}
-											if(resp.filename == undefined){
-												resp.filename = "";
-											}
-											if(resp.hplist == undefined){
-												resp.hplist="";
-											}
 											
 											if(resp)
-											console.log("성공 : " + resp);
-											console.log(resp.hdto.home_main_pic);
-											console.log(resp.filename);
-											console.log(resp.hplist)
-											console.log(resp.hplist.length);
-											var output;
+											var output="";
 											
-// 											if($('#add-pic-wrap0').length){
-// 												alert("wrap0");
-// 												var adw0 = $('#add-pic-wrap0');
-												
-// 											}
 											
 											var addpicw = $("#add-pic-wrap"+cnt+"");
 											console.log("#add-pic-wrap+cnt+::"+cnt);
@@ -506,13 +505,13 @@ function maindel(){
 									output += "<div id='add-pic-wrap"+cnt+"' class='add-pic-wrap col-md-4'>";
 									output += "<div id='add-pic-list-wrap"+cnt+"' class='add-pic-list-wrap'>";
 									output += "<form id='photoForm2' action='uploadPhoto.do' enctype='multipart/form-data' method='post'>";
-									output += "<input type='hidden' name='seq' value="+${param.seq}+">";
-									output += "<input type='file' id='file3' name='file' style='display:none;'>"
+ 									output += "<input type='hidden' name='seq' value="+${param.seq}+">";
+ 									output += "<input type='file' id='file3' name='file' style='display:none;'>"
 									output += "<img id='upimgg' class='add-pic-list' src='<c:url value='/resources/img/imgadd.png'/>'>"
 									output += "</form>";
 									output += "</div>";
 									output += "</div>";
-									output += "</div>";
+									//output += "</div>";
 									
 									$("#ap").append(output);
 									hpdel(cnt-1);
@@ -522,6 +521,7 @@ function maindel(){
 									console.log("실패");
 								}
 							});
+							}
 						})
 						
 						
@@ -538,6 +538,7 @@ function maindel(){
 							var form = $('#photoForm')[0];
 							var formData = new FormData(form);
 
+							if($('#file2').val().length){
 							$.ajax({
 										type : "post",
 										enctype : "multipart/form-data", 
@@ -548,10 +549,7 @@ function maindel(){
 										cache : false,
 										timeout : 6000000,
 										success : function(resp) {
-											console.log(resp.hdto.home_main_pic);
-											if(resp.hdto.home_main_pic == undefined){
-												resp.hdto.home_main_pic= "";
-											}
+											
 											var output;
 											var mainpic = $("#upimg");
 											var wrap = $("#add-mainpic-wrap");
@@ -596,6 +594,7 @@ function maindel(){
 
 										},
 									});
+							}
 
 						})
 						

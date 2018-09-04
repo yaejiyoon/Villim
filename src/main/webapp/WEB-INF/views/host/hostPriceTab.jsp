@@ -16,13 +16,16 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-<title>예약설정 탭</title>
+<title>예약설정</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 30px auto;
 	height: auto;

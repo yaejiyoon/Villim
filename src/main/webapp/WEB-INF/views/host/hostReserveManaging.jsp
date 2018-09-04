@@ -25,7 +25,9 @@
 	height: auto;
 	width: 100%;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper-sub {
 	width: 70%;
 }
@@ -81,7 +83,8 @@
 	width: 65px;
 }
 </style>
-<title>숙소</title>
+<title>다가올 숙소 예약</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%

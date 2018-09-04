@@ -22,7 +22,9 @@
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
 	margin: 10px auto;
 	width: 70%;
@@ -243,7 +245,7 @@ li {
 	background-color: #008489 !important;
 }
 </style>
-<title>Insert title here</title>
+<title>성취도</title><link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>

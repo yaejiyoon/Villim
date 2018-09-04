@@ -17,17 +17,20 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 <title>계정 관리</title>
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
 div {
 	box-sizing: border-box;
 }
-
+body{
+min-width:1280px;
+}
 #wrapper {
-	border: 1px solid black;
 	margin: 30px auto;
 	width: 70%;
-	height: 1500px;
+	height: auto;
+	margin-bottom: 100px;
 }
 
 #wrapper-sub {

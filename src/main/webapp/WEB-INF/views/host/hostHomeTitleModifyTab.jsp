@@ -18,6 +18,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
 <style>
+body{
+min-width:1280px;
+}
 div {
 	box-sizing: border-box;
 }
@@ -27,6 +30,7 @@ div {
 	margin-bottom: 100px;
 	height: auto;
 	width: 70%;
+	
 }
 #wrapper-sub {
 	border: 1px dotted black;
@@ -188,7 +192,7 @@ textarea {
 }
 </style>
 
-<title>호스트 제목 수정 탭</title>
+<title>제목 및 설명</title><link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>

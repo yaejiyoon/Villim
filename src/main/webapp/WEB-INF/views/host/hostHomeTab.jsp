@@ -16,11 +16,16 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-<title>숙소 탭</title>
+<title>숙소</title>
+
+<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 
 
 <style>
+body{
+min-width:1280px;
+}
 div {
 	box-sizing: border-box;
 }
@@ -30,6 +35,7 @@ div {
 	width: 70%;
 	height: auto;
 	margin-bottom: 100px;
+	
 }
 
 .wrapper-sub {
