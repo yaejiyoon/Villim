@@ -117,6 +117,18 @@ margin-top:50px;
 #myModal{
 	width:100%;
 }
+
+#modal-save{
+	background-color: #008489;
+	color:white;
+}
+
+#modal-cancel{
+	background-color: white;
+	color : #008489;
+	border: 2px solid #008489;
+}
+
 </style>
 <title>숙소 상태</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
@@ -187,19 +199,18 @@ margin-top:50px;
 								합니다.</div>
 							<div class="date-wrap">
 								<div class="date-wrap-sub">
-								<input type='text' class='datepicker-here' data-language='en' />
-									<!-- <input type="text" id="from" name="home_rest_start" value=""
-										class="form-control input lg" placeholder="시작일"> -->
+									<input type="text" id="from" name="home_rest_start" value=""
+										class="form-control input lg" placeholder="시작일">
 								</div>
-								<!-- <div class="date-wrap-sub">
+								<div class="date-wrap-sub">
 									<input type="text" id="to" name="home_rest_end" value=""
 										class="form-control input lg" placeholder="종료일">
-								</div> -->
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" id="modal-save" class="btn btn-info btn-lg" data-dismiss="modal">저장</button>
-							<button type="button" id="modal-cancel" class="btn btn-info btn-lg" data-dismiss="modal">취소</button>
+							<button type="button" id="modal-save" class="btn btn-lg" data-dismiss="modal">저장</button>
+							<button type="button" id="modal-cancel" class="btn btn-lg" data-dismiss="modal">취소</button>
 						</div>
 					</div>
 				</div>
