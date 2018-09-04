@@ -172,6 +172,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
  		 		$("#scrollLike").attr('src','<c:url value='../resources/img/like2.png'/>')
  			</c:if>
  		</c:forEach>
+ 		
+ 		<c:if test="${param.sep == 0 }">
+ 			
+ 		</c:if>
 		
 	})
 	

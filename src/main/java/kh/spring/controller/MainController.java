@@ -64,7 +64,7 @@ public class MainController {
 		//---
 		session.setAttribute("googleUrl", url);
 		mav.addObject("homeList", homeList);
-		mav.setViewName("host/hostHomePaymentAddress");
+		mav.setViewName("index");
 		return mav;
 	}
 

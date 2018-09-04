@@ -305,35 +305,7 @@ input[type=text] {
 
 					
 					
-					
-					$.ajax({
-							url : "https://testapi.open-platform.or.kr/oauth/2.0/authorize2", 
-							type : "get",
-							data:{
-								response_type:"code",
-								client_id:'l7xx8e89e5098dc14e8e87198f4fb1f4fdab',
-								scope:"inquiry",
-								redirect_uri:"http://localhost",
-								grant_type:"client_credentials"
-							},
-							contentType:" application/x-www-form-urlencoded; charset=UTF-8",
-							success : function(resp) {
-								console.log("성공::"+ resp.scope);
-								console.log('토큰::'+resp.code);
-							
-							}
-						});
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					/* $.ajax({
+					 $.ajax({
 							url : "https://testapi.open-platform.or.kr/oauth/2.0/token", 
 							type : "post",
 							data:{
@@ -374,7 +346,7 @@ input[type=text] {
 								
 							
 							}
-						}); */
+						});
 
 // 						$.ajax({
 // 							url : "https://openapi.open-platform.or.kr/inquiry/real_name", 
