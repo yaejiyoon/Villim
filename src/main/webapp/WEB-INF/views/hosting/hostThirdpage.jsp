@@ -391,6 +391,9 @@
 	padding-top: undefined !important;
 	padding-bottom: undefined !important;
 }
+.boy{
+	font-size: 12pt;
+}
 </style>
 </head>
 <body>
@@ -1152,7 +1155,7 @@
 							
 						for(var i=2; i <= bedroomcount ;i++){
 							
-							$("#foreach").html($("#foreach").html()+"<div><p>"+i+"번째 침실</p></div>"
+							$("#foreach").html($("#foreach").html()+"<div class=\"boy\"><p>"+i+"번째 침실</p></div>"
 									+"<div class=\"col-sm-12 no-padding-h\"> "
 									+"<div class=\"beddetail-item-selectors-group\">"
 									+"<div class=\"space-3 beddetail-item-selector\">"
