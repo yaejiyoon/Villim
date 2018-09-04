@@ -260,15 +260,11 @@ li {
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
-						onclick="location.href='hostReserveTab.do'">수입</button>
+						onclick="location.href='/hostImport.do'">수입</button>
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
 						onclick="location.href='hostHits.do'">조회수</button>
-				</div>
-				<div class="col-md-3">
-					<button class="nav-btn" type="button"
-						onclick="location.href='hostReservePossibleTab.do'">발전기회</button>
 				</div>
 			</div>
 		</div>
@@ -276,7 +272,7 @@ li {
 		<div class=line></div>
 
 		<div id=wrapper-sub2>
-			<div>
+			<div style="font-size: 20px;">
 				<b>숙소 선택</b>
 			</div>
 			<select class="form-control input-lg"

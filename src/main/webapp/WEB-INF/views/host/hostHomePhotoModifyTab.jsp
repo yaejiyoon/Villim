@@ -181,7 +181,7 @@ function maindel(){
 		
 	},function(){
 		console.log("out");
-		$("#delmain-btn").remove();
+		$("#delmain-btn").hide();
 	});
 	
 	$(document).on('click', '#delmain-btn', function(){
@@ -226,14 +226,15 @@ function maindel(){
 			
 			if(toMainPic==undefined || toMainPic == null){
 				alert("없을때");
-				$('#ap .add-pic-wrap').first().remove();
-				mp.removeClass('main-pic');
-				mp.addClass('add-img');
-				mp.attr('id', 'upimg');
-				mp.attr('src',"<c:url value='/resources/img/imgadd.png'/>")
-				mpw.removeClass('main-pic-wrap');
-				mpw.addClass('add-mainpic-wrap');
-				mpw.attr('id', 'add-mainpic-wrap');
+				location.reload();
+// 				$('#ap .add-pic-wrap').first().remove();
+// 				mp.removeClass('main-pic');
+// 				mp.addClass('add-img');
+// 				mp.attr('id', 'upimg');
+// 				mp.attr('src',"<c:url value='/resources/img/imgadd.png'/>")
+// 				mpw.removeClass('main-pic-wrap');
+// 				mpw.addClass('add-mainpic-wrap');
+// 				mpw.attr('id', 'add-mainpic-wrap');
 			}
 			
 			$.ajax({
@@ -550,7 +551,7 @@ function maindel(){
 										timeout : 6000000,
 										success : function(resp) {
 											
-											var output;
+											var output="";
 											var mainpic = $("#upimg");
 											var wrap = $("#add-mainpic-wrap");
 											
