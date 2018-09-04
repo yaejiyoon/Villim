@@ -579,7 +579,7 @@ input[type="radio"]:checked ~ label {
 			
 			
 			<div class="row" style="position:relative;width:100%;left:0.8vw;height:33vh;top:-5vh;">
-			<div style="position:relative;top:-1vh;">
+			<div style="position:relative;top:3vh;">
  <img src="files/${host_picture}" style="width:47%;height:15vh;position:relative;left:4.8vw;top:2vw;" class="avatar img-circle img-thumbnail" alt="avatar">
 			<h4 style="color:#5e5e5e;position:relative;top:5vh;left:4vw;font-weight:700;width:10vw;text-align:center;">${host_name}</h4>
 			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4vw;width:10vw;text-align:center;overflow: hidden;">${home_location}</h5>

@@ -29,7 +29,7 @@ font-family:font;
 .avatar{
 
 	position:relative;
-	left:1vw;
+	left:5vw;
 	top: 5vh; 
 	height : 20.23em;
 	width: 20.23em;
@@ -97,7 +97,7 @@ font-family:font;
 
 .user-profile>img.avatar {
 	padding: .7em;
-	position:relative;left:-5vw;
+	position:relative;left:3vw;
 	top: 10px; height : 20.23em;
 	width: 20.23em;
 	border-radius: 18em;
@@ -173,7 +173,7 @@ max-width:400px;
 <title>Profile</title>
 </head>
 <body>
-<%@ include file="../../resource/include/header_profile.jsp" %>
+<%@ include file="../../resource/include/header.jsp" %>
 
 <div class=container style="width:100%;height:1150px;">
 	
