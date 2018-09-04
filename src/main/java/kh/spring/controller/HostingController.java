@@ -39,13 +39,20 @@ public class HostingController {
 
 	@Autowired
 	private HomeService service;
-
+	
+	@RequestMapping("/toindex.host")
+	public ModelAndView toindex() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+		return mav;
+	}
+	
 	@RequestMapping("/logincut.host")
 	public ModelAndView logincut(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
 		String email = req.getSession().getAttribute("login_email").toString();
 		System.out.println(email);
 		HomeDTO homedto = service.getNewestHomeData(email);
-		String homestep = "";
+		String homestep =  "";
 		try {
 			homestep = homedto.getHome_step();
 		} catch (Exception e) {
@@ -223,13 +230,13 @@ public class HostingController {
 		System.out.println(singlebed);
 		System.out.println(doublebed);
 		System.out.println("333333333333333333333333333333333333");
-		mav.setViewName("hosting/hostForthpage");
+		mav.setViewName("hosting/hostFourpage");
 		return mav;
 	}
 
 	@RequestMapping("/fore.host")
 	public String toForth() {
-		return "/hosting/hostForthpage";
+		return "/hosting/hostFourpage";
 	}
 
 	@RequestMapping("/pagegofive.host")
@@ -316,19 +323,19 @@ public class HostingController {
 		} catch (Exception e) {
 			safetyList = "null";
 		}
-
-		System.out.println(amenitiesList + ":" + safetyList);
-		String isemail = req.getSession().getAttribute("login_email").toString();
-		String home_buildingType = req.getSession().getAttribute("home_buildingType").toString();
-		String room_type = req.getSession().getAttribute("room_type").toString();
-		int home_people = Integer.parseInt(req.getSession().getAttribute("home_people").toString());
-		String home_nation = req.getSession().getAttribute("home_nation").toString();
-		String home_addr1 = req.getSession().getAttribute("home_addr1").toString();
-		String home_addr2 = req.getSession().getAttribute("home_addr2").toString();
-		String home_addr3 = req.getSession().getAttribute("home_addr3").toString();
-		String home_addr4 = req.getSession().getAttribute("home_addr4").toString();
-		String home_lat = req.getSession().getAttribute("home_lat").toString();
-		String home_lng = req.getSession().getAttribute("home_lng").toString();
+		
+		System.out.println(amenitiesList + ":" +safetyList );
+		String	isemail = req.getSession().getAttribute("login_email").toString();
+		String	home_buildingType = req.getSession().getAttribute("home_buildingType").toString();
+		String	room_type = req.getSession().getAttribute("room_type").toString();		
+		int	home_people = Integer.parseInt(req.getSession().getAttribute("home_people").toString());
+		String	home_nation = req.getSession().getAttribute("home_nation").toString();
+		String	home_addr1 = req.getSession().getAttribute("home_addr1").toString();
+		String	home_addr2 = req.getSession().getAttribute("home_addr2").toString();
+		String	home_addr3 = req.getSession().getAttribute("home_addr3").toString();
+		String	home_addr4 = req.getSession().getAttribute("home_addr4").toString();
+		String	home_lat = req.getSession().getAttribute("home_lat").toString();
+		String	home_lng = req.getSession().getAttribute("home_lng").toString();
 		double lat = Double.parseDouble(home_lat);
 		double lng = Double.parseDouble(home_lng);
 
@@ -857,8 +864,8 @@ public class HostingController {
 		int result = service.modifyHomeprice(homedto);
 		mav.addObject("result", result);
 		System.out.println("호스팅 끝 ");
-		mav.setViewName("index");
-		/* mav.setViewName("redirect:/homeMain.do"); */
+		mav.setViewName("hosting/finish");
+		/*mav.setViewName("redirect:/homeMain.do");*/
 		return mav;
 	}
 

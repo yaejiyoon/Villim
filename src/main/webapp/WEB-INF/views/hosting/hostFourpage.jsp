@@ -180,9 +180,9 @@ html, body {
 					name="home_addr3"> <br> <label>상세주소2(선택사항)</label> <input
 					type="text" id="address2" placeholder="ex) 19층 102호"
 					name="home_addr4"> <br> <label>위도</label> <input
-					type="text" id="lat" placeholder="위도" name="home_lat"
+					type="text" id="lats" placeholder="위도" name="home_lat"
 					readonly="readonly"> <br> <label>경도</label> <input
-					type="text" id="lng" placeholder="경도" name="home_lng"
+					type="text" id="lngs" placeholder="경도" name="home_lng"
 					readonly="readonly"> <br>
 
 				<div class="pac-card" id="pac-card">
@@ -206,9 +206,8 @@ html, body {
 											style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
 											<a href="/third.host" class="_5rte3y6" aria-busy="false"><span
 												class="_cgr7tc7"><span>뒤로</span></span></a>
-											   	
-											    
-												<button type="button" id="nextpg" 
+											
+												<button type="button" id="nextpg"  disabled="disabled"
 													class="_5rte3y6" aria-busy="false">
 													<span class="_cgr7tc7"><span>다음</span></span>
 												</button>
@@ -322,8 +321,8 @@ html, body {
 												place.address_components[1].short_name
 														+ " "
 														+ place.address_components[0].short_name);
-								$("#lat").val(place.geometry.location.lat());
-								$("#lng").val(place.geometry.location.lng());
+								$("#lats").val(place.geometry.location.lat());
+								$("#lngs").val(place.geometry.location.lng());
 
 								infowindowContent.children['place-icon'].src = place.icon;
 								infowindowContent.children['place-name'].textContent = place.name;
@@ -335,17 +334,26 @@ html, body {
 				var newlat = event.latLng.lat();
 				var newlng = event.latLng.lng();
 
-				$("#lat").val(newlat);
-				$("#lng").val(newlng);
+				$("#lats").val(newlat);
+				$("#lngs").val(newlng);
 
 			}
 		}
 		
 		
-		var value01 = $("#lat").val();
-		var value02 = $("#lng").val();
-		var value03 = $("#town").val();
-		var value04 = $("#city").val();
+
+		
+		$("#contry").keyup(function() {
+			var lats = $("#lats").val();
+			var lngs = $("#lngs").val();
+			var contry = $("#contry").val();
+			if(lats!=""&&lngs !=""&&contry!=""){
+				$("#nextpg").attr("disabled",false);	
+			}else{
+				$("#nextpg").attr("disabled",true);
+			}
+			
+		})
 		
 /* 		if(value01 == null && value02 == null && value03 == null && value04 == null){
 			$("#nextpg").attr("disabled",true);
@@ -357,14 +365,15 @@ html, body {
 			console.log(value04);
 		} */
 		
-		$("#lat").change(function() {
+		/* $("#lat").change(function() {
 			$("#nextpg").attr("disabled",false);
-		})
+		}) */
 		
 		$("#pac-input").click(function() {
 /* 			//$(location).attr("href","five.host");
 			$("#modifymap").submit(); */
 		});
+		
 		
 		$("#nextpg").click(function() {
 			$("#modifymap").submit();
