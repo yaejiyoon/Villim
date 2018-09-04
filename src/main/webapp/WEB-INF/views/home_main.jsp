@@ -356,36 +356,36 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	 $('body').delegate('#myonoffswitch','click',function(){
-        var chkval = 0
-          if($('#myonoffswitch').is(':checked')){
-            chkval  = 1;
-          } else {
-        	chkval = 2;
-          }
-        
-        var on = document.getElementById('mapOnDiv');
-        var off = document.getElementById('mapOffDiv');
-   $.ajax({
-       url: "homeMain.do",
-       type: "get",
-       data:{chkval:chkval},
+	        var chkval = 0
+	          if($('#myonoffswitch').is(':checked')){
+	            chkval  = 1;
+	          } else {
+	        	chkval = 2;
+	          }
+	        
+	        var on = document.getElementById('mapOnDiv');
+	        var off = document.getElementById('mapOffDiv');
+	   $.ajax({
+	       url: "homeMain.do",
+	       type: "get",
+	       data:{chkval:chkval},
 
-       success:function(returndata){
-    	   if(chkval==1) {
-				on.style.display = 'block';    
-				off.style.display = 'none';
-    	   } else if(chkval==2) {
-				on.style.display = 'none';
-				off.style.display = 'block';    
-    	   }
-       },error:function(data){
-			//alert("error 2");
-    	   console.lon(error2);
-       }
-     });
-   
-})
-	
+	       success:function(returndata){
+	    	   if(chkval==1) {
+					on.style.display = 'block';    
+					off.style.display = 'none';
+	    	   } else if(chkval==2) {
+					on.style.display = 'none';
+					off.style.display = 'block';    
+	    	   }
+	       },error:function(data){
+				//alert("error 2");
+	    	   console.lon(error2);
+	       }
+	     });
+	   
+	})
+		
 	<c:if test="${mapOn!=null}">
 		   $('#myonoffswitch').prop('checked', true);
 		   var on = document.getElementById('mapOnDiv');

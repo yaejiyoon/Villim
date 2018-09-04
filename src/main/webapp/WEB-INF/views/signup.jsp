@@ -499,21 +499,20 @@ padding-top:3%;
 						$("#upload")
 								.change(
 										function() {
-
+											if($('#upload').val().length){}
 											var formData = new FormData(
 													$("#uploadForm")[0]);
 											/* var formData = new FormData(); */
 											alert(formData);
 											var html = "";
-											$
-													.ajax({
+											$.ajax({
 														url : "upload.do",
 														type : "post",
 														data : formData,
 														processData : false,
 														contentType : false,
-														success : function(
-																response) {
+														success : function(response) {
+															
 															alert(response);
 															html += "<img src=files/";
 						html+= response;
