@@ -174,7 +174,10 @@ href="<c:url value="../../resources/css/home/test.css" />" />
  		</c:forEach>
  		
  		<c:if test="${param.sep == 0 }">
- 			
+ 			$("#picsBT").css({"top":"90vh"});
+ 			$("#shareBT").css({"top":"190px"});
+ 			$("#likeBT").css({"top":"190px"});
+ 			$("#likeBT2").css({"top":"190px"});
  		</c:if>
 		
 	})
@@ -226,7 +229,7 @@ href="<c:url value="../../resources/css/home/test.css" />" />
 				<div class="row" style="height: 70px; background-color: #008489; text-align: center;">
 					<span class="col-md-6" style="font-size: 16px; margin-top:22px; color: white;"> 미리보기 모드: 게스트에게 보이는 숙소 화면입니다. </span> 
 					<span class="col-md-6"><button style="background-color:#008489; color: white; border: 2px solid white"
-							class="btn btn-lg">숙소 수정</button></span>
+							class="btn btn-lg" onclick="location.href='hostHomeTab.do?seq=${param.seq}'">숙소 수정</button></span>
 				</div>
 			</c:if>
 			<!-- 인형스 -->
