@@ -53,15 +53,18 @@ public class HostingController {
 			System.out.println(seq);
 			req.getSession().setAttribute("hostingseq", seq);
 			req.getSession().setAttribute("homestep", homestep);
+			System.out.println("000000000000001");
 			mav.setViewName("hosting/modifysteppage");
 		}else if(homestep.equals("2")){
 			int seq = homedto.getHome_seq();
 			System.out.println(seq);
 			req.getSession().setAttribute("hostingseq", seq);
 			req.getSession().setAttribute("homestep", homestep);
+			System.out.println("000000000000002");
 			mav.setViewName("hosting/modifysteppagetwo");
 		}else{
-			req.getSession().setAttribute("homestep", homestep);
+			req.getSession().setAttribute("homestep", null);
+			System.out.println("00000000000000진");
 			mav.setViewName("hosting/hostFirstpage");
 		}
 		
@@ -138,6 +141,7 @@ public class HostingController {
 		req.getSession().setAttribute("hostingseq", seq);
 		req.getSession().setAttribute("homestep", homestep);*/
 		//mav.addObject("result",result);
+		System.out.println("111111111111111111111111111111111");
 		mav.setViewName("hosting/hostSecondpage");
 		return mav;
 	}
@@ -158,7 +162,7 @@ public class HostingController {
 		homedto.setHome_seq(seq);
 		homedto.setHome_type(room_type);
 		int result = service.modifyHomeType(homedto);*/
-
+		System.out.println("2222222222222222222222222222222222222222222");
 		mav.setViewName("hosting/hostThirdpage");
 		return mav;
 	}
@@ -207,6 +211,7 @@ public class HostingController {
 		System.out.println(queenbed);
 		System.out.println(singlebed);
 		System.out.println(doublebed);
+		System.out.println("333333333333333333333333333333333333");
 		mav.setViewName("hosting/hostForthpage");
 		return mav;
 	}
@@ -250,6 +255,7 @@ public class HostingController {
 		homedto.setHome_lng(lng);
 		int result = service.modifyHomeLocData(homedto);
 		mav.addObject("result",result);*/
+		System.out.println("4444444444444444444444");
 		mav.setViewName("hosting/hostFivepage");
 		return mav;
 	}
@@ -340,9 +346,13 @@ public class HostingController {
 		
 		try {
 			checkstep = req.getSession().getAttribute("homestep").toString();
+			
 		} catch (Exception e) {
 			checkstep = "0";
 		}
+		
+		System.out.println(checkstep);
+		
 		System.out.println("결정중");
 		if(checkstep.equals("0")) {
 			int result = service.insertFirstHome(homedto);
@@ -416,7 +426,7 @@ public class HostingController {
 			bdto.setBed_double(doublebed);
 			bdto.setBed_queen(queenbed);
 			bdto.setHome_seq(seq);*/
-			
+			System.out.println("5555555555555insert");
 			mav.setViewName("hosting/modifysteppage");
 			
 		}else {
@@ -502,8 +512,10 @@ public class HostingController {
 			bdto.setHome_seq(seq);*/
 			
 			if(step.equals("1")){
+				System.out.println("5555555555555up");
 				mav.setViewName("hosting/modifysteppage");
 			}else if(step.equals("2")){
+				System.out.println("5555555555555up");
 				mav.setViewName("hosting/modifysteppagetwo");
 			}
 			
@@ -512,6 +524,7 @@ public class HostingController {
 		
 		//-- 이후
 		/*mav.addObject("result",result);*/
+		System.out.println("5555555555555직전");
 		return mav;
 	}
 	

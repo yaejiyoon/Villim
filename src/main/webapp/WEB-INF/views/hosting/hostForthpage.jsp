@@ -208,7 +208,7 @@ html, body {
 												class="_cgr7tc7"><span>뒤로</span></span></a>
 											   	
 											    
-												<button type="button" id="nextpg" disabled="disabled" 
+												<button type="button" id="nextpg" 
 													class="_5rte3y6" aria-busy="false">
 													<span class="_cgr7tc7"><span>다음</span></span>
 												</button>

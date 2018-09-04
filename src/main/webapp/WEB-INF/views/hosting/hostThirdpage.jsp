@@ -1744,6 +1744,78 @@
 		}
 	});
 	
+	$("#doubledown").click(function() {
+		var doubleh = parseInt($("#doublecount").val());
+		if (doubleh > 1) {
+			$("#doubleup").attr("disabled", false);
+			doubleh = doubleh - 1;
+			$("#doublecount").val(doubleh);
+		} else {
+			$("#doublecount").val(doubleh - 1);
+			$("#doubledown").attr("disabled", true);
+		}
+	});
+
+	$("#doubleup").click(function() {
+		var doubleh = parseInt($("#doublecount").val());
+		if (doubleh < 19) {
+			$("#doubledown").attr("disabled", false);
+			doubleh = doubleh + 1;
+			$("#doublecount").val(doubleh);
+		} else if (doubleh = 19) {
+			$("#doublecount").val(doubleh + 1);
+			$("#doubleup").attr("disabled", true);
+		}
+	});
+
+	$("#queendown").click(function() {
+		var countd = parseInt($("#queencount").val());
+		if (countd > 1) {
+			countd = countd - 1;
+			$("#queencount").val(countd);
+			$("#queenup").attr("disabled", false);
+		} else {
+			$("#queencount").val(countd - 1);
+			$("#queendown").attr("disabled", true);
+		}
+	});
+
+	$("#queenup").click(function() {
+		var countd = parseInt($("#queencount").val());
+		if (countd < 19) {
+			countd = countd + 1;
+			$("#queencount").val(countd);
+			$("#queendown").attr("disabled", false);
+		} else if (countd = 19) {
+			$("#queencount").val(countd + 1);
+			$("#queenup").attr("disabled", true);
+		}
+	});
+
+	$("#singledown").click(function() {
+		var countd = parseInt($("#singlecount").val());
+		if (countd > 1) {
+			countd = countd - 1;
+			$("#singlecount").val(countd);
+			$("#singleup").attr("disabled", false);
+		} else {
+			$("#singlecount").val(countd - 1);
+			$("#singledown").attr("disabled", true);
+		}
+	});
+
+	$("#singleup").click(function() {
+		var countd = parseInt($("#singlecount").val());
+		if (countd < 19) {
+			countd = countd + 1;
+			$("#singlecount").val(countd);
+			$("#singledown").attr("disabled", false);
+		} else if (countd = 19) {
+			$("#singlecount").val(countd + 1);
+			$("#singleup").attr("disabled", true);
+		}
+	});
+	
 		$("#nextpg").click(function() {
 			//$(location).attr("href","fore.host");
 			$("#bedbath").submit();
