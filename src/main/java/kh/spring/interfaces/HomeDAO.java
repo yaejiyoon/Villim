@@ -16,13 +16,14 @@ import kh.spring.dto.PaymentDTO;
 import kh.spring.dto.ReservationDTO;
 
 public interface HomeDAO {
+	public int getPaymentCount(int home_seq);
 	public List<PaymentDTO> getGapDate(Map<String, Object> map);
 
 	public int modifyHomePrice(HomeDTO hdto);
 
 	public int deleteBed(int home_seq);
 
-	public int insertBed(int home_seq, BedDTO bdto);
+	public int insertBed(int home_seq);
 
 	public List<PaymentDTO> getAllPayment(Map<String, Object> map);
 

@@ -251,10 +251,6 @@ public class HomeDAOImpl implements HomeDAO {
 		return jdbcTemplate.update(sql, hdto.getHome_policy(), hdto.getHome_seq());
 	}
 
-	
-
-
-	
 	@Override
 	public int modifybed(BedDTO bdto) {
 		String sql = "update bed set bed_single=?, bed_double=?, bed_queen=? where home_seq = ?";
@@ -294,7 +290,7 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<ReservationDTO> getCalReservation(Map<String, Object> map) {
 		return ssTemplate.selectList("Home.getCalReservation", map);
 	}
-	
+
 	@Override
 	public String getReviewPageNavi(int currentPageNo, int home_seq, Map<String, Object> map) {
 		int count = ssTemplate.selectOne("Home.getGuestReviewPaging", map);
@@ -458,40 +454,40 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	// ----------------지혜-----------------
-		@Override
-		public int updateBlockedDate(String blockedDate, int home_seq) {
-			String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
-			return jdbcTemplate.update(sql, blockedDate, home_seq);
-		}
-		
-		@Override
-		public BedDTO getBedData(int home_seq) {
-			return ssTemplate.selectOne("Home.getBedData",home_seq);
-		}
-		
-		@Override
-		public int updateBlocked(String blockedDate, int home_seq) {
-			String sql = "update home set home_blocked_date=? where home_seq=?";
-			return jdbcTemplate.update(sql,blockedDate,home_seq);
-		}
+	@Override
+	public int updateBlockedDate(String blockedDate, int home_seq) {
+		String sql = "UPDATE home SET HOME_BLOCKED_DATE = HOME_BLOCKED_DATE||? WHERE HOME_SEQ=?";
+		return jdbcTemplate.update(sql, blockedDate, home_seq);
+	}
 
-		// 예지
+	@Override
+	public BedDTO getBedData(int home_seq) {
+		return ssTemplate.selectOne("Home.getBedData", home_seq);
+	}
 
-		@Override
-		public List<HomeDTO> getAllHomeDataMain() {
-			return ssTemplate.selectList("Home.getAllHomeDataMain");
-		}
+	@Override
+	public int updateBlocked(String blockedDate, int home_seq) {
+		String sql = "update home set home_blocked_date=? where home_seq=?";
+		return jdbcTemplate.update(sql, blockedDate, home_seq);
+	}
 
-		@Override
-		public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
-			return ssTemplate.selectList("Home.getHomeOnMap", param);
-		}
+	// 예지
 
-		@Override
-		public List<HomePicDTO> getHomePic() {
-			return ssTemplate.selectList("HomePic.getHomePic");
-		}
-	
+	@Override
+	public List<HomeDTO> getAllHomeDataMain() {
+		return ssTemplate.selectList("Home.getAllHomeDataMain");
+	}
+
+	@Override
+	public List<HomeDTO> getHomeOnMap(Map<String, Object> param) {
+		return ssTemplate.selectList("Home.getHomeOnMap", param);
+	}
+
+	@Override
+	public List<HomePicDTO> getHomePic() {
+		return ssTemplate.selectList("HomePic.getHomePic");
+	}
+
 	@Override
 	public List<HomeDTO> modalHomeData(Map<String, Object> param) {
 		return ssTemplate.selectList("Home.modalHomeData", param);
@@ -501,27 +497,27 @@ public class HomeDAOImpl implements HomeDAO {
 	public List<HomeDTO> getParis() {
 		return ssTemplate.selectList("Home.getParis");
 	}
-	
+
 	@Override
 	public List<HomeDTO> getNewyork() {
 		return ssTemplate.selectList("Home.getNewyork");
 	}
-	
+
 	@Override
 	public List<HomeDTO> getRome() {
 		return ssTemplate.selectList("Home.getRome");
 	}
-	
+
 	@Override
 	public List<HomeDTO> getLondon() {
 		return ssTemplate.selectList("Home.getLondon");
 	}
-	
+
 	@Override
 	public List<HomeDTO> getPraha() {
 		return ssTemplate.selectList("Home.getPraha");
 	}
-	
+
 	@Override
 	public List<HomeDTO> getMadrid() {
 		return ssTemplate.selectList("Home.getMadrid");
@@ -534,8 +530,8 @@ public class HomeDAOImpl implements HomeDAO {
 
 	@Override
 	public int insertAccount(AccountDTO adto) {
-		String sql = "insert into account values(account_seq.nextval, ?,?,?)";
-		return jdbcTemplate.update(sql, adto.getHost_email(), adto.getAccount_bank(), adto.getAccount_number());
+		String sql = "insert into account values(account_seq.nextval, ?,?,?,?)";
+		return jdbcTemplate.update(sql, adto.getHost_email(), adto.getAccount_bank(), adto.getAccount_number(),adto.getAccount_member_number());
 	}
 
 	@Override
@@ -547,12 +543,12 @@ public class HomeDAOImpl implements HomeDAO {
 	public int deleteBed(int home_seq) {
 		String sql = "delete from bed where home_seq = ?";
 		return jdbcTemplate.update(sql, home_seq);
-				
+
 	}
 
 	@Override
-	public int insertBed(int home_seq, BedDTO bdto) {
-		String sql = "insert into bed values(bed_seq.nextval,?,'','','')";
+	public int insertBed(int home_seq) {
+		String sql = "insert into bed values(bed_seq.nextval,?,'0','0','0')";
 		return jdbcTemplate.update(sql, home_seq);
 	}
 
@@ -565,14 +561,14 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public List<PaymentDTO> getGapDate(Map<String, Object> map) {
 		return ssTemplate.selectList("Home.getGapDate", map);
-	}	
-	
-	//---찬연
+	}
+
+	// ---찬연
 
 	@Override
 	public int insertFirstHome(HomeDTO hdto) {
 		// TODO Auto-generated method stub
-		return ssTemplate.insert("Home.firststepbyone",hdto);
+		return ssTemplate.insert("Home.firststepbyone", hdto);
 	}
 
 	@Override
@@ -584,7 +580,7 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public HomeDTO getNewestHomeData(String email) {
 		// TODO Auto-generated method stub
-		return ssTemplate.selectOne("Home.getNesestHomeData",email);
+		return ssTemplate.selectOne("Home.getNesestHomeData", email);
 	}
 
 	@Override
@@ -626,7 +622,7 @@ public class HomeDAOImpl implements HomeDAO {
 	@Override
 	public int modifyHomerule(HomeDTO hdto) {
 		// TODO Auto-generated method stub
-		return ssTemplate.update("Home.thirdstepbyone",hdto);
+		return ssTemplate.update("Home.thirdstepbyone", hdto);
 	}
 
 	@Override
@@ -653,7 +649,10 @@ public class HomeDAOImpl implements HomeDAO {
 		return ssTemplate.update("Home.thirdstepbyfive", hdto);
 	}
 
-	
-
+	@Override
+	public int getPaymentCount(int home_seq) {
+		String sql = "select count(*) from payment where home_seq = ?";
+		return jdbcTemplate.queryForObject(sql, Integer.class, home_seq);
+	}
 
 }
