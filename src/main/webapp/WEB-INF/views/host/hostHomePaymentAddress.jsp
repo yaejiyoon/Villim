@@ -279,74 +279,74 @@ input[type=text] {
 											|| ($('#anum').val() == "")) {
 
 					$('#nextbtn').click(function() {
-// 						if(  ($('#bname').val() == "") || ($('#mname').val() == "") 
-// 								|| ($('#mnum').val() == "") ||($('#anum').val() == "") ){
+						if(  ($('#bname').val() == "") || ($('#mname').val() == "") 
+								|| ($('#mnum').val() == "") ||($('#anum').val() == "") ){
 								
-// 							if ($('#bname').val() == "") {
-// 								var output = "<div id='bname-sub'>은행이름은 필수영역입니다.</div>"
+							if ($('#bname').val() == "") {
+								var output = "<div id='bname-sub'>은행이름은 필수영역입니다.</div>"
 								
-// 								if( $('#bname-sub').length == 0 ){
-// 									$('#bname').after(output);
-// 								}else{
-// 								}
-// 								$('#bname').css("border", "1px solid red");
-// 								$('#bname-sub').css("color", "red");
-// 							} else {
-// 								$('#bname').css("border", "1px solid black");
-// 								$('#bname-sub').remove();
-// 								$('#bname-sub').css("color", "red");
-// 							}
+								if( $('#bname-sub').length == 0 ){
+									$('#bname').after(output);
+								}else{
+								}
+								$('#bname').css("border", "1px solid red");
+								$('#bname-sub').css("color", "red");
+							} else {
+								$('#bname').css("border", "1px solid black");
+								$('#bname-sub').remove();
+								$('#bname-sub').css("color", "red");
+							}
 							
 							
-// 							if ($('#mname').val() == "") {
-// 								var output = "<div id='mname-sub'>이름은 필수영역입니다.</div>"
+							if ($('#mname').val() == "") {
+								var output = "<div id='mname-sub'>이름은 필수영역입니다.</div>"
 								
-// 								if( $('#mname-sub').length == 0 ){
-// 									$('#mname').after(output);
-// 								}else{
-// 								}
-// 								$('#mname').css("border", "1px solid red");
-// 								$('#mname-sub').css("color", "red");
-// 							} else {
-// 								$('#mname').css("border", "1px solid black");
-// 								$('#mname-sub').remove();
-// 								$('#mname-sub').css("color", "red");
-// 							}
+								if( $('#mname-sub').length == 0 ){
+									$('#mname').after(output);
+								}else{
+								}
+								$('#mname').css("border", "1px solid red");
+								$('#mname-sub').css("color", "red");
+							} else {
+								$('#mname').css("border", "1px solid black");
+								$('#mname-sub').remove();
+								$('#mname-sub').css("color", "red");
+							}
 							
 							
-// 							if ($('#mnum').val() == "") {
-// 								var output1 = "<div id='mnum-sub'>신분증 번호는 필수영역입니다.</div>"
+							if ($('#mnum').val() == "") {
+								var output1 = "<div id='mnum-sub'>신분증 번호는 필수영역입니다.</div>"
 								
-// 								if( $('#mnum-sub').length == 0 ){
-// 									$('#mnum').after(output1);
-// 								}else{
-// 								}
-// 								$('#mnum').css("border", "1px solid red");
-// 								$('#mnum-sub').css("color", "red");
-// 							} else {
-// 								$('#mnum').css("border", "1px solid black");
-// 								$('#mnum-sub').remove();
-// 								$('#mnum-sub').css("color", "red");
-// 							}
+								if( $('#mnum-sub').length == 0 ){
+									$('#mnum').after(output1);
+								}else{
+								}
+								$('#mnum').css("border", "1px solid red");
+								$('#mnum-sub').css("color", "red");
+							} else {
+								$('#mnum').css("border", "1px solid black");
+								$('#mnum-sub').remove();
+								$('#mnum-sub').css("color", "red");
+							}
 							
 							
-// 							if ($('#anum').val() == "") {
-// 								var output1 = "<div id='anum-sub'>계좌번호는 필수영역입니다.</div>"
+							if ($('#anum').val() == "") {
+								var output1 = "<div id='anum-sub'>계좌번호는 필수영역입니다.</div>"
 								
-// 								if( $('#anum-sub').length == 0 ){
-// 									$('#anum').after(output1);
-// 								}else{
-// 								}
-// 								$('#anum').css("border", "1px solid red");
-// 								$('#anum-sub').css("color", "red");
-// 							} else {
-// 								$('#anum').css("border", "1px solid black");
-// 								$('#anum-sub').remove();
-// 								$('#anum-sub').css("color", "red");
-// 							}
-// 						}else{
+								if( $('#anum-sub').length == 0 ){
+									$('#anum').after(output1);
+								}else{
+								}
+								$('#anum').css("border", "1px solid red");
+								$('#anum-sub').css("color", "red");
+							} else {
+								$('#anum').css("border", "1px solid black");
+								$('#anum-sub').remove();
+								$('#anum-sub').css("color", "red");
+							}
+						}else{
 							
-// 						}
+						}
 					
 					
 // 					$.ajax({
@@ -369,84 +369,84 @@ input[type=text] {
 // 							}
 // 						});
 
-											if ($('#bname-sub').length == 0) {
-												$('#bname').after(output);
-											} else {
-											}
-											$('#bname').css("border",
-													"1px solid red");
-											$('#bname-sub').css("color", "red");
-										} else {
-											$('#bname').css("border",
-													"1px solid black");
-											$('#bname-sub').remove();
-											$('#bname-sub').css("color", "red");
-										}
+// 									if ($('#bname-sub').length == 0) {
+// 											$('#bname').after(output);
+											
+// 											} else {
+// 											$('#bname').css("border",
+// 													"1px solid red");
+// 											$('#bname-sub').css("color", "red");
+// 											} else {
+// 											$('#bname').css("border",
+// 													"1px solid black");
+// 											$('#bname-sub').remove();
+// 											$('#bname-sub').css("color", "red");
+// 										}
 
-										if ($('#mname').val() == "") {
-											var output = "<div id='mname-sub'>이름은 필수영역입니다.</div>"
+// 										if ($('#mname').val() == "") {
+// 											var output = "<div id='mname-sub'>이름은 필수영역입니다.</div>"
 
-											if ($('#mname-sub').length == 0) {
-												$('#mname').after(output);
-											} else {
-											}
-											$('#mname').css("border",
-													"1px solid red");
-											$('#mname-sub').css("color", "red");
-										} else {
-											$('#mname').css("border",
-													"1px solid black");
-											$('#mname-sub').remove();
-											$('#mname-sub').css("color", "red");
-										}
+// 											if ($('#mname-sub').length == 0) {
+// 												$('#mname').after(output);
+// 											} else {
+// 											}
+// 											$('#mname').css("border",
+// 													"1px solid red");
+// 											$('#mname-sub').css("color", "red");
+// 										} else {
+// 											$('#mname').css("border",
+// 													"1px solid black");
+// 											$('#mname-sub').remove();
+// 											$('#mname-sub').css("color", "red");
+// 										}
 
-										if ($('#mnum').val() == "") {
-											var output1 = "<div id='mnum-sub'>신분증 번호는 필수영역입니다.</div>"
+// 										if ($('#mnum').val() == "") {
+// 											var output1 = "<div id='mnum-sub'>신분증 번호는 필수영역입니다.</div>"
 
-											if ($('#mnum-sub').length == 0) {
-												$('#mnum').after(output1);
-											} else {
-											}
-											$('#mnum').css("border",
-													"1px solid red");
-											$('#mnum-sub').css("color", "red");
-										} else {
-											$('#mnum').css("border",
-													"1px solid black");
-											$('#mnum-sub').remove();
-											$('#mnum-sub').css("color", "red");
-										}
+// 											if ($('#mnum-sub').length == 0) {
+// 												$('#mnum').after(output1);
+// 											} else {
+// 											}
+// 											$('#mnum').css("border",
+// 													"1px solid red");
+// 											$('#mnum-sub').css("color", "red");
+// 										} else {
+// 											$('#mnum').css("border",
+// 													"1px solid black");
+// 											$('#mnum-sub').remove();
+// 											$('#mnum-sub').css("color", "red");
+// 										}
 
-										if ($('#anum').val() == "") {
-											var output1 = "<div id='anum-sub'>계좌번호는 필수영역입니다.</div>"
+// 										if ($('#anum').val() == "") {
+// 											var output1 = "<div id='anum-sub'>계좌번호는 필수영역입니다.</div>"
 
-											if ($('#anum-sub').length == 0) {
-												$('#anum').after(output1);
-											} else {
-											}
-											$('#anum').css("border",
-													"1px solid red");
-											$('#anum-sub').css("color", "red");
-										} else {
-											$('#anum').css("border",
-													"1px solid black");
-											$('#anum-sub').remove();
-											$('#anum-sub').css("color", "red");
-										}
-									} else {
-										$('#myModal2').modal();
-									}
-								})
-			</script>
+// 											if ($('#anum-sub').length == 0) {
+// 												$('#anum').after(output1);
+// 											} else {
+// 											}
+// 											$('#anum').css("border",
+// 													"1px solid red");
+// 											$('#anum-sub').css("color", "red");
+// 										} else {
+// 											$('#anum').css("border",
+// 													"1px solid black");
+// 											$('#anum-sub').remove();
+// 											$('#anum-sub').css("color", "red");
+// 										}
+// 									} else {
+// 										$('#myModal2').modal();
+// 									}
+// 								})
+<!-- 			</script> -->
 
 
 
 		
-			<script>
-				$('#assgin').on('click' , function(){
-					console.log("asldkjaskld");
-					$('#subm').submit();
-				})
+<!-- 			<script> -->
+// 				$('#assgin').on('click' , function(){
+// 					console.log("asldkjaskld");
+// 					$('#subm').submit();
+// 				})
 			
 			
 				// 					$.ajax({
