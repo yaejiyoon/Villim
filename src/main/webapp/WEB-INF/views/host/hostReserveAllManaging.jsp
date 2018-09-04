@@ -122,6 +122,9 @@ min-width:1280px;
 							</c:if>
 							<c:if test="${rlist ne null }">
 								<c:forEach var="rlist" items="${rlist }">
+								<%
+										cnt++;
+									%>
 									<tr>
 										<c:if test="${rlist.reserv_state == 0 }">
 											<td>
@@ -192,12 +195,18 @@ min-width:1280px;
 										</c:if>
 										<c:if test="${rlist.reserv_state == 1 }">
 											<td style="color: #008489;" ><b>예약 완료</b></td>
+											
 										</c:if>
 										<c:if test="${rlist.reserv_state == 2 }">
-											<td style="color: #008489;"><b>예약 취소(게스트가 취소)</b></td>
+											<td style="color: #008489;"><b>예약 취소</b></td>
 										</c:if>
 										<c:if test="${rlist.reserv_state == 3 }">
-											<td style="color: #008489;"><b>예약 요청 거절(호스트가 거절)</b></td>
+											<td style="color: #008489;"><b>예약 요청 거절</b></td>
+											
+										</c:if>
+											<c:if test="${rlist.reserv_state == 4 }">
+											<td style="color: #008489;"><b>결제 완료</b></td>
+											
 										</c:if>
 										<td>
 											<div>${rlist.reserv_checkin }-${rlist.reserv_checkout }</div>

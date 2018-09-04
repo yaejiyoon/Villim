@@ -203,8 +203,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public int modifybed(BedDTO bdto) {
-		return hdao.modifybed(bdto);
+	public int imodifybed(BedDTO bdto) {
+		return hdao.imodifybed(bdto);
 	}
 
 	@Override
@@ -490,6 +490,17 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public int getPaymentCount(int home_seq) {
 		return hdao.getPaymentCount(home_seq);
+	}
+
+	@Override
+	public int imodifyHomeType(HomeDTO hdto) {
+		return 0;
+	}
+
+	@Override
+	public int modifybed(BedDTO bdto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

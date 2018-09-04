@@ -167,16 +167,16 @@ a:focus {
 					<button class="nav-btn" type="button"
 						onclick="location.href='hostHomeAchievement.do'">평점</button>
 				</div>
-				<div class="col-md-3">
-					<button class="nav-btn" type="button"
-						onclick="location.href='/hostImport.do'">수입</button>
-				</div>
+<!-- 				<div class="col-md-3"> -->
+<!-- 					<button class="nav-btn" type="button" -->
+<!-- 						onclick="location.href='/hostImport.do'">수입</button> -->
+<!-- 				</div> -->
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
 						onclick="location.href='hostHits.do'">
 						<b>조회수</b>
 					</button>
-				</div>
+				</div>  
 			</div>
 		</div>
 		<div class="line"></div>
@@ -207,7 +207,12 @@ a:focus {
 					<div
 						style="margin-left: 30px; display: inline-block; font-size: 35px; width: 25%;">
 						<c:if test="${hdto.home_view>0 }">
+						<c:if test="${pcnt !=0 }" >
 							<b><fmt:formatNumber value="${hdto.home_view / pcnt }" pattern=".0" />%</b><br>
+						</c:if>
+						<c:if test="${pcnt ==0 }" >
+							<b>0%</b><br>
+						</c:if>
 						</c:if>
 						<c:if test="${hdto.home_view==0 }">
 							<b>${hdto.home_view}%</b><br>

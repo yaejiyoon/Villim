@@ -860,7 +860,9 @@ public class HostController {
 		System.out.println("bdto::" + bdto);
 
 		ModelAndView mav = new ModelAndView();
-
+		System.out.println("hdto"+hdto.getHome_addr1());
+		System.out.println("hdto"+hdto.getMember_email());
+		System.out.println(hdto.getHome_seq());
 		System.out.println(bdto);
 
 		if (bdto == null) {
@@ -907,6 +909,10 @@ public class HostController {
 		BedDTO bdto = new BedDTO();
 		HomeDTO hdto = new HomeDTO();
 		System.out.println("bdto::" + bdto);
+		System.out.println("gethdto::"+getHdto.getHome_buildingType());
+		System.out.println("gethdto::"+getHdto.getHome_type());
+		System.out.println("gethdto::"+getHdto.getHome_people());
+		
 
 		if (cnt == 0) {
 			System.out.println("cnt == 0::");
@@ -923,9 +929,11 @@ public class HostController {
 
 			if (request.getParameter("sofacount") != null) {
 				sofaCnt = request.getParameter("sofacount");
+				System.out.println("sofa::"+sofaCnt);
 			}
 			if (request.getParameter("mattcount") != null) {
 				mattCnt = request.getParameter("mattcount");
+				System.out.println("sofa::"+mattCnt);
 			}
 			if (request.getParameter("bathcount") != null) {
 				bathCnt = request.getParameter("bathcount");
@@ -993,8 +1001,8 @@ public class HostController {
 				bdto.setBed_double(bdto.getBed_double().replace(" ", ""));
 				bdto.setBed_queen(bdto.getBed_queen().replace(" ", ""));
 
-				bresult = homeService.modifybed(bdto);
-				hresult = homeService.modifyHomeType(getHdto);
+				bresult = homeService.imodifybed(bdto);
+				hresult = homeService.imodifyHomeType(getHdto);
 				System.out.println("result:: " + bresult + "::" + hresult);
 			}
 		}
@@ -2390,7 +2398,7 @@ public class HostController {
 		}
 
 		int pcnt = homeService.getPaymentCount(home_seq);
-		
+		System.out.println("pcnt::"+pcnt);
 		if (hdto.getHome_addr2() != null) {
 			hdto.setHome_addr2(hdto.getHome_addr2().split(" ")[0]);
 		}

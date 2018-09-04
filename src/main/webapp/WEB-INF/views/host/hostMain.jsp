@@ -282,7 +282,7 @@ body{
 	margin-bottom: 40px;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .maindd {
 	display: block;
 	margin-top: 0;
 }
@@ -325,7 +325,7 @@ body{
 	padding-top: 15px;
 }
 
-.dropdown-menu {
+.main-dd {
 	width: 350px;
 	height: 300px;
 }
@@ -429,8 +429,8 @@ ul li{
 							style="font-size: 20px;" class="caret"></span>
 						</a>
 					</h2>
-					<ul class="dropdown-menu" role="menu" 
-						aria-labelledby="dropdownMenu1" style="overflow: scroll;">
+					<ul class="dropdown-menu maindd" role="menu" 
+						aria-labelledby="dropdownMenu1" style="overflow: scroll;  width:350px;">
 						<c:if test="${homeList ne null }">
 							<li role="presentation" class="dropdown-header">숙소를 선택하세요</li>
 
@@ -591,7 +591,7 @@ ul li{
 								style="font-size: 25px; color: black;"> <span
 								class="glyphicon glyphicon-question-sign"></span>
 							</a>
-							<ul class="dropdown-menu" role="menu" style="padding: 25px;"
+							<ul class="dropdown-menu maindd" role="menu" style="padding: 25px; width:350px;"
 								aria-labelledby="dropdownMenu1">
 								<li role="presentation" class="dropdown-header"><b>숙소
 										호감도</b></li>

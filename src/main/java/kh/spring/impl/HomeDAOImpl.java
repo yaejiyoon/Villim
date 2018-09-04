@@ -252,7 +252,7 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	@Override
-	public int modifybed(BedDTO bdto) {
+	public int imodifybed(BedDTO bdto) {
 		String sql = "update bed set bed_single=?, bed_double=?, bed_queen=? where home_seq = ?";
 		return jdbcTemplate.update(sql, bdto.getBed_single(), bdto.getBed_double(), bdto.getBed_queen(),
 				bdto.getHome_seq());
@@ -564,7 +564,7 @@ public class HomeDAOImpl implements HomeDAO {
 	}
 
 	// ---찬연
-
+	
 	@Override
 	public int insertFirstHome(HomeDTO hdto) {
 		// TODO Auto-generated method stub
@@ -682,5 +682,11 @@ public class HomeDAOImpl implements HomeDAO {
 	public int deletebed(int homeseq) {
 		// TODO Auto-generated method stub
 		return ssTemplate.delete("Bed.deletebed", homeseq);
+	}
+
+	@Override
+	public int imodifyHomeType(HomeDTO hdto) {
+		String sql = "update home set HOME_BUILDINGTYPE = ?, home_people = ?, home_type=?, home_public=? where home_seq = ?";
+		return jdbcTemplate.update(sql, hdto.getHome_buildingType(), hdto.getHome_people(), hdto.getHome_type(), hdto.getHome_public(), hdto.getHome_seq());
 	}
 }

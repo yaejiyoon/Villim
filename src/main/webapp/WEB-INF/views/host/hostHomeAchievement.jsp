@@ -258,10 +258,10 @@ li {
 						<b>평점</b>
 					</button>
 				</div>
-				<div class="col-md-3">
-					<button class="nav-btn" type="button"
-						onclick="location.href='/hostImport.do'">수입</button>
-				</div>
+<!-- 				<div class="col-md-3"> -->
+<!-- 					<button class="nav-btn" type="button" -->
+<!-- 						onclick="location.href='/hostImport.do'">수입</button> -->
+<!-- 				</div> -->
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
 						onclick="location.href='hostHits.do'">조회수</button>

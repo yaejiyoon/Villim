@@ -201,7 +201,7 @@ input {
 				<div class=sel-wrap>
 					<select id="home-type2" name="home_type"
 						class="input-lg form-control">
-						<option value="집 전체">집 전체</option>
+						<option value="집 전체">집전체</option>
 						<option value="개인실">개인실</option>
 						<option value="다인실">다인실</option>
 					</select>
@@ -377,14 +377,14 @@ input {
 						if(${hdto.home_public ne null}){
 							var str = '${hdto.home_public}';
 							var publicArr =	str.split(",");
-							
+// 							console.log("publicArr[0]::"+publicArr[0]);
+// 							console.log("publicArr[1]::"+publicArr[1]);
+// 							console.log("publicArr[1]::"+publicArr[2]);
+
+							$('#sofacount').val(publicArr[0]);
+							$('#mattcount').val(publicArr[1]);
+							$('#bathcount').val(publicArr[2]);
 						}
-						console.log("publicArr[0]::"+publicArr[0]);
-						console.log("publicArr[1]::"+publicArr[1]);
-						console.log("publicArr[1]::"+publicArr[2]);
-						$('#sofacount').val(publicArr[0]);
-						$('#mattcount').val(publicArr[1]);
-						$('#bathcount').val(publicArr[2]);
 					});
 				
 					

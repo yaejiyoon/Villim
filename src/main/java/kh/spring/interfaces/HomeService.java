@@ -102,7 +102,10 @@ public interface HomeService {
 	public List<GuestReviewDTO> getValue(int home_seq);
 
 	public List<MessageDTO> getAllMessage(String member_email);
-
+	
+	public int imodifybed(BedDTO bdto);
+	
+	public int imodifyHomeType(HomeDTO hdto);
 
 	public int modifybed(BedDTO bdto);
 
