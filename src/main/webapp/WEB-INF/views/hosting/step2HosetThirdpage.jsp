@@ -8,7 +8,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 <style type="text/css">
 #housename{
 	height: 67px;
@@ -104,7 +104,7 @@
 															class="main-panel__actions col-sm-12 no-margin-padding__sm">
 															<div class="_1dcqn1vg"
 																style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
-																<a href="step2second.host"
+																<a href="/step2second.host"
 																	class="_5rte3y6" aria-busy="false"><span
 																	class="_cgr7tc7"><span>뒤로</span></span></a>
 																<div class="_107ja4p">
