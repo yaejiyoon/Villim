@@ -140,11 +140,11 @@ margin-top: 55px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 									</form>
 									<div class="main-panel__actions-wrapper">
 										
-											
 												
-													<div class="divider hide-sm"></div>
-													<div></div>
+											<div class="divider hide-sm"></div>
+												<div></div>
 													
+													<div><p> 날짜를 눌렀을때  빨간색 테두리가 쳐져 있으면 블락처리가 되어있습니다. </p></div>
 														
 															<div class="conlay"
 																style="position: relative; margin-top: 100px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px; z-index: -9; top: 205px;">
@@ -216,6 +216,7 @@ margin-top: 55px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px;
 	$("#datepicker").datepicker({
 		dateFormat: 'yy-mm-dd',
 		minDate: 0,
+		maxDate: '+1Y',
     onSelect: function (dateText, inst) {
         addOrRemoveDate(dateText);
     },
