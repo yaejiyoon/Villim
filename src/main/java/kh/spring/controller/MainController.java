@@ -52,7 +52,7 @@ public class MainController {
 	public ModelAndView welcome(HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
-		/*List<HomeDTO> homeList = homeService.getAllHomeDataMain();*/
+		List<HomeDTO> homeList = homeService.getAllHomeDataMain();
 
 		//---재호
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
@@ -60,7 +60,7 @@ public class MainController {
 		System.out.println(url);
 		System.out.println(":" + url);
 		mav.addObject("google_url", url);
-	/*	mav.addObject("homeList", homeList);*/
+		mav.addObject("homeList", homeList);
 		//---
 		session.setAttribute("googleUrl", url);
 		

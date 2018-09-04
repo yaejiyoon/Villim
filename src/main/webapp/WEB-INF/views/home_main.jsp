@@ -19,12 +19,49 @@
 <link rel="stylesheet" href="<c:url value="../../resources/css/home/docs/css/style.css" />"/>
 
 <link href="<c:url value="/resources/css/home_main/map_switch.css" />" rel="stylesheet" />
+
 <script>
 $(document).ready(function(){
 	<c:if test="${sessionScope.login_email eq null}">
 	$(".likeyBT").attr('href','#myModal1');
 </c:if>
 })
+</script>
+<script>
+
+<% String homeType = (String)session.getAttribute("homeType");
+if(!homeType.equals("0")) {%>
+   $(document).ready(function() {
+      var homeTypeBt = document.getElementById('homeTypeBt');
+      homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
+      homeTypeBt.style.backgroundColor = '#008489';
+      homeTypeBt.style.color = "white";
+      homeTypeBt.style.borderRadius = "10px";
+   })
+<%}%>
+
+<%
+int people = (int) session.getAttribute("people"); 
+if(people!=0) {%>
+   $(document).ready(function() {
+      var homeTypeBt = document.getElementById('peopleBt');
+      homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
+      homeTypeBt.style.backgroundColor = '#008489';
+      homeTypeBt.style.color = "white";
+      homeTypeBt.style.borderRadius = "10px";
+   })
+<%}%>
+
+<% String startDate = (String) session.getAttribute("startDate"); 
+if(!startDate.equals("0")) {%>
+$(document).ready(function() {
+   var dateBt = document.getElementById('dateBt');
+   dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
+   dateBt.style.backgroundColor = '#008489';
+   dateBt.style.color = "white";
+   dateBt.style.borderRadius = "10px";
+})
+<%}%>
 </script>
 <script>
 $(function () {
@@ -179,6 +216,8 @@ function initMap() {
 }
 
 </script>
+
+
 <script>
 $(document).ready(function() {
 	
@@ -303,7 +342,8 @@ $(document).ready(function() {
 					on.style.display = 'block';    
 					off.style.display = 'none';
 		       },error:function(errordata){
-					alert("error 1");
+					//alert("error 1");
+					console.lon(error1);
 		       }
 		});
 
@@ -338,8 +378,9 @@ $(document).ready(function() {
 				on.style.display = 'none';
 				off.style.display = 'block';    
     	   }
-       },error:function(errordata){
-			alert("error 2");
+       },error:function(data){
+			//alert("error 2");
+    	   console.lon(error2);
        }
      });
    
@@ -390,8 +431,6 @@ $(document).ready(function() {
 	});
 	   
 });  
-	
-	
 		
 		
 $(document).ready(function() {
@@ -409,7 +448,8 @@ $(document).ready(function() {
 			on.style.display = 'block';    
 			off.style.display = 'none';
 	   },error:function(errordata){
-			alert("error");
+			//alert("error");
+		   console.lon(error);
        }
      });
    });  
@@ -433,368 +473,343 @@ $(document).ready(function() {
 
 </script>
 
-<script>
 
-
-<% String homeType = (String)session.getAttribute("homeType");
-if(!homeType.equals("0")) {%>
-   $(document).ready(function() {
-      var homeTypeBt = document.getElementById('homeTypeBt');
-      homeTypeBt.innerHTML = "<%=(String)session.getAttribute("homeType")%>";
-      homeTypeBt.style.backgroundColor = '#008489';
-      homeTypeBt.style.color = "white";
-      homeTypeBt.style.borderRadius = "10px";
-   })
-<%}%>
-
-<%
-int people = (int) session.getAttribute("people"); 
-if(people!=0) {%>
-   $(document).ready(function() {
-      var homeTypeBt = document.getElementById('peopleBt');
-      homeTypeBt.innerHTML = "인원 "+"<%=(int)session.getAttribute("people")%>";
-      homeTypeBt.style.backgroundColor = '#008489';
-      homeTypeBt.style.color = "white";
-      homeTypeBt.style.borderRadius = "10px";
-   })
-<%}%>
-
-<% String startDate = (String) session.getAttribute("startDate"); 
-if(!startDate.equals("0")) {%>
-$(document).ready(function() {
-   var dateBt = document.getElementById('dateBt');
-   dateBt.innerHTML = "<%=(String)session.getAttribute("startDate")%>"+" ~ "+"<%=(String)session.getAttribute("endDate")%>";
-   dateBt.style.backgroundColor = '#008489';
-   dateBt.style.color = "white";
-   dateBt.style.borderRadius = "10px";
-})
-<%}%>
-</script>
 
 
 
 <style>
-	@font-face {
-  		font-family: font;
-		src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
-	}
-	
-	@font-face {
-		font-family: TmonTium;
-		src: url('<c:url value='/resources/fonts/TmonTium.ttf'/>');
-	}
-	
-	
-	#header {
-		font-family: font;
-		z-index : 100;
-		background-color: white;
-	}
-	
-	#fixedHeader {
-		/* position:fixed; */
-		width : 100%;
-		z-index : 100;
-		
-		
-	}
-	
-	#searchBar {
-		font-family: Interpark;
-		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
-		font-weight : 200;
-  		font-size: 0.8vw;
-		width : 100%;
-		height : 8vh;
-		border-top : 1px solid #e0dee0;
-		border-bottom : 1px solid #e0dee0;
-		background-color: white;
 
-	}
-	
-	#searchBar ul {
-		float : left;
-	    list-style-type: none;
-	    margin: 10px 0px 10px 50px;
-	    padding: 0;
-	    overflow: hidden;
-	    background-color: white;
-	}
-	
-	#searchBar li {
-	    float: left;
-	    height : 100%;
-	    margin-right : 10px;
-	}
-	
-	#searchBar li a {
-	    display: block;
-	    color: black;
-	    text-align: center;
-	    padding: 10px 16px 10px;
-	    text-decoration: none;
-	}
-	
- 	#searchBar li a:hover { 
-		border-bottom: 1px solid  #1c7a96;
-		color: #1c7a96;
- 	}
- 	
- 	#contentsWrapper {
- 		font-family: Interpark;
-		src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
- 		width : 100%;
- 		height : 380vh;
- 	}
- 	
- 	
- 	#mapOffDiv {
- 		width : 100%;
- 		height : auto;
- 	}
- 	
- 	#footer {
- 		z-index:2;
-     	position:relative;
+   body{
+         maxmin-width: 1280px;
+   }
+   
+   @font-face {
+        font-family: font;
+      src: url('<c:url value='/resources/fonts/BMJUA.ttf'/>');  
+   }
+   
+   @font-face {
+      font-family: TmonTium;
+      src: url('<c:url value='/resources/fonts/TmonTium.ttf'/>');
+   }
+   
+   
+   #header {
+      font-family: font;
+      z-index : 100;
+      background-color: white;
+   }
+   
+   #fixedHeader {
+      /* position:fixed; */
+      width : 100%;
+      z-index : 100;
+      
+      
+   }
+   
+   #searchBar {
+      font-family: Interpark;
+      src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
+      font-weight : 200;
+        font-size: 0.8vw;
+      width : 100%;
+      height : 8vh;
+      border-top : 1px solid #e0dee0;
+      border-bottom : 1px solid #e0dee0;
+      background-color: white;
+
+   }
+   
+   #searchBar ul {
+      float : left;
+       list-style-type: none;
+       margin: 10px 0px 10px 50px;
+       padding: 0;
+       overflow: hidden;
+       background-color: white;
+   }
+   
+   #searchBar li {
+       float: left;
+       height : 100%;
+       margin-right : 10px;
+   }
+   
+   #searchBar li a {
+       display: block;
+       color: black;
+       text-align: center;
+       padding: 10px 16px 10px;
+       text-decoration: none;
+   }
+   
+    #searchBar li a:hover { 
+      border-bottom: 1px solid  #1c7a96;
+      color: #1c7a96;
+    }
+    
+    #contentsWrapper {
+       font-family: Interpark;
+      src: url('<c:url value='/resources/fonts/Interpark.ttf'/>'); 
+       width : 100%;
+       height : 380vh;
+        overflow: hidden; 
+    }
+    
+    
+    #mapOffDiv {
+       width : 100%;
+       height : auto;
+    }
+    
+    #footer {
+       z-index:2;
+        position:relative;
      }
      
      #map {
-     	margin : 0 0 0 5%;
-     	width : 95%;
-     	height: 100%;
-     	
+        margin : 0 0 0 5%;
+        width : 95%;
+        height: 100%;
+        
      }
      
      #offTitlePic {
-     	margin-top : 200px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 20vw;
-     	display: inline-block;
-     	overflow:hidden;
+        margin-top : 20px;
+        margin-left : 15vw;
+        width : 70vw;
+        height : 20vw;
+        display: inline-block;
+        overflow:hidden;
      }
      
      #offTitlePic img{
-     	height : 100%;
+        height : 100%;
      }
      
      #offContentsWrapper {
-     	margin-top : 20px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 40vw;
-     	display: inline-block;
+        margin-top : 20px;
+        margin-left : 15vw;
+        width : 70vw;
+        height : 40vw;
+        display: inline-block;
      }
      
      #offContentsTitle {
-     	margin-top : 20px;
-     	margin-left : 15vw;
-     	width : 70vw;
-     	height : 5vw;
-     	display: inline-block;
-     	 
+        margin-top : 20px;
+        margin-left : 15vw;
+        width : 70vw;
+        height : 5vw;
+        display: inline-block;
+         
      }
      
-	.row {
-		box-sizing : border-box;
-		height : 50%;
-		margin : auto;
-	} 
-	
-	#row {
-		box-sizing : border-box;
-		height : 50%;
-		margin : auto;
-	}
+   .row {
+      box-sizing : border-box;
+      height : 50%;
+      margin : auto;
+   } 
+   
+   #row {
+      box-sizing : border-box;
+      height : 50%;
+      margin : auto;
+   }
      
      .col-md-3 {
-     	height : 100%;
-     	margin : auto;
-     	line-height: 0.8em;
-     	overflow: hidden;
+        height : 100%;
+        margin : auto;
+        line-height: 0.8em;
+        overflow: hidden;
      }
      
-	.recommend {
-		height : 100%;
-	}
-				
-	.col-md-2 {
-		height : 100%;
-	}
-	
-	#col-md-2 {
-		padding-left : 3px;
-		padding-right: 3px;
-	}
-	
-	.countryCard {
-		border : 1px solid white;
-		border-radius : 10px;
-		height : 100%;
-		width : 100%;
-		cursor: pointer;
-	}
-				
-	.countryCard img {
-		width : 50%;
-		height: 80%;
-		margin-top : 5%;
-		margin-bottom : 5%;
-		margin-left : 5%;
-		margin-right : 4%;
-		float : left;
-		border-radius: 10px;
-	}
-				
-	.countryName {
-		margin-top : 15%;
-		font-size : 2.4vh;
-		color : #a0a6af; 
-		font-family: TmonTium;
-	}
-				
-	#newyork p{
-/* 		font-size : 1.2em; */
- 		font-size : 1.6vh; 
-	}
-	
-	
-	#madrid p {
-		font-size: 2vh;
-	}
-	
-	#london p {
-		font-size: 1.8vh;
-	}
-			
+   .recommend {
+      height : 100%;
+   }
+            
+   .col-md-2 {
+      height : 100%;
+   }
+   
+   #col-md-2 {
+      padding-left : 3px;
+      padding-right: 3px;
+   }
+   
+   .countryCard {
+      border : 1px solid white;
+      border-radius : 10px;
+      height : 100%;
+      width : 100%;
+      cursor: pointer;
+   }
+            
+   .countryCard img {
+      width : 50%;
+      height: 80%;
+      margin-top : 5%;
+      margin-bottom : 5%;
+      margin-left : 5%;
+      margin-right : 4%;
+      float : left;
+      border-radius: 10px;
+   }
+            
+   .countryName {
+      margin-top : 15%;
+      font-size : 2.4vh;
+      color : #a0a6af; 
+      font-family: TmonTium;
+   }
+            
+   #newyork p{
+/*       font-size : 1.2em; */
+       font-size : 1.6vh; 
+   }
+   
+   
+   #madrid p {
+      font-size: 2vh;
+   }
+   
+   #london p {
+      font-size: 1.8vh;
+   }
+         
 
-	
-	.carousel.slide {
-		width : 100%;
-	   	height : 100%;
-	   	display: inline-block;
-	}
-			     
- 	
-			     
-	.carousel-inner {
-		width : 100%;
-		height : 100%;
-	}
-			     
-	#carouselDiv {
-		width : 100%;
-		height : 60%;
-	}	
-				
-	.reviewStar {
-		color : #008489; 
-		display : inline;
-	}
- 	
- 	.hostTitle, .reviewCount {
- 		display: inline;
- 	}
- 	
- 	.homeType {
- 		margin-top: 1vh;
- 		padding : 0px;
- 		margin-bottom : 0.5vh;
- 	}
- 	
- 	.homeName {
- 		margin-bottom : 0.5vh;
- 		padding : 0px;
- 	}
- 	
- 	.homePrice{
- 		margin-bottom : 0.5vh;
- 		padding : 0px;
- 	}
- 	
- 	.introSentence {
- 		margin-top : 1vw;
- 		font-size: 2em;
- 		font-family: TmonTium;
- 		color : #3a3b3d;
- 	}
- 	
- 	#mapOnDiv {
- 		width : 100%;
- 		height : 500px;
- 		display : none;
- 	}
- 	
- 	#onCardsWrapper {
- 		margin-top : 200px;
- 		margin-left : 5vw;
- 		width : 55vw;
- 		height : 40vw;
- 		display: inline-block;
- 		line-height : 1em;
- 	}
- 	
- 	#mapWrapper {
- 		margin-top : 200px;
- 		width : 35vw;
- 		height : 70vw;
- 		display: inline-block;
- 	}
- 	
- 	
- 	#mapWrapper {
- 		position: fixed;
- 		height: 75vh;
-	    z-index: 0;
- 	}
-	
-	.col-md-4 {
-		height : 100%;
-	}
-	
-	.row {
-		margin : auto;
-	}
-	
-	.col {
-		margin : auto;
-		height : 36vh;
-	}
-	
-	#onCardsWrapper .row{
-		height : 50%;
-	}
-	
-	.carousel-inner>.item>.homePic {
-		width : 100vh;
-		height : 30vh;
-	}
- 	
- 	.likeyBT{
- 		width:20px;
- 		position: absolute;
- 		z-index: 400000;
- 		top:10px;
- 		right:30px;
- 	}
- 	
- 	.likeyBT:hover{
- 		cursor: pointer;
- 	}
- 	
- 	.newAtag {
- 	   color : black;
- 	}
- 	
- 	.newAtag:hover {
- 	   text-decoration: none;
- 	}
- 	
- 	#jaehoModal {
-  		margin-left : 70vh; 
-  		width : 600px;
-  		height : 1000px;
- 	}
+   
+   .carousel.slide {
+      width : 100%;
+         height : 100%;
+         display: inline-block;
+   }
+              
+    
+              
+   .carousel-inner {
+      width : 100%;
+      height : 100%;
+   }
+              
+   #carouselDiv {
+      width : 100%;
+      height : 60%;
+   }
+   
+   .carouselDivOnMap {
+      width : 100%;
+      height : 60%;
+   }   
+            
+   .reviewStar {
+      color : #008489; 
+      display : inline;
+   }
+    
+    .hostTitle, .reviewCount {
+       display: inline;
+    }
+    
+    .homeType {
+       margin-top: 1vh;
+       padding : 0px;
+       margin-bottom : 0.5vh;
+    }
+    
+    .homeName {
+       margin-bottom : 0.5vh;
+       padding : 0px;
+    }
+    
+    .homePrice{
+       margin-bottom : 0.5vh;
+       padding : 0px;
+    }
+    
+    .introSentence {
+       margin-top : 1vw;
+       font-size: 2em;
+       font-family: TmonTium;
+       color : #3a3b3d;
+    }
+    
+    #mapOnDiv {
+       width : 100%;
+      height : 500px; 
+       display : none;
+    }
+    
+    #onCardsWrapper {
+       margin-top : 20px;
+       margin-left : 5vw;
+       width : 55vw;
+       height : 40vw;
+       display: inline-block;
+       line-height : 1em;
+    }
+    
+    #mapWrapper {
+       margin-top : 20px;
+       width : 35vw;
+       height : 70vw;
+       display: inline-block;
+    }
+    
+    
+    #mapWrapper {
+       position: fixed;
+       height: 75vh;
+       z-index: 0;
+    }
+   
+   .col-md-4 {
+      height : 100%;
+   }
+   
+   .row {
+      margin : auto;
+   }
+   
+   .col {
+      margin : auto;
+      height : 36vh;
+   }
+   
+   #onCardsWrapper .row{
+      height : 50%;
+   }
+   
+   .carousel-inner>.item>.homePic {
+      width : 100vh;
+      height : 30vh;
+   }
+    
+    .likeyBT{
+       width:20px;
+       position: absolute;
+       z-index: 400000;
+       top:10px;
+       right:30px;
+    }
+    
+    .likeyBT:hover{
+       cursor: pointer;
+    }
+    
+    .newAtag {
+       color : black;
+    }
+    
+    .newAtag:hover {
+       text-decoration: none;
+    }
+    
+    #jaehoModal {
+        margin-left : 70vh; 
+        width : 600px;
+        height : 1000px;
+    }
 </style>
 </head>
     
@@ -907,7 +922,6 @@ $(document).ready(function() {
 											home_seq_heart:home_seq_heart
 											},
 									success:function(resp){
-											
 										for(var i=0;i<resp.lLikey.length;i++){
 											$("#modalLikeyBTID"+resp.lLikey[i].likeyList_seq).attr('src','<c:url value='../resources/img/like.png'/>')
 										}
