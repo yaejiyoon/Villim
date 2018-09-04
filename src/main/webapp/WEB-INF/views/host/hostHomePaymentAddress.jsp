@@ -116,52 +116,50 @@ input[type=text] {
 	font-weight: bold;
 }
 /* 모달모달 */
-   #likeyModal{
-      margin-top: 50px;
-      margin: 0 auto;
-      height:auto;
-      font-family:font2 !important;
-   }
-   
-   .modal-dialog.reserv-dialog{
-      width: 380px;
-      height: 100%;
-   }
-   
-   .modal-content.reserv-content{
-      height: auto;
-   }
-   
-   .modal-header.reserv-header{
-      width:100%;
-      border: 0px !important;
-   }
-   
-   .basicAmenities{
-      border-bottom:  1px solid #d6d6d6;
-      margin: 20px 0px;
-      
-   }
-   
-   .modal-body.reserv-body{
-      padding:0 30px;
-      height: 100px;;
-   }
+#likeyModal {
+	margin-top: 50px;
+	margin: 0 auto;
+	height: auto;
+	font-family: font2 !important;
+}
 
-   .reserv-footer{
-      border-top: 1px solid #d6d6d6;
-      
-   }
-   
-   .reserv-body button{
-      background-color: white;
-      color:#ff5a5f;
-      border:2px solid #ff5a5f;
-   }
-   
-   .reserv-body button:hover{
-      color:#ff5a5f;
-   }
+.modal-dialog.reserv-dialog {
+	width: 380px;
+	height: 100%;
+}
+
+.modal-content.reserv-content {
+	height: auto;
+}
+
+.modal-header.reserv-header {
+	width: 100%;
+	border: 0px !important;
+}
+
+.basicAmenities {
+	border-bottom: 1px solid #d6d6d6;
+	margin: 20px 0px;
+}
+
+.modal-body.reserv-body {
+	padding: 0 30px;
+	height: 100px;;
+}
+
+.reserv-footer {
+	border-top: 1px solid #d6d6d6;
+}
+
+.reserv-body button {
+	background-color: white;
+	color: #ff5a5f;
+	border: 2px solid #ff5a5f;
+}
+
+.reserv-body button:hover {
+	color: #ff5a5f;
+}
 </style>
 </head>
 <body>
@@ -188,58 +186,58 @@ input[type=text] {
 			</div>
 			<div id="right-side">
 				<form id="subm" action="accountAssign.do" method="post">
-				<div>
-					<div class=right-title>
-						<b>은행정보 입력</b>
-					</div>
-					<div class="title">
-						<div>
-							<b>은행이름</b>
+					<div>
+						<div class=right-title>
+							<b>은행정보 입력</b>
 						</div>
-						<input id="bname" name="bname" type="text"
-							placeholder="예 : 농협" class="form-control input-lg">
-					</div>
-
-					<div class="title">
-						<div>
-							<b>계좌 등록 이름</b>
+						<div class="title">
+							<div>
+								<b>은행이름</b>
+							</div>
+							<input id="bname" name="bname" type="text" placeholder="예 : 농협"
+								class="form-control input-lg">
 						</div>
-						<input type="text" id="mname" name="mname" placeholder="예 :최인형"
-							class="form-control input-lg">
-					</div>
 
-					<div class="title">
-						<div>
-							<b>신분증 정보</b>
+						<div class="title">
+							<div>
+								<b>계좌 등록 이름</b>
+							</div>
+							<input type="text" id="mname" name="mname" placeholder="예 :최인형"
+								class="form-control input-lg">
 						</div>
-						<input type="text" id=mnum name=mnum class="form-control input-lg"
-							placeholder="예 : 9012261111111">
-					</div>
 
-					<div class="title">
-						<div>
-							<b>계좌 번호</b>
+						<div class="title">
+							<div>
+								<b>신분증 정보</b>
+							</div>
+							<input type="text" id=mnum name=mnum
+								class="form-control input-lg" placeholder="예 : 9012261111111">
 						</div>
-						<input type="text" id="anum" name="anum"
-							placeholder="예 : 3020008422921" class="form-control input-lg">
-					</div>
-				</div>
-				<div class=line></div>
 
-				<div class="btn-wrap">
-					<div class="btn-wrap-sub1">
-						<button id="cancelbtn" onclick="history.go(-1);"
-							class="btn btn-lg" type="button">〈 뒤로</button>
+						<div class="title">
+							<div>
+								<b>계좌 번호</b>
+							</div>
+							<input type="text" id="anum" name="anum"
+								placeholder="예 : 3020008422921" class="form-control input-lg">
+						</div>
 					</div>
-					<div class=btn-wrap-sub2>
-						<button id="nextbtn" class="btn btn-lg" type="button"
-							class="close" data-dismiss="modal" aria-label="Close">다음〉</button>
+					<div class=line></div>
+
+					<div class="btn-wrap">
+						<div class="btn-wrap-sub1">
+							<button id="cancelbtn" onclick="history.go(-1);"
+								class="btn btn-lg" type="button">〈 뒤로</button>
+						</div>
+						<div class=btn-wrap-sub2>
+							<button id="nextbtn" class="btn btn-lg" type="button"
+								class="close" data-dismiss="modal" aria-label="Close">다음〉</button>
+						</div>
+
 					</div>
-			
-				</div>
 			</div>
-			
-				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+
+			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog reserv-dialog">
 					<div class="modal-content reserv-content">
@@ -260,10 +258,10 @@ input[type=text] {
 					</div>
 				</div>
 			</div>
-		</form>
-			
-			
-			
+			</form>
+
+
+
 			<script>
 				$(document).ready(function() {
 					$('#bname-sub').hide();
@@ -345,10 +343,10 @@ input[type=text] {
 								$('#anum-sub').css("color", "red");
 							}
 						}else{
-							
+							$('#myModal2').modal();
 						}
-					
-					
+					}
+									}
 // 					$.ajax({
 // 							url : "https://testapi.open-platform.or.kr", 
 // 							type : "get",
@@ -437,74 +435,8 @@ input[type=text] {
 // 										$('#myModal2').modal();
 // 									}
 // 								})
-<!-- 			</script> -->
-
-
-
-		
-<!-- 			<script> -->
-// 				$('#assgin').on('click' , function(){
-// 					console.log("asldkjaskld");
-// 					$('#subm').submit();
-// 				})
-			
-			
-				// 					$.ajax({
-				// 							url : "https://testapi.open-platform.or.kr", 
-				// 							type : "get",
-				// 							data:{
-				// 								client_id:'l7xx8e89e5098dc14e8e87198f4fb1f4fdab',
-				// 								redirect_uri:'https://192.168.120.113/hostHomePaymentAddress.do',
-				// 								scope:inquiry,
-				// 								client_info:'이녕초이',
-				// 								auth_type:0,
-				// 								lang:'kor'
-				// 							},
-				// 							contentType:" application/x-www-form-urlencoded; charset=UTF-8",
-				// 							success : function(resp) {
-				// 							console.log("성공::"+ resp);
-				// // 							console.log(resp.bank_code_std); 
-				// // 							console.log(resp.account_num);
-				// // 							console.log(resp.tran_dtime);
-				// 							}
-				// 						});
-
-				// 					$.ajax({
-				// 							url : "https://testapi.open-platform.or.kr/oauth/2.0/token", 
-				// 							type : "post",
-				// 							data:{
-				// 								client_id:'l7xx8e89e5098dc14e8e87198f4fb1f4fdab',
-				// 								client_secret:'b44314fd0881410ca6ebac6d0a79797d',
-				// 								scope:"oob",
-				// 								grant_type:"client_credentials"
-				// 							},
-				// 							contentType:" application/x-www-form-urlencoded; charset=UTF-8",
-				// 							success : function(resp) {
-				// 								console.log("성공::"+ resp);
-				// 								console.log('토큰::'+resp.access_token);
-
-				// 								$.ajax({
-				// 		 							url : "https://testapi.open-platform.or.kr/inquiry/real_name", 
-				// 		 							type : "post",
-				// 		 							beforeSend : function(xhr){
-				// 		 						    		xhr.setRequestHeader("Bearer", resp.access_token);
-				// 	 						        },
-				// 		 							data:{
-				// 		 								scope:"oob",
-				// 										bank_code_std:"011",
-				// 										account_num:"3020008422921",
-				// 										account_holder_info:"9012261",
-				// 										tran_dtime:"20160310101921"		 							
-				// 		 							},
-				// 		 							contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-				// 		 							success : function(resp) {
-				// 		 								console.log("성공::"+ resp);
-				// 		 								console.log(resp.bank_name);
-				// 		 								console.log(resp.account_holder_info);
-				// 		 								console.log(resp.account_holder_name);
-				// 		 							}
-				// 		 						});
 			</script>
+
 
 		</div>
 	</div>
