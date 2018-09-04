@@ -29,7 +29,7 @@
 			$(location).attr("href","/");
 		});
 		
-		
+		/* 
 		$("#ddBT").click(function(){
 			
 			$.ajax({
@@ -41,7 +41,7 @@
 				type:"post",
 				success:function(resp){
 					token = resp.response.access_token;
-					console.log(token);
+					console.log(token); */
 					
 					/* $.ajax({
 						
@@ -63,7 +63,7 @@
 							
 					}) */
 				
-
+/* 
 					}
 				})
 				
@@ -86,7 +86,7 @@
 				}
 			})
 		
-		})
+		}) */
 		
 		$("#paymentBT").click(function(){
 			var IMP = window.IMP; // 생략가능
@@ -163,8 +163,8 @@
 					<br>
 					<br>
 					<button id="paymentBT" class="btn btn-secondary">확인 및 결제</button>
-					<button id="ddBT" class="btn btn-secondary">dd</button>
-					<button id="aaBT" class="btn btn-secondary">aa</button>
+					<!-- <button id="ddBT" class="btn btn-secondary">dd</button>
+					<button id="aaBT" class="btn btn-secondary">aa</button> -->
 					<br>
 					<br>
 					<br>
@@ -174,13 +174,13 @@
 				<div id="paymentRight-content">
 					<div id="content01">
 						<div id="content01-homeName">
-							<p>${hdto.home_name }집집집집집집집집집</p>
+							<p>${hdto.home_name }</p>
 							<p>${hdto.home_addr1 }, ${hdto.home_addr2 }의 ${hdto.home_type }</p>
-							<p>★★★★★</p><p>후기 137개</p>
+							<p>★★★★★</p><p>후기 ${starCount }개</p>
 							<p></p>
 						</div>
 						<div id="content01-homepic">
-							<img src="<c:url value='/resources/img/home.jpg'/>">
+							<img src="<c:url value='files/${hdto.home_main_pic}'/>">
 						</div>
 					</div>
 					<div id="content02">

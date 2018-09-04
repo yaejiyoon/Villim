@@ -55,9 +55,9 @@
 				},
 				type:"post",
 				success:function(resp){
-					alert("성공?");
+					//alert("성공?");
 					token = resp.response.access_token;
-					alert(token);
+					//alert(token);
 					
 					$.ajax({
 						url:"https://api.iamport.kr/payments/cancel?_token="+token,
@@ -69,6 +69,23 @@
 						},
 						success:function(resp){
 							console.log("취소됐니이이");
+							
+							var reservation_seq = ${paymentDTO.reservation_seq}
+							var payment_seq = ${paymentDTO.payment_seq}
+							
+							$.ajax({
+								url:"paymentCancelProc.do",
+								type:"post",
+								data:{
+									reservation_seq: reservation_seq,
+									payment_seq: payment_seq
+								},
+								success:function(resp){
+									
+									
+								}
+							})
+							
 						}
 					})
 					

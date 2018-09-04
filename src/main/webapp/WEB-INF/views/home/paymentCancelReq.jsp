@@ -53,7 +53,8 @@
 		
 		$("#continueBT").click(function(){
 			if($('#continueBT').hasClass('noClick')){
-				 alert("취소 사유를 선택하세요");
+				 //alert("취소 사유를 선택하세요");
+				 $("#payModal").modal('show');
 			 }else{
 				$(location).attr('href','paymentCancelMsg.re?reserv_seq=${reservationDTO.reservation_seq}');
 			 }
@@ -143,5 +144,6 @@
 			<p>villim, Inc.</p>
 		</div>
 	</div>
+	<%@ include file="../../resource/include/modal_homeInfo/pay.jsp"%>
 </body>
 </html>

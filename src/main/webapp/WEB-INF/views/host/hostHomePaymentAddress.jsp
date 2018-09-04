@@ -214,6 +214,7 @@ input[type=text] {
 // 					$('#mnum-sub').hide();
 // 					$('#anum-sub').hide();
 
+					var token = "";
 					$('#nextbtn').click(function() {
 // 						if(  ($('#bname').val() == "") || ($('#mname').val() == "") 
 // 								|| ($('#mnum').val() == "") ||($('#anum').val() == "") ){
@@ -307,7 +308,7 @@ input[type=text] {
 
 					
 					
-					$.ajax({
+					 $.ajax({
 							url : "https://testapi.open-platform.or.kr/oauth/2.0/token", 
 							type : "post",
 							data:{
@@ -320,26 +321,27 @@ input[type=text] {
 							success : function(resp) {
 								console.log("성공::"+ resp);
 								console.log('토큰::'+resp.access_token);
-								
+								token = resp.access_token
 								$.ajax({
 		 							url : "https://testapi.open-platform.or.kr/inquiry/real_name", 
 		 							type : "post",
 		 							beforeSend : function(xhr){
-		 						    		xhr.setRequestHeader("Bearer", resp.access_token);
+		 						    		xhr.setRequestHeader("Bearer", token);
 	 						        },
 		 							data:{
-		 								scope:"oob",
 										bank_code_std:"011",
 										account_num:"3020008422921",
+										account_holder_info_type: " ",
 										account_holder_info:"9012261",
-										tran_dtime:"20160310101921"		 							
+										tran_dtime:"20180904101921"		 							
 		 							},
-		 							contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-		 							success : function(resp) {
-		 								console.log("성공::"+ resp);
-		 								console.log(resp.bank_name);
-		 								console.log(resp.account_holder_info);
-		 								console.log(resp.account_holder_name);
+		 							contentType:"application/json; charset=UTF-8",
+		 							success : function(response) {
+		 								console.log("성공::"+ response);
+		 								console.log(response.bank_name);
+		 								console.log(response.account_holder_info);
+		 								console.log(response.account_holder_name);
+		 								console.log(response.rsp_message);
 		 							}
 		 						});
 								
