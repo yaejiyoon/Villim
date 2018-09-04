@@ -645,7 +645,7 @@
 	});
 	  
 	$("#save").click(function() {
-		alert("밖으로 나가버리고");
+		$(location).attr("href", "/");
 	})
 </script>
 </body>

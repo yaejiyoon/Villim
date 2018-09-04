@@ -327,7 +327,7 @@
 	<script type="text/javascript">
 	
 	$("#save").click(function() {
-		$(location).attr("href","toindex.host");
+		$(location).attr("href", "/");
 	});
 	
 	
