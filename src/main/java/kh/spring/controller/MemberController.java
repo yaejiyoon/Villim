@@ -857,18 +857,18 @@ public class MemberController {
 
 	}
 	
-	@RequestMapping("/myReservList.mo")
+	@RequestMapping("/ReservList.mo")
 	public ModelAndView myReservList(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String userId = (String) session.getAttribute("login_email");
-		System.out.println("myReservList");
+		System.out.println("ReservList.mo");
 		List<ReservationDTO> list=this.service.getMyReservList(userId);
 	
 		for(ReservationDTO tmp:list) {
 			System.out.println("list >"+tmp.getReservation_seq());
 		}
 		mav.addObject("myReservList", list);
-		mav.setViewName("/profile/profileReservList");
+		mav.setViewName("/profile/reservList");
 		return mav;
 	}
 

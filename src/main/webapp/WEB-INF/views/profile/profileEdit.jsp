@@ -149,7 +149,7 @@ left:100%;
 			수정</a> <a href="profileReview.mo"
 			style="font-size: 18px; position: relative;z-index:500; top: 23px; left: -7.5vw; color:gray;text-decoration: none;">후기</a>
 			
-			<a href="myReservList.mo"
+			<a href="ReservList.mo"
 			style="font-size: 18px; position: relative;z-index:500; top: 65px; left: -9.5vw; color:gray;text-decoration: none;">예약 목록</a>
 		<button id="profileShowBt" class="btn btn-default"
 			style="position: relative; left: -14vw;z-index:500; top: 100px; width: 150px; text-decoration: none;font-weight:bold;" onclick="location.href='printProfile.mo'">프로필 보기</button>
