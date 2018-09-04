@@ -414,7 +414,7 @@ ul li{
 				<h1>알림판</h1>
 			</div>
 			<div class="add-homelink">
-				<a class="add-homelink-link" href="#">숙소 등록하기</a>
+				<a class="add-homelink-link" href="logincut.host">숙소 등록하기</a>
 			</div>
 		</div>
 
@@ -898,9 +898,8 @@ ul li{
 										<div style="padding: 20px; font-size: 16px; color: black;">
 											"${mlist.message_content}"</div>
 										<div
-											style="padding-left: 20px; font-size: 15px; margin-top: 30px;">
+											style="padding-left: 20px; font-size: 15px;">
 											<button type="button" class="btn btn-lg" onclick="location.href='messageHostRoomEnter.msg?message_room_seq=${mlist.message_room_seq}&home_seq=${mlist.home_seq}&member_email=${mlist.fromID}&message_seq=${mlist.message_seq}'">메세지</button>
-											<button type="button" class="btn btn-lg">거절</button>
 										</div>
 									</div>
 								</div>
