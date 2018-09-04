@@ -145,12 +145,10 @@
              	  <img src=" files/${sessionScope.login_picture}"> 
              	</c:if>
              	</a>
-             	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+             	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="height:14vh;">
         					<li><a href="profileEditView.mo">프로필 수정하기</a></li>
-        					<li><a href="#">친구 초대하기</a></li>
-        					<li><a href="#">호스트 추천하기</a></li>
-        					<li><a href="#">계정관리</a></li>
-        					<li><a href="#">나의 가이드북</a></li>
+        					<li><a href="profileReview.mo">후기</a></li>
+        					<li><a href="ReservList.mo">예약 내역</a></li>
         					<li><a href="logout.do">로그아웃</a></li>
       			</ul>
               </div>  
