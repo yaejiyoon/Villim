@@ -5,9 +5,18 @@ public class AccountDTO {
 	private String host_email;
 	private String account_bank;
 	private String account_number;
+	private String account_member_number;
 
 	public AccountDTO() {
 		super();
+	}
+
+	public String getAccount_member_number() {
+		return account_member_number;
+	}
+
+	public void setAccount_member_number(String account_member_number) {
+		this.account_member_number = account_member_number;
 	}
 
 	public int getAccount_seq() {

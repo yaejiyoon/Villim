@@ -350,8 +350,8 @@ public class HomeServiceImpl implements HomeService {
 	}
 
 	@Override
-	public int insertBed(int home_seq, BedDTO bdto) {
-		return hdao.insertBed(home_seq, bdto);
+	public int insertBed(int home_seq) {
+		return hdao.insertBed(home_seq);
 	}
 
 	@Override
@@ -487,4 +487,9 @@ public class HomeServiceImpl implements HomeService {
 		// TODO Auto-generated method stub
 		return hdao.deletebed(homeseq);
 	}
+	@Override
+	public int getPaymentCount(int home_seq) {
+		return hdao.getPaymentCount(home_seq);
+	}
+
 }

@@ -33,6 +33,75 @@
 <link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 
 <style>
+/* 라디오버튼 시작 */
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+.option-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	position: relative;
+	right: 0;
+	bottom: 0;
+	height: 20px;
+	width: 20px;
+	transition: all 0.15s ease-out 0s;
+	background: #cbd1d8;
+	border: none;
+	color: #fff;
+	cursor: pointer;  
+	display: inline-block;
+	margin-right: 0.5rem;
+	outline: none;
+	position: relative;
+	z-index: 1000;
+}
+
+.option-input:hover {
+	background: #9faab7;
+}
+
+.option-input:checked {
+	background: #008489;
+}
+
+.option-input:checked::before {
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	content: '✔';
+	display: inline-block;
+	font-size: 18px;
+	text-align: center; 
+	line-height: 20px;
+}
+
+.option-input:checked::after {
+	-webkit-animation: click-wave 0.65s;
+	-moz-animation: click-wave 0.65s;
+	animation: click-wave 0.65s;
+	background: #40e0d0;
+	content: '';
+	display: block;
+	position: relative;
+	bottom: 5px;
+	z-index: 100;
+}
+
+.option-input.radio {
+	border-radius: 50%;
+	margin-left: 18px;
+	margin-right: 10px;
+}
+
+.option-input.radio::after {
+	border-radius: 50%;
+}
+/* 라디오버튼 끝 */
 body {
 	margin: 40px 10px;
 	padding: 0;
@@ -73,7 +142,12 @@ div {
 	width: 100%;
 	height: 70px;
 }
-
+#save:hover{
+color:white;
+}
+ #cancel:hover{
+color:#008489;
+}
 .dd-sub-pic {
 	width: 35%;
 	display: inline-block;
@@ -177,7 +251,7 @@ div {
 	background-color: white;
 	color: #008489;
 	border: 2px solid #008489;
-}
+} 
 </style>
 </head>
 <body>
@@ -187,7 +261,7 @@ div {
 	%>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
 	<div id=content>
-		<div class="home-summary-title dropdown" style="width: 30%;">
+		<div class="home-summary-title dropdown" style="width: 70%; margin-bottom: 40px;">
 			<h2>
 				<a id="dropname" class="dropdown-toggle" id="dropdownMenu1"
 					data-toggle="dropdown" style="font-size: 25px;"
@@ -432,7 +506,7 @@ div {
 													});
 													events.push({
 														start: '2017-01-01',
-														end: '2018-08-29',
+														end: '2018-09-04',
 														color:'#E6E6E6',
 														rendering:'background',
 														select:false
@@ -452,7 +526,8 @@ div {
 					
 					
 									});
-							var $first = $('.full-calendar').first();
+						
+							var $first = $('.full-calendar').first();  
 							$('.full-calendar').not($first).hide();
 						})
 					</script>
@@ -465,7 +540,12 @@ div {
 			<%
 				calcnt += 1;
 			%>
-			<div id="calendar<%=calcnt%>" class="full-calendar" style="width:100%;"></div>
+			<div id="calendar<%=calcnt%>" class="full-calendar" style="width:100%; height:100%;"></div>
+			<script>
+				$('.fc-view-container').css('height','650px');
+				$('.fc-view').css('height','650px');
+				
+ 			</script> 
 		</c:forEach>
 	</div>
 	<div id=sidebar>
@@ -490,7 +570,7 @@ div {
 					<label for="resp" id=r-possible>예약 가능</label>
 					<div id=r-possible2>
 						<input id="resp" name=home_reserve_possible type="radio"
-							value="예약 가능">
+							value="예약 가능" class="option-input radio">
 					</div>
 				</div>
 
@@ -500,7 +580,7 @@ div {
 					<label for="resim" id=r-impossible>예약 불가</label>
 					<div id=r-impossible2>
 						<input id=resim name=home_reserve_possible type="radio"
-							value="예약 불가">
+							value="예약 불가"class="option-input radio">
 					</div>
 				</div>
 			</div>

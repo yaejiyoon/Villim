@@ -141,7 +141,7 @@ min-width:1280px;
 				<div class=wrap>
 					<div class=wrap-sub>
 						<input type=number id="min" class="form-control input-lg" name=home_min_stay
-							value=${hdto.home_min_stay }> <span>박</span>
+							value=${hdto.home_min_stay }> 
 					</div>
 				</div>
 
@@ -151,7 +151,7 @@ min-width:1280px;
 				<div class=wrap>
 					<div class=wrap-sub>
 						<input type=number id="max" class="form-control input-lg" name=home_max_stay
-							value=${hdto.home_max_stay }> <span>박</span>
+							value=${hdto.home_max_stay }> 
 					</div>
 				</div>
 

@@ -467,9 +467,7 @@ $(document).keypress(function(e) { if (e.keyCode == 13) e.preventDefault(); });
 
 $(document).ready(function(){
 	$('#confirmBt').click(function(){
-		
-		alert("")
-		
+	
 		if(!$("#textValue").val()){
 			alert("입력 후 확인 버튼을 눌러주세요");
 			return false;
@@ -482,7 +480,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<%@ include file="../../resource/include/header_profile.jsp" %>
+	<%@ include file="../../resource/include/header_msg.jsp" %>
 
 	<div style="position: relative; left: 250px; top: 56px;">
 		<a href="profileEditView.mo"

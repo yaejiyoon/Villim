@@ -125,7 +125,7 @@ min-width:1280px;
 									<tr>
 										<c:if test="${rlist.reserv_state == 0 }">
 											<td>
-												<div style="margin-bottom: 10px;">대기 중</div>
+												<div style="margin-bottom: 10px; color: #008489;"><b>대기 중</b></div>
 												<div>
 													<button type="button" class="btn btn-sm"
 														style="background-color: #ff5a5f; color: white;">지금
@@ -140,21 +140,22 @@ min-width:1280px;
 											
 												<script>
 										
-										window.onbeforeunload = function() {
-											$.ajax({
-												url:"savetime.do",
-												type:'post',
-												data:{
-													seq:${rlist.reservation_seq}
-												},
-												success:function(resp){
-													console.log("성공::"+resp);
-												}
-											});
-										};
+// 										window.onbeforeunload = function() {
+// 											$.ajax({
+// 												url:"savetime.do",
+// 												type:'post',
+// 												data:{
+// 													seq:${rlist.reservation_seq}
+// 												},
+// 												success:function(resp){
+// 													console.log("성공::"+resp);
+// 												}
+// 											});
+// 										};
 										
 										var date<%=cnt%> = new Date('${rlist.reserv_waitdate}');
 										var time<%=cnt%> = date<%=cnt%>.getTime();
+										console.log(time<%=cnt%>);
 										function remain<%=cnt%>(){
 										        var now = new Date();
 
@@ -190,13 +191,13 @@ min-width:1280px;
 										</script>
 										</c:if>
 										<c:if test="${rlist.reserv_state == 1 }">
-											<td>예약 완료</td>
+											<td style="color: #008489;" ><b>예약 완료</b></td>
 										</c:if>
 										<c:if test="${rlist.reserv_state == 2 }">
-											<td>예약 취소(게스트가 취소)</td>
+											<td style="color: #008489;"><b>예약 취소(게스트가 취소)</b></td>
 										</c:if>
 										<c:if test="${rlist.reserv_state == 3 }">
-											<td>예약 요청 거절(호스트가 거절)</td>
+											<td style="color: #008489;"><b>예약 요청 거절(호스트가 거절)</b></td>
 										</c:if>
 										<td>
 											<div>${rlist.reserv_checkin }-${rlist.reserv_checkout }</div>
