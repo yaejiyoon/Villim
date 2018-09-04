@@ -1064,12 +1064,23 @@ public class HomeInfoController {
         calDateDays = Math.abs(calDateDays);
 		
         System.out.println("두 날짜의 날짜 차이: "+calDateDays);
+        
+      //총 리뷰 갯수
+      	int reviewCount = reviewService.totalReviewCount(hdto.getHome_seq());
+        
+        //후기 별 갯수
+        int starCount=0;
+        if(reviewCount >0) {
+        	starCount = reviewService.starCount(hdto.getHome_seq());
+        }
+      		 
 				
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservationDTO", reservationDTO);
 		mav.addObject("checkInDate", checkInDate);
 		mav.addObject("checkOutDate", checkOutDate);
+		mav.addObject("starCount", starCount);
 		mav.addObject("hdto", hdto);
 		mav.addObject("calDateDays", calDateDays);
 		mav.setViewName("home/payment");
@@ -1605,5 +1616,103 @@ public class HomeInfoController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@RequestMapping("/paymentCancelProc.do")
+	public void paymentCancelProc(HttpServletRequest req, HttpServletResponse response, HttpSession session) {
+		int reservation_seq = Integer.parseInt("reservation_seq");
+		int payment_seq = Integer.parseInt("payment_seq");
+		
+		//예약상태 업데이트 (5:결제 취소)
+		int updateState = reservService.updateReservState(reservation_seq, 5);
+		
+		//예약 정보
+		ReservationDTO reservationDTO = reservService.getReservationData(reservation_seq);
+		
+		//블락데이트 지우기
+		//blockedDate불러오기
+		String getBlockedDate = homeService.getBlockedDate(reservationDTO.getHome_seq());
+		List<String> originBlockedList = new ArrayList<>();
+
+		for(int i=0;i<getBlockedDate.split(",").length;i++) {
+			originBlockedList.add(getBlockedDate.split(",")[i]);
+		}
+
+		System.out.println(originBlockedList);
+
+
+		getBlockedDate.startsWith(",");
+
+		//두 날짜 사이의 날짜 구하기
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		// date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+		Date FirstDate = null;
+		Date SecondDate = null;
+		try {
+			FirstDate = format.parse(reservationDTO.getReserv_checkin());
+			SecondDate = format.parse(reservationDTO.getReserv_checkout());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+		ArrayList<String> dates = new ArrayList<String>();
+		Date currentDate = FirstDate;
+		while (currentDate.compareTo(SecondDate) <= 0) {
+			dates.add(format.format(currentDate));
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			currentDate = c.getTime();
+		}
+
+		for(int i=0;i<originBlockedList.size();i++) {
+			for(int j=0;j<dates.size();j++) {
+				if(originBlockedList.get(i).equals(dates.get(j))) {
+					originBlockedList.remove(i);
+				}
+			}
+		}
+
+		System.out.println(originBlockedList);
+
+		StringBuilder sb = new StringBuilder();
+
+		for(int i=0;i<originBlockedList.size();i++) {
+			if(i == originBlockedList.size()-1) {
+				sb.append(originBlockedList.get(i));
+			}else {
+				sb.append(originBlockedList.get(i)+",");
+			}
+		}
+
+		System.out.println(dates);
+
+		String blockedDate = sb.toString();
+
+		System.out.println(sb.toString());
+
+		int update = homeService.updateBlocked(blockedDate, reservationDTO.getHome_seq());
+		
+		
+		
+		//결제 상태 업데이트
+		int updatePaymentState = paymentService.updatePaymentState(payment_seq, 1);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("updatePaymentState", updatePaymentState);
+		
+		
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		
+		try {
+			new Gson().toJson(map,response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

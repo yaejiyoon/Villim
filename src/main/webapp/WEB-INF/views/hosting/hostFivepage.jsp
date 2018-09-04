@@ -8,7 +8,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/hosting.css">
+<link rel="stylesheet" type="text/css" href="resources/css/hosting/hosting.css">
 <title>Insert title here</title>
 <style>
 
@@ -119,24 +119,13 @@
 									</div>
 									<div style="margin-top: 24px; margin-bottom: 24px">
 										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="12"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-													class="checkmark"  id="12" value="반려동물" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">집에서 키우는 반려동물</span>
-													</div>
-												</div></label>
-										</div>
-										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="9"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-													class="checkmark" id="9" value="주차" /></span>
+													class="checkmark" id="9" value="주방" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">주차</span>
+														<span class="f7dcovm">주방</span>
 													</div>
 												</div></label>
 										</div>
@@ -144,21 +133,10 @@
 											<label class="4m7syz" for="21"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-													class="checkmark" id="21" value="엘리베이터" /></span>
+													class="checkmark" id="21" value="헤어드라이어" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">엘리베이터</span>
-													</div>
-												</div></label>
-										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="7"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="7" name="home_amenities"
-													class="checkmark" value="수영장" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">수영장</span>
+														<span class="f7dcovm">헤어드라이어</span>
 													</div>
 												</div></label>
 										</div>
@@ -166,46 +144,14 @@
 											<label class="4m7syz" for="27"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" 
-													class="checkmark" id="27" value="벽난로" /></span>
+													class="checkmark" id="27" value="침구" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">벽난로</span>
+														<span class="f7dcovm">침구</span>
 													</div>
 												</div></label>
 										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="15"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-														class="checkmark" id="15" value="헬스장" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">헬스장</span>
-													</div>
-												</div></label>
-										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="25"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-														class="checkmark" id="25" value="자쿠지욕조" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">자쿠지 욕조</span>
-													</div>
-												</div></label>
-										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="8"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" id="8" name="home_amenities"
-													class="checkmark" value="주방" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">주방</span>
-													</div>
-												</div></label>
-										</div>
+										
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="4"><div class="_gyif22">
 													<div class="_73ihd0r">
@@ -217,25 +163,15 @@
 													</div>
 												</div></label>
 										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="16"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox"  name="home_amenities"
-													class="checkmark" id="16" value="조식,커피,차" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">조식, 커피, 차</span>
-													</div>
-												</div></label>
-										</div>
+										
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="34"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-													 class="checkmark" id="34" value="빨래-건조기" /></span>
+													 class="checkmark" id="34" value="건조기" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">빨래 - 건조기</span>
+														<span class="f7dcovm">건조기</span>
 													</div>
 												</div></label>
 										</div>
@@ -265,10 +201,10 @@
 											<label class="4m7syz" for="44"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-														class="checkmark" id="44" value="옷장/서랍장" /></span>
+														class="checkmark" id="44" value="옷걸이" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">옷장/서랍장</span>
+														<span class="f7dcovm">옷걸이</span>
 													</div>
 												</div></label>
 										</div>
@@ -299,10 +235,10 @@
 											<label class="4m7syz" for="47"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities" 
-													class="checkmark" id="47" value=">업무가능공간/책상" /></span>
+													class="checkmark" id="47" value="작업공간" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">업무 가능 공간/책상</span>
+														<span class="f7dcovm">작업공간</span>
 													</div>
 												</div></label>
 										</div>
@@ -332,10 +268,10 @@
 											<label class="4m7syz" for="33"><div class="_gyif22">
 													<div class="_73ihd0r"> 
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-													class="checkmark" id="33" value="빨래-세탁기" /></span>
+													class="checkmark" id="33" value="세탁기" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">빨래-세탁기</span>
+														<span class="f7dcovm">세탁기</span>
 													</div>
 												</div></label>
 										</div>
@@ -354,10 +290,10 @@
 											<label class="4m7syz" for="57"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_amenities"
-														class="checkmark" id="57" value="게스트전용출입문" /></span>
+														class="checkmark" id="57" value="무선인터넷" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">게스트 전용 출입문</span>
+														<span class="f7dcovm">무선인터넷</span>
 													</div>
 												</div></label>
 										</div>
@@ -371,11 +307,11 @@
 											<label class="4m7syz" for="35"><div class="_gyif22">
 													<div class="_73ihd0r">
 														<span class="_foa2bi"><input type="checkbox" name="home_safety"
-														class="checkmark" id="35" value="연기감지기" /></span>
+														class="checkmark" id="35" value="화재감지기" /></span>
 													</div>
 													<div class="zkrkb6">
-														<span class="f7dcovm">연기감지기</span><span class="_wzwtzh8">잘
-															작동하는 연기 감지기를 모든 방에 구비해야 하는지 현지 법규를 확인해보세요.</span>
+														<span class="f7dcovm">화재감지기</span><span class="_wzwtzh8">잘
+															작동하는 화재 감지기를 모든 방에 구비해야 하는지 현지 법규를 확인해보세요.</span>
 													</div>
 												</div></label>
 										</div>
@@ -403,18 +339,7 @@
 													</div>
 												</div></label>
 										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="38"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" name="home_safety"
-													class="checkmark" id="38" value="안전카드" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">안전 카드</span><span class="_wzwtzh8">긴급
-															상황 시에 사용할 수 있는 정보를 적은 카드</span>
-													</div>
-												</div></label>
-										</div>
+										
 										<div style="margin-bottom: 24px">
 											<label class="4m7syz" for="39"><div class="_gyif22">
 													<div class="_73ihd0r">
@@ -426,18 +351,7 @@
 													</div>
 												</div></label>
 										</div>
-										<div style="margin-bottom: 24px">
-											<label class="4m7syz" for="42"><div class="_gyif22">
-													<div class="_73ihd0r">
-														<span class="_foa2bi"><input type="checkbox" name="home_safety"
-													class="checkmark" id="42" value="침실문잠금장치" /></span>
-													</div>
-													<div class="zkrkb6">
-														<span class="f7dcovm">침실문잠금장치</span><span
-															class="_wzwtzh8">개인실은 안전과 사생활 보호를 위해 방문을 잠글 수 있습니다</span>
-													</div>
-												</div></label>
-										</div>
+										
 										<div style="clear: both"></div>
 									</div>
 								</div>

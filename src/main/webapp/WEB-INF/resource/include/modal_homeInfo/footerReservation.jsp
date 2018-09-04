@@ -208,28 +208,28 @@
                     								}else{
                     									alert(priceLeft+" : "+priceRight);
                         								
-                        								$("#priceLeft").text(priceLeft);
-                        								$("#priceRight").text(priceRight);
-                        								$("#footer-cleaningFee").text(cleaningfee);
-                        								$("#footer-servicefee").text(servicefee);
+                        								$("#footer-priceLeft").text(priceLeft);
+                        								$("#footer-priceRight").text(priceRight);
+                        								$("#footer-modal-cleaningfee").text(cleaningfee);
+                        								$("#footer-modal-servicefee").text(servicefee);
                         								$("#footer-total").text(total);
                         								
                         								
                         								$("#fixed").css({"height":"580px","transition-duration":"0.1s"});
                         								$(".fixedprice").css({"display":"block"});
-                        								$(".footerModal-body").css({"height":"455px"});
+                        								$(".footerModal-body").css({"height":"500px"});
                         								
                         								$("#footer_reserv_checkin").val(checkinDate);
                         								$("#footer_reserv_checkout").val(checkoutDate);
                         								$("#footer-nightsAmount").val(priceRight);
-                        								$("#cleaningFee").val(cleaningfee);
-                        								$("#serviceFee").val(servicefee);
-                        								$("#totalAmount").val(total);
+                        								$("#footer-cleaningFee").val(cleaningfee);
+                        								$("#footer-servicefee").val(servicefee);
+                        								$("#footer-totalAmount").val(total);
                         								
                         								$("#footer-blockedDate").val(blockedDate);
                         								
-                        								alert(checkinDate);
-                        								alert(checkoutDate);
+                        								alert(cleaningfee);
+                        								alert(servicefee);
                     								}
                     								
                     							},
@@ -481,8 +481,8 @@
             			<span class='glyphicon glyphicon-menu-down' aria-hidden="true" style="right:-230px;"></span>
             			
             			<div class="fixedprice" style="margin-bottom: 5px;">
-            				<span style="float: left;" id="priceLeft">₩132,766 x 1박</span>
-            				<span style="float: right;" id="priceRight">₩132,766</span>
+            				<span style="float: left;" id="footer-priceLeft">₩132,766 x 1박</span>
+            				<span style="float: right;" id="footer-priceRight">₩132,766</span>
             			</div>
             			<div class="fixedprice" style="margin-bottom: 5px;">
             				<span style="float: left;">청소비</span>
@@ -503,7 +503,7 @@
             				</div>
 							
 							
-            				<span style="float: right;" id="cleaningfee">₩32,225</span>
+            				<span style="float: right;" id="footer-modal-cleaningfee">₩32,225</span>
             			</div>
             			<div class="fixedprice" style="margin-bottom: 5px;">
             				<span style="float: left;">서비스 수수료</span>
@@ -522,11 +522,11 @@
             					</div>
             				</div>
             				
-            				<span style="float: right;" id="servicefee">₩21,913</span>
+            				<span style="float: right;" id="footer-modal-servicefee">₩21,913</span>
             			</div>
             			<div style="border: none;" class="fixedprice" style="margin-bottom: 5px;">
             				<span style="float: left; font-weight: 600;">합계</span>
-            				<span style="float: right;" id="total" >₩21,913</span>
+            				<span style="float: right;" id="footer-total" >₩21,913</span>
             			</div>
             			<br>
             			<c:if test="${sessionScope.login_email eq null}">

@@ -32,4 +32,10 @@ public class PaymentDAOImpl implements PaymentDAO{
 		return sqlSessionTemplate.selectOne("Pay.getPaymentData",reservation_seq);
 	}
 
+	@Override
+	public int updatePaymentState(int seq, int state) {
+		String sql = "update payment set payment_STATE=? where payment_seq=?";
+		return jdbcTemplate.update(sql,state,seq);
+	}
+
 }

@@ -83,9 +83,7 @@
 														placeholder="인테리어, 채광, 주변 정보 등을 설명하세요."
 														id="lys-summary-textarea" name="home_contents"
 														style="height: 123px; width: 484px; resize: none;"></textarea>
-													<strong><span
-														class="lys-input__remaining-char-count text-muted text-small"
-														aria-label="500자 남음">500</span></strong>
+													
 												</fieldset>
 											</div>
 											<div class="space-top-4">
@@ -110,7 +108,7 @@
 															class="main-panel__actions col-sm-12 no-margin-padding__sm">
 															<div class="_1dcqn1vg"
 																style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
-																<a href="step2first.host"
+																<a href="/step2first.host"
 																	class="_5rte3y6" aria-busy="false"><span
 																	class="_cgr7tc7"><span>뒤로</span></span></a>
 																<div class="_107ja4p">

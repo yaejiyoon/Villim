@@ -181,4 +181,14 @@ public interface HomeDAO {
 	public int modifyHomeblock(HomeDTO hdto);
 	
 	public int modifyHomeprice(HomeDTO hdto);
+	
+	public int modifyFirstHome(HomeDTO hdto);
+	
+	public int insertbed(BedDTO bdto);
+	
+	public int updatebed(BedDTO bdto);
+	
+	public BedDTO selectbed(int homeseq);
+	
+	public int deletebed(int homeseq);
 }

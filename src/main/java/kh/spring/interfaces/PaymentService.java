@@ -9,4 +9,6 @@ public interface PaymentService {
 	public int insertDate(PaymentDTO dto);
 	
 	public PaymentDTO getPaymentData(int reservation_seq);
+	
+	public int updatePaymentState(int seq, int state);
 }
