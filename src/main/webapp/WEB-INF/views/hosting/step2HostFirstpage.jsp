@@ -273,8 +273,9 @@
 															class="main-panel__actions col-sm-12 no-margin-padding__sm">
 															<div class="_1dcqn1vg"
 																style="margin-top: 16px; margin-bottom: 16px; margin-left: 16px; margin-right: 16px">
-																<a href="???" class="_5rte3y6"
-																	aria-busy="false"><span class="_cgr7tc7"><span>뒤로</span></span></a>
+																<button type="button" class="_5rte3y6" data-toggle="modal" data-target="#myModal">
+																<span class="_cgr7tc7"><span>뒤로</span></span>
+																</button>
 																<div class="_107ja4p">
 																	<button type="button" disabled="" class="_5rte3y6" id="nextpg"
 																		aria-busy="false" data-veloute="lys-next-button">
@@ -302,8 +303,34 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">메인페이로 이동하겠습니까?</h4>
+      </div>
+      <div class="modal-body">
+        메인페이지로 넘어갑니다
+      </div>
+      <div class="modal-footer">
+   		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="save">메인페이지</button>
+      </div>
+    </div>
+  </div></div>
+	
+	
 	<input type="hidden">
 	<script type="text/javascript">
+	
+	$("#save").click(function() {
+		$(location).attr("href","toindex.host");
+	});
+	
+	
 		$('#drugimg').on('dragover', function(e) {
 			e.preventDefault();
 			e.stopPropagation();

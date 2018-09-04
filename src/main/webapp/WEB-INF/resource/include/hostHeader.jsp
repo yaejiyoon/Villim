@@ -180,6 +180,10 @@ a:hover {
 		display: block;
 	}
 }
+.hhdd li{
+	width: 100%;
+	font-size: 16px;
+}
 </style>
 
 <div id="header">
@@ -203,8 +207,6 @@ a:hover {
 				style="color: black;"><span data-hover="숙소"><b>숙소</b></span></a></li>
 			<li class="col-md-2"><a href="hostHomeAchievement.do"
 				style="color: black;"><span data-hover="성취도"><b>성취도</b></span></a></li>
-			<li class="col-md-2"><a href="#" style="color: black;"><span
-					data-hover="도움말"><b>도움말</b></span></a></li>
 		</ul>
 	</div>
 
@@ -217,8 +219,16 @@ a:hover {
 			<img id="menu" style="width: 25px;"
 				src="<c:url value='/resources/img/menu.png'/>">
 		</button>
-		<ul class="dropdown-menu  dropdown-menu-right" role="menu"
+		<ul class="dropdown-menu dropdown-menu-right hhdd" role="menu"
 			aria-labelledby="dLabel">
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="messageMain.msg">메시지</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="fullCalendar.do">달력</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="hostHomeList.do">숙소</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1"
+				href="hostHomeAchievement.do">성취도</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"
 				href="#">프로필 수정</a></li>
 			<li role="presentation"><a role="menuitem" tabindex="-1"

@@ -155,7 +155,7 @@ a:focus {
 	max-height: 60%;
 }
 </style>
-<title>조회수</title>
+<title>수입</title>
 <link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
@@ -169,12 +169,12 @@ a:focus {
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
-						onclick="location.href='/hostImport.do'">수입</button>
+						onclick="location.href='hostReserveTab.do'"><b>수입</b></button>
 				</div>
 				<div class="col-md-3">
 					<button class="nav-btn" type="button"
 						onclick="location.href='hostHits.do'">
-						<b>조회수</b>
+						조회수
 					</button>
 				</div>
 			</div>
@@ -182,37 +182,15 @@ a:focus {
 		<div class="line"></div>
 
 		<div id=wrapper-sub2>
-			<div>
-				<b style="font-size: 20px;">숙소 선택</b> 
-			</div>
-			<select class="form-control input-lg"
-				onchange="if(this.value) location.href=(this.value);"
-				style="width: 70%; display: inline-block; margin-top: 20px;">
-				<c:forEach var="hlist" items="${hlist}">
-					<option ${param.seq eq hlist.home_seq ? "selected" : "" }
-						value="hostHits.do?seq=${hlist.home_seq}">${hlist.home_name }</option>
-				</c:forEach>
-			</select>
-
 			<div id=gpa>
-				<div style="width: 50%; margin-top: 40px;">
+				<div style="width: 50%; ">
 					<div style="display: inline-block; font-size: 35px; width: 30%;">
 						<div>
 							<div style="width: 70%; display: inline-block;">
-								<b>${hdto.home_view }</b>
+								<b>￦${amount }</b>
 							</div>
 						</div>
-						<div style="font-size: 17px;">9월 조회수</div>
-					</div>
-					<div
-						style="margin-left: 30px; display: inline-block; font-size: 35px; width: 25%;">
-						<c:if test="${hdto.home_view>0 }">
-							<b><fmt:formatNumber value="${hdto.home_view / pcnt }" pattern=".0" />%</b><br>
-						</c:if>
-						<c:if test="${hdto.home_view==0 }">
-							<b>${hdto.home_view}%</b><br>
-						</c:if>
-						<div style="font-size: 17px;">예약률</div>
+						<div style="font-size: 17px;">2018 예약 수입</div>
 					</div>
 				</div>
 			</div>
@@ -269,7 +247,7 @@ a:focus {
 	
 		FusionCharts.ready(function() {
 			var visitChart = new FusionCharts({
-				type : 'spline',
+				type : 'column2d',
 				renderAt : 'chart-container',
 				width : '100%',
 				height : '400',
@@ -345,7 +323,7 @@ a:focus {
 						"value" : "0"
 					}, {
 						"label" : "09",
-						"value" : "${hdto.home_view}"
+						"value" : ""
 					}, {
 						"label" : "10",
 						"value" : "0"

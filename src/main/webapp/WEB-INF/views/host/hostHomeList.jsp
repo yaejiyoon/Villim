@@ -25,9 +25,11 @@
 	height: auto;
 	width: 100%;
 }
-body{
-min-width:1280px;
+
+body {
+	min-width: 1280px;
 }
+
 #wrapper-sub {
 	width: 70%;
 }
@@ -36,10 +38,12 @@ min-width:1280px;
 	color: #A4A4A4;
 	font-size: 16px;
 }
+
 #left-sub div a:hover {
 	text-decoration: none;
-	color:#E6E6E6;
+	color: #E6E6E6;
 }
+
 #center {
 	float: left;
 	display: inline-block;
@@ -49,8 +53,6 @@ min-width:1280px;
 	display: inline-block;
 	float: left;
 }
-
-
 
 #right {
 	display: inline-block;
@@ -77,7 +79,6 @@ min-width:1280px;
 #managing-f {
 	width: 100%;
 	height: 23%;
-	border-top: 1px solid #A4A4A4;
 }
 
 #managing-f div span {
@@ -125,7 +126,7 @@ min-width:1280px;
 	widht: 50%;
 	height: 80%;
 }
-  
+
 .pic-add {
 	margin: 22px auto;
 	margin-left: 45px;
@@ -134,7 +135,8 @@ min-width:1280px;
 }
 </style>
 <title>숙소</title>
-<link rel="shortcut icon" href="<c:url value='/resources/img/htitle.png'/>" />
+<link rel="shortcut icon"
+	href="<c:url value='/resources/img/htitle.png'/>" />
 </head>
 <body>
 	<%@ include file="../../resource/include/hostHeader.jsp"%>
@@ -142,56 +144,62 @@ min-width:1280px;
 		<div id=wrapper-sub class=container>
 			<div id=left class="col-md-3">
 				<div id=left-sub>
-					<div style="margin-bottom: 10px; ">
-						<b><a href="hostHomeList.do" style="color:black">숙소 목록</a></b>
+					<div style="margin-bottom: 10px;">
+						<b><a href="hostHomeList.do" style="color: black">숙소 목록</a></b>
 					</div>
-					<div><a href="hostReserveManaging.do">예약 관리</a></div>  
+					<div>
+						<a href="hostReserveManaging.do">예약 관리</a>
+					</div>
 				</div>
 			</div>
 			<div id=right class="col-md-9">
 				<c:if test="${list eq null }">
-					<div id="managing-c">
+					<div id="managing-c" class="img-rounded">
 						<div>호스트하는 숙소가 없습니다.</div>
 					</div>
 				</c:if>
-				<c:if test="${list ne null }">
+				<c:if test="${list ne null}">
 					<div id="managing-t">
 						<b>운영 중</b>
 					</div>
 					<c:forEach var="list" items="${list }">
-						<div id="managing-c">
-							<div id=managing-c-wrap>
-								<div id=managing-c-wrap-t>${list.home_name }</div>
-								<div id=managing-c-wrap-p>
+						<c:if test="${list.home_state==0 }">
+							<div id="managing-c">
+								<div id=managing-c-wrap>
+									<div id=managing-c-wrap-t>${list.home_name }</div>
+									<div id=managing-c-wrap-p>
 
-									<c:if test="${list.home_main_pic ne null}">
-										<div id=pic-wrap>
-											<img class="pic"
-												src="<c:url value='files/${list.home_main_pic }'/>">
-										</div>
-									</c:if>
-									<c:if test="${list.home_main_pic eq null}">
-										<div id=pic-add-wrap>
-											<img class="pic-add"
-												src="<c:url value='/resources/img/photo.png'/>">
-										</div>
-									</c:if>
+										<c:if test="${list.home_main_pic ne null}">
+											<div id=pic-wrap>
+												<img class="pic"
+													src="<c:url value='files/${list.home_main_pic }'/>">
+											</div>
+										</c:if>
+										<c:if test="${list.home_main_pic eq null}">
+											<div id=pic-add-wrap>
+												<img class="pic-add"
+													src="<c:url value='/resources/img/photo.png'/>">
+											</div>
+										</c:if>
+									</div>
+								</div>
+
+								<div id="managing-f">
+									<div>
+										<span><a href="hostHomeTab.do?seq=${list.home_seq }">수정하기</a></span>
+										<span><a href="">미리보기</a></span> <span><a
+											href="fullCalendar.do?seq=${list.home_seq }">달력</a></span>
+									</div>
 								</div>
 							</div>
-
-							<div id="managing-f">
-								<div>
-									<span><a href="hostHomeTab.do?seq=${list.home_seq }">수정하기</a></span> <span><a
-										href="">미리보기</a></span> <span><a href="fullCalendar.do?seq=${list.home_seq }">달력</a></span>
-								</div>
-							</div>
-						</div>
+						</c:if>
 					</c:forEach>
 				</c:if>
+
 			</div>
 		</div>
 	</div>
-	
+
 	<%@ include file="../../resource/include/footer.jsp"%>
 </body>
 </html>

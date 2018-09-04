@@ -49,7 +49,7 @@ public class HostController {
 	@RequestMapping("/hostMain.do")
 	public ModelAndView toHostMain(HttpServletRequest request, HttpSession session) throws Exception {
 		System.out.println("/homeMain.do:");
-		session.setAttribute("login_email", "sksksrff@gmail.com");
+		
 		String member_email = (String) session.getAttribute("login_email");
 
 		System.out.println("member_email::" + member_email);
@@ -256,9 +256,12 @@ public class HostController {
 		List<HomePicDTO> hplist = homeService.getHomePicData(seq);
 		String bstr = "";
 		BedDTO bdto = homeService.getBedData(seq);
+		int bedCnt = 0;
 
 		if (bdto != null) {
 			bstr = bdto.getBed_single() + "," + bdto.getBed_double() + "," + bdto.getBed_queen();
+		} else {
+			bedCnt = 0;
 		}
 
 		if (!bstr.equals(null) && !bstr.equals("")) {
@@ -272,6 +275,7 @@ public class HostController {
 		}
 
 		System.out.println("bstr::" + bstr);
+
 		String[] barr = null;
 
 		if (bstr != null && !bstr.equals("")) {
@@ -280,30 +284,26 @@ public class HostController {
 			System.out.println("bstr::" + bstr);
 		}
 
-		int bedCnt = 0;
-
-		if (barr != null) {
-			System.out.println("아오 짜증나진짜");
+		// 침대 수 계산
+		if (bdto != null) {
 			for (int i = 0; i < barr.length; i++) {
-				// if (barr[i] == null) {
-				// barr[i].replace(null, "0");
-				System.out.println("수박::" + barr[i]);
-				bedCnt += Integer.parseInt(barr[i]);
-				// }
-
+				System.out.println("아오 짜증나진짜::" + barr[i]);
+				if (barr[i] != null) {
+					System.out.println("수박::" + barr[i]);
+					bedCnt += Integer.parseInt(barr[i]);
+				}
 			}
 		}
 
 		String[] rarr = {};
 
+		// 침실 수 계산
 		if (bdto != null) {
 			System.out.println("bdto::" + bdto.getBed_single());
 			if (bdto.getBed_single() != null) {
-				// bdto.setBed_single(bdto.getBed_single().replaceAll(null, ""));
 				System.out.println("bdto::" + bdto.getBed_single());
 				rarr = bdto.getBed_single().split(",");
 			}
-
 		}
 
 		int roomCnt = rarr.length;
@@ -313,18 +313,20 @@ public class HostController {
 		String[] safety = {};
 		String[] guest_access = {};
 
-		System.out.println(hdto.getHome_amenities());
-		System.out.println(hdto.getHome_safety());
-		System.out.println(hdto.getHome_guest_access());
+		if (hdto != null) {
+			System.out.println(hdto.getHome_amenities());
+			System.out.println(hdto.getHome_safety());
+			System.out.println(hdto.getHome_guest_access());
 
-		if (hdto.getHome_amenities() != null) {
-			amenities = hdto.getHome_amenities().split(",");
-		}
-		if (hdto.getHome_safety() != null) {
-			safety = hdto.getHome_safety().split(",");
-		}
-		if (hdto.getHome_guest_access() != null) {
-			guest_access = hdto.getHome_guest_access().split(",");
+			if (hdto.getHome_amenities() != null) {
+				amenities = hdto.getHome_amenities().split(",");
+			}
+			if (hdto.getHome_safety() != null) {
+				safety = hdto.getHome_safety().split(",");
+			}
+			if (hdto.getHome_guest_access() != null) {
+				guest_access = hdto.getHome_guest_access().split(",");
+			}
 		}
 
 		for (int i = 0; i < amenities.length; i++) {
@@ -902,9 +904,8 @@ public class HostController {
 		String sofaCnt = "0";
 		String mattCnt = "0";
 		String bathCnt = "0";
-
+		BedDTO bdto = new BedDTO();
 		HomeDTO hdto = new HomeDTO();
-		BedDTO bdto = homeService.getBedData(seq);
 		System.out.println("bdto::" + bdto);
 
 		if (cnt == 0) {
@@ -915,8 +916,10 @@ public class HostController {
 		} else {
 			System.out.println("cnt != 0::");
 			if (bdto == null) {
-				homeService.insertBed(seq, bdto);
+				homeService.insertBed(seq);
 			}
+
+			bdto = homeService.getBedData(seq);
 
 			if (request.getParameter("sofacount") != null) {
 				sofaCnt = request.getParameter("sofacount");
@@ -948,50 +951,56 @@ public class HostController {
 				sarr[i] = request.getParameter("single-count" + (i + 1) + "");
 				darr[i] = request.getParameter("double-count" + (i + 1) + "");
 				qarr[i] = request.getParameter("queen-count" + (i + 1) + "");
+				System.out.println("sarr[i]::" + sarr[i]);
+				System.out.println("darr[i]::" + darr[i]);
+				System.out.println("qarr[i]::" + qarr[i]);
 			}
 
 			hdto = homeService.getHomeData(seq);
 
-			if (sarr != null) {
+			if (sarr != null && bdto != null) {
 				bdto.setBed_single(Arrays.toString(sarr));
-				System.out.println("bdto.getBed_single::"+bdto.getBed_single());
+				System.out.println("bdto.getBed_single::" + bdto.getBed_single());
 				if (bdto.getBed_single() != null) {
 					bdto.setBed_single(bdto.getBed_single().substring(1, bdto.getBed_single().length() - 1));
 				}
 			}
-			if (darr != null) {
+
+			if (darr != null && bdto != null) {
 				bdto.setBed_double(Arrays.toString(darr));
 				if (bdto.getBed_double() != null) {
 					bdto.setBed_double(bdto.getBed_double().substring(1, bdto.getBed_double().length() - 1));
 				}
 			}
-			if (qarr != null) {
+			if (qarr != null && bdto != null) {
 				bdto.setBed_queen(Arrays.toString(qarr));
 				if (bdto.getBed_queen() != null) {
 					bdto.setBed_queen(bdto.getBed_queen().substring(1, bdto.getBed_queen().length() - 1));
 				}
 			}
 
-			bdto.setHome_seq(seq);
-			getHdto.setHome_seq(seq);
-			getHdto.setHome_public(home_public);
+			if (bdto != null) {
+				bdto.setHome_seq(seq);
+				getHdto.setHome_seq(seq);
+				getHdto.setHome_public(home_public);
 
-			System.out.println("bdto::" + bdto.getBed_single());
-			System.out.println(bdto.getBed_double());
-			System.out.println(bdto.getBed_queen());
-			System.out.println(bdto.getHome_seq());
+				System.out.println("bdto::" + bdto.getBed_single());
+				System.out.println(bdto.getBed_double());
+				System.out.println(bdto.getBed_queen());
+				System.out.println(bdto.getHome_seq());
 
-			bdto.setBed_single(bdto.getBed_single().replace(" ", ""));
-			bdto.setBed_double(bdto.getBed_double().replace(" ", ""));
-			bdto.setBed_queen(bdto.getBed_queen().replace(" ", ""));
+				bdto.setBed_single(bdto.getBed_single().replace(" ", ""));
+				bdto.setBed_double(bdto.getBed_double().replace(" ", ""));
+				bdto.setBed_queen(bdto.getBed_queen().replace(" ", ""));
 
-			bresult = homeService.modifybed(bdto);
-			hresult = homeService.modifyHomeType(getHdto);
-			System.out.println("result:: " + bresult + "::" + hresult);
+				bresult = homeService.modifybed(bdto);
+				hresult = homeService.modifyHomeType(getHdto);
+				System.out.println("result:: " + bresult + "::" + hresult);
+			}
 		}
 
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("seq", hdto.getHome_seq());
+		mav.addObject("seq", seq);
 		mav.addObject("bresult", bresult);
 		mav.addObject("hresult", hresult);
 		mav.setViewName("/host/hostHomeRoomModifyProc");
@@ -1077,7 +1086,7 @@ public class HostController {
 		System.out.println("fullCalendar.do: ");
 
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
+		
 		System.out.println("member_email::" + member_email);
 		List<HomeDTO> list = homeService.getAllHomeData(member_email);
 
@@ -1399,6 +1408,44 @@ public class HostController {
 		response.getWriter().close();
 	}
 
+	@RequestMapping("/hostImport.do")
+	public ModelAndView toHostImport(HttpSession session, HttpServletRequest request) throws Exception {
+		System.out.println("/hostImport:");
+
+		String member_email = (String) session.getAttribute("login_email");
+		
+		int home_seq = 0;
+
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
+		int year = cal.get(Calendar.YEAR);
+		System.out.println("year::" + year);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("member_email", member_email);
+		map.put("home_seq", home_seq);
+		List<PaymentDTO> plist = homeService.getAllPayment(map);
+		List<HomeDTO> hlist = homeService.getAllHomeData(member_email);
+		List<String> list = new ArrayList<>();
+		
+		int amount = 0;
+		if (!plist.isEmpty()) {
+			for (int i = 0; i < plist.size(); i++) {
+				list.add(plist.get(i).getCheckOut().split("-")[0]);
+				System.out.println("parr::" + list.get(i));
+				if (list.get(i).equals(String.valueOf(year))) {
+					amount += Integer.parseInt(plist.get(i).getPayment_amount());
+				}
+			}
+		}
+		System.out.println("amount::"+amount);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hlist", hlist);
+		mav.addObject("amount", amount);
+		mav.setViewName("/host/hostImport");
+		return mav;
+	}
+
 	@RequestMapping("/hostHomeAchievement.do")
 	public ModelAndView toHostHomeAchievement(HttpSession session, HttpServletRequest request) throws Exception {
 		System.out.println("hostHomeAchievement: ");
@@ -1417,7 +1464,6 @@ public class HostController {
 
 		// session에서 member_email을 통해 내 호스트의 모든 후기를 가져온다
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 
 		List<GuestReviewDTO> satisList = homeService.getSatisfaction(home_seq);
 		List<GuestReviewDTO> accList = homeService.getAccuracy(home_seq);
@@ -1470,7 +1516,7 @@ public class HostController {
 			dto.setG_review_accuracy(numList.get(i));
 			dto.setCount(0);
 			accList.add(dto);
-			System.out.println("getcount::"+dto.getCount());
+			System.out.println("getcount::" + dto.getCount());
 		}
 		// accuracy
 		numList.clear();
@@ -1493,7 +1539,7 @@ public class HostController {
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
-		
+
 		// check
 		for (int i = 0; i < checkList.size(); i++) {
 			list_check.add(checkList.get(i).getG_review_checkIn());
@@ -1506,12 +1552,12 @@ public class HostController {
 			checkList.add(dto);
 		}
 		// check
-		
+
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
-		
+
 		// amenities
 		for (int i = 0; i < ameniList.size(); i++) {
 			list_ameni.add(ameniList.get(i).getG_review_amenities());
@@ -1524,12 +1570,12 @@ public class HostController {
 			ameniList.add(dto);
 		}
 		// amenities
-		
+
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
-		
+
 		// comm
 		for (int i = 0; i < commList.size(); i++) {
 			list_comm.add(commList.get(i).getG_review_communication());
@@ -1542,12 +1588,12 @@ public class HostController {
 			commList.add(dto);
 		}
 		// comm
-		
+
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
-		
+
 		// local
 		for (int i = 0; i < locList.size(); i++) {
 			list_loc.add(locList.get(i).getG_review_location());
@@ -1560,12 +1606,12 @@ public class HostController {
 			locList.add(dto);
 		}
 		// local
-		
+
 		numList.clear();
 		for (int i = 0; i < 5; i++) {
 			numList.add(i + 1);
 		}
-		
+
 		// val
 		for (int i = 0; i < valList.size(); i++) {
 			list_val.add(valList.get(i).getG_review_value());
@@ -1578,7 +1624,7 @@ public class HostController {
 			valList.add(dto);
 		}
 		// val
-		
+
 		// 반복끝
 
 		// review paging
@@ -1624,7 +1670,7 @@ public class HostController {
 		for (GuestReviewDTO g : satisList) {
 			System.out.println(g.getG_review_satisfaction());
 			avg1 += g.getG_review_satisfaction() * g.getCount();
-			System.out.println("a:"+avg1);
+			System.out.println("a:" + avg1);
 			System.out.println(g.getCount());
 		}
 		for (GuestReviewDTO g : accList) {
@@ -1648,9 +1694,9 @@ public class HostController {
 		for (GuestReviewDTO g : valList) {
 			avg8 += g.getG_review_value() * g.getCount();
 		}
-		
-		System.out.println("cnt::"+cnt);
-		
+
+		System.out.println("cnt::" + cnt);
+
 		avg1 = avg1 / cnt;
 		avg1 = Double.parseDouble(String.format("%.1f", avg1));
 		avg2 = avg2 / cnt;
@@ -1669,20 +1715,19 @@ public class HostController {
 		avg8 = Double.parseDouble(String.format("%.1f", avg8));
 
 		double allTotal = (avg1 + avg2 + avg3 + avg4 + avg5 + avg6 + avg7 + avg8) / 8;
-		
-		System.out.println("avg1::"+avg1);
-		System.out.println("avg1::"+avg2);
-		System.out.println("avg1::"+avg3);
-		System.out.println("avg1::"+avg4);
-		System.out.println("avg1::"+avg5);
-		System.out.println("avg1::"+avg6);
-		System.out.println("avg1::"+avg7);
-		System.out.println("avg1::"+avg8);
-		
-		allTotal = Double.parseDouble(String.format("%.1f", allTotal));
-		System.out.println("allTotal::"+allTotal);
 
-		
+		System.out.println("avg1::" + avg1);
+		System.out.println("avg1::" + avg2);
+		System.out.println("avg1::" + avg3);
+		System.out.println("avg1::" + avg4);
+		System.out.println("avg1::" + avg5);
+		System.out.println("avg1::" + avg6);
+		System.out.println("avg1::" + avg7);
+		System.out.println("avg1::" + avg8);
+
+		allTotal = Double.parseDouble(String.format("%.1f", allTotal));
+		System.out.println("allTotal::" + allTotal);
+
 		List<HomeDTO> hlist = homeService.getAllHomeData(member_email);
 
 		ModelAndView mav = new ModelAndView();
@@ -1725,7 +1770,6 @@ public class HostController {
 		System.out.println("hostHomeManage: ");
 
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 		List<AccountDTO> alist = homeService.getAllAccount(member_email);
 
 		ModelAndView mav = new ModelAndView();
@@ -1751,13 +1795,42 @@ public class HostController {
 		mav.setViewName("/host/hostHomePaymentAddress");
 		return mav;
 	}
+	
+	@RequestMapping("/accountAssign.do")
+	public ModelAndView toAccountAssgin(HttpSession session, HttpServletRequest request) throws Exception {
+		System.out.println("toAccountAssgin: ");
+		String memeber_email = (String) session.getAttribute("login_email");
+
+		String bname = request.getParameter("bname");
+		String mname = request.getParameter("mname");
+		String mnum = request.getParameter("mnum");
+		String anum = request.getParameter("anum");
+		
+		AccountDTO adto = new AccountDTO();
+		
+		System.out.println(bname);
+		System.out.println(mname);
+		System.out.println(mnum);
+		System.out.println(anum);
+		
+		adto.setAccount_bank(bname);
+		adto.setAccount_member_number(mnum);
+		adto.setAccount_number(anum);
+		adto.setAccount_member_number(memeber_email);
+		
+		int result = homeService.insertAccount(adto);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
+		mav.setViewName("/host/accountAssignProc.do");
+		return mav;
+	}
 
 	@RequestMapping("/hostHomePaymentBreakdown.do")
 	public ModelAndView toHostHomePaymentBreakdown(HttpSession session, HttpServletRequest request) throws Exception {
 		System.out.println("hostHomePaymentBreakdown: ");
 
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 		int seq = 0;
 
 		if (request.getParameter("seq") == null) {
@@ -2142,7 +2215,6 @@ public class HostController {
 
 		// 세션에서 아이디 꺼내기
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 		List<HomeDTO> list = homeService.getAllHomeData(member_email);
 
 		System.out.println("list.size::" + list.size());
@@ -2159,7 +2231,6 @@ public class HostController {
 
 		// 세션에서 아이디 꺼내기
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 		int state = 0;
 		Map<String, Object> map = new HashMap<>();
 		map.put("member_email", member_email);
@@ -2204,7 +2275,6 @@ public class HostController {
 
 		// 세션에서 아이디 꺼내기
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 		int state = 0;
 		Map<String, Object> map = new HashMap<>();
 		map.put("member_email", member_email);
@@ -2243,37 +2313,39 @@ public class HostController {
 		return mav;
 	}
 
-	@RequestMapping("savetime.do")
-	public void toSavetiome(int seq, HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		System.out.println("/savetime.do:" + seq);
-
-		String member_email = (String) session.getAttribute("login_email");
-		int state = 0;
-		int result = 0;
-		Map<String, Object> map = new HashMap<>();
-		map.put("member_email", member_email);
-		map.put("reserv_state", state);
-
-		List<ReservationDTO> rlist = homeService.getWaitReserve(map);
-
-		Date date = new Date();
-		long getTime = date.getTime();
-		System.out.println("getTime::" + getTime);
-
-		for (int i = 0; i < rlist.size(); i++) {
-			result = homeService.modifyCountdown(getTime, rlist.get(i).getReservation_seq());
-		}
-
-		JSONObject json = new JSONObject();
-		json.put("result", result);
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-
-		response.getWriter().print(json);
-		response.getWriter().flush();
-		response.getWriter().close();
-	}
+	// @RequestMapping("savetime.do")
+	// public void toSavetiome(int seq, HttpSession session, HttpServletRequest
+	// request, HttpServletResponse response)
+	// throws Exception {
+	// System.out.println("/savetime.do:" + seq);
+	//
+	// String member_email = (String) session.getAttribute("login_email");
+	// int state = 0;
+	// int result = 0;
+	// Map<String, Object> map = new HashMap<>();
+	// map.put("member_email", member_email);
+	// map.put("reserv_state", state);
+	//
+	// List<ReservationDTO> rlist = homeService.getWaitReserve(map);
+	//
+	// Date date = new Date();
+	// long getTime = date.getTime();
+	// System.out.println("getTime::" + getTime);
+	//
+	// for (int i = 0; i < rlist.size(); i++) {
+	// result = homeService.modifyCountdown(getTime,
+	// rlist.get(i).getReservation_seq());
+	// }
+	//
+	// JSONObject json = new JSONObject();
+	// json.put("result", result);
+	// response.setContentType("application/json");
+	// response.setCharacterEncoding("UTF-8");
+	//
+	// response.getWriter().print(json);
+	// response.getWriter().flush();
+	// response.getWriter().close();
+	// }
 
 	@RequestMapping("modifyReservState.do")
 	public void toModifyReservState(int seq, HttpSession session, HttpServletRequest request,
@@ -2300,7 +2372,6 @@ public class HostController {
 
 		int home_seq = 0;
 		String member_email = (String) session.getAttribute("login_email");
-		member_email = "sksksrff@gmail.com";
 		System.out.println("member::" + member_email);
 
 		Calendar cal = new GregorianCalendar(Locale.KOREA);
@@ -2318,7 +2389,9 @@ public class HostController {
 			System.out.println("위::" + home_seq);
 		}
 
-		if(hdto.getHome_addr2() != null) {
+		int pcnt = homeService.getPaymentCount(home_seq);
+		
+		if (hdto.getHome_addr2() != null) {
 			hdto.setHome_addr2(hdto.getHome_addr2().split(" ")[0]);
 		}
 		List<HomeDTO> siList = homeService.getSimilarHome(hdto);
@@ -2328,6 +2401,7 @@ public class HostController {
 		}
 
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pcnt", pcnt);
 		mav.addObject("hdto", hdto);
 		mav.addObject("month", month);
 		mav.addObject("siList", siList);
