@@ -9,6 +9,7 @@ import kh.spring.dto.HomeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.dto.ReservationDTO;
 
 public interface MessageService {
@@ -59,4 +60,6 @@ public interface MessageService {
 	public int ReadUpdate(int message_seq,String member_email,String userId);
 	
 	public MessageDTO getMessageOne(int message_room_seq);
+	
+	public int reportGuest(ReportDTO dto);
 }

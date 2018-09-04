@@ -272,6 +272,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return template.insert("Member.insertHostReview", dto);
 	}
 
+	@Override
+	public List<ReservationDTO> getMyReservList(String userId) {
+		return template.selectList("Member.getMyReservList", userId);
+	}
+
 
 
 

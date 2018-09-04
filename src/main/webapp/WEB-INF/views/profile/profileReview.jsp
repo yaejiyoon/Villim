@@ -468,7 +468,7 @@ $(document).keypress(function(e) { if (e.keyCode == 13) e.preventDefault(); });
 $(document).ready(function(){
 	$('#confirmBt').click(function(){
 		
-		
+		alert("")
 		
 		if(!$("#textValue").val()){
 			alert("입력 후 확인 버튼을 눌러주세요");
@@ -488,16 +488,19 @@ $(document).ready(function(){
 		<a href="profileEditView.mo"
 			style="font-size: 18px; position: relative;  top: -24px; left: -2vw;  color: gray; text-decoration: none;">프로필
 			수정</a> 
-			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -6vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
+			<a style="font-size:19px; position: relative; z-index:500; top: 23px; left: -7.2vw; color: gray; font-weight: bold;text-decoration:none;">후기</a>
+		
+		<a href="myReservList.mo"
+			style="font-size: 18px; position: relative;z-index:500;  top: 70px;left: -9.5vw; color:gray;text-decoration: none;">예약 목록</a>
 		<a id="profileShowBt" class="btn btn-default"
-			style="position: relative; left: -150px; top: 80px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
+			style="position: relative; left: -14vw; top: 100px; z-index:500; width: 150px; text-decoration: none; font-weight: bold;"
 			onclick="location.href='printProfile.mo'">프로필 보기</a>
 
 
 	</div>
 
 	<div class="container"
-		style="position: relative; left: 130px; top: -20px; width: 50%; height: 1000px;">
+		style="position: relative; left: 130px; top: -20px; width: 50%; height: auto;">
 		<div class="row">
 			<div class="col-md-12">
 
@@ -526,15 +529,9 @@ $(document).ready(function(){
 								
 									<div class="panel-body" style="height:auto;">
 										후기는 빌림 숙박이 완료된 후 작성됩니다. 나에대한 후기는 이곳과 공개 프로필에서 볼 수 있습니다.
-										
-										
 
-                                        <c:forEach items="${getHostReview}" var="hostReview">
-                                         
-       
-       	
- 
-				  
+                                        <c:forEach items="${getHostReview}" var="hostReview" varStatus="status">
+				  	<%-- <c:forEach items="${getrealHostReview}" var="host"> --%>
 				  <article class="row" style="margin-top:3%;">
             <div class="col-md-2 col-sm-2 hidden-xs">
               <figure class="thumbnail">
@@ -546,18 +543,50 @@ $(document).ready(function(){
               <div class="panel panel-default arrow left">
                 <div class="panel-body">
                   <header class="text-left">
-                    <div class="comment-user"><i class="fa fa-user"></i><%-- ${hostReview.home_name}' 을 위한 후기 --%></div>
+                    <div class="comment-user"><i class="fa fa-user"></i></div>
                     <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>${hostReview.g_review_date}</time>
                   </header>
                   <div class="comment-post">
                     <p>
                       ${hostReview.g_review_public}
+                   
                     </p>
                   </div>
-                  <c:if test="${empty getrealHostReview}"> 
-                  <p class="text-right"><a class="btn btn-default btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">답글 리뷰쓰기</a></p>
-                     <!-- Third Comment -->
-          <article class="row collapse" id="collapseExample">
+                  
+                  <c:choose>
+                 
+                    <c:when test="${hostReview.g_review_seq eq getrealHostReview[status.index].g_review_seq}">
+                     
+				     <article class="row">
+            <div class="col-md-10 col-sm-10">
+              <div class="panel panel-default arrow right">
+                <div class="panel-body">
+                  <header class="text-right">
+                    <div class="comment-user"><i class="fa fa-user"></i> </div>
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i>${getrealHostReview[status.index].h_review_date}</time>
+                  </header>
+                  <div class="comment-post">
+                    <p>
+                    ${getrealHostReview[status.index].h_review_public}
+               
+                    </p>
+                  </div>
+                  <p class="text-right"><!-- <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a> --></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-2 hidden-xs">
+              <figure class="thumbnail">
+                <img class="img-responsive" src="files/${hostPicture}" />
+                <figcaption class="text-center">${hostName}</figcaption>
+              </figure>
+            </div>
+          </article>
+				
+                    </c:when>
+                     <c:when test="${hostReview.g_review_seq ne getrealHostReview[status.index].g_review_seq}">
+                  <p class="text-right"><a class="btn btn-default btn-sm"  data-toggle="collapse" href="#collapseExample${hostReview.g_review_seq}" role="button" aria-expanded="true" >답글 리뷰쓰기</a></p>
+                       <article class="row collapse" id="collapseExample${hostReview.g_review_seq}">
          <form method="post" id="formId" name="formId" action="hostReview.mo" method="post">
             <div class="col-md-10 col-sm-10">
             
@@ -584,54 +613,25 @@ $(document).ready(function(){
               </figure>
             </div>
           </article>
+                    
+                    </c:when> 
+       </c:choose>
                    
-                   </c:if>
+                 
                 </div>
               </div>
             </div>
           </article>
+				  <!--  -->
+				
 				  
+				   <c:if test="${not status.last}"><hr style="width:100%;color:#828282;position:relative;top:-1vh;"></c:if>
+				  <%-- </c:forEach> --%>
                </c:forEach>
  
  
  
  
-				
-					<c:forEach items="${getrealHostReview}" var="host">
-					         <!-- Third Comment -->
-          <article class="row">
-            <div class="col-md-10 col-sm-10">
-              <div class="panel panel-default arrow right">
-                <div class="panel-body">
-                  <header class="text-right">
-                    <div class="comment-user"><i class="fa fa-user"></i> </div>
-                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> ${host.h_review_date}</time>
-                  </header>
-                  <div class="comment-post">
-                    <p>
-                    ${host.h_review_public}
-                    </p>
-                  </div>
-                  <p class="text-right"><!-- <a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a> --></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2 col-sm-2 hidden-xs">
-              <figure class="thumbnail">
-                <img class="img-responsive" src="files/${hostPicture}" />
-                <figcaption class="text-center">${hostName}</figcaption>
-              </figure>
-            </div>
-          </article>
-				</c:forEach>	
-					
-					
-					
-					
-					
-					
-                                        
-										<!-- else 후기가 없다면 :  아직 작성된 후기가 없습니다. -->
 
 									</div>
 								</div>
@@ -672,7 +672,7 @@ $(document).ready(function(){
 						</div>
 						<div class="comment-content">
 							<input type="hidden" value="${info.home_seq}">
-														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_main_pic=${homePhotoResult}&home_name=${info.home_name}"
+														<a href="reviewWrite.mo?home_seq=${info.home_seq}&checkin=${info.reserv_checkin}&checkout=${info.reserv_checkout}&home_main_pic=${homePhotoResult}&home_name=${info.home_name}&reservation_seq=${info.reservation_seq}"
 															style="color: #ff5959; text-decoration: none;">리뷰쓰기</a>						
 	
 						</div>

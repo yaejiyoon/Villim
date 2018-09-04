@@ -23,6 +23,9 @@
 
 
 <style>
+#header{
+font-family:font;
+}
 .avatar{
 
 	position:relative;

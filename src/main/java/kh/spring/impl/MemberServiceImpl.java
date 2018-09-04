@@ -161,6 +161,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.insertHostReview(dto);
 	}
 
+	@Override
+	public List<ReservationDTO> getMyReservList(String userId) {
+		return dao.getMyReservList(userId);
+	}
+
 
 	
 }

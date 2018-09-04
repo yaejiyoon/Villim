@@ -27,6 +27,7 @@
   margin-left:auto;
   margin-right:auto;
 }
+
 </style>
 <script>
 	$(document).ready(function(){

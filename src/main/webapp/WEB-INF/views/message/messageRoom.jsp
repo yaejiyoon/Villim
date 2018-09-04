@@ -263,9 +263,9 @@ body{
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 10px solid #e2e2e2;
+  border-left: 10px solid #fff2f2;
   border-right: 10px solid transparent;
-  border-top: 10px solid #e2e2e2;
+  border-top: 10px solid #fff2f2;
   border-bottom: 10px solid transparent;
   right: -21px;
   top: 6px;
@@ -276,9 +276,9 @@ body{
   width: 0px;
   height: 0px;
   position: absolute;
-  border-left: 7px solid #e2e2e2;
+  border-left: 7px solid #fff2f2;
   border-right: 7px solid transparent;
-  border-top: 7px solid #e2e2e2;
+  border-top: 7px solid #fff2f2;
   border-bottom: 7px solid transparent;
   right: -11px;
   top: 10px;
@@ -374,7 +374,7 @@ body{
     border: 1px solid #c9cacc;
     transition: 0.3s;
     width: 25%;
-    height:24vh;
+    height:22.5vh;
     margin: 0 auto;
     position:relative;
     left:7.5vw;
@@ -549,7 +549,7 @@ input[type="radio"]:checked ~ label {
   					data:"message_room_seq="+parseInt($("#message_room_seq").val())+"&home_seq="+parseInt($('#home_seq').val())+"&fromID="+$('#userId').val()+"&toID="+$('#host_email').val()+"&message_content="+$('#message_content').val(),
   					success:function(resp){
 
-  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
+  						$('.co').prepend("<div class=\"comment\" style=\"height:auto;\"><div class=\"comment-image\" style=\"width:3.7vw;height:7vh;position:relative;left:26vw;top:5vh;\"><img src=\"files/${guest_picture}\" style=\"width:100%;height:100%;position:relative;\" class=\"img-circle\" alt=\"avatar\"></div><div  class=\"box1 sb5\" style=\"position:relative;left:-3vw;background:#fff2f2;border:#fff2f2;width:80%;height:auto;top:-7vh;margin-bottom:0;\">"+resp.message_content+"<h5 style=\"position:relative;top:2vh;left:8vw;\">"+resp.message_time+"</h5></div></div>");
   		
   						
   				
@@ -585,8 +585,45 @@ input[type="radio"]:checked ~ label {
 			<h5 style="color:#9e9e9e;position:relative;top:6vh;left:4vw;width:10vw;text-align:center;overflow: hidden;">${home_location}</h5>
             <a href="#" data-toggle="modal" data-target="#demo-1" style="color:#337a46;position:relative;left:7.7vw;top:6.5vh;text-decoration:none !important">신고하기</a>
 			</div>
+			
+			<script type="text/javascript">
+			
+			$(document).ready(function(){
+			 $('#accuseBt').click(function(){
+				 var val = $('input[name=selector]:checked').val();
+				 if(val=="기타"){
+					 var example=$('#example').val();
+					 val=example;
+				 }
+				
+				 $.ajax({
+					 url:"reportGuest.msg",
+                     type:"post",
+                     data:{
+                    	 report_reason:val,userId:$('#userId').val(),host_email:$('#host_email').val()
+                     },
+                     success:function(resp){
+                    	 if(resp=="success"){
+                    		 alert("신고가 접수되었습니다!")
+                    		 $('#demo-1').modal('hide');
+                    	 }
+                     }
+					 
+					 
+					 
+				 })
+				 
+				 
+			
+			 })
+				
+			})
+			
+			
+			</script>
+			
 <!-- Modal -->
-  <div class="modal fade" id="demo-1" tabindex="-1" style="margin-top:10vh;height:65vh;">
+  <div class="modal fade" id="demo-1" tabindex="-1" style="margin-top:10vh;height:68vh;">
     <div class="modal-dialog">
      <div class="modal-content">
       <button type="button" class="close" data-dismiss="modal"><i class="icon-xs-o-md"></i></button>
@@ -595,31 +632,31 @@ input[type="radio"]:checked ~ label {
         <h4 class="modal-title caps" style="position:relative;top:3.5vh;left:0.5vw;"><strong>어떤 문제가 있나요?</strong></h4>
       </div>
       <div class="modal-body">
+
 <ul>
     <li>
-      <input type="radio" id="fast" name="selector">
+      <input type="radio" id="fast" name="selector" value="사기 또는 스팸 메세지를 보내는 것 같아요">
       <label for="fast">사기 또는 스팸 메세지를 보내는 것 같아요</label>
       <div class="radiobutton"></div>
     </li>
     <li>
-      <input type="radio" id="medium" name="selector">
+      <input type="radio" id="medium" name="selector" value="불쾌해요">
       <label for="medium">불쾌해요</label>
       <div class="radiobutton"></div>
     </li>
     <li>
-      <input type="radio" id="slow" name="selector">
+      <input type="radio" id="slow"  value="기타" name="selector" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       <label for="slow">기타</label>
-      <div class="radiobutton"></div>
-      
-      <div class="collapse" id="collapseExample">
-   <input type="text" class="form-control" value="" maxlength=50; style="width:80%; height:8vh;position:relative;top:1vh;left:1vw; ">
+      <div class="radiobutton" ></div>
+   <div class="collapse" id="collapseExample">
+   <input type="text" class="form-control" id="example" maxlength=100; style="width:78%; height:6vh;position:relative;top:1vh;left:1vw; ">
 </div>
       
     </li>
   </ul>
       </div>
        <div class="modal-footer" style="border:none;">
-       <button type="button" class="btn btn-default" style="position:relative;left:-2.5vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
+       <button type="button" class="btn btn-default" id="accuseBt" style="position:relative;left:-1.5vw;top:-2vh; background:#008489; color:white;font-weight:800;border:2px solid #008489;">확인</button>
        
         </div>
      </div>
@@ -717,7 +754,7 @@ input[type="radio"]:checked ~ label {
 </c:when>
  <c:when test="${reservCheck.reserv_state==3}">
 <div class="card5  animated slideInRight">
-  <div id="reservConfirm" class="container" style="width:100%;padding:1;">
+  <div id="reservConfirm" class="container" style="width:100%;padding:1;position:relative;top:1vh;">
     <h4><b>${host_name}님이 예약을 거절하셨습니다 ㅠㅠ</b></h4> 
      <p>숙박기간 : ${reservCheck.reserv_checkin} ~ ${reservCheck.reserv_checkout}  </p>
         <p>인원수 : ${reservCheck.population} </p>
@@ -817,7 +854,7 @@ input[type="radio"]:checked ~ label {
         <img src="files/${guest_picture}" style="width:100%;height:100%;position:relative;" class="img-circle" alt="avatar">
       </div>
 
-      <div class="box1 sb5" style="position:relative;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;/* background:#ffe8fe; */">${message.message_content}
+      <div class="box1 sb5" style="position:relative;background:#fff2f2;border:#fff2f2;left:-3vw;width:80%;height:auto;top:-3vh;margin-bottom:0;margin-top:0;">${message.message_content}
       <h5 style="position:relative;top:2vh;left:8vw;">${message.message_time}</h5>
       </div>
       

@@ -1,5 +1,6 @@
 package kh.spring.controller;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 import kh.spring.dto.DetailDTO;
 import kh.spring.dto.GuestMsgDTO;
@@ -33,6 +35,7 @@ import kh.spring.dto.MailSendDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MessageDTO;
 import kh.spring.dto.MessageRoomDTO;
+import kh.spring.dto.ReportDTO;
 import kh.spring.dto.ReservationDTO;
 import kh.spring.interfaces.HomeService;
 import kh.spring.interfaces.MemberService;
@@ -1108,6 +1111,48 @@ int hostMsgUnreadCount = this.service.hostMsgUnreadCount(userId);
 		}
 		
 
+	}
+	
+	@RequestMapping("/reportGuest.msg")
+	public void reportGuest(String report_reason,String userId,String host_email,HttpServletResponse response) throws Exception {
+		System.out.println("reportGuest.msg");
+		MemberDTO mGuest=this.m_service.printProfile(userId);
+		MemberDTO mHost=this.m_service.printProfile(host_email);
+		ReportDTO dto=new ReportDTO();
+		dto.setMember_email(userId); dto.setMember_name(mGuest.getMember_name());dto.setReported_email(host_email);dto.setReported_name(mHost.getMember_name());dto.setReport_reason(report_reason);dto.setReport_state("0");
+		System.out.println(report_reason+ " / "+userId+" / "+ host_email);
+		
+		int report=this.service.reportGuest(dto);
+		
+		if(report>0) {
+			System.out.println("report table에 insert성공");
+		}
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		new Gson().toJson("success", response.getWriter());
+	}
+	
+	@RequestMapping("/reportHost.msg")
+	public void reportHost(String report_reason,String userId,String guest_email,HttpServletResponse response) throws Exception  {
+		System.out.println("reportHost.msg");
+		MemberDTO mGuest=this.m_service.printProfile(guest_email);
+		MemberDTO mHost=this.m_service.printProfile(userId);
+		
+		ReportDTO dto=new ReportDTO();
+		dto.setMember_email(userId);dto.setMember_name(mHost.getMember_name()); dto.setReported_email(guest_email);dto.setReported_name(mGuest.getMember_name());dto.setReport_reason(report_reason);dto.setReport_state("0");
+		System.out.println(report_reason+ " / "+userId+" / "+ guest_email);
+		
+		int report=this.service.reportGuest(dto);
+		if(report>0) {
+			System.out.println("report table에 insert성공");
+		}
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		new Gson().toJson("success", response.getWriter());
 	}
 
 }
